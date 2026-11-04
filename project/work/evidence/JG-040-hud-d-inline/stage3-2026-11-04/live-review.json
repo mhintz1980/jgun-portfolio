@@ -1,0 +1,3243 @@
+{
+  "url": "https://www.studiomark.dev",
+  "launch": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "errors": [],
+  "samples": [
+    {
+      "actual": 0.5600178116997515,
+      "studyVisible": false,
+      "chapter": "mechanism",
+      "title": "Mechanism",
+      "railChapter": "04Inspection",
+      "tech": false,
+      "cutter": false,
+      "cue": false,
+      "leaderNodes": 0,
+      "anchorPresent": false,
+      "rects": {
+        "rail": {
+          "left": 468.5546875,
+          "right": 971.4453125,
+          "top": 819.21875,
+          "bottom": 836,
+          "width": 502.890625,
+          "height": 16.78125,
+          "visible": true
+        },
+        "tech": null,
+        "caption": {
+          "left": 21.59375,
+          "right": 389.59375,
+          "top": 631.59375,
+          "bottom": 812,
+          "width": 368,
+          "height": 180.40625,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 1245.296875,
+          "right": 1420,
+          "top": 838,
+          "bottom": 880,
+          "width": 174.703125,
+          "height": 42,
+          "visible": true
+        }
+      },
+      "fos": null,
+      "railClear": true,
+      "railInViewport": true,
+      "railAtBottom": true,
+      "rows": [
+        "01Drafting",
+        "02Breakthrough",
+        "03Mechanism",
+        "04Inspection",
+        "05Close"
+      ],
+      "viewport": "desktop",
+      "requested": 0.56
+    },
+    {
+      "actual": 0.6199236708913342,
+      "studyVisible": false,
+      "chapter": "mechanism",
+      "title": "Mechanism",
+      "railChapter": "04Inspection",
+      "tech": false,
+      "cutter": false,
+      "cue": false,
+      "leaderNodes": 0,
+      "anchorPresent": false,
+      "rects": {
+        "rail": {
+          "left": 468.5546875,
+          "right": 971.4453125,
+          "top": 819.21875,
+          "bottom": 836,
+          "width": 502.890625,
+          "height": 16.78125,
+          "visible": true
+        },
+        "tech": null,
+        "caption": {
+          "left": 21.59375,
+          "right": 389.59375,
+          "top": 631.59375,
+          "bottom": 812,
+          "width": 368,
+          "height": 180.40625,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 1245.296875,
+          "right": 1420,
+          "top": 838,
+          "bottom": 880,
+          "width": 174.703125,
+          "height": 42,
+          "visible": true
+        }
+      },
+      "fos": null,
+      "railClear": true,
+      "railInViewport": true,
+      "railAtBottom": true,
+      "rows": [
+        "01Drafting",
+        "02Breakthrough",
+        "03Mechanism",
+        "04Inspection",
+        "05Close"
+      ],
+      "viewport": "desktop",
+      "requested": 0.6199
+    },
+    {
+      "actual": 0.6200246543402287,
+      "studyVisible": true,
+      "chapter": "inspection",
+      "title": "Inspection",
+      "railChapter": "04Inspection",
+      "tech": true,
+      "cutter": true,
+      "cue": true,
+      "leaderNodes": 0,
+      "anchorPresent": false,
+      "rects": {
+        "rail": {
+          "left": 468.5546875,
+          "right": 971.4453125,
+          "top": 819.21875,
+          "bottom": 836,
+          "width": 502.890625,
+          "height": 16.78125,
+          "visible": true
+        },
+        "tech": {
+          "left": 1094.40625,
+          "right": 1398.40625,
+          "top": 582.796875,
+          "bottom": 810.40625,
+          "width": 304,
+          "height": 227.609375,
+          "visible": true
+        },
+        "caption": {
+          "left": 21.59375,
+          "right": 389.59375,
+          "top": 534,
+          "bottom": 812,
+          "width": 368,
+          "height": 278,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 1245.296875,
+          "right": 1420,
+          "top": 838,
+          "bottom": 880,
+          "width": 174.703125,
+          "height": 42,
+          "visible": true
+        }
+      },
+      "fos": {
+        "height": 14.390625,
+        "expected": 14.4,
+        "siblingsUnchanged": true,
+        "current": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 239.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 268.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 268.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "original": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 239.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 268.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 268.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "markerWidth": 2
+      },
+      "railClear": true,
+      "railInViewport": true,
+      "railAtBottom": true,
+      "rows": [
+        "01Drafting",
+        "02Breakthrough",
+        "03Mechanism",
+        "04Inspection",
+        "05Close"
+      ],
+      "viewport": "desktop",
+      "requested": 0.62
+    },
+    {
+      "actual": 0.7350041539104714,
+      "studyVisible": true,
+      "chapter": "inspection",
+      "title": "Inspection",
+      "railChapter": "04Inspection",
+      "tech": true,
+      "cutter": true,
+      "cue": true,
+      "leaderNodes": 0,
+      "anchorPresent": false,
+      "rects": {
+        "rail": {
+          "left": 468.5546875,
+          "right": 971.4453125,
+          "top": 819.21875,
+          "bottom": 836,
+          "width": 502.890625,
+          "height": 16.78125,
+          "visible": true
+        },
+        "tech": {
+          "left": 1094.40625,
+          "right": 1398.40625,
+          "top": 582.796875,
+          "bottom": 810.40625,
+          "width": 304,
+          "height": 227.609375,
+          "visible": true
+        },
+        "caption": {
+          "left": 21.59375,
+          "right": 389.59375,
+          "top": 534,
+          "bottom": 812,
+          "width": 368,
+          "height": 278,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 1245.296875,
+          "right": 1420,
+          "top": 838,
+          "bottom": 880,
+          "width": 174.703125,
+          "height": 42,
+          "visible": true
+        }
+      },
+      "fos": {
+        "height": 14.390625,
+        "expected": 14.4,
+        "siblingsUnchanged": true,
+        "current": {
+          ".torque-hud__fos-title": {
+            "width": 50.09375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 208.71875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 268.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 268.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "original": {
+          ".torque-hud__fos-title": {
+            "width": 50.09375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 208.71875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 268.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 268.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "markerWidth": 2
+      },
+      "railClear": true,
+      "railInViewport": true,
+      "railAtBottom": true,
+      "rows": [
+        "01Drafting",
+        "02Breakthrough",
+        "03Mechanism",
+        "04Inspection",
+        "05Close"
+      ],
+      "viewport": "desktop",
+      "requested": 0.735
+    },
+    {
+      "actual": 0.8000075867217061,
+      "studyVisible": true,
+      "chapter": "inspection",
+      "title": "Inspection",
+      "railChapter": "04Inspection",
+      "tech": true,
+      "cutter": true,
+      "cue": true,
+      "leaderNodes": 0,
+      "anchorPresent": false,
+      "rects": {
+        "rail": {
+          "left": 468.5546875,
+          "right": 971.4453125,
+          "top": 819.21875,
+          "bottom": 836,
+          "width": 502.890625,
+          "height": 16.78125,
+          "visible": true
+        },
+        "tech": {
+          "left": 1094.40625,
+          "right": 1398.40625,
+          "top": 582.796875,
+          "bottom": 810.40625,
+          "width": 304,
+          "height": 227.609375,
+          "visible": true
+        },
+        "caption": {
+          "left": 21.59375,
+          "right": 389.59375,
+          "top": 534,
+          "bottom": 812,
+          "width": 368,
+          "height": 278,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 1245.296875,
+          "right": 1420,
+          "top": 838,
+          "bottom": 880,
+          "width": 174.703125,
+          "height": 42,
+          "visible": true
+        }
+      },
+      "fos": {
+        "height": 14.390625,
+        "expected": 14.4,
+        "siblingsUnchanged": true,
+        "current": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 239.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 268.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 268.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "original": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 239.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 268.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 268.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "markerWidth": 2
+      },
+      "railClear": true,
+      "railInViewport": true,
+      "railAtBottom": true,
+      "rows": [
+        "01Drafting",
+        "02Breakthrough",
+        "03Mechanism",
+        "04Inspection",
+        "05Close"
+      ],
+      "viewport": "desktop",
+      "requested": 0.8
+    },
+    {
+      "actual": 0.8450036439421044,
+      "studyVisible": false,
+      "chapter": "mechanism",
+      "title": "Mechanism",
+      "railChapter": "04Inspection",
+      "tech": false,
+      "cutter": false,
+      "cue": false,
+      "leaderNodes": 0,
+      "anchorPresent": false,
+      "rects": {
+        "rail": {
+          "left": 468.5546875,
+          "right": 971.4453125,
+          "top": 819.21875,
+          "bottom": 836,
+          "width": 502.890625,
+          "height": 16.78125,
+          "visible": true
+        },
+        "tech": null,
+        "caption": {
+          "left": 21.59375,
+          "right": 389.59375,
+          "top": 631.59375,
+          "bottom": 812,
+          "width": 368,
+          "height": 180.40625,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 1245.296875,
+          "right": 1420,
+          "top": 838,
+          "bottom": 880,
+          "width": 174.703125,
+          "height": 42,
+          "visible": true
+        }
+      },
+      "fos": null,
+      "railClear": true,
+      "railInViewport": true,
+      "railAtBottom": true,
+      "rows": [
+        "01Drafting",
+        "02Breakthrough",
+        "03Mechanism",
+        "04Inspection",
+        "05Close"
+      ],
+      "viewport": "desktop",
+      "requested": 0.845
+    },
+    {
+      "actual": 0.6199236708913342,
+      "studyVisible": false,
+      "chapter": "mechanism",
+      "title": "Mechanism",
+      "railChapter": "04Inspection",
+      "tech": false,
+      "cutter": false,
+      "cue": false,
+      "leaderNodes": 0,
+      "anchorPresent": false,
+      "rects": {
+        "rail": {
+          "left": 468.5546875,
+          "right": 971.4453125,
+          "top": 819.21875,
+          "bottom": 836,
+          "width": 502.890625,
+          "height": 16.78125,
+          "visible": true
+        },
+        "tech": null,
+        "caption": {
+          "left": 21.59375,
+          "right": 389.59375,
+          "top": 631.59375,
+          "bottom": 812,
+          "width": 368,
+          "height": 180.40625,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 1245.296875,
+          "right": 1420,
+          "top": 838,
+          "bottom": 880,
+          "width": 174.703125,
+          "height": 42,
+          "visible": true
+        }
+      },
+      "fos": null,
+      "railClear": true,
+      "railInViewport": true,
+      "railAtBottom": true,
+      "rows": [
+        "01Drafting",
+        "02Breakthrough",
+        "03Mechanism",
+        "04Inspection",
+        "05Close"
+      ],
+      "viewport": "desktop",
+      "requested": 0.6199
+    },
+    {
+      "actual": 0.6200246543402287,
+      "studyVisible": true,
+      "chapter": "inspection",
+      "title": "Inspection",
+      "railChapter": "04Inspection",
+      "tech": true,
+      "cutter": true,
+      "cue": true,
+      "leaderNodes": 0,
+      "anchorPresent": false,
+      "rects": {
+        "rail": {
+          "left": 468.5546875,
+          "right": 971.4453125,
+          "top": 819.21875,
+          "bottom": 836,
+          "width": 502.890625,
+          "height": 16.78125,
+          "visible": true
+        },
+        "tech": {
+          "left": 1094.40625,
+          "right": 1398.40625,
+          "top": 582.796875,
+          "bottom": 810.40625,
+          "width": 304,
+          "height": 227.609375,
+          "visible": true
+        },
+        "caption": {
+          "left": 21.59375,
+          "right": 389.59375,
+          "top": 534,
+          "bottom": 812,
+          "width": 368,
+          "height": 278,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 1245.296875,
+          "right": 1420,
+          "top": 838,
+          "bottom": 880,
+          "width": 174.703125,
+          "height": 42,
+          "visible": true
+        }
+      },
+      "fos": {
+        "height": 14.390625,
+        "expected": 14.4,
+        "siblingsUnchanged": true,
+        "current": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 239.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 268.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 268.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "original": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 239.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 268.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 268.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "markerWidth": 2
+      },
+      "railClear": true,
+      "railInViewport": true,
+      "railAtBottom": true,
+      "rows": [
+        "01Drafting",
+        "02Breakthrough",
+        "03Mechanism",
+        "04Inspection",
+        "05Close"
+      ],
+      "viewport": "desktop",
+      "requested": 0.62
+    },
+    {
+      "actual": 0.8450036439421044,
+      "studyVisible": false,
+      "chapter": "mechanism",
+      "title": "Mechanism",
+      "railChapter": "04Inspection",
+      "tech": false,
+      "cutter": false,
+      "cue": false,
+      "leaderNodes": 0,
+      "anchorPresent": false,
+      "rects": {
+        "rail": {
+          "left": 468.5546875,
+          "right": 971.4453125,
+          "top": 819.21875,
+          "bottom": 836,
+          "width": 502.890625,
+          "height": 16.78125,
+          "visible": true
+        },
+        "tech": null,
+        "caption": {
+          "left": 21.59375,
+          "right": 389.59375,
+          "top": 631.59375,
+          "bottom": 812,
+          "width": 368,
+          "height": 180.40625,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 1245.296875,
+          "right": 1420,
+          "top": 838,
+          "bottom": 880,
+          "width": 174.703125,
+          "height": 42,
+          "visible": true
+        }
+      },
+      "fos": null,
+      "railClear": true,
+      "railInViewport": true,
+      "railAtBottom": true,
+      "rows": [
+        "01Drafting",
+        "02Breakthrough",
+        "03Mechanism",
+        "04Inspection",
+        "05Close"
+      ],
+      "viewport": "desktop",
+      "requested": 0.845
+    },
+    {
+      "actual": 0.5600128364777258,
+      "studyVisible": false,
+      "chapter": "mechanism",
+      "title": "Mechanism",
+      "railChapter": "04Inspection",
+      "tech": false,
+      "cutter": false,
+      "cue": false,
+      "leaderNodes": 0,
+      "anchorPresent": false,
+      "rects": {
+        "rail": {
+          "left": 16,
+          "right": 374,
+          "top": 709,
+          "bottom": 748,
+          "width": 358,
+          "height": 39,
+          "visible": true
+        },
+        "tech": null,
+        "caption": {
+          "left": -4,
+          "right": 394,
+          "top": 534.578125,
+          "bottom": 696,
+          "width": 398,
+          "height": 161.421875,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 195.296875,
+          "right": 370,
+          "top": 780,
+          "bottom": 824,
+          "width": 174.703125,
+          "height": 44,
+          "visible": true
+        }
+      },
+      "fos": null,
+      "railClear": true,
+      "railInViewport": true,
+      "railAtBottom": true,
+      "rows": [
+        "01Drafting",
+        "02Breakthrough",
+        "03Mechanism",
+        "04Inspection",
+        "05Close"
+      ],
+      "viewport": "narrow",
+      "requested": 0.56
+    },
+    {
+      "actual": 0.6199080281883415,
+      "studyVisible": false,
+      "chapter": "mechanism",
+      "title": "Mechanism",
+      "railChapter": "04Inspection",
+      "tech": false,
+      "cutter": false,
+      "cue": false,
+      "leaderNodes": 0,
+      "anchorPresent": false,
+      "rects": {
+        "rail": {
+          "left": 16,
+          "right": 374,
+          "top": 709,
+          "bottom": 748,
+          "width": 358,
+          "height": 39,
+          "visible": true
+        },
+        "tech": null,
+        "caption": {
+          "left": -4,
+          "right": 394,
+          "top": 534.578125,
+          "bottom": 696,
+          "width": 398,
+          "height": 161.421875,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 195.296875,
+          "right": 370,
+          "top": 780,
+          "bottom": 824,
+          "width": 174.703125,
+          "height": 44,
+          "visible": true
+        }
+      },
+      "fos": null,
+      "railClear": true,
+      "railInViewport": true,
+      "railAtBottom": true,
+      "rows": [
+        "01Drafting",
+        "02Breakthrough",
+        "03Mechanism",
+        "04Inspection",
+        "05Close"
+      ],
+      "viewport": "narrow",
+      "requested": 0.6199
+    },
+    {
+      "actual": 0.6200149719840514,
+      "studyVisible": true,
+      "chapter": "inspection",
+      "title": "Inspection",
+      "railChapter": "04Inspection",
+      "tech": true,
+      "cutter": true,
+      "cue": true,
+      "leaderNodes": 0,
+      "anchorPresent": false,
+      "rects": {
+        "rail": {
+          "left": 16,
+          "right": 374,
+          "top": 709,
+          "bottom": 748,
+          "width": 358,
+          "height": 39,
+          "visible": true
+        },
+        "tech": {
+          "left": 16,
+          "right": 374,
+          "top": 184.390625,
+          "bottom": 412,
+          "width": 358,
+          "height": 227.609375,
+          "visible": true
+        },
+        "caption": {
+          "left": -4,
+          "right": 394,
+          "top": 416.59375,
+          "bottom": 696,
+          "width": 398,
+          "height": 279.40625,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 195.296875,
+          "right": 370,
+          "top": 780,
+          "bottom": 824,
+          "width": 174.703125,
+          "height": 44,
+          "visible": true
+        }
+      },
+      "fos": {
+        "height": 14.390625,
+        "expected": 14.4,
+        "siblingsUnchanged": true,
+        "current": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 293.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 322.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 322.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "original": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 293.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 322.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 322.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "markerWidth": 2
+      },
+      "railClear": true,
+      "railInViewport": true,
+      "railAtBottom": true,
+      "rows": [
+        "01Drafting",
+        "02Breakthrough",
+        "03Mechanism",
+        "04Inspection",
+        "05Close"
+      ],
+      "viewport": "narrow",
+      "requested": 0.62
+    },
+    {
+      "actual": 0.7350010639156827,
+      "studyVisible": true,
+      "chapter": "inspection",
+      "title": "Inspection",
+      "railChapter": "04Inspection",
+      "tech": true,
+      "cutter": true,
+      "cue": true,
+      "leaderNodes": 0,
+      "anchorPresent": false,
+      "rects": {
+        "rail": {
+          "left": 16,
+          "right": 374,
+          "top": 709,
+          "bottom": 748,
+          "width": 358,
+          "height": 39,
+          "visible": true
+        },
+        "tech": {
+          "left": 16,
+          "right": 374,
+          "top": 184.390625,
+          "bottom": 412,
+          "width": 358,
+          "height": 227.609375,
+          "visible": true
+        },
+        "caption": {
+          "left": -4,
+          "right": 394,
+          "top": 416.59375,
+          "bottom": 696,
+          "width": 398,
+          "height": 279.40625,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 195.296875,
+          "right": 370,
+          "top": 780,
+          "bottom": 824,
+          "width": 174.703125,
+          "height": 44,
+          "visible": true
+        }
+      },
+      "fos": {
+        "height": 14.390625,
+        "expected": 14.4,
+        "siblingsUnchanged": true,
+        "current": {
+          ".torque-hud__fos-title": {
+            "width": 50.09375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 262.71875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 322.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 322.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "original": {
+          ".torque-hud__fos-title": {
+            "width": 50.09375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 262.71875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 322.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 322.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "markerWidth": 2
+      },
+      "railClear": true,
+      "railInViewport": true,
+      "railAtBottom": true,
+      "rows": [
+        "01Drafting",
+        "02Breakthrough",
+        "03Mechanism",
+        "04Inspection",
+        "05Close"
+      ],
+      "viewport": "narrow",
+      "requested": 0.735
+    },
+    {
+      "actual": 0.8000091440484302,
+      "studyVisible": true,
+      "chapter": "inspection",
+      "title": "Inspection",
+      "railChapter": "04Inspection",
+      "tech": true,
+      "cutter": true,
+      "cue": true,
+      "leaderNodes": 0,
+      "anchorPresent": false,
+      "rects": {
+        "rail": {
+          "left": 16,
+          "right": 374,
+          "top": 709,
+          "bottom": 748,
+          "width": 358,
+          "height": 39,
+          "visible": true
+        },
+        "tech": {
+          "left": 16,
+          "right": 374,
+          "top": 184.390625,
+          "bottom": 412,
+          "width": 358,
+          "height": 227.609375,
+          "visible": true
+        },
+        "caption": {
+          "left": -4,
+          "right": 394,
+          "top": 416.59375,
+          "bottom": 696,
+          "width": 398,
+          "height": 279.40625,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 195.296875,
+          "right": 370,
+          "top": 780,
+          "bottom": 824,
+          "width": 174.703125,
+          "height": 44,
+          "visible": true
+        }
+      },
+      "fos": {
+        "height": 14.390625,
+        "expected": 14.4,
+        "siblingsUnchanged": true,
+        "current": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 293.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 322.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 322.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "original": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 293.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 322.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 322.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "markerWidth": 2
+      },
+      "railClear": true,
+      "railInViewport": true,
+      "railAtBottom": true,
+      "rows": [
+        "01Drafting",
+        "02Breakthrough",
+        "03Mechanism",
+        "04Inspection",
+        "05Close"
+      ],
+      "viewport": "narrow",
+      "requested": 0.8
+    },
+    {
+      "actual": 0.8450004736990985,
+      "studyVisible": false,
+      "chapter": "mechanism",
+      "title": "Mechanism",
+      "railChapter": "04Inspection",
+      "tech": false,
+      "cutter": false,
+      "cue": false,
+      "leaderNodes": 0,
+      "anchorPresent": false,
+      "rects": {
+        "rail": {
+          "left": 16,
+          "right": 374,
+          "top": 709,
+          "bottom": 748,
+          "width": 358,
+          "height": 39,
+          "visible": true
+        },
+        "tech": null,
+        "caption": {
+          "left": -4,
+          "right": 394,
+          "top": 534.578125,
+          "bottom": 696,
+          "width": 398,
+          "height": 161.421875,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 195.296875,
+          "right": 370,
+          "top": 780,
+          "bottom": 824,
+          "width": 174.703125,
+          "height": 44,
+          "visible": true
+        }
+      },
+      "fos": null,
+      "railClear": true,
+      "railInViewport": true,
+      "railAtBottom": true,
+      "rows": [
+        "01Drafting",
+        "02Breakthrough",
+        "03Mechanism",
+        "04Inspection",
+        "05Close"
+      ],
+      "viewport": "narrow",
+      "requested": 0.845
+    },
+    {
+      "actual": 0.6199080281883415,
+      "studyVisible": false,
+      "chapter": "mechanism",
+      "title": "Mechanism",
+      "railChapter": "04Inspection",
+      "tech": false,
+      "cutter": false,
+      "cue": false,
+      "leaderNodes": 0,
+      "anchorPresent": false,
+      "rects": {
+        "rail": {
+          "left": 16,
+          "right": 374,
+          "top": 709,
+          "bottom": 748,
+          "width": 358,
+          "height": 39,
+          "visible": true
+        },
+        "tech": null,
+        "caption": {
+          "left": -4,
+          "right": 394,
+          "top": 534.578125,
+          "bottom": 696,
+          "width": 398,
+          "height": 161.421875,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 195.296875,
+          "right": 370,
+          "top": 780,
+          "bottom": 824,
+          "width": 174.703125,
+          "height": 44,
+          "visible": true
+        }
+      },
+      "fos": null,
+      "railClear": true,
+      "railInViewport": true,
+      "railAtBottom": true,
+      "rows": [
+        "01Drafting",
+        "02Breakthrough",
+        "03Mechanism",
+        "04Inspection",
+        "05Close"
+      ],
+      "viewport": "narrow",
+      "requested": 0.6199
+    },
+    {
+      "actual": 0.6200149719840514,
+      "studyVisible": true,
+      "chapter": "inspection",
+      "title": "Inspection",
+      "railChapter": "04Inspection",
+      "tech": true,
+      "cutter": true,
+      "cue": true,
+      "leaderNodes": 0,
+      "anchorPresent": false,
+      "rects": {
+        "rail": {
+          "left": 16,
+          "right": 374,
+          "top": 709,
+          "bottom": 748,
+          "width": 358,
+          "height": 39,
+          "visible": true
+        },
+        "tech": {
+          "left": 16,
+          "right": 374,
+          "top": 184.390625,
+          "bottom": 412,
+          "width": 358,
+          "height": 227.609375,
+          "visible": true
+        },
+        "caption": {
+          "left": -4,
+          "right": 394,
+          "top": 416.59375,
+          "bottom": 696,
+          "width": 398,
+          "height": 279.40625,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 195.296875,
+          "right": 370,
+          "top": 780,
+          "bottom": 824,
+          "width": 174.703125,
+          "height": 44,
+          "visible": true
+        }
+      },
+      "fos": {
+        "height": 14.390625,
+        "expected": 14.4,
+        "siblingsUnchanged": true,
+        "current": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 293.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 322.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 322.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "original": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 293.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 322.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 322.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "markerWidth": 2
+      },
+      "railClear": true,
+      "railInViewport": true,
+      "railAtBottom": true,
+      "rows": [
+        "01Drafting",
+        "02Breakthrough",
+        "03Mechanism",
+        "04Inspection",
+        "05Close"
+      ],
+      "viewport": "narrow",
+      "requested": 0.62
+    },
+    {
+      "actual": 0.8450004736990985,
+      "studyVisible": false,
+      "chapter": "mechanism",
+      "title": "Mechanism",
+      "railChapter": "04Inspection",
+      "tech": false,
+      "cutter": false,
+      "cue": false,
+      "leaderNodes": 0,
+      "anchorPresent": false,
+      "rects": {
+        "rail": {
+          "left": 16,
+          "right": 374,
+          "top": 709,
+          "bottom": 748,
+          "width": 358,
+          "height": 39,
+          "visible": true
+        },
+        "tech": null,
+        "caption": {
+          "left": -4,
+          "right": 394,
+          "top": 534.578125,
+          "bottom": 696,
+          "width": 398,
+          "height": 161.421875,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 195.296875,
+          "right": 370,
+          "top": 780,
+          "bottom": 824,
+          "width": 174.703125,
+          "height": 44,
+          "visible": true
+        }
+      },
+      "fos": null,
+      "railClear": true,
+      "railInViewport": true,
+      "railAtBottom": true,
+      "rows": [
+        "01Drafting",
+        "02Breakthrough",
+        "03Mechanism",
+        "04Inspection",
+        "05Close"
+      ],
+      "viewport": "narrow",
+      "requested": 0.845
+    }
+  ],
+  "interactions": [
+    {
+      "viewport": "desktop",
+      "progress": 0.6210677048067456,
+      "chapter": "inspection",
+      "active": "04Inspection",
+      "expanded": "false"
+    },
+    {
+      "viewport": "narrow",
+      "progress": 0.6210686906947364,
+      "chapter": "inspection",
+      "active": "04Inspection",
+      "expanded": "false"
+    }
+  ],
+  "gates": [
+    {
+      "name": "desktop 0.56: correct chrome",
+      "pass": true,
+      "evidence": "mechanism"
+    },
+    {
+      "name": "desktop 0.56: no leader",
+      "pass": true
+    },
+    {
+      "name": "desktop 0.56: rail clear/in viewport",
+      "pass": true,
+      "evidence": {
+        "rail": {
+          "left": 468.5546875,
+          "right": 971.4453125,
+          "top": 819.21875,
+          "bottom": 836,
+          "width": 502.890625,
+          "height": 16.78125,
+          "visible": true
+        },
+        "tech": null,
+        "caption": {
+          "left": 21.59375,
+          "right": 389.59375,
+          "top": 631.59375,
+          "bottom": 812,
+          "width": 368,
+          "height": 180.40625,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 1245.296875,
+          "right": 1420,
+          "top": 838,
+          "bottom": 880,
+          "width": 174.703125,
+          "height": 42,
+          "visible": true
+        }
+      }
+    },
+    {
+      "name": "desktop 0.6199: correct chrome",
+      "pass": true,
+      "evidence": "mechanism"
+    },
+    {
+      "name": "desktop 0.6199: no leader",
+      "pass": true
+    },
+    {
+      "name": "desktop 0.6199: rail clear/in viewport",
+      "pass": true,
+      "evidence": {
+        "rail": {
+          "left": 468.5546875,
+          "right": 971.4453125,
+          "top": 819.21875,
+          "bottom": 836,
+          "width": 502.890625,
+          "height": 16.78125,
+          "visible": true
+        },
+        "tech": null,
+        "caption": {
+          "left": 21.59375,
+          "right": 389.59375,
+          "top": 631.59375,
+          "bottom": 812,
+          "width": 368,
+          "height": 180.40625,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 1245.296875,
+          "right": 1420,
+          "top": 838,
+          "bottom": 880,
+          "width": 174.703125,
+          "height": 42,
+          "visible": true
+        }
+      }
+    },
+    {
+      "name": "desktop: delayed shaft asset holds Mechanism",
+      "pass": true,
+      "evidence": {
+        "ready": false,
+        "visible": false,
+        "chapter": "mechanism",
+        "tech": false,
+        "cue": false,
+        "cutter": false
+      }
+    },
+    {
+      "name": "desktop 0.62: correct chrome",
+      "pass": true,
+      "evidence": "inspection"
+    },
+    {
+      "name": "desktop 0.62: no leader",
+      "pass": true
+    },
+    {
+      "name": "desktop 0.62: rail clear/in viewport",
+      "pass": true,
+      "evidence": {
+        "rail": {
+          "left": 468.5546875,
+          "right": 971.4453125,
+          "top": 819.21875,
+          "bottom": 836,
+          "width": 502.890625,
+          "height": 16.78125,
+          "visible": true
+        },
+        "tech": {
+          "left": 1094.40625,
+          "right": 1398.40625,
+          "top": 582.796875,
+          "bottom": 810.40625,
+          "width": 304,
+          "height": 227.609375,
+          "visible": true
+        },
+        "caption": {
+          "left": 21.59375,
+          "right": 389.59375,
+          "top": 534,
+          "bottom": 812,
+          "width": 368,
+          "height": 278,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 1245.296875,
+          "right": 1420,
+          "top": 838,
+          "bottom": 880,
+          "width": 174.703125,
+          "height": 42,
+          "visible": true
+        }
+      }
+    },
+    {
+      "name": "desktop 0.62: FOS height/siblings",
+      "pass": true,
+      "evidence": {
+        "height": 14.390625,
+        "expected": 14.4,
+        "siblingsUnchanged": true,
+        "current": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 239.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 268.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 268.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "original": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 239.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 268.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 268.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "markerWidth": 2
+      }
+    },
+    {
+      "name": "desktop 0.735: correct chrome",
+      "pass": true,
+      "evidence": "inspection"
+    },
+    {
+      "name": "desktop 0.735: no leader",
+      "pass": true
+    },
+    {
+      "name": "desktop 0.735: rail clear/in viewport",
+      "pass": true,
+      "evidence": {
+        "rail": {
+          "left": 468.5546875,
+          "right": 971.4453125,
+          "top": 819.21875,
+          "bottom": 836,
+          "width": 502.890625,
+          "height": 16.78125,
+          "visible": true
+        },
+        "tech": {
+          "left": 1094.40625,
+          "right": 1398.40625,
+          "top": 582.796875,
+          "bottom": 810.40625,
+          "width": 304,
+          "height": 227.609375,
+          "visible": true
+        },
+        "caption": {
+          "left": 21.59375,
+          "right": 389.59375,
+          "top": 534,
+          "bottom": 812,
+          "width": 368,
+          "height": 278,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 1245.296875,
+          "right": 1420,
+          "top": 838,
+          "bottom": 880,
+          "width": 174.703125,
+          "height": 42,
+          "visible": true
+        }
+      }
+    },
+    {
+      "name": "desktop 0.735: FOS height/siblings",
+      "pass": true,
+      "evidence": {
+        "height": 14.390625,
+        "expected": 14.4,
+        "siblingsUnchanged": true,
+        "current": {
+          ".torque-hud__fos-title": {
+            "width": 50.09375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 208.71875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 268.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 268.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "original": {
+          ".torque-hud__fos-title": {
+            "width": 50.09375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 208.71875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 268.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 268.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "markerWidth": 2
+      }
+    },
+    {
+      "name": "desktop 0.8: correct chrome",
+      "pass": true,
+      "evidence": "inspection"
+    },
+    {
+      "name": "desktop 0.8: no leader",
+      "pass": true
+    },
+    {
+      "name": "desktop 0.8: rail clear/in viewport",
+      "pass": true,
+      "evidence": {
+        "rail": {
+          "left": 468.5546875,
+          "right": 971.4453125,
+          "top": 819.21875,
+          "bottom": 836,
+          "width": 502.890625,
+          "height": 16.78125,
+          "visible": true
+        },
+        "tech": {
+          "left": 1094.40625,
+          "right": 1398.40625,
+          "top": 582.796875,
+          "bottom": 810.40625,
+          "width": 304,
+          "height": 227.609375,
+          "visible": true
+        },
+        "caption": {
+          "left": 21.59375,
+          "right": 389.59375,
+          "top": 534,
+          "bottom": 812,
+          "width": 368,
+          "height": 278,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 1245.296875,
+          "right": 1420,
+          "top": 838,
+          "bottom": 880,
+          "width": 174.703125,
+          "height": 42,
+          "visible": true
+        }
+      }
+    },
+    {
+      "name": "desktop 0.8: FOS height/siblings",
+      "pass": true,
+      "evidence": {
+        "height": 14.390625,
+        "expected": 14.4,
+        "siblingsUnchanged": true,
+        "current": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 239.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 268.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 268.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "original": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 239.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 268.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 268.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "markerWidth": 2
+      }
+    },
+    {
+      "name": "desktop 0.845: correct chrome",
+      "pass": true,
+      "evidence": "mechanism"
+    },
+    {
+      "name": "desktop 0.845: no leader",
+      "pass": true
+    },
+    {
+      "name": "desktop 0.845: rail clear/in viewport",
+      "pass": true,
+      "evidence": {
+        "rail": {
+          "left": 468.5546875,
+          "right": 971.4453125,
+          "top": 819.21875,
+          "bottom": 836,
+          "width": 502.890625,
+          "height": 16.78125,
+          "visible": true
+        },
+        "tech": null,
+        "caption": {
+          "left": 21.59375,
+          "right": 389.59375,
+          "top": 631.59375,
+          "bottom": 812,
+          "width": 368,
+          "height": 180.40625,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 1245.296875,
+          "right": 1420,
+          "top": 838,
+          "bottom": 880,
+          "width": 174.703125,
+          "height": 42,
+          "visible": true
+        }
+      }
+    },
+    {
+      "name": "desktop 0.6199: correct chrome",
+      "pass": true,
+      "evidence": "mechanism"
+    },
+    {
+      "name": "desktop 0.6199: no leader",
+      "pass": true
+    },
+    {
+      "name": "desktop 0.6199: rail clear/in viewport",
+      "pass": true,
+      "evidence": {
+        "rail": {
+          "left": 468.5546875,
+          "right": 971.4453125,
+          "top": 819.21875,
+          "bottom": 836,
+          "width": 502.890625,
+          "height": 16.78125,
+          "visible": true
+        },
+        "tech": null,
+        "caption": {
+          "left": 21.59375,
+          "right": 389.59375,
+          "top": 631.59375,
+          "bottom": 812,
+          "width": 368,
+          "height": 180.40625,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 1245.296875,
+          "right": 1420,
+          "top": 838,
+          "bottom": 880,
+          "width": 174.703125,
+          "height": 42,
+          "visible": true
+        }
+      }
+    },
+    {
+      "name": "desktop 0.62: correct chrome",
+      "pass": true,
+      "evidence": "inspection"
+    },
+    {
+      "name": "desktop 0.62: no leader",
+      "pass": true
+    },
+    {
+      "name": "desktop 0.62: rail clear/in viewport",
+      "pass": true,
+      "evidence": {
+        "rail": {
+          "left": 468.5546875,
+          "right": 971.4453125,
+          "top": 819.21875,
+          "bottom": 836,
+          "width": 502.890625,
+          "height": 16.78125,
+          "visible": true
+        },
+        "tech": {
+          "left": 1094.40625,
+          "right": 1398.40625,
+          "top": 582.796875,
+          "bottom": 810.40625,
+          "width": 304,
+          "height": 227.609375,
+          "visible": true
+        },
+        "caption": {
+          "left": 21.59375,
+          "right": 389.59375,
+          "top": 534,
+          "bottom": 812,
+          "width": 368,
+          "height": 278,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 1245.296875,
+          "right": 1420,
+          "top": 838,
+          "bottom": 880,
+          "width": 174.703125,
+          "height": 42,
+          "visible": true
+        }
+      }
+    },
+    {
+      "name": "desktop 0.62: FOS height/siblings",
+      "pass": true,
+      "evidence": {
+        "height": 14.390625,
+        "expected": 14.4,
+        "siblingsUnchanged": true,
+        "current": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 239.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 268.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 268.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "original": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 239.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 268.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 268.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "markerWidth": 2
+      }
+    },
+    {
+      "name": "desktop 0.845: correct chrome",
+      "pass": true,
+      "evidence": "mechanism"
+    },
+    {
+      "name": "desktop 0.845: no leader",
+      "pass": true
+    },
+    {
+      "name": "desktop 0.845: rail clear/in viewport",
+      "pass": true,
+      "evidence": {
+        "rail": {
+          "left": 468.5546875,
+          "right": 971.4453125,
+          "top": 819.21875,
+          "bottom": 836,
+          "width": 502.890625,
+          "height": 16.78125,
+          "visible": true
+        },
+        "tech": null,
+        "caption": {
+          "left": 21.59375,
+          "right": 389.59375,
+          "top": 631.59375,
+          "bottom": 812,
+          "width": 368,
+          "height": 180.40625,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 1245.296875,
+          "right": 1420,
+          "top": 838,
+          "bottom": 880,
+          "width": 174.703125,
+          "height": 42,
+          "visible": true
+        }
+      }
+    },
+    {
+      "name": "desktop: keyboard Inspection seek",
+      "pass": true,
+      "evidence": {
+        "progress": 0.6210677048067456,
+        "chapter": "inspection",
+        "active": "04Inspection",
+        "expanded": "false"
+      }
+    },
+    {
+      "name": "narrow 0.56: correct chrome",
+      "pass": true,
+      "evidence": "mechanism"
+    },
+    {
+      "name": "narrow 0.56: no leader",
+      "pass": true
+    },
+    {
+      "name": "narrow 0.56: rail clear/in viewport",
+      "pass": true,
+      "evidence": {
+        "rail": {
+          "left": 16,
+          "right": 374,
+          "top": 709,
+          "bottom": 748,
+          "width": 358,
+          "height": 39,
+          "visible": true
+        },
+        "tech": null,
+        "caption": {
+          "left": -4,
+          "right": 394,
+          "top": 534.578125,
+          "bottom": 696,
+          "width": 398,
+          "height": 161.421875,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 195.296875,
+          "right": 370,
+          "top": 780,
+          "bottom": 824,
+          "width": 174.703125,
+          "height": 44,
+          "visible": true
+        }
+      }
+    },
+    {
+      "name": "narrow 0.6199: correct chrome",
+      "pass": true,
+      "evidence": "mechanism"
+    },
+    {
+      "name": "narrow 0.6199: no leader",
+      "pass": true
+    },
+    {
+      "name": "narrow 0.6199: rail clear/in viewport",
+      "pass": true,
+      "evidence": {
+        "rail": {
+          "left": 16,
+          "right": 374,
+          "top": 709,
+          "bottom": 748,
+          "width": 358,
+          "height": 39,
+          "visible": true
+        },
+        "tech": null,
+        "caption": {
+          "left": -4,
+          "right": 394,
+          "top": 534.578125,
+          "bottom": 696,
+          "width": 398,
+          "height": 161.421875,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 195.296875,
+          "right": 370,
+          "top": 780,
+          "bottom": 824,
+          "width": 174.703125,
+          "height": 44,
+          "visible": true
+        }
+      }
+    },
+    {
+      "name": "narrow: delayed shaft asset holds Mechanism",
+      "pass": true,
+      "evidence": {
+        "ready": false,
+        "visible": false,
+        "chapter": "mechanism",
+        "tech": false,
+        "cue": false,
+        "cutter": false
+      }
+    },
+    {
+      "name": "narrow 0.62: correct chrome",
+      "pass": true,
+      "evidence": "inspection"
+    },
+    {
+      "name": "narrow 0.62: no leader",
+      "pass": true
+    },
+    {
+      "name": "narrow 0.62: rail clear/in viewport",
+      "pass": true,
+      "evidence": {
+        "rail": {
+          "left": 16,
+          "right": 374,
+          "top": 709,
+          "bottom": 748,
+          "width": 358,
+          "height": 39,
+          "visible": true
+        },
+        "tech": {
+          "left": 16,
+          "right": 374,
+          "top": 184.390625,
+          "bottom": 412,
+          "width": 358,
+          "height": 227.609375,
+          "visible": true
+        },
+        "caption": {
+          "left": -4,
+          "right": 394,
+          "top": 416.59375,
+          "bottom": 696,
+          "width": 398,
+          "height": 279.40625,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 195.296875,
+          "right": 370,
+          "top": 780,
+          "bottom": 824,
+          "width": 174.703125,
+          "height": 44,
+          "visible": true
+        }
+      }
+    },
+    {
+      "name": "narrow 0.62: FOS height/siblings",
+      "pass": true,
+      "evidence": {
+        "height": 14.390625,
+        "expected": 14.4,
+        "siblingsUnchanged": true,
+        "current": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 293.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 322.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 322.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "original": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 293.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 322.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 322.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "markerWidth": 2
+      }
+    },
+    {
+      "name": "narrow 0.735: correct chrome",
+      "pass": true,
+      "evidence": "inspection"
+    },
+    {
+      "name": "narrow 0.735: no leader",
+      "pass": true
+    },
+    {
+      "name": "narrow 0.735: rail clear/in viewport",
+      "pass": true,
+      "evidence": {
+        "rail": {
+          "left": 16,
+          "right": 374,
+          "top": 709,
+          "bottom": 748,
+          "width": 358,
+          "height": 39,
+          "visible": true
+        },
+        "tech": {
+          "left": 16,
+          "right": 374,
+          "top": 184.390625,
+          "bottom": 412,
+          "width": 358,
+          "height": 227.609375,
+          "visible": true
+        },
+        "caption": {
+          "left": -4,
+          "right": 394,
+          "top": 416.59375,
+          "bottom": 696,
+          "width": 398,
+          "height": 279.40625,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 195.296875,
+          "right": 370,
+          "top": 780,
+          "bottom": 824,
+          "width": 174.703125,
+          "height": 44,
+          "visible": true
+        }
+      }
+    },
+    {
+      "name": "narrow 0.735: FOS height/siblings",
+      "pass": true,
+      "evidence": {
+        "height": 14.390625,
+        "expected": 14.4,
+        "siblingsUnchanged": true,
+        "current": {
+          ".torque-hud__fos-title": {
+            "width": 50.09375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 262.71875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 322.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 322.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "original": {
+          ".torque-hud__fos-title": {
+            "width": 50.09375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 262.71875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 322.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 322.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "markerWidth": 2
+      }
+    },
+    {
+      "name": "narrow 0.8: correct chrome",
+      "pass": true,
+      "evidence": "inspection"
+    },
+    {
+      "name": "narrow 0.8: no leader",
+      "pass": true
+    },
+    {
+      "name": "narrow 0.8: rail clear/in viewport",
+      "pass": true,
+      "evidence": {
+        "rail": {
+          "left": 16,
+          "right": 374,
+          "top": 709,
+          "bottom": 748,
+          "width": 358,
+          "height": 39,
+          "visible": true
+        },
+        "tech": {
+          "left": 16,
+          "right": 374,
+          "top": 184.390625,
+          "bottom": 412,
+          "width": 358,
+          "height": 227.609375,
+          "visible": true
+        },
+        "caption": {
+          "left": -4,
+          "right": 394,
+          "top": 416.59375,
+          "bottom": 696,
+          "width": 398,
+          "height": 279.40625,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 195.296875,
+          "right": 370,
+          "top": 780,
+          "bottom": 824,
+          "width": 174.703125,
+          "height": 44,
+          "visible": true
+        }
+      }
+    },
+    {
+      "name": "narrow 0.8: FOS height/siblings",
+      "pass": true,
+      "evidence": {
+        "height": 14.390625,
+        "expected": 14.4,
+        "siblingsUnchanged": true,
+        "current": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 293.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 322.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 322.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "original": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 293.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 322.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 322.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "markerWidth": 2
+      }
+    },
+    {
+      "name": "narrow 0.845: correct chrome",
+      "pass": true,
+      "evidence": "mechanism"
+    },
+    {
+      "name": "narrow 0.845: no leader",
+      "pass": true
+    },
+    {
+      "name": "narrow 0.845: rail clear/in viewport",
+      "pass": true,
+      "evidence": {
+        "rail": {
+          "left": 16,
+          "right": 374,
+          "top": 709,
+          "bottom": 748,
+          "width": 358,
+          "height": 39,
+          "visible": true
+        },
+        "tech": null,
+        "caption": {
+          "left": -4,
+          "right": 394,
+          "top": 534.578125,
+          "bottom": 696,
+          "width": 398,
+          "height": 161.421875,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 195.296875,
+          "right": 370,
+          "top": 780,
+          "bottom": 824,
+          "width": 174.703125,
+          "height": 44,
+          "visible": true
+        }
+      }
+    },
+    {
+      "name": "narrow 0.6199: correct chrome",
+      "pass": true,
+      "evidence": "mechanism"
+    },
+    {
+      "name": "narrow 0.6199: no leader",
+      "pass": true
+    },
+    {
+      "name": "narrow 0.6199: rail clear/in viewport",
+      "pass": true,
+      "evidence": {
+        "rail": {
+          "left": 16,
+          "right": 374,
+          "top": 709,
+          "bottom": 748,
+          "width": 358,
+          "height": 39,
+          "visible": true
+        },
+        "tech": null,
+        "caption": {
+          "left": -4,
+          "right": 394,
+          "top": 534.578125,
+          "bottom": 696,
+          "width": 398,
+          "height": 161.421875,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 195.296875,
+          "right": 370,
+          "top": 780,
+          "bottom": 824,
+          "width": 174.703125,
+          "height": 44,
+          "visible": true
+        }
+      }
+    },
+    {
+      "name": "narrow 0.62: correct chrome",
+      "pass": true,
+      "evidence": "inspection"
+    },
+    {
+      "name": "narrow 0.62: no leader",
+      "pass": true
+    },
+    {
+      "name": "narrow 0.62: rail clear/in viewport",
+      "pass": true,
+      "evidence": {
+        "rail": {
+          "left": 16,
+          "right": 374,
+          "top": 709,
+          "bottom": 748,
+          "width": 358,
+          "height": 39,
+          "visible": true
+        },
+        "tech": {
+          "left": 16,
+          "right": 374,
+          "top": 184.390625,
+          "bottom": 412,
+          "width": 358,
+          "height": 227.609375,
+          "visible": true
+        },
+        "caption": {
+          "left": -4,
+          "right": 394,
+          "top": 416.59375,
+          "bottom": 696,
+          "width": 398,
+          "height": 279.40625,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 195.296875,
+          "right": 370,
+          "top": 780,
+          "bottom": 824,
+          "width": 174.703125,
+          "height": 44,
+          "visible": true
+        }
+      }
+    },
+    {
+      "name": "narrow 0.62: FOS height/siblings",
+      "pass": true,
+      "evidence": {
+        "height": 14.390625,
+        "expected": 14.4,
+        "siblingsUnchanged": true,
+        "current": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 293.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 322.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 322.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "original": {
+          ".torque-hud__fos-title": {
+            "width": 19.34375,
+            "height": 11,
+            "font": "9.92px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__fos-ticks": {
+            "width": 293.46875,
+            "height": 10,
+            "font": "8.96px monospace",
+            "padding": "0px",
+            "margin": "0px"
+          },
+          ".torque-hud__tech-attempts": {
+            "width": 322.40625,
+            "height": 70.78125,
+            "font": "10.56px monospace",
+            "padding": "0px",
+            "margin": "0px 0px 12px"
+          },
+          ".torque-hud__tech-note": {
+            "width": 322.40625,
+            "height": 50.671875,
+            "font": "10.56px / 16.896px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "11.2px 0px 0px"
+          },
+          ".torque-hud__fos-marker": {
+            "width": 2,
+            "font": "16px / 24px Arial, Helvetica, sans-serif",
+            "padding": "0px",
+            "margin": "0px"
+          }
+        },
+        "markerWidth": 2
+      }
+    },
+    {
+      "name": "narrow 0.845: correct chrome",
+      "pass": true,
+      "evidence": "mechanism"
+    },
+    {
+      "name": "narrow 0.845: no leader",
+      "pass": true
+    },
+    {
+      "name": "narrow 0.845: rail clear/in viewport",
+      "pass": true,
+      "evidence": {
+        "rail": {
+          "left": 16,
+          "right": 374,
+          "top": 709,
+          "bottom": 748,
+          "width": 358,
+          "height": 39,
+          "visible": true
+        },
+        "tech": null,
+        "caption": {
+          "left": -4,
+          "right": 394,
+          "top": 534.578125,
+          "bottom": 696,
+          "width": 398,
+          "height": 161.421875,
+          "visible": true
+        },
+        "freeLook": {
+          "left": 195.296875,
+          "right": 370,
+          "top": 780,
+          "bottom": 824,
+          "width": 174.703125,
+          "height": 44,
+          "visible": true
+        }
+      }
+    },
+    {
+      "name": "narrow: keyboard Inspection seek",
+      "pass": true,
+      "evidence": {
+        "progress": 0.6210686906947364,
+        "chapter": "inspection",
+        "active": "04Inspection",
+        "expanded": "false"
+      }
+    },
+    {
+      "name": "isolated build assets unchanged throughout probes",
+      "pass": true
+    },
+    {
+      "name": "zero browser errors",
+      "pass": true,
+      "evidence": []
+    }
+  ],
+  "status": "PASS"
+}

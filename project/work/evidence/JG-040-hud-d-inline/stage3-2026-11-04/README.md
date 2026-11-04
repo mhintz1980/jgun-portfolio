@@ -3,7 +3,8 @@
 Changes after base `f14ee2a066ba9cf8f9ec77dd2157952f0ad0ccc4` in
 `C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench`. Mark approved these corrections and
 explicitly authorized commit, push and deployment on 2026-11-04. Release verification is
-in progress; the checks below record the reviewed local build before that release.
+complete: **[`f83f4ba` deployed as `e796fe69`](release-2026-11-04.md)**, with all live checks
+PASS. The checks below record the reviewed local build before that release.
 
 ## Corrections
 

@@ -1,5 +1,12 @@
 # Deployment — studiomark.dev Runbook (JG-019)
 
+> **Current production, 2026-11-04:** Mark approved JG-040 Stage 3 and authorized release.
+> Deployment **`e796fe69`** serves clean source commit **`f83f4ba`**; root-to-`/home/`, the
+> other public pages and private armament remain intact. Isolated typecheck, 1,507 unit
+> tests, 36 Node verifier tests, build/asset gate, 68/68 live HUD checks and 9/9 publication
+> smoke PASS, zero browser errors. [Release evidence and rollback](../work/evidence/JG-040-hud-d-inline/stage3-2026-11-04/release-2026-11-04.md).
+> Prior release records below retain historical results; broader cinematic gates remain deferred.
+
 Durable deployment context for the JGUN portfolio. Task record:
 [`../work/evidence/JG-019-deployment-and-hosting-verification.md`](../work/evidence/JG-019-deployment-and-hosting-verification.md).
 

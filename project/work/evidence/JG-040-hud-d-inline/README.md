@@ -3,7 +3,8 @@
 > **2026-11-04 Stage 3 owner corrections:** [current verification and review packet](stage3-2026-11-04/README.md).
 > Inspection follows effective study visibility; desktop rail moved to bottom; FOS bar .9rem;
 > rejected leader removed. Mark approved the corrections and authorized commit/push/deploy
-> on 2026-11-04; release verification is in progress.
+> on 2026-11-04. **[Published as `e796fe69`, source `f83f4ba`](stage3-2026-11-04/release-2026-11-04.md)**;
+> 68/68 live Stage 3 checks + 9/9 publication smoke PASS, zero browser errors.
 > The Stage 1/2 results below remain historical evidence.
 
 Date: 2026-11-03. Branch `torque-wrench/rebuild`. **Committed `009aa4ae` (same day,

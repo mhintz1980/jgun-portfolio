@@ -99,7 +99,7 @@ controls. Static/poster fallback modes keep today's flowing document unchanged.
   the part and overstays). The `studiomark` mast and the caption fade/rise were approved.
   No runtime change was made after this ruling. Stage 2 is not accepted as a whole.
 
-## Stage 3 — owner review corrections (active 2026-11-04)
+## Stage 3 — owner review corrections (released 2026-11-04)
 
 Scope is limited to the four ruled corrections plus their verification. Do not reopen
 unrelated HUD styling.
@@ -120,6 +120,10 @@ Execution checklist (this continuation; no deploy before Mark reviews):
   keyboard seek. [Final review packet](../evidence/JG-040-hud-d-inline/stage3-2026-11-04/README.md).
 - [x] Mark reviewed and approved the corrections, then explicitly authorized commit, push
   and deployment on 2026-11-04. Release follows isolated commit verification and live smoke.
+- [x] Source `f83f4ba` pushed and deployed as `e796fe69` from an isolated clean checkout:
+  typecheck, 1,507 full unit tests, 36 pure Node tests, production build and asset gate PASS.
+  Live Stage 3 68/68 and publication smoke 9/9 PASS, zero browser errors.
+  [Release evidence](../evidence/JG-040-hud-d-inline/stage3-2026-11-04/release-2026-11-04.md).
 
 1. **Hold the Inspection chrome until the shaft is isolated.**
    `TorqueHUD` currently derives its chapter from `sample.beat.poster`
