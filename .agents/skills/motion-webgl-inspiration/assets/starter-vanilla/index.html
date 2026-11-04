@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scroll Story Starter</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.css" />
+  <link rel="stylesheet" href="./style.css" />
+  <!-- Pinned versions. Bump deliberately and re-test. -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.187.0/examples/jsm/",
+      "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.15.0/index.js",
+      "gsap/ScrollTrigger": "https://cdn.jsdelivr.net/npm/gsap@3.15.0/ScrollTrigger.js",
+      "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.mjs"
+    }
+  }
+  </script>
+</head>
+<body>
+  <canvas id="webgl" aria-hidden="true"></canvas>
+  <div id="hud" aria-hidden="true">
+    <svg id="hud-lines"></svg>
+    <div id="hud-progress"><span class="mono">SCROLL</span><span class="mono" id="hud-pct">000</span></div>
+  </div>
+  <div id="loader" class="mono">LOADING MODEL</div>
+
+  <main id="story">
+    <!-- One section per beat in scene.config.js (same order). Height sets the beat's scroll length. -->
+    <section data-beat="reveal">
+      <p class="eyebrow mono">01 / OVERVIEW</p>
+      <h1>Built to move water.</h1>
+      <p class="lede">Replace this copy. One idea per beat.</p>
+    </section>
+    <section data-beat="explode">
+      <p class="eyebrow mono">02 / ASSEMBLY</p>
+      <h2>Every part, in its place.</h2>
+    </section>
+    <section data-beat="detail">
+      <p class="eyebrow mono">03 / PUMP END</p>
+      <h2>The detail that matters.</h2>
+    </section>
+    <section data-beat="specs">
+      <p class="eyebrow mono">04 / SPECS</p>
+      <h2>Ready for the job site.</h2>
+      <a class="cta mono" href="#">REQUEST A QUOTE</a>
+    </section>
+  </main>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

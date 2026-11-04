@@ -1,0 +1,2464 @@
+{
+  "url": "http://localhost:5349/torque-wrench/",
+  "bundleFingerprint": "3585205b145f73daff2354bb2ce9fbc19efb47c875c1ceed9c77e997027d3a6b",
+  "browser": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "selectors": [
+    ".torque-chapter",
+    ".torque-inspection",
+    ".torque-inspection-overlay",
+    ".torque-freelook-toggle",
+    ".torque-hotspot-layer"
+  ],
+  "samples": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "requestedProgress": 0.418,
+      "before": {
+        "narrative": {
+          "progress": 0.4180034138226719,
+          "beatId": "breakthrough-pressure",
+          "localProgress": 0.9201365529068773,
+          "phase": "exiting",
+          "stateKey": "[0.4180034138226719,8,{\"id\":\"breakthrough-pressure\",\"start\":0.395,\"end\":0.42,\"title\":\"Pressure from below\",\"copy\":\"The already illuminated wrench pushes up against opaque paper.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.9201365529068773,\"breakthrough-trace\",\"breakthrough-rupture\",\"exiting\"]",
+          "previousId": "breakthrough-trace",
+          "nextId": "breakthrough-rupture"
+        },
+        "camera": {
+          "position": [
+            0.598121133665243,
+            0.2250829635962513,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "up": [
+            -0.37517315714747596,
+            0.9269547465523844,
+            0
+          ],
+          "quaternion": [
+            -0.13513442700475659,
+            0.6940739777848585,
+            0.13513442700475659,
+            0.6940739777848585
+          ],
+          "fov": 30,
+          "handleBoundsClearance": 0.4876863272636282
+        },
+        "tier": "full",
+        "overlay": {
+          "progress": 0.4180034138226719,
+          "subjectTime": 0,
+          "studyVisible": false,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 1,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        },
+        "layout": {
+          "scrollHeight": 84514,
+          "scrollY": 14131,
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "bufferWidth": 1440,
+            "bufferHeight": 900
+          }
+        }
+      },
+      "after": {
+        "narrative": {
+          "progress": 0.4180034138226719,
+          "beatId": "breakthrough-pressure",
+          "localProgress": 0.9201365529068773,
+          "phase": "exiting",
+          "stateKey": "[0.4180034138226719,8,{\"id\":\"breakthrough-pressure\",\"start\":0.395,\"end\":0.42,\"title\":\"Pressure from below\",\"copy\":\"The already illuminated wrench pushes up against opaque paper.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.9201365529068773,\"breakthrough-trace\",\"breakthrough-rupture\",\"exiting\"]",
+          "previousId": "breakthrough-trace",
+          "nextId": "breakthrough-rupture"
+        },
+        "camera": {
+          "position": [
+            0.598121133665243,
+            0.2250829635962513,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "up": [
+            -0.37517315714747596,
+            0.9269547465523844,
+            0
+          ],
+          "quaternion": [
+            -0.13513442700475659,
+            0.6940739777848585,
+            0.13513442700475659,
+            0.6940739777848585
+          ],
+          "fov": 30,
+          "handleBoundsClearance": 0.4876863272636282
+        },
+        "tier": "full",
+        "overlay": {
+          "progress": 0.4180034138226719,
+          "subjectTime": 0,
+          "studyVisible": false,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 1,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        },
+        "layout": {
+          "scrollHeight": 84514,
+          "scrollY": 14131,
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "bufferWidth": 1440,
+            "bufferHeight": 900
+          }
+        }
+      },
+      "restored": {
+        "narrative": {
+          "progress": 0.4180034138226719,
+          "beatId": "breakthrough-pressure",
+          "localProgress": 0.9201365529068773,
+          "phase": "exiting",
+          "stateKey": "[0.4180034138226719,8,{\"id\":\"breakthrough-pressure\",\"start\":0.395,\"end\":0.42,\"title\":\"Pressure from below\",\"copy\":\"The already illuminated wrench pushes up against opaque paper.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.9201365529068773,\"breakthrough-trace\",\"breakthrough-rupture\",\"exiting\"]",
+          "previousId": "breakthrough-trace",
+          "nextId": "breakthrough-rupture"
+        },
+        "camera": {
+          "position": [
+            0.598121133665243,
+            0.2250829635962513,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "up": [
+            -0.37517315714747596,
+            0.9269547465523844,
+            0
+          ],
+          "quaternion": [
+            -0.13513442700475659,
+            0.6940739777848585,
+            0.13513442700475659,
+            0.6940739777848585
+          ],
+          "fov": 30,
+          "handleBoundsClearance": 0.4876863272636282
+        },
+        "tier": "full",
+        "overlay": {
+          "progress": 0.4180034138226719,
+          "subjectTime": 0,
+          "studyVisible": false,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 1,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        },
+        "layout": {
+          "scrollHeight": 84514,
+          "scrollY": 14131,
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "bufferWidth": 1440,
+            "bufferHeight": 900
+          }
+        }
+      },
+      "hidden": [
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            288,
+            -13636.21875,
+            864,
+            186.34375
+          ],
+          "previousVisibility": "visible",
+          "previousInline": null
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            288,
+            7237.640625,
+            864,
+            186.34375
+          ],
+          "previousVisibility": "visible",
+          "previousInline": null
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            288,
+            28111.5,
+            864,
+            186.34375
+          ],
+          "previousVisibility": "visible",
+          "previousInline": null
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            288,
+            48985.359375,
+            864,
+            244.34375
+          ],
+          "previousVisibility": "visible",
+          "previousInline": null
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            288,
+            69917.21875,
+            864,
+            212.734375
+          ],
+          "previousVisibility": "visible",
+          "previousInline": null
+        },
+        {
+          "selector": ".torque-inspection",
+          "rect": [
+            310,
+            49187.703125,
+            842,
+            42
+          ],
+          "previousVisibility": "hidden",
+          "previousInline": null
+        },
+        {
+          "selector": ".torque-inspection-overlay",
+          "rect": [
+            0,
+            0,
+            1440,
+            900
+          ],
+          "previousVisibility": "visible",
+          "previousInline": null
+        },
+        {
+          "selector": ".torque-freelook-toggle",
+          "rect": [
+            1244.9375,
+            841.21875,
+            175.0625,
+            38.78125
+          ],
+          "previousVisibility": "visible",
+          "previousInline": null
+        },
+        {
+          "selector": ".torque-hotspot-layer",
+          "rect": [
+            0,
+            0,
+            1440,
+            900
+          ],
+          "previousVisibility": "hidden",
+          "previousInline": null
+        }
+      ],
+      "invariants": {
+        "layout": true,
+        "progress": true,
+        "camera": true,
+        "restore": true
+      },
+      "control": {
+        "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\output\\playwright\\design-os-hud-trial-2026-10-31\\baseline\\desktop\\p-0.4180-control.png",
+        "sha256": "0096f069a28b36c1ef13cf1a8cb4e46e441e474c3b2cdbe535a0ed09ed6c7889"
+      },
+      "clean": {
+        "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\output\\playwright\\design-os-hud-trial-2026-10-31\\baseline\\desktop\\p-0.4180-clean.png",
+        "sha256": "4e663c0ebfeefba11cada67ea9ea4801938da661220a760e103ad33cef7b6640"
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "requestedProgress": 0.735,
+      "before": {
+        "narrative": {
+          "progress": 0.7349970881845261,
+          "beatId": "inspection-materials",
+          "localProgress": 0.4284882338436043,
+          "phase": "active",
+          "stateKey": "[0.7349970881845261,16,{\"id\":\"inspection-materials\",\"start\":0.72,\"end\":0.755,\"title\":\"Material attempts\",\"copy\":\"Read the 4140, 4340, and C300 attempts and the relief-groove result.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.4284882338436043,\"inspection-bullet-time\",\"inspection-hobbing\",\"active\"]",
+          "previousId": "inspection-bullet-time",
+          "nextId": "inspection-hobbing"
+        },
+        "camera": {
+          "position": [
+            -0.2012659891046355,
+            -0.1485149586003683,
+            -0.017938354612877093
+          ],
+          "target": [
+            -0.07538075520231789,
+            0.005821625348956378,
+            0.016329657670875842
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.25653952918599554,
+            0.7203961932194873,
+            -0.6070317674372117,
+            -0.21616944298849008
+          ],
+          "fov": 17.542421208346884,
+          "handleBoundsClearance": 0.13866498203170155
+        },
+        "tier": "full",
+        "overlay": {
+          "progress": 0.7349970881845261,
+          "subjectTime": 15.501357728348447,
+          "studyVisible": true,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 0,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        },
+        "layout": {
+          "scrollHeight": 84514,
+          "scrollY": 49057,
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "bufferWidth": 1440,
+            "bufferHeight": 900
+          }
+        }
+      },
+      "after": {
+        "narrative": {
+          "progress": 0.7349970881845261,
+          "beatId": "inspection-materials",
+          "localProgress": 0.4284882338436043,
+          "phase": "active",
+          "stateKey": "[0.7349970881845261,16,{\"id\":\"inspection-materials\",\"start\":0.72,\"end\":0.755,\"title\":\"Material attempts\",\"copy\":\"Read the 4140, 4340, and C300 attempts and the relief-groove result.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.4284882338436043,\"inspection-bullet-time\",\"inspection-hobbing\",\"active\"]",
+          "previousId": "inspection-bullet-time",
+          "nextId": "inspection-hobbing"
+        },
+        "camera": {
+          "position": [
+            -0.2012659891046355,
+            -0.1485149586003683,
+            -0.017938354612877093
+          ],
+          "target": [
+            -0.07538075520231789,
+            0.005821625348956378,
+            0.016329657670875842
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.25653952918599554,
+            0.7203961932194873,
+            -0.6070317674372117,
+            -0.21616944298849008
+          ],
+          "fov": 17.542421208346884,
+          "handleBoundsClearance": 0.13866498203170155
+        },
+        "tier": "full",
+        "overlay": {
+          "progress": 0.7349970881845261,
+          "subjectTime": 15.501357728348447,
+          "studyVisible": true,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 0,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        },
+        "layout": {
+          "scrollHeight": 84514,
+          "scrollY": 49057,
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "bufferWidth": 1440,
+            "bufferHeight": 900
+          }
+        }
+      },
+      "restored": {
+        "narrative": {
+          "progress": 0.7349970881845261,
+          "beatId": "inspection-materials",
+          "localProgress": 0.4284882338436043,
+          "phase": "active",
+          "stateKey": "[0.7349970881845261,16,{\"id\":\"inspection-materials\",\"start\":0.72,\"end\":0.755,\"title\":\"Material attempts\",\"copy\":\"Read the 4140, 4340, and C300 attempts and the relief-groove result.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.4284882338436043,\"inspection-bullet-time\",\"inspection-hobbing\",\"active\"]",
+          "previousId": "inspection-bullet-time",
+          "nextId": "inspection-hobbing"
+        },
+        "camera": {
+          "position": [
+            -0.2012659891046355,
+            -0.1485149586003683,
+            -0.017938354612877093
+          ],
+          "target": [
+            -0.07538075520231789,
+            0.005821625348956378,
+            0.016329657670875842
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.25653952918599554,
+            0.7203961932194873,
+            -0.6070317674372117,
+            -0.21616944298849008
+          ],
+          "fov": 17.542421208346884,
+          "handleBoundsClearance": 0.13866498203170155
+        },
+        "tier": "full",
+        "overlay": {
+          "progress": 0.7349970881845261,
+          "subjectTime": 15.501357728348447,
+          "studyVisible": true,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 0,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        },
+        "layout": {
+          "scrollHeight": 84514,
+          "scrollY": 49057,
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "bufferWidth": 1440,
+            "bufferHeight": 900
+          }
+        }
+      },
+      "hidden": [
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            288,
+            -48562.21875,
+            864,
+            186.34375
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            288,
+            -20711.078125,
+            864,
+            186.34375
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            288,
+            7140.0625,
+            864,
+            186.34375
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            16,
+            16,
+            384,
+            265.515625
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            288,
+            34991.203125,
+            864,
+            212.734375
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-inspection",
+          "rect": [
+            16,
+            842,
+            704,
+            42
+          ],
+          "previousVisibility": "hidden",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-inspection-overlay",
+          "rect": [
+            0,
+            0,
+            1440,
+            900
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-freelook-toggle",
+          "rect": [
+            1244.9375,
+            841.21875,
+            175.0625,
+            38.78125
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-hotspot-layer",
+          "rect": [
+            0,
+            0,
+            1440,
+            900
+          ],
+          "previousVisibility": "hidden",
+          "previousInline": ""
+        }
+      ],
+      "invariants": {
+        "layout": true,
+        "progress": true,
+        "camera": true,
+        "restore": true
+      },
+      "control": {
+        "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\output\\playwright\\design-os-hud-trial-2026-10-31\\baseline\\desktop\\p-0.7350-control.png",
+        "sha256": "1c430df220fc063a6e333b121843b84bac6e0268112ca67ff6fa9c9d81e1a62f"
+      },
+      "clean": {
+        "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\output\\playwright\\design-os-hud-trial-2026-10-31\\baseline\\desktop\\p-0.7350-clean.png",
+        "sha256": "379e98c0881890d23a18e57f0e5085df666d8751fc4c9dcc5e45576998618337"
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "requestedProgress": 0.94,
+      "before": {
+        "narrative": {
+          "progress": 0.9399886494279909,
+          "beatId": "mechanism-exploded-hold",
+          "localProgress": 0.9988649427990928,
+          "phase": "exiting",
+          "stateKey": "[0.9399886494279909,22,{\"id\":\"mechanism-exploded-hold\",\"start\":0.93,\"end\":0.94,\"title\":\"Read the assembly\",\"copy\":\"Hold the complete exploded source gearbox.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"close\"},0.9988649427990928,\"mechanism-extraction\",\"close-settle\",\"exiting\"]",
+          "previousId": "mechanism-extraction",
+          "nextId": "close-settle"
+        },
+        "camera": {
+          "position": [
+            -0.3258336172427803,
+            0.17534845871751945,
+            -0.08806128899020321
+          ],
+          "target": [
+            -1.2703726959273354e-12,
+            -3.684795524261375e-13,
+            -0.23999999999554011
+          ],
+          "up": [
+            3.848227292381306e-12,
+            1,
+            9.878116255180602e-27
+          ],
+          "quaternion": [
+            -0.18972179496163571,
+            -0.5235286541925745,
+            -0.12086611339769121,
+            0.8217753776963528
+          ],
+          "fov": 32.000000000166644,
+          "handleBoundsClearance": 0.37472481789118317
+        },
+        "tier": "full",
+        "overlay": {
+          "progress": 0.9399886494279909,
+          "subjectTime": 66.9,
+          "studyVisible": false,
+          "manual": false,
+          "explode": 1,
+          "surroundingsOpacity": 1,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        },
+        "layout": {
+          "scrollHeight": 84514,
+          "scrollY": 81247,
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "bufferWidth": 1440,
+            "bufferHeight": 900
+          }
+        }
+      },
+      "after": {
+        "narrative": {
+          "progress": 0.9399886494279909,
+          "beatId": "mechanism-exploded-hold",
+          "localProgress": 0.9988649427990928,
+          "phase": "exiting",
+          "stateKey": "[0.9399886494279909,22,{\"id\":\"mechanism-exploded-hold\",\"start\":0.93,\"end\":0.94,\"title\":\"Read the assembly\",\"copy\":\"Hold the complete exploded source gearbox.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"close\"},0.9988649427990928,\"mechanism-extraction\",\"close-settle\",\"exiting\"]",
+          "previousId": "mechanism-extraction",
+          "nextId": "close-settle"
+        },
+        "camera": {
+          "position": [
+            -0.3258336172427803,
+            0.17534845871751945,
+            -0.08806128899020321
+          ],
+          "target": [
+            -1.2703726959273354e-12,
+            -3.684795524261375e-13,
+            -0.23999999999554011
+          ],
+          "up": [
+            3.848227292381306e-12,
+            1,
+            9.878116255180602e-27
+          ],
+          "quaternion": [
+            -0.18972179496163571,
+            -0.5235286541925745,
+            -0.12086611339769121,
+            0.8217753776963528
+          ],
+          "fov": 32.000000000166644,
+          "handleBoundsClearance": 0.37472481789118317
+        },
+        "tier": "full",
+        "overlay": {
+          "progress": 0.9399886494279909,
+          "subjectTime": 66.9,
+          "studyVisible": false,
+          "manual": false,
+          "explode": 1,
+          "surroundingsOpacity": 1,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        },
+        "layout": {
+          "scrollHeight": 84514,
+          "scrollY": 81247,
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "bufferWidth": 1440,
+            "bufferHeight": 900
+          }
+        }
+      },
+      "restored": {
+        "narrative": {
+          "progress": 0.9399886494279909,
+          "beatId": "mechanism-exploded-hold",
+          "localProgress": 0.9988649427990928,
+          "phase": "exiting",
+          "stateKey": "[0.9399886494279909,22,{\"id\":\"mechanism-exploded-hold\",\"start\":0.93,\"end\":0.94,\"title\":\"Read the assembly\",\"copy\":\"Hold the complete exploded source gearbox.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"close\"},0.9988649427990928,\"mechanism-extraction\",\"close-settle\",\"exiting\"]",
+          "previousId": "mechanism-extraction",
+          "nextId": "close-settle"
+        },
+        "camera": {
+          "position": [
+            -0.3258336172427803,
+            0.17534845871751945,
+            -0.08806128899020321
+          ],
+          "target": [
+            -1.2703726959273354e-12,
+            -3.684795524261375e-13,
+            -0.23999999999554011
+          ],
+          "up": [
+            3.848227292381306e-12,
+            1,
+            9.878116255180602e-27
+          ],
+          "quaternion": [
+            -0.18972179496163571,
+            -0.5235286541925745,
+            -0.12086611339769121,
+            0.8217753776963528
+          ],
+          "fov": 32.000000000166644,
+          "handleBoundsClearance": 0.37472481789118317
+        },
+        "tier": "full",
+        "overlay": {
+          "progress": 0.9399886494279909,
+          "subjectTime": 66.9,
+          "studyVisible": false,
+          "manual": false,
+          "explode": 1,
+          "surroundingsOpacity": 1,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        },
+        "layout": {
+          "scrollHeight": 84514,
+          "scrollY": 81247,
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "bufferWidth": 1440,
+            "bufferHeight": 900
+          }
+        }
+      },
+      "hidden": [
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            288,
+            -80752.21875,
+            864,
+            186.34375
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            288,
+            -59878.359375,
+            864,
+            186.34375
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            288,
+            -39004.5,
+            864,
+            186.34375
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            288,
+            -18130.640625,
+            864,
+            244.34375
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            288,
+            2801.21875,
+            864,
+            212.734375
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-inspection",
+          "rect": [
+            310,
+            -17928.296875,
+            842,
+            42
+          ],
+          "previousVisibility": "hidden",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-inspection-overlay",
+          "rect": [
+            0,
+            0,
+            1440,
+            900
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-freelook-toggle",
+          "rect": [
+            1244.9375,
+            841.21875,
+            175.0625,
+            38.78125
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-hotspot-layer",
+          "rect": [
+            0,
+            0,
+            1440,
+            900
+          ],
+          "previousVisibility": "hidden",
+          "previousInline": ""
+        }
+      ],
+      "invariants": {
+        "layout": true,
+        "progress": true,
+        "camera": true,
+        "restore": true
+      },
+      "control": {
+        "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\output\\playwright\\design-os-hud-trial-2026-10-31\\baseline\\desktop\\p-0.9400-control.png",
+        "sha256": "99e4d50c269f6ed548d05c36d1e1768e26aba2e630be6895f7d4d0c872ee88ac"
+      },
+      "clean": {
+        "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\output\\playwright\\design-os-hud-trial-2026-10-31\\baseline\\desktop\\p-0.9400-clean.png",
+        "sha256": "5d5a85ad519338255b94c91429edd3e498501f3cb9c00893aaa16c19e4490f4d"
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "requestedProgress": 0.418,
+      "before": {
+        "narrative": {
+          "progress": 0.417999576485408,
+          "beatId": "breakthrough-pressure",
+          "localProgress": 0.9199830594163195,
+          "phase": "exiting",
+          "stateKey": "[0.417999576485408,8,{\"id\":\"breakthrough-pressure\",\"start\":0.395,\"end\":0.42,\"title\":\"Pressure from below\",\"copy\":\"The already illuminated wrench pushes up against opaque paper.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.9199830594163195,\"breakthrough-trace\",\"breakthrough-rupture\",\"exiting\"]",
+          "previousId": "breakthrough-trace",
+          "nextId": "breakthrough-rupture"
+        },
+        "camera": {
+          "position": [
+            1.3935858909567949,
+            0.5470443761404079,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "up": [
+            -0.37517737532054174,
+            0.9269530392892562,
+            0
+          ],
+          "quaternion": [
+            -0.13513600622219804,
+            0.6940736703133998,
+            0.13513600622219804,
+            0.6940736703133998
+          ],
+          "fov": 30,
+          "handleBoundsClearance": 1.3448380739008075
+        },
+        "tier": "full",
+        "overlay": {
+          "progress": 0.417999576485408,
+          "subjectTime": 0,
+          "studyVisible": false,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 1,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        },
+        "layout": {
+          "scrollHeight": 79418,
+          "scrollY": 13279,
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "bufferWidth": 390,
+            "bufferHeight": 844
+          }
+        }
+      },
+      "after": {
+        "narrative": {
+          "progress": 0.417999576485408,
+          "beatId": "breakthrough-pressure",
+          "localProgress": 0.9199830594163195,
+          "phase": "exiting",
+          "stateKey": "[0.417999576485408,8,{\"id\":\"breakthrough-pressure\",\"start\":0.395,\"end\":0.42,\"title\":\"Pressure from below\",\"copy\":\"The already illuminated wrench pushes up against opaque paper.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.9199830594163195,\"breakthrough-trace\",\"breakthrough-rupture\",\"exiting\"]",
+          "previousId": "breakthrough-trace",
+          "nextId": "breakthrough-rupture"
+        },
+        "camera": {
+          "position": [
+            1.3935858909567949,
+            0.5470443761404079,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "up": [
+            -0.37517737532054174,
+            0.9269530392892562,
+            0
+          ],
+          "quaternion": [
+            -0.13513600622219804,
+            0.6940736703133998,
+            0.13513600622219804,
+            0.6940736703133998
+          ],
+          "fov": 30,
+          "handleBoundsClearance": 1.3448380739008075
+        },
+        "tier": "full",
+        "overlay": {
+          "progress": 0.417999576485408,
+          "subjectTime": 0,
+          "studyVisible": false,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 1,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        },
+        "layout": {
+          "scrollHeight": 79418,
+          "scrollY": 13279,
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "bufferWidth": 390,
+            "bufferHeight": 844
+          }
+        }
+      },
+      "restored": {
+        "narrative": {
+          "progress": 0.417999576485408,
+          "beatId": "breakthrough-pressure",
+          "localProgress": 0.9199830594163195,
+          "phase": "exiting",
+          "stateKey": "[0.417999576485408,8,{\"id\":\"breakthrough-pressure\",\"start\":0.395,\"end\":0.42,\"title\":\"Pressure from below\",\"copy\":\"The already illuminated wrench pushes up against opaque paper.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.9199830594163195,\"breakthrough-trace\",\"breakthrough-rupture\",\"exiting\"]",
+          "previousId": "breakthrough-trace",
+          "nextId": "breakthrough-rupture"
+        },
+        "camera": {
+          "position": [
+            1.3935858909567949,
+            0.5470443761404079,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "up": [
+            -0.37517737532054174,
+            0.9269530392892562,
+            0
+          ],
+          "quaternion": [
+            -0.13513600622219804,
+            0.6940736703133998,
+            0.13513600622219804,
+            0.6940736703133998
+          ],
+          "fov": 30,
+          "handleBoundsClearance": 1.3448380739008075
+        },
+        "tier": "full",
+        "overlay": {
+          "progress": 0.417999576485408,
+          "subjectTime": 0,
+          "studyVisible": false,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 1,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        },
+        "layout": {
+          "scrollHeight": 79418,
+          "scrollY": 13279,
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "bufferWidth": 390,
+            "bufferHeight": 844
+          }
+        }
+      },
+      "hidden": [
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            16,
+            -12788.859375,
+            358,
+            239.125
+          ],
+          "previousVisibility": "visible",
+          "previousInline": null
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            16,
+            6768.921875,
+            358,
+            239.125
+          ],
+          "previousVisibility": "visible",
+          "previousInline": null
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            16,
+            26326.703125,
+            358,
+            265.515625
+          ],
+          "previousVisibility": "visible",
+          "previousInline": null
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            16,
+            45910.875,
+            358,
+            323.515625
+          ],
+          "previousVisibility": "visible",
+          "previousInline": null
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            16,
+            65553.046875,
+            358,
+            291.90625
+          ],
+          "previousVisibility": "visible",
+          "previousInline": null
+        },
+        {
+          "selector": ".torque-inspection",
+          "rect": [
+            38,
+            46192.390625,
+            336,
+            42
+          ],
+          "previousVisibility": "hidden",
+          "previousInline": null
+        },
+        {
+          "selector": ".torque-inspection-overlay",
+          "rect": [
+            0,
+            0,
+            390,
+            844
+          ],
+          "previousVisibility": "visible",
+          "previousInline": null
+        },
+        {
+          "selector": ".torque-freelook-toggle",
+          "rect": [
+            194.9375,
+            785.21875,
+            175.0625,
+            38.78125
+          ],
+          "previousVisibility": "visible",
+          "previousInline": null
+        },
+        {
+          "selector": ".torque-hotspot-layer",
+          "rect": [
+            0,
+            0,
+            390,
+            844
+          ],
+          "previousVisibility": "hidden",
+          "previousInline": null
+        }
+      ],
+      "invariants": {
+        "layout": true,
+        "progress": true,
+        "camera": true,
+        "restore": true
+      },
+      "control": {
+        "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\output\\playwright\\design-os-hud-trial-2026-10-31\\baseline\\narrow\\p-0.4180-control.png",
+        "sha256": "7dce689499e353ee18d9d292a04192718c3cd0a34fb7640784f07a4aeac9f727"
+      },
+      "clean": {
+        "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\output\\playwright\\design-os-hud-trial-2026-10-31\\baseline\\narrow\\p-0.4180-clean.png",
+        "sha256": "17416d6ecff4b04161b9e02dc4d4b9ce1c914ce24bed06a4d931357212c61368"
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "requestedProgress": 0.735,
+      "before": {
+        "narrative": {
+          "progress": 0.7349971495130202,
+          "beatId": "inspection-materials",
+          "localProgress": 0.42848998608629174,
+          "phase": "active",
+          "stateKey": "[0.7349971495130202,16,{\"id\":\"inspection-materials\",\"start\":0.72,\"end\":0.755,\"title\":\"Material attempts\",\"copy\":\"Read the 4140, 4340, and C300 attempts and the relief-groove result.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.42848998608629174,\"inspection-bullet-time\",\"inspection-hobbing\",\"active\"]",
+          "previousId": "inspection-bullet-time",
+          "nextId": "inspection-hobbing"
+        },
+        "camera": {
+          "position": [
+            -0.20214542197894292,
+            -0.14233491475820648,
+            -0.022165559850379407
+          ],
+          "target": [
+            -0.07626041258846297,
+            0.012001393937309568,
+            0.012103638183739987
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.256540186388922,
+            0.7203980387303441,
+            -0.6070295772666661,
+            -0.21616866304916527
+          ],
+          "fov": 33.131380079555214,
+          "handleBoundsClearance": 0.1344490849950487
+        },
+        "tier": "full",
+        "overlay": {
+          "progress": 0.7349971495130202,
+          "subjectTime": 15.501395097214795,
+          "studyVisible": true,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 0,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        },
+        "layout": {
+          "scrollHeight": 79418,
+          "scrollY": 46100,
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "bufferWidth": 390,
+            "bufferHeight": 844
+          }
+        }
+      },
+      "after": {
+        "narrative": {
+          "progress": 0.7349971495130202,
+          "beatId": "inspection-materials",
+          "localProgress": 0.42848998608629174,
+          "phase": "active",
+          "stateKey": "[0.7349971495130202,16,{\"id\":\"inspection-materials\",\"start\":0.72,\"end\":0.755,\"title\":\"Material attempts\",\"copy\":\"Read the 4140, 4340, and C300 attempts and the relief-groove result.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.42848998608629174,\"inspection-bullet-time\",\"inspection-hobbing\",\"active\"]",
+          "previousId": "inspection-bullet-time",
+          "nextId": "inspection-hobbing"
+        },
+        "camera": {
+          "position": [
+            -0.20214542197894292,
+            -0.14233491475820648,
+            -0.022165559850379407
+          ],
+          "target": [
+            -0.07626041258846297,
+            0.012001393937309568,
+            0.012103638183739987
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.256540186388922,
+            0.7203980387303441,
+            -0.6070295772666661,
+            -0.21616866304916527
+          ],
+          "fov": 33.131380079555214,
+          "handleBoundsClearance": 0.1344490849950487
+        },
+        "tier": "full",
+        "overlay": {
+          "progress": 0.7349971495130202,
+          "subjectTime": 15.501395097214795,
+          "studyVisible": true,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 0,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        },
+        "layout": {
+          "scrollHeight": 79418,
+          "scrollY": 46100,
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "bufferWidth": 390,
+            "bufferHeight": 844
+          }
+        }
+      },
+      "restored": {
+        "narrative": {
+          "progress": 0.7349971495130202,
+          "beatId": "inspection-materials",
+          "localProgress": 0.42848998608629174,
+          "phase": "active",
+          "stateKey": "[0.7349971495130202,16,{\"id\":\"inspection-materials\",\"start\":0.72,\"end\":0.755,\"title\":\"Material attempts\",\"copy\":\"Read the 4140, 4340, and C300 attempts and the relief-groove result.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.42848998608629174,\"inspection-bullet-time\",\"inspection-hobbing\",\"active\"]",
+          "previousId": "inspection-bullet-time",
+          "nextId": "inspection-hobbing"
+        },
+        "camera": {
+          "position": [
+            -0.20214542197894292,
+            -0.14233491475820648,
+            -0.022165559850379407
+          ],
+          "target": [
+            -0.07626041258846297,
+            0.012001393937309568,
+            0.012103638183739987
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.256540186388922,
+            0.7203980387303441,
+            -0.6070295772666661,
+            -0.21616866304916527
+          ],
+          "fov": 33.131380079555214,
+          "handleBoundsClearance": 0.1344490849950487
+        },
+        "tier": "full",
+        "overlay": {
+          "progress": 0.7349971495130202,
+          "subjectTime": 15.501395097214795,
+          "studyVisible": true,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 0,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        },
+        "layout": {
+          "scrollHeight": 79418,
+          "scrollY": 46100,
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "bufferWidth": 390,
+            "bufferHeight": 844
+          }
+        }
+      },
+      "hidden": [
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            16,
+            -45609.859375,
+            358,
+            239.125
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            16,
+            -19504.6875,
+            358,
+            239.125
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            16,
+            6600.484375,
+            358,
+            265.515625
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            16,
+            16,
+            358,
+            265.515625
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            16,
+            32732.046875,
+            358,
+            291.90625
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-inspection",
+          "rect": [
+            16,
+            734,
+            358,
+            42
+          ],
+          "previousVisibility": "hidden",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-inspection-overlay",
+          "rect": [
+            0,
+            0,
+            390,
+            844
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-freelook-toggle",
+          "rect": [
+            194.9375,
+            785.21875,
+            175.0625,
+            38.78125
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-hotspot-layer",
+          "rect": [
+            0,
+            0,
+            390,
+            844
+          ],
+          "previousVisibility": "hidden",
+          "previousInline": ""
+        }
+      ],
+      "invariants": {
+        "layout": true,
+        "progress": true,
+        "camera": true,
+        "restore": true
+      },
+      "control": {
+        "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\output\\playwright\\design-os-hud-trial-2026-10-31\\baseline\\narrow\\p-0.7350-control.png",
+        "sha256": "c502bdf5488a836199ec753e03ca5dae1f271580b241eeb58be2f9356a0aa03e"
+      },
+      "clean": {
+        "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\output\\playwright\\design-os-hud-trial-2026-10-31\\baseline\\narrow\\p-0.7350-clean.png",
+        "sha256": "772ef56fe57848888cb78a3dc77c16106594146fe2270b31999e4630aa3a6211"
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "requestedProgress": 0.94,
+      "before": {
+        "narrative": {
+          "progress": 0.9399970707766457,
+          "beatId": "mechanism-exploded-hold",
+          "localProgress": 0.9997070776645791,
+          "phase": "exiting",
+          "stateKey": "[0.9399970707766457,22,{\"id\":\"mechanism-exploded-hold\",\"start\":0.93,\"end\":0.94,\"title\":\"Read the assembly\",\"copy\":\"Hold the complete exploded source gearbox.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"close\"},0.9997070776645791,\"mechanism-extraction\",\"close-settle\",\"exiting\"]",
+          "previousId": "mechanism-extraction",
+          "nextId": "close-settle"
+        },
+        "camera": {
+          "position": [
+            -0.48875042586192685,
+            0.2630226880735578,
+            -0.012091933493948742
+          ],
+          "target": [
+            6.3074545586516706e-15,
+            2.2010171463193728e-14,
+            -0.23999999999991778
+          ],
+          "up": [
+            6.628031457012221e-14,
+            1,
+            1.7014743649485793e-28
+          ],
+          "quaternion": [
+            -0.18972179496022995,
+            -0.5235286541939522,
+            -0.12086611339619012,
+            0.8217753776960204
+          ],
+          "fov": 42.00000000000123,
+          "handleBoundsClearance": 0.5614172255163855
+        },
+        "tier": "full",
+        "overlay": {
+          "progress": 0.9399970707766457,
+          "subjectTime": 66.9,
+          "studyVisible": false,
+          "manual": false,
+          "explode": 1,
+          "surroundingsOpacity": 1,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        },
+        "layout": {
+          "scrollHeight": 79418,
+          "scrollY": 76350,
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "bufferWidth": 390,
+            "bufferHeight": 844
+          }
+        }
+      },
+      "after": {
+        "narrative": {
+          "progress": 0.9399970707766457,
+          "beatId": "mechanism-exploded-hold",
+          "localProgress": 0.9997070776645791,
+          "phase": "exiting",
+          "stateKey": "[0.9399970707766457,22,{\"id\":\"mechanism-exploded-hold\",\"start\":0.93,\"end\":0.94,\"title\":\"Read the assembly\",\"copy\":\"Hold the complete exploded source gearbox.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"close\"},0.9997070776645791,\"mechanism-extraction\",\"close-settle\",\"exiting\"]",
+          "previousId": "mechanism-extraction",
+          "nextId": "close-settle"
+        },
+        "camera": {
+          "position": [
+            -0.48875042586192685,
+            0.2630226880735578,
+            -0.012091933493948742
+          ],
+          "target": [
+            6.3074545586516706e-15,
+            2.2010171463193728e-14,
+            -0.23999999999991778
+          ],
+          "up": [
+            6.628031457012221e-14,
+            1,
+            1.7014743649485793e-28
+          ],
+          "quaternion": [
+            -0.18972179496022995,
+            -0.5235286541939522,
+            -0.12086611339619012,
+            0.8217753776960204
+          ],
+          "fov": 42.00000000000123,
+          "handleBoundsClearance": 0.5614172255163855
+        },
+        "tier": "full",
+        "overlay": {
+          "progress": 0.9399970707766457,
+          "subjectTime": 66.9,
+          "studyVisible": false,
+          "manual": false,
+          "explode": 1,
+          "surroundingsOpacity": 1,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        },
+        "layout": {
+          "scrollHeight": 79418,
+          "scrollY": 76350,
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "bufferWidth": 390,
+            "bufferHeight": 844
+          }
+        }
+      },
+      "restored": {
+        "narrative": {
+          "progress": 0.9399970707766457,
+          "beatId": "mechanism-exploded-hold",
+          "localProgress": 0.9997070776645791,
+          "phase": "exiting",
+          "stateKey": "[0.9399970707766457,22,{\"id\":\"mechanism-exploded-hold\",\"start\":0.93,\"end\":0.94,\"title\":\"Read the assembly\",\"copy\":\"Hold the complete exploded source gearbox.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"close\"},0.9997070776645791,\"mechanism-extraction\",\"close-settle\",\"exiting\"]",
+          "previousId": "mechanism-extraction",
+          "nextId": "close-settle"
+        },
+        "camera": {
+          "position": [
+            -0.48875042586192685,
+            0.2630226880735578,
+            -0.012091933493948742
+          ],
+          "target": [
+            6.3074545586516706e-15,
+            2.2010171463193728e-14,
+            -0.23999999999991778
+          ],
+          "up": [
+            6.628031457012221e-14,
+            1,
+            1.7014743649485793e-28
+          ],
+          "quaternion": [
+            -0.18972179496022995,
+            -0.5235286541939522,
+            -0.12086611339619012,
+            0.8217753776960204
+          ],
+          "fov": 42.00000000000123,
+          "handleBoundsClearance": 0.5614172255163855
+        },
+        "tier": "full",
+        "overlay": {
+          "progress": 0.9399970707766457,
+          "subjectTime": 66.9,
+          "studyVisible": false,
+          "manual": false,
+          "explode": 1,
+          "surroundingsOpacity": 1,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        },
+        "layout": {
+          "scrollHeight": 79418,
+          "scrollY": 76350,
+          "canvas": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "bufferWidth": 390,
+            "bufferHeight": 844
+          }
+        }
+      },
+      "hidden": [
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            16,
+            -75859.859375,
+            358,
+            239.125
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            16,
+            -56302.078125,
+            358,
+            239.125
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            16,
+            -36744.296875,
+            358,
+            265.515625
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            16,
+            -17160.125,
+            358,
+            323.515625
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-chapter",
+          "rect": [
+            16,
+            2482.046875,
+            358,
+            291.90625
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-inspection",
+          "rect": [
+            38,
+            -16878.609375,
+            336,
+            42
+          ],
+          "previousVisibility": "hidden",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-inspection-overlay",
+          "rect": [
+            0,
+            0,
+            390,
+            844
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-freelook-toggle",
+          "rect": [
+            194.9375,
+            785.21875,
+            175.0625,
+            38.78125
+          ],
+          "previousVisibility": "visible",
+          "previousInline": ""
+        },
+        {
+          "selector": ".torque-hotspot-layer",
+          "rect": [
+            0,
+            0,
+            390,
+            844
+          ],
+          "previousVisibility": "hidden",
+          "previousInline": ""
+        }
+      ],
+      "invariants": {
+        "layout": true,
+        "progress": true,
+        "camera": true,
+        "restore": true
+      },
+      "control": {
+        "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\output\\playwright\\design-os-hud-trial-2026-10-31\\baseline\\narrow\\p-0.9400-control.png",
+        "sha256": "ac66978be49253fbdfdb11cbfe41231795ce31cfe55b43bafae587f741f76261"
+      },
+      "clean": {
+        "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\output\\playwright\\design-os-hud-trial-2026-10-31\\baseline\\narrow\\p-0.9400-clean.png",
+        "sha256": "3e2729fdf5c787339c00b71cf54eb0c87781e250720c24f222fb4c188876554b"
+      }
+    }
+  ],
+  "errors": [],
+  "provenance": {
+    "head": "ccb215b2cbd9f4206691d4c41d1c5c942c251a37",
+    "source": "Published WIP bundle fingerprint match; source is HEAD plus intentional dirty continuation, not clean HEAD",
+    "algorithm": "SHA-256 of sorted relative-path + space + file SHA-256 rows, joined by LF without trailing newline",
+    "fileCount": 73,
+    "servedTorqueDocumentSha256": "7ad52f39af6bbe7f6e07c56b185d6b55476b39d9d9068c91b139c4f0a6b09fd4",
+    "viewportDpr": 1,
+    "suppression": "inline visibility:hidden!important; original inline style restored",
+    "capture": "browser screenshot with production postprocessing; native scroll through __torqueNarrative.scrollFraction",
+    "note": "camera and state snapshots measure equality across suppression; no claim of identical full scene pixels or owner acceptance"
+  },
+  "motion": {
+    "fps": 24,
+    "dimensions": [
+      1440,
+      900
+    ],
+    "frames": 192,
+    "durationSeconds": 8,
+    "startAchievedProgress": 0.7349970881845261,
+    "endAchievedProgress": 0.7867538729993789,
+    "assumedScroll": "900 CSS pixels per second, seek from native scrollFraction(.735), 37.5 pixels per frame rounded",
+    "controlFrames": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\output\\playwright\\design-os-hud-trial-2026-10-31\\baseline\\motion\\full\\control",
+    "cleanFrames": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\output\\playwright\\design-os-hud-trial-2026-10-31\\baseline\\motion\\full\\clean",
+    "sequenceEvidence": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\project\\work\\evidence\\design-os-hud-trial-2026-10-31\\baseline\\motion-sequence.json",
+    "anchorEvidence": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\project\\work\\evidence\\design-os-hud-trial-2026-10-31\\baseline\\anchors.json",
+    "clips": {
+      "control": {
+        "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\output\\playwright\\design-os-hud-trial-2026-10-31\\baseline\\motion\\full\\control.mp4",
+        "sha256": "2d5ff5400d98de1e88deada35bc5043bac15d26b9f557024fcc9c6462e1d642b"
+      },
+      "clean": {
+        "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\output\\playwright\\design-os-hud-trial-2026-10-31\\baseline\\motion\\full\\clean.mp4",
+        "sha256": "5ccca9bcba68d36f5cec0e5033f2633d5de4a49e99924d9432ee31ecd27d17ec"
+      }
+    },
+    "pairMismatchesAfterRecapture": 0,
+    "initialMismatchFrames": [
+      69
+    ],
+    "fullSequenceCaptureMs": 259149,
+    "errors": []
+  }
+}

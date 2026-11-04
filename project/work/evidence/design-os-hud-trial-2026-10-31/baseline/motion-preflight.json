@@ -1,0 +1,1102 @@
+{
+  "kind": "ten paired seeks preflight",
+  "assumption": "one 900px viewport per second, 24 fps, starting narrative progress .735",
+  "startY": 49057,
+  "frames": [
+    {
+      "i": 0,
+      "target": 49057,
+      "before": {
+        "scrollY": 49057,
+        "progress": 0.7349970881845261,
+        "beat": "inspection-materials",
+        "camera": {
+          "position": [
+            -0.2012659891046355,
+            -0.1485149586003683,
+            -0.017938354612877093
+          ],
+          "target": [
+            -0.07538075520231789,
+            0.005821625348956378,
+            0.016329657670875842
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.25653952918599554,
+            0.7203961932194873,
+            -0.6070317674372117,
+            -0.21616944298849008
+          ],
+          "fov": 17.542421208346884,
+          "handleBoundsClearance": 0.13866498203170155
+        },
+        "anchors": {
+          "progress": 0.7349970881845261,
+          "subjectTime": 15.501357728348447,
+          "studyVisible": true,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 0,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        }
+      },
+      "after": {
+        "scrollY": 49057,
+        "progress": 0.7349970881845261,
+        "camera": {
+          "position": [
+            -0.2012659891046355,
+            -0.1485149586003683,
+            -0.017938354612877093
+          ],
+          "target": [
+            -0.07538075520231789,
+            0.005821625348956378,
+            0.016329657670875842
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.25653952918599554,
+            0.7203961932194873,
+            -0.6070317674372117,
+            -0.21616944298849008
+          ],
+          "fov": 17.542421208346884,
+          "handleBoundsClearance": 0.13866498203170155
+        }
+      },
+      "durationMs": 2729,
+      "same": true
+    },
+    {
+      "i": 1,
+      "target": 49095,
+      "before": {
+        "scrollY": 49095,
+        "progress": 0.735265585770443,
+        "beat": "inspection-materials",
+        "camera": {
+          "position": [
+            -0.20037439635788468,
+            -0.14729237930859826,
+            -0.02340543927222357
+          ],
+          "target": [
+            -0.07561257559418033,
+            0.005666888645810767,
+            0.016696244801674767
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.25975776504812187,
+            0.7294334159481427,
+            -0.5961418737023071,
+            -0.21229145440674488
+          ],
+          "fov": 18.66845676370194,
+          "handleBoundsClearance": 0.13715312150296036
+        },
+        "anchors": {
+          "progress": 0.735265585770443,
+          "subjectTime": 15.665301586609303,
+          "studyVisible": true,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 0,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        }
+      },
+      "after": {
+        "scrollY": 49095,
+        "progress": 0.735265585770443,
+        "camera": {
+          "position": [
+            -0.20037439635788468,
+            -0.14729237930859826,
+            -0.02340543927222357
+          ],
+          "target": [
+            -0.07561257559418033,
+            0.005666888645810767,
+            0.016696244801674767
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.25975776504812187,
+            0.7294334159481427,
+            -0.5961418737023071,
+            -0.21229145440674488
+          ],
+          "fov": 18.66845676370194,
+          "handleBoundsClearance": 0.13715312150296036
+        }
+      },
+      "durationMs": 1158,
+      "same": true
+    },
+    {
+      "i": 2,
+      "target": 49132,
+      "before": {
+        "scrollY": 49132,
+        "progress": 0.7355270176304146,
+        "beat": "inspection-materials",
+        "camera": {
+          "position": [
+            -0.19923241362449862,
+            -0.14576327299084166,
+            -0.02987657286323394
+          ],
+          "target": [
+            -0.07584358374318635,
+            0.005512694102829527,
+            0.017061547499400927
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.2634878627901681,
+            0.7399080130686456,
+            -0.5830903652778725,
+            -0.20764369549590422
+          ],
+          "fov": 19.790546961495615,
+          "handleBoundsClearance": 0.13524552689614344
+        },
+        "anchors": {
+          "progress": 0.7355270176304146,
+          "subjectTime": 15.82554230388,
+          "studyVisible": true,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 0,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        }
+      },
+      "after": {
+        "scrollY": 49132,
+        "progress": 0.7355270176304146,
+        "camera": {
+          "position": [
+            -0.19923241362449862,
+            -0.14576327299084166,
+            -0.02987657286323394
+          ],
+          "target": [
+            -0.07584358374318635,
+            0.005512694102829527,
+            0.017061547499400927
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.2634878627901681,
+            0.7399080130686456,
+            -0.5830903652778725,
+            -0.20764369549590422
+          ],
+          "fov": 19.790546961495615,
+          "handleBoundsClearance": 0.13524552689614344
+        }
+      },
+      "durationMs": 1127,
+      "same": true
+    },
+    {
+      "i": 3,
+      "target": 49170,
+      "before": {
+        "scrollY": 49170,
+        "progress": 0.7357955152163315,
+        "beat": "inspection-materials",
+        "camera": {
+          "position": [
+            -0.19779103734165815,
+            -0.14386570720718012,
+            -0.037435259277779014
+          ],
+          "target": [
+            -0.0760770983388779,
+            0.005356826543537629,
+            0.017430813744473236
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.2677498475743404,
+            0.751876217827652,
+            -0.5675741316764348,
+            -0.20211822589970382
+          ],
+          "fov": 20.92481187809998,
+          "handleBoundsClearance": 0.13286321850485594
+        },
+        "anchors": {
+          "progress": 0.7357955152163315,
+          "subjectTime": 15.990669766569805,
+          "studyVisible": true,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 0,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        }
+      },
+      "after": {
+        "scrollY": 49170,
+        "progress": 0.7357955152163315,
+        "camera": {
+          "position": [
+            -0.19779103734165815,
+            -0.14386570720718012,
+            -0.037435259277779014
+          ],
+          "target": [
+            -0.0760770983388779,
+            0.005356826543537629,
+            0.017430813744473236
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.2677498475743404,
+            0.751876217827652,
+            -0.5675741316764348,
+            -0.20211822589970382
+          ],
+          "fov": 20.92481187809998,
+          "handleBoundsClearance": 0.13286321850485594
+        }
+      },
+      "durationMs": 1172,
+      "same": true
+    },
+    {
+      "i": 4,
+      "target": 49207,
+      "before": {
+        "scrollY": 49207,
+        "progress": 0.7360569470763031,
+        "beat": "inspection-materials",
+        "camera": {
+          "position": [
+            -0.1962016379355739,
+            -0.14179827215496957,
+            -0.04519370735415984
+          ],
+          "target": [
+            -0.07628982855501171,
+            0.00521483225201071,
+            0.017767212794359263
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.27202024206053466,
+            0.7638680381181199,
+            -0.5513291777374458,
+            -0.19633325247205194
+          ],
+          "fov": 21.958119539865926,
+          "handleBoundsClearance": 0.1302558353874783
+        },
+        "anchors": {
+          "progress": 0.7360569470763031,
+          "subjectTime": 16.151923788848006,
+          "studyVisible": true,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 0,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        }
+      },
+      "after": {
+        "scrollY": 49207,
+        "progress": 0.7360569470763031,
+        "camera": {
+          "position": [
+            -0.1962016379355739,
+            -0.14179827215496957,
+            -0.04519370735415984
+          ],
+          "target": [
+            -0.07628982855501171,
+            0.00521483225201071,
+            0.017767212794359263
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.27202024206053466,
+            0.7638680381181199,
+            -0.5513291777374458,
+            -0.19633325247205194
+          ],
+          "fov": 21.958119539865926,
+          "handleBoundsClearance": 0.1302558353874783
+        }
+      },
+      "durationMs": 1142,
+      "same": true
+    },
+    {
+      "i": 5,
+      "target": 49245,
+      "before": {
+        "scrollY": 49245,
+        "progress": 0.7363254446622202,
+        "beat": "inspection-materials",
+        "camera": {
+          "position": [
+            -0.19455722915247983,
+            -0.1397076782385813,
+            -0.05281968471929342
+          ],
+          "target": [
+            -0.07647948077338432,
+            0.0050882421846768465,
+            0.018067117656154687
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.2760600397342493,
+            0.7753425880413214,
+            -0.5351034240706947,
+            -0.19052309880728036
+          ],
+          "fov": 22.87932901295767,
+          "handleBoundsClearance": 0.12759606652191843
+        },
+        "anchors": {
+          "progress": 0.7363254446622202,
+          "subjectTime": 16.317949030367636,
+          "studyVisible": true,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 0,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        }
+      },
+      "after": {
+        "scrollY": 49245,
+        "progress": 0.7363254446622202,
+        "camera": {
+          "position": [
+            -0.19455722915247983,
+            -0.1397076782385813,
+            -0.05281968471929342
+          ],
+          "target": [
+            -0.07647948077338432,
+            0.0050882421846768465,
+            0.018067117656154687
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.2760600397342493,
+            0.7753425880413214,
+            -0.5351034240706947,
+            -0.19052309880728036
+          ],
+          "fov": 22.87932901295767,
+          "handleBoundsClearance": 0.12759606652191843
+        }
+      },
+      "durationMs": 1095,
+      "same": true
+    },
+    {
+      "i": 6,
+      "target": 49282,
+      "before": {
+        "scrollY": 49282,
+        "progress": 0.7365868765221918,
+        "beat": "inspection-materials",
+        "camera": {
+          "position": [
+            -0.19314454004132217,
+            -0.13815801793581425,
+            -0.058954901716407423
+          ],
+          "target": [
+            -0.07662030555883129,
+            0.004994243710917976,
+            0.01828980968780742
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.27888131389562165,
+            0.7843769669755796,
+            -0.5220413856909536,
+            -0.18560920791790284
+          ],
+          "fov": 23.563365970252757,
+          "handleBoundsClearance": 0.12550380009098602
+        },
+        "anchors": {
+          "progress": 0.7365868765221918,
+          "subjectTime": 16.479938053780376,
+          "studyVisible": true,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 0,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        }
+      },
+      "after": {
+        "scrollY": 49282,
+        "progress": 0.7365868765221918,
+        "camera": {
+          "position": [
+            -0.19314454004132217,
+            -0.13815801793581425,
+            -0.058954901716407423
+          ],
+          "target": [
+            -0.07662030555883129,
+            0.004994243710917976,
+            0.01828980968780742
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.27888131389562165,
+            0.7843769669755796,
+            -0.5220413856909536,
+            -0.18560920791790284
+          ],
+          "fov": 23.563365970252757,
+          "handleBoundsClearance": 0.12550380009098602
+        }
+      },
+      "durationMs": 1054,
+      "same": true
+    },
+    {
+      "i": 7,
+      "target": 49320,
+      "before": {
+        "scrollY": 49320,
+        "progress": 0.7368553741081086,
+        "beat": "inspection-materials",
+        "camera": {
+          "position": [
+            -0.19208698750663672,
+            -0.13761815427840784,
+            -0.06271936505568734
+          ],
+          "target": [
+            -0.07670088896186378,
+            0.004940455474200212,
+            0.01841723954102423
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.27964544517638984,
+            0.7899900430213561,
+            -0.5143567031167757,
+            -0.182075091316895
+          ],
+          "fov": 23.95478872757402,
+          "handleBoundsClearance": 0.12442395542967374
+        },
+        "anchors": {
+          "progress": 0.7368553741081086,
+          "subjectTime": 16.646575248530322,
+          "studyVisible": true,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 0,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        }
+      },
+      "after": {
+        "scrollY": 49320,
+        "progress": 0.7368553741081086,
+        "camera": {
+          "position": [
+            -0.19208698750663672,
+            -0.13761815427840784,
+            -0.06271936505568734
+          ],
+          "target": [
+            -0.07670088896186378,
+            0.004940455474200212,
+            0.01841723954102423
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.27964544517638984,
+            0.7899900430213561,
+            -0.5143567031167757,
+            -0.182075091316895
+          ],
+          "fov": 23.95478872757402,
+          "handleBoundsClearance": 0.12442395542967374
+        }
+      },
+      "durationMs": 1095,
+      "same": true
+    },
+    {
+      "i": 8,
+      "target": 49357,
+      "before": {
+        "scrollY": 49357,
+        "progress": 0.7371168059680803,
+        "beat": "inspection-materials",
+        "camera": {
+          "position": [
+            -0.191480197263532,
+            -0.13844414025286886,
+            -0.06333694761295658
+          ],
+          "target": [
+            -0.07671019674512208,
+            0.00493424266572632,
+            0.018431958321936243
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.27771899480840606,
+            0.791353577880645,
+            -0.5139110177441079,
+            -0.18035282237693354
+          ],
+          "fov": 24,
+          "handleBoundsClearance": 0.12470051846766647
+        },
+        "anchors": {
+          "progress": 0.7371168059680803,
+          "subjectTime": 16.809020969204646,
+          "studyVisible": true,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 0,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        }
+      },
+      "after": {
+        "scrollY": 49357,
+        "progress": 0.7371168059680803,
+        "camera": {
+          "position": [
+            -0.191480197263532,
+            -0.13844414025286886,
+            -0.06333694761295658
+          ],
+          "target": [
+            -0.07671019674512208,
+            0.00493424266572632,
+            0.018431958321936243
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.27771899480840606,
+            0.791353577880645,
+            -0.5139110177441079,
+            -0.18035282237693354
+          ],
+          "fov": 24,
+          "handleBoundsClearance": 0.12470051846766647
+        }
+      },
+      "durationMs": 1082,
+      "same": true
+    },
+    {
+      "i": 9,
+      "target": 49395,
+      "before": {
+        "scrollY": 49395,
+        "progress": 0.7373853035539971,
+        "beat": "inspection-materials",
+        "camera": {
+          "position": [
+            -0.1904901466592746,
+            -0.13997070989204444,
+            -0.06359570133956761
+          ],
+          "target": [
+            -0.07671019674512208,
+            0.00493424266572632,
+            0.018431958321936243
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.27400711916717074,
+            0.7926464684508455,
+            -0.5147506306899963,
+            -0.17794230217225399
+          ],
+          "fov": 24,
+          "handleBoundsClearance": 0.1253112222537784
+        },
+        "anchors": {
+          "progress": 0.7373853035539971,
+          "subjectTime": 16.975984291585775,
+          "studyVisible": true,
+          "manual": false,
+          "explode": 0,
+          "surroundingsOpacity": 0,
+          "ringVisible": false,
+          "focusId": null,
+          "anchors": [
+            {
+              "id": "clutch-housing",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "ring-switch",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "lcd-manometer",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            },
+            {
+              "id": "stage2-planet",
+              "x": 0,
+              "y": 0,
+              "visible": false,
+              "reason": "inactive",
+              "occluder": ""
+            }
+          ]
+        }
+      },
+      "after": {
+        "scrollY": 49395,
+        "progress": 0.7373853035539971,
+        "camera": {
+          "position": [
+            -0.1904901466592746,
+            -0.13997070989204444,
+            -0.06359570133956761
+          ],
+          "target": [
+            -0.07671019674512208,
+            0.00493424266572632,
+            0.018431958321936243
+          ],
+          "up": [
+            -2.700353732534914e-16,
+            5.267481696664555e-16,
+            -1
+          ],
+          "quaternion": [
+            0.27400711916717074,
+            0.7926464684508455,
+            -0.5147506306899963,
+            -0.17794230217225399
+          ],
+          "fov": 24,
+          "handleBoundsClearance": 0.1253112222537784
+        }
+      },
+      "durationMs": 1100,
+      "same": true
+    }
+  ],
+  "elapsedMs": 12771,
+  "meanMs": 1277.1,
+  "estimated8secMs": 245203.19999999998,
+  "estimated4secMs": 122601.59999999999,
+  "errors": []
+}

@@ -1,0 +1,284 @@
+Unused files (26)
+src/components/BootSequence.tsx                       
+src/components/canvas/CameraSplineStudio.tsx          
+src/components/canvas/ProductStage.tsx                
+src/components/IntroTitles.tsx                        
+src/components/RingInspection.tsx                     
+src/components/ToleranceStations.tsx                  
+src/scene/backgrounds/backdropConfig.ts               
+src/scene/backgrounds/BackdropRig.tsx                 
+src/scene/backgrounds/layers/BackdropGradientLayer.tsx
+src/scene/backgrounds/layers/BackdropGridLayer.tsx    
+src/scene/backgrounds/layers/types.ts                 
+src/scene/CameraRig.tsx                               
+src/scene/cinematic/CinematicRigRoute.tsx             
+src/scene/cinematic/rigRequest.ts                     
+src/scene/drawing/DrawingProofRenderer.tsx            
+src/scene/inspection/InspectionScene.tsx              
+src/scene/PostProcessingComposer.tsx                  
+src/scene/SceneCanvas.tsx                             
+src/scene/scrollCommit.ts                             
+src/scene/ScrollRig.tsx                               
+src/scene/SpatialRig.tsx                              
+src/scene/stations/stationData.ts                     
+src/scene/stations/StationDriver.tsx                  
+src/scene/stations/stationStore.ts                    
+src/scene/TorqueWrenchHero.tsx                        
+src/utils/lenisGsapBridge.ts                          
+Unused devDependencies (1)
+tailwindcss  package.json:38:6
+Unlisted dependencies (27)
+file     scripts/capture-b1b2-baseline.mjs:5:26              
+esbuild  scripts/check-b1b2-contract.mjs:11:23               
+esbuild  scripts/diagnose-high-low-features.mjs:3:27         
+esbuild  scripts/export-torque-offline-source.mjs:272:23     
+draco3d  scripts/measure-cascade-features.mjs:6:21           
+esbuild  scripts/measure-cascade-speed.mjs:3:27              
+esbuild  scripts/preview-camera-candidate.mjs:2:27           
+esbuild  scripts/preview-owner-visual-corrections.mjs:6:27   
+esbuild  scripts/preview-side-track.mjs:3:27                 
+esbuild  scripts/probe-final-card.mjs:1:27                   
+esbuild  scripts/solve-page-cinematography.mjs:2:27          
+file     scripts/verify-b1b2-rebuild.mjs:17:26               
+esbuild  scripts/verify-b1b2-supplemental.mjs:3:23           
+esbuild  scripts/verify-final-cascade-seeks.mjs:3:27         
+esbuild  scripts/verify-final-cascade.mjs:7:27               
+esbuild  scripts/verify-handwriting-reference.mjs:17:39      
+esbuild  scripts/verify-jg036-hotspot-layering.mjs:25:23     
+esbuild  scripts/verify-jgun-opening.mjs:21:23               
+esbuild  scripts/verify-owner-corrections.mjs:399:11         
+esbuild  scripts/verify-page-cinematography.mjs:282:11       
+esbuild  scripts/verify-shaft-inspection.mjs:4:23            
+esbuild  scripts/verify-stage1-cascade.mjs:99:11             
+esbuild  scripts/verify-torque-opening-ab.mjs:23:23          
+esbuild  scripts/verify-torque-pit-ab.mjs:7:23               
+bidi-js  src/scene/drawing/sheet/sheetInkRuntime.test.js:7:25
+draco3d  src/scene/rig/nodeRoles.test.ts:18:68               
+draco3d  src/scene/rig/supportProvenance.test.ts:17:31       
+Unresolved imports (1)
+/src/scene/drawing/sheet/drawingCache.ts  scripts/precompute-drawing.mjs:60:32
+Unused exports (152)
+TechnicalHUD                                function  src/components/TechnicalHUD.tsx:41:17                 
+CAMERA_PATH                                           src/data/caseStudies.ts:259:14                        
+PATH_SEGMENTS                                         src/data/caseStudies.ts:293:14                        
+S2_ARC_END_POSE                                       src/data/caseStudies.ts:313:14                        
+framingBiasVec                              function  src/data/caseStudies.ts:445:17                        
+framingBias                                 function  src/data/caseStudies.ts:465:17                        
+SHIFT_CAMERA_KEYFRAMES                                src/data/caseStudies.ts:476:14                        
+OUTLINE_BURST_SECONDS                                 src/scene/drawing/electricalScore.ts:27:14            
+branchWindow                                          src/scene/drawing/electricalScore.ts:103:14           
+BREAKTHROUGH_RIM_WIDTH            fracture            src/scene/drawing/sheet/breakthroughGeometry.ts:99:14 
+BREAKTHROUGH_FRAGMENT_RADIAL_MAX  fracture            src/scene/drawing/sheet/breakthroughGeometry.ts:105:14
+rasterTornOutline                 fracture  function  src/scene/drawing/sheet/breakthroughGeometry.ts:455:17
+drawingCacheBypassed              cache     function  src/scene/drawing/sheet/drawingCache.ts:52:17         
+encodedDrawingPrecompute          cache     function  src/scene/drawing/sheet/drawingCache.ts:140:23        
+decodeDrawingPayload              cache     function  src/scene/drawing/sheet/drawingCache.ts:194:23        
+PEN                                                   src/scene/drawing/sheet/ownerAnnotations.ts:189:10    
+PORTAL_MOUTH_Z                                        src/scene/drawing/sheet/portal.ts:17:10               
+PORTAL_FISSURE_CSS                                    src/scene/drawing/sheet/portalGeometry.ts:30:14       
+PORTAL_RELIEF_RAMP_M                                  src/scene/drawing/sheet/portalGeometry.ts:65:14       
+portalRgbSteps8Bit                          function  src/scene/drawing/sheet/portalGeometry.ts:319:17      
+profileFromPoints                 profile   function  src/scene/drawing/sheet/profile.ts:186:17             
+REFERENCE_PROVENANCE                                  src/scene/drawing/sheet/referenceHandGlyphs.ts:7:14   
+lampFor                                     function  src/scene/drawing/sheetCamera.ts:211:17               
+HotspotButton                               function  src/scene/Hotspots.tsx:45:17                          
+SpatialLeaderLine                           function  src/scene/Hotspots.tsx:167:17                         
+Hotspots                                    function  src/scene/Hotspots.tsx:492:17                         
+FOLLOW_AZIMUTH_MOD                                    src/scene/inspection/shaft/camera.ts:41:14            
+RECAP_SWING_START_S                                   src/scene/inspection/shaft/camera.ts:52:14            
+followMfAt                                            src/scene/inspection/shaft/camera.ts:258:10           
+CASCADE_LOCAL_REDUCTION                               src/scene/inspection/shaft/cascadeConfig.ts:4:14      
+ALIAS_DESIGN_PERIOD                                   src/scene/inspection/shaft/cascadeConfig.ts:22:14     
+ALIAS_HARD_PERIOD                                     src/scene/inspection/shaft/cascadeConfig.ts:23:14     
+inputRpmToCarrierRate                                 src/scene/inspection/shaft/cascadeConfig.ts:27:14     
+FOS_ATTEMPT_ORDER                                     src/scene/inspection/shaft/fosPresentation.ts:19:14   
+FOS_SWAP                                              src/scene/inspection/shaft/fosPresentation.ts:83:14   
+FOS_PROVENANCE                                        src/scene/inspection/shaft/fosPresentation.ts:126:14  
+SHAFT_LITE_FPS                                        src/scene/inspection/shaft/kinematics.ts:60:14        
+T_SLOW_MID                                            src/scene/inspection/shaft/kinematics.ts:147:14       
+WORK_REV_M                                            src/scene/inspection/shaft/kinematics.ts:159:14       
+ROOT_TIP_STOCK_MM                                     src/scene/inspection/shaft/kinematics.ts:181:14       
+hobRadialOffsetAt                           function  src/scene/inspection/shaft/kinematics.ts:285:17       
+hobRevRateAt                                function  src/scene/inspection/shaft/kinematics.ts:293:17       
+HOB_CERTIFIED_R_MM                                    src/scene/inspection/shaft/progression.ts:74:14       
+HOB_CERTIFIED_LEAD_ANGLE_DEG                          src/scene/inspection/shaft/progression.ts:75:14       
+AXIAL_CONTACT_MARKER                                  src/scene/inspection/shaft/progression.ts:156:14      
+STRESS_SIGMA_MM                                       src/scene/inspection/shaft/progression.ts:348:14      
+stressSeverity                              function  src/scene/inspection/shaft/progression.ts:351:17      
+clamp01                                               src/scene/inspection/shaft/schedule.ts:7:14           
+shaftEase                                             src/scene/inspection/shaft/schedule.ts:8:14           
+CASCADE_DRIVE_EVENTS                                  src/scene/inspection/shaft/schedule.ts:39:14          
+SHAFT_CARD_FADE                                       src/scene/inspection/shaft/script.ts:29:14            
+SHAFT_RUNOUT_HOLD                                     src/scene/inspection/shaft/script.ts:36:14            
+SHAFT_WARM_SCAN                                       src/scene/inspection/shaft/script.ts:37:14            
+SHAFT_COOL_SCAN                                       src/scene/inspection/shaft/script.ts:38:14            
+CLIP_START                                            src/scene/inspection/timeline.ts:11:14                
+CLIP_CONTACT_START                                    src/scene/inspection/timeline.ts:12:14                
+CLIP_TRAVERSE_END                                     src/scene/inspection/timeline.ts:14:14                
+CLIP_CONTACT_END                                      src/scene/inspection/timeline.ts:15:14                
+CLIP_END                                              src/scene/inspection/timeline.ts:16:14                
+CONTACT_DWELL                                         src/scene/inspection/timeline.ts:22:14                
+HOLE_CLOSE_START                                      src/scene/inspection/timeline.ts:33:14                
+HOLE_CLOSE_END                                        src/scene/inspection/timeline.ts:34:14                
+HOLE_OPEN_START                                       src/scene/inspection/timeline.ts:35:14                
+HOLE_OPEN_END                                         src/scene/inspection/timeline.ts:36:14                
+LITE_FPS                                              src/scene/inspection/timeline.ts:44:14                
+COVERAGE_TIME                                         src/scene/inspection/timeline.ts:49:14                
+introPbrActivation                                    src/scene/rig/materials.ts:137:14                     
+RING_SWITCH_TRAVEL_SCALE                              src/scene/rig/wrenchMechanics.ts:46:14                
+BASE                                                  src/scene/rl300/BackgroundDirector.tsx:14:14          
+lookAt                                      function  src/scene/rl300/BackgroundDirector.tsx:31:17          
+BEAT_SPECS                                            src/scene/rl300/beats.ts:79:14                        
+resolveBeats                                function  src/scene/rl300/beats.ts:181:17                       
+collectWindows                              function  src/scene/rl300/beats.ts:207:17                       
+INTAKE_ANCHOR                                         src/scene/rl300/IntakeHotspot.tsx:7:14                
+INTAKE_SEEK                                           src/scene/rl300/IntakeHotspot.tsx:13:14               
+projectIntake                               function  src/scene/rl300/IntakeHotspot.tsx:22:17               
+LINER_PART                                            src/scene/rl300/prepareModel.ts:15:14                 
+EXHAUST_PIPE                                          src/scene/rl300/prepareModel.ts:20:14                 
+CHROME                                                src/scene/rl300/prepareModel.ts:22:14                 
+EXTRAS_POLICY                                         src/scene/rl300/prepareModel.ts:190:14                
+REPLACED_MAN                                          src/scene/rl300/prepareModel.ts:197:14                
+EXHAUST_STACK_OFFSET                                  src/scene/rl300/prepareModel.ts:204:14                
+cutAt                                                 src/scene/rl300/shot.ts:38:14                         
+undersideAt                                           src/scene/rl300/shot.ts:42:14                         
+shotIndexAt                                           src/scene/rl300/shot.ts:44:14                         
+BACKGROUND_LAYERS                                     src/scene/torque-wrench/BackgroundDirector.ts:2:3     
+CASCADE_PROOF_FEATURES                                src/scene/torque-wrench/cascadeProof.ts:13:14         
+PRIVATE_OUTLINE_BURST_SECONDS                         src/scene/torque-wrench/ElectricalDirector.ts:12:14   
+PRIVATE_OUTLINE_START_T                               src/scene/torque-wrench/ElectricalDirector.ts:15:14   
+privateElectricalClock                      function  src/scene/torque-wrench/ElectricalDirector.ts:50:17   
+privateBurstProgress                        function  src/scene/torque-wrench/ElectricalDirector.ts:72:17   
+holdAfterglow                               function  src/scene/torque-wrench/ElectricalDirector.ts:97:17   
+TORQUE_HOTSPOT_EXCLUSIONS                             src/scene/torque-wrench/hotspotData.ts:62:14          
+TORQUE_HOTSPOT_MIN_SURROUNDINGS                       src/scene/torque-wrench/hotspotData.ts:68:14          
+TORQUE_HOTSPOT_MIN_EXPLODE                            src/scene/torque-wrench/hotspotData.ts:69:14          
+TORQUE_HOTSPOTS_DISABLED                              src/scene/torque-wrench/hotspotData.ts:76:14          
+isTorqueHotspotInSpecialSequence            function  src/scene/torque-wrench/hotspotData.ts:80:17          
+TORQUE_PART_FOCUS_EVENT                               src/scene/torque-wrench/hotspotData.ts:279:14         
+CASCADE_CLOCK_START                                   src/scene/torque-wrench/InspectionDirector.ts:27:14   
+CASCADE_CLOCK_END                                     src/scene/torque-wrench/InspectionDirector.ts:28:14   
+CASCADE_CLOCK_SHOULDER                                src/scene/torque-wrench/InspectionDirector.ts:162:14  
+CASCADE_TERMINAL_SHOULDER                             src/scene/torque-wrench/InspectionDirector.ts:164:14  
+CASCADE_LATER_DISTANCE_GAIN                           src/scene/torque-wrench/InspectionDirector.ts:213:14  
+CASCADE_CLOCK_BOUNDARIES                              src/scene/torque-wrench/InspectionDirector.ts:215:14  
+RING_CLOSEUP_SCALE                                    src/scene/torque-wrench/InspectionDirector.ts:693:14  
+RING_GROOVE_VIEW                                      src/scene/torque-wrench/InspectionDirector.ts:709:14  
+RING_CAMERA_BLUE_AT                                   src/scene/torque-wrench/InspectionDirector.ts:713:14  
+RING_CAMERA_BLUE_HOLD_START                           src/scene/torque-wrench/InspectionDirector.ts:716:14  
+RING_SHIFT_START                                      src/scene/torque-wrench/InspectionDirector.ts:718:14  
+RING_SHIFT_END                                        src/scene/torque-wrench/InspectionDirector.ts:719:14  
+ISOLATION_AZIMUTH_DEG                                 src/scene/torque-wrench/JourneyCamera.ts:14:14        
+ISOLATION_ELEVATION_DEG                               src/scene/torque-wrench/JourneyCamera.ts:15:14        
+COLLAPSE_AZIMUTH_DEG                                  src/scene/torque-wrench/JourneyCamera.ts:97:14        
+COLLAPSE_ELEVATION_DEG                                src/scene/torque-wrench/JourneyCamera.ts:98:14        
+READOUT_AZIMUTH_DEG                                   src/scene/torque-wrench/JourneyCamera.ts:99:14        
+READOUT_ELEVATION_DEG                                 src/scene/torque-wrench/JourneyCamera.ts:100:14       
+C2_NUDGE_START                                        src/scene/torque-wrench/MechanismDirector.ts:33:14    
+C2_NUDGE_END                                          src/scene/torque-wrench/MechanismDirector.ts:34:14    
+ORBIT_SHRAPNEL_DIP                                    src/scene/torque-wrench/OpeningCamera.ts:26:14        
+ORBIT_SHRAPNEL_DIP_DESKTOP                            src/scene/torque-wrench/OpeningCamera.ts:27:14        
+ORBIT_ELEVATION_DIP                                   src/scene/torque-wrench/OpeningCamera.ts:29:14        
+ORBIT_ELEVATION_DIP_NARROW                            src/scene/torque-wrench/OpeningCamera.ts:30:14        
+PRIVATE_PIT_RELIEF_M                                  src/scene/torque-wrench/PitGeometry.ts:5:14           
+PRIVATE_PIT_MAX_DEVIATION_M                           src/scene/torque-wrench/PitGeometry.ts:6:14           
+PRIVATE_PIT_CELL_RAMP                                 src/scene/torque-wrench/PitGeometry.ts:28:14          
+PRIVATE_PIT_FINE_CELL_RAMP                            src/scene/torque-wrench/PitGeometry.ts:29:14          
+TorquePoster                                function  src/scene/torque-wrench/Poster.tsx:9:17               
+PRIVATE_OUTPUT_LINES                                  src/scene/torque-wrench/privateSheetContent.ts:9:14   
+FULL_DPR_CAP                                          src/scene/torque-wrench/renderBudget.ts:13:14         
+LITE_DPR_CAP                                          src/scene/torque-wrench/renderBudget.ts:14:14         
+FULL_PIXEL_LIMIT                                      src/scene/torque-wrench/renderBudget.ts:15:14         
+LITE_PIXEL_LIMIT                                      src/scene/torque-wrench/renderBudget.ts:16:14         
+PRIVATE_RING_DURATION                                 src/scene/torque-wrench/RingInspection.ts:5:14        
+RING_DIE_BULLET_TURNS                                 src/scene/torque-wrench/RingInspection.ts:19:14       
+RING_BULLET_RAMP_FRACTION                             src/scene/torque-wrench/RingInspection.ts:22:14       
+CASCADE_PACING_MULTIPLIER                             src/scene/torque-wrench/scrollPacing.ts:4:14          
+PASSIVE_LOOK_MAX_DEG                                  src/scene/torque-wrench/stopAndAppreciate.ts:4:14     
+PASSIVE_LOOK_MAX_RAD                                  src/scene/torque-wrench/stopAndAppreciate.ts:5:14     
+FREE_LOOK_MAX_PITCH_RAD                               src/scene/torque-wrench/stopAndAppreciate.ts:6:14     
+SCROLL_STATIONARY_DELAY_SEC                           src/scene/torque-wrench/stopAndAppreciate.ts:9:14     
+REGISTRATION_GUARD_START                              src/scene/torque-wrench/stopAndAppreciate.ts:10:14    
+REGISTRATION_GUARD_END                                src/scene/torque-wrench/stopAndAppreciate.ts:11:14    
+deflectCameraAroundTarget                   function  src/scene/torque-wrench/stopAndAppreciate.ts:107:17   
+default                                     function  src/scene/torque-wrench/TorqueWrenchPage.tsx:105:16   
+CAD_TRANSITION_VERTEX                                 src/shaders/CadTransitionShader.ts:39:14              
+CAD_TRANSITION_FRAGMENT                               src/shaders/CadTransitionShader.ts:82:14              
+CAD_ASSET_PATTERN                                     src/shared/posterGuard.ts:17:14                       
+useInspection                               function  src/state/inspectionStore.ts:52:17                    
+qualityLocked                                         src/state/qualityStore.ts:74:14                       
+getTorqueConductorDiagnostics               function  src/state/torqueWrenchStore.ts:81:17                  
+auditGLBScene                               function  src/utils/glbSceneAuditor.ts:51:17                    
+useGLBSceneAuditor                          function  src/utils/glbSceneAuditor.ts:160:17                   
+Unused exported types (55)
+CameraSegment                               interface  src/data/caseStudies.ts:277:18                        
+FramingBiasVec                              interface  src/data/caseStudies.ts:440:18                        
+BreakthroughFragment             fracture   interface  src/scene/drawing/sheet/breakthroughGeometry.ts:113:18
+HandGlyph                                   interface  src/scene/drawing/sheet/handwriting.ts:172:18         
+SheetTextBoundsItem              lettering  interface  src/scene/drawing/sheet/sheetText.ts:122:18           
+SheetTextBounds                  lettering  interface  src/scene/drawing/sheet/sheetText.ts:132:18           
+RingGeometryCleanupPhase                    type       src/scene/inspection/ringGeometry.ts:10:13            
+ShaftKinematicsMode                         type       src/scene/inspection/shaft/kinematics.ts:375:13       
+ProgressionMode                             type       src/scene/inspection/shaft/progression.ts:18:13       
+CascadeTuple                                type       src/scene/inspection/shaft/schedule.ts:12:13          
+ShaftStampState                             type       src/scene/inspection/shaft/script.ts:4:13             
+ShaftStressKind                             type       src/scene/inspection/shaft/script.ts:5:13             
+ShaftCaptionId                              type       src/scene/inspection/shaft/script.ts:6:13             
+StoryChapter                                interface  src/scene/inspection/story.ts:7:18                    
+StoryAsset                                  interface  src/scene/inspection/story.ts:8:18                    
+StoryFrame                                  interface  src/scene/inspection/story.ts:17:18                   
+InspectionCameraSample                      interface  src/scene/inspection/story.ts:21:18                   
+StageNodes                                  interface  src/scene/rig/nodeRoles.ts:116:18                     
+V16Part                                     interface  src/scene/rl300/v16Materials.ts:25:18                 
+BackgroundLayerDefinition                   type       src/scene/torque-wrench/BackgroundDirector.ts:5:8     
+BackgroundLayerSample                       type       src/scene/torque-wrench/BackgroundDirector.ts:6:8     
+BackgroundSample                            type       src/scene/torque-wrench/BackgroundDirector.ts:7:8     
+BackgroundLayerSample                       interface  src/scene/torque-wrench/backgroundLayers.ts:15:18     
+TorqueStoryChapterId                        type       src/scene/torque-wrench/beats.ts:8:13                 
+TorqueCameraId                              type       src/scene/torque-wrench/beats.ts:11:13                
+TorqueSceneId                               type       src/scene/torque-wrench/beats.ts:14:13                
+TorqueDirectorId                            type       src/scene/torque-wrench/beats.ts:17:13                
+FeatureMaskBand                             type       src/scene/torque-wrench/cascadeFeatureMask.ts:58:13   
+CascadeProofFeature                         type       src/scene/torque-wrench/cascadeProof.ts:20:13         
+CascadeProofControlOptions                  interface  src/scene/torque-wrench/cascadeProof.ts:22:18         
+TorqueGSAPLike                              interface  src/scene/torque-wrench/conductorRuntime.ts:29:18     
+TorqueConductorWindowLike                   interface  src/scene/torque-wrench/conductorRuntime.ts:52:18     
+TorqueConductorDocumentLike                 interface  src/scene/torque-wrench/conductorRuntime.ts:57:18     
+ShaperContactPhase                          type       src/scene/torque-wrench/contactWitnesses.ts:13:13     
+TorqueDirectorSampler                       type       src/scene/torque-wrench/directorRegistry.ts:8:13      
+PrivateInspectionCamera                     interface  src/scene/torque-wrench/InspectionDirector.ts:456:18  
+TorquePosterChapter                         type       src/scene/torque-wrench/posterMap.ts:13:13            
+LoadTorqueScene                             type       src/scene/torque-wrench/sceneLifecycle.ts:8:13        
+RedirectStatus                              type       src/shared/pages.ts:102:13                            
+PosterStatus                                type       src/shared/poster.ts:11:13                            
+PosterFile                                  interface  src/shared/poster.ts:13:18                            
+PosterProvenance                            interface  src/shared/poster.ts:21:18                            
+QualityTier                                 type       src/state/qualityStore.ts:22:13                       
+TorqueSceneStatus                           type       src/state/torqueWrenchStore.ts:8:13                   
+TorqueWrenchPageState                       interface  src/state/torqueWrenchStore.ts:10:18                  
+TorqueBeatListener                          type       src/state/torqueWrenchStore.ts:16:13                  
+TorqueConductorLagSmoothingMode             type       src/state/torqueWrenchStore.ts:18:13                  
+DatumLabel                                  type       src/types/portfolio.ts:10:13                          
+CaseStudyId                                 type       src/types/portfolio.ts:24:13                          
+HotspotKind                                 type       src/types/portfolio.ts:36:13                          
+FeatureControlFrame                         interface  src/types/portfolio.ts:38:18                          
+HotspotAnnotation                           interface  src/types/portfolio.ts:52:18                          
+Vec3Tuple                                   type       src/utils/glbSceneAuditor.ts:4:13                     
+GLBNodeRecord                               interface  src/utils/glbSceneAuditor.ts:6:18                     
+GLBStageFit                                 interface  src/utils/glbSceneAuditor.ts:18:18                    
+Duplicate exports (8)
+SHAPER_BORE_RADIUS_MM|SHAPER_PILOT_RADIUS_MM                src/scene/inspection/shaft/toolSpec.ts      
+SHAPER_ADAPTER_FLANGE_RADIUS_MM|SHAPER_MOUNT_MAX_RADIUS_MM  src/scene/inspection/shaft/toolSpec.ts      
+TOOL_FADE_END|HOLE_OPEN_START                               src/scene/inspection/timeline.ts            
+SHELL_ROOTS|SECTION_ROOTS                                   src/scene/rl300/prepareModel.ts             
+TorquePoster|default                                        src/scene/torque-wrench/Poster.tsx          
+FULL_PIXEL_LIMIT|LITE_PIXEL_LIMIT                           src/scene/torque-wrench/renderBudget.ts     
+Story|default                                               src/scene/torque-wrench/Story.tsx           
+TorqueWrenchPage|default                                    src/scene/torque-wrench/TorqueWrenchPage.tsx
+Configuration hints (6)
+src/torque-wrench-main.tsx    ../../../AppData/Local/Temp/knip-jgun.json  Remove redundant entry pattern                
+src/quiet-machine-main.tsx    ../../../AppData/Local/Temp/knip-jgun.json  Remove redundant entry pattern                
+vite.config.ts                ../../../AppData/Local/Temp/knip-jgun.json  Remove redundant entry pattern                
+playwright.config.ts          ../../../AppData/Local/Temp/knip-jgun.json  Remove redundant entry pattern                
+.json                         ../../../AppData/Local/Temp/knip-jgun.json  Extension in project not registered as a comp…
+.css                          ../../../AppData/Local/Temp/knip-jgun.json  Compiled extension excluded by project (impor…

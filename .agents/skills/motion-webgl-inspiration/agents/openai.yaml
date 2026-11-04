@@ -1,0 +1,13 @@
+interface:
+  display_name: "Motion + WebGL Inspiration"
+  short_description: "Reference-first workflow for CAD-driven 3D scroll sites: galleries, REA breakdowns, camera paths, materials, HUDs, type."
+  default_prompt: "Use $motion-webgl-inspiration to research references and write a Reference Brief before building this 3D scroll experience."
+policy:
+  allow_implicit_invocation: true
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "a1"
+      description: "A1 Gallery MCP: curated website references, sections, fonts, font pairings and measured design tokens (free account, 50 requests/day)"
+      transport: "streamable_http"
+      url: "https://www.a1.gallery/api/mcp"

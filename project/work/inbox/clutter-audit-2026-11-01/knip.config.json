@@ -1,0 +1,22 @@
+{
+  "entry": [
+    "index.html",
+    "torque-wrench/index.html",
+    "quiet-machine/index.html",
+    "lifecycle-census.html",
+    "src/torque-wrench-main.tsx",
+    "src/quiet-machine-main.tsx",
+    "src/torque-wrench-lifecycle-census-main.tsx",
+    "vite.config.ts",
+    "playwright.config.ts",
+    "build/*.ts",
+    "scripts/**/*.{mjs,cjs,ts}"
+  ],
+  "project": [
+    "src/**/*.{ts,tsx,json}",
+    "scripts/**/*.{mjs,cjs,ts}",
+    "build/**/*.ts",
+    "tests/**/*.ts"
+  ],
+  "ignore": ["src/main.tsx", "src/App.tsx"]
+}
