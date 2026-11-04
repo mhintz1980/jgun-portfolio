@@ -1,5 +1,11 @@
 # JG-039 — homepage build verification (2026-11-01)
 
+> **Current continuation, 2026-11-03:** Header scroll gate/fade implementation is
+> locally verified. WCS hover navigation and full-bleed torque-wrench images are
+> now implemented locally. See the [current
+> status and temporary handoff location](../../../../docs/homepage-header-scroll-2026-11-03.md).
+> Earlier cloud/PR/build statements below remain historical evidence.
+
 Build: branch `claude/project-thread-tlq9j4` (W1 + W5 by the orchestrator; W2 vault/loupe/theme,
 W3 thread, W4 rope by parallel workers on local sub-branches, merged). Checks run in the cloud
 sandbox on `vite preview` :4173 (restarted after rebuilds), headless Chromium (software GL).
@@ -89,3 +95,27 @@ Real touch device, devicePixelRatio > 1, Safari/Firefox, owner visual acceptance
 - `scripts/blur-dimensions.py` run on vault drawings armament-receiver, armament-sections, gearbox-housing, gearbox-sections, pump-door and stacks torque-wrench/03-06, armament/02, armament/06 (visually checked: callouts blurred, view labels sharp).
 - Removed stacks torque-wrench/01, 02 and renderings/01 (pistol-grip Torque Gun). Displayed "Torque Gun"/"JGUN" copy renamed across homepage and /torque-wrench/.
 - Checks: typecheck, vitest 1486/1486, build, verify-launch-dist OK (112 files); smoke 6 cases 0 errors, no horizontal scroll; stack counters 04/06/06/04.
+
+## 2026-11-03 — local header scroll gate and next corrections
+
+Production build/typecheck PASS; homepage tests 84/84 PASS; focused production
+Chromium verifier 13/13 PASS with zero page errors at 1440×900 and emulated touch
+390×844. Captures include wheel/input release, reversal, resized reverse endpoint,
+keyboard/menu/focus, touch continuation, cold/late fonts, anchors/reload/history and
+reduced-motion paths. Authored collapse 450 ms; first scroll in the final recorded
+wheel burst at 547 ms after compact state (80 frames). Physical mobile and other
+browser engines are unverified. Independent static review's three edge cases were
+corrected and confirmed resolved; owner visual acceptance stays OPEN.
+
+Details, commands and artifact locations: [current implementation record](../../../../docs/homepage-header-scroll-2026-11-03.md).
+Verifier: `scripts/verify-home-header.mjs`; local evidence:
+`output/playwright/home-header/summary.json`, `wheel-frames.json` and screenshots.
+Local preview last served at <http://127.0.0.1:4187/home/>; recheck/restart if needed.
+This continuation made no commit, push or deployment.
+
+**Pending owner corrections:** WCS hover must reveal the original three navigation
+buttons; Mark reports no apparent clicked-open exit. Torque-wrench images must
+fill all card edges, with crop/zoom allowed. Existing browser checks predate those
+changes and do not establish their completion. Exact requirements and next-session
+handoff location are in the current implementation record. The follow-up closeout
+updated documentation only; runtime files were not changed again.

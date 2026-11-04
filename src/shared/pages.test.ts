@@ -9,13 +9,13 @@ const byId = (id: PageId) => {
 }
 
 describe('PAGES registry', () => {
-  it('lists the two public pages in owner order, then the private root shell, homepage and armament placeholder', () => {
+  it('lists the project pages, root shell, homepage and armament placeholder in owner order', () => {
     expect(PAGES.map((page) => page.id)).toEqual(['torque-wrench', 'quiet-machine', 'jgun', 'home', 'armament'])
   })
 
   it('publicPages drops exactly the private rows', () => {
-    expect(publicPages().map((page) => page.id)).toEqual(['torque-wrench', 'quiet-machine'])
-    expect(PAGES.filter((page) => page.private).map((page) => page.id)).toEqual(['jgun', 'home', 'armament'])
+    expect(publicPages().map((page) => page.id)).toEqual(['torque-wrench', 'quiet-machine', 'home'])
+    expect(PAGES.filter((page) => page.private).map((page) => page.id)).toEqual(['jgun', 'armament'])
   })
 
   it('registers no M249 page for the launch build', () => {
@@ -82,7 +82,7 @@ describe('PAGES registry', () => {
     })
   })
 
-  it('pins the home row as a private, fading page at /home/ (JG-039; the root still forwards elsewhere)', () => {
+  it('pins the home row as a public, fading page at /home/', () => {
     expect(byId('home')).toMatchObject({
       index: 4,
       path: '/home/',
@@ -90,7 +90,7 @@ describe('PAGES registry', () => {
       htmlEntry: 'home/index.html',
       reserved: false,
       fadeIn: true,
-      private: true,
+      private: false,
     })
   })
 })

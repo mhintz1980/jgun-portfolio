@@ -3,6 +3,36 @@
 Durable deployment context for the JGUN portfolio. Task record:
 [`../work/evidence/JG-019-deployment-and-hosting-verification.md`](../work/evidence/JG-019-deployment-and-hosting-verification.md).
 
+## Current release policy and state — 2026-10-31
+
+**Published:** [Evidence 74](../work/evidence/torque-wrench-rebuild/74-work-in-progress-publication-2026-10-31/SUMMARY.md)
+records deployment `6ea9c78a`, both public pages returning 200, matching local
+HTML hashes, and 6/6 live publication smoke cases PASS. Wrangler was
+reauthenticated; Cloudflare MCP registration/OAuth and global skills are also
+complete. The 2026-11-03 homepage release supersedes that root topology; its evidence
+records the new deployment identity. The earlier preflight below is history.
+
+Read the [owner's evolving-site policy](owner-specs/evolving-portfolio-and-visual-review-2026-10-31.md).
+Publish useful unfinished pages with a discreet work-in-progress label, then update
+them incrementally. Final HUD/cinematic acceptance is separate from publication.
+Use production build/asset/route checks and focused desktop/narrow runtime smoke
+checks; do not repeat the full cinematic roster merely to publish a small update.
+Keep failed/deferred design assertions and unfinished reviews recorded honestly.
+
+The current script builds `/home/`, `/torque-wrench/` and `/quiet-machine/`; `/`
+redirects to `/home/`. It uploads the entire `dist/`, including all public pages, to
+Cloudflare Pages project `jgun-portfolio` with production branch `main`, regardless
+of the local Git branch. Verify the account/project and intended page versions
+before upload. A Git push is distinct from this deployment. Confirmed through
+Wrangler on 2026-10-31: the project has no Git provider integration and serves
+`jgun-portfolio.pages.dev` plus `www.studiomark.dev`.
+
+Live preflight on 2026-10-31: the apex redirects to `www.studiomark.dev`; both
+new page URLs return the branded Cloudflare 404, as does the Pages torque-wrench
+URL. `wrangler whoami` reports an expired login that cannot refresh. No deployment
+has been made by this preflight. Reauthenticate with `npx wrangler login`, then
+verify project/domain bindings. These observations are dated, not permanent state.
+
 ## Hosting decision — Cloudflare Pages, direct upload
 
 Selected 2026-08-27 (JG-019). Build locally, upload `dist/` with
@@ -10,11 +40,13 @@ Selected 2026-08-27 (JG-019). Build locally, upload `dist/` with
 
 Why this model, in order of deciding weight:
 
-1. **The hero GLBs are not in git.** `Default.glb` (8.43 MB) is gitignored and synced from
-   `C:\Projects\CAD\RL300-SAFE\optimized\` by `npm run sync-assets`. Any
-   git-checkout build (GitHub Actions → Pages, Netlify git integration) produces
-   a bundle whose hero asset 404s. Only a machine with the CAD source can build
-   a working bundle, so the deploy step must run from that machine.
+1. **Locally verified bundle.** The original August decision depended on
+   untracked hero GLBs. That premise is historical: the current launch GLBs,
+   including `Default.glb`, are tracked. Direct upload remains the repository's
+   implemented deployment path. Use `-SkipSync` for a normal release so a stale
+   external CAD copy cannot overwrite the intended tracked assets. Asset refresh
+   is a separate intentional operation. Do not add a Git integration on the
+   assumption that one already exists.
 2. **Custom cache/security headers.** GitHub Pages ignores `_headers`;
    Cloudflare Pages applies [`../../public/_headers`](../../public/_headers)
    (immutable `max-age=31536000` for hashed `/assets/*`, 24 h for named
@@ -31,7 +63,7 @@ served at a domain root: `studiomark.dev` (apex) via Cloudflare Pages custom
 domain. **Do not deploy to a subpath host** (e.g. `<user>.github.io/<repo>/`)
 without rebasing every asset URL.
 
-## One-time setup (Mark, ~10 minutes, needs browser logins)
+## Account and domain setup
 
 1. **Cloudflare account** (free): <https://dash.cloudflare.com/sign-up>.
 2. **Login the CLI** from the repo root:
@@ -39,29 +71,31 @@ without rebasing every asset URL.
    npx wrangler login
    ```
    (opens a browser flow; the token stays local to the machine).
-3. **First deploy creates the project** — just run the deploy script below once;
-   wrangler prompts to create `jgun-portfolio` if it does not exist. The
-   production URL before DNS is `https://jgun-portfolio.pages.dev`.
-4. **Custom domain (Porkbun DNS for studiomark.dev — currently parked on
-   `pixie.porkbun.com`, verified 2026-08-27).** In the Porkbun dashboard for
-   `studiomark.dev`, replace the parking records with:
-   - Apex `studiomark.dev`: **ALIAS/ANAME** record → `jgun-portfolio.pages.dev`
-     (Porkbun supports ALIAS on the apex; a bare CNAME is not legal at apex).
-   - `www.studiomark.dev`: **CNAME** → `jgun-portfolio.pages.dev`.
-   - In Cloudflare Pages → project → *Custom domains*, add `studiomark.dev`
-     and `www.studiomark.dev`; HTTPS certificates issue automatically once the
-     DNS records resolve (may take minutes to an hour).
-   - Leave Porkbun DNS **unproxied** (gray cloud is not applicable here —
-     Porkbun is only DNS; Cloudflare serves the site).
+3. Verify the existing `jgun-portfolio` Pages project and its production branch;
+   the documented project URL is `https://jgun-portfolio.pages.dev`. Do not create
+   a duplicate project when reconnecting an expired account session.
+4. Inspect the existing custom-domain associations and redirects before any DNS
+   change. Current official Pages documentation requires Cloudflare nameservers
+   for an apex custom domain; an externally managed subdomain can use a CNAME to
+   the Pages hostname after associating it with the Pages project. The old August
+   Porkbun parking/ALIAS recipe is superseded; do not replay it on the live domain.
+
+Official references checked 2026-10-31:
+[Direct Upload](https://developers.cloudflare.com/pages/get-started/direct-upload/) ·
+[Custom domains](https://developers.cloudflare.com/pages/configuration/custom-domains/).
 
 ## Deploy (repeatable)
 
 ```powershell
-scripts/deploy-studiomark.ps1
+scripts/deploy-studiomark.ps1 -SkipSync
 ```
 
-The script runs `sync-assets` → `npm run build` → uploads `dist/`, and refuses
-to upload a bundle missing `index.html` or `models/Default.glb`.
+The script runs typecheck, unit tests, production build and the launch-dist gate,
+then uploads `dist/`. With no `-SkipSync`, it first copies external CAD assets;
+do not omit that flag for a normal release of the intended tracked models.
+`-DryRun -SkipSync` builds/verifies without uploading. Neither mode runs the full
+cinematic proof roster. The gate verifies the public documents, required assets,
+and exclusion of M249. Do not upload a missing/broken page or asset bundle.
 
 ## Policies
 
@@ -81,21 +115,35 @@ to upload a bundle missing `index.html` or `models/Default.glb`.
 ## Post-deploy verification checklist
 
 Run against `https://studiomark.dev` (and once against
-`https://jgun-portfolio.pages.dev` before DNS lands):
+`https://jgun-portfolio.pages.dev` and the returned per-deployment URL):
 
 1. HTTPS serves with a valid certificate; `http://` redirects to `https://`.
 2. `curl -sI https://studiomark.dev/` → 200, `cache-control: no-cache` (or
    CF default HTML policy), canonical `<link>` present in the HTML.
-3. `curl -sI https://studiomark.dev/models/Default.glb` → 200 (~8.43 MB) and
+3. `curl -sI https://studiomark.dev/models/Default.glb` → 200 and
    the `_headers` cache policy is applied
    (`curl -sI .../assets/<any-hash>.js` → `max-age=31536000, immutable`).
 4. `curl -s -o /dev/null -w "%{http_code}" https://studiomark.dev/og-image.png`
    → 200; paste the URL into a card validator (or a fresh DM) for the social
    preview.
 5. Unknown path (e.g. `/nope`) → 404 status with the branded sheet.
-6. Runtime telemetry spot-check per the `webgl-telemetry-verifier` skill:
-   load `/`, `window.__telemetry` populates, canvas mounts, 0 console errors;
-   scroll to ≈0.473 → LCD dwell camera `[−0.28, 0.08, 0.74]` fov 31.
+6. Open `/torque-wrench/` and `/quiet-machine/` directly at desktop and narrow
+   widths; confirm the work-in-progress label, scene readiness, essential controls
+   and cross-page navigation, with no fatal browser errors or required-asset 404s.
+   Verify the existing reduced-motion poster fallback. Use current route telemetry
+   for runtime claims, not the legacy main-page LCD coordinates. Confirm `/`
+   reaches the intended torque-wrench page and record the deployment identity.
+
+The reusable focused browser check is:
+
+```powershell
+node scripts/smoke-studiomark.mjs --url=https://studiomark.dev --out=output/playwright/studiomark-publication
+```
+
+It checks publication usability, not full cinematic/alias acceptance. Torque's
+unfinished reduced-motion path currently uses DOM story and labeled poster slots;
+do not assume completed offline artwork. If iterating on this smoke harness,
+`--case=reduced-torque-wrench` selects just that case without rerunning the others.
 
 ## Regenerating the social preview image
 

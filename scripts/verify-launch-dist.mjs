@@ -5,6 +5,7 @@
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { runInNewContext } from 'node:vm'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const distArg = process.argv.find((arg) => arg.startsWith('--dist='))
@@ -74,7 +75,33 @@ for (const full of files) {
 // The root is a redirect shell and must not pull the legacy root app.
 const rootHtml = existsSync(path.join(DIST, 'index.html')) ? readFileSync(path.join(DIST, 'index.html'), 'utf8') : ''
 if (/<script[^>]+type="module"/.test(rootHtml)) failures.push('dist/index.html loads a module script (legacy root app shipped)')
-if (!rootHtml.includes("'/torque-wrench/'")) failures.push('dist/index.html does not forward to /torque-wrench/')
+const redirectScript = /<!-- shell:redirect:begin -->[\s\S]*?<script>([\s\S]*?)<\/script>[\s\S]*?<!-- shell:redirect:end -->/.exec(rootHtml)?.[1]
+if (!redirectScript) failures.push('dist/index.html is missing its redirect script')
+else {
+  const probes = [
+    ['', '', '/home/'],
+    ['?study=other&quality=lite', '#detail', '/home/?study=other&quality=lite#detail'],
+    ['?study=rl300&quality=lite', '#air', '/quiet-machine/?quality=lite#air'],
+  ]
+  for (const [search, hash, expected] of probes) {
+    const calls = []
+    try {
+      runInNewContext(redirectScript, { URLSearchParams, location: { search, hash, replace: (url) => calls.push(url) } }, { timeout: 1000 })
+      if (calls.length !== 1 || calls[0] !== expected) failures.push(`dist/index.html redirect ${search}${hash} expected ${expected}, got ${JSON.stringify(calls)}`)
+    } catch (error) {
+      failures.push(`dist/index.html redirect ${search}${hash} failed: ${error.message}`)
+    }
+  }
+}
+
+const homePath = path.join(DIST, 'home/index.html')
+if (existsSync(homePath)) {
+  const homeHtml = readFileSync(homePath, 'utf8').replace(/<!--[\s\S]*?-->/g, '')
+  const homeHead = /<head\b[\s\S]*?<\/head>/i.exec(homeHtml)?.[0] ?? ''
+  if (!/<meta\s+name="robots"\s+content="index,\s*follow"/i.test(homeHead) || /<meta\s+name="robots"\s+content="[^"]*noindex/i.test(homeHead)) {
+    failures.push('dist/home/index.html must have an indexable robots directive')
+  }
+}
 
 const bytes = files.reduce((sum, full) => sum + statSync(full).size, 0)
 for (const line of warnings) console.warn(`WARN  ${line}`)

@@ -1,5 +1,12 @@
 # HANDOFF — Homepage, Path A "Print Vault + Loupe" (2026-11-01)
 
+> **Historical brief; corrected homepage owner-approved 2026-11-03.** Read the
+> [current homepage status](homepage-header-scroll-2026-11-03.md) first. The scroll
+> gate, WCS hover navigation and full-bleed torque-wrench images are implemented and
+> verified; the owner then requested public release. Branch/PR/verification and
+> "next" statements below describe their original dates;
+> do not use them to override the current dirty checkout or newer owner directions.
+
 Owner: Mark Hintz. Written by a Claude Code cloud thread at Mark's request ("reach a pause point
 and write a handoff ... distribute this work across several agents and have one agent be
 orchestrator"). Nothing here is approved beyond what is stated in "Approval state".

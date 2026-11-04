@@ -1,7 +1,7 @@
 # JG-019 — build & deploy studiomark.dev via Cloudflare Pages direct upload.
 #
-# Launch topology (2026-10-23): /torque-wrench/ and /quiet-machine/ are the two public pages;
-# / is a redirect-only shell. M249 stays in git but never ships: the build drops
+# Launch topology (2026-11-03): /home/, /torque-wrench/ and /quiet-machine/ are public;
+# / is a redirect-only shell to /home/. M249 stays in git but never ships: the build drops
 # public/models/m249-transformed.glb (build/excludePublicAssets.ts) and the launch gate below
 # fails closed if any M249 file or reference reaches dist/. Full runbook, one-time setup, and DNS
 # records: project/context/deployment.md.
@@ -34,11 +34,12 @@ try {
   if (Test-Path $dist) { Remove-Item -Recurse -Force $dist }
 
   Invoke-Step 'typecheck' { npm run typecheck }
-  Invoke-Step 'tests' { npx vitest run --testTimeout=60000 }
+  # Evidence 73: serialize workers to avoid the CAD import timeout without relaxing assertions.
+  Invoke-Step 'tests' { npm test -- --maxWorkers=1 }
   Invoke-Step 'build' { npm run build }
 
   # Belt and braces on top of the node gate: these two must hold even if the gate script changes.
-  foreach ($page in @('index.html', 'torque-wrench\index.html', 'quiet-machine\index.html')) {
+  foreach ($page in @('index.html', 'home\index.html', 'torque-wrench\index.html', 'quiet-machine\index.html')) {
     if (-not (Test-Path (Join-Path $dist $page))) { throw "build did not produce dist/$page" }
   }
   if (Test-Path (Join-Path $dist 'models\m249-transformed.glb')) {
@@ -53,7 +54,7 @@ try {
   }
 
   Invoke-Step 'wrangler deploy' { npx --yes wrangler pages deploy dist --project-name=jgun-portfolio --branch=main }
-  Write-Host 'Deployed. Verify: https://jgun-portfolio.pages.dev/torque-wrench/ + https://studiomark.dev (after DNS)'
+  Write-Host 'Deployed. Verify: https://jgun-portfolio.pages.dev/home/ + https://studiomark.dev (after DNS)'
 }
 finally {
   Pop-Location

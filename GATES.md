@@ -1,5 +1,11 @@
 # Gates: JG-035 manufacturing inspections
 
+> **Publication policy, 2026-10-31:** This historical task-completion ledger is
+> not a universal deployment gate. The [current owner policy](project/context/owner-specs/evolving-portfolio-and-visual-review-2026-10-31.md)
+> permits unfinished public releases with focused functional/build/asset checks.
+> Preserve these task results; an open task gate does not automatically veto a
+> work-in-progress update or the next HUD concept discussion.
+
 Scope: Continue the accepted manufacturing plan from G0 through independently reviewed integration. Existing staged work is preserved. Owner visual acceptance remains separate from technical proof.
 
 - [x] G0: Hashed sources, occurrence registry, measured geometry/support registration, neighbour checks, tool-envelope uncertainty, camera blockout and budgets are independently reviewed.

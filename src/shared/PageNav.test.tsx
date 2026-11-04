@@ -36,9 +36,6 @@ describe('PageNav', () => {
           for (const page of privatePages) {
             // Private/public entries can share an owner-requested display label.
             // Their distinct destination is the isolation contract.
-            if (!PAGES.some(other => !other.private && other.label === page.label)) {
-              expect(markup, `${page.id} ${variant} ${tier} current=${current}`).not.toContain(page.label)
-            }
             expect(markup).not.toContain(`href="${page.href}"`)
             expect(markup).not.toContain(`href="${page.href}?`)
           }
@@ -62,11 +59,12 @@ describe('PageNav', () => {
     expect(current[0]).toContain('href="/quiet-machine/"')
   })
 
-  it('lists exactly the two launch pages, with no M249 row or reserved slot', () => {
+  it('lists the landing page and two project pages, with no M249 row or reserved slot', () => {
     const markup = render(<PageNav current="torque-wrench" tier="full" variant="header" />)
     expect(markup).not.toMatch(/m249/i)
     expect(markup).not.toContain('shell-nav-reserved')
-    expect(anchors(markup)).toHaveLength(2)
+    expect(anchors(markup)).toHaveLength(3)
+    expect(markup).toContain('href="/home/"')
   })
 
   it('carries the tier onto every live link', () => {

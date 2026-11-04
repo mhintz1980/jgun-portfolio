@@ -15,7 +15,7 @@ function markupFor(store: ReturnType<typeof createTorqueWrenchStore>) {
 }
 
 describe('TorqueWrenchPage static foundation', () => {
-  it('renders private-local navigation in both shells at every tier', () => {
+  it('renders public site navigation in both shells at every tier', () => {
     for (const tier of ['full', 'lite', 'poster'] as const) {
       const suffix = tier === 'full' ? '' : `?quality=${tier}`
       const markup = markupFor(createTorqueWrenchStore({ tier }))
@@ -25,12 +25,13 @@ describe('TorqueWrenchPage static foundation', () => {
       for (const tag of current) expect(tag, tier).toContain(`href="/torque-wrench/${suffix}"`)
       expect(count(markup, `href="/torque-wrench/${suffix}"`), tier).toBe(2)
       expect(count(markup, `href="/quiet-machine/${suffix}"`), tier).toBe(2)
+      expect(count(markup, `href="/home/${suffix}"`), tier).toBe(2)
       expect(markup, tier).not.toContain('href="/"')
       expect(markup, tier).not.toContain('href="/?quality=')
       expect(count(markup, 'aria-label="Pages"'), tier).toBe(1)
       expect(count(markup, 'aria-label="More pages"'), tier).toBe(1)
       expect(markup, tier).not.toMatch(/m249/i)
-      expect(count(markup, '<a data-fade=""'), tier).toBe(4)
+      expect(count(markup, '<a data-fade=""'), tier).toBe(6)
     }
   })
 

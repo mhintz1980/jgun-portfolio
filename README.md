@@ -1,5 +1,20 @@
 # JGun Portfolio — 3D Interactive Mechanical-to-AI Portfolio
 
+This is an evolving portfolio for [studiomark.dev](https://studiomark.dev), a
+growing collection of what Mark has learned and built. Useful unfinished pages
+can be published with a work-in-progress label and updated over months or longer.
+The [2026-10-31 owner policy](project/context/owner-specs/evolving-portfolio-and-visual-review-2026-10-31.md)
+separates publication from full cinematic/final visual acceptance, defers current
+HUD polish in favor of visual concept work, and requires showing perceptual
+readability issues before expensive fixes. It supersedes older delivery freezes
+below; historical test results remain accurate.
+
+Homepage `/home/` status (2026-11-03): the faster initial header scroll gate and
+content fade are verified locally. WCS hover navigation and full-bleed
+torque-wrench project-card images are implemented locally. See the [current homepage
+record and handoff location](docs/homepage-header-scroll-2026-11-03.md).
+Mark approved the corrected homepage on 2026-11-03 and requested its public release.
+
 > **Historical 2026-10-26 owner corrections 56 (superseded by 59):** Adjustable 100:1 shaft cascade with a measured 158 RPM cap at authored 1× / 60 Hz; only Stage 2 requires one full visible orbit. The gearbox housing stays opaque during explosion and return. [Plan 56](docs/torque-wrench-rebuild/56-ratio-cap-solid-housing-plan-2026-10-26.md) · [evidence 57](docs/torque-wrench-rebuild/57-ratio-cap-solid-housing-evidence-2026-10-26.md). Source/build and headed playback pass; the final 158 RPM browser roster passes four cases × 23 checks. Gemini-4-Argon reviewed the implementation before the final 2 RPM calibration reduction; see evidence for that boundary. Owner acceptance OPEN; no commit/push/deployment.
 
 > **JG-035 handwriting update, 2026-10-08:** The rejected synthetic hand is replaced by a custom font traced from the owner's `ac-fast.png` reference, rendered as individual graphite glyphs with deterministic reveal. Mark clarified that close resemblance is enough and said the font looks good. [Current handwriting plan](docs/jgun-handwriting-reference-plan-2026-10-08.md) and [evidence/handoff](project/work/evidence/JG-035-opening-drafting-table/handwriting-reference-2026-10-08/README.md) supersede the handwriting status in the historical banners below. Full animation acceptance and inherited G6 remain separate.
@@ -28,16 +43,17 @@ gsap **^3.13** · lenis **^1.3.26** (NOT the deprecated `@studio-freight/lenis`)
 
 ```bash
 npm install
-npm run sync-assets   # copies GLBs + role-map.json from C:\Projects\CAD\RL300-SAFE\optimized\
 npm run dev
 ```
 
-The large JGun GLBs are gitignored (~22 MB; `Default.glb` 13.7 MB / 1.29 M tris since the
-JG-024 Fine re-export with fasteners — pre-Fine original kept at
-`C:\Projects\CAD\RL300-SAFE\optimized\jgun-full-medium-nofasteners.glb`); `public/models/role-map.json` and
-`public/models/m249-transformed.glb` (871 KB) **are** committed.
-Deploy to studiomark.dev (Cloudflare Pages direct upload — the gitignored
-GLBs rule out git-checkout deploys): `scripts/deploy-studiomark.ps1`, full
+The current launch GLBs, including `public/models/Default.glb`, and
+`public/models/role-map.json` are tracked. Normal development/releases use those
+versions. Run `npm run sync-assets` only for an intentional CAD asset refresh:
+it copies external files and can overwrite the tracked versions. Historical
+untracked-GLB notes below describe earlier states. The committed M249 remains
+reference material and is excluded from the public launch bundle.
+Deploy to studiomark.dev (Cloudflare Pages direct upload):
+`scripts/deploy-studiomark.ps1 -SkipSync`, full
 runbook in [`project/context/deployment.md`](project/context/deployment.md).
 `sync-assets` renames `jgun-full.glb` → `Default.glb` so the brief's
 `useGLTF('/models/Default.glb')` path resolves. The GLBs are Draco-compressed;
@@ -218,4 +234,3 @@ is historical and does not verify the breakthrough opening.
   (`project/context/references/media/torque-render.webp`).
 - **role-map.json is the anchor source** for hotspots — 316 part occurrences
   with bbox centers from the gltf-transform pipeline pass.
-- **Copy is Honey's** (`OUTBOX/portfolio-module4-copy.md`), used verbatim.

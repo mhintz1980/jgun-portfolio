@@ -312,19 +312,19 @@ describe('the redirect sub-block', () => {
     '?study=other',
     '',
   ] as const
-  /** Every probe redirects: study=rl300 to the Quiet Machine, everything else to the Torque Wrench. */
+  /** Every probe redirects: study=rl300 to the Quiet Machine, everything else to the homepage. */
   const EXPECTED: Record<string, string> = {
     '?study=rl300': '/quiet-machine/',
     '?study=rl300&quality=lite': '/quiet-machine/?quality=lite',
-    '?station=2': '/torque-wrench/?station=2',
-    '?station=enclosure': '/torque-wrench/?station=enclosure',
-    '?station=safe-enclosure': '/torque-wrench/?station=safe-enclosure',
-    '?chapter=2': '/torque-wrench/?chapter=2',
-    '?station=3': '/torque-wrench/?station=3',
-    '?station=m249': '/torque-wrench/?station=m249',
-    '?chapter=3': '/torque-wrench/?chapter=3',
-    '?study=other': '/torque-wrench/?study=other',
-    '': '/torque-wrench/',
+    '?station=2': '/home/?station=2',
+    '?station=enclosure': '/home/?station=enclosure',
+    '?station=safe-enclosure': '/home/?station=safe-enclosure',
+    '?chapter=2': '/home/?chapter=2',
+    '?station=3': '/home/?station=3',
+    '?station=m249': '/home/?station=m249',
+    '?chapter=3': '/home/?chapter=3',
+    '?study=other': '/home/?study=other',
+    '': '/home/',
   }
 
   const index = entries.find((item) => item.entry === 'index.html')
@@ -350,7 +350,7 @@ describe('the redirect sub-block', () => {
     for (const row of active) expect(row.to).toBe('quiet-machine')
     expect(pageHref('quiet-machine')).toBe('/quiet-machine/')
     expect(pageHref('quiet-machine', 'lite')).toBe(EXPECTED['?study=rl300&quality=lite'])
-    expect(pageHref('torque-wrench')).toBe('/torque-wrench/')
+    expect(pageHref('home')).toBe(EXPECTED[''])
   })
 
   it.each(PROBES.map((probe) => [probe] as const))('probe "%s" forwards exactly once to its literal target', (probe) => {
@@ -358,8 +358,9 @@ describe('the redirect sub-block', () => {
   })
 
   it('keeps the other params and the fragment, and drops only study', () => {
-    expect(run('', '#inspection')).toEqual(['/torque-wrench/#inspection'])
-    expect(run('?quality=lite', '#close')).toEqual(['/torque-wrench/?quality=lite#close'])
+    expect(run('', '#inspection')).toEqual(['/home/#inspection'])
+    expect(run('?quality=lite', '#close')).toEqual(['/home/?quality=lite#close'])
+    expect(run('?study=other&quality=lite', '#close')).toEqual(['/home/?study=other&quality=lite#close'])
     expect(run('?study=rl300', '#air')).toEqual(['/quiet-machine/#air'])
     expect(run('?shot=.5&study=rl300&quality=poster')).toEqual(['/quiet-machine/?shot=.5&quality=poster'])
     expect(run('?study=rl300&quality=lite', '#heat')).toEqual(['/quiet-machine/?quality=lite#heat'])
@@ -386,6 +387,12 @@ describe('private pages', () => {
       const html = entries.find((item) => item.page.id === page.id)?.html ?? ''
       expect(hasNoindex(html), `${page.id} noindex`).toBe(true)
     }
+  })
+
+  it('the public homepage has an indexable robots directive in its head', () => {
+    const html = entries.find((item) => item.page.id === 'home')?.html ?? ''
+    expect(hasNoindex(html)).toBe(false)
+    expect(headOf(html)).toMatch(/<meta\s+name="robots"\s+content="index,\s*follow"/i)
   })
 
   it('a private page is never the target of a legacy redirect', () => {

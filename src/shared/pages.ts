@@ -28,8 +28,7 @@ export interface PageEntry {
   private: boolean
 }
 
-// Launch topology (2026-10-23): two public pages, Torque Wrench first. The site root `/` is a
-// redirect-only shell that forwards to /torque-wrench/, so no legacy root app (and no M249
+// The site root `/` forwards to the portfolio landing page, so no legacy root app (and no M249
 // station) is part of any build input. M249 is out of the registry until it is ready to ship.
 export const PAGES: readonly PageEntry[] = [
   {
@@ -58,12 +57,12 @@ export const PAGES: readonly PageEntry[] = [
     private: false,
   },
   // Site root. A redirect-only shell (no module script): `?study=rl300` goes to the Quiet Machine,
-  // everything else to the Torque Wrench, query and fragment kept. Never listed in navigation.
+  // everything else to the landing page, query and fragment kept. Never listed in navigation.
   {
     id: 'jgun',
     index: 3,
     label: 'HOME',
-    name: 'studiomark.dev root (forwards to the Torque Wrench)',
+    name: 'studiomark.dev root (forwards to the homepage)',
     path: '/',
     href: '/',
     htmlEntry: 'index.html',
@@ -71,8 +70,7 @@ export const PAGES: readonly PageEntry[] = [
     fadeIn: false,
     private: true,
   },
-  // Landing page under review (JG-039). Private until the owner approves flipping the root to it:
-  // built and reachable at /home/, noindex, never listed in navigation.
+  // Public landing page introduces the portfolio before visitors choose a project.
   {
     id: 'home',
     index: 4,
@@ -83,7 +81,7 @@ export const PAGES: readonly PageEntry[] = [
     htmlEntry: 'home/index.html',
     reserved: false,
     fadeIn: true,
-    private: true,
+    private: false,
   },
   // Armament placeholder (JG-039): a text-only "under construction" page linked from /home/. No
   // drawings until the owner's ITAR/EAR check. Private: noindex, never in navigation.

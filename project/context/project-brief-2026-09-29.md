@@ -1,5 +1,7 @@
 # Project Brief — jgun-portfolio (2026-09-29)
 
+> **Current owner direction, 2026-10-31:** [Evolving portfolio and visual review](owner-specs/evolving-portfolio-and-visual-review-2026-10-31.md) governs public work-in-progress updates, provisional HUD concept work, and perceptual review before further alias fixes. This brief is historical; use the current [deployment runbook](deployment.md) for asset policy and hosting commands.
+
 A self-contained orientation for any agent handed this repository. Written from the live
 repo state on 2026-09-29 (branch `codex/jg033-signature-shot`). Sources: `project/README.md`,
 `TODO.md`, `docs/`, `project/context/`, git history, and on-disk measurement. Where this
@@ -13,7 +15,9 @@ Mark Hintz's portfolio site: a scroll-driven, single-page 3D experience that pre
 real CAD/engineering history as a cinematic narrative. **Stack:** Vite + React 19 + R3F
 (three 0.185) + GSAP ScrollTrigger + Lenis. **Deploy:** GitHub `origin`
 (`mhintz1980/jgun-portfolio`, authoritative) → Cloudflare Pages → **studiomark.dev**.
-Pushing to origin IS deploying.
+The repository deploy script builds locally and uploads `dist/` to Cloudflare
+Pages. A Git push is not proof of a deployment. Verify account/project settings
+before asserting any dashboard-side Git integration.
 
 The hero is the **JGun pneumatic torque wrench** (multi-stage planetary reduction): the site
 opens on a registered ANSI C drafting sheet, extracts the model, and dissolves it from PBR
