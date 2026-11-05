@@ -1,0 +1,28 @@
+{
+  "name": "studiomark-showreel-v3",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Showreel v3 for studiomark.dev (Remotion). Renders the site's own 3D rigs frame by frame.",
+  "scripts": {
+    "studio": "remotion studio",
+    "typecheck": "tsc --noEmit",
+    "still": "remotion still",
+    "render": "remotion render Showreel ../public/video/showreel-v3.mp4 --codec=h264 --crf=20 --concurrency=3",
+    "stills": "node scripts/review-stills.mjs"
+  },
+  "dependencies": {
+    "@react-three/fiber": "9.7.0",
+    "@remotion/cli": "4.0.540",
+    "@remotion/fonts": "4.0.540",
+    "@remotion/three": "4.0.540",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "remotion": "4.0.540",
+    "three": "0.185.1"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.7",
+    "@types/three": "0.185.0",
+    "typescript": "5.9.3"
+  }
+}
