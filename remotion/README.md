@@ -66,7 +66,7 @@ Compositions: `Showreel` (the film) and each act on its own under `Acts/`.
 - MSAA is off; `src/three/PostFX.tsx` owns the frame (render → bloom → SMAA → tone map), which
   is ~2× faster than MSAA on SwiftShader and just as clean.
 - Cost on 4 CPU cores: ~0.3 s/frame for paper scenes, ~2 s for the wrench, ~6 s for the
-  enclosure. A full render takes roughly an hour at `--concurrency=3`.
+  enclosure. A full render took 106 min at `--concurrency=3` (the enclosure act is most of it).
 - Don't run `npx remotion upgrade` here (it crashes); bump with `npm install pkg@version`.
 
 ## Review materials
