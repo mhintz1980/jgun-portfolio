@@ -1,0 +1,219 @@
+[
+ {
+  "id": 1,
+  "file": "ar-01.webp",
+  "label": "representative",
+  "w": 1600,
+  "h": 900
+ },
+ {
+  "id": 2,
+  "file": "ar-02.webp",
+  "label": "representative",
+  "w": 1600,
+  "h": 900
+ },
+ {
+  "id": 3,
+  "file": "ar-03.webp",
+  "label": "representative",
+  "w": 1600,
+  "h": 900
+ },
+ {
+  "id": 4,
+  "file": "ar-04.webp",
+  "label": "representative",
+  "w": 1496,
+  "h": 772
+ },
+ {
+  "id": 5,
+  "file": "ar-05.webp",
+  "label": "representative",
+  "w": 1600,
+  "h": 861
+ },
+ {
+  "id": 6,
+  "file": "ar-06.webp",
+  "label": "representative",
+  "w": 1600,
+  "h": 861
+ },
+ {
+  "id": 7,
+  "file": "ar-07.webp",
+  "label": "representative",
+  "w": 1600,
+  "h": 861
+ },
+ {
+  "id": 8,
+  "file": "ar-08.webp",
+  "label": "representative",
+  "w": 1496,
+  "h": 772
+ },
+ {
+  "id": 9,
+  "file": "ar-09.webp",
+  "label": "representative",
+  "w": 1600,
+  "h": 900
+ },
+ {
+  "id": 10,
+  "file": "ar-10.webp",
+  "label": "representative",
+  "w": 1293,
+  "h": 672
+ },
+ {
+  "id": 11,
+  "file": "ar-11.webp",
+  "label": "representative",
+  "w": 1288,
+  "h": 672
+ },
+ {
+  "id": 12,
+  "file": "ar-12.webp",
+  "label": "representative",
+  "w": 1293,
+  "h": 672
+ },
+ {
+  "id": 13,
+  "file": "ar-13.webp",
+  "label": "representative",
+  "w": 1288,
+  "h": 672
+ },
+ {
+  "id": 14,
+  "file": "ar-14.webp",
+  "label": "representative",
+  "w": 1600,
+  "h": 900
+ },
+ {
+  "id": 15,
+  "file": "ar-15.webp",
+  "label": "representative",
+  "w": 1600,
+  "h": 900
+ },
+ {
+  "id": 16,
+  "file": "ar-16.webp",
+  "label": "mine",
+  "w": 1600,
+  "h": 793
+ },
+ {
+  "id": 17,
+  "file": "ar-17.webp",
+  "label": "mine",
+  "w": 1600,
+  "h": 808
+ },
+ {
+  "id": 18,
+  "file": "ar-18.webp",
+  "label": "mine",
+  "w": 1600,
+  "h": 796
+ },
+ {
+  "id": 19,
+  "file": "ar-19.webp",
+  "label": "mine",
+  "w": 1600,
+  "h": 794
+ },
+ {
+  "id": 20,
+  "file": "ar-20.webp",
+  "label": "mine",
+  "w": 1600,
+  "h": 796
+ },
+ {
+  "id": 21,
+  "file": "ar-21.webp",
+  "label": "representative",
+  "w": 800,
+  "h": 510
+ },
+ {
+  "id": 22,
+  "file": "ar-22.webp",
+  "label": "mine",
+  "w": 1509,
+  "h": 816
+ },
+ {
+  "id": 23,
+  "file": "ar-23.webp",
+  "label": "mine",
+  "w": 800,
+  "h": 600
+ },
+ {
+  "id": 24,
+  "file": "ar-24.webp",
+  "label": "representative",
+  "w": 1600,
+  "h": 774
+ },
+ {
+  "id": 25,
+  "file": "ar-25.webp",
+  "label": "representative",
+  "w": 1600,
+  "h": 900
+ },
+ {
+  "id": 26,
+  "file": "ar-26.webp",
+  "label": "representative",
+  "w": 1600,
+  "h": 900
+ },
+ {
+  "id": 27,
+  "file": "ar-27.webp",
+  "label": "representative",
+  "w": 1600,
+  "h": 900
+ },
+ {
+  "id": 28,
+  "file": "ar-28.webp",
+  "label": "representative",
+  "w": 1600,
+  "h": 900
+ },
+ {
+  "id": 29,
+  "file": "ar-29.webp",
+  "label": "representative",
+  "w": 1600,
+  "h": 900
+ },
+ {
+  "id": 30,
+  "file": "ar-30.webp",
+  "label": "representative",
+  "w": 1600,
+  "h": 900
+ },
+ {
+  "id": 31,
+  "file": "ar-31.webp",
+  "label": "representative",
+  "w": 1600,
+  "h": 900
+ }
+]
