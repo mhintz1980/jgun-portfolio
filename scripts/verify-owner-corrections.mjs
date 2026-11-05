@@ -948,7 +948,7 @@ async function runReduced(result, browser) {
     const url = new URL(base); url.searchParams.set('quality', 'full')
     await page.goto(url.href, { waitUntil: 'networkidle', timeout: 60000 })
     await page.waitForFunction(() => document.querySelector('.torque-page')?.dataset.torqueMode === 'static', null, { timeout: 30000 })
-    await page.getByRole('button', { name: 'Open cutter inspection details', exact: true }).click()
+    await page.getByRole('button', { name: 'Cutter study details', exact: true }).click()
     result.transcript = await page.locator('#torque-inspection-detail').innerText()
     // Decode the actual route's picture images, including shaft stills if the
     // static story is mounted. Lazy offscreen images need a real load trigger;

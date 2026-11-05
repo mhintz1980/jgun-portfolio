@@ -1,0 +1,33 @@
+{
+  "errors": [],
+  "shots": [
+    {
+      "name": "veil-check-p052",
+      "target": 0.52,
+      "progress": 0.5199951675076128,
+      "veil": [
+        {
+          "cls": "torque-preloader",
+          "op": "1",
+          "bg": "rgb(5, 7, 10)",
+          "z": "100"
+        }
+      ],
+      "hud": "STUDIOMARK\n\nWORK IN PROGRESS\n\n03 / 05\nTHE JGUN STORY\n\n03·2  RUNDOWN ▸ HIGH TORQUE · 120°\n\nRUNDOWN\nHIGH TORQUE\nMechanism\n"
+    },
+    {
+      "name": "veil-check-p053",
+      "target": 0.53,
+      "progress": 0.5299967931692459,
+      "veil": [],
+      "hud": "STUDIOMARK\n\nWORK IN PROGRESS\n\n03 / 05\nTHE JGUN STORY\n\n03·2  RUNDOWN ▸ HIGH TORQUE · 120°\n\nRUNDOWN\nHIGH TORQUE\nMechanism\n"
+    },
+    {
+      "name": "veil-check-p056",
+      "target": 0.56,
+      "progress": 0.559992485450736,
+      "veil": [],
+      "hud": "STUDIOMARK\n\nWORK IN PROGRESS\n\n03 / 05\nTHE JGUN STORY\n\n03·2  RUNDOWN ▸ HIGH TORQUE · 120°\n\nRUNDOWN\nHIGH TORQUE\nMechanism\n"
+    }
+  ]
+}

@@ -65,7 +65,7 @@ export function StaticShaftStory() {
         <h3 id="shaft-static-cascade">{SHAFT_TRANSCRIPT[3].heading}</h3>
         <p>{SHAFT_TRANSCRIPT[3].body}</p>
         <div data-static-part="stage1-engagement">
-          <ShaftStill id="stage1-engagement" alt="Stage 1 carrier A000591 with four twelve-tooth P000247 planets seated over the ten-tooth input sun gear at full 6.35 mm face engagement." caption="Stage 1 · axial approach and full tooth engagement" />
+          <ShaftStill id="stage1-engagement" alt="Stage 1 carrier A000591 with four twelve-tooth P000247 planets seated over the ten-tooth input sun gear at full .250″ face engagement." caption="Stage 1 · axial approach and full tooth engagement" />
         </div>
         <div data-static-part="bullet-time">
           <ShaftStill id="bullet-time" alt="Macro view of the sun-to-planet pitch point inside the stationary ring gear, illustrating torque ignition and planet counter-rotation at 0.10× bullet time." caption="Torque ignition · 0.10× bullet time reveals the tooth push" />

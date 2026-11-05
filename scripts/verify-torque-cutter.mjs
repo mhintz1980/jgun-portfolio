@@ -407,7 +407,7 @@ async function hold(page, baseline, c, label) {
 
 async function controls(page, dir, c, canonical) {
   const result = {}
-  const trigger = page.getByRole('button', { name: 'Open cutter inspection details', exact: true })
+  const trigger = page.getByRole('button', { name: 'Cutter study details', exact: true })
   await trigger.scrollIntoViewIfNeeded()
   result.entrySettle = await settle(page)
   c('controls: settle at real DOM inspection section', result.entrySettle.pass, result.entrySettle)
@@ -480,25 +480,25 @@ async function controls(page, dir, c, canonical) {
   const escaped = await observe(page)
   result.escape = { settle: escapeSettle, observation: escaped }
   c('controls: Escape closes and returns trigger focus', !escaped.inspection?.playback?.open
-    && await page.getByRole('button', { name: 'Open cutter inspection details', exact: true }).evaluate(el => el === document.activeElement), escaped)
+    && await page.getByRole('button', { name: 'Cutter study details', exact: true }).evaluate(el => el === document.activeElement), escaped)
   c('controls: Escape resumes canonical study sampling', escapeSettle.pass
     && Math.abs(escaped.world.progress - scrolled.world.progress) <= TOL.progress
     && equalPose(poseDelta(canonical[0.825].observation, escaped)), poseDelta(canonical[0.825].observation, escaped))
-  const reopen = page.getByRole('button', { name: 'Open cutter inspection details', exact: true })
+  const reopen = page.getByRole('button', { name: 'Cutter study details', exact: true })
   await reopen.scrollIntoViewIfNeeded()
   const reopenSettle = await settle(page), beforeReopen = await observe(page)
   c('controls: second real DOM entry remains within canonical inspection', reopenSettle.pass
     && beforeReopen.world.progress >= 0.735 && beforeReopen.world.progress < 0.94, beforeReopen)
   await reopen.click()
   await sleep(250)
-  const closeTrigger = page.getByRole('button', { name: 'Hide cutter inspection details', exact: true })
+  const closeTrigger = page.getByRole('button', { name: 'Hide cutter study', exact: true })
   await closeTrigger.click()
   const closeSettle = await settle(page), closed = await observe(page)
   result.close = { settle: closeSettle, observation: closed }
   c('controls: close button returns focus and canonical sampling', closeSettle.pass && !closed.inspection?.playback?.open
     && Math.abs(closed.world.progress - beforeReopen.world.progress) <= TOL.progress
     && equalPose(poseDelta(beforeReopen, closed))
-    && await page.getByRole('button', { name: 'Open cutter inspection details', exact: true }).evaluate(el => el === document.activeElement),
+    && await page.getByRole('button', { name: 'Cutter study details', exact: true }).evaluate(el => el === document.activeElement),
     { observation: closed, delta: poseDelta(beforeReopen, closed) })
   result.finalSettle = await seek(page, 0.815, canonical[0.815].observation.scroll.y)
   const final = await observe(page)

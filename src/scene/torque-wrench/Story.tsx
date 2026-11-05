@@ -9,28 +9,28 @@ import type { InspectionPlayback } from './inspectionPlayback'
 export const CHAPTER_COPY: Record<TorquePosterChapterId, { title: string; lede: string; body: string }> = {
   drafting: {
     title: 'Drafting',
-    lede: 'Design starts with the interfaces.',
-    body: 'Mark Hintz’s design connects the input shaft, planetary drivetrain and two-speed clutch. The drawing and handwritten notes introduce the geometry and manufacturing decisions behind the tool.',
+    lede: 'Design starts at the interfaces.',
+    body: 'Mark Hintz’s layout of the JGun pneumatic torque wrench: input shaft, five-stage planetary drivetrain and two-speed clutch. The handwritten notes mark the manufacturing decisions behind the geometry.',
   },
   breakthrough: {
     title: 'Breakthrough',
-    lede: 'From drawing to working assembly.',
-    body: 'The wrench rises through its drawn profile, bringing the housing, operator controls and drivetrain into three dimensions. Follow the parts from their mating interfaces to their role in the complete assembly.',
+    lede: 'From drawing to hardware.',
+    body: 'Light traces the side elevation, the sheet fractures, and the wrench rises through its own profile: housing, controls and drivetrain in three dimensions.',
   },
   mechanism: {
     title: 'Mechanism',
-    lede: 'How the wrench works.',
-    body: 'The diamond-knurled P003068 ring gives the operator a grip to select Rundown or High Torque. Its detents locate the mode, while the blue and red indicator stripes reveal the shift. Inside, the planetary stages transmit motion through the gearbox.',
+    lede: 'Two speeds, one ring.',
+    body: 'The ring switch (P003068) is diamond-knurled, then black-anodized for grip. A 120° turn selects Rundown or High Torque; detent grooves hold each mode. The OSHA Blue stripe marks Rundown and the OSHA Red stripe marks High Torque.',
   },
   inspection: {
     title: 'Inspection',
-    lede: 'A stronger shaft begins with a different cut.',
-    body: 'A cutter relief groove weakened the original P001835 shaft. Mark’s rotary-hobbed revision keeps a smooth blank. After the runout hold, the Stage 1 carrier (A000591) slides four P000247 planets onto the ten sun teeth; torque ignites at 0.10× before the five-stage cascade.',
+    lede: 'A stronger shaft starts with a different cut.',
+    body: 'Shaping the P001835 sun gear needed a cutter relief groove, and at that groove every steel tried (4140, 4340, C300) fell below FOS 1.0. Rotary hobbing needs no groove: a smooth 4340 blank, teeth held under .001″ TIR. Stage 1 then meshes and torque runs through all five stages.',
   },
   close: {
     title: 'Assembly',
-    lede: 'Precision connects every stage.',
-    body: 'The exploded gearbox reveals how the carriers, planets, bearing and clutch fit together. Inspect the P000247 planet in A000592: the gears were cut in house to ISO 1328 Grade A6, with less than .001 inch total indicated runout. The finished wrench brings these design and manufacturing decisions together.',
+    lede: 'Every stage, in order.',
+    body: 'The gearbox separates along its axis: carriers, planets, bearing and clutch in assembly order. Every gear was cut in house to ISO 1328 Grade A6 with under .001″ TIR. The clutch housing fit, ⌀2.525″ H7/k6, is finished after heat treat.',
   },
 }
 
@@ -84,7 +84,7 @@ export function InspectionControl({ playback, live }: { playback?: InspectionPla
           setOpen(!open)
         }}
       >
-        {open ? 'Hide cutter inspection details' : 'Open cutter inspection details'}
+        {open ? 'Hide cutter study' : 'Cutter study details'}
       </button>
       <div
         id="torque-inspection-detail"
@@ -94,16 +94,12 @@ export function InspectionControl({ playback, live }: { playback?: InspectionPla
         hidden={!open}
       >
         <p>
-          The inspection subject is the Input Shaft, P001835: the 10-tooth sun gear drawn in
-          Detail B. Its story runs from the relief groove that started it, through the material
-          attempts in 4140, 4340 and C300, the switch from shaping to hobbing, and the runout hold.
-          Next, Stage 1 (A000591) slides its four P000247 planets axially onto the ten sun teeth
-          for full 6.35-millimetre face engagement. Torque ignites at 0.10× bullet time before
-          the five-stage driveline cascades in physical order 1, 2, 5 (A000606), 3 and 4 toward
-          the output square drive. The close orbit reveals Stage 2 planets before their spinning
-          cage, then a near-axial dolly follows the torque path. The housing and handle return
-          after the output is turning. The 8.0 to 1.43 display
-          turn ladder labels relative speeds; actual elapsed turns follow the timed spin-up.
+          Input shaft P001835 carries the 10-tooth sun gear from Detail B. Shaping it needed a
+          relief groove for the cutter, and that groove held the minimum FOS below 1.0 in 4140,
+          4340 and C300. Rotary hobbing needs no groove, so the revised shaft keeps a smooth blank.
+          After the runout check, the Stage 1 carrier (A000591) slides four 12-tooth P000247
+          planets onto the sun for full .250″ face width, and torque runs through the five stages
+          to the square drive. Gear speeds in this study are slowed for viewing.
         </p>
         {live && <div className="torque-inspection__playback">
           <button type="button" onClick={() => playback?.play()}>Play shaft study</button>

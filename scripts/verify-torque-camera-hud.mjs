@@ -286,7 +286,7 @@ async function runVerifier() {
       await page.evaluate(() => window.scrollTo(0, window.__torqueNarrative.scrollFraction(.735) * (document.documentElement.scrollHeight - innerHeight)))
       await page.waitForFunction(() => Math.abs(window.__torqueNarrative.snapshot().progress - .735) < .00005, null, { timeout: seekTimeout })
       await page.waitForTimeout(900)
-      await page.getByRole('button',{name:'Open cutter inspection details',exact:true}).focus()
+      await page.getByRole('button',{name:'Cutter study details',exact:true}).focus()
       await page.keyboard.press('Enter')
       const slider = page.getByRole('slider',{name:'Study position'})
       await slider.focus(); await page.keyboard.press('Home')

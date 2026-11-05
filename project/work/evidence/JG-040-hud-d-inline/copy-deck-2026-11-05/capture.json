@@ -1,0 +1,17 @@
+{
+  "errors": [],
+  "shots": [
+    {
+      "name": "mechanism-mode-shift-p053",
+      "target": 0.53,
+      "progress": 0.5299967931692459,
+      "hud": "STUDIOMARK\n\nWORK IN PROGRESS\n\n03 / 05\nTHE JGUN STORY\n\n03·2  RUNDOWN ▸ HIGH TORQUE · 120°\n\nRUNDOWN\nHIGH TORQUE\nMechanism\n\nTwo speeds, one ring.\n\nExplore details\n01\nDrafting\n02\nBreakthrough\n03\nMechanism\n04\nInspection\n05\nAssembly"
+    },
+    {
+      "name": "inspection-p070",
+      "target": 0.7,
+      "progress": 0.699996707623212,
+      "hud": "STUDIOMARK\n\nWORK IN PROGRESS\n\n04 / 05\nTHE JGUN STORY\n\n04·2  AT THE CUT · SLOW MOTION\n\nInspection\n\nA stronger shaft starts with a different cut.\n\nThe relief groove is the stress riser. Changing steel did not move it.\n\nCutter study details\n\nINSPECTION · INPUT SHAFT P001835\n\nAISI 4140\n40–45 HRC\nFAILED\nAISI 4340\n48–50 HRC\nFAILED\nC300\n56–58 HRC\nFAILED\nFOS\n0\n1.0\n2.0\n3.0\n\nGroove blank: min FOS under 1.0 in every steel. Fix: rotary-hob a smooth 4340 blank (48–50 HRC) with no groove. It plots in the blue.\n\n01\nDrafting\n02\nBreakthrough\n03\nMechanism\n04\nInspection\n05\nAssembly"
+    }
+  ]
+}

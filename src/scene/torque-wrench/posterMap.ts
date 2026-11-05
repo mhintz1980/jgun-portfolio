@@ -7,7 +7,7 @@ export const TORQUE_POSTER_CHAPTERS = [
   { id: 'breakthrough', label: 'Breakthrough' },
   { id: 'mechanism', label: 'Mechanism' },
   { id: 'inspection', label: 'Inspection' },
-  { id: 'close', label: 'Close' },
+  { id: 'close', label: 'Assembly' },
 ] as const
 
 export type TorquePosterChapter = (typeof TORQUE_POSTER_CHAPTERS)[number]

@@ -335,3 +335,25 @@ Stage 2 therefore is **not accepted as a whole**. No further runtime change was 
 this ruling; the next session implements the four corrections and re-runs the focused
 camera/HUD checks before asking Mark to review again. The live deployment still carries the
 rejected leader and the rail overlap.
+
+## Owner ruling - 2026-11-05: HUD copy deck approved; facts confirmed
+
+Mark approved the HUD copy deck (captions, per-beat step lines, tooltips, Inspection cue/note,
+cutter-details panel) and confirmed facts:
+
+- The LCD's 1,250 N·m / 922 ft-lb is a **display value only**. Real maximum output was
+  **around 1,100 ft-lb** (≈1,491 N·m). The LCD may be changed to 1,100 ft-lb if a max-output
+  reading is needed; not changed in this pass.
+- **OSHA Blue = Rundown, OSHA Red = High Torque.**
+- The Ring Switch turns **120°** to shift modes (supersedes the "12 deg" wording in the
+  2026-10-18 corrections).
+- Viewer copy uses **inches** (6.35 mm face width → .250″).
+- The second handwritten drafting note is about the **Output Shaft**.
+
+**Idea only, do not implement until Mark confirms:** FEA was done on both shafts originally.
+Proposed drafting-note changes: (1) the Input Shaft detail gets the red "Run FEA" note; (2) a
+new note on the spring-loaded directional switch whose rack mates with the air valve inner's
+pinion: increase backlash by an additional .005″ for smoother, more consistent movement;
+(3) on the Output Shaft detail view, a note at the radius: failure point, add .025″ to the
+radius on all 4 faces, "Run FEA" (the red note moves from the 2nd handwriting note to this
+3rd note). Owner supplied an output-shaft FEA image in the project thread.

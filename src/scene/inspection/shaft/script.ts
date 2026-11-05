@@ -19,7 +19,7 @@ export const SHAFT_RECAP_CAPTION_TEXT = 'Remaining teeth — time compressed'
 /** Stable narrative identities; continuous motion never changes the announcement text. */
 export const SHAFT_CAPTION_TEXT = Object.freeze({
   none: '',
-  'stage1-mesh': 'Stage 1 engagement: four P000247 planets slide onto the ten sun teeth for full 6.35 mm face engagement.',
+  'stage1-mesh': 'Stage 1 engagement: four P000247 planets slide onto the ten sun teeth for full .250″ face engagement.',
   'bullet-time': 'Torque ignition at 0.10× bullet time: the sun pushes the planets around the stationary ring gear, driving the carrier.',
   'driveline-cascade': 'Driveline cascade: Stage 1 → 2 → 5 → 3 → 4 → output. Each stage turns slower; the input accelerates to its cap.',
 } as const)
