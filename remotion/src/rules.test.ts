@@ -1,5 +1,6 @@
 import { readdirSync, readFileSync, statSync } from 'node:fs'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import * as copy from './copy'
 import { FILM_ARMAMENT, showcase } from './armament'
@@ -7,7 +8,7 @@ import { FILM_ARMAMENT, showcase } from './armament'
 // The showreel's hard rules (owner rulings), checked in the root `npm test` gate.
 // Copy rules mirror src/home/content.test.ts and add the showreel brief's walls.
 
-const HERE = path.dirname(new URL(import.meta.url).pathname)
+const HERE = path.dirname(fileURLToPath(import.meta.url))
 
 function strings(value: unknown, out: string[] = []): string[] {
   if (typeof value === 'string') out.push(value)
