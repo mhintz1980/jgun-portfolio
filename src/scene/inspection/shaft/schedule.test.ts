@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
 import ts from 'typescript'
 import { CASCADE_RATIOS, SUN_TO_STAGE1_CARRIER_RATIO } from './cascadeConfig'
-import { CASCADE_REVEAL_EVENTS, CASCADE_UNIT_COUNT, IGNITION_NORMAL_RATE, axialSlideProgress, createShaftSchedule, sampleFinaleAngle, sampleFinaleDriveRate, sampleShaftSchedule } from './schedule'
+import { CASCADE_REVEAL_EVENTS, CASCADE_TORQUE_PATH, CASCADE_UNIT_COUNT, FOS_PANEL_CUTOFF, fosPanelOpacity, IGNITION_NORMAL_RATE, axialSlideProgress, createShaftSchedule, sampleFinaleAngle, sampleFinaleDriveRate, sampleShaftSchedule, torquePathLitCount } from './schedule'
 import { BULLET_TIME_SHOT_SPECS } from '../../torque-wrench/bulletTime'
 import { shaftBeats, shaftStory } from './story'
 
@@ -311,5 +311,41 @@ describe('shaft schedule', () => {
       visit(statement.body)
     }
     expect(checked).toBe(names.size)
+  })
+})
+
+describe('HUD torque-path tracker', () => {
+  it('lists the driveline in physical order and lights each dot as its carrier is seen turning', () => {
+    expect(CASCADE_TORQUE_PATH.map(dot => dot.label)).toEqual(['1', '2', '3', '4', '5', 'OUT'])
+    expect(CASCADE_TORQUE_PATH.map(dot => dot.unit)).toEqual([0, 1, 2, 4, 5, 6])
+    const starts = CASCADE_TORQUE_PATH.map(dot => dot.start)
+    starts.slice(1).forEach((start, i) => expect(start).toBeGreaterThan(starts[i]))
+    expect(starts[0]).toBe(38.2)
+    // Stage 1 starts turning when the shared drive leaves zero; the rest when their carrier appears.
+    expect(sampleFinaleDriveRate(38.2 - 1e-6)).toBe(0)
+    expect(sampleFinaleDriveRate(38.25)).toBeGreaterThan(0)
+    const schedule = createShaftSchedule()
+    for (const dot of CASCADE_TORQUE_PATH.slice(1)) {
+      expect(sampleShaftSchedule(dot.start - 1e-6, schedule).cascadeAlpha[dot.unit]).toBe(0)
+      expect(sampleShaftSchedule(dot.start + .2, schedule).cascadeAlpha[dot.unit]).toBeGreaterThan(0)
+    }
+    expect(torquePathLitCount(38.2 - 1e-6)).toBe(0)
+    expect(torquePathLitCount(45.5)).toBe(2)
+    expect(torquePathLitCount(66.9)).toBe(6)
+    expect(torquePathLitCount(Number.NaN)).toBe(0)
+  })
+
+  it('retires the FOS evidence panel before any Stage 1 planet appears or moves', () => {
+    const schedule = createShaftSchedule()
+    expect(FOS_PANEL_CUTOFF).toBe(35)
+    // The cutoff is the last instant before the Stage 1 planets become visible or start sliding.
+    expect(sampleShaftSchedule(FOS_PANEL_CUTOFF, schedule).cascadePlanetAlpha[0]).toBe(0)
+    expect(schedule.stage1SlideProgress).toBe(0)
+    expect(sampleShaftSchedule(FOS_PANEL_CUTOFF + .05, schedule).cascadePlanetAlpha[0]).toBeGreaterThan(0)
+    expect(fosPanelOpacity(32)).toBe(1) // runout hold, after hobbing: unchanged
+    expect(fosPanelOpacity(FOS_PANEL_CUTOFF - .5)).toBe(1)
+    expect(fosPanelOpacity(FOS_PANEL_CUTOFF - .25)).toBeGreaterThan(0)
+    expect(fosPanelOpacity(FOS_PANEL_CUTOFF)).toBe(0)
+    expect(fosPanelOpacity(40)).toBe(0)
   })
 })

@@ -10,7 +10,7 @@ export const CHAPTER_COPY: Record<TorquePosterChapterId, { title: string; lede: 
   drafting: {
     title: 'Drafting',
     lede: 'Design starts at the interfaces.',
-    body: 'Mark Hintz’s layout of the JGun pneumatic torque wrench: input shaft, five-stage planetary drivetrain and two-speed clutch. The handwritten notes mark the manufacturing decisions behind the geometry.',
+    body: 'Mark Hintz’s layout of the industrial grade pneumatic torque wrench: input shaft, five-stage planetary drivetrain and two-speed clutch. The handwritten notes mark the manufacturing decisions behind the geometry.',
   },
   breakthrough: {
     title: 'Breakthrough',

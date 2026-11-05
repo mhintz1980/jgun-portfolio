@@ -327,7 +327,7 @@ describe('determinism, reduced motion and the discrete key', () => {
       sampleShaftScript(time, false, frame)
       expect(snapshot(frame)).toBe(snapshot(sampleShaftScript(time, false, createShaftScriptFrame())))
     }
-    expect(SHAFT_CAPTION_TEXT['driveline-cascade']).toContain('Stage 1 → 2 → 5 → 3 → 4 → output')
+    expect(SHAFT_CAPTION_TEXT['driveline-cascade']).toContain('Stage 1 → 2 → 3 → 4 → 5 → output')
     expect(SHAFT_CAPTION_TEXT['driveline-cascade']).toContain('Each stage turns slower')
     expect(SHAFT_CAPTION_TEXT['driveline-cascade']).toContain('the input accelerates to its cap')
   })

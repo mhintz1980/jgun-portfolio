@@ -68,10 +68,10 @@ export function StaticShaftStory() {
           <ShaftStill id="stage1-engagement" alt="Stage 1 carrier A000591 with four twelve-tooth P000247 planets seated over the ten-tooth input sun gear at full .250″ face engagement." caption="Stage 1 · axial approach and full tooth engagement" />
         </div>
         <div data-static-part="bullet-time">
-          <ShaftStill id="bullet-time" alt="Macro view of the sun-to-planet pitch point inside the stationary ring gear, illustrating torque ignition and planet counter-rotation at 0.10× bullet time." caption="Torque ignition · 0.10× bullet time reveals the tooth push" />
+          <ShaftStill id="bullet-time" alt="Macro view of the sun-to-planet pitch point inside the stationary ring gear, illustrating torque ignition and planet counter-rotation, slowed down." caption="Torque ignition · slowed down to show the tooth push" />
         </div>
         <div data-static-part="driveline-cascade">
-          <ShaftStill id="driveline-cascade" alt="Close view along the drivetrain toward the rotating output. Stage 2 planets appear before their cage; the physical order remains 1, 2, 5 (A000606), 3 and 4 before the housing and handle return." caption="Driveline cascade · planets before cage, then toward the rotating output; the 8.0 to 1.43 ladder labels relative speeds." />
+          <ShaftStill id="driveline-cascade" alt="Close view along the drivetrain toward the rotating output. Stage 2 planets appear before their cage; the stages run 1 through 5 in physical order before the housing and handle return." caption="Driveline cascade · planets before cage, then toward the rotating output; the 8.0 to 1.43 ladder labels relative speeds." />
         </div>
       </section>
     </div>

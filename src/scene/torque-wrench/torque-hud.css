@@ -168,6 +168,75 @@
   .torque-hud__mode { transition: none; }
 }
 
+/* Torque-path tracker (audit #3): stages in physical driveline order. A dot lights, and the
+   link before it fills, when that stage's carrier is seen turning (CASCADE_TORQUE_PATH).
+   Hidden until Stage 1 turns; no speed or ratio values are shown (the cascade is cinematic). */
+.torque-hud__path {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0.55rem 0 0;
+  font: 0.6rem/1 monospace;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  color: #9aa3a3;
+  opacity: 1;
+  transition: opacity 240ms linear;
+}
+
+.torque-hud__path[data-lit="0"] { opacity: 0; }
+
+.torque-hud__path-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 200ms linear;
+}
+
+.torque-hud__path-dot::before {
+  content: '';
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  box-sizing: border-box;
+  transition: background-color 200ms linear, box-shadow 200ms linear;
+}
+
+.torque-hud__path-dot[data-on="true"] { color: #d2c4a3; }
+
+.torque-hud__path-dot[data-on="true"]::before {
+  background: #d2c4a3;
+  box-shadow: 0 0 0.35rem rgba(210, 196, 163, 0.55);
+}
+
+.torque-hud__path-link {
+  position: relative;
+  flex: 0 1 0.9rem;
+  min-width: 0.45rem;
+  height: 1px;
+  background: rgba(154, 163, 163, 0.45);
+}
+
+.torque-hud__path-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #d2c4a3;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 280ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.torque-hud__path-link[data-on="true"]::after { transform: scaleX(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .torque-hud__path,
+  .torque-hud__path-dot,
+  .torque-hud__path-dot::before,
+  .torque-hud__path-link::after { transition: none; }
+}
+
 .torque-hud abbr[title] {
   text-decoration: underline dotted rgba(210, 196, 163, 0.55);
   text-underline-offset: 2px;
@@ -408,8 +477,16 @@
   }
 
   .torque-hud__title {
+    margin-top: 0.5rem;
     font-size: 1.75rem;
   }
+
+  /* Owner review 2026-11-05: with the step line + tracker rows, the kicker rose under the
+     evidence panel. Tighter narrow-only spacing (~1.1rem total) keeps it clear. */
+  .torque-hud__step { margin-top: 0.5rem; }
+  .torque-hud__path,
+  .torque-hud__modes { margin-top: 0.4rem; }
+  .torque-hud__cue { margin-top: 0.6rem; }
 
   .torque-hud__lede {
     max-width: 15rem;

@@ -112,7 +112,7 @@ export function samplePrivateRing(time: number, out: InspectionFrame): Inspectio
     out.phase = t < 1 ? 'Remove knurl' : t < 2 ? 'Remove black anodize' : 'Conceal face holes'
   } else {
     out.spin *= Math.max(0, rate)
-    if (t >= RING_SLOW_START && t <= RING_SLOW_END) out.phase = 'Knurl forming · bullet time'
+    if (t >= RING_SLOW_START && t <= RING_SLOW_END) out.phase = 'Knurl forming · slowed down'
   }
   const ringHz = out.spin * RING_FEATURES / Math.PI
   const rollerHz = out.spin * RING_RADIUS / WHEEL_RADIUS * ROLLER_TEETH / (2 * Math.PI)

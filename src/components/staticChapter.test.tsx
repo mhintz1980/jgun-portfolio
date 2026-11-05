@@ -181,7 +181,7 @@ describe('shaft engagement narrative parity', () => {
       }
     }
     expect(still).toContain('Stage 1 engagement and driveline cascade')
-    expect(still).toContain('labels relative carrier speeds; actual elapsed turns follow the bullet-time and cascade speed ramps')
+    expect(still).toContain('labels relative carrier speeds; actual elapsed turns follow the slow-motion and cascade speed ramps')
     expect(still).not.toMatch(/Moving the supports|2\.75 millimetres|support relocation/)
   })
 

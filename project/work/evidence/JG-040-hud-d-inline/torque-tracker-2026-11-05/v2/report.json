@@ -1,0 +1,1183 @@
+{
+ "url": "http://localhost:5199/torque-wrench/",
+ "capturedAt": "2026-11-05T17:24:10.641Z",
+ "samples": [
+  {
+   "viewport": "desktop",
+   "label": "pre-slide-t34.2",
+   "p": 0.795,
+   "file": "desktop-pre-slide-t34.2-p0.7950.png",
+   "progress": 0.7950034086006231,
+   "overlay": {
+    "progress": 0.7950034086006231,
+    "subjectTime": 34.18147075684616,
+    "studyVisible": true,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 0,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "step": "04·5  Runout check · Stage 1 mesh",
+   "tracker": {
+    "lit": "0",
+    "opacity": "0",
+    "text": "12345OUT",
+    "rect": {
+     "x": 41.59375,
+     "y": 571.421875,
+     "w": 328,
+     "h": 9.59375
+    },
+    "scrollW": 328,
+    "clientW": 328,
+    "dots": [
+     "1:false",
+     "2:false",
+     "3:false",
+     "4:false",
+     "5:false",
+     "OUT:false"
+    ]
+   },
+   "caption": {
+    "x": 21.59375,
+    "w": 368
+   },
+   "techPanel": {
+    "opacity": "1",
+    "visibility": "visible",
+    "bottom": 810.40625,
+    "kickerTop": 525.90625
+   },
+   "planetAlpha": 34.18147075684616
+  },
+  {
+   "viewport": "desktop",
+   "label": "fade-t34.75",
+   "p": 0.7964,
+   "file": "desktop-fade-t34.75-p0.7964.png",
+   "progress": 0.7964020466578926,
+   "overlay": {
+    "progress": 0.7964020466578926,
+    "subjectTime": 34.76368550028788,
+    "studyVisible": true,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 0,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "step": "04·5  Runout check · Stage 1 mesh",
+   "tracker": {
+    "lit": "0",
+    "opacity": "0",
+    "text": "12345OUT",
+    "rect": {
+     "x": 41.59375,
+     "y": 571.421875,
+     "w": 328,
+     "h": 9.59375
+    },
+    "scrollW": 328,
+    "clientW": 328,
+    "dots": [
+     "1:false",
+     "2:false",
+     "3:false",
+     "4:false",
+     "5:false",
+     "OUT:false"
+    ]
+   },
+   "caption": {
+    "x": 21.59375,
+    "w": 368
+   },
+   "techPanel": {
+    "opacity": "0.55",
+    "visibility": "visible",
+    "bottom": 810.40625,
+    "kickerTop": 525.90625
+   },
+   "planetAlpha": 34.76368550028788
+  },
+  {
+   "viewport": "desktop",
+   "label": "post-slide-t35.4",
+   "p": 0.7981,
+   "file": "desktop-post-slide-t35.4-p0.7981.png",
+   "progress": 0.7980991076462439,
+   "overlay": {
+    "progress": 0.7980991076462439,
+    "subjectTime": 35.426902788650196,
+    "studyVisible": true,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 0,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "step": "04·5  Runout check · Stage 1 mesh",
+   "tracker": {
+    "lit": "0",
+    "opacity": "0",
+    "text": "12345OUT",
+    "rect": {
+     "x": 41.59375,
+     "y": 571.421875,
+     "w": 328,
+     "h": 9.59375
+    },
+    "scrollW": 328,
+    "clientW": 328,
+    "dots": [
+     "1:false",
+     "2:false",
+     "3:false",
+     "4:false",
+     "5:false",
+     "OUT:false"
+    ]
+   },
+   "caption": {
+    "x": 21.59375,
+    "w": 368
+   },
+   "techPanel": {
+    "opacity": "0",
+    "visibility": "hidden",
+    "bottom": 810.40625,
+    "kickerTop": 525.90625
+   },
+   "planetAlpha": 35.426902788650196
+  },
+  {
+   "viewport": "desktop",
+   "label": "ignition",
+   "p": 0.81,
+   "file": "desktop-ignition-p0.8100.png",
+   "progress": 0.8099983798712754,
+   "overlay": {
+    "progress": 0.8099983798712754,
+    "subjectTime": 39.1756487169996,
+    "studyVisible": true,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 0,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "step": "04·5  Runout check · Stage 1 mesh",
+   "tracker": {
+    "lit": "1",
+    "opacity": "1",
+    "text": "12345OUT",
+    "rect": {
+     "x": 41.59375,
+     "y": 571.421875,
+     "w": 328,
+     "h": 9.59375
+    },
+    "scrollW": 328,
+    "clientW": 328,
+    "dots": [
+     "1:true",
+     "2:false",
+     "3:false",
+     "4:false",
+     "5:false",
+     "OUT:false"
+    ]
+   },
+   "caption": {
+    "x": 21.59375,
+    "w": 368
+   },
+   "techPanel": {
+    "opacity": "0",
+    "visibility": "hidden",
+    "bottom": 810.40625,
+    "kickerTop": 525.90625
+   },
+   "planetAlpha": 39.1756487169996
+  },
+  {
+   "viewport": "desktop",
+   "label": "stage2",
+   "p": 0.8176,
+   "file": "desktop-stage2-p0.8176.png",
+   "progress": 0.8175837900717507,
+   "overlay": {
+    "progress": 0.8175837900717507,
+    "subjectTime": 46.48490059658672,
+    "studyVisible": true,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 0,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "step": "04·6  Torque path · five stages",
+   "tracker": {
+    "lit": "2",
+    "opacity": "1",
+    "text": "12345OUT",
+    "rect": {
+     "x": 41.59375,
+     "y": 571.421875,
+     "w": 328,
+     "h": 9.59375
+    },
+    "scrollW": 328,
+    "clientW": 328,
+    "dots": [
+     "1:true",
+     "2:true",
+     "3:false",
+     "4:false",
+     "5:false",
+     "OUT:false"
+    ]
+   },
+   "caption": {
+    "x": 21.59375,
+    "w": 368
+   },
+   "techPanel": {
+    "opacity": "0",
+    "visibility": "hidden",
+    "bottom": 810.40625,
+    "kickerTop": 525.90625
+   },
+   "planetAlpha": 46.48490059658672
+  },
+  {
+   "viewport": "desktop",
+   "label": "stage3",
+   "p": 0.8206,
+   "file": "desktop-stage3-p0.8206.png",
+   "progress": 0.8205997032493538,
+   "overlay": {
+    "progress": 0.8205997032493538,
+    "subjectTime": 59.159886163138886,
+    "studyVisible": true,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 0,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "step": "04·6  Torque path · five stages",
+   "tracker": {
+    "lit": "4",
+    "opacity": "1",
+    "text": "12345OUT",
+    "rect": {
+     "x": 41.59375,
+     "y": 571.421875,
+     "w": 328,
+     "h": 9.59375
+    },
+    "scrollW": 328,
+    "clientW": 328,
+    "dots": [
+     "1:true",
+     "2:true",
+     "3:true",
+     "4:true",
+     "5:false",
+     "OUT:false"
+    ]
+   },
+   "caption": {
+    "x": 21.59375,
+    "w": 368
+   },
+   "techPanel": {
+    "opacity": "0",
+    "visibility": "hidden",
+    "bottom": 810.40625,
+    "kickerTop": 525.90625
+   },
+   "planetAlpha": 59.159886163138886
+  },
+  {
+   "viewport": "desktop",
+   "label": "output",
+   "p": 0.824,
+   "file": "desktop-output-p0.8240.png",
+   "progress": 0.8240003144204165,
+   "overlay": {
+    "progress": 0.8240003144204165,
+    "subjectTime": 66.28151910942995,
+    "studyVisible": true,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 0.6610597227744492,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "step": "04·6  Torque path · five stages",
+   "tracker": {
+    "lit": "6",
+    "opacity": "1",
+    "text": "12345OUT",
+    "rect": {
+     "x": 41.59375,
+     "y": 571.421875,
+     "w": 328,
+     "h": 9.59375
+    },
+    "scrollW": 328,
+    "clientW": 328,
+    "dots": [
+     "1:true",
+     "2:true",
+     "3:true",
+     "4:true",
+     "5:true",
+     "OUT:true"
+    ]
+   },
+   "caption": {
+    "x": 21.59375,
+    "w": 368
+   },
+   "techPanel": {
+    "opacity": "0",
+    "visibility": "hidden",
+    "bottom": 810.40625,
+    "kickerTop": 525.90625
+   },
+   "planetAlpha": 66.28151910942995
+  },
+  {
+   "viewport": "narrow",
+   "label": "pre-slide-t34.2",
+   "p": 0.795,
+   "file": "narrow-pre-slide-t34.2-p0.7950.png",
+   "progress": 0.7950032169354649,
+   "overlay": {
+    "progress": 0.7950032169354649,
+    "subjectTime": 34.18138871429473,
+    "studyVisible": true,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 0,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "step": "04·5  Runout check · Stage 1 mesh",
+   "tracker": {
+    "lit": "0",
+    "opacity": "0",
+    "text": "12345OUT",
+    "rect": {
+     "x": 16,
+     "y": 465.203125,
+     "w": 358,
+     "h": 9.59375
+    },
+    "scrollW": 358,
+    "clientW": 358,
+    "dots": [
+     "1:false",
+     "2:false",
+     "3:false",
+     "4:false",
+     "5:false",
+     "OUT:false"
+    ]
+   },
+   "caption": {
+    "x": -4,
+    "w": 398
+   },
+   "techPanel": {
+    "opacity": "1",
+    "visibility": "visible",
+    "bottom": 412,
+    "kickerTop": 426.09375
+   },
+   "planetAlpha": 34.18138871429473
+  },
+  {
+   "viewport": "narrow",
+   "label": "fade-t34.75",
+   "p": 0.7964,
+   "file": "narrow-fade-t34.75-p0.7964.png",
+   "progress": 0.7963977619045862,
+   "overlay": {
+    "progress": 0.7963977619045862,
+    "subjectTime": 34.76196107438503,
+    "studyVisible": true,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 0,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "step": "04·5  Runout check · Stage 1 mesh",
+   "tracker": {
+    "lit": "0",
+    "opacity": "0",
+    "text": "12345OUT",
+    "rect": {
+     "x": 16,
+     "y": 465.203125,
+     "w": 358,
+     "h": 9.59375
+    },
+    "scrollW": 358,
+    "clientW": 358,
+    "dots": [
+     "1:false",
+     "2:false",
+     "3:false",
+     "4:false",
+     "5:false",
+     "OUT:false"
+    ]
+   },
+   "caption": {
+    "x": -4,
+    "w": 398
+   },
+   "techPanel": {
+    "opacity": "0.55",
+    "visibility": "visible",
+    "bottom": 412,
+    "kickerTop": 426.09375
+   },
+   "planetAlpha": 34.76196107438503
+  },
+  {
+   "viewport": "narrow",
+   "label": "post-slide-t35.4",
+   "p": 0.7981,
+   "file": "narrow-post-slide-t35.4-p0.7981.png",
+   "progress": 0.7981063583737095,
+   "overlay": {
+    "progress": 0.7981063583737095,
+    "subjectTime": 35.42972030782109,
+    "studyVisible": true,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 0,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "step": "04·5  Runout check · Stage 1 mesh",
+   "tracker": {
+    "lit": "0",
+    "opacity": "0",
+    "text": "12345OUT",
+    "rect": {
+     "x": 16,
+     "y": 465.203125,
+     "w": 358,
+     "h": 9.59375
+    },
+    "scrollW": 358,
+    "clientW": 358,
+    "dots": [
+     "1:false",
+     "2:false",
+     "3:false",
+     "4:false",
+     "5:false",
+     "OUT:false"
+    ]
+   },
+   "caption": {
+    "x": -4,
+    "w": 398
+   },
+   "techPanel": {
+    "opacity": "0",
+    "visibility": "hidden",
+    "bottom": 412,
+    "kickerTop": 426.09375
+   },
+   "planetAlpha": 35.42972030782109
+  },
+  {
+   "viewport": "narrow",
+   "label": "ignition",
+   "p": 0.81,
+   "file": "narrow-ignition-p0.8100.png",
+   "progress": 0.8100005872014565,
+   "overlay": {
+    "progress": 0.8100005872014565,
+    "subjectTime": 39.176089027154354,
+    "studyVisible": true,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 0,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "step": "04·5  Runout check · Stage 1 mesh",
+   "tracker": {
+    "lit": "1",
+    "opacity": "1",
+    "text": "12345OUT",
+    "rect": {
+     "x": 16,
+     "y": 465.203125,
+     "w": 358,
+     "h": 9.59375
+    },
+    "scrollW": 358,
+    "clientW": 358,
+    "dots": [
+     "1:true",
+     "2:false",
+     "3:false",
+     "4:false",
+     "5:false",
+     "OUT:false"
+    ]
+   },
+   "caption": {
+    "x": -4,
+    "w": 398
+   },
+   "techPanel": {
+    "opacity": "0",
+    "visibility": "hidden",
+    "bottom": 412,
+    "kickerTop": 426.09375
+   },
+   "planetAlpha": 39.176089027154354
+  },
+  {
+   "viewport": "narrow",
+   "label": "stage2",
+   "p": 0.8176,
+   "file": "narrow-stage2-p0.8176.png",
+   "progress": 0.8176004005113301,
+   "overlay": {
+    "progress": 0.8176004005113301,
+    "subjectTime": 46.66264822881623,
+    "studyVisible": true,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 0,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "step": "04·6  Torque path · five stages",
+   "tracker": {
+    "lit": "2",
+    "opacity": "1",
+    "text": "12345OUT",
+    "rect": {
+     "x": 16,
+     "y": 465.203125,
+     "w": 358,
+     "h": 9.59375
+    },
+    "scrollW": 358,
+    "clientW": 358,
+    "dots": [
+     "1:true",
+     "2:true",
+     "3:false",
+     "4:false",
+     "5:false",
+     "OUT:false"
+    ]
+   },
+   "caption": {
+    "x": -4,
+    "w": 398
+   },
+   "techPanel": {
+    "opacity": "0",
+    "visibility": "hidden",
+    "bottom": 412,
+    "kickerTop": 426.09375
+   },
+   "planetAlpha": 46.66264822881623
+  },
+  {
+   "viewport": "narrow",
+   "label": "stage3",
+   "p": 0.8206,
+   "file": "narrow-stage3-p0.8206.png",
+   "progress": 0.8206001656272707,
+   "overlay": {
+    "progress": 0.8206001656272707,
+    "subjectTime": 59.161043231623225,
+    "studyVisible": true,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 0,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "step": "04·6  Torque path · five stages",
+   "tracker": {
+    "lit": "4",
+    "opacity": "1",
+    "text": "12345OUT",
+    "rect": {
+     "x": 16,
+     "y": 465.203125,
+     "w": 358,
+     "h": 9.59375
+    },
+    "scrollW": 358,
+    "clientW": 358,
+    "dots": [
+     "1:true",
+     "2:true",
+     "3:true",
+     "4:true",
+     "5:false",
+     "OUT:false"
+    ]
+   },
+   "caption": {
+    "x": -4,
+    "w": 398
+   },
+   "techPanel": {
+    "opacity": "0",
+    "visibility": "hidden",
+    "bottom": 412,
+    "kickerTop": 426.09375
+   },
+   "planetAlpha": 59.161043231623225
+  },
+  {
+   "viewport": "narrow",
+   "label": "output",
+   "p": 0.824,
+   "file": "narrow-output-p0.8240.png",
+   "progress": 0.8240002540244448,
+   "overlay": {
+    "progress": 0.8240002540244448,
+    "subjectTime": 66.28142891028229,
+    "studyVisible": true,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 0.6609537968356122,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "step": "04·6  Torque path · five stages",
+   "tracker": {
+    "lit": "6",
+    "opacity": "1",
+    "text": "12345OUT",
+    "rect": {
+     "x": 16,
+     "y": 465.203125,
+     "w": 358,
+     "h": 9.59375
+    },
+    "scrollW": 358,
+    "clientW": 358,
+    "dots": [
+     "1:true",
+     "2:true",
+     "3:true",
+     "4:true",
+     "5:true",
+     "OUT:true"
+    ]
+   },
+   "caption": {
+    "x": -4,
+    "w": 398
+   },
+   "techPanel": {
+    "opacity": "0",
+    "visibility": "hidden",
+    "bottom": 412,
+    "kickerTop": 426.09375
+   },
+   "planetAlpha": 66.28142891028229
+  }
+ ],
+ "errors": []
+}

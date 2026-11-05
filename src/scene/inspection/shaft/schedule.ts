@@ -43,6 +43,37 @@ export const CASCADE_DRIVE_EVENTS = Object.freeze([
   Object.freeze({ start: 62.25, end: 63.15, rate: 50 * Math.PI / 9 }),
 ] as const)
 
+/** HUD torque-path tracker (JG-040 audit #3), physical driveline order; the bearing (unit 3)
+ * gets no dot. Every carrier pivot turns on the shared drive from the Stage 1 seat, so a stage
+ * is seen turning when its carrier is revealed: Stage 1 at its seat, Stages 2/5/3/4 at their
+ * reveal carrierStart, the output at its fade-in (it rides Stage 4's ratio, no drive event). */
+/** Labels are viewer-facing physical positions (owner 2026-11-05: "1, 2, 3, 4, 5, Out"), not
+ * the internal stage names (unit 2 is the stage named Stage 5 / A000606 in code and CAD). */
+export const CASCADE_TORQUE_PATH = Object.freeze([
+  Object.freeze({ label: '1', unit: 0, start: CASCADE_SEAT[0] }),
+  ...CASCADE_REVEAL_EVENTS.map((event, i) =>
+    Object.freeze({ label: String(i + 2), unit: event.index as number, start: event.carrierStart as number })),
+  Object.freeze({ label: 'OUT', unit: 6, start: CASCADE_START[6] }),
+])
+
+/** HUD FEA evidence panel cutoff (owner 2026-11-05): gone before any planet moves toward the
+ * input shaft. Stage 1 carrier + planets start fading in and sliding at the stage1-mesh start. */
+export const FOS_PANEL_CUTOFF = MESH.start
+export const FOS_PANEL_FADE = 0.5
+/** Panel opacity at subject time `time`: 1 until the fade, exactly 0 from the cutoff on. */
+export function fosPanelOpacity(time: number): number {
+  if (!Number.isFinite(time)) return 1
+  return 1 - shaftEase((time - (FOS_PANEL_CUTOFF - FOS_PANEL_FADE)) / FOS_PANEL_FADE)
+}
+
+/** Number of torque-path dots lit at subject time `time` (0..CASCADE_TORQUE_PATH.length). */
+export function torquePathLitCount(time: number): number {
+  if (!Number.isFinite(time)) return 0
+  let lit = 0
+  while (lit < CASCADE_TORQUE_PATH.length && time >= CASCADE_TORQUE_PATH[lit].start) lit++
+  return lit
+}
+
 /** Quintic travel: zero velocity and acceleration at both axial datums. */
 export function axialSlideProgress(time: number, start: number, seat: number): number {
   const u = clamp01((time - start) / (seat - start))

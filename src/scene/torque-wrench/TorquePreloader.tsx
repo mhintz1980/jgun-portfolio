@@ -155,7 +155,7 @@ export function TorquePreloader({ onComplete }: TorquePreloaderProps) {
       data-torque-preloader={isExiting ? 'exiting' : isZooming ? 'zooming' : 'active'}
       data-exiting={String(isExiting)}
       data-zooming={String(isZooming)}
-      aria-label="Loading JGun Torque Wrench 3D study"
+      aria-label="Loading pneumatic torque wrench 3D study"
       role="status"
     >
       {/* Top Identity Header */}

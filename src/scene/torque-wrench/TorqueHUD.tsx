@@ -16,6 +16,7 @@ import { torqueHudChapter, torqueHudSeekStart } from './hudChapter'
 import { sampleMechanism, type MechanismSample } from './MechanismDirector'
 import { TORQUE_RAIL_TOOLTIPS, TORQUE_TERM_TOOLTIPS, torqueHudStepText } from './hudCopy'
 import { createShaftScriptFrame, sampleShaftScript } from '../inspection/shaft/script'
+import { CASCADE_TORQUE_PATH, FOS_PANEL_CUTOFF, FOS_PANEL_FADE, fosPanelOpacity, torquePathLitCount } from '../inspection/shaft/schedule'
 import { FOS_MAX, FOS_MIN, newFosPresentation, sampleFosPresentation } from '../inspection/shaft/fosPresentation'
 import type { TorqueWrenchStore } from '../../state/torqueWrenchStore'
 import './torque-hud.css'
@@ -44,8 +45,13 @@ export function TorqueHUD({ store, playback }: { store: TorqueWrenchStore; playb
   const [beatId, setBeatId] = useState<string | undefined>(() => store.getNarrativeSample().beat.id)
   const fosMarkerRef = useRef<HTMLSpanElement>(null)
   const fosValueRef = useRef<HTMLSpanElement>(null)
+  const techRef = useRef<HTMLElement>(null)
   const modesRef = useRef<HTMLDivElement>(null)
   const showModes = beatId === 'mechanism-switch' && chapter === 'mechanism'
+  const pathRef = useRef<HTMLDivElement>(null)
+  // Torque-path tracker (audit #3): mounted for the runout + cascade beats, revealed once
+  // Stage 1 starts turning (subject 38.2 s, inside the runout beat's ignition).
+  const showPath = chapter === 'inspection' && (beatId === 'inspection-runout' || beatId === 'inspection-cascade')
 
   // Mode pills (animation audit #2): the same closed-form shift the ring uses (0 Rundown →
   // 1 High Torque over .520–.545), written to one CSS variable. No React state per frame.
@@ -66,6 +72,30 @@ export function TorqueHUD({ store, playback }: { store: TorqueWrenchStore; playb
     return () => cancelAnimationFrame(raf)
   }, [showModes, store])
 
+  // Torque-path tracker: lit count from the study's own subject clock (CASCADE_TORQUE_PATH),
+  // written as data attributes only when the count changes. No React state per frame.
+  useEffect(() => {
+    if (!showPath) return
+    let raf = 0, last = -1
+    const tick = () => {
+      const sample = document.hidden ? null : readTorqueOverlaySample()
+      const lit = sample?.studyVisible ? torquePathLitCount(Math.round(sample.subjectTime * 15) / 15) : 0
+      const root = pathRef.current
+      if (lit !== last && root) {
+        last = lit
+        root.dataset.lit = String(lit)
+        const steps = root.children
+        for (let i = 0; i < steps.length; i++) {
+          const step = steps[i] as HTMLElement
+          step.dataset.on = Number(step.dataset.step) < lit ? 'true' : 'false'
+        }
+      }
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [showPath])
+
   // Stage 2 live Min-FOS sync (JG-040): while the cutter study runs, the strip's marker and
   // a small value track the same closed-form study presentation the (now suppressed) study
   // FosPanels used. Same discipline as the overlay: one pre-allocated frame + presentation,
@@ -75,7 +105,16 @@ export function TorqueHUD({ store, playback }: { store: TorqueWrenchStore; playb
     const frame = createShaftScriptFrame()
     const fos = newFosPresentation()
     const STATIC_LEFT = '28%'
-    let raf = 0, lastTime = -1, live = false
+    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)')
+    let raf = 0, lastTime = -1, live = false, lastPanel = -1
+    // Owner 2026-11-05: the FEA evidence panel is gone before any Stage 1 planet moves toward the
+    // input shaft. Scrubbed by subject time (not wall clock), so a fast scroll cannot outrun it.
+    const writePanel = (opacity: number) => {
+      if (opacity === lastPanel || !techRef.current) return
+      lastPanel = opacity
+      techRef.current.style.opacity = opacity === 1 ? '' : String(opacity)
+      techRef.current.style.visibility = opacity === 0 ? 'hidden' : ''
+    }
     const reset = () => {
       if (!live) return
       live = false
@@ -86,11 +125,14 @@ export function TorqueHUD({ store, playback }: { store: TorqueWrenchStore; playb
       raf = 0
       const sample = document.hidden ? null : readTorqueOverlaySample()
       const active = Boolean(sample?.studyVisible && Number.isFinite(sample?.subjectTime))
-      if (!active) { lastTime = -1; reset() }
+      if (!active) { lastTime = -1; reset(); writePanel(1) }
       else {
         const time = Math.round(sample!.subjectTime * 15) / 15
         if (time !== lastTime) {
           lastTime = time
+          writePanel(reduced?.matches
+            ? (time < FOS_PANEL_CUTOFF - FOS_PANEL_FADE ? 1 : 0)
+            : Math.round(fosPanelOpacity(time) * 100) / 100)
           sampleShaftScript(time, false, frame)
           sampleFosPresentation(time, frame.stress, frame.stressMix, fos)
           if (fos.kind === 'none') reset()
@@ -179,7 +221,7 @@ export function TorqueHUD({ store, playback }: { store: TorqueWrenchStore; playb
           <p className="torque-hud__kicker">
             <span>{String(index + 1).padStart(2, '0')} / 05</span>
             <span className="torque-hud__rule" aria-hidden="true" />
-            <span>The JGun story</span>
+            <span>The torque wrench story</span>
           </p>
           {/* Step line (copy deck 2026-11-05): keyed by text so it fades on beat change. */}
           {step && <p className="torque-hud__step" key={step}>{step}</p>}
@@ -187,6 +229,14 @@ export function TorqueHUD({ store, playback }: { store: TorqueWrenchStore; playb
             <div className="torque-hud__modes" ref={modesRef} data-mode="rundown" aria-hidden="true">
               <span className="torque-hud__mode torque-hud__mode--rundown">Rundown</span>
               <span className="torque-hud__mode torque-hud__mode--high">High Torque</span>
+            </div>
+          )}
+          {showPath && (
+            <div className="torque-hud__path" ref={pathRef} data-lit="0" aria-hidden="true">
+              {CASCADE_TORQUE_PATH.map((dot, i) => [
+                i > 0 && <span key={`link-${dot.label}`} className="torque-hud__path-link" data-step={i} data-on="false" />,
+                <span key={dot.label} className="torque-hud__path-dot" data-step={i} data-on="false">{dot.label}</span>,
+              ])}
             </div>
           )}
           <h3 className="torque-hud__title">{copy.title}</h3>
@@ -206,7 +256,7 @@ export function TorqueHUD({ store, playback }: { store: TorqueWrenchStore; playb
       </section>
 
       {chapter === 'inspection' && (
-        <aside className="torque-hud__tech" aria-label="Inspection evidence">
+        <aside className="torque-hud__tech" ref={techRef} aria-label="Inspection evidence">
           <p className="torque-hud__tech-head">INSPECTION · INPUT SHAFT P001835</p>
           <ul className="torque-hud__tech-attempts">
             {TECH_ATTEMPTS.map(attempt => (
