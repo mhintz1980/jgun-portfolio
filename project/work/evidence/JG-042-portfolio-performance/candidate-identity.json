@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "createdAt": "2026-11-06T17:21:10.464Z",
-  "source": "6ec4fe06b55a4f71865166ac1dfbc5a1a70502c2",
-  "sourceStatus": "M TODO.md\n M build/excludePublicAssets.ts\n M project/work/INDEX.md",
-  "sourceDiffSha256": "fd0be064e4c8380b0dd721e3ed0be563ac69f5cedcae48bf06caf707a1e74fb0",
+  "createdAt": "2026-11-06T17:27:45.188Z",
+  "source": "fff71e0988de6d461c308c4ed8f31813f24329ad",
+  "sourceStatus": "",
+  "sourceDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "sourceInputs": [
     {
       "path": "armament/index.html",

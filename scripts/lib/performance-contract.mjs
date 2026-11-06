@@ -39,6 +39,7 @@ export function parseOptions(argv) {
   if (!['http:', 'https:'].includes(base.protocol) || base.username || base.password || base.pathname !== '/' || base.search || base.hash) throw new Error('--base must be an origin')
   args.profiles = args.profiles.split(',')
   args.routes = args.routes.split(',')
+  if (new Set(args.profiles).size !== args.profiles.length || new Set(args.routes).size !== args.routes.length) throw new Error('Duplicate profile/route')
   for (const p of args.profiles) if (!Object.hasOwn(PROFILES, p)) throw new Error(`Unknown profile ${p}`)
   for (const r of args.routes) if (!Object.hasOwn(ROUTES, r)) throw new Error(`Unknown route ${r}`)
   for (const key of ['pairs', 'ready-timeout', 'window-ms']) {
@@ -47,6 +48,11 @@ export function parseOptions(argv) {
   }
   if (args.pairs > 20 || args['window-ms'] < 500 || args['window-ms'] > 30000 || args['ready-timeout'] > 120000) throw new Error('Sampling options outside bounded limits')
   return args
+}
+export function median(values) {
+  if (!values.length) return null
+  const sorted = [...values].sort((a,b)=>a-b), mid = Math.floor(sorted.length/2)
+  return sorted.length%2 ? sorted[mid] : (sorted[mid-1]+sorted[mid])/2
 }
 // Each repeat follows its own measured cold navigation inside exactly the same context.
 // Closing the page between navigations preserves HTTP cache while resetting application state.

@@ -13,6 +13,7 @@ for(const key of ['base','identity','out','cache-file'])if(!args[key])throw new 
 const identity=JSON.parse(readFileSync(args.identity,'utf8'))
 validateIdentity(identity,'torque')
 const original=readFileSync(args['cache-file']),decoded=gunzipSync(original)
+if(sha256(original)!==identity.files.find(f=>f.path==='drawing/jgun-sheet-v2.bin.gz')?.sha256)throw new Error('Fixture does not match artifact cache bytes')
 if(decoded.subarray(0,4).toString()!=='JGD3')throw new Error('Expected JGD3 drawing cache')
 const version=decoded.readUInt32LE(8)
 const staleDecoded=Buffer.from(decoded);staleDecoded.writeUInt32LE(Math.max(0,version-1),8)
@@ -22,6 +23,12 @@ const output=path.join(args.out,'startup-cache-conditions.json')
 if(existsSync(output))throw new Error('Choose a fresh --out')
 const response=await fetch(new URL('/torque-wrench/index.html',args.base))
 if(response.status!==200||sha256(Buffer.from(await response.arrayBuffer()))!==identity.routes.torque.htmlSha256)throw new Error('Served HTML mismatch')
+const preflightIdentity=[]
+for(const url of [identity.routes.torque.entry,identity.routes.torque.scene,'/models/Default.glb']){
+  const expected=identity.files.find(f=>'/'+f.path===url),res=await fetch(new URL(url,args.base))
+  if(res.status!==200||!expected||sha256(Buffer.from(await res.arrayBuffer()))!==expected.sha256)throw new Error(`Served identity mismatch ${url}`)
+  preflightIdentity.push({path:url,sha256:expected.sha256})
+}
 const browser=await chromium.launch({headless:true,timeout:15000,args:['--use-angle=d3d11','--enable-gpu']})
 const rows=[]
 try{
@@ -30,7 +37,7 @@ try{
     const row={profile,condition,source:identity.source,artifactManifestSha256:identity.artifactManifestSha256,
       browser:browser.version(),cacheVersion:version,fixtureVersion:condition==='stale'?Math.max(0,version-1):version,
       fixtureSha256:condition==='missing'?null:sha256(condition==='stale'?stale:original),
-      cacheState:'fresh-context; request interception disables browser HTTP cache',intercepted:0,errors:[],consoleErrors:[]}
+      cacheState:'fresh-context; request interception disables browser HTTP cache',preflightIdentity,readinessObservationResolutionMs:1000,intercepted:0,errors:[],consoleErrors:[]}
     try{
       await context.route('**/drawing/jgun-sheet-v2.bin.gz',async route=>{
         row.intercepted++
@@ -42,6 +49,7 @@ try{
       page.on('console',m=>{if(m.type()==='error')row.consoleErrors.push(m.text())})
       const nav=await page.goto(new URL('/torque-wrench/',args.base).href,{waitUntil:'domcontentloaded',timeout:30000})
       if(nav.status()!==200||new URL(page.url()).pathname!=='/torque-wrench/')throw new Error('Fallback route')
+      if(sha256(await nav.body())!==identity.routes.torque.htmlSha256)throw new Error('Navigation HTML byte mismatch')
       await page.waitForFunction(()=>window.__torqueWorld?.snapshot?.().ready===true,null,{timeout:60000,polling:1000})
       row.sceneReadyMs=await page.evaluate(()=>performance.now())
       await page.waitForFunction(()=>window.__torqueWorld?.snapshot?.().sheet?.baked===true,null,{timeout:60000,polling:1000})

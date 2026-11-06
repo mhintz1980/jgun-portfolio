@@ -35,4 +35,4 @@ Official [three r187 release](https://github.com/mrdoob/three.js/releases/tag/r1
 
 ## Delegation outcome
 
-Two selected GLM-5.3-Flash/high worker contexts produced no usable files before being stopped after extended elapsed time. Parent completed these bounded audits; no substitute model was dispatched. P10 fresh implementation review remains a separate requirement, with GLM-5.3/high selected.
+Two selected GLM-5.3-Flash/high worker contexts produced no usable isolated-worktree files before being stopped after extended elapsed time. Parent completed these bounded audits. GLM-5.3/high review then timed out without content; Mark explicitly selected Sonnet 5.5/high replacement. Its fresh direct review returned concrete findings; the author's corrections and one follow-up resolve the bounded implementation scope. No unapproved model substitution or DeepSeek retry.

@@ -14,6 +14,14 @@ const identity = JSON.parse(readFileSync(options.identity, 'utf8'))
 if (!/^[a-f0-9]{40}$/.test(identity.source) || !/^[a-f0-9]{64}$/.test(identity.artifactManifestSha256)
   || !identity.routes?.torque?.entry || !identity.files?.length) throw new Error('Incomplete source/artifact identity')
 const hash = bytes => createHash('sha256').update(bytes).digest('hex')
+const servedIdentity = []
+for (const file of [identity.routes.torque.entry, identity.routes.torque.scene, '/models/Default.glb']) {
+  const expected = identity.files.find(f => '/' + f.path === file)
+  if (!expected) throw new Error(`Missing artifact identity for ${file}`)
+  const served = await fetch(new URL(file, options.base))
+  if (served.status !== 200 || hash(Buffer.from(await served.arrayBuffer())) !== expected.sha256) throw new Error(`Served byte mismatch: ${file}`)
+  servedIdentity.push({path:file,sha256:expected.sha256})
+}
 mkdirSync(options.out, { recursive: true })
 const browser = await chromium.launch({ headless: true, timeout: 15000, args: ['--use-angle=d3d11', '--enable-gpu'] })
 const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 })
@@ -22,7 +30,7 @@ const cdp = await context.newCDPSession(page)
 const report = { source: identity.source, artifact: identity.artifactManifestSha256,
   browser: browser.version(), launch: 'bundled Chromium, headless, ANGLE D3D11 requested',
   viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1, throttled: false,
-  requests: [], errors: [], checkpoints: [], windows: [], limitations: [
+  preflightIdentity: servedIdentity, requests: [], errors: [], checkpoints: [], windows: [], limitations: [
     'Trace is diagnostic and perturbs timing; not a primary performance comparison.',
     'No isolated GLTF decode/preparation spans: loader/prepare attribution unresolved.',
     'GPU execution time, power, physical device and hidden-tab behavior unresolved.',
@@ -44,8 +52,9 @@ const snapshot = () => page.evaluate(() => {
 const checkpoint = async label => report.checkpoints.push({ label, at: await clock(), ...await snapshot() })
 const seek = async progress => {
   await page.evaluate(p => scrollTo(0, window.__torqueNarrative.scrollFraction(p) * (document.documentElement.scrollHeight - innerHeight)), progress)
-  await page.waitForFunction(p => Math.abs((window.__torqueNarrative?.snapshot?.().progress ?? -1) - p) < .01
-    && Math.abs((window.__torqueWorld?.snapshot?.().progress ?? -1) - p) < .01, progress, { timeout: 15000 })
+  await page.waitForFunction(p => Math.abs((window.__torqueNarrative?.snapshot?.().progress ?? -1) - p) < .01,
+    progress, { timeout: 15000, polling: 100 })
+  await page.waitForTimeout(150)
 }
 cdp.on('Network.requestWillBeSent', event => {
   if (event.type === 'Document' && origin === null) origin = event.timestamp
@@ -72,15 +81,7 @@ try {
   const html = await response.text()
   if (response.status() !== 200 || new URL(page.url()).pathname !== identity.routes.torque.path || !html.includes(identity.routes.torque.entry)) throw new Error('Identity/route mismatch')
   if (hash(html) !== identity.routes.torque.htmlSha256) throw new Error('Served HTML hash mismatch')
-  report.servedIdentity = []
-  for (const file of [identity.routes.torque.entry, identity.routes.torque.scene, '/models/Default.glb']) {
-    const expected = identity.files.find(f => '/' + f.path === file)
-    if (!expected) throw new Error(`Missing artifact identity for ${file}`)
-    const served = await context.request.get(new URL(file, options.base).href)
-    if (served.status() !== 200 || hash(await served.body()) !== expected.sha256) throw new Error(`Served byte mismatch: ${file}`)
-    report.servedIdentity.push({ path: file, sha256: expected.sha256 })
-  }
-  await page.waitForFunction(() => window.__torqueWorld?.snapshot?.().ready === true, null, { timeout: 60000 })
+  await page.waitForFunction(() => window.__torqueWorld?.snapshot?.().ready === true, null, { timeout: 60000, polling: 1000 })
   await checkpoint('scene-ready')
   const idleStart = await clock()
   await page.waitForTimeout(3000)
@@ -89,7 +90,7 @@ try {
   const scrollStart = await clock()
   for (const p of [.3, .6, .62, .65, .72, .8, .825]) {
     await seek(p)
-    if (p === .72) await page.waitForFunction(() => window.__torqueWorld?.snapshot?.().inspection?.ready === true, null, { timeout: 30000 })
+    if (p === .72) await page.waitForFunction(() => window.__torqueWorld?.snapshot?.().inspection?.ready === true, null, { timeout: 30000, polling: 1000 })
     await checkpoint(`forward-${p}`)
   }
   for (const p of [.8, .72, .65, .62, .3, 0]) { await seek(p); await checkpoint(`reverse-${p}`) }

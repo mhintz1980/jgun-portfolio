@@ -1,0 +1,237 @@
+{
+  "schemaVersion": 1,
+  "source": "6ec4fe06b55a4f71865166ac1dfbc5a1a70502c2",
+  "artifactManifestSha256": "f624a566bd5571ecef8a0dab052d7b13dc066efc11452f3241b241836c6b7bef",
+  "invocation": [
+    "--base=http://localhost:5271",
+    "--identity=project/work/evidence/JG-042-portfolio-performance/baseline-identity.json",
+    "--out=project/work/evidence/JG-042-portfolio-performance/paired-baseline",
+    "--profiles=desktop,narrow",
+    "--routes=home,quiet,torque",
+    "--pairs=5"
+  ],
+  "records": 60,
+  "valid": 60,
+  "invalid": 0,
+  "leanV1Status": "UNVERIFIED — valid/missing/stale drawing-cache conditions and shader observables not covered by paired natural-startup runs.",
+  "groups": [
+    {
+      "profile": "desktop",
+      "route": "/home/",
+      "kind": "cold",
+      "attempts": 5,
+      "valid": 5,
+      "readinessMs": [
+        3250.800000011921,
+        6283.100000023842,
+        7523.899999976158,
+        7990.600000023842,
+        8327.199999988079
+      ],
+      "median": 7523.899999976158,
+      "min": 3250.800000011921,
+      "max": 8327.199999988079
+    },
+    {
+      "profile": "desktop",
+      "route": "/home/",
+      "kind": "repeat",
+      "attempts": 5,
+      "valid": 5,
+      "readinessMs": [
+        5893.399999976158,
+        7533.5,
+        8030.199999988079,
+        8851.600000023842,
+        8914.800000011921
+      ],
+      "median": 8030.199999988079,
+      "min": 5893.399999976158,
+      "max": 8914.800000011921
+    },
+    {
+      "profile": "desktop",
+      "route": "/quiet-machine/",
+      "kind": "cold",
+      "attempts": 5,
+      "valid": 5,
+      "readinessMs": [
+        1741.699999988079,
+        1767.8999999761581,
+        1830.7000000476837,
+        1849.800000011921,
+        4979
+      ],
+      "median": 1830.7000000476837,
+      "min": 1741.699999988079,
+      "max": 4979
+    },
+    {
+      "profile": "desktop",
+      "route": "/quiet-machine/",
+      "kind": "repeat",
+      "attempts": 5,
+      "valid": 5,
+      "readinessMs": [
+        1745,
+        1759.5999999642372,
+        1776.9000000357628,
+        1842.699999988079,
+        1929.8999999761581
+      ],
+      "median": 1776.9000000357628,
+      "min": 1745,
+      "max": 1929.8999999761581
+    },
+    {
+      "profile": "desktop",
+      "route": "/torque-wrench/",
+      "kind": "cold",
+      "attempts": 5,
+      "valid": 5,
+      "readinessMs": [
+        4535.699999988079,
+        13854,
+        15009.599999964237,
+        19686.5,
+        23419.900000035763
+      ],
+      "median": 15009.599999964237,
+      "min": 4535.699999988079,
+      "max": 23419.900000035763
+    },
+    {
+      "profile": "desktop",
+      "route": "/torque-wrench/",
+      "kind": "repeat",
+      "attempts": 5,
+      "valid": 5,
+      "readinessMs": [
+        11143.699999988079,
+        11415.199999988079,
+        21423.69999998808,
+        21462.80000001192,
+        21898.599999964237
+      ],
+      "median": 21423.69999998808,
+      "min": 11143.699999988079,
+      "max": 21898.599999964237
+    },
+    {
+      "profile": "narrow",
+      "route": "/home/",
+      "kind": "cold",
+      "attempts": 5,
+      "valid": 5,
+      "readinessMs": [
+        3287.800000011921,
+        4163,
+        4712.199999988079,
+        4886.5,
+        5406.5
+      ],
+      "median": 4712.199999988079,
+      "min": 3287.800000011921,
+      "max": 5406.5
+    },
+    {
+      "profile": "narrow",
+      "route": "/home/",
+      "kind": "repeat",
+      "attempts": 5,
+      "valid": 5,
+      "readinessMs": [
+        3208.900000035763,
+        4585.199999988079,
+        5027.300000011921,
+        6170.300000011921,
+        6205.5
+      ],
+      "median": 5027.300000011921,
+      "min": 3208.900000035763,
+      "max": 6205.5
+    },
+    {
+      "profile": "narrow",
+      "route": "/quiet-machine/",
+      "kind": "cold",
+      "attempts": 5,
+      "valid": 5,
+      "readinessMs": [
+        1739.4000000357628,
+        1949.5999999642372,
+        1983.9000000357628,
+        2064.399999976158,
+        2133
+      ],
+      "median": 1983.9000000357628,
+      "min": 1739.4000000357628,
+      "max": 2133
+    },
+    {
+      "profile": "narrow",
+      "route": "/quiet-machine/",
+      "kind": "repeat",
+      "attempts": 5,
+      "valid": 5,
+      "readinessMs": [
+        1755.800000011921,
+        1892.2999999523163,
+        1930.699999988079,
+        1947,
+        1952.0999999642372
+      ],
+      "median": 1930.699999988079,
+      "min": 1755.800000011921,
+      "max": 1952.0999999642372
+    },
+    {
+      "profile": "narrow",
+      "route": "/torque-wrench/",
+      "kind": "cold",
+      "attempts": 5,
+      "valid": 5,
+      "readinessMs": [],
+      "median": null,
+      "min": null,
+      "max": null,
+      "excludedReadinessMs": [
+        21252.19999998808,
+        26237.5,
+        27150.899999976158,
+        28498.5,
+        34610.69999998808
+      ],
+      "timingExcluded": true
+    },
+    {
+      "profile": "narrow",
+      "route": "/torque-wrench/",
+      "kind": "repeat",
+      "attempts": 5,
+      "valid": 5,
+      "readinessMs": [],
+      "median": null,
+      "min": null,
+      "max": null,
+      "excludedReadinessMs": [
+        23031.099999964237,
+        24153.19999998808,
+        26398.399999976158,
+        27160,
+        27456.599999964237
+      ],
+      "timingExcluded": true
+    }
+  ],
+  "readinessObservationResolutionMs": 1000,
+  "readinessIsObservedUpperBound": true,
+  "timingEligibleRecords": 50,
+  "timingExcludedGroups": [
+    {
+      "profile": "narrow",
+      "route": "/torque-wrench/",
+      "reason": "Conservatively exclude entire original timing group: tail overlapped candidate build. Functional validity retained; use uncontended rerun for timing evidence."
+    }
+  ]
+}

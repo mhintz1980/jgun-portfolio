@@ -3,7 +3,7 @@ import { chromium } from 'playwright'
 import { createRequire } from 'node:module'
 import { mkdirSync, readFileSync, appendFileSync, writeFileSync, existsSync } from 'node:fs'
 import path from 'node:path'
-import { ROUTES, PROFILES, sha256, validateIdentity, assertRoute, windowTasks, parseOptions, runPair } from './lib/performance-contract.mjs'
+import { ROUTES, PROFILES, sha256, validateIdentity, assertRoute, windowTasks, parseOptions, runPair, median } from './lib/performance-contract.mjs'
 const require = createRequire(import.meta.url)
 const args = parseOptions(process.argv.slice(2))
 const identity = JSON.parse(readFileSync(args.identity, 'utf8'))
@@ -49,13 +49,16 @@ async function sample(context, meta, profile, route, index) {
   let origin = null
   const row = { schemaVersion: 1, ts: new Date().toISOString(), source: identity.source,
     lockSha256: identity.lockSha256, artifactManifestSha256: identity.artifactManifestSha256,
-    servedIdentity: preflight, ...meta, pairIndex: index, profile, route: ROUTES[route],
+    preflightIdentity: preflight, ...meta, pairIndex: index, profile, route: ROUTES[route],
     browserVersion: browser.version(), playwrightVersion: require('playwright/package.json').version,
     requestedProfile: PROFILES[profile], launch: 'bundled Chromium; headless; ANGLE/D3D11 requested',
-    throttled: false, ready: false, inspectionReady: null, windows: [], checkpoints: [], errors: [],
+    throttled: false, readinessObservationResolutionMs: wait.polling, ready: false, inspectionReady: null, windows: [], checkpoints: [], errors: [],
     limitations: ['Local emulation, not physical mobile.', 'rAF timing is presented scheduling, not GPU execution.',
       'No isolated model-prep/decode spans, power or hidden-tab evidence.',
       'Tier/DPR observed at checkpoints; intermediate transitions may be missed.',
+      'Readiness observed at up to 1000 ms polling resolution; evaluation/transport latency may add more delay.',
+      'Home readiness is DOM main only; home/QM scrolling verifies document movement, not pixel/scene response.',
+      'Evaluation latency adds uncertainty to window bounds; servedIdentity is checked before the roster, not per row.',
       'Natural startup cache only; Lean-V1 valid/missing/stale injection roster NOT completed.'] }
   await page.addInitScript(initializer)
   cdp.on('Network.requestWillBeSent', e => {
@@ -173,7 +176,7 @@ const summary={schemaVersion:1,source:identity.source,artifactManifestSha256:ide
   groups:args.profiles.flatMap(profile=>args.routes.flatMap(route=>['cold','repeat'].map(kind=>{
     const rows=records.filter(r=>r.profile===profile&&r.route===ROUTES[route]&&r.kind===kind),valid=rows.filter(r=>r.valid),values=valid.map(r=>r.readyMs).sort((a,b)=>a-b)
     return{profile,route:ROUTES[route],kind,attempts:rows.length,valid:valid.length,readinessMs:values,
-      median:values.length>=5?values[Math.floor(values.length/2)]:null,min:values[0]??null,max:values.at(-1)??null}
+      median:values.length>=5?median(values):null,min:values[0]??null,max:values.at(-1)??null}
   }))) }
 writeFileSync(path.join(args.out,'summary.json'),JSON.stringify(summary,null,2)+'\n')
 console.log(JSON.stringify({records:summary.records,valid:summary.valid,invalid:summary.invalid}))

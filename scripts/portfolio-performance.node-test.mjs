@@ -1,13 +1,15 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { assertRoute, validateIdentity, windowTasks, parseOptions, runPair } from './lib/performance-contract.mjs'
+import { assertRoute, validateIdentity, windowTasks, parseOptions, runPair, median } from './lib/performance-contract.mjs'
 test('reject fallback routes and unknown CLI keys', () => {
   assert.throws(() => assertRoute('https://example.com/torque/', 'torque'), /fallback/)
   assert.doesNotThrow(() => assertRoute('https://example.com/torque-wrench/', 'torque'))
   assert.throws(() => parseOptions(['--route=torque']), /Unknown/)
   assert.throws(() => parseOptions(['--base=https://example.com','--identity=a','--out=b','--routes=torque/']), /Unknown route/)
   assert.throws(() => parseOptions(['--base=https://example.com','--identity=a','--out=b','--routes=constructor']), /Unknown route/)
+  assert.throws(() => parseOptions(['--base=https://example.com','--identity=a','--out=b','--routes=home,home']), /Duplicate/)
 })
+test('median handles odd and even sample counts',()=>{assert.equal(median([7,1,3]),3);assert.equal(median([9,1,3,5]),4);assert.equal(median([]),null)})
 test('require source lock artifact scene and byte identity', () => {
   assert.throws(() => validateIdentity({}, 'torque'), /identity/)
   const identity = { source: 'a'.repeat(40), lockSha256: 'b'.repeat(64), artifactManifestSha256: 'c'.repeat(64),

@@ -1,0 +1,1602 @@
+{
+  "source": "fff71e0988de6d461c308c4ed8f31813f24329ad",
+  "artifact": "f624a566bd5571ecef8a0dab052d7b13dc066efc11452f3241b241836c6b7bef",
+  "browser": "141.0.7390.37",
+  "launch": "bundled Chromium, headless, ANGLE D3D11 requested",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "deviceScaleFactor": 1,
+  "throttled": false,
+  "preflightIdentity": [
+    {
+      "path": "/assets/torque-wrench-Cph-EaWd.js",
+      "sha256": "738a9b3419fda8c74cf27d35a7251c5e1f2ccc5b519dc2384de0f0df40dde1a5"
+    },
+    {
+      "path": "/assets/Scene-CqjR5e0C.js",
+      "sha256": "ab74e18081a9666514ef3c035ba375bbfd180946a6e77c9eeadf72913f54e6ee"
+    },
+    {
+      "path": "/models/Default.glb",
+      "sha256": "8b07246cf857aca29d1832815d8d183e0a1fd8ef06da5a7a089019706a57a257"
+    }
+  ],
+  "requests": [
+    {
+      "url": "http://localhost:5272/torque-wrench/",
+      "type": "Document",
+      "start": 336910.835728,
+      "initiator": {
+        "type": "other"
+      },
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "timing": {
+        "requestTime": 336910.836947,
+        "proxyStart": 1.817,
+        "proxyEnd": 1.826,
+        "dnsStart": 1.882,
+        "dnsEnd": 1.887,
+        "connectStart": 1.887,
+        "connectEnd": 2.816,
+        "sslStart": -1,
+        "sslEnd": -1,
+        "workerStart": -1,
+        "workerReady": -1,
+        "workerFetchStart": -1,
+        "workerRespondWithSettled": -1,
+        "sendStart": 3.009,
+        "sendEnd": 3.145,
+        "pushStart": 0,
+        "pushEnd": 0,
+        "receiveHeadersStart": 4.9,
+        "receiveHeadersEnd": 4.99
+      },
+      "cacheControl": "no-cache",
+      "finish": 336910.842381,
+      "encodedBytes": 1375,
+      "startMs": 0,
+      "finishMs": 6.653000018559396
+    },
+    {
+      "url": "http://localhost:5272/assets/torque-wrench-Cph-EaWd.js",
+      "type": "Script",
+      "start": 336910.847587,
+      "initiator": {
+        "type": "parser",
+        "url": "http://localhost:5272/torque-wrench/",
+        "lineNumber": 52,
+        "columnNumber": 78
+      },
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "timing": {
+        "requestTime": 336910.848096,
+        "proxyStart": 0.093,
+        "proxyEnd": 0.096,
+        "dnsStart": -1,
+        "dnsEnd": -1,
+        "connectStart": -1,
+        "connectEnd": -1,
+        "sslStart": -1,
+        "sslEnd": -1,
+        "workerStart": -1,
+        "workerReady": -1,
+        "workerFetchStart": -1,
+        "workerRespondWithSettled": -1,
+        "sendStart": 0.199,
+        "sendEnd": 0.315,
+        "pushStart": 0,
+        "pushEnd": 0,
+        "receiveHeadersStart": 3.092,
+        "receiveHeadersEnd": 3.151
+      },
+      "cacheControl": "no-cache",
+      "finish": 336910.852987,
+      "encodedBytes": 20618,
+      "startMs": 11.859000020194799,
+      "finishMs": 17.259000043850392
+    },
+    {
+      "url": "http://localhost:5272/assets/pageFade-B4IAVBtS.js",
+      "type": "Script",
+      "start": 336910.847818,
+      "initiator": {
+        "type": "parser",
+        "url": "http://localhost:5272/torque-wrench/",
+        "lineNumber": 53,
+        "columnNumber": 78
+      },
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "timing": {
+        "requestTime": 336910.848525,
+        "proxyStart": 0.047,
+        "proxyEnd": 0.048,
+        "dnsStart": 2.047,
+        "dnsEnd": 2.05,
+        "connectStart": 2.05,
+        "connectEnd": 4.226,
+        "sslStart": -1,
+        "sslEnd": -1,
+        "workerStart": -1,
+        "workerReady": -1,
+        "workerFetchStart": -1,
+        "workerRespondWithSettled": -1,
+        "sendStart": 4.938,
+        "sendEnd": 5.012,
+        "pushStart": 0,
+        "pushEnd": 0,
+        "receiveHeadersStart": 10.328,
+        "receiveHeadersEnd": 10.361
+      },
+      "cacheControl": "no-cache",
+      "finish": 336910.864181,
+      "encodedBytes": 62162,
+      "startMs": 12.09000003291294,
+      "finishMs": 28.45300000626594
+    },
+    {
+      "url": "http://localhost:5272/assets/PageNav-DZxXaPKQ.js",
+      "type": "Script",
+      "start": 336910.847903,
+      "initiator": {
+        "type": "parser",
+        "url": "http://localhost:5272/torque-wrench/",
+        "lineNumber": 54,
+        "columnNumber": 77
+      },
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "timing": {
+        "requestTime": 336910.84963,
+        "proxyStart": 0.077,
+        "proxyEnd": 0.079,
+        "dnsStart": 2.321,
+        "dnsEnd": 2.324,
+        "connectStart": 2.324,
+        "connectEnd": 3.294,
+        "sslStart": -1,
+        "sslEnd": -1,
+        "workerStart": -1,
+        "workerReady": -1,
+        "workerFetchStart": -1,
+        "workerRespondWithSettled": -1,
+        "sendStart": 4.003,
+        "sendEnd": 4.07,
+        "pushStart": 0,
+        "pushEnd": 0,
+        "receiveHeadersStart": 7.62,
+        "receiveHeadersEnd": 7.68
+      },
+      "cacheControl": "no-cache",
+      "finish": 336910.857908,
+      "encodedBytes": 1974,
+      "startMs": 12.175000039860606,
+      "finishMs": 22.180000029038638
+    },
+    {
+      "url": "http://localhost:5272/assets/PageNav-CEVxLrNZ.css",
+      "type": "Stylesheet",
+      "start": 336910.847996,
+      "initiator": {
+        "type": "parser",
+        "url": "http://localhost:5272/torque-wrench/",
+        "lineNumber": 55,
+        "columnNumber": 75
+      },
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "timing": {
+        "requestTime": 336910.850509,
+        "proxyStart": 0.055,
+        "proxyEnd": 0.056,
+        "dnsStart": 0.056,
+        "dnsEnd": 0.056,
+        "connectStart": 0.056,
+        "connectEnd": 1.265,
+        "sslStart": -1,
+        "sslEnd": -1,
+        "workerStart": -1,
+        "workerReady": -1,
+        "workerFetchStart": -1,
+        "workerRespondWithSettled": -1,
+        "sendStart": 2.641,
+        "sendEnd": 2.744,
+        "pushStart": 0,
+        "pushEnd": 0,
+        "receiveHeadersStart": 7.52,
+        "receiveHeadersEnd": 7.547
+      },
+      "cacheControl": "no-cache",
+      "finish": 336910.858388,
+      "encodedBytes": 8632,
+      "startMs": 12.268000049516559,
+      "finishMs": 22.660000016912818
+    },
+    {
+      "url": "http://localhost:5272/assets/torque-wrench-Ce9kJ-6W.css",
+      "type": "Stylesheet",
+      "start": 336910.848096,
+      "initiator": {
+        "type": "parser",
+        "url": "http://localhost:5272/torque-wrench/",
+        "lineNumber": 56,
+        "columnNumber": 81
+      },
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "timing": {
+        "requestTime": 336910.851889,
+        "proxyStart": 0.049,
+        "proxyEnd": 0.051,
+        "dnsStart": 0.051,
+        "dnsEnd": 0.051,
+        "connectStart": 0.051,
+        "connectEnd": 0.827,
+        "sslStart": -1,
+        "sslEnd": -1,
+        "workerStart": -1,
+        "workerReady": -1,
+        "workerFetchStart": -1,
+        "workerRespondWithSettled": -1,
+        "sendStart": 1.432,
+        "sendEnd": 1.506,
+        "pushStart": 0,
+        "pushEnd": 0,
+        "receiveHeadersStart": 5.761,
+        "receiveHeadersEnd": 5.791
+      },
+      "cacheControl": "no-cache",
+      "finish": 336910.858492,
+      "encodedBytes": 4897,
+      "startMs": 12.367999996058643,
+      "finishMs": 22.764000052120537
+    },
+    {
+      "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+      "type": "Script",
+      "start": 336910.894441,
+      "initiator": {
+        "type": "script",
+        "stack": {
+          "callFrames": [
+            {
+              "functionName": "",
+              "scriptId": "6",
+              "url": "http://localhost:5272/assets/PageNav-DZxXaPKQ.js",
+              "lineNumber": 0,
+              "columnNumber": 747
+            },
+            {
+              "functionName": "w",
+              "scriptId": "6",
+              "url": "http://localhost:5272/assets/PageNav-DZxXaPKQ.js",
+              "lineNumber": 0,
+              "columnNumber": 441
+            },
+            {
+              "functionName": "Bt",
+              "scriptId": "5",
+              "url": "http://localhost:5272/assets/torque-wrench-Cph-EaWd.js",
+              "lineNumber": 1,
+              "columnNumber": 1935
+            },
+            {
+              "functionName": "$t",
+              "scriptId": "5",
+              "url": "http://localhost:5272/assets/torque-wrench-Cph-EaWd.js",
+              "lineNumber": 1,
+              "columnNumber": 2194
+            },
+            {
+              "functionName": "",
+              "scriptId": "5",
+              "url": "http://localhost:5272/assets/torque-wrench-Cph-EaWd.js",
+              "lineNumber": 1,
+              "columnNumber": 2563
+            }
+          ]
+        },
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "timing": {
+        "requestTime": 336910.894975,
+        "proxyStart": 0.108,
+        "proxyEnd": 0.111,
+        "dnsStart": -1,
+        "dnsEnd": -1,
+        "connectStart": -1,
+        "connectEnd": -1,
+        "sslStart": -1,
+        "sslEnd": -1,
+        "workerStart": -1,
+        "workerReady": -1,
+        "workerFetchStart": -1,
+        "workerRespondWithSettled": -1,
+        "sendStart": 0.243,
+        "sendEnd": 0.367,
+        "pushStart": 0,
+        "pushEnd": 0,
+        "receiveHeadersStart": 4.298,
+        "receiveHeadersEnd": 4.335
+      },
+      "cacheControl": "no-cache",
+      "finish": 336910.931702,
+      "encodedBytes": 331257,
+      "startMs": 58.71300003491342,
+      "finishMs": 95.97399999620393
+    },
+    {
+      "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+      "type": "Script",
+      "start": 336910.894741,
+      "initiator": {
+        "type": "script",
+        "stack": {
+          "callFrames": [
+            {
+              "functionName": "",
+              "scriptId": "6",
+              "url": "http://localhost:5272/assets/PageNav-DZxXaPKQ.js",
+              "lineNumber": 0,
+              "columnNumber": 747
+            },
+            {
+              "functionName": "w",
+              "scriptId": "6",
+              "url": "http://localhost:5272/assets/PageNav-DZxXaPKQ.js",
+              "lineNumber": 0,
+              "columnNumber": 441
+            },
+            {
+              "functionName": "Bt",
+              "scriptId": "5",
+              "url": "http://localhost:5272/assets/torque-wrench-Cph-EaWd.js",
+              "lineNumber": 1,
+              "columnNumber": 1935
+            },
+            {
+              "functionName": "$t",
+              "scriptId": "5",
+              "url": "http://localhost:5272/assets/torque-wrench-Cph-EaWd.js",
+              "lineNumber": 1,
+              "columnNumber": 2194
+            },
+            {
+              "functionName": "",
+              "scriptId": "5",
+              "url": "http://localhost:5272/assets/torque-wrench-Cph-EaWd.js",
+              "lineNumber": 1,
+              "columnNumber": 2563
+            }
+          ]
+        },
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "timing": {
+        "requestTime": 336910.895455,
+        "proxyStart": 0.054,
+        "proxyEnd": 0.054,
+        "dnsStart": -1,
+        "dnsEnd": -1,
+        "connectStart": -1,
+        "connectEnd": -1,
+        "sslStart": -1,
+        "sslEnd": -1,
+        "workerStart": -1,
+        "workerReady": -1,
+        "workerFetchStart": -1,
+        "workerRespondWithSettled": -1,
+        "sendStart": 0.298,
+        "sendEnd": 0.373,
+        "pushStart": 0,
+        "pushEnd": 0,
+        "receiveHeadersStart": 4.137,
+        "receiveHeadersEnd": 4.173
+      },
+      "cacheControl": "no-cache",
+      "finish": 336910.928358,
+      "encodedBytes": 259225,
+      "startMs": 59.013000049162656,
+      "finishMs": 92.63000002829358
+    },
+    {
+      "url": "http://localhost:5272/assets/Scene-COXjaZGx.css",
+      "type": "Stylesheet",
+      "start": 336910.894943,
+      "initiator": {
+        "type": "script",
+        "stack": {
+          "callFrames": [
+            {
+              "functionName": "",
+              "scriptId": "6",
+              "url": "http://localhost:5272/assets/PageNav-DZxXaPKQ.js",
+              "lineNumber": 0,
+              "columnNumber": 747
+            },
+            {
+              "functionName": "w",
+              "scriptId": "6",
+              "url": "http://localhost:5272/assets/PageNav-DZxXaPKQ.js",
+              "lineNumber": 0,
+              "columnNumber": 441
+            },
+            {
+              "functionName": "Bt",
+              "scriptId": "5",
+              "url": "http://localhost:5272/assets/torque-wrench-Cph-EaWd.js",
+              "lineNumber": 1,
+              "columnNumber": 1935
+            },
+            {
+              "functionName": "$t",
+              "scriptId": "5",
+              "url": "http://localhost:5272/assets/torque-wrench-Cph-EaWd.js",
+              "lineNumber": 1,
+              "columnNumber": 2194
+            },
+            {
+              "functionName": "",
+              "scriptId": "5",
+              "url": "http://localhost:5272/assets/torque-wrench-Cph-EaWd.js",
+              "lineNumber": 1,
+              "columnNumber": 2563
+            }
+          ]
+        }
+      },
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "timing": {
+        "requestTime": 336910.895611,
+        "proxyStart": 0.036,
+        "proxyEnd": 0.036,
+        "dnsStart": -1,
+        "dnsEnd": -1,
+        "connectStart": -1,
+        "connectEnd": -1,
+        "sslStart": -1,
+        "sslEnd": -1,
+        "workerStart": -1,
+        "workerReady": -1,
+        "workerFetchStart": -1,
+        "workerRespondWithSettled": -1,
+        "sendStart": 0.28,
+        "sendEnd": 0.34,
+        "pushStart": 0,
+        "pushEnd": 0,
+        "receiveHeadersStart": 2.701,
+        "receiveHeadersEnd": 2.771
+      },
+      "cacheControl": "no-cache",
+      "finish": 336910.898778,
+      "encodedBytes": 3886,
+      "startMs": 59.21500001568347,
+      "finishMs": 63.04999999701977
+    },
+    {
+      "url": "http://localhost:5272/models/Default.glb",
+      "type": "Fetch",
+      "start": 336911.286021,
+      "initiator": {
+        "type": "script",
+        "stack": {
+          "callFrames": [
+            {
+              "functionName": "load",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4,
+              "columnNumber": 33376
+            },
+            {
+              "functionName": "load",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 256,
+              "columnNumber": 136235
+            },
+            {
+              "functionName": "",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4107,
+              "columnNumber": 84632
+            },
+            {
+              "functionName": "",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4107,
+              "columnNumber": 84611
+            },
+            {
+              "functionName": "",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4107,
+              "columnNumber": 84604
+            },
+            {
+              "functionName": "ES",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4107,
+              "columnNumber": 67821
+            },
+            {
+              "functionName": "aL",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4107,
+              "columnNumber": 67996
+            },
+            {
+              "functionName": "OS",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4107,
+              "columnNumber": 84807
+            },
+            {
+              "functionName": "cu",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 257,
+              "columnNumber": 22909
+            },
+            {
+              "functionName": "IT",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 1278,
+              "columnNumber": 11535
+            },
+            {
+              "functionName": "Fe",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4114,
+              "columnNumber": 20151
+            },
+            {
+              "functionName": "pd",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4114,
+              "columnNumber": 38150
+            },
+            {
+              "functionName": "G0",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4114,
+              "columnNumber": 48412
+            },
+            {
+              "functionName": "b_",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4114,
+              "columnNumber": 84003
+            },
+            {
+              "functionName": "oM",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4114,
+              "columnNumber": 83011
+            },
+            {
+              "functionName": "Ud",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4114,
+              "columnNumber": 82839
+            },
+            {
+              "functionName": "p_",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4114,
+              "columnNumber": 79374
+            },
+            {
+              "functionName": "ce",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4114,
+              "columnNumber": 6093
+            },
+            {
+              "functionName": "Tt",
+              "scriptId": "7",
+              "url": "http://localhost:5272/assets/pageFade-B4IAVBtS.js",
+              "lineNumber": 0,
+              "columnNumber": 10701
+            }
+          ]
+        }
+      },
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "timing": {
+        "requestTime": 336911.286422,
+        "proxyStart": 0.07,
+        "proxyEnd": 0.072,
+        "dnsStart": -1,
+        "dnsEnd": -1,
+        "connectStart": -1,
+        "connectEnd": -1,
+        "sslStart": -1,
+        "sslEnd": -1,
+        "workerStart": -1,
+        "workerReady": -1,
+        "workerFetchStart": -1,
+        "workerRespondWithSettled": -1,
+        "sendStart": 0.179,
+        "sendEnd": 0.286,
+        "pushStart": 0,
+        "pushEnd": 0,
+        "receiveHeadersStart": 2.713,
+        "receiveHeadersEnd": 2.792
+      },
+      "cacheControl": "no-cache",
+      "finish": 336911.433714,
+      "encodedBytes": 10671981,
+      "startMs": 450.293000030797,
+      "finishMs": 597.9860000079498
+    },
+    {
+      "url": "http://localhost:5272/draco/draco_wasm_wrapper.js",
+      "type": "Fetch",
+      "start": 336911.511824,
+      "initiator": {
+        "type": "script",
+        "stack": {
+          "callFrames": [
+            {
+              "functionName": "load",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4,
+              "columnNumber": 33376
+            },
+            {
+              "functionName": "",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 256,
+              "columnNumber": 181547
+            },
+            {
+              "functionName": "_loadLibrary",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 256,
+              "columnNumber": 181525
+            },
+            {
+              "functionName": "_initDecoder",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 256,
+              "columnNumber": 181824
+            },
+            {
+              "functionName": "preload",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 256,
+              "columnNumber": 181590
+            },
+            {
+              "functionName": "ZA",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 256,
+              "columnNumber": 154213
+            },
+            {
+              "functionName": "parse",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 256,
+              "columnNumber": 137922
+            },
+            {
+              "functionName": "",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 256,
+              "columnNumber": 136260
+            },
+            {
+              "functionName": "",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4,
+              "columnNumber": 34615
+            }
+          ]
+        }
+      },
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "timing": {
+        "requestTime": 336911.512233,
+        "proxyStart": 0.071,
+        "proxyEnd": 0.073,
+        "dnsStart": -1,
+        "dnsEnd": -1,
+        "connectStart": -1,
+        "connectEnd": -1,
+        "sslStart": -1,
+        "sslEnd": -1,
+        "workerStart": -1,
+        "workerReady": -1,
+        "workerFetchStart": -1,
+        "workerRespondWithSettled": -1,
+        "sendStart": 0.179,
+        "sendEnd": 0.283,
+        "pushStart": 0,
+        "pushEnd": 0,
+        "receiveHeadersStart": 3.174,
+        "receiveHeadersEnd": 3.199
+      },
+      "cacheControl": "no-cache",
+      "finish": 336911.516038,
+      "encodedBytes": 12136,
+      "startMs": 676.0960000101477,
+      "finishMs": 680.3100000252016
+    },
+    {
+      "url": "http://localhost:5272/draco/draco_decoder.wasm",
+      "type": "Fetch",
+      "start": 336911.512046,
+      "initiator": {
+        "type": "script",
+        "stack": {
+          "callFrames": [
+            {
+              "functionName": "load",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4,
+              "columnNumber": 33376
+            },
+            {
+              "functionName": "",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 256,
+              "columnNumber": 181547
+            },
+            {
+              "functionName": "_loadLibrary",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 256,
+              "columnNumber": 181525
+            },
+            {
+              "functionName": "_initDecoder",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 256,
+              "columnNumber": 181882
+            },
+            {
+              "functionName": "preload",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 256,
+              "columnNumber": 181590
+            },
+            {
+              "functionName": "ZA",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 256,
+              "columnNumber": 154213
+            },
+            {
+              "functionName": "parse",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 256,
+              "columnNumber": 137922
+            },
+            {
+              "functionName": "",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 256,
+              "columnNumber": 136260
+            },
+            {
+              "functionName": "",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4,
+              "columnNumber": 34615
+            }
+          ]
+        }
+      },
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "timing": {
+        "requestTime": 336911.512599,
+        "proxyStart": 0.037,
+        "proxyEnd": 0.037,
+        "dnsStart": -1,
+        "dnsEnd": -1,
+        "connectStart": -1,
+        "connectEnd": -1,
+        "sslStart": -1,
+        "sslEnd": -1,
+        "workerStart": -1,
+        "workerReady": -1,
+        "workerFetchStart": -1,
+        "workerRespondWithSettled": -1,
+        "sendStart": 0.105,
+        "sendEnd": 0.167,
+        "pushStart": 0,
+        "pushEnd": 0,
+        "receiveHeadersStart": 2.158,
+        "receiveHeadersEnd": 2.212
+      },
+      "cacheControl": "no-cache",
+      "finish": 336911.516204,
+      "encodedBytes": 192696,
+      "startMs": 676.318000012543,
+      "finishMs": 680.476000008639
+    },
+    {
+      "url": "blob:http://localhost:5272/aa98da94-0483-4008-b7c2-4410969aa970",
+      "type": "Script",
+      "start": 336911.617262,
+      "initiator": {
+        "type": "other",
+        "url": "http://localhost:5272/torque-wrench/"
+      },
+      "startMs": 781.5340000088327,
+      "finishMs": null
+    },
+    {
+      "url": "blob:http://localhost:5272/aa98da94-0483-4008-b7c2-4410969aa970",
+      "type": "Script",
+      "start": 336911.62069,
+      "initiator": {
+        "type": "other",
+        "url": "http://localhost:5272/torque-wrench/"
+      },
+      "startMs": 784.9620000342838,
+      "finishMs": null
+    },
+    {
+      "url": "blob:http://localhost:5272/aa98da94-0483-4008-b7c2-4410969aa970",
+      "type": "Script",
+      "start": 336911.621387,
+      "initiator": {
+        "type": "other",
+        "url": "http://localhost:5272/torque-wrench/"
+      },
+      "startMs": 785.6590000446886,
+      "finishMs": null
+    },
+    {
+      "url": "blob:http://localhost:5272/aa98da94-0483-4008-b7c2-4410969aa970",
+      "type": "Script",
+      "start": 336911.621755,
+      "initiator": {
+        "type": "other",
+        "url": "http://localhost:5272/torque-wrench/"
+      },
+      "startMs": 786.0269999946468,
+      "finishMs": null
+    },
+    {
+      "url": "http://localhost:5272/drawing/jgun-sheet-v2.bin.gz",
+      "type": "Fetch",
+      "start": 336914.406731,
+      "initiator": {
+        "type": "script",
+        "stack": {
+          "callFrames": [
+            {
+              "functionName": "wM",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 426,
+              "columnNumber": 7833
+            },
+            {
+              "functionName": "Eb",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 437,
+              "columnNumber": 19221
+            },
+            {
+              "functionName": "",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 1278,
+              "columnNumber": 37552
+            }
+          ]
+        }
+      },
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "timing": {
+        "requestTime": 336914.407951,
+        "proxyStart": 1.389,
+        "proxyEnd": 1.394,
+        "dnsStart": -1,
+        "dnsEnd": -1,
+        "connectStart": -1,
+        "connectEnd": -1,
+        "sslStart": -1,
+        "sslEnd": -1,
+        "workerStart": -1,
+        "workerReady": -1,
+        "workerFetchStart": -1,
+        "workerRespondWithSettled": -1,
+        "sendStart": 1.609,
+        "sendEnd": 1.876,
+        "pushStart": 0,
+        "pushEnd": 0,
+        "receiveHeadersStart": 4.803,
+        "receiveHeadersEnd": 4.895
+      },
+      "cacheControl": "no-cache",
+      "finish": 336914.713182,
+      "encodedBytes": 4205791,
+      "startMs": 3571.003000019118,
+      "finishMs": 3877.4540000013076
+    },
+    {
+      "url": "blob:http://localhost:5272/905710fd-dc20-4060-aeb3-583ee1d9dd64",
+      "type": "Script",
+      "start": 336916.743887,
+      "initiator": {
+        "type": "other",
+        "url": "http://localhost:5272/torque-wrench/"
+      },
+      "startMs": 5908.15900004236,
+      "finishMs": null
+    },
+    {
+      "url": "blob:http://localhost:5272/e6e465e5-a66d-4b4a-88f3-c131b5815d8b",
+      "type": "Script",
+      "start": 336916.744476,
+      "initiator": {
+        "type": "other",
+        "url": "http://localhost:5272/torque-wrench/"
+      },
+      "startMs": 5908.748000045307,
+      "finishMs": null
+    },
+    {
+      "url": "http://localhost:5272/models/knurling-tool.glb",
+      "type": "Fetch",
+      "start": 336928.442262,
+      "initiator": {
+        "type": "script",
+        "stack": {
+          "callFrames": [
+            {
+              "functionName": "",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 656,
+              "columnNumber": 2715
+            },
+            {
+              "functionName": "SS",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 656,
+              "columnNumber": 3198
+            },
+            {
+              "functionName": "",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 1278,
+              "columnNumber": 42036
+            },
+            {
+              "functionName": "Zm",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4118,
+              "columnNumber": 15042
+            },
+            {
+              "functionName": "GS",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4118,
+              "columnNumber": 15509
+            }
+          ]
+        }
+      },
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "timing": {
+        "requestTime": 336928.442713,
+        "proxyStart": 0.085,
+        "proxyEnd": 0.088,
+        "dnsStart": -1,
+        "dnsEnd": -1,
+        "connectStart": -1,
+        "connectEnd": -1,
+        "sslStart": -1,
+        "sslEnd": -1,
+        "workerStart": -1,
+        "workerReady": -1,
+        "workerFetchStart": -1,
+        "workerRespondWithSettled": -1,
+        "sendStart": 0.194,
+        "sendEnd": 0.383,
+        "pushStart": 0,
+        "pushEnd": 0,
+        "receiveHeadersStart": 2.171,
+        "receiveHeadersEnd": 2.218
+      },
+      "cacheControl": "no-cache",
+      "finish": 336928.456365,
+      "encodedBytes": 1798899,
+      "startMs": 17606.534000020474,
+      "finishMs": 17620.63700001454
+    },
+    {
+      "url": "http://localhost:5272/models/manufacturing-core-full.glb",
+      "type": "Fetch",
+      "start": 336928.469228,
+      "initiator": {
+        "type": "script",
+        "stack": {
+          "callFrames": [
+            {
+              "functionName": "",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 635,
+              "columnNumber": 34386
+            },
+            {
+              "functionName": "tS",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 635,
+              "columnNumber": 36078
+            },
+            {
+              "functionName": "",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 1278,
+              "columnNumber": 45452
+            },
+            {
+              "functionName": "Zm",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4118,
+              "columnNumber": 15042
+            },
+            {
+              "functionName": "GS",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4118,
+              "columnNumber": 15509
+            }
+          ]
+        }
+      },
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "timing": {
+        "requestTime": 336928.469785,
+        "proxyStart": 0.078,
+        "proxyEnd": 0.081,
+        "dnsStart": -1,
+        "dnsEnd": -1,
+        "connectStart": -1,
+        "connectEnd": -1,
+        "sslStart": -1,
+        "sslEnd": -1,
+        "workerStart": -1,
+        "workerReady": -1,
+        "workerFetchStart": -1,
+        "workerRespondWithSettled": -1,
+        "sendStart": 0.178,
+        "sendEnd": 0.356,
+        "pushStart": 0,
+        "pushEnd": 0,
+        "receiveHeadersStart": 2.264,
+        "receiveHeadersEnd": 2.315
+      },
+      "cacheControl": "no-cache",
+      "finish": 336928.475673,
+      "encodedBytes": 678285,
+      "startMs": 17633.499999996275,
+      "finishMs": 17639.945000002626
+    },
+    {
+      "url": "http://localhost:5272/draco/draco_wasm_wrapper.js",
+      "type": "Fetch",
+      "start": 336928.783693,
+      "initiator": {
+        "type": "script",
+        "stack": {
+          "callFrames": [
+            {
+              "functionName": "load",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4,
+              "columnNumber": 33376
+            },
+            {
+              "functionName": "",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4118,
+              "columnNumber": 27182
+            },
+            {
+              "functionName": "_loadLibrary",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4118,
+              "columnNumber": 27160
+            },
+            {
+              "functionName": "_initDecoder",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4118,
+              "columnNumber": 27588
+            },
+            {
+              "functionName": "preload",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4118,
+              "columnNumber": 27225
+            },
+            {
+              "functionName": "DN",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4119,
+              "columnNumber": 25746
+            },
+            {
+              "functionName": "parse",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4119,
+              "columnNumber": 11669
+            },
+            {
+              "functionName": "",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4119,
+              "columnNumber": 12012
+            },
+            {
+              "functionName": "parseAsync",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4119,
+              "columnNumber": 11984
+            },
+            {
+              "functionName": "",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 635,
+              "columnNumber": 34821
+            }
+          ]
+        }
+      },
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "timing": {
+        "requestTime": 336928.784211,
+        "proxyStart": 0.821,
+        "proxyEnd": 0.824,
+        "dnsStart": -1,
+        "dnsEnd": -1,
+        "connectStart": -1,
+        "connectEnd": -1,
+        "sslStart": -1,
+        "sslEnd": -1,
+        "workerStart": -1,
+        "workerReady": -1,
+        "workerFetchStart": -1,
+        "workerRespondWithSettled": -1,
+        "sendStart": 0.934,
+        "sendEnd": 1.243,
+        "pushStart": 0,
+        "pushEnd": 0,
+        "receiveHeadersStart": 5.4,
+        "receiveHeadersEnd": 5.546
+      },
+      "cacheControl": "no-cache",
+      "finish": 336928.790851,
+      "encodedBytes": 127,
+      "startMs": 17947.964999999385,
+      "finishMs": 17955.12300002156
+    },
+    {
+      "url": "http://localhost:5272/draco/draco_decoder.wasm",
+      "type": "Fetch",
+      "start": 336928.784008,
+      "initiator": {
+        "type": "script",
+        "stack": {
+          "callFrames": [
+            {
+              "functionName": "load",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4,
+              "columnNumber": 33376
+            },
+            {
+              "functionName": "",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4118,
+              "columnNumber": 27182
+            },
+            {
+              "functionName": "_loadLibrary",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4118,
+              "columnNumber": 27160
+            },
+            {
+              "functionName": "_initDecoder",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4118,
+              "columnNumber": 27627
+            },
+            {
+              "functionName": "preload",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4118,
+              "columnNumber": 27225
+            },
+            {
+              "functionName": "DN",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4119,
+              "columnNumber": 25746
+            },
+            {
+              "functionName": "parse",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4119,
+              "columnNumber": 11669
+            },
+            {
+              "functionName": "",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4119,
+              "columnNumber": 12012
+            },
+            {
+              "functionName": "parseAsync",
+              "scriptId": "9",
+              "url": "http://localhost:5272/assets/GLTFLoader-DE5jFSaY.js",
+              "lineNumber": 4119,
+              "columnNumber": 11984
+            },
+            {
+              "functionName": "",
+              "scriptId": "8",
+              "url": "http://localhost:5272/assets/Scene-CqjR5e0C.js",
+              "lineNumber": 635,
+              "columnNumber": 34821
+            }
+          ]
+        }
+      },
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "timing": {
+        "requestTime": 336928.785761,
+        "proxyStart": 0.175,
+        "proxyEnd": 0.177,
+        "dnsStart": -1,
+        "dnsEnd": -1,
+        "connectStart": -1,
+        "connectEnd": -1,
+        "sslStart": -1,
+        "sslEnd": -1,
+        "workerStart": -1,
+        "workerReady": -1,
+        "workerFetchStart": -1,
+        "workerRespondWithSettled": -1,
+        "sendStart": 0.319,
+        "sendEnd": 0.541,
+        "pushStart": 0,
+        "pushEnd": 0,
+        "receiveHeadersStart": 7.431,
+        "receiveHeadersEnd": 7.742
+      },
+      "cacheControl": "no-cache",
+      "finish": 336928.794319,
+      "encodedBytes": 127,
+      "startMs": 17948.280000011437,
+      "finishMs": 17958.591000002343
+    },
+    {
+      "url": "blob:http://localhost:5272/66c9e3bd-1cce-4580-b5d5-9e26c1174818",
+      "type": "Script",
+      "start": 336928.831295,
+      "initiator": {
+        "type": "other",
+        "url": "http://localhost:5272/torque-wrench/"
+      },
+      "startMs": 17995.567000005394,
+      "finishMs": null
+    },
+    {
+      "url": "blob:http://localhost:5272/66c9e3bd-1cce-4580-b5d5-9e26c1174818",
+      "type": "Script",
+      "start": 336928.832296,
+      "initiator": {
+        "type": "other",
+        "url": "http://localhost:5272/torque-wrench/"
+      },
+      "startMs": 17996.5680000023,
+      "finishMs": null
+    },
+    {
+      "url": "blob:http://localhost:5272/66c9e3bd-1cce-4580-b5d5-9e26c1174818",
+      "type": "Script",
+      "start": 336928.833259,
+      "initiator": {
+        "type": "other",
+        "url": "http://localhost:5272/torque-wrench/"
+      },
+      "startMs": 17997.53100000089,
+      "finishMs": null
+    },
+    {
+      "url": "blob:http://localhost:5272/66c9e3bd-1cce-4580-b5d5-9e26c1174818",
+      "type": "Script",
+      "start": 336928.83378,
+      "initiator": {
+        "type": "other",
+        "url": "http://localhost:5272/torque-wrench/"
+      },
+      "startMs": 17998.05200000992,
+      "finishMs": null
+    }
+  ],
+  "errors": [],
+  "checkpoints": [
+    {
+      "label": "scene-ready",
+      "at": 3815.699999988079,
+      "ready": true,
+      "inspectionReady": false,
+      "progress": 0,
+      "tier": "full",
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "draws": null
+    },
+    {
+      "label": "before-study-input",
+      "at": 7599.899999976158,
+      "ready": true,
+      "inspectionReady": false,
+      "progress": 0,
+      "tier": "full",
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "draws": null
+    },
+    {
+      "label": "forward-0.3",
+      "at": 17520.69999998808,
+      "ready": true,
+      "inspectionReady": false,
+      "progress": 0.2999803090592482,
+      "tier": "full",
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "draws": null
+    },
+    {
+      "label": "forward-0.6",
+      "at": 18081.399999976158,
+      "ready": true,
+      "inspectionReady": false,
+      "progress": 0.599999837066029,
+      "tier": "full",
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "draws": null
+    },
+    {
+      "label": "forward-0.62",
+      "at": 18444.399999976158,
+      "ready": true,
+      "inspectionReady": true,
+      "progress": 0.6199993125146649,
+      "tier": "full",
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "draws": null
+    },
+    {
+      "label": "forward-0.65",
+      "at": 19260.19999998808,
+      "ready": true,
+      "inspectionReady": true,
+      "progress": 0.6499957456340909,
+      "tier": "full",
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "draws": null
+    },
+    {
+      "label": "forward-0.72",
+      "at": 19583.299999952316,
+      "ready": true,
+      "inspectionReady": true,
+      "progress": 0.7200040000042244,
+      "tier": "full",
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "draws": null
+    },
+    {
+      "label": "forward-0.8",
+      "at": 19901.399999976158,
+      "ready": true,
+      "inspectionReady": true,
+      "progress": 0.79999462771666,
+      "tier": "full",
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "draws": null
+    },
+    {
+      "label": "forward-0.825",
+      "at": 20629.599999964237,
+      "ready": true,
+      "inspectionReady": true,
+      "progress": 0.8249953087449854,
+      "tier": "full",
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "draws": null
+    },
+    {
+      "label": "reverse-0.8",
+      "at": 20929.19999998808,
+      "ready": true,
+      "inspectionReady": true,
+      "progress": 0.79999462771666,
+      "tier": "full",
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "draws": null
+    },
+    {
+      "label": "reverse-0.72",
+      "at": 21208.19999998808,
+      "ready": true,
+      "inspectionReady": true,
+      "progress": 0.7200040000042244,
+      "tier": "full",
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "draws": null
+    },
+    {
+      "label": "reverse-0.65",
+      "at": 21495.399999976158,
+      "ready": true,
+      "inspectionReady": true,
+      "progress": 0.6499957456340909,
+      "tier": "full",
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "draws": null
+    },
+    {
+      "label": "reverse-0.62",
+      "at": 21775.69999998808,
+      "ready": true,
+      "inspectionReady": true,
+      "progress": 0.6199993125146649,
+      "tier": "full",
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "draws": null
+    },
+    {
+      "label": "reverse-0.3",
+      "at": 22079.5,
+      "ready": true,
+      "inspectionReady": true,
+      "progress": 0.2999803090592482,
+      "tier": "full",
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "draws": null
+    },
+    {
+      "label": "reverse-0",
+      "at": 22358.19999998808,
+      "ready": true,
+      "inspectionReady": true,
+      "progress": 0,
+      "tier": "full",
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "draws": null
+    }
+  ],
+  "windows": [
+    {
+      "name": "stationary-at-opening",
+      "start": 3824.399999976158,
+      "end": 7592.799999952316
+    },
+    {
+      "name": "forward-reverse-input",
+      "start": 17314,
+      "end": 22375.399999976158
+    }
+  ],
+  "limitations": [
+    "Trace is diagnostic and perturbs timing; not a primary performance comparison.",
+    "No isolated GLTF decode/preparation spans: loader/prepare attribution unresolved.",
+    "GPU execution time, power, physical device and hidden-tab behavior unresolved."
+  ],
+  "valid": true,
+  "traceSummary": {
+    "events": 247502,
+    "longRunTasks": 59,
+    "longRunTaskMs": 23454.400000000005,
+    "note": "All traced RunTask events; not a unique main-thread total or CPU/GPU attribution."
+  }
+}

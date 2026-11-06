@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "source": "6ec4fe06b55a4f71865166ac1dfbc5a1a70502c2",
+  "artifactManifestSha256": "f624a566bd5571ecef8a0dab052d7b13dc066efc11452f3241b241836c6b7bef",
+  "invocation": [
+    "--base=http://localhost:5271",
+    "--identity=project/work/evidence/JG-042-portfolio-performance/baseline-identity.json",
+    "--out=project/work/evidence/JG-042-portfolio-performance/p02-smoke",
+    "--profiles=desktop",
+    "--routes=torque",
+    "--pairs=1"
+  ],
+  "records": 2,
+  "valid": 0,
+  "invalid": 2,
+  "leanV1Status": "UNVERIFIED — valid/missing/stale drawing-cache conditions and shader observables not covered by paired natural-startup runs.",
+  "groups": [
+    {
+      "profile": "desktop",
+      "route": "/torque-wrench/",
+      "kind": "cold",
+      "attempts": 1,
+      "valid": 0,
+      "readinessMs": [],
+      "median": null,
+      "min": null,
+      "max": null
+    },
+    {
+      "profile": "desktop",
+      "route": "/torque-wrench/",
+      "kind": "repeat",
+      "attempts": 1,
+      "valid": 0,
+      "readinessMs": [],
+      "median": null,
+      "min": null,
+      "max": null
+    }
+  ]
+}
