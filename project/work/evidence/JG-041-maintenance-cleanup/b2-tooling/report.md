@@ -23,17 +23,17 @@ Fresh pre-edit `rg -n -F npm-cache scripts` found exactly these eight operationa
 
 ## Knip 6.44.1
 
-Raw and configured outputs are saved adjacent to this report. Both commands used `--no-exit-code`, exited 0, and are diagnostic, not clean passes. Raw ran after install and script/dependency repair, before config; the first pre-install attempt exited 2 due to missing Vite/Playwright config dependencies and was replaced with the meaningful installed baseline. Counts by category:
+Raw and configured outputs are saved adjacent to this report. Both commands used `--no-exit-code`, exited 0, and are diagnostic, not clean passes. Raw ran after install and script/dependency repair, before config; the first pre-install attempt exited 2 due to missing Vite/Playwright config dependencies and was replaced with the meaningful installed baseline. Configured output was refreshed after rebasing onto b466843e; the raw baseline remains from the earlier tree. The added logo render script accounts for the ffmpeg diagnostic. Counts by category:
 
 | Rule | Raw | Configured |
 |---|---:|---:|
 | Unused files | 277 | 2 |
 | Unused dependencies | 1 | 1 |
 | Unlisted dependencies | 0 | 1 |
-| Unlisted binaries | 0 | 2 |
+| Unlisted binaries | 0 | 3 |
 | Unresolved imports | 0 | 1 |
 | Unused exports | 210 | 159 |
-| Unused exported types | 59 | 56 |
+| Unused exported types | 59 | 57 |
 | Duplicate exports | 9 | 9 |
 | Configuration hints | 1 | 3 |
 

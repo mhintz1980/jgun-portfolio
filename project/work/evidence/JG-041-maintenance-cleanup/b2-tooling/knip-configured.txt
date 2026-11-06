@@ -5,9 +5,10 @@ Unused dependencies (1)
 @remotion/fonts  remotion/package.json:16:6
 Unlisted dependencies (1)
 three-stdlib  src/scene/studiomark-logo/StudioMarkLogoScene.tsx:4:57
-Unlisted binaries (2)
-remotion  remotion/package.json             
-ffmpeg    remotion/scripts/review-stills.mjs
+Unlisted binaries (3)
+remotion  remotion/package.json                
+ffmpeg    remotion/scripts/review-stills.mjs   
+ffmpeg    scripts/render-studiomark-bumpers.mjs
 Unresolved imports (1)
 /src/scene/drawing/sheet/drawingCache.ts  scripts/precompute-drawing.mjs:60:32
 Unused exports (159)
@@ -170,63 +171,64 @@ CAD_ASSET_PATTERN                                     src/shared/posterGuard.ts:
 qualityLocked                                         src/state/qualityStore.ts:74:14                       
 getTorqueConductorDiagnostics               function  src/state/torqueWrenchStore.ts:81:17                  
 auditGLBScene                               function  src/utils/glbSceneAuditor.ts:51:17                    
-Unused exported types (56)
-ShotId                                      type       src/components/canvas/ProductStage.tsx:18:13          
-WebGLTelemetryState                         interface  src/components/canvas/ProductStage.tsx:22:18          
-CameraSegment                               interface  src/data/caseStudies.ts:278:18                        
-Bounds                                      interface  src/home/rope.ts:9:18                                 
-Eyelet                                      interface  src/home/threadPath.ts:20:18                          
-BreakthroughFragment             fracture   interface  src/scene/drawing/sheet/breakthroughGeometry.ts:113:18
-HandGlyph                                   interface  src/scene/drawing/sheet/handwriting.ts:172:18         
-SheetTextBoundsItem              lettering  interface  src/scene/drawing/sheet/sheetText.ts:122:18           
-SheetTextBounds                  lettering  interface  src/scene/drawing/sheet/sheetText.ts:132:18           
-RingGeometryCleanupPhase                    type       src/scene/inspection/ringGeometry.ts:10:13            
-ShaftKinematicsMode                         type       src/scene/inspection/shaft/kinematics.ts:375:13       
-ProgressionMode                             type       src/scene/inspection/shaft/progression.ts:18:13       
-CascadeTuple                                type       src/scene/inspection/shaft/schedule.ts:12:13          
-ShaftStampState                             type       src/scene/inspection/shaft/script.ts:4:13             
-ShaftStressKind                             type       src/scene/inspection/shaft/script.ts:5:13             
-ShaftCaptionId                              type       src/scene/inspection/shaft/script.ts:6:13             
-StoryChapter                                interface  src/scene/inspection/story.ts:7:18                    
-StoryAsset                                  interface  src/scene/inspection/story.ts:8:18                    
-StoryFrame                                  interface  src/scene/inspection/story.ts:17:18                   
-InspectionCameraSample                      interface  src/scene/inspection/story.ts:21:18                   
-StageNodes                                  interface  src/scene/rig/nodeRoles.ts:116:18                     
-V16Part                                     interface  src/scene/rl300/v16Materials.ts:25:18                 
-BackgroundLayerDefinition                   type       src/scene/torque-wrench/BackgroundDirector.ts:5:8     
-BackgroundLayerSample                       type       src/scene/torque-wrench/BackgroundDirector.ts:6:8     
-BackgroundSample                            type       src/scene/torque-wrench/BackgroundDirector.ts:7:8     
-BackgroundLayerSample                       interface  src/scene/torque-wrench/backgroundLayers.ts:15:18     
-TorqueStoryChapterId                        type       src/scene/torque-wrench/beats.ts:8:13                 
-TorqueCameraId                              type       src/scene/torque-wrench/beats.ts:11:13                
-TorqueSceneId                               type       src/scene/torque-wrench/beats.ts:14:13                
-TorqueDirectorId                            type       src/scene/torque-wrench/beats.ts:17:13                
-FeatureMaskBand                             type       src/scene/torque-wrench/cascadeFeatureMask.ts:58:13   
-CascadeProofFeature                         type       src/scene/torque-wrench/cascadeProof.ts:20:13         
-CascadeProofControlOptions                  interface  src/scene/torque-wrench/cascadeProof.ts:22:18         
-TorqueGSAPLike                              interface  src/scene/torque-wrench/conductorRuntime.ts:31:18     
-TorqueConductorWindowLike                   interface  src/scene/torque-wrench/conductorRuntime.ts:54:18     
-TorqueConductorDocumentLike                 interface  src/scene/torque-wrench/conductorRuntime.ts:59:18     
-ShaperContactPhase                          type       src/scene/torque-wrench/contactWitnesses.ts:13:13     
-TorqueDirectorSampler                       type       src/scene/torque-wrench/directorRegistry.ts:8:13      
-PrivateInspectionCamera                     interface  src/scene/torque-wrench/InspectionDirector.ts:456:18  
-TorquePosterChapter                         type       src/scene/torque-wrench/posterMap.ts:13:13            
-LoadTorqueScene                             type       src/scene/torque-wrench/sceneLifecycle.ts:8:13        
-RedirectStatus                              type       src/shared/pages.ts:128:13                            
-PosterStatus                                type       src/shared/poster.ts:11:13                            
-PosterFile                                  interface  src/shared/poster.ts:13:18                            
-PosterProvenance                            interface  src/shared/poster.ts:21:18                            
-TorqueSceneStatus                           type       src/state/torqueWrenchStore.ts:8:13                   
-TorqueWrenchPageState                       interface  src/state/torqueWrenchStore.ts:10:18                  
-TorqueBeatListener                          type       src/state/torqueWrenchStore.ts:16:13                  
-TorqueConductorLagSmoothingMode             type       src/state/torqueWrenchStore.ts:18:13                  
-DatumLabel                                  type       src/types/portfolio.ts:10:13                          
-CaseStudyId                                 type       src/types/portfolio.ts:24:13                          
-HotspotKind                                 type       src/types/portfolio.ts:36:13                          
-FeatureControlFrame                         interface  src/types/portfolio.ts:38:18                          
-HotspotAnnotation                           interface  src/types/portfolio.ts:52:18                          
-Vec3Tuple                                   type       src/utils/glbSceneAuditor.ts:4:13                     
-GLBNodeRecord                               interface  src/utils/glbSceneAuditor.ts:6:18                     
+Unused exported types (57)
+ShotId                                      type       src/components/canvas/ProductStage.tsx:18:13                
+WebGLTelemetryState                         interface  src/components/canvas/ProductStage.tsx:22:18                
+CameraSegment                               interface  src/data/caseStudies.ts:278:18                              
+Bounds                                      interface  src/home/rope.ts:9:18                                       
+Eyelet                                      interface  src/home/threadPath.ts:20:18                                
+BreakthroughFragment             fracture   interface  src/scene/drawing/sheet/breakthroughGeometry.ts:113:18      
+HandGlyph                                   interface  src/scene/drawing/sheet/handwriting.ts:172:18               
+SheetTextBoundsItem              lettering  interface  src/scene/drawing/sheet/sheetText.ts:122:18                 
+SheetTextBounds                  lettering  interface  src/scene/drawing/sheet/sheetText.ts:132:18                 
+RingGeometryCleanupPhase                    type       src/scene/inspection/ringGeometry.ts:10:13                  
+ShaftKinematicsMode                         type       src/scene/inspection/shaft/kinematics.ts:375:13             
+ProgressionMode                             type       src/scene/inspection/shaft/progression.ts:18:13             
+CascadeTuple                                type       src/scene/inspection/shaft/schedule.ts:12:13                
+ShaftStampState                             type       src/scene/inspection/shaft/script.ts:4:13                   
+ShaftStressKind                             type       src/scene/inspection/shaft/script.ts:5:13                   
+ShaftCaptionId                              type       src/scene/inspection/shaft/script.ts:6:13                   
+StoryChapter                                interface  src/scene/inspection/story.ts:7:18                          
+StoryAsset                                  interface  src/scene/inspection/story.ts:8:18                          
+StoryFrame                                  interface  src/scene/inspection/story.ts:17:18                         
+InspectionCameraSample                      interface  src/scene/inspection/story.ts:21:18                         
+StageNodes                                  interface  src/scene/rig/nodeRoles.ts:116:18                           
+V16Part                                     interface  src/scene/rl300/v16Materials.ts:25:18                       
+StudioMarkBumperPort                        interface  src/scene/studiomark-logo/StudioMarkLogoExperience.tsx:15:18
+BackgroundLayerDefinition                   type       src/scene/torque-wrench/BackgroundDirector.ts:5:8           
+BackgroundLayerSample                       type       src/scene/torque-wrench/BackgroundDirector.ts:6:8           
+BackgroundSample                            type       src/scene/torque-wrench/BackgroundDirector.ts:7:8           
+BackgroundLayerSample                       interface  src/scene/torque-wrench/backgroundLayers.ts:15:18           
+TorqueStoryChapterId                        type       src/scene/torque-wrench/beats.ts:8:13                       
+TorqueCameraId                              type       src/scene/torque-wrench/beats.ts:11:13                      
+TorqueSceneId                               type       src/scene/torque-wrench/beats.ts:14:13                      
+TorqueDirectorId                            type       src/scene/torque-wrench/beats.ts:17:13                      
+FeatureMaskBand                             type       src/scene/torque-wrench/cascadeFeatureMask.ts:58:13         
+CascadeProofFeature                         type       src/scene/torque-wrench/cascadeProof.ts:20:13               
+CascadeProofControlOptions                  interface  src/scene/torque-wrench/cascadeProof.ts:22:18               
+TorqueGSAPLike                              interface  src/scene/torque-wrench/conductorRuntime.ts:31:18           
+TorqueConductorWindowLike                   interface  src/scene/torque-wrench/conductorRuntime.ts:54:18           
+TorqueConductorDocumentLike                 interface  src/scene/torque-wrench/conductorRuntime.ts:59:18           
+ShaperContactPhase                          type       src/scene/torque-wrench/contactWitnesses.ts:13:13           
+TorqueDirectorSampler                       type       src/scene/torque-wrench/directorRegistry.ts:8:13            
+PrivateInspectionCamera                     interface  src/scene/torque-wrench/InspectionDirector.ts:456:18        
+TorquePosterChapter                         type       src/scene/torque-wrench/posterMap.ts:13:13                  
+LoadTorqueScene                             type       src/scene/torque-wrench/sceneLifecycle.ts:8:13              
+RedirectStatus                              type       src/shared/pages.ts:128:13                                  
+PosterStatus                                type       src/shared/poster.ts:11:13                                  
+PosterFile                                  interface  src/shared/poster.ts:13:18                                  
+PosterProvenance                            interface  src/shared/poster.ts:21:18                                  
+TorqueSceneStatus                           type       src/state/torqueWrenchStore.ts:8:13                         
+TorqueWrenchPageState                       interface  src/state/torqueWrenchStore.ts:10:18                        
+TorqueBeatListener                          type       src/state/torqueWrenchStore.ts:16:13                        
+TorqueConductorLagSmoothingMode             type       src/state/torqueWrenchStore.ts:18:13                        
+DatumLabel                                  type       src/types/portfolio.ts:10:13                                
+CaseStudyId                                 type       src/types/portfolio.ts:24:13                                
+HotspotKind                                 type       src/types/portfolio.ts:36:13                                
+FeatureControlFrame                         interface  src/types/portfolio.ts:38:18                                
+HotspotAnnotation                           interface  src/types/portfolio.ts:52:18                                
+Vec3Tuple                                   type       src/utils/glbSceneAuditor.ts:4:13                           
+GLBNodeRecord                               interface  src/utils/glbSceneAuditor.ts:6:18                           
 Duplicate exports (9)
 SHAPER_BORE_RADIUS_MM|SHAPER_PILOT_RADIUS_MM                src/scene/inspection/shaft/toolSpec.ts      
 SHAPER_ADAPTER_FLANGE_RADIUS_MM|SHAPER_MOUNT_MAX_RADIUS_MM  src/scene/inspection/shaft/toolSpec.ts      

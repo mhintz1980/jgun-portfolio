@@ -12,9 +12,9 @@ Generated 2026-11-06 01:25:34Z. READ-ONLY inventory of the shared checkout outpu
 | KEEP-unknown | 101 | 13097 | 8618921701 |
 | PINNED | 12 | 2962 | 2050517224 |
 
-DELETE-candidate before pin/hold exclusions (raw unpinned class): 0 runs,  bytes
-DELETE-candidate after exclusions (final class): 0 runs,  bytes
-Excluded from raw DELETE by pin/hold rules: 0 runs,  bytes
+DELETE-candidate before pin/hold exclusions (raw unpinned class): 0 runs, 0 bytes
+DELETE-candidate after exclusions (final class): 0 runs, 0 bytes
+Excluded from raw DELETE by pin/hold rules: 0 runs, 0 bytes
 ARCHIVE-candidate: 4 runs, 281257166 bytes
 
 ## Area rollups
