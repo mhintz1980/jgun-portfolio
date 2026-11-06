@@ -1110,7 +1110,7 @@ async function caseCensusLifecycle(mobile = false) {
       // Station CAD (Default/msp-enclosure/m249) is narrative page-load work; the static
       // inspection must never fetch its own tool asset.
       sub.measures.glbRequests = sub.requests.slice()
-      if (sub.requests.length) noteDefect({ id: 'reduced-motion-cad-fetches', kind: 'app', gate: 'V4', file: 'src/scene/torque-wrench/TorqueWrenchPage.tsx', line: 27, detail: 'V4 requires reduced/poster states to avoid CAD/tool fetches. The current page owns the poster/scene gate; exact request URLs are retained in reduced-motion case evidence. Historical App/SceneCanvas defect attribution remains in earlier reports.' })
+      if (sub.requests.length) noteDefect({ id: 'reduced-motion-cad-fetches', kind: 'app', gate: 'V4', file: 'src/scene/torque-wrench/TorqueWrenchPage.tsx', line: 28, detail: 'V4 requires reduced/poster states to avoid CAD/tool fetches. The current page owns the poster/scene gate; exact request URLs are retained in reduced-motion case evidence. Historical App/SceneCanvas defect attribution remains in earlier reports.' })
       check(sub.requests.length === 0, `reduced-motion page fetched ${sub.requests.length} CAD/tool GLBs: ${JSON.stringify(sub.requests)}`)
       await returnKey(reducedPage)
       check(sub.errors.length === 0, `${sub.errors.length} console/page errors; first: ${sub.errors[0]}`)

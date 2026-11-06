@@ -750,7 +750,7 @@ async function staticCase(narrow, kind) {
       await page.waitForTimeout(300)
     })
     r.measures.network = { allCAD: r.allCAD, inspection: r.inspectionRequests, narrative: r.narrativeRequests, throughExit: true, reducedNarrativeV4: kind === 'reduced' && r.narrativeRequests.length ? 'Owner choice unresolved; this S8 inspection-only check does not waive lifecycle V4 zero-CAD policy.' : null }
-    if (kind === 'poster') assertion(r, 'S8', r.allCAD.length === 0, `poster requested CAD/tool assets navigation through exit ${JSON.stringify(r.allCAD)}`, { file: 'src/scene/torque-wrench/TorqueWrenchPage.tsx', line: 27 })
+    if (kind === 'poster') assertion(r, 'S8', r.allCAD.length === 0, `poster requested CAD/tool assets navigation through exit ${JSON.stringify(r.allCAD)}`, { file: 'src/scene/torque-wrench/TorqueWrenchPage.tsx', line: 28 })
     else assertion(r, 'S8', r.inspectionRequests.length === 0, `reduced static requested inspection manufacturing/knurling assets navigation through exit ${JSON.stringify(r.inspectionRequests)}`, { file: 'src/components/RingInspection.tsx', line: 52 })
   } catch (e) { assertion(r, 'S8', false, String(e)); report.harnessLimitations.push({ case: r.name, detail: String(e) }) }
   finally { await session?.close() }
