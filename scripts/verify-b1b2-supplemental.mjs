@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { build } from 'esbuild'
-const { chromium }=await import(process.env.PLAYWRIGHT_MODULE||'file:///C:/Users/Markimus/AppData/Local/npm-cache/_npx/9833c18b2d85bc59/node_modules/playwright/index.mjs')
+const { chromium }=await import(process.env.PLAYWRIGHT_MODULE||'playwright')
 const out=path.resolve('project/work/evidence/b1-b2-rebuild/proof')
 const compiled=await build({entryPoints:['src/data/caseStudies.ts'],bundle:true,write:false,format:'esm',platform:'node'})
 const {baseAt}=await import('data:text/javascript;base64,'+Buffer.from(compiled.outputFiles[0].text).toString('base64'))

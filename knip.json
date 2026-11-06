@@ -1,0 +1,41 @@
+{
+  "$schema": "https://unpkg.com/knip@6.44.1/schema.json",
+  "workspaces": {
+    ".": {
+      "entry": [
+        "index.html",
+        "home/index.html",
+        "torque-wrench/index.html",
+        "quiet-machine/index.html",
+        "armament/index.html",
+        "lifecycle-census.html",
+        "studiomark-logo.html",
+        "src/studiomark-logo-main.tsx",
+        "scripts/**/*.{ts,tsx,js,jsx,mjs,cjs}",
+        "tests/**/*.{ts,tsx,js,jsx,mjs,cjs}",
+        "**/*.{config,setup}.{ts,tsx,js,jsx,mjs,cjs}",
+        "build/**/*.{ts,tsx,js,jsx,mjs,cjs}",
+        "src/torque-wrench-lifecycle-census-main.tsx",
+        "src/**/*.{test,spec}.{ts,tsx,js,jsx,mjs,cjs}"
+      ],
+      "project": [
+        "src/**/*.{ts,tsx,js,jsx,mjs,cjs,css,json}",
+        "scripts/**/*.{ts,tsx,js,jsx,mjs,cjs}",
+        "tests/**/*.{ts,tsx,js,jsx,mjs,cjs}",
+        "build/**/*.{ts,tsx,js,jsx,mjs,cjs}",
+        "*.{ts,tsx,js,jsx,mjs,cjs}"
+      ]
+    },
+    "remotion": {
+      "entry": [
+        "src/index.ts",
+        "src/**/*.{ts,tsx,js,jsx,mjs,cjs}",
+        "scripts/**/*.{ts,tsx,js,jsx,mjs,cjs}",
+        "*.{ts,tsx,js,jsx,mjs,cjs}"
+      ],
+      "project": [
+        "**/*.{ts,tsx,js,jsx,mjs,cjs,css,json}"
+      ]
+    }
+  }
+}

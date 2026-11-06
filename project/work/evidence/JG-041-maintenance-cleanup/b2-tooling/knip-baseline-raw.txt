@@ -1,0 +1,563 @@
+Unused files (277)
+.agents/skills/motion-webgl-inspiration/assets/starter-vanilla/main.js                                                  
+.agents/skills/motion-webgl-inspiration/assets/starter-vanilla/scene.config.js                                          
+.agents/skills/motion-webgl-inspiration/assets/starter-vanilla/style.css                                                
+.agents/skills/motion-webgl-inspiration/scripts/capture-scroll-frames.mjs                                               
+.agents/skills/motion-webgl-inspiration/scripts/check-sources.mjs                                                       
+docs/webgl-r1-r5-2026-10-16/calibrate-ibl.mjs                                                                           
+docs/webgl-r1-r5-2026-10-16/production-smoke.mjs                                                                        
+docs/webgl-r1-r5-2026-10-16/summarize-evidence.mjs                                                                      
+docs/webgl-r1-r5-2026-10-16/verify-ab.mjs                                                                               
+docs/webgl-r1-r5-2026-10-16/vitest-baseline.config.mjs                                                                  
+project/context/cloud-skills/build-threejs-scroll-worlds/references/scroll-conductor.js                                 
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/analyze-frame-pixels.mjs                    
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/analyze-frame-pixels.page.mjs               
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/debug-deep-link.mjs                         
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/extract-ruling-telemetry.mjs                
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/inspect-poster-results.mjs                  
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/measure-production.mjs                      
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/production-server.mjs                       
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/verify-deep-links.mjs                       
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/verify-opening-owned.mjs                    
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/verify-poster.mjs                           
+…-035-opening-drafting-table/manufacturing-implementation-2026-10-05/assets/acceptance-2026-10-06/decode_independent.mjs
+…ening-drafting-table/manufacturing-implementation-2026-10-05/assets/acceptance-parent-2026-10-06/decode_independent.mjs
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/assets/audit-draco.mjs      
+…opening-drafting-table/manufacturing-implementation-2026-10-05/camera/blockout-2026-10-06/candidate_material_camera.mjs
+…k/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/blockout-2026-10-06/capture.mjs
+…opening-drafting-table/manufacturing-implementation-2026-10-05/camera/blockout-2026-10-06/dom_text_visibility_check.mjs
+…drafting-table/manufacturing-implementation-2026-10-05/camera/blockout-2026-10-06/independent_material_camera_check.mjs
+…5-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/blockout-2026-10-06/measure_material_region.mjs
+…ing-drafting-table/manufacturing-implementation-2026-10-05/camera/blockout-2026-10-06/raster_reclassification_check.mjs
+…nce/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/footer-fix-2026-10-06/check-footer.mjs
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/integration/harness.tsx     
+…ect/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/integration/verify-ordering.mjs
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/ring/clip-probe.mjs         
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/ring/coverage-evidence.mjs  
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/ring/ring-runtime-probe.mjs 
+…oject/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/ring/wheel-harmonic-probe.mjs
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/ring/wheel-probe.mjs        
+…evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/runtime/opening-triage-glm/summarize.mjs
+…-drafting-table/manufacturing-implementation-2026-10-05/runtime/opening-triage-glm/verify-jgun-opening.pre-headless.mjs
+…oject/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/runtime/shaft-smoke/smoke.mjs
+…/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/runtime/shaft/probe-uniform-capture.mjs
+…ng-table/manufacturing-implementation-2026-10-05/runtime/shaft/review-corrections-2026-10-06/probe-return-causality.mjs
+…nce/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/runtime/static-parent-final/verify-static.mjs
+…5-opening-drafting-table/manufacturing-implementation-2026-10-05/runtime/static-posters-policy-parent/verify-static.mjs
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script/harness.tsx    
+…ork/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script/verify-shaft-script.mjs
+…ng-drafting-table/manufacturing-implementation-2026-10-05/shaft-stock-contact-correction-2026-10-06/check-causality.mjs
+…able/manufacturing-implementation-2026-10-05/shaft-stock-contact-correction-2026-10-06/parent-rerun/check-causality.mjs
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/harness.tsx           
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/verify-shell.mjs      
+…35-opening-drafting-table/manufacturing-implementation-2026-10-05/static-shaft-2026-10-06/capture-completed-renders.mjs
+…-035-opening-drafting-table/manufacturing-implementation-2026-10-05/static-shaft-2026-10-06/capture-missing-anchors.mjs
+…pening-drafting-table/manufacturing-implementation-2026-10-05/static-shaft-2026-10-06/final-provenance/audit-hashes.mjs
+…ening-drafting-table/manufacturing-implementation-2026-10-05/static-shaft-2026-10-06/final-provenance/build-helpers.mjs
+…ing-drafting-table/manufacturing-implementation-2026-10-05/static-shaft-2026-10-06/final-provenance/capture-refresh.mjs
+…ng-drafting-table/manufacturing-implementation-2026-10-05/static-shaft-2026-10-06/final-provenance/crosscheck-probe.cjs
+…rafting-table/manufacturing-implementation-2026-10-05/static-shaft-2026-10-06/final-provenance/equivalence-resample.mjs
+…ning-drafting-table/manufacturing-implementation-2026-10-05/static-shaft-2026-10-06/final-provenance/extract-hashes.cjs
+…ing-drafting-table/manufacturing-implementation-2026-10-05/static-shaft-2026-10-06/final-provenance/inspect-capture.cjs
+…drafting-table/manufacturing-implementation-2026-10-05/static-shaft-2026-10-06/final-provenance/inspect-equivalence.cjs
+…pening-drafting-table/manufacturing-implementation-2026-10-05/static-shaft-2026-10-06/final-provenance/inspect-json.cjs
+…ng-drafting-table/manufacturing-implementation-2026-10-05/static-shaft-2026-10-06/final-provenance/inspect-requests.cjs
+…vidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/static-shaft-2026-10-06/verify-static.mjs
+project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/stamp/shaft-stamp-harness.js   
+project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/stamp/verify-f1-stamp.mjs      
+project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/stills/capture-final-stills.mjs
+…evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/stills/drawing-final/handwriting-oracle.mjs
+…evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/stills/finalize-owner-revision-captures.mjs
+…rafting-table/orchestrated-continuation-2026-10-08/verification/hardware-acceptance-continuation/run-roster-command.mjs
+project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/visibility-pass-2026-09-26/frames.mjs         
+…ty/z-order-2026-10-08/runtime-final-native/invalid-preview-capture-2026-10-08T23-16Z/served_src_components_Chapters.tsx
+…-order-2026-10-08/runtime-final-native/invalid-preview-capture-2026-10-08T23-16Z/served_src_components_TechnicalHUD.tsx
+…bility/z-order-2026-10-08/runtime-final-native/invalid-preview-capture-2026-10-08T23-16Z/served_src_data_caseStudies.ts
+…spot-clickability/z-order-2026-10-08/runtime-final-native/invalid-preview-capture-2026-10-08T23-16Z/served_src_main.tsx
+…bility/z-order-2026-10-08/runtime-final-native/invalid-preview-capture-2026-10-08T23-16Z/served_src_scene_CameraRig.tsx
+…ability/z-order-2026-10-08/runtime-final-native/invalid-preview-capture-2026-10-08T23-16Z/served_src_scene_Hotspots.tsx
+…ct/work/evidence/JG-036-hotspot-clickability/z-order-2026-10-08/runtime-final-native/served_src_components_Chapters.tsx
+…ork/evidence/JG-036-hotspot-clickability/z-order-2026-10-08/runtime-final-native/served_src_components_TechnicalHUD.tsx
+project/work/evidence/JG-036-hotspot-clickability/z-order-2026-10-08/runtime-final-native/served_src_data_caseStudies.ts
+project/work/evidence/JG-036-hotspot-clickability/z-order-2026-10-08/runtime-final-native/served_src_main.tsx           
+project/work/evidence/JG-036-hotspot-clickability/z-order-2026-10-08/runtime-final-native/served_src_scene_CameraRig.tsx
+project/work/evidence/JG-036-hotspot-clickability/z-order-2026-10-08/runtime-final-native/served_src_scene_Hotspots.tsx 
+project/work/evidence/jg028-regression/jg028-ab-diff.mjs                                                                
+project/work/evidence/jg028-regression/jg028-static-ab.mjs                                                              
+project/work/evidence/jg028-regression/verify-jg028-regression-census.mjs                                               
+project/work/evidence/jg029-ring-switch-knurl/verify-jg028-regression-census.mjs                                        
+project/work/evidence/performance-diagnosis/helpers/capture-quality-events.mjs                                          
+project/work/evidence/rl300-quiet-machine/34-v16-assessment/gpu-seat-scripts/common.mjs                                 
+project/work/evidence/rl300-quiet-machine/34-v16-assessment/gpu-seat-scripts/glb-aabb.mjs                               
+project/work/evidence/rl300-quiet-machine/34-v16-assessment/gpu-seat-scripts/phase-a.mjs                                
+project/work/evidence/rl300-quiet-machine/34-v16-assessment/gpu-seat-scripts/phase-b.mjs                                
+project/work/evidence/rl300-quiet-machine/34-v16-assessment/gpu-seat-scripts/phase-c.mjs                                
+project/work/evidence/rl300-quiet-machine/34-v16-assessment/gpu-seat-scripts/sidecars.mjs                               
+project/work/evidence/rl300-quiet-machine/34-v16-assessment/gpu-seat-scripts/videos3.mjs                                
+project/work/evidence/rl300-quiet-machine/34-v16-assessment/scripts/dstat.mjs                                           
+project/work/evidence/rl300-quiet-machine/34-v16-assessment/scripts/glbbox.mjs                                          
+project/work/evidence/rl300-quiet-machine/34-v16-assessment/scripts/glbinfo.mjs                                         
+project/work/evidence/rl300-quiet-machine/34-v16-assessment/scripts/litediff.mjs                                        
+project/work/evidence/rl300-quiet-machine/34-v16-assessment/scripts/namediff.mjs                                        
+project/work/evidence/rl300-quiet-machine/34-v16-assessment/scripts/spot.mjs                                            
+project/work/evidence/rl300-quiet-machine/34-v16-assessment/scripts/trim.mjs                                            
+project/work/evidence/rl300-quiet-machine/34-v16-assessment/scripts/verify-evidence.mjs                                 
+project/work/evidence/rl300-quiet-machine/35-v16-round-1/asset/json-check.mjs                                           
+project/work/evidence/rl300-quiet-machine/35-v16-round-1/asset/scripts/make-materials-json.mjs                          
+project/work/evidence/rl300-quiet-machine/35-v16-round-1/asset/scripts/make-report.mjs                                  
+project/work/evidence/rl300-quiet-machine/35-v16-round-1/asset/verify-glb.mjs                                           
+project/work/evidence/rl300-quiet-machine/35-v16-round-1/asset2/scripts/audit.mjs                                       
+project/work/evidence/rl300-quiet-machine/35-v16-round-1/asset2/scripts/load.mjs                                        
+project/work/evidence/rl300-quiet-machine/35-v16-round-1/asset2/scripts/merge-man.mjs                                   
+project/work/evidence/rl300-quiet-machine/35-v16-round-1/asset2/scripts/patch-materials.mjs                             
+project/work/evidence/rl300-quiet-machine/35-v16-round-1/asset2/scripts/readback.mjs                                    
+project/work/evidence/rl300-quiet-machine/35-v16-round-1/scripts/diffmap.mjs                                            
+project/work/evidence/rl300-quiet-machine/35-v16-round-1/scripts/round-report.mjs                                       
+project/work/evidence/rl300-quiet-machine/35-v16-round-1/scripts/start-preview.mjs                                      
+project/work/evidence/rl300-quiet-machine/35-v16-round-1/scripts/stop-preview.mjs                                       
+project/work/evidence/rl300-quiet-machine/35-v16-round-1/scripts/verify-round.mjs                                       
+project/work/evidence/rl300-quiet-machine/38-s5-posters/scripts/glb_bbox.cjs                                            
+project/work/evidence/rl300-quiet-machine/42-qm9-lite/lite-probe.mjs                                                    
+project/work/evidence/rl300-quiet-machine/42-qm9-lite/lite-reassess.mjs                                                 
+project/work/evidence/rl300-quiet-machine/43-qm9-skip-caps/closed-proof.mjs                                             
+project/work/evidence/rl300-quiet-machine/43-qm9-skip-caps/cross.mjs                                                    
+project/work/evidence/rl300-quiet-machine/44-s3-ribbon-gating/cross-s3.mjs                                              
+project/work/evidence/rl300-quiet-machine/47-gpu6-baseline/gpu6.mjs                                                     
+project/work/evidence/rl300-quiet-machine/49-v16-frame-shifts/capture.mjs                                               
+project/work/evidence/rl300-quiet-machine/49-v16-frame-shifts/sheet.mjs                                                 
+project/work/evidence/rl300-quiet-machine/50-s4-background/capture.mjs                                                  
+project/work/evidence/rl300-quiet-machine/50-s4-background/clip.mjs                                                     
+project/work/evidence/rl300-quiet-machine/50-s4-background/sheet.mjs                                                    
+project/work/evidence/rl300-quiet-machine/50-s4-background/strip.mjs                                                    
+project/work/evidence/torque-wrench-rebuild/01-tunnel-diagnostic/capture-hardware-tunnel.mjs                            
+project/work/evidence/torque-wrench-rebuild/02-motion-baseline/record-scroll-motion.mjs                                 
+project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/continuity-harness-20261013.mjs                  
+project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/continuity-harness-20261014.mjs                  
+project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/continuity-harness-final-20261013.mjs            
+project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/review-manifest-recorder-20261014.mjs            
+project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/verify-doc-refresh-20261014.mjs                  
+…idence/torque-wrench-rebuild/09-stage5-rendering-20261015/ac-harness-source-20261016/jg038-ac-phase-roster-20261016.mjs
+…rk/evidence/torque-wrench-rebuild/09-stage5-rendering-20261015/ac-harness-source-20261016/jg038-ac-startup-20261016.mjs
+…ce/torque-wrench-rebuild/09-stage5-rendering-20261015/ac-harness-source-20261016/verify-torque-performance-contract.mjs
+project/work/evidence/torque-wrench-rebuild/70-high-low-feature-proof-2026-10-30/analyze-geometry.mjs                   
+public/draco/draco_decoder.js                                                                                           
+public/draco/draco_wasm_wrapper.js                                                                                      
+remotion/remotion.config.ts                                                                                             
+remotion/scripts/review-stills.mjs                                                                                      
+remotion/src/ease.ts                                                                                                    
+remotion/src/index.ts                                                                                                   
+remotion/src/Root.tsx                                                                                                   
+remotion/src/scenes/ArmamentAct.tsx                                                                                     
+remotion/src/scenes/Close.tsx                                                                                           
+remotion/src/scenes/MachineAct.tsx                                                                                      
+remotion/src/scenes/Opening.tsx                                                                                         
+remotion/src/scenes/WrenchAct.tsx                                                                                       
+remotion/src/Showreel.tsx                                                                                               
+remotion/src/theme.ts                                                                                                   
+remotion/src/three/CameraRig.tsx                                                                                        
+remotion/src/three/PostFX.tsx                                                                                           
+remotion/src/three/project.ts                                                                                           
+remotion/src/three/QuietMachine.tsx                                                                                     
+remotion/src/three/ReadyGate.tsx                                                                                        
+remotion/src/three/SplitBackground.tsx                                                                                  
+remotion/src/three/studioEnv.ts                                                                                         
+remotion/src/three/track.ts                                                                                             
+remotion/src/three/useGltf.ts                                                                                           
+remotion/src/three/Wrench.tsx                                                                                           
+remotion/src/ui/Backdrop.tsx                                                                                            
+remotion/src/ui/DrawnName.tsx                                                                                           
+remotion/src/ui/ShowcaseCard.tsx                                                                                        
+remotion/src/ui/Thread.tsx                                                                                              
+remotion/src/ui/Type.tsx                                                                                                
+scripts/analyze-cascade-speed.mjs                                                                                       
+scripts/analyze-final-cascade.mjs                                                                                       
+scripts/capture-45-checkpoints.mjs                                                                                      
+scripts/capture-b1b2-baseline.mjs                                                                                       
+scripts/capture-drawing-sheet.mjs                                                                                       
+scripts/capture-jgun-blackout-motion.mjs                                                                                
+scripts/capture-jgun-breakthrough.mjs                                                                                   
+scripts/capture-jgun-drawing-review.mjs                                                                                 
+scripts/capture-jgun-opening.mjs                                                                                        
+scripts/capture-owner-revisions.mjs                                                                                     
+scripts/capture-rl300-baseline.mjs                                                                                      
+scripts/cascade-window-budget.node-test.mjs                                                                             
+scripts/check-b1b2-contract.mjs                                                                                         
+scripts/check-fallback.tsx                                                                                              
+scripts/check-qm-jgun-assets.mjs                                                                                        
+scripts/check-torque-stage1-boundary.mjs                                                                                
+scripts/cinematography-checkpoint.node-test.mjs                                                                         
+scripts/convert-drawing-precompute.mjs                                                                                  
+scripts/diag-shaft-artifacts.mjs                                                                                        
+scripts/diagnose-high-low-features.mjs                                                                                  
+scripts/diagnose-owner-corrections.mjs                                                                                  
+scripts/export-sheet-template.mjs                                                                                       
+scripts/export-torque-offline-source.mjs                                                                                
+scripts/handwriting-reference-extract.cjs                                                                               
+scripts/higgsfield-example.ts                                                                                           
+scripts/lib/cascade-window-budget.mjs                                                                                   
+scripts/lib/preview-pixels.mjs                                                                                          
+scripts/lib/preview-video.mjs                                                                                           
+scripts/lib/seam-roi.mjs                                                                                                
+scripts/manufacturing/cutter_outline.mjs                                                                                
+scripts/measure-cascade-features.mjs                                                                                    
+scripts/measure-cascade-speed.mjs                                                                                       
+scripts/measure-jgun-pre-pulse.mjs                                                                                      
+scripts/measure-jgun-visible-dark.mjs                                                                                   
+scripts/precompute-drawing.mjs                                                                                          
+scripts/preview-camera-candidate.mjs                                                                                    
+scripts/preview-owner-visual-corrections.mjs                                                                            
+scripts/preview-page-cinematography.mjs                                                                                 
+scripts/preview-side-track.mjs                                                                                          
+scripts/private-opening-samples.node-test.mjs                                                                           
+scripts/probe-final-card.mjs                                                                                            
+scripts/probe-jgun-vellum.mjs                                                                                           
+scripts/record-torque-stage4-provenance.mjs                                                                             
+scripts/repair-final-cascade-dense.mjs                                                                                  
+scripts/smoke-studiomark.mjs                                                                                            
+scripts/solve-page-cinematography.mjs                                                                                   
+scripts/summarize-torque-camera-hud.mjs                                                                                 
+scripts/verify-b1b2-rebuild.mjs                                                                                         
+scripts/verify-b1b2-supplemental.mjs                                                                                    
+scripts/verify-final-cascade-seeks.mjs                                                                                  
+scripts/verify-final-cascade.mjs                                                                                        
+scripts/verify-handwriting-reference.mjs                                                                                
+scripts/verify-home-header.mjs                                                                                          
+scripts/verify-jg027-lcd-cluster.mjs                                                                                    
+scripts/verify-jg028-handle-realism.mjs                                                                                 
+scripts/verify-jg031-gear-rotation.mjs                                                                                  
+scripts/verify-jg032-station2-thermal.mjs                                                                               
+scripts/verify-jg033-lite-asset.mjs                                                                                     
+scripts/verify-jg033-preview.mjs                                                                                        
+scripts/verify-jg033-ribbon-clipping.mjs                                                                                
+scripts/verify-jg036-hotspot-layering.mjs                                                                               
+scripts/verify-jg040-stage3.mjs                                                                                         
+scripts/verify-jgun-opening.mjs                                                                                         
+scripts/verify-launch-dist.mjs                                                                                          
+scripts/verify-manufacturing-inspection.mjs                                                                             
+scripts/verify-owner-corrections.mjs                                                                                    
+scripts/verify-page-cinematography.node-test.mjs                                                                        
+scripts/verify-page-transition.mjs                                                                                      
+scripts/verify-ring-inspection.mjs                                                                                      
+scripts/verify-shaft-inspection.mjs                                                                                     
+scripts/verify-stage1-cascade.mjs                                                                                       
+scripts/verify-torque-camera-hud.mjs                                                                                    
+scripts/verify-torque-camera-hud.node-test.mjs                                                                          
+scripts/verify-torque-continuous-clearance.mjs                                                                          
+scripts/verify-torque-cutter.mjs                                                                                        
+scripts/verify-torque-drawing-integration.mjs                                                                           
+scripts/verify-torque-input-response.mjs                                                                                
+scripts/verify-torque-lifecycle-census.mjs                                                                              
+scripts/verify-torque-lifecycle-functional.mjs                                                                          
+scripts/verify-torque-mechanical-matched-buffer.mjs                                                                     
+scripts/verify-torque-mechanical-parity.mjs                                                                             
+scripts/verify-torque-opening-ab.mjs                                                                                    
+scripts/verify-torque-owner-three-fixes.mjs                                                                             
+scripts/verify-torque-performance-contract.mjs                                                                          
+scripts/verify-torque-performance-overhead.mjs                                                                          
+scripts/verify-torque-pit-ab.mjs                                                                                        
+scripts/verify-torque-pointer-functional.mjs                                                                            
+scripts/verify-torque-stage4-effects.mjs                                                                                
+scripts/verify-torque-stage5-runtime.mjs                                                                                
+scripts/verify-torque-static-functional.mjs                                                                             
+scripts/verify-torque-static.mjs                                                                                        
+scripts/verify-torque-timeline.mjs                                                                                      
+scripts/verify-torque-update-stress.mjs                                                                                 
+src/scene/studiomark-logo/index.ts                                                                                      
+src/scene/studiomark-logo/InspectorUI.tsx                                                                               
+src/scene/studiomark-logo/PostProcessing.tsx                                                                            
+src/scene/studiomark-logo/RainDrops.tsx                                                                                 
+src/scene/studiomark-logo/RainFloor.tsx                                                                                 
+src/scene/studiomark-logo/RainSplashes.tsx                                                                              
+src/scene/studiomark-logo/StudioLighting.tsx                                                                            
+src/scene/studiomark-logo/StudioMarkCenterpiece.tsx                                                                     
+src/scene/studiomark-logo/StudioMarkLogoExperience.tsx                                                                  
+src/scene/studiomark-logo/StudioMarkLogoScene.tsx                                                                       
+src/scene/studiomark-logo/StudioMarkText.tsx                                                                            
+src/scene/studiomark-logo/ThunderLight.tsx                                                                              
+src/studiomark-logo-main.tsx                                                                                            
+src/torque-wrench-lifecycle-census-main.tsx                                                                             
+Unused dependencies (1)
+@higgsfield/client  package.json:17:6
+Unused exports (210)
+EXCLUDED_PUBLIC_ASSETS                                build/excludePublicAssets.ts:9:14                                 
+TORQUE_PERFORMANCE_PHASES                             …/ac-harness-source-20261016/torque-performance-observers.mjs:7:14
+phaseWindow                                 function  …/ac-harness-source-20261016/torque-performance-observers.mjs:9:17
+percentile                                  function  …ac-harness-source-20261016/torque-performance-observers.mjs:20:17
+summarizeFrameSamples                       function  …ac-harness-source-20261016/torque-performance-observers.mjs:27:17
+TEXEL_BYTE_SIZE                                       …ac-harness-source-20261016/torque-performance-observers.mjs:61:14
+CORE_DRAW_NAMES                                       …ac-harness-source-20261016/torque-performance-observers.mjs:73:14
+INSTANCED_EXTENSION_DRAW_NAMES                        …ac-harness-source-20261016/torque-performance-observers.mjs:74:14
+MULTI_DRAW_ENTRY_NAMES                                …ac-harness-source-20261016/torque-performance-observers.mjs:75:14
+texelBytesPerFormat                         function  …ac-harness-source-20261016/torque-performance-observers.mjs:77:17
+classifyDrawEntry                           function  …ac-harness-source-20261016/torque-performance-observers.mjs:89:17
+TORQUE_BUDGETS                                        …/ac-harness-source-20261016/torque-verification-contract.mjs:3:14
+torquePerformanceRetryReasons               function  …ac-harness-source-20261016/torque-verification-contract.mjs:69:17
+launchConfig                                function  scripts/lib/browser-launch.mjs:8:17                               
+launchBrowserMinimal                                  scripts/lib/browser-launch.mjs:18:14                              
+TORQUE_PERFORMANCE_PHASES                             scripts/lib/torque-performance-observers.mjs:7:14                 
+phaseWindow                                 function  scripts/lib/torque-performance-observers.mjs:9:17                 
+percentile                                  function  scripts/lib/torque-performance-observers.mjs:20:17                
+summarizeFrameSamples                       function  scripts/lib/torque-performance-observers.mjs:27:17                
+TEXEL_BYTE_SIZE                                       scripts/lib/torque-performance-observers.mjs:61:14                
+CORE_DRAW_NAMES                                       scripts/lib/torque-performance-observers.mjs:73:14                
+INSTANCED_EXTENSION_DRAW_NAMES                        scripts/lib/torque-performance-observers.mjs:74:14                
+MULTI_DRAW_ENTRY_NAMES                                scripts/lib/torque-performance-observers.mjs:75:14                
+texelBytesPerFormat                         function  scripts/lib/torque-performance-observers.mjs:77:17                
+classifyDrawEntry                           function  scripts/lib/torque-performance-observers.mjs:89:17                
+TORQUE_BUDGETS                                        scripts/lib/torque-verification-contract.mjs:3:14                 
+torquePerformanceRetryReasons               function  scripts/lib/torque-verification-contract.mjs:69:17                
+CASES                                                 scripts/verify-page-cinematography.mjs:39:14                      
+LIMITS                                                scripts/verify-page-cinematography.mjs:40:14                      
+canonicalGate                               function  scripts/verify-page-cinematography.mjs:50:17                      
+classify                                    function  scripts/verify-page-cinematography.mjs:59:17                      
+parseArgs                                   function  scripts/verify-page-cinematography.mjs:65:17                      
+compareState                                function  scripts/verify-page-cinematography.mjs:112:17                     
+replayGates                                 function  scripts/verify-page-cinematography.mjs:133:17                     
+chooseWitnesses                             function  scripts/verify-page-cinematography.mjs:140:17                     
+projectWorld                                function  scripts/verify-page-cinematography.mjs:150:17                     
+clearanceGates                              function  scripts/verify-page-cinematography.mjs:160:17                     
+roiGate                                     function  scripts/verify-page-cinematography.mjs:196:17                     
+sweepGates                                  function  scripts/verify-page-cinematography.mjs:228:17                     
+sourceModule                                function  scripts/verify-page-cinematography.mjs:281:23                     
+privateOpeningPoints                        function  scripts/verify-page-cinematography.mjs:381:17                     
+makePlan                                    function  scripts/verify-page-cinematography.mjs:402:17                     
+run                                         function  scripts/verify-page-cinematography.mjs:444:23                     
+primeOrder                                  function  scripts/verify-page-cinematography.mjs:614:17                     
+builtinPhysicalGates                        function  scripts/verify-page-cinematography.mjs:621:17                     
+physicalGates                               function  scripts/verify-page-cinematography.mjs:745:23                     
+signedMatrixRotation                        function  scripts/verify-page-cinematography.mjs:783:17                     
+BootPanel                                   function  src/components/BootSequence.tsx:47:17                             
+rigState                                              src/components/canvas/ProductStage.tsx:74:14                      
+resetRigState                               function  src/components/canvas/ProductStage.tsx:84:17                      
+PATH_SEGMENTS                                         src/data/caseStudies.ts:294:14                                    
+S2_ARC_END_POSE                                       src/data/caseStudies.ts:314:14                                    
+framingBias                                 function  src/data/caseStudies.ts:466:17                                    
+SHIFT_CAMERA_KEYFRAMES                                src/data/caseStudies.ts:477:14                                    
+ROUNDS                                                src/home/rolling.ts:4:14                                          
+SOLVED_RATIO                                          src/home/rope.ts:52:14                                            
+clampPin                                    function  src/home/rope.ts:155:17                                           
+EXIT_WINDOW                                           src/home/stackMath.ts:7:14                                        
+FOCUS_PULL                                            src/home/vaultMath.ts:12:14                                       
+OUTLINE_BURST_SECONDS                                 src/scene/drawing/electricalScore.ts:27:14                        
+branchWindow                                          src/scene/drawing/electricalScore.ts:103:14                       
+BREAKTHROUGH_RIM_WIDTH            fracture            src/scene/drawing/sheet/breakthroughGeometry.ts:99:14             
+BREAKTHROUGH_FRAGMENT_RADIAL_MAX  fracture            src/scene/drawing/sheet/breakthroughGeometry.ts:105:14            
+rasterTornOutline                 fracture  function  src/scene/drawing/sheet/breakthroughGeometry.ts:455:17            
+drawingCacheBypassed              cache     function  src/scene/drawing/sheet/drawingCache.ts:52:17                     
+encodedDrawingPrecompute          cache     function  src/scene/drawing/sheet/drawingCache.ts:140:23                    
+decodeDrawingPayload              cache     function  src/scene/drawing/sheet/drawingCache.ts:194:23                    
+DRAWING_CODEC_VERSION                                 src/scene/drawing/sheet/drawingCodec.ts:28:14                     
+PEN                                                   src/scene/drawing/sheet/ownerAnnotations.ts:189:10                
+PORTAL_MOUTH_Z                                        src/scene/drawing/sheet/portal.ts:17:10                           
+PORTAL_FISSURE_CSS                                    src/scene/drawing/sheet/portalGeometry.ts:30:14                   
+PORTAL_RELIEF_RAMP_M                                  src/scene/drawing/sheet/portalGeometry.ts:65:14                   
+portalRgbSteps8Bit                          function  src/scene/drawing/sheet/portalGeometry.ts:319:17                  
+profileFromPoints                 profile   function  src/scene/drawing/sheet/profile.ts:186:17                         
+REFERENCE_PROVENANCE                                  src/scene/drawing/sheet/referenceHandGlyphs.ts:7:14               
+lampFor                                     function  src/scene/drawing/sheetCamera.ts:211:17                           
+HotspotButton                               function  src/scene/Hotspots.tsx:45:17                                      
+SpatialLeaderLine                           function  src/scene/Hotspots.tsx:167:17                                     
+InspectionDriver                            function  src/scene/inspection/InspectionScene.tsx:26:17                    
+FOLLOW_AZIMUTH_MOD                                    src/scene/inspection/shaft/camera.ts:41:14                        
+RECAP_SWING_START_S                                   src/scene/inspection/shaft/camera.ts:52:14                        
+followMfAt                                            src/scene/inspection/shaft/camera.ts:258:10                       
+CASCADE_LOCAL_REDUCTION                               src/scene/inspection/shaft/cascadeConfig.ts:4:14                  
+ALIAS_DESIGN_PERIOD                                   src/scene/inspection/shaft/cascadeConfig.ts:22:14                 
+ALIAS_HARD_PERIOD                                     src/scene/inspection/shaft/cascadeConfig.ts:23:14                 
+inputRpmToCarrierRate                                 src/scene/inspection/shaft/cascadeConfig.ts:27:14                 
+FOS_ATTEMPT_ORDER                                     src/scene/inspection/shaft/fosPresentation.ts:19:14               
+FOS_SWAP                                              src/scene/inspection/shaft/fosPresentation.ts:83:14               
+FOS_PROVENANCE                                        src/scene/inspection/shaft/fosPresentation.ts:126:14              
+SHAFT_LITE_FPS                                        src/scene/inspection/shaft/kinematics.ts:60:14                    
+T_SLOW_MID                                            src/scene/inspection/shaft/kinematics.ts:147:14                   
+WORK_REV_M                                            src/scene/inspection/shaft/kinematics.ts:159:14                   
+ROOT_TIP_STOCK_MM                                     src/scene/inspection/shaft/kinematics.ts:181:14                   
+hobRadialOffsetAt                           function  src/scene/inspection/shaft/kinematics.ts:285:17                   
+hobRevRateAt                                function  src/scene/inspection/shaft/kinematics.ts:293:17                   
+HOB_CERTIFIED_R_MM                                    src/scene/inspection/shaft/progression.ts:74:14                   
+HOB_CERTIFIED_LEAD_ANGLE_DEG                          src/scene/inspection/shaft/progression.ts:75:14                   
+AXIAL_CONTACT_MARKER                                  src/scene/inspection/shaft/progression.ts:156:14                  
+STRESS_SIGMA_MM                                       src/scene/inspection/shaft/progression.ts:348:14                  
+stressSeverity                              function  src/scene/inspection/shaft/progression.ts:351:17                  
+clamp01                                               src/scene/inspection/shaft/schedule.ts:7:14                       
+shaftEase                                             src/scene/inspection/shaft/schedule.ts:8:14                       
+CASCADE_DRIVE_EVENTS                                  src/scene/inspection/shaft/schedule.ts:39:14                      
+SHAFT_CARD_FADE                                       src/scene/inspection/shaft/script.ts:29:14                        
+SHAFT_RUNOUT_HOLD                                     src/scene/inspection/shaft/script.ts:36:14                        
+SHAFT_WARM_SCAN                                       src/scene/inspection/shaft/script.ts:37:14                        
+SHAFT_COOL_SCAN                                       src/scene/inspection/shaft/script.ts:38:14                        
+CLIP_START                                            src/scene/inspection/timeline.ts:11:14                            
+CLIP_CONTACT_START                                    src/scene/inspection/timeline.ts:12:14                            
+CLIP_TRAVERSE_END                                     src/scene/inspection/timeline.ts:14:14                            
+CLIP_CONTACT_END                                      src/scene/inspection/timeline.ts:15:14                            
+CLIP_END                                              src/scene/inspection/timeline.ts:16:14                            
+CONTACT_DWELL                                         src/scene/inspection/timeline.ts:22:14                            
+HOLE_CLOSE_START                                      src/scene/inspection/timeline.ts:33:14                            
+HOLE_CLOSE_END                                        src/scene/inspection/timeline.ts:34:14                            
+HOLE_OPEN_START                                       src/scene/inspection/timeline.ts:35:14                            
+HOLE_OPEN_END                                         src/scene/inspection/timeline.ts:36:14                            
+LITE_FPS                                              src/scene/inspection/timeline.ts:44:14                            
+COVERAGE_TIME                                         src/scene/inspection/timeline.ts:49:14                            
+RING_SWITCH_TRAVEL_SCALE                              src/scene/rig/wrenchMechanics.ts:46:14                            
+BASE                                                  src/scene/rl300/BackgroundDirector.tsx:14:14                      
+lookAt                                      function  src/scene/rl300/BackgroundDirector.tsx:31:17                      
+BEAT_SPECS                                            src/scene/rl300/beats.ts:79:14                                    
+resolveBeats                                function  src/scene/rl300/beats.ts:181:17                                   
+collectWindows                              function  src/scene/rl300/beats.ts:207:17                                   
+INTAKE_ANCHOR                                         src/scene/rl300/IntakeHotspot.tsx:7:14                            
+INTAKE_SEEK                                           src/scene/rl300/IntakeHotspot.tsx:13:14                           
+projectIntake                               function  src/scene/rl300/IntakeHotspot.tsx:22:17                           
+LINER_PART                                            src/scene/rl300/prepareModel.ts:15:14                             
+EXHAUST_PIPE                                          src/scene/rl300/prepareModel.ts:20:14                             
+CHROME                                                src/scene/rl300/prepareModel.ts:22:14                             
+EXTRAS_POLICY                                         src/scene/rl300/prepareModel.ts:190:14                            
+REPLACED_MAN                                          src/scene/rl300/prepareModel.ts:197:14                            
+EXHAUST_STACK_OFFSET                                  src/scene/rl300/prepareModel.ts:204:14                            
+cutAt                                                 src/scene/rl300/shot.ts:38:14                                     
+undersideAt                                           src/scene/rl300/shot.ts:42:14                                     
+shotIndexAt                                           src/scene/rl300/shot.ts:44:14                                     
+STATION_TRANSFORMS                                    src/scene/SpatialRig.tsx:77:10                                    
+SPATIAL_STATIONS                                      src/scene/SpatialRig.tsx:77:30                                    
+makeProfile                                 function  src/scene/studiomark-logo/smGeometries.ts:19:17                   
+makeCrestProfile                            function  src/scene/studiomark-logo/smGeometries.ts:44:17                   
+sweepProfile                                function  src/scene/studiomark-logo/smGeometries.ts:60:17                   
+buildSCurve                                 function  src/scene/studiomark-logo/smGeometries.ts:154:17                  
+buildMPoints                                function  src/scene/studiomark-logo/smGeometries.ts:410:17                  
+BACKGROUND_LAYERS                                     src/scene/torque-wrench/BackgroundDirector.ts:2:3                 
+CASCADE_PROOF_FEATURES                                src/scene/torque-wrench/cascadeProof.ts:13:14                     
+PRIVATE_OUTLINE_BURST_SECONDS                         src/scene/torque-wrench/ElectricalDirector.ts:12:14               
+PRIVATE_OUTLINE_START_T                               src/scene/torque-wrench/ElectricalDirector.ts:15:14               
+privateElectricalClock                      function  src/scene/torque-wrench/ElectricalDirector.ts:50:17               
+privateBurstProgress                        function  src/scene/torque-wrench/ElectricalDirector.ts:72:17               
+holdAfterglow                               function  src/scene/torque-wrench/ElectricalDirector.ts:97:17               
+TORQUE_HOTSPOT_EXCLUSIONS                             src/scene/torque-wrench/hotspotData.ts:62:14                      
+TORQUE_HOTSPOT_MIN_SURROUNDINGS                       src/scene/torque-wrench/hotspotData.ts:68:14                      
+TORQUE_HOTSPOT_MIN_EXPLODE                            src/scene/torque-wrench/hotspotData.ts:69:14                      
+TORQUE_HOTSPOTS_DISABLED                              src/scene/torque-wrench/hotspotData.ts:76:14                      
+isTorqueHotspotInSpecialSequence            function  src/scene/torque-wrench/hotspotData.ts:80:17                      
+TORQUE_PART_FOCUS_EVENT                               src/scene/torque-wrench/hotspotData.ts:279:14                     
+CASCADE_CLOCK_START                                   src/scene/torque-wrench/InspectionDirector.ts:27:14               
+CASCADE_CLOCK_END                                     src/scene/torque-wrench/InspectionDirector.ts:28:14               
+CASCADE_CLOCK_SHOULDER                                src/scene/torque-wrench/InspectionDirector.ts:162:14              
+CASCADE_TERMINAL_SHOULDER                             src/scene/torque-wrench/InspectionDirector.ts:164:14              
+CASCADE_LATER_DISTANCE_GAIN                           src/scene/torque-wrench/InspectionDirector.ts:213:14              
+CASCADE_CLOCK_BOUNDARIES                              src/scene/torque-wrench/InspectionDirector.ts:215:14              
+RING_CLOSEUP_SCALE                                    src/scene/torque-wrench/InspectionDirector.ts:693:14              
+RING_GROOVE_VIEW                                      src/scene/torque-wrench/InspectionDirector.ts:709:14              
+RING_CAMERA_BLUE_AT                                   src/scene/torque-wrench/InspectionDirector.ts:713:14              
+RING_CAMERA_BLUE_HOLD_START                           src/scene/torque-wrench/InspectionDirector.ts:716:14              
+RING_SHIFT_START                                      src/scene/torque-wrench/InspectionDirector.ts:718:14              
+RING_SHIFT_END                                        src/scene/torque-wrench/InspectionDirector.ts:719:14              
+ISOLATION_AZIMUTH_DEG                                 src/scene/torque-wrench/JourneyCamera.ts:14:14                    
+ISOLATION_ELEVATION_DEG                               src/scene/torque-wrench/JourneyCamera.ts:15:14                    
+COLLAPSE_AZIMUTH_DEG                                  src/scene/torque-wrench/JourneyCamera.ts:97:14                    
+COLLAPSE_ELEVATION_DEG                                src/scene/torque-wrench/JourneyCamera.ts:98:14                    
+READOUT_AZIMUTH_DEG                                   src/scene/torque-wrench/JourneyCamera.ts:99:14                    
+READOUT_ELEVATION_DEG                                 src/scene/torque-wrench/JourneyCamera.ts:100:14                   
+C2_NUDGE_START                                        src/scene/torque-wrench/MechanismDirector.ts:33:14                
+C2_NUDGE_END                                          src/scene/torque-wrench/MechanismDirector.ts:34:14                
+ORBIT_SHRAPNEL_DIP                                    src/scene/torque-wrench/OpeningCamera.ts:26:14                    
+ORBIT_SHRAPNEL_DIP_DESKTOP                            src/scene/torque-wrench/OpeningCamera.ts:27:14                    
+ORBIT_ELEVATION_DIP                                   src/scene/torque-wrench/OpeningCamera.ts:29:14                    
+ORBIT_ELEVATION_DIP_NARROW                            src/scene/torque-wrench/OpeningCamera.ts:30:14                    
+PRIVATE_PIT_RELIEF_M                                  src/scene/torque-wrench/PitGeometry.ts:5:14                       
+PRIVATE_PIT_MAX_DEVIATION_M                           src/scene/torque-wrench/PitGeometry.ts:6:14                       
+PRIVATE_PIT_CELL_RAMP                                 src/scene/torque-wrench/PitGeometry.ts:28:14                      
+PRIVATE_PIT_FINE_CELL_RAMP                            src/scene/torque-wrench/PitGeometry.ts:29:14                      
+TorquePoster                                function  src/scene/torque-wrench/Poster.tsx:9:17                           
+PRIVATE_OUTPUT_LINES                                  src/scene/torque-wrench/privateSheetContent.ts:9:14               
+FULL_DPR_CAP                                          src/scene/torque-wrench/renderBudget.ts:13:14                     
+LITE_DPR_CAP                                          src/scene/torque-wrench/renderBudget.ts:14:14                     
+FULL_PIXEL_LIMIT                                      src/scene/torque-wrench/renderBudget.ts:15:14                     
+LITE_PIXEL_LIMIT                                      src/scene/torque-wrench/renderBudget.ts:16:14                     
+PRIVATE_RING_DURATION                                 src/scene/torque-wrench/RingInspection.ts:5:14                    
+RING_DIE_BULLET_TURNS                                 src/scene/torque-wrench/RingInspection.ts:19:14                   
+RING_BULLET_RAMP_FRACTION                             src/scene/torque-wrench/RingInspection.ts:22:14                   
+CASCADE_PACING_MULTIPLIER                             src/scene/torque-wrench/scrollPacing.ts:4:14                      
+PASSIVE_LOOK_MAX_DEG                                  src/scene/torque-wrench/stopAndAppreciate.ts:4:14                 
+PASSIVE_LOOK_MAX_RAD                                  src/scene/torque-wrench/stopAndAppreciate.ts:5:14                 
+FREE_LOOK_MAX_PITCH_RAD                               src/scene/torque-wrench/stopAndAppreciate.ts:6:14                 
+SCROLL_STATIONARY_DELAY_SEC                           src/scene/torque-wrench/stopAndAppreciate.ts:9:14                 
+REGISTRATION_GUARD_START                              src/scene/torque-wrench/stopAndAppreciate.ts:10:14                
+REGISTRATION_GUARD_END                                src/scene/torque-wrench/stopAndAppreciate.ts:11:14                
+deflectCameraAroundTarget                   function  src/scene/torque-wrench/stopAndAppreciate.ts:107:17               
+TorqueHUD                                   function  src/scene/torque-wrench/TorqueHUD.tsx:40:17                       
+default                                     function  src/scene/torque-wrench/TorqueWrenchPage.tsx:109:16               
+CAD_TRANSITION_VERTEX                                 src/shaders/CadTransitionShader.ts:39:14                          
+CAD_TRANSITION_FRAGMENT                               src/shaders/CadTransitionShader.ts:82:14                          
+CAD_ASSET_PATTERN                                     src/shared/posterGuard.ts:17:14                                   
+qualityLocked                                         src/state/qualityStore.ts:74:14                                   
+getTorqueConductorDiagnostics               function  src/state/torqueWrenchStore.ts:81:17                              
+auditGLBScene                               function  src/utils/glbSceneAuditor.ts:51:17                                
+Unused exported types (59)
+DomRectPx                        skillSolver  interface  …ls/r3f-cad-cinematography/scripts/solveHudSafeFraming.ts:16:18
+BootPanelProps                                interface  src/components/BootSequence.tsx:32:18                          
+ShotId                                        type       src/components/canvas/ProductStage.tsx:18:13                   
+WebGLTelemetryState                           interface  src/components/canvas/ProductStage.tsx:22:18                   
+CameraSegment                                 interface  src/data/caseStudies.ts:278:18                                 
+Bounds                                        interface  src/home/rope.ts:9:18                                          
+Eyelet                                        interface  src/home/threadPath.ts:20:18                                   
+BreakthroughFragment             fracture     interface  src/scene/drawing/sheet/breakthroughGeometry.ts:113:18         
+HandGlyph                                     interface  src/scene/drawing/sheet/handwriting.ts:172:18                  
+SheetTextBoundsItem              lettering    interface  src/scene/drawing/sheet/sheetText.ts:122:18                    
+SheetTextBounds                  lettering    interface  src/scene/drawing/sheet/sheetText.ts:132:18                    
+RingGeometryCleanupPhase                      type       src/scene/inspection/ringGeometry.ts:10:13                     
+ShaftKinematicsMode                           type       src/scene/inspection/shaft/kinematics.ts:375:13                
+ProgressionMode                               type       src/scene/inspection/shaft/progression.ts:18:13                
+CascadeTuple                                  type       src/scene/inspection/shaft/schedule.ts:12:13                   
+ShaftStampState                               type       src/scene/inspection/shaft/script.ts:4:13                      
+ShaftStressKind                               type       src/scene/inspection/shaft/script.ts:5:13                      
+ShaftCaptionId                                type       src/scene/inspection/shaft/script.ts:6:13                      
+StoryChapter                                  interface  src/scene/inspection/story.ts:7:18                             
+StoryAsset                                    interface  src/scene/inspection/story.ts:8:18                             
+StoryFrame                                    interface  src/scene/inspection/story.ts:17:18                            
+InspectionCameraSample                        interface  src/scene/inspection/story.ts:21:18                            
+StageNodes                                    interface  src/scene/rig/nodeRoles.ts:116:18                              
+V16Part                                       interface  src/scene/rl300/v16Materials.ts:25:18                          
+CenterpieceShape                              type       src/scene/studiomark-logo/types.ts:3:13                        
+BackgroundLayerDefinition                     type       src/scene/torque-wrench/BackgroundDirector.ts:5:8              
+BackgroundLayerSample                         type       src/scene/torque-wrench/BackgroundDirector.ts:6:8              
+BackgroundSample                              type       src/scene/torque-wrench/BackgroundDirector.ts:7:8              
+BackgroundLayerSample                         interface  src/scene/torque-wrench/backgroundLayers.ts:15:18              
+TorqueStoryChapterId                          type       src/scene/torque-wrench/beats.ts:8:13                          
+TorqueCameraId                                type       src/scene/torque-wrench/beats.ts:11:13                         
+TorqueSceneId                                 type       src/scene/torque-wrench/beats.ts:14:13                         
+TorqueDirectorId                              type       src/scene/torque-wrench/beats.ts:17:13                         
+FeatureMaskBand                               type       src/scene/torque-wrench/cascadeFeatureMask.ts:58:13            
+CascadeProofFeature                           type       src/scene/torque-wrench/cascadeProof.ts:20:13                  
+CascadeProofControlOptions                    interface  src/scene/torque-wrench/cascadeProof.ts:22:18                  
+TorqueGSAPLike                                interface  src/scene/torque-wrench/conductorRuntime.ts:31:18              
+TorqueConductorWindowLike                     interface  src/scene/torque-wrench/conductorRuntime.ts:54:18              
+TorqueConductorDocumentLike                   interface  src/scene/torque-wrench/conductorRuntime.ts:59:18              
+ShaperContactPhase                            type       src/scene/torque-wrench/contactWitnesses.ts:13:13              
+TorqueDirectorSampler                         type       src/scene/torque-wrench/directorRegistry.ts:8:13               
+PrivateInspectionCamera                       interface  src/scene/torque-wrench/InspectionDirector.ts:456:18           
+TorquePosterChapter                           type       src/scene/torque-wrench/posterMap.ts:13:13                     
+LoadTorqueScene                               type       src/scene/torque-wrench/sceneLifecycle.ts:8:13                 
+RedirectStatus                                type       src/shared/pages.ts:128:13                                     
+PosterStatus                                  type       src/shared/poster.ts:11:13                                     
+PosterFile                                    interface  src/shared/poster.ts:13:18                                     
+PosterProvenance                              interface  src/shared/poster.ts:21:18                                     
+TorqueSceneStatus                             type       src/state/torqueWrenchStore.ts:8:13                            
+TorqueWrenchPageState                         interface  src/state/torqueWrenchStore.ts:10:18                           
+TorqueBeatListener                            type       src/state/torqueWrenchStore.ts:16:13                           
+TorqueConductorLagSmoothingMode               type       src/state/torqueWrenchStore.ts:18:13                           
+DatumLabel                                    type       src/types/portfolio.ts:10:13                                   
+CaseStudyId                                   type       src/types/portfolio.ts:24:13                                   
+HotspotKind                                   type       src/types/portfolio.ts:36:13                                   
+FeatureControlFrame                           interface  src/types/portfolio.ts:38:18                                   
+HotspotAnnotation                             interface  src/types/portfolio.ts:52:18                                   
+Vec3Tuple                                     type       src/utils/glbSceneAuditor.ts:4:13                              
+GLBNodeRecord                                 interface  src/utils/glbSceneAuditor.ts:6:18                              
+Duplicate exports (9)
+SHAPER_BORE_RADIUS_MM|SHAPER_PILOT_RADIUS_MM                src/scene/inspection/shaft/toolSpec.ts      
+SHAPER_ADAPTER_FLANGE_RADIUS_MM|SHAPER_MOUNT_MAX_RADIUS_MM  src/scene/inspection/shaft/toolSpec.ts      
+TOOL_FADE_END|HOLE_OPEN_START                               src/scene/inspection/timeline.ts            
+SHELL_ROOTS|SECTION_ROOTS                                   src/scene/rl300/prepareModel.ts             
+TorquePoster|default                                        src/scene/torque-wrench/Poster.tsx          
+FULL_PIXEL_LIMIT|LITE_PIXEL_LIMIT                           src/scene/torque-wrench/renderBudget.ts     
+Story|default                                               src/scene/torque-wrench/Story.tsx           
+TorqueHUD|default                                           src/scene/torque-wrench/TorqueHUD.tsx       
+TorqueWrenchPage|default                                    src/scene/torque-wrench/TorqueWrenchPage.tsx
+Configuration hints (1)
+. (root)    .  Create knip.json configuration file, and add entry and/or refine project files (277 unused files)

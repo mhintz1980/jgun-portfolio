@@ -1,0 +1,26 @@
+COMMAND: node --check scripts/capture-b1b2-baseline.mjs
+EXIT: 0
+COMMAND: node --check scripts/capture-rl300-baseline.mjs
+EXIT: 0
+COMMAND: node --check scripts/verify-b1b2-rebuild.mjs
+EXIT: 0
+COMMAND: node --check scripts/verify-b1b2-supplemental.mjs
+EXIT: 0
+COMMAND: node --check scripts/verify-jg027-lcd-cluster.mjs
+EXIT: 0
+COMMAND: node --check scripts/verify-jg028-handle-realism.mjs
+EXIT: 0
+COMMAND: node --check scripts/verify-jg031-gear-rotation.mjs
+EXIT: 0
+COMMAND: node --check scripts/verify-jg032-station2-thermal.mjs
+EXIT: 0
+COMMAND: ESM import resolution and chromium export smoke
+capture-b1b2-baseline: file:///C:/Users/Markimus/.codex/worktrees/cleanup-2026-11-05/jgun-torque-wrench/node_modules/playwright/index.mjs
+capture-rl300-baseline: file:///C:/Users/Markimus/.codex/worktrees/cleanup-2026-11-05/jgun-torque-wrench/node_modules/playwright/index.mjs
+verify-b1b2-rebuild: file:///C:/Users/Markimus/.codex/worktrees/cleanup-2026-11-05/jgun-torque-wrench/node_modules/playwright/index.mjs
+verify-b1b2-supplemental: file:///C:/Users/Markimus/.codex/worktrees/cleanup-2026-11-05/jgun-torque-wrench/node_modules/playwright/index.mjs
+verify-jg027-lcd-cluster: file:///C:/Users/Markimus/.codex/worktrees/cleanup-2026-11-05/jgun-torque-wrench/node_modules/playwright/index.mjs
+verify-jg028-handle-realism: file:///C:/Users/Markimus/.codex/worktrees/cleanup-2026-11-05/jgun-torque-wrench/node_modules/playwright/index.mjs
+verify-jg031-gear-rotation: file:///C:/Users/Markimus/.codex/worktrees/cleanup-2026-11-05/jgun-torque-wrench/node_modules/playwright/index.mjs
+verify-jg032-station2-thermal: file:///C:/Users/Markimus/.codex/worktrees/cleanup-2026-11-05/jgun-torque-wrench/node_modules/playwright/index.mjs
+EXIT: 0

@@ -14,7 +14,7 @@
  */
 import fs from 'node:fs'
 import path from 'node:path'
-import { chromium } from 'file:///C:/Users/Markimus/AppData/Local/npm-cache/_npx/9833c18b2d85bc59/node_modules/playwright/index.mjs'
+import { chromium } from 'playwright'
 
 const OUT = 'project/work/evidence/b1-b2-rebuild/proof'
 fs.mkdirSync(OUT, { recursive: true })

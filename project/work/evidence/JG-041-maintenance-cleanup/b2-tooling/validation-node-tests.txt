@@ -1,0 +1,228 @@
+COMMAND: node --test scripts/*.node-test.mjs
+TAP version 13
+# Subtest: accepts approved early compression, compensated later distance and preserved total
+ok 1 - accepts approved early compression, compensated later distance and preserved total
+  ---
+  duration_ms: 2.1637
+  type: 'test'
+  ...
+# Subtest: rejects the superseded uniform 1.5x allocation despite its correct total
+ok 2 - rejects the superseded uniform 1.5x allocation despite its correct total
+  ---
+  duration_ms: 1.7548
+  type: 'test'
+  ...
+# Subtest: rejects missing, reordered, nonfinite and zero-width evidence
+ok 3 - rejects missing, reordered, nonfinite and zero-width evidence
+  ---
+  duration_ms: 0.5906
+  type: 'test'
+  ...
+# Subtest: rejects a wrong local allocation even when another window compensates its total
+ok 4 - rejects a wrong local allocation even when another window compensates its total
+  ---
+  duration_ms: 0.4252
+  type: 'test'
+  ...
+# Subtest: compact checkpoint retains failed gates, matrices and journal references without changing raw vertices
+ok 5 - compact checkpoint retains failed gates, matrices and journal references without changing raw vertices
+  ---
+  duration_ms: 3.6058
+  type: 'test'
+  ...
+# Subtest: opening samples invert the current private clock at read, lighting and rupture boundaries
+ok 6 - opening samples invert the current private clock at read, lighting and rupture boundaries
+  ---
+  duration_ms: 233.2436
+  type: 'test'
+  ...
+# Subtest: ordinary and shot endpoints representing the same progress produce only one reachable checkpoint
+ok 7 - ordinary and shot endpoints representing the same progress produce only one reachable checkpoint
+  ---
+  duration_ms: 199.7094
+  type: 'test'
+  ...
+# Subtest: replay directly gates the dedicated shatter clock and moving registration, including missing or malformed channels
+ok 8 - replay directly gates the dedicated shatter clock and moving registration, including missing or malformed channels
+  ---
+  duration_ms: 1.7462
+  type: 'test'
+  ...
+# Subtest: aggregate cannot pass empty, incomplete or omitted evidence; failure wins
+ok 9 - aggregate cannot pass empty, incomplete or omitted evidence; failure wins
+  ---
+  duration_ms: 0.3408
+  type: 'test'
+  ...
+# Subtest: CLI selects only requested cases, accepts both value forms and rejects weakening flags
+ok 10 - CLI selects only requested cases, accepts both value forms and rejects weakening flags
+  ---
+  duration_ms: 2.9731
+  type: 'test'
+  ...
+# Subtest: replay compares all camera channels, installed matrix components AND both clocks
+ok 11 - replay compares all camera channels, installed matrix components AND both clocks
+  ---
+  duration_ms: 3.9813
+  type: 'test'
+  ...
+# Subtest: empty, malformed, renamed or disappeared subjects never pass replay
+ok 12 - empty, malformed, renamed or disappeared subjects never pass replay
+  ---
+  duration_ms: 1.0011
+  type: 'test'
+  ...
+# Subtest: applied sheet lighting participates in settling/replay, including malformed or missing uniforms
+ok 13 - applied sheet lighting participates in settling/replay, including malformed or missing uniforms
+  ---
+  duration_ms: 1.0322
+  type: 'test'
+  ...
+# Subtest: strict replay threshold, decoded hash equality and every checkpoint are required
+ok 14 - strict replay threshold, decoded hash equality and every checkpoint are required
+  ---
+  duration_ms: 0.5993
+  type: 'test'
+  ...
+# Subtest: projection consumes world metres, handles inverse rotation, aspect and behind-camera points
+ok 15 - projection consumes world metres, handles inverse rotation, aspect and behind-camera points
+  ---
+  duration_ms: 1.113
+  type: 'test'
+  ...
+# Subtest: machining chooses actual contact ROI while ordinary sequences retain full subject extrema
+ok 16 - machining chooses actual contact ROI while ordinary sequences retain full subject extrema
+  ---
+  duration_ms: 1.7074
+  type: 'test'
+  ...
+# Subtest: shaft-only macro ROI is INCOMPLETE until actual tool vertices are present
+ok 17 - shaft-only macro ROI is INCOMPLETE until actual tool vertices are present
+  ---
+  duration_ms: 0.8415
+  type: 'test'
+  ...
+# Subtest: Stage 1 requires explicit selected planetP000247 contact identity and real flank points
+ok 18 - Stage 1 requires explicit selected planetP000247 contact identity and real flank points
+  ---
+  duration_ms: 0.612
+  type: 'test'
+  ...
+# Subtest: safe frame .84 and HUD 8px are strict, and missing witnesses cannot pass
+ok 19 - safe frame .84 and HUD 8px are strict, and missing witnesses cannot pass
+  ---
+  duration_ms: 0.5968
+  type: 'test'
+  ...
+# Subtest: empty or malformed HUD evidence is INCOMPLETE and never a clearance pass
+ok 20 - empty or malformed HUD evidence is INCOMPLETE and never a clearance pass
+  ---
+  duration_ms: 0.6434
+  type: 'test'
+  ...
+# Subtest: matrix rotation is signed, translation independent and handles baked scale
+ok 21 - matrix rotation is signed, translation independent and handles baked scale
+  ---
+  duration_ms: 0.4868
+  type: 'test'
+  ...
+# Subtest: prime stride visits every point exactly once, or rejects degenerate rosters
+ok 22 - prime stride visits every point exactly once, or rejects degenerate rosters
+  ---
+  duration_ms: 1.9471
+  type: 'test'
+  ...
+# Subtest: shaft signed sweep uses installed local frame and actual native viewport distance
+ok 23 - shaft signed sweep uses installed local frame and actual native viewport distance
+  ---
+  duration_ms: 1.6031
+  type: 'test'
+  ...
+# Subtest: canonical target guard rejects smaller sweeps and conflated revolution/rate targets
+ok 24 - canonical target guard rejects smaller sweeps and conflated revolution/rate targets
+  ---
+  duration_ms: 0.8397
+  type: 'test'
+  ...
+# Subtest: in-memory source helper imports and integrated physical gates work for current ring/shaper/hob/ignition laws
+ok 25 - in-memory source helper imports and integrated physical gates work for current ring/shaper/hob/ignition laws
+  ---
+  duration_ms: 231.2397
+  type: 'test'
+  ...
+# Subtest: full assertions pass only with a nonempty passing gate set
+ok 26 - full assertions pass only with a nonempty passing gate set
+  ---
+  duration_ms: 2.2444
+  type: 'test'
+  ...
+# Subtest: quick mode is incomplete even if supplied gates pass
+ok 27 - quick mode is incomplete even if supplied gates pass
+  ---
+  duration_ms: 0.2684
+  type: 'test'
+  ...
+# Subtest: browser errors and failed gates take precedence over preview/capture status
+ok 28 - browser errors and failed gates take precedence over preview/capture status
+  ---
+  duration_ms: 0.4344
+  type: 'test'
+  ...
+# Subtest: before phase remains capture-only, regardless of quick mode
+ok 29 - before phase remains capture-only, regardless of quick mode
+  ---
+  duration_ms: 0.2875
+  type: 'test'
+  ...
+# Subtest: both replay errors must be strictly below 1e-5 and evidence is preserved
+ok 30 - both replay errors must be strictly below 1e-5 and evidence is preserved
+  ---
+  duration_ms: 0.4823
+  type: 'test'
+  ...
+# Subtest: every reverse checkpoint must pass; empty reverse evidence cannot pass
+ok 31 - every reverse checkpoint must pass; empty reverse evidence cannot pass
+  ---
+  duration_ms: 0.383
+  type: 'test'
+  ...
+# Subtest: contact shot asserts the solver radius and lens at both aspects and the aspect blend
+ok 32 - contact shot asserts the solver radius and lens at both aspects and the aspect blend
+  ---
+  duration_ms: 2.1228
+  type: 'test'
+  ...
+# Subtest: isolation follows the uninterrupted quintic in commanded and installed opacity
+ok 33 - isolation follows the uninterrupted quintic in commanded and installed opacity
+  ---
+  duration_ms: 1.8051
+  type: 'test'
+  ...
+# Subtest: solid explosion housing requires command, installed material and depth writing at every checkpoint
+ok 34 - solid explosion housing requires command, installed material and depth writing at every checkpoint
+  ---
+  duration_ms: 1.7448
+  type: 'test'
+  ...
+# Subtest: LCD alone must select, move the camera, dismiss, and restore keyboard focus
+ok 35 - LCD alone must select, move the camera, dismiss, and restore keyboard focus
+  ---
+  duration_ms: 1.5246
+  type: 'test'
+  ...
+# Subtest: every suspended card and projected anchor stays hidden, with evidence retained
+ok 36 - every suspended card and projected anchor stays hidden, with evidence retained
+  ---
+  duration_ms: 0.8732
+  type: 'test'
+  ...
+1..36
+# tests 36
+# suites 0
+# pass 36
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 841.5468
+EXIT: 0

@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { execFileSync } from 'node:child_process'
 import { gzipSync } from 'node:zlib'
-import { chromium } from 'file:///C:/Users/Markimus/AppData/Local/npm-cache/_npx/9833c18b2d85bc59/node_modules/playwright/index.mjs'
+import { chromium } from 'playwright'
 
 const root = process.cwd()
 const out = path.join(root, 'project/work/evidence/b1-b2-rebuild/baseline')

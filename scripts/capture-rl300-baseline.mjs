@@ -21,7 +21,7 @@ import crypto from 'node:crypto'
 
 const { chromium } = await import(
   process.env.PLAYWRIGHT_MODULE ||
-    'file:///C:/Users/Markimus/AppData/Local/npm-cache/_npx/9833c18b2d85bc59/node_modules/playwright/index.mjs'
+    'playwright'
 )
 
 const BASE = process.env.BASE_URL || 'http://localhost:4173'

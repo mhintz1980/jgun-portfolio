@@ -1,0 +1,12 @@
+COMMAND: npx vitest run src/scene/rl300/v16Materials.test.ts src/scene/rig/supportProvenance.test.ts src/scene/rig/nodeRoles.test.ts src/scene/drawing/sheet/sheetInkRuntime.test.js
+
+ RUN  v4.1.11 C:/Users/Markimus/.codex/worktrees/cleanup-2026-11-05/jgun-torque-wrench
+
+support provenance (metres, union of all transformed vertices): {"sourceNames":["occurrence_of_K000211-1","K000211-1","occurrence_of_K000210-1","K000210-1"],"evidence":[{"part":"K000210","rawMeshes":26,"mergedMeshes":1,"vertices":1896,"indices":5568,"modelBounds":[[-0.009521386586129665,-0.009521069005131721,-0.08606667816638947],[0.00952195655554533,0.009520894847810268,-0.08210428059101105]],"studyBounds":[[-0.009521103314184225,-0.009521896438888603,-0.01686559773456403],[0.009521690791436345,0.009521815227645149,-0.012903200159185613]],"maxVertexError":3.725290298461914e-9},{"part":"K000211","rawMeshes":6,"mergedMeshes":1,"vertices":424,"indices":1236,"modelBounds":[[-0.007442018482834101,-0.007439110428094864,-0.08199023455381393],[0.0074413544498384,0.007433054503053427,-0.08105017989873886]],"studyBounds":[[-0.007432613143161972,-0.007439466852054522,-0.0127891541219885],[0.007436413488647934,0.007441823288997766,-0.011849099466913426]],"maxVertexError":2.2992026199597504e-9}]}
+
+ Test Files  4 passed (4)
+      Tests  30 passed (30)
+   Start at  20:16:49
+   Duration  17.60s (transform 1.77s, setup 0ms, import 3.95s, tests 32.55s, environment 1ms)
+
+EXIT: 0
