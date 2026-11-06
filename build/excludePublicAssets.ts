@@ -5,8 +5,14 @@ import { existsSync, rmSync } from 'node:fs'
 import path from 'node:path'
 import type { Plugin, ResolvedConfig } from 'vite'
 
-/** Paths relative to public/ (and so to dist/). M249 is held back for the initial launch. */
-export const EXCLUDED_PUBLIC_ASSETS: readonly string[] = ['models/m249-transformed.glb']
+/** Exact build-copy exclusions. Preserve source media and concurrent showreel/logo assets. */
+export const EXCLUDED_PUBLIC_ASSETS: readonly string[] = [
+  'models/m249-transformed.glb',
+  'fonts/gentilis_bold.typeface.json',
+  'video/studiomark-showcase-precision-revealed-poster.jpg',
+  'video/studiomark-showcase-precision-revealed.mp4',
+  'video/studiomark-showcase-precision-revealed.webm',
+]
 
 export function excludePublicAssets(paths: readonly string[] = EXCLUDED_PUBLIC_ASSETS): Plugin {
   let config: ResolvedConfig

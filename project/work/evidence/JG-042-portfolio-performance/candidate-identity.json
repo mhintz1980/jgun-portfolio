@@ -1,0 +1,2401 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-11-06T17:21:10.464Z",
+  "source": "6ec4fe06b55a4f71865166ac1dfbc5a1a70502c2",
+  "sourceStatus": "M TODO.md\n M build/excludePublicAssets.ts\n M project/work/INDEX.md",
+  "sourceDiffSha256": "fd0be064e4c8380b0dd721e3ed0be563ac69f5cedcae48bf06caf707a1e74fb0",
+  "sourceInputs": [
+    {
+      "path": "armament/index.html",
+      "sha256": "68cc83abb973387c69c19b91872761cb1c096dd38f33ddb53756270ef37a6653"
+    },
+    {
+      "path": "build/excludePublicAssets.ts",
+      "sha256": "eb15ffde6b3aaab207509eab0e67eaca037c51cdbf1b785e1f59d8425277a9ad"
+    },
+    {
+      "path": "home/index.html",
+      "sha256": "3f18e271092c52022c99c7b6c71db481ac9dcfb402d5944f6cd59e824b091655"
+    },
+    {
+      "path": "index.html",
+      "sha256": "1dd9a66ad7e28fef74e0aa629eee5928d0b283f0f41d3ce88e54ae8ae7f3fb05"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "82b0bf11b1a784134483ff33c82ff4c06d069abcc23571607fea83ca3566be4f"
+    },
+    {
+      "path": "package.json",
+      "sha256": "fc36a9418427260b8219e0271afb925008d071d06bb6b086e9e0a9efdf11f83e"
+    },
+    {
+      "path": "quiet-machine/index.html",
+      "sha256": "99099c847064c3c9b193c3dd969e73783628810656ab5c3cc95369ae3925a54e"
+    },
+    {
+      "path": "src/App.tsx",
+      "sha256": "35fa81b903a1854b4ac50a1374e0b9152a183f51ec44d0b187c8d96ddc30de63"
+    },
+    {
+      "path": "src/armament-main.tsx",
+      "sha256": "89da9ca2b0417cd3978fdde616b3d1b3913262ebd2e4557c346dedc5e970cbb5"
+    },
+    {
+      "path": "src/components/AuthorshipNotes.tsx",
+      "sha256": "c4929637eac6abfae756da816dd609fdf0b046232f3ee305cfc2f0aa752eb5e2"
+    },
+    {
+      "path": "src/components/BootSequence.tsx",
+      "sha256": "87ac54e339d07cc16c0a39cd62961b6f6ab9a638f4acd2bf78d1a1525d44150c"
+    },
+    {
+      "path": "src/components/Chapters.tsx",
+      "sha256": "b9fd3195f0b8d82e582311a856499b21d8e87e8d97f440753ceb43754e9f9f3d"
+    },
+    {
+      "path": "src/components/GdtSymbols.tsx",
+      "sha256": "977d8cb45cffeb0145fb0dc0d0a02fadbadd82c13ad0968c363ff305342df5bb"
+    },
+    {
+      "path": "src/components/IntroTitles.tsx",
+      "sha256": "734fb674c085a7112d1503967c9c89b888fc21bcbc51a2e27865d409a47bf405"
+    },
+    {
+      "path": "src/components/RingInspection.css",
+      "sha256": "31c31bd88d4175b71d32014258cf1ed3c8c41eb4653e5ca8242b63c159b2ccc8"
+    },
+    {
+      "path": "src/components/RingInspection.tsx",
+      "sha256": "cf1733b094e43088d1d0c71f3bc30b4bfa257877ceb7fd3713e6a1aca5979795"
+    },
+    {
+      "path": "src/components/ShaftStoryLayer.css",
+      "sha256": "3971ffda30ff78c23ded787d8f43b8c249107e1903e5bf5276967868e4897c58"
+    },
+    {
+      "path": "src/components/ShaftStoryLayer.tsx",
+      "sha256": "c4094248cc19b1b3b21b735629ee3fe416f518933e49c4c89f7adbad98a204cd"
+    },
+    {
+      "path": "src/components/StaticPoster.tsx",
+      "sha256": "c6c58db04b33d0ddb9aa02ed8e4ba2a48504423d53bc13248aeba3a97cdc2c24"
+    },
+    {
+      "path": "src/components/StaticShaftStory.tsx",
+      "sha256": "d167056368bc000807e3323e14947e0117f9ab924a8c97bd857a85e615248942"
+    },
+    {
+      "path": "src/components/StationNav.tsx",
+      "sha256": "fbf858b3794cbd8058d2bd812cdc0c3fd872d7e42c892d4ec3b34f2188f24494"
+    },
+    {
+      "path": "src/components/TechnicalHUD.tsx",
+      "sha256": "07c56ab1073475b7dd4e8b03593163db0cbbce9b055464d8aaf65ad76de8209f"
+    },
+    {
+      "path": "src/components/ToleranceStations.tsx",
+      "sha256": "f68dbfad76528b2e11950147a76e2de99016e012b8946d20847993a0b2e7656e"
+    },
+    {
+      "path": "src/components/canvas/CameraSplineStudio.tsx",
+      "sha256": "75a63a2adc38ec621b9c0e92047a18306f9e7dd67353c8aafa93cecefc733c39"
+    },
+    {
+      "path": "src/components/canvas/ProductStage.tsx",
+      "sha256": "47108e0aecb0ccfa9b04a1a9953b5d073ee459277fc468dde275f55578469318"
+    },
+    {
+      "path": "src/components/staticChapter.test.tsx",
+      "sha256": "3ee17f816b1b62f204e0c4dede65dfc9e681e1da73dc9dad73434d5312b89665"
+    },
+    {
+      "path": "src/components/staticChapter.ts",
+      "sha256": "d8944fe69f7da720bcaecd323951794a1dd7cb21e454956bb725b34c8174276a"
+    },
+    {
+      "path": "src/data/caseStudies.ts",
+      "sha256": "1c341d56c68798b7100bdebc814b143eae7f928006275b33f72617f3d3d21136"
+    },
+    {
+      "path": "src/data/glb-manifests.json",
+      "sha256": "1e8b5c719b750d574a25ff01017e870bc856161255832f81af2078c5f70e9ed6"
+    },
+    {
+      "path": "src/home-main.tsx",
+      "sha256": "3e883d3b19bf041b7e25c7f353b1013f2a8392213c392868db538da31ab41a01"
+    },
+    {
+      "path": "src/home/ArmamentPage.tsx",
+      "sha256": "e6d3652accaca17777562b46d816502a3826d48f051dc9584e9cbadf24051029"
+    },
+    {
+      "path": "src/home/ContactRope.tsx",
+      "sha256": "752da8966ab195b36e7ddd36374e1a41927a1b84e39e0273a00bd08aeac60a9a"
+    },
+    {
+      "path": "src/home/DrawnName.tsx",
+      "sha256": "d7b4258be7ca3dc8ce1740f3852a68d02d563c8f5cacdfd766b388a13bfb5fd2"
+    },
+    {
+      "path": "src/home/FONTS.md",
+      "sha256": "31b424daa5b01b632ad99173c1ba66c5def440a6b44d51b4940202ae54276b65"
+    },
+    {
+      "path": "src/home/HomePage.tsx",
+      "sha256": "ff03776c707d4d5d43db744f441984d4b59d3c4cf4591ace58e6c4c195591a0b"
+    },
+    {
+      "path": "src/home/ProjectStack.tsx",
+      "sha256": "39e022e3fc03c3cfe768ff415bcf3979881e9488d5b8c35d7c2cdf8f28bd6b0b"
+    },
+    {
+      "path": "src/home/RollingPhrase.tsx",
+      "sha256": "ad2a9b748ff45550a86409f92efa418b03efb1ec579247987b651f0f6bd49ac1"
+    },
+    {
+      "path": "src/home/ThemeToggle.tsx",
+      "sha256": "64cc3c1cac2b68e6d8e48f5112b35208c16f1e3f80f66e6837fbb5063c34b6f4"
+    },
+    {
+      "path": "src/home/Thread.tsx",
+      "sha256": "d2e7401b3b0694840744869c690e727271a3f5c694d0bc9d4e67e66a614db6ed"
+    },
+    {
+      "path": "src/home/Vault.tsx",
+      "sha256": "d3450d49f17e29ca18c4be90807279e7ea4ffbd99fd2cf1ed3a4d13338fef025"
+    },
+    {
+      "path": "src/home/armament.css",
+      "sha256": "9f158efebcbcc112ab3aac21ae9568bfe6956ceeccacc84aa450a598a215d0bf"
+    },
+    {
+      "path": "src/home/content.test.ts",
+      "sha256": "b16dd67985a80e7a350d1d40d716f6c8745253b5f633f16d8125989f11aaea7a"
+    },
+    {
+      "path": "src/home/content.ts",
+      "sha256": "1f30e94bb1feb91135ccdd86dfabce87643e3285b9ed613d2a8c91c4710aba26"
+    },
+    {
+      "path": "src/home/layout.css",
+      "sha256": "9bacd379246da09b39bcd390d0a5b503a8f715adf1a1503029a79d791d079166"
+    },
+    {
+      "path": "src/home/name.css",
+      "sha256": "0cefefd679f102aa47607234baca6b2c560bd9a5efe5fbbf6e4d6a8290bb8f22"
+    },
+    {
+      "path": "src/home/rolling.test.ts",
+      "sha256": "1f4e9ce7d72e020a7c4789ab75a3c459a59b91e542b479bfb6199564c3113a97"
+    },
+    {
+      "path": "src/home/rolling.ts",
+      "sha256": "ec6eb224cbbcd3598775be0c69d8b86109e7233682d0be740cad6db46d9a90b7"
+    },
+    {
+      "path": "src/home/rope.css",
+      "sha256": "e709c4a8c366f2200b2315ab42427a26ef66c6f8309694c71fa620dec434dc51"
+    },
+    {
+      "path": "src/home/rope.test.ts",
+      "sha256": "1437405c6730d7e456d35d3de6c44dc4d372d7735127cadf95f0a3cad364a738"
+    },
+    {
+      "path": "src/home/rope.ts",
+      "sha256": "90db5e6842d197ff842867880e8e0701b8957e1e84cda21618bc162120b16ecf"
+    },
+    {
+      "path": "src/home/stack.css",
+      "sha256": "d49f06575b8bb87594ec9f60c5cc721a3f139e10e06154282289e6ef1f33bdff"
+    },
+    {
+      "path": "src/home/stackMath.test.ts",
+      "sha256": "8f678a4c5d8e08d4867851b3efa36613cc7d048b2b0ae27aa81edec47eef5168"
+    },
+    {
+      "path": "src/home/stackMath.ts",
+      "sha256": "0203f47e6138ef76bc65f275ba8424a1d5ca5ba5787c302dc50b61029c7c0e0d"
+    },
+    {
+      "path": "src/home/theme.test.ts",
+      "sha256": "8478616f766ab5b020d3f72c022429af05dd34bff74141b61920e8a7cda3f9c3"
+    },
+    {
+      "path": "src/home/theme.ts",
+      "sha256": "1a739650448950b4018196c0f1792a2aadc9721d29774ee836137595daa64eaf"
+    },
+    {
+      "path": "src/home/thread.css",
+      "sha256": "e6c6dbe514130c5a8ec2eb52e2bd9c8abd82eb45f56dcda5f9fb76f640b262da"
+    },
+    {
+      "path": "src/home/threadPath.test.ts",
+      "sha256": "e8023b2aae7e26eb32190cc097fa11f0657ca7bb0246713187798bf51c1536bf"
+    },
+    {
+      "path": "src/home/threadPath.ts",
+      "sha256": "ddc519f16d2f31c96beddff8f0e1282883762d81e64fdaf3b3076cfc479e4979"
+    },
+    {
+      "path": "src/home/vault.css",
+      "sha256": "f82f7064b8488b517b64d8656f2a6f91a84974e7cdd80d3c2de60ca1138ab6e5"
+    },
+    {
+      "path": "src/home/vaultMath.test.ts",
+      "sha256": "35708ca90ad95b53b86c347da14bcdf6d25c6f542ad917e8a3dc42217ae1243a"
+    },
+    {
+      "path": "src/home/vaultMath.ts",
+      "sha256": "7629c45dfb572516a453533cf93b6332e527fedf24569b9110b51be5d3944bbc"
+    },
+    {
+      "path": "src/index.css",
+      "sha256": "a556f1a177aa58d47d539679bc4e7d75d5367916f34a99d83b8e5a2734a76a1e"
+    },
+    {
+      "path": "src/main.tsx",
+      "sha256": "688b77709793488de203162e0065a775e06b9896e6817b0d5e04b29661bedb4a"
+    },
+    {
+      "path": "src/quiet-machine-main.tsx",
+      "sha256": "c841f8faed9794bb4a1df8f0e9ed54dcbf5c2b3acb16f8af34f94dde140cda53"
+    },
+    {
+      "path": "src/scene/CameraRig.tsx",
+      "sha256": "62bbf0f635759d04caca89d0d0b0915f7e252d587ac41ff0238ab9b1f954ce50"
+    },
+    {
+      "path": "src/scene/Hotspots.tsx",
+      "sha256": "94a0983d9b4e1d1652e503898d5ce2c59a8f048c0e9d7b2e7b10a3642378d1f4"
+    },
+    {
+      "path": "src/scene/PostProcessingComposer.tsx",
+      "sha256": "f9f6c79b6ef44a1a7da1105766ccc009bdc3682b29802f86e6568b1ffabae9c2"
+    },
+    {
+      "path": "src/scene/SceneCanvas.tsx",
+      "sha256": "f030f55fcfaefe97ba5880a208aff4704fc2679d821c7f8afbc4a99ad4ec59ad"
+    },
+    {
+      "path": "src/scene/ScrollRig.tsx",
+      "sha256": "f29f88cfc6710bdd3e8b35557732856af67dd13d4a2dbf1abf0a67ba6f0a8f1c"
+    },
+    {
+      "path": "src/scene/SpatialRig.tsx",
+      "sha256": "76f1835ee691d713cb630137b8d4c11b2467d0cc4b7851d7b4cad31cf3304cff"
+    },
+    {
+      "path": "src/scene/SpatialWorld.tsx",
+      "sha256": "e7d3b26fe4ff93f115193d421061d738689909aaa8b3ab950bfa8ac5d82a98bb"
+    },
+    {
+      "path": "src/scene/TorqueWrenchHero.tsx",
+      "sha256": "0ed29b3a283d6d4eb822efda30584a4703382708c2f6093e92c1b37096eafdf6"
+    },
+    {
+      "path": "src/scene/backgrounds/BackdropRig.tsx",
+      "sha256": "dd3eff25f294825d9f9a9803ea15e97af8163612ebd8a021afb557091833dffe"
+    },
+    {
+      "path": "src/scene/backgrounds/backdropConfig.ts",
+      "sha256": "0566b3a35ac5921bb7090764c40be5575814d718e365ef0beca2deb9055adeb1"
+    },
+    {
+      "path": "src/scene/backgrounds/layers/BackdropGradientLayer.tsx",
+      "sha256": "8ff0f76cd43a74510705ab79b36502190e661e7a8256dec9bd7677674b328cc5"
+    },
+    {
+      "path": "src/scene/backgrounds/layers/BackdropGridLayer.tsx",
+      "sha256": "20b53fe16a45a346613c553ce09ca13a9440016d63e64c2c0003beb5c0faca6e"
+    },
+    {
+      "path": "src/scene/backgrounds/layers/types.ts",
+      "sha256": "7885415b5affd8f33cad0976e3f59700499ff58e125c2c19d99c7eac75f6c0d6"
+    },
+    {
+      "path": "src/scene/cinematic/CinematicRigRoute.tsx",
+      "sha256": "94a226a795274fe10ec2674fd0240357f931acf12fe2c01f67b5898ea5d61b4d"
+    },
+    {
+      "path": "src/scene/cinematic/rigRequest.ts",
+      "sha256": "2ed67e2fbcb574d737a1240c0a5e9cb67f41f8388aee80fcaaea23bcbedf23c6"
+    },
+    {
+      "path": "src/scene/drawing/DrawingLinework.tsx",
+      "sha256": "83b40f2b905ab2ba3e5569b4cf1bf7915d12ddfe663dcb5a27a894e7aa3a954c"
+    },
+    {
+      "path": "src/scene/drawing/DrawingProofRenderer.tsx",
+      "sha256": "3cd48c16b896c401d83e4243a393c48dc1b6a65a1be826e5ae5a0c1be871ce73"
+    },
+    {
+      "path": "src/scene/drawing/drawingGeometry.ts",
+      "sha256": "d6d763222530f7a1c4146fddee9f3263936c80f3fc609171e8fd424753b7a58f"
+    },
+    {
+      "path": "src/scene/drawing/electricalScore.test.ts",
+      "sha256": "6d28e265ae67cb686a007d655acfb8e3f276e1068c51bcfc327f31f770c098b8"
+    },
+    {
+      "path": "src/scene/drawing/electricalScore.ts",
+      "sha256": "584d5f3a8b753ec1cc62d2b91891051c8ebab1d99e5086eb07db53150c17de13"
+    },
+    {
+      "path": "src/scene/drawing/extractionPose.test.ts",
+      "sha256": "387da653e1fab8a75c603e14f1a27268ced7de96110107ecfdd5126e88da51ce"
+    },
+    {
+      "path": "src/scene/drawing/extractionPose.ts",
+      "sha256": "92574ec65107b4a4dbe3cc56f327a7dc9b65e037ae03d05a83f288b9e5dbebc3"
+    },
+    {
+      "path": "src/scene/drawing/introTimeline.test.ts",
+      "sha256": "62c1ff331c39ca4701b02aafec8fa11fff0c8fcdf0b6aa48cf31102d921fdf2b"
+    },
+    {
+      "path": "src/scene/drawing/introTimeline.ts",
+      "sha256": "61c02c1a787dbce4a3a34c3cf3db8ae0a5e574aafaa9ba7a8435021575516695"
+    },
+    {
+      "path": "src/scene/drawing/paperGrain.test.ts",
+      "sha256": "2b749fe76b6df4c8500df9bb4d49b687ba19835696e4c7ef6f9e6dba374bbb02"
+    },
+    {
+      "path": "src/scene/drawing/poseCore.test.ts",
+      "sha256": "d966f0df89e6932ac52d9e995ff7bfb889d936ecfd4b81dd0bdacb440a70c9e5"
+    },
+    {
+      "path": "src/scene/drawing/poseCore.ts",
+      "sha256": "2472d58d04b76fd04353c378766921f1e82cfe418d78df75369ec476c3ab129e"
+    },
+    {
+      "path": "src/scene/drawing/scrollTracks.test.ts",
+      "sha256": "3948c1ef98bbd696f463a9fdd979cf95ec966a210232903b6d0d69151d738a5f"
+    },
+    {
+      "path": "src/scene/drawing/scrollTracks.ts",
+      "sha256": "4bd318f9804c7d37e1d8164b99f45ff45e763c91c25be7da1281728476dbf73d"
+    },
+    {
+      "path": "src/scene/drawing/sheet/breakthrough.ts",
+      "sha256": "ea3d5f033a6948840a740a4b0cf58e9eeba25934e78dcbc67f29db42bf65ba7d"
+    },
+    {
+      "path": "src/scene/drawing/sheet/breakthroughGeometry.test.ts",
+      "sha256": "f66b86f96e1c76973e408d0140d0d40a7122a50dcde0c9d7cf5ff4ee62f8b328"
+    },
+    {
+      "path": "src/scene/drawing/sheet/breakthroughGeometry.ts",
+      "sha256": "472d0547ea59472a26648f9d1dafbfa9788ef52a027f982a9bb062ee725f0f25"
+    },
+    {
+      "path": "src/scene/drawing/sheet/composeSheet.ts",
+      "sha256": "c5ffd371e2d26d2a249ebbbbee916e4af6f07011c6eaa667040bfbc834fbc2cc"
+    },
+    {
+      "path": "src/scene/drawing/sheet/drawingCache.test.ts",
+      "sha256": "b4b03e470c3df0f8c264a6018bf842c83d1a806e6526c6ca7bd0af9751f9ebf8"
+    },
+    {
+      "path": "src/scene/drawing/sheet/drawingCache.ts",
+      "sha256": "d00fb9bf55534f66c8622433b51258a5706f97f117b0923c6032033d3d156196"
+    },
+    {
+      "path": "src/scene/drawing/sheet/drawingCodec.ts",
+      "sha256": "52c01cab1c745fe33d6c22c6e82eb438b22ab3c71ddde40a11a212a01c224100"
+    },
+    {
+      "path": "src/scene/drawing/sheet/edgeExtract.ts",
+      "sha256": "d00397a6f476bc6e969e02616c2470a632fc286ce4e9e81d24332410fac44ef3"
+    },
+    {
+      "path": "src/scene/drawing/sheet/handwriting.test.ts",
+      "sha256": "41ca76c1857688ce71509bfce7e891b30781462889640a7a2fc2d401afa587c5"
+    },
+    {
+      "path": "src/scene/drawing/sheet/handwriting.ts",
+      "sha256": "ae00193459667a2bf991386cadde572e07343ec81576b22b8cd0500036ea5d4c"
+    },
+    {
+      "path": "src/scene/drawing/sheet/ink.ts",
+      "sha256": "be77d8c7d05d11213b459c42954a810051a97e837b4ed65f72be3aa83419e6b7"
+    },
+    {
+      "path": "src/scene/drawing/sheet/lightning.ts",
+      "sha256": "94e7eefe945799237e9fcf26e473f12a1b41c2a470912c13ec128f21d3de71fc"
+    },
+    {
+      "path": "src/scene/drawing/sheet/ownerAnnotationStrings.ts",
+      "sha256": "87cd66689fe8e382773df411f38f8247638d12b1c1ec76027566202ac86f5d66"
+    },
+    {
+      "path": "src/scene/drawing/sheet/ownerAnnotations.test.ts",
+      "sha256": "4364b62687e6bf7f1c9269f42c603d61ac6b4b3a9a22418c41290a96b656289c"
+    },
+    {
+      "path": "src/scene/drawing/sheet/ownerAnnotations.ts",
+      "sha256": "082ffda99bfdf978f0ea842e08239ed53ca8d590e89857ae580d73cdd9ab3130"
+    },
+    {
+      "path": "src/scene/drawing/sheet/paperFlex.test.ts",
+      "sha256": "1f139e332f3aad26d87cf4b8b8123cb476141ae327ba9c153868f58732219013"
+    },
+    {
+      "path": "src/scene/drawing/sheet/paperFlex.ts",
+      "sha256": "976b272986c8438b798e7b37321482900cf80d3f3860c82a56c0a231ecc38c2b"
+    },
+    {
+      "path": "src/scene/drawing/sheet/portal.ts",
+      "sha256": "68652df9f556002bbca7cbfd011d6eebf9d96a7c3fac028bc936749398badef2"
+    },
+    {
+      "path": "src/scene/drawing/sheet/portalGeometry.test.ts",
+      "sha256": "33ca734478bee282ab532c536da56282a36a6ac39a22b892f7b25378df20ad5b"
+    },
+    {
+      "path": "src/scene/drawing/sheet/portalGeometry.ts",
+      "sha256": "49e0a39dd0f34b35b977aa0176c9331f5f5f487938c279afd52102e7bee35891"
+    },
+    {
+      "path": "src/scene/drawing/sheet/profile.ts",
+      "sha256": "dc6fa125b31af3b4529162cc33e66c8f11b33f15ee743f04ecd0db93213b587f"
+    },
+    {
+      "path": "src/scene/drawing/sheet/referenceHandGlyphs.ts",
+      "sha256": "d9608024f9d2f69b0e764e7eb3c2e4b389be2eafbd4a1572b3bbba3a303e4a22"
+    },
+    {
+      "path": "src/scene/drawing/sheet/registration.test.ts",
+      "sha256": "e920ff30bea776b4c091013afbc7921393f9489f47be25c10e5df620eb6c584b"
+    },
+    {
+      "path": "src/scene/drawing/sheet/registration.ts",
+      "sha256": "807488ed5763aecb520f4c96620b99bb9d36dd3d6aa10ee8c4b9e0905e02202a"
+    },
+    {
+      "path": "src/scene/drawing/sheet/sheetBake.test.ts",
+      "sha256": "5a15a4834adae6a9598ed661b83283e9bd5c66aec6c2b0d630125817bf5233e8"
+    },
+    {
+      "path": "src/scene/drawing/sheet/sheetBake.ts",
+      "sha256": "013cf7772373140245f897e5253141c537410a2b5c16091bda6249896440c48c"
+    },
+    {
+      "path": "src/scene/drawing/sheet/sheetInkRuntime.test.js",
+      "sha256": "603f32b04db55c06500aef1472b3114c02faff7ab053d28f78d2ddd89a3b20ce"
+    },
+    {
+      "path": "src/scene/drawing/sheet/sheetText.ts",
+      "sha256": "6710c1d5a6e324b2d9fc1732fe63fc1062ba51e46e9a82b587352ea341636d10"
+    },
+    {
+      "path": "src/scene/drawing/sheetCamera.test.ts",
+      "sha256": "c87d010f2cfd8a6597c633fd84538978ae9245ef19b7a6ea613de749017620b2"
+    },
+    {
+      "path": "src/scene/drawing/sheetCamera.ts",
+      "sha256": "bb7fe2d52cd90d2c4a032c7834229f0422ddc7c7663b647279201b847ba04163"
+    },
+    {
+      "path": "src/scene/inspection/InspectionScene.tsx",
+      "sha256": "a7d575e77c4f03f034abdaf8a21f53fa622f49945987a9c137c4ec01d49d118c"
+    },
+    {
+      "path": "src/scene/inspection/compileLease.ts",
+      "sha256": "fe30f1545ccfa7763a02d7402dd3df99a4210f0e43f2f57a24fbafa7245780cd"
+    },
+    {
+      "path": "src/scene/inspection/holeApertures.test.ts",
+      "sha256": "725031ead49de7f8ada55c6cd02a8d390e28bd49d227f5c5c14f58ec9ff6b4b3"
+    },
+    {
+      "path": "src/scene/inspection/holeApertures.ts",
+      "sha256": "23608d5e6e04ff4e4d8d2b3facb1d97ebb52c7624526f367a55ebf35781a073d"
+    },
+    {
+      "path": "src/scene/inspection/lifecycle.test.ts",
+      "sha256": "f4ee72a7c79b08b3ed25ac6771da1a02cd9e8fcc8c9a425b5ce933ae73d05afc"
+    },
+    {
+      "path": "src/scene/inspection/loadLease.ts",
+      "sha256": "1522d3b8d259134a1c18a9ffdd8243235ca7e1caa135edb305f5971db68a78ff"
+    },
+    {
+      "path": "src/scene/inspection/narrativeFade.ts",
+      "sha256": "cfd6b5642a595ec019af8c33ae89f595d62c3b60b38c9a59dd2585b6cf4b8509"
+    },
+    {
+      "path": "src/scene/inspection/renderLease.test.ts",
+      "sha256": "72064602e28011dc222c8f1a4abc8477268978486fc329e580bf79c9b069798f"
+    },
+    {
+      "path": "src/scene/inspection/renderLease.ts",
+      "sha256": "d7511d07f25c998e8b50f2ed08f2fac53647f3cd62debf75d1bcf99e3ad11643"
+    },
+    {
+      "path": "src/scene/inspection/ringGeometry.test.ts",
+      "sha256": "7fef4fdb99b8d222665407c2137dd9ca0238a1137519d94b69a266a2d88ab1be"
+    },
+    {
+      "path": "src/scene/inspection/ringGeometry.ts",
+      "sha256": "bb3bf854776dd7d9a4caa73d0c828cbc7a3555881e6085540a391342b5cf5b32"
+    },
+    {
+      "path": "src/scene/inspection/ringGeometryLifecycle.test.ts",
+      "sha256": "605cebf59c26d562ba2439c5bf40746a481b2f58a8730a3fea40248ee47c58df"
+    },
+    {
+      "path": "src/scene/inspection/ringRuntime.ts",
+      "sha256": "703d8d2073922ff4ed25d0446cd6bf9fb19ba2a6eecd52ce5c006bde3e46b4cc"
+    },
+    {
+      "path": "src/scene/inspection/ringRuntimeCore.test.ts",
+      "sha256": "e230b0fac07bd6d9d51b3d2a07eaeb86fdc232e645b872e86207c89d861720e8"
+    },
+    {
+      "path": "src/scene/inspection/ringRuntimeCore.ts",
+      "sha256": "d21d1472c88dd5a6ca717814b7a95ed5ec4ffc638ff102f81100193bf4ae89eb"
+    },
+    {
+      "path": "src/scene/inspection/session.test.ts",
+      "sha256": "064cc130027d255f501df1a1a59e4be9211326995c680ff9b8b324a72df799e9"
+    },
+    {
+      "path": "src/scene/inspection/session.ts",
+      "sha256": "aea958c9898f68496e313a41138127be54fa1590f3e5e732fcfbbb0b67aa1e6f"
+    },
+    {
+      "path": "src/scene/inspection/shaft/camera.test.ts",
+      "sha256": "40908f1734f0297a567967e71eeff49abd4f7df2835869fff2be8f126b466b90"
+    },
+    {
+      "path": "src/scene/inspection/shaft/camera.ts",
+      "sha256": "aa12f9c208580a338015a2739d67991b7aa44508bfdb45505dd40dd0bddae4dd"
+    },
+    {
+      "path": "src/scene/inspection/shaft/cascadeConfig.ts",
+      "sha256": "5c7a5a95b4a68231ba13e8383061f9a125aedcd92fbb05e174d02ab8b29deb21"
+    },
+    {
+      "path": "src/scene/inspection/shaft/cutterOutline.json",
+      "sha256": "f00741c0694943748544ad883a41416dfcd5c559693fae8b30194de82aff3202"
+    },
+    {
+      "path": "src/scene/inspection/shaft/fosPresentation.test.ts",
+      "sha256": "6bc0195564e283ed21fde1f4e1551d0ad7a0056865f7a80c2eefb65676df6eed"
+    },
+    {
+      "path": "src/scene/inspection/shaft/fosPresentation.ts",
+      "sha256": "12b5b11b9e90a1f0bdf8998d072d7c0fd3e691b126ac5883146e42833e41d3fb"
+    },
+    {
+      "path": "src/scene/inspection/shaft/frame.ts",
+      "sha256": "e4de4c3c140ab1d97235490c076b23e50d5b7d7d9a69cedf0cf0ff2049b9de7e"
+    },
+    {
+      "path": "src/scene/inspection/shaft/kinematics.test.ts",
+      "sha256": "5697b52c53c634124c8eb1ce3c52aa3468fe5263829ef63540e6c70d6ce5cdca"
+    },
+    {
+      "path": "src/scene/inspection/shaft/kinematics.ts",
+      "sha256": "41619f4029e45a3da25db5046c5e6b99a272096f67e29ebdfd5bfd440980a870"
+    },
+    {
+      "path": "src/scene/inspection/shaft/normalRepair.test.ts",
+      "sha256": "6f62f92ceba646cfa2ac3c47b9cc4f801aa21e545deaa9b50f95b5b13a2a65aa"
+    },
+    {
+      "path": "src/scene/inspection/shaft/normalRepair.ts",
+      "sha256": "40afab63f9e5feb65f5118f8df0022bae23abc7a45e544be6d1a8a3671dfacff"
+    },
+    {
+      "path": "src/scene/inspection/shaft/progression.test.ts",
+      "sha256": "a12d99d13f88be18dfe5acdc61c796ec83eb6c91bdf22971cf75f5e688768d51"
+    },
+    {
+      "path": "src/scene/inspection/shaft/progression.ts",
+      "sha256": "82158271c268d188ede3de779e55b3337e956ecfad9d18af2d450598354d885c"
+    },
+    {
+      "path": "src/scene/inspection/shaft/schedule.test.ts",
+      "sha256": "a6e758fea6d6bbcdbe412e25a58389d0e0c977480ee14a8d3cadfe2ceed5cdfa"
+    },
+    {
+      "path": "src/scene/inspection/shaft/schedule.ts",
+      "sha256": "8ae8f377f6745ddf852c8fce07af7eb81e1e8fa946462004a29a721c2c30b938"
+    },
+    {
+      "path": "src/scene/inspection/shaft/script.test.ts",
+      "sha256": "69f50bb2659fad0de3e4a9a61d962746bed522e2f8f2095250d17febce804219"
+    },
+    {
+      "path": "src/scene/inspection/shaft/script.ts",
+      "sha256": "6aeae7f2881d08ef0e38edaa543a05330281a54ba65e88318627399ca99816b9"
+    },
+    {
+      "path": "src/scene/inspection/shaft/shaftRuntime.test.ts",
+      "sha256": "c84c26a920282386ee4a3ca6edf234845a3e698b72ad6d25c54cdb8e8d18f255"
+    },
+    {
+      "path": "src/scene/inspection/shaft/shaftRuntime.ts",
+      "sha256": "cc3641aec6343e7ef15a0202334a898fd500d863b896a3a6c5b37d98d46ed2ff"
+    },
+    {
+      "path": "src/scene/inspection/shaft/shaftRuntimeLifecycle.test.ts",
+      "sha256": "e5461141b921257a5ca595f9c82a5f207e850d534d8dafa26a3dd8ce6ba492af"
+    },
+    {
+      "path": "src/scene/inspection/shaft/shaperPrototype.test.ts",
+      "sha256": "4a9a953bc67a21cb3f2f8019196b776a0cd8ac7a0644be70701b02b82f3d6cab"
+    },
+    {
+      "path": "src/scene/inspection/shaft/story.test.ts",
+      "sha256": "579ee9f92a74caa5469f66b838416aee1e7dbdc1a546b266c874f19566a24c62"
+    },
+    {
+      "path": "src/scene/inspection/shaft/story.ts",
+      "sha256": "c3998ab0c6a99c3e0acc52507617840abdaa6288c66018544437f87ccabf629c"
+    },
+    {
+      "path": "src/scene/inspection/shaft/toolSpec.ts",
+      "sha256": "fa9de306bfd47935275109f4ab96e64dab7a889aa0da02af4645e96e5865dd33"
+    },
+    {
+      "path": "src/scene/inspection/shaft/tools.test.ts",
+      "sha256": "cb1932f56629973dd2961e82b9cfe3873a1e87ca31a6ee6480ce3f19451d631e"
+    },
+    {
+      "path": "src/scene/inspection/shaft/tools.ts",
+      "sha256": "8cf6966dd7eab8deab233867979420dbee64977b7fdb863747ce457b8ac9c272"
+    },
+    {
+      "path": "src/scene/inspection/shaft/toolsLifecycle.test.ts",
+      "sha256": "9f4cefc3cb1b83a562e5f24a534b658310731a07c45c7b60ac12e4cfa8c5ab1f"
+    },
+    {
+      "path": "src/scene/inspection/story.test.ts",
+      "sha256": "eb076fadbcd217d630a049095698f13718fd409a3a0ad7ab9808404537c78d16"
+    },
+    {
+      "path": "src/scene/inspection/story.ts",
+      "sha256": "87500d087c2844e5767f6fa6f2faa6d812a9d8763c00d36165ca6cfa9fe091c6"
+    },
+    {
+      "path": "src/scene/inspection/testing/loadRig.ts",
+      "sha256": "9e4f61745952c52bc1ccf322c2e0f430c9e857706c758b52fd274b2986e03cec"
+    },
+    {
+      "path": "src/scene/inspection/testing/nodeDraco.ts",
+      "sha256": "e8bfa04f22ae820fd485f1a1f3a42fc6c2205cf9580a24798750f5650aac0cf5"
+    },
+    {
+      "path": "src/scene/inspection/timeline.test.ts",
+      "sha256": "4ea89de9543bc8cee75d887ef5597a37210033bb587b8063b47eeabb5bbfd18b"
+    },
+    {
+      "path": "src/scene/inspection/timeline.ts",
+      "sha256": "6683e941888c8d1d77bb86d3fb7742077cc910b9b82ab07dc06c7563e0e524cc"
+    },
+    {
+      "path": "src/scene/inspection/toolContact.test.ts",
+      "sha256": "48225d3f9d697c76fb05aa59ac8eed9909b69eb5ccd53763841b191c6463c92e"
+    },
+    {
+      "path": "src/scene/jgunVisualGates.test.ts",
+      "sha256": "ce6d3b953055e93b16407f798a34080d29067287a4417e86ec447ebb958afa6c"
+    },
+    {
+      "path": "src/scene/jgunVisualGates.ts",
+      "sha256": "be5b34fa61893d121a7f94f7c2d43ad0df2ab001e332a20ff83924aa3c9a3711"
+    },
+    {
+      "path": "src/scene/rig/gearRotation.test.ts",
+      "sha256": "3f9fe9a42ecb217b19bdbd4e803a0445b0ec272dd043e070bac90f2b1abefadc"
+    },
+    {
+      "path": "src/scene/rig/lcdCluster.ts",
+      "sha256": "7985b96be61d9438632087630b78cb06089d2cc26da51258a7406cb69f849e5a"
+    },
+    {
+      "path": "src/scene/rig/materials.test.ts",
+      "sha256": "caef4f16e1605b77efedff2dbb81596f1e8497bd1d0ffffee038e2f95ca6caa9"
+    },
+    {
+      "path": "src/scene/rig/materials.ts",
+      "sha256": "1cc01a4e70b77c8ed656d39664c2f5759839e2acdc0ff4ef6ff669a6c275780d"
+    },
+    {
+      "path": "src/scene/rig/nodeRoles.test.ts",
+      "sha256": "0f9dfa1d0f6cd45fa8e3f9e2da2ee56c975dbc7b08504ef7ddf934a1de691f6e"
+    },
+    {
+      "path": "src/scene/rig/nodeRoles.ts",
+      "sha256": "0fab49bcc4c536259e5db635ec5b8a99170ca05aecc0e0c2d130d73f7b3bde0a"
+    },
+    {
+      "path": "src/scene/rig/supportProvenance.test.ts",
+      "sha256": "49b91b4f3e37ae11649f3905959d1c275b37ec4719d2606b567cf42d8c8eaf3e"
+    },
+    {
+      "path": "src/scene/rig/wrenchMechanics.test.ts",
+      "sha256": "82a095c2706189c7a92c0d9673b2012b71f48f5393baeec5a184a327b884ee9c"
+    },
+    {
+      "path": "src/scene/rig/wrenchMechanics.ts",
+      "sha256": "8569b7f038a544269a056a82282b528344e683fac274b7d38c17f13e11b2ec94"
+    },
+    {
+      "path": "src/scene/rl300/AirRibbons.tsx",
+      "sha256": "5081e9a36bd4a84ce54d8f93486ce254e345ddf966b772fa5c47753cffe916ab"
+    },
+    {
+      "path": "src/scene/rl300/BackgroundDirector.tsx",
+      "sha256": "21e2f260fed11537003ef51c6f975738a7fb720123c1089972e74f2f5a97d163"
+    },
+    {
+      "path": "src/scene/rl300/IntakeHotspot.tsx",
+      "sha256": "9d06b0a2df594a2563d17909945a05d684f5d23001f6767a990b2cf24877fc59"
+    },
+    {
+      "path": "src/scene/rl300/LowerIntake.tsx",
+      "sha256": "12da936ebec912d59d75329b1cef990fa2cc9c0a642dadb2808a1e4a49cea0ac"
+    },
+    {
+      "path": "src/scene/rl300/QuietMachinePreview.tsx",
+      "sha256": "c948adbd1f894a11d869c07a365e97af50afd0c1c7df21375eb7fa91a0923082"
+    },
+    {
+      "path": "src/scene/rl300/QuietMachineScene.tsx",
+      "sha256": "b41c71e75669f7efe6f18ab1fc35950aa19ceff5fc03cd7bfe83031c989ae041"
+    },
+    {
+      "path": "src/scene/rl300/SectionCaps.tsx",
+      "sha256": "b2cdbf152b2118d69677e3c3a787bf6732467db6757e78ae0fafd22df5546237"
+    },
+    {
+      "path": "src/scene/rl300/beats.ts",
+      "sha256": "7e991a6b98ceddbbf04d9098a2464ed67f5228f9522a2f8357fb13385f3619df"
+    },
+    {
+      "path": "src/scene/rl300/flow.ts",
+      "sha256": "c166abdcc7198a42becda76e3768c27cd6222181d4d76f5a5372b1c97e44fe96"
+    },
+    {
+      "path": "src/scene/rl300/prepareModel.ts",
+      "sha256": "98b182fe9c1d45c036224615e8630143f6757358a2277fe3b239c1fa207ae8cf"
+    },
+    {
+      "path": "src/scene/rl300/preview.test.ts",
+      "sha256": "cea4e7da6fb3b4a8ae5e3209fe12f5a363048c8552514d8a64178655fd767db2"
+    },
+    {
+      "path": "src/scene/rl300/quiet-machine.css",
+      "sha256": "a314effb5633f7852873f3ffe731cc31ae2f754f8c720941cc6f0f7b562d149b"
+    },
+    {
+      "path": "src/scene/rl300/shot.ts",
+      "sha256": "77d586f5a081111e2e1631f0e01b820a48f532de5f08abefcbdfb823dc9abb03"
+    },
+    {
+      "path": "src/scene/rl300/v16-part-materials.json",
+      "sha256": "3a7fbe4b180c2082ad2b92403ee0e1bed9291826fe144c48e8b205770169f803"
+    },
+    {
+      "path": "src/scene/rl300/v16Materials.test.ts",
+      "sha256": "90c0e931ef9e066c3db60680c24b3ced33e2c46ac256f8295ac0915f857fb2a5"
+    },
+    {
+      "path": "src/scene/rl300/v16Materials.ts",
+      "sha256": "ad930b66cb9aa05083504eec53204599bdaae1a782b265654ba1d74e6672f826"
+    },
+    {
+      "path": "src/scene/scrollCommit.ts",
+      "sha256": "b7a9d03ba9bb828f60abaadaa7f7b61897f6551ae9f7e825bde420a77acd7409"
+    },
+    {
+      "path": "src/scene/sectionRenderPass.ts",
+      "sha256": "533c32d5ec7a96dbbebacb42fa17ac51686ea6541c781c0e0565f5e7c5e5f423"
+    },
+    {
+      "path": "src/scene/stages/AcousticBaffleField.tsx",
+      "sha256": "36c69051582c46cd6e55d14411b0b0c6816614d84b0060903bd6aea044ba3168"
+    },
+    {
+      "path": "src/scene/stages/AirflowField.tsx",
+      "sha256": "6c8505a162dbe10dac357c744e430033da8c56941ad56f1456f588a93eac46b3"
+    },
+    {
+      "path": "src/scene/stages/M249Stage.tsx",
+      "sha256": "c8297ce3411e2be1109dd8d1ff1e028f5c231be3591e8aac320dccf53a272ee0"
+    },
+    {
+      "path": "src/scene/stages/Station2_AcousticEnclosure.tsx",
+      "sha256": "5600f26630746b2c0391a0ada3be2c8dd53564d3c1bf501ce5db46664457db5b"
+    },
+    {
+      "path": "src/scene/stages/airflowRoute.test.ts",
+      "sha256": "4a8a9cbaa92d38a1b9519e850decac4005825bd08eb4fad4601bd2f172c0f53c"
+    },
+    {
+      "path": "src/scene/stages/airflowRoute.ts",
+      "sha256": "763288a7cfbf93c011f3a76d09db9fe8b421b1700494f800fdb5a57cda3b7f4f"
+    },
+    {
+      "path": "src/scene/stages/recolorAllowList.test.ts",
+      "sha256": "c0ffc362d0c2c84d0de73310cbbc5325147a792fa49b5a33ecbb4c57e3aae29a"
+    },
+    {
+      "path": "src/scene/stages/recolorAllowList.ts",
+      "sha256": "b7a72c47aad9c0bf4320bf5b4301a1975361af89f6a3b3db880443ef1c4f33ad"
+    },
+    {
+      "path": "src/scene/stages/stageWindows.test.ts",
+      "sha256": "63d20aaf16831c7b999c0b0daaebd0f92b180aff42fedd328423188fbe25b037"
+    },
+    {
+      "path": "src/scene/stages/stageWindows.ts",
+      "sha256": "219c98053f91dfbe379af78f53f5323c562b100e30557a500b787b35e927c1bf"
+    },
+    {
+      "path": "src/scene/stations/StationDriver.tsx",
+      "sha256": "7842b0515bb0689de0b7a8c34bdc791a858cd90813e9fab063d350a90e2af78e"
+    },
+    {
+      "path": "src/scene/stations/stationData.ts",
+      "sha256": "d6f4c26c59d42a8d9a2dac6957a3552bb716743f3bc1afd3e2360f105f98cc2d"
+    },
+    {
+      "path": "src/scene/stations/stationStore.ts",
+      "sha256": "f313eb6049dc063b9429ab4f9f765b9d69fdc13e095df085c8175d2b88f50ec6"
+    },
+    {
+      "path": "src/scene/studiomark-logo/BumperOverlayHUD.tsx",
+      "sha256": "8d2dec7834f959f4d71ea531d3e1f3ec193c0f9e280b077676485c4c48e463b9"
+    },
+    {
+      "path": "src/scene/studiomark-logo/InspectorUI.tsx",
+      "sha256": "c3a2ea96f5afd1425260a23569e3a7d9e2d2d824f70230768323a736ff0a420e"
+    },
+    {
+      "path": "src/scene/studiomark-logo/PostProcessing.tsx",
+      "sha256": "823d449000b85f9447ffd21c555b715a5ad125884c3b59ae677dbbac3f8650de"
+    },
+    {
+      "path": "src/scene/studiomark-logo/RainDrops.tsx",
+      "sha256": "a12f117208fb975635e5c413b730c51cc0b2d47ad7c482d59921e99f343bb793"
+    },
+    {
+      "path": "src/scene/studiomark-logo/RainFloor.tsx",
+      "sha256": "1d6cff5d9e45fb94f0ca52d5f99ca1dec76c44deef126d72ed81e81079b0a8cd"
+    },
+    {
+      "path": "src/scene/studiomark-logo/RainSplashes.tsx",
+      "sha256": "5fb77c920e57e5fd85fdbe170242de74487b097ca8c366ae83fab3f6f52804d3"
+    },
+    {
+      "path": "src/scene/studiomark-logo/StudioLighting.tsx",
+      "sha256": "7a19e1cba656ced5811ce3e1f568ba28dad9e8b62b3ff8682698e1eb3354095e"
+    },
+    {
+      "path": "src/scene/studiomark-logo/StudioMarkCenterpiece.tsx",
+      "sha256": "dfec1b019e14f0f75a7762194e94c3d2c476b9fc21e002d3f350073fdd0e1809"
+    },
+    {
+      "path": "src/scene/studiomark-logo/StudioMarkLogoExperience.tsx",
+      "sha256": "7dfe0b55080f623096b23f5fa3a4c9848e5647c84e3340e2d445d8b0733122a1"
+    },
+    {
+      "path": "src/scene/studiomark-logo/StudioMarkLogoScene.tsx",
+      "sha256": "c1e2aaff9ef76ca1941f75f12d7445111536cf9c8b33f21a76d18b23dc0b226f"
+    },
+    {
+      "path": "src/scene/studiomark-logo/StudioMarkText.tsx",
+      "sha256": "a2a4c41ece9048416e540228b4a796c043ea26cc88be7f3114251b5f4def210b"
+    },
+    {
+      "path": "src/scene/studiomark-logo/ThunderLight.tsx",
+      "sha256": "78c6763e174efd45538b5d829ee6d496b01fb38b7229d035daa443f5f7ef7568"
+    },
+    {
+      "path": "src/scene/studiomark-logo/audio.ts",
+      "sha256": "0242a8870057214f41325a762779e618a17ea183dec8e9cd6f8b0200287e6c1d"
+    },
+    {
+      "path": "src/scene/studiomark-logo/bumperTimeline.ts",
+      "sha256": "cd50c8b4905793b2a8a9dcf2f1834c5532bf6569ea51749d4b60e60b966e8da5"
+    },
+    {
+      "path": "src/scene/studiomark-logo/index.ts",
+      "sha256": "688adeb0477f10652109c143c7d24e3004e1d0fc7cbb47873183c0ed80508535"
+    },
+    {
+      "path": "src/scene/studiomark-logo/smGeometries.test.ts",
+      "sha256": "ac11c82255a2db11de68a65128bcf7b802e602dedd993a3937f023cbb5f834c9"
+    },
+    {
+      "path": "src/scene/studiomark-logo/smGeometries.ts",
+      "sha256": "53c61ad4d816534618dca971d89a1d06b1cdc59942f3f0f802d1cb125b776955"
+    },
+    {
+      "path": "src/scene/studiomark-logo/studiomark-logo.test.ts",
+      "sha256": "9922d0e0d5915190a0fa5646422f49a8730cd8cee12a3b20ab370e20b0384e03"
+    },
+    {
+      "path": "src/scene/studiomark-logo/types.ts",
+      "sha256": "444ac4d36c9497549a607407071ab20778f85e44feaad51702e1dc30bb8c0c51"
+    },
+    {
+      "path": "src/scene/torque-wrench/BackgroundDirector.test.ts",
+      "sha256": "dec8e491abcc1d5f5a0b2b1e81039aebed7c4f24340a3740741fb95dc002dab3"
+    },
+    {
+      "path": "src/scene/torque-wrench/BackgroundDirector.ts",
+      "sha256": "488631c5c592743fcaf5c31816734ae582795491ccea3ee65ffcdc3e817b1154"
+    },
+    {
+      "path": "src/scene/torque-wrench/BackgroundWorld.tsx",
+      "sha256": "be446e79e52db32bdde30b77f788b1725e9b2e38a5f7e87e1d30973bc226c4fc"
+    },
+    {
+      "path": "src/scene/torque-wrench/CameraHandoff.test.ts",
+      "sha256": "435394a6d4afe76cfbd4130d9fdde2e204ca9ecb922a05b6f9506ae34c9c361b"
+    },
+    {
+      "path": "src/scene/torque-wrench/CameraHandoff.ts",
+      "sha256": "3fa32081748ab2a93c0179ed80b4ae5a85acb7f3f5c37baa58a467714e6c5526"
+    },
+    {
+      "path": "src/scene/torque-wrench/ElectricalDirector.test.ts",
+      "sha256": "de3cb35165bcc7c26c957fe9ee9c7eb4ab86e2994595f6c4e0cfafa60cc6a35f"
+    },
+    {
+      "path": "src/scene/torque-wrench/ElectricalDirector.ts",
+      "sha256": "bbf194a6ea8f4eda48c8975f66fe47249fd74d5361b0b9b058161a2a95a30030"
+    },
+    {
+      "path": "src/scene/torque-wrench/InspectionDirector.test.ts",
+      "sha256": "68abd970ac9580d72043496be9a01e2a24e1601bf3521d913aeab005c1daf60b"
+    },
+    {
+      "path": "src/scene/torque-wrench/InspectionDirector.ts",
+      "sha256": "00092a81a6b9e7bb08c6abd312a2acce75fcf2781c2357d5b26af3842f9993d1"
+    },
+    {
+      "path": "src/scene/torque-wrench/JourneyCamera.test.ts",
+      "sha256": "3e8bbab3e4effc50a477c825f9ca4dc17178f6ae93610429e05a06134f4f50d5"
+    },
+    {
+      "path": "src/scene/torque-wrench/JourneyCamera.ts",
+      "sha256": "9a621ed3d16ca4645434b5dc9d7047309f4030a73a7011c54dd25cc3ef846a51"
+    },
+    {
+      "path": "src/scene/torque-wrench/JourneyDirector.test.ts",
+      "sha256": "bb4b524443a3a52bf19ba758bc719b61b131efe2b8b800382f49d46bdaaf3590"
+    },
+    {
+      "path": "src/scene/torque-wrench/JourneyDirector.ts",
+      "sha256": "4a9d9aadce3d43efc748b628327acceea89d9e8ba748e5a73eae8e6365815408"
+    },
+    {
+      "path": "src/scene/torque-wrench/LegacyMechanismCamera.test.ts",
+      "sha256": "03ac665226945e56bdeadde9c764be28b7ad07efa74626c16c2a02de559c5730"
+    },
+    {
+      "path": "src/scene/torque-wrench/LegacyMechanismCamera.ts",
+      "sha256": "95a72555bea00c73899de550c7ffdd843bb4b9571b86fc86aabdefc453ad6a48"
+    },
+    {
+      "path": "src/scene/torque-wrench/MechanismDirector.test.ts",
+      "sha256": "de40bfb3d01d35d774d02d8a310b6bafd4ccba075ae015a3c1183c497be3ee1c"
+    },
+    {
+      "path": "src/scene/torque-wrench/MechanismDirector.ts",
+      "sha256": "24169197ace0c9433683148a1c031cb0cfa9536be953fa2309799839d446b2c5"
+    },
+    {
+      "path": "src/scene/torque-wrench/OpeningCamera.test.ts",
+      "sha256": "f24d5f8a9d00050dac00bb8aaac7980ac46d84637a9b1947bf88baddece22596"
+    },
+    {
+      "path": "src/scene/torque-wrench/OpeningCamera.ts",
+      "sha256": "0977c4b001edca7f12a5c0a910c35d8fd74957f1b96e8a2555a6ac56bb8e49e3"
+    },
+    {
+      "path": "src/scene/torque-wrench/OpeningDirector.test.ts",
+      "sha256": "e266a9af02d954137cc1508af394c95302950027ab5a890f896dc8a3ba23cb6a"
+    },
+    {
+      "path": "src/scene/torque-wrench/OpeningDirector.ts",
+      "sha256": "45bfc77e51975e7d4dc9ec591250cf89298a0f9a4b01b461e679bfe96c2489cf"
+    },
+    {
+      "path": "src/scene/torque-wrench/PitDirector.test.ts",
+      "sha256": "abe7bcdd84e910b1d89e933e85fa12e8839d8ced067e599fb6eb3a126f4399c4"
+    },
+    {
+      "path": "src/scene/torque-wrench/PitDirector.ts",
+      "sha256": "5753295171b27f67345d5d26848e6a562d5124ac7eb35462f574034219d9f6b1"
+    },
+    {
+      "path": "src/scene/torque-wrench/PitGeometry.test.ts",
+      "sha256": "881f32da1ce3b6040b0803c80941e88c7fe8e22033d0e1f04d26bb363a360ad0"
+    },
+    {
+      "path": "src/scene/torque-wrench/PitGeometry.ts",
+      "sha256": "3b2807ad2b6ccd4322d5470364729806cc076486ad45c36a38a3f2980f369fdb"
+    },
+    {
+      "path": "src/scene/torque-wrench/Poster.tsx",
+      "sha256": "7f3e4be7a5b0bfc0529e7bc896c92b0d121bc0fc1a72ecbc3b6bca1ecba18dd8"
+    },
+    {
+      "path": "src/scene/torque-wrench/PrivatePageNav.tsx",
+      "sha256": "69e901018d62c72f50667c861bd6e5cbfe79542732d97e3938f3442d0349bc20"
+    },
+    {
+      "path": "src/scene/torque-wrench/PrivateSheet.tsx",
+      "sha256": "7feb5f9f72dc31131110c362bd6475a6537592866a9a4b0e11c066f5ff948518"
+    },
+    {
+      "path": "src/scene/torque-wrench/RingInspection.test.ts",
+      "sha256": "fceebb8bf4d17c966663cfe53e3e7354aa02790b926adf099293ea0cf5fd6619"
+    },
+    {
+      "path": "src/scene/torque-wrench/RingInspection.ts",
+      "sha256": "6a21d968da119a8af9bd5becce0edfb05baa5df8cbc2db810c0ad034e27c5c61"
+    },
+    {
+      "path": "src/scene/torque-wrench/RuntimeWorld.tsx",
+      "sha256": "36659121ed04269e8e4cc79409fc8a5af13b77eb0f4a26b0822dfbd8ad352b27"
+    },
+    {
+      "path": "src/scene/torque-wrench/Scene.tsx",
+      "sha256": "119dcc24f2f03d39a11e41b48cd55e443ee4d7d8ec177621f144ce48646b8c73"
+    },
+    {
+      "path": "src/scene/torque-wrench/SceneBoundary.tsx",
+      "sha256": "1308977ccfef208ea191e47029cccfdc9de55f86e8d0024b530454701b3fc26d"
+    },
+    {
+      "path": "src/scene/torque-wrench/ScrollConductor.test.tsx",
+      "sha256": "fd8f4b8cc6693d85b33f3726970e12c188bdc48b2e77a94d86cf1681eedb5aeb"
+    },
+    {
+      "path": "src/scene/torque-wrench/ScrollConductor.tsx",
+      "sha256": "df6a12703a27128d273c662fce5f9dca5bfd6639cdc7a80350c2c0933a5a891b"
+    },
+    {
+      "path": "src/scene/torque-wrench/Story.tsx",
+      "sha256": "1a88a389f909bd150a35ee8bf7e9a39eefde389512de974c615b0f976bdddc36"
+    },
+    {
+      "path": "src/scene/torque-wrench/TorqueHUD.tsx",
+      "sha256": "9f4254919b37b6800f3a2ffdb3a184b13a7d72f5d00d4d166b8dd444f3e865b4"
+    },
+    {
+      "path": "src/scene/torque-wrench/TorqueInspectionOverlay.tsx",
+      "sha256": "1bc1c5fd10314f29b414622db13fac5af2b48b02f2fb9c00a179e721f1d64594"
+    },
+    {
+      "path": "src/scene/torque-wrench/TorquePreloader.test.tsx",
+      "sha256": "4ff944d75a77bc649aa7edc0775d43f20a4f59da0875061ca665ee6db92a6ddf"
+    },
+    {
+      "path": "src/scene/torque-wrench/TorquePreloader.tsx",
+      "sha256": "76c242e3e76a25ed4936682adcfe7e1fe24b25f0af4b8c74db9d0103222b986d"
+    },
+    {
+      "path": "src/scene/torque-wrench/TorqueWrenchPage.test.tsx",
+      "sha256": "f2febacbc48b6e887d1e7feaa02f22cafc00be9696256b9ab49476329d5bd283"
+    },
+    {
+      "path": "src/scene/torque-wrench/TorqueWrenchPage.tsx",
+      "sha256": "dfd3e137b14403ce544e6ce58ab9024fdbba8108a64a4b0e1cd74495f628e2f9"
+    },
+    {
+      "path": "src/scene/torque-wrench/backgroundLayers.ts",
+      "sha256": "c64268d1e2411da45b0a081779e5f1f1b8881d35e11bdb5b7bc8e58d1380aa2f"
+    },
+    {
+      "path": "src/scene/torque-wrench/beatTimeline.test.ts",
+      "sha256": "d04b51072ce698906856d7c5e62f4912ba3d3e5b93ded349f0cb2996592c2a61"
+    },
+    {
+      "path": "src/scene/torque-wrench/beatTimeline.ts",
+      "sha256": "65e0a030a0a1879deffcb76b3ef6df1ff4e48e2975177bd507b48db217204aaa"
+    },
+    {
+      "path": "src/scene/torque-wrench/beats.test.ts",
+      "sha256": "82516bca1e4d22b0164fcb9d3b1a89dd39b77d49d196ddd5a1f1dc29027e3464"
+    },
+    {
+      "path": "src/scene/torque-wrench/beats.ts",
+      "sha256": "76b32feec9299dac35210b649733b42b78357a743fd384e30411bf4d6892b0a0"
+    },
+    {
+      "path": "src/scene/torque-wrench/blueNoise.ts",
+      "sha256": "2d6ccba32c93b311ba4326819ac0acae86228f672aeb5063aa120ba878988d19"
+    },
+    {
+      "path": "src/scene/torque-wrench/bulletTime.test.ts",
+      "sha256": "188c5a876d411193c94e086e719be1fec4ab72548d309a3eab1f51caae7041ae"
+    },
+    {
+      "path": "src/scene/torque-wrench/bulletTime.ts",
+      "sha256": "497a3e6f60656a792b0177fc1d8d710116c9337327a95ff97a52c39372e5b976"
+    },
+    {
+      "path": "src/scene/torque-wrench/cadGate.test.ts",
+      "sha256": "32c7ca8b63fe42ae3a683a94b3c6af00928d10cf964e23a7b8afbfa03982ce53"
+    },
+    {
+      "path": "src/scene/torque-wrench/cadGate.ts",
+      "sha256": "b6507c818b9a98001b7e7a427cae9b33f72177c162415086a04bb98bb0d14cc3"
+    },
+    {
+      "path": "src/scene/torque-wrench/cascadeFeatureMask.test.ts",
+      "sha256": "8548fdce06e3044909a5962885ed556c4b1f51954ccc517264a7ea0d3cbb08d6"
+    },
+    {
+      "path": "src/scene/torque-wrench/cascadeFeatureMask.ts",
+      "sha256": "39d0d8583794fd71a31dc5e87790eb8aa888da232afb53a367062c70e53e1632"
+    },
+    {
+      "path": "src/scene/torque-wrench/cascadeProof.ts",
+      "sha256": "47055705dfb07d3e2e4fec96c59929099e7d4776e291d8dcbaa121270163d445"
+    },
+    {
+      "path": "src/scene/torque-wrench/conductorRuntime.test.ts",
+      "sha256": "2fd5ce39209a516bc955dc0c4a13c68568e393f43da408502a0b1efd207d4c8e"
+    },
+    {
+      "path": "src/scene/torque-wrench/conductorRuntime.ts",
+      "sha256": "460633ac10097e77d9311baff6ac46e66076b1c3c74edfea637df40d45039544"
+    },
+    {
+      "path": "src/scene/torque-wrench/contactWitnesses.test.ts",
+      "sha256": "603233f94321ce8c64eb2cbd3e104d6b47cfb42ec47ea1fdb70062583f9240d8"
+    },
+    {
+      "path": "src/scene/torque-wrench/contactWitnesses.ts",
+      "sha256": "59cf7f9f80b7b942cca2f787eae79c8bd3bf38a003124738a0c0466c3217e696"
+    },
+    {
+      "path": "src/scene/torque-wrench/createPrivateRenderer.test.ts",
+      "sha256": "fea876b0f74dc7b197e6b972bbb85d4b2a113535a5d71a0bffb775260534c2ea"
+    },
+    {
+      "path": "src/scene/torque-wrench/createPrivateRenderer.ts",
+      "sha256": "703a8635d496aadeee47d9bc4fd5a41988c67cb398b7afc40e5a1ffc647b9072"
+    },
+    {
+      "path": "src/scene/torque-wrench/directorRegistry.test.ts",
+      "sha256": "3fda71db4f44fc62d30ae38e25f916623b4592c3026d267005ff8d5d443e2f5f"
+    },
+    {
+      "path": "src/scene/torque-wrench/directorRegistry.ts",
+      "sha256": "255b8ccda60903d533584b659ea204de44f837667156562729c1094e572cd9c3"
+    },
+    {
+      "path": "src/scene/torque-wrench/finalCascade.test.ts",
+      "sha256": "bbddac62c6d2be97a4fd4dbb79965991e3823c0bae8d24e80c93c5b4f95862c7"
+    },
+    {
+      "path": "src/scene/torque-wrench/grooveProof.ts",
+      "sha256": "f0e9bb3ce366f0df1fbae1daab33ef98dda7f6fd3ad43631b031db7b533577ba"
+    },
+    {
+      "path": "src/scene/torque-wrench/hotspotData.test.ts",
+      "sha256": "8c61c2da5730e69f46e59b522f2b45b2afa087868860fe613a2384460c745534"
+    },
+    {
+      "path": "src/scene/torque-wrench/hotspotData.ts",
+      "sha256": "ef7b40a4933d55a10f4556c918e03dfff1bebb175511b641daa189b918d134b1"
+    },
+    {
+      "path": "src/scene/torque-wrench/hudChapter.test.ts",
+      "sha256": "f28954db637f0ec0da72ef304c0f0c8c2376fb253d8dc16c54f97b4365529dab"
+    },
+    {
+      "path": "src/scene/torque-wrench/hudChapter.ts",
+      "sha256": "8369ea10828384d0f4103bc2c35d5501c74cdf6ef315bd66617cfa13e108d473"
+    },
+    {
+      "path": "src/scene/torque-wrench/hudCopy.test.ts",
+      "sha256": "be4b31067a86dce664b830aa805a45c3f69ff032743126f837ee2e24e919c38b"
+    },
+    {
+      "path": "src/scene/torque-wrench/hudCopy.ts",
+      "sha256": "e6d69d144c32ede2b0d4f42c4291d386de21c7404cde3c060c382e9ce8946208"
+    },
+    {
+      "path": "src/scene/torque-wrench/hudSafeFraming.test.ts",
+      "sha256": "adc2b571fade3268ac81f246df67a1b8ba609887b6ec11c9bd11d97022b08ec2"
+    },
+    {
+      "path": "src/scene/torque-wrench/inspectionFailure.test.ts",
+      "sha256": "5737eb84d9d7184a1451a72c24e4f6ef0aacd843cffca908e0686202323fb9d3"
+    },
+    {
+      "path": "src/scene/torque-wrench/inspectionFailure.ts",
+      "sha256": "4b981c3f04aef17823444a0bfbf98059edc876f08ded3e59b0a59fd2cc8201be"
+    },
+    {
+      "path": "src/scene/torque-wrench/inspectionFailureHost.test.ts",
+      "sha256": "a4e457b54ce33f7bc74d9191fdf92b0017d31ba73a54839b93e81d445c1b4d75"
+    },
+    {
+      "path": "src/scene/torque-wrench/inspectionIsolation.test.ts",
+      "sha256": "ba58ec52b1d6d541fe4af42713c34f4e0670f050df8441d1ae7189fdb565c556"
+    },
+    {
+      "path": "src/scene/torque-wrench/inspectionIsolation.ts",
+      "sha256": "7ddcfa309a5fd14381df8acfec38bb4601adabc45d2b3f7f0c545a26e4d6bb0b"
+    },
+    {
+      "path": "src/scene/torque-wrench/inspectionPlayback.test.ts",
+      "sha256": "a3aa0343a3811d439c0de4011defb6fd58a8ff8dc9982f6e5f85654163eb74de"
+    },
+    {
+      "path": "src/scene/torque-wrench/inspectionPlayback.ts",
+      "sha256": "3115f3617eae9c8fccd94ed9996e41cacfff387936b97932a4e03f1569ec0a12"
+    },
+    {
+      "path": "src/scene/torque-wrench/inspectionProof.test.ts",
+      "sha256": "6fb9551d7d9473f36644b978caa380fd0fe43f05bef98eaa29b7e79a2e14fd15"
+    },
+    {
+      "path": "src/scene/torque-wrench/inspectionProof.ts",
+      "sha256": "f8090b8d94c6375a771caba6b5c0029166963f017b63257c2a7a5b94edead60b"
+    },
+    {
+      "path": "src/scene/torque-wrench/journeyChoreography.test.ts",
+      "sha256": "a1630354b764ed62543c79801d9cddd2e8f11a37108816e3a4d95e0005877fd0"
+    },
+    {
+      "path": "src/scene/torque-wrench/openingExtraction.test.ts",
+      "sha256": "b61cb022e5c280f73e4b47324fe01b04a637731b86045c03094c024a15bda7c3"
+    },
+    {
+      "path": "src/scene/torque-wrench/openingExtraction.ts",
+      "sha256": "d1f9aa7915306b580bed2ea0544e1d5ba91544c40878c20461f4097fabb2f0cb"
+    },
+    {
+      "path": "src/scene/torque-wrench/pageChoreography.test.ts",
+      "sha256": "dc804639cd08026166a1caa6df713b636b8714eaf826418145ebbff9c2e61d59"
+    },
+    {
+      "path": "src/scene/torque-wrench/postProfile.ts",
+      "sha256": "f4b948a964f69756c1ad3397d65966596730591c8dbaf1128665a362ff468f38"
+    },
+    {
+      "path": "src/scene/torque-wrench/posterMap.ts",
+      "sha256": "2fd6f0606b65fa039c8c972e01d2ac24fe544f473f999805b37b61f3ac5c8d87"
+    },
+    {
+      "path": "src/scene/torque-wrench/privateDrafting.test.ts",
+      "sha256": "e9c2ef057bc7af679418c34d61f06d4a3f0d4503588e2f2625c0122572394b3b"
+    },
+    {
+      "path": "src/scene/torque-wrench/privateDrafting.ts",
+      "sha256": "eb6059f00e076ace987e9408fb94f00ebe0af9e3f879d225897baea2caf7415f"
+    },
+    {
+      "path": "src/scene/torque-wrench/privateElectricGeometry.test.ts",
+      "sha256": "1eea676dccaf0d546e9fc913ba832b80c8f82bb278df1005b9b2be81c4d5f3ac"
+    },
+    {
+      "path": "src/scene/torque-wrench/privateElectricGeometry.ts",
+      "sha256": "c499cfc79c903d0157b2a299cd4fadc05fe903cd3ee7f0532b670edf04eeaa6b"
+    },
+    {
+      "path": "src/scene/torque-wrench/privateFractureWeb.test.ts",
+      "sha256": "a45a7b3556b42ba0f27e7d26e83dc0d1490d4d9e0ebee98d5fa6783d5caa3ae1"
+    },
+    {
+      "path": "src/scene/torque-wrench/privateFractureWeb.ts",
+      "sha256": "c81f43e5775478a61741b197fc21ca2412c5a6182e3258544b1173d457d37952"
+    },
+    {
+      "path": "src/scene/torque-wrench/privatePitMaterial.test.ts",
+      "sha256": "4d9e6376f2ebedf5d6f292309dc73659752f89e1f04af59db57d0054a395a2fa"
+    },
+    {
+      "path": "src/scene/torque-wrench/privatePitMaterial.ts",
+      "sha256": "5e26ec20886e9b03e4f1c5d29c49f05fa62c669016fdd5501e7d2e4fbd6ba9ea"
+    },
+    {
+      "path": "src/scene/torque-wrench/privateSheetContent.test.ts",
+      "sha256": "b774c59033db6e56396a8a221b0c01838d2544fc269a892a76244bfb4f1c5dd0"
+    },
+    {
+      "path": "src/scene/torque-wrench/privateSheetContent.ts",
+      "sha256": "247198ce18ee16d1a85fc553acc69d8a50b3114f88079edad53e94670b6e1a6a"
+    },
+    {
+      "path": "src/scene/torque-wrench/privateSheetRuntime.test.ts",
+      "sha256": "094b1d629b28229d284927e1cacafb07b18d090e7c973aceb2ece0afbafc7071"
+    },
+    {
+      "path": "src/scene/torque-wrench/privateSheetRuntime.ts",
+      "sha256": "69435a533276a8ea11d12b2114032f36ab0c699870e6ecaae27fc9ff9074ff3a"
+    },
+    {
+      "path": "src/scene/torque-wrench/renderBudget.ts",
+      "sha256": "a8b8fa56e83b231d9cc566b60af53cd8a19d593d842ff9846bf85cf71e0f5e91"
+    },
+    {
+      "path": "src/scene/torque-wrench/resourceScope.test.ts",
+      "sha256": "9773d4450b9bb46e18c89ad9774ed3ad9d96616db4315881001078c37288b2a6"
+    },
+    {
+      "path": "src/scene/torque-wrench/resourceScope.ts",
+      "sha256": "a8c8805779826ea9bb7f11577612888d8920f2723db65c9cce2dbbf1bf6a7a92"
+    },
+    {
+      "path": "src/scene/torque-wrench/ringAnchor.test.ts",
+      "sha256": "73e0ad126632b443b33a00ff4b048cb5dd87149f67784fe577be9bf679ff1b2a"
+    },
+    {
+      "path": "src/scene/torque-wrench/ringAnchor.ts",
+      "sha256": "ee5de174bdadbccf42cd4f28318183a5094327298b65e18f8ffa69d51f0c8df7"
+    },
+    {
+      "path": "src/scene/torque-wrench/ringBulletChoreography.test.ts",
+      "sha256": "51103861b5b3daf2bf84f3b95492bf8e85962bb71aba19fcbae32e0f3fab6456"
+    },
+    {
+      "path": "src/scene/torque-wrench/sceneLifecycle.test.ts",
+      "sha256": "d9610eb962e9fd8a18f21202cd58113cd18370b91a8ecd094cf9be1ac174c023"
+    },
+    {
+      "path": "src/scene/torque-wrench/sceneLifecycle.ts",
+      "sha256": "3441a64047401c2a36d61b649c3ab3bf3e28893ce78a6f3496920e3c0704f855"
+    },
+    {
+      "path": "src/scene/torque-wrench/scrollPacing.test.ts",
+      "sha256": "aa8a8d7d8faf38f2d12546aa8d2df9fe7fac04a077c8e7a6007535c107908e94"
+    },
+    {
+      "path": "src/scene/torque-wrench/scrollPacing.ts",
+      "sha256": "aa91dd3ae3849238cf096447f240fd6aca81cca927fa1ec28fa2ab6d85984767"
+    },
+    {
+      "path": "src/scene/torque-wrench/shaftJourneyLook.test.ts",
+      "sha256": "81127f52a1f68d8487ceb404e229702009fd8c49eff3b06b5063b25653a4a276"
+    },
+    {
+      "path": "src/scene/torque-wrench/shaftJourneyLook.ts",
+      "sha256": "baa456dea039917a39be2008d4991742673b867d016fb53ab0e8285c309374bd"
+    },
+    {
+      "path": "src/scene/torque-wrench/shaftJourneyRegistration.test.ts",
+      "sha256": "26d8144f93faa5767dfcc56c92c28770ff3e6a1ea8660a26ed7e1f9307917724"
+    },
+    {
+      "path": "src/scene/torque-wrench/shaftJourneyRegistration.ts",
+      "sha256": "353ba5e84213bc661a809483164351f474336666a8709c356b3c09287ed7ffcc"
+    },
+    {
+      "path": "src/scene/torque-wrench/shaftTakeover.ts",
+      "sha256": "485d51e4c11615382a3bef634dddc65a1bdc5ae128a7b27f6e095dcd81dc012e"
+    },
+    {
+      "path": "src/scene/torque-wrench/shardDome.test.ts",
+      "sha256": "b3c2f7b77fd54788f81f51496f101fa82a5f0b7f3c5f9f311093dd0c5a39d1c5"
+    },
+    {
+      "path": "src/scene/torque-wrench/shardDome.ts",
+      "sha256": "6a1fb7a95e24cae9b5b19705e76e341210299aef88ac0661fa821322c513d98c"
+    },
+    {
+      "path": "src/scene/torque-wrench/stopAndAppreciate.test.ts",
+      "sha256": "b5b59c342299c6b4533422243ce22ec142220d73f9803aefe16ebf19c3b34485"
+    },
+    {
+      "path": "src/scene/torque-wrench/stopAndAppreciate.ts",
+      "sha256": "2f6f122baf67aebce4673d1f1ea755a5afeb2a8304c0e83062b3871798c44a0d"
+    },
+    {
+      "path": "src/scene/torque-wrench/supportHandoff.test.ts",
+      "sha256": "d3e0a21ebdfa87d60a72cf5fc366db7c0bb257b9d32ab5bbcd99edf12a60b3a9"
+    },
+    {
+      "path": "src/scene/torque-wrench/supportHandoff.ts",
+      "sha256": "1c2c2afae9c47e748f167882d7c83553345f708c05246b88bf82c0178bef1585"
+    },
+    {
+      "path": "src/scene/torque-wrench/surroundingFade.test.ts",
+      "sha256": "e17b9d1ae392cf5dee222dce973d1dda3e87e5030ae72861b1c4e6a56844c5d3"
+    },
+    {
+      "path": "src/scene/torque-wrench/surroundingFade.ts",
+      "sha256": "5829d1bc641554afb2866884f2f7116750406c4591b863c4eade9ad9c09d602c"
+    },
+    {
+      "path": "src/scene/torque-wrench/tier.test.ts",
+      "sha256": "e424e076a545a5445ae7fff42cd6e10e981c8853f0bc064d7bc9c2ca01c5efc9"
+    },
+    {
+      "path": "src/scene/torque-wrench/tier.ts",
+      "sha256": "de142dbaca1e1757db4939e9d34f56828badc3421be0a60e19f78406b3586af7"
+    },
+    {
+      "path": "src/scene/torque-wrench/torque-hud.css",
+      "sha256": "14e317a57936271e91a756726858f5437913d4ca6aa6d2ce27729dc000fdc98c"
+    },
+    {
+      "path": "src/scene/torque-wrench/torque-inspection-overlay.css",
+      "sha256": "067f3d8ca30d68b99e47cfd32d4ec4ac07df4b3de59acedb88693a37efd8479e"
+    },
+    {
+      "path": "src/scene/torque-wrench/torque-preloader.css",
+      "sha256": "4221cd498d36bfbf15e9ba71103207be39a6cff36766827835b57a8cd19ea685"
+    },
+    {
+      "path": "src/scene/torque-wrench/torque-wrench.css",
+      "sha256": "aa030659502b40fbd1b3fb3ca40841f76c38f6d6ecd15573c346a8761ebf68ec"
+    },
+    {
+      "path": "src/scene/torque-wrench/visibilityProof.ts",
+      "sha256": "13c8d53a644ce7c6b77d80347534e16665efb4aa8496a167528c4e02eabb016a"
+    },
+    {
+      "path": "src/shaders/CadTransitionShader.ts",
+      "sha256": "db4cb7abf15965c7f8175c7cc008919ef99e0f18bf3d36178cf9a69fc1a6ea07"
+    },
+    {
+      "path": "src/shared/PageNav.test.tsx",
+      "sha256": "cc1b613e0f551b0bea72afd78819cda026dcee3e20c7de87cbfdf6dfa67fa1d7"
+    },
+    {
+      "path": "src/shared/PageNav.tsx",
+      "sha256": "6b941ed2f09c542cd6b0c9eebeaad003188713a969d3c2b03c188f9fca3c89c2"
+    },
+    {
+      "path": "src/shared/PosterImage.test.tsx",
+      "sha256": "7ea616d4afe7c1a893e127c40b55ca9a19daa6e14f3b7bcdceeb0383b626718c"
+    },
+    {
+      "path": "src/shared/PosterImage.tsx",
+      "sha256": "7ebfd4ca8b7b2c1863c5baf9ba44a0db83204804b4419bcf91d7be5cb65d7fa7"
+    },
+    {
+      "path": "src/shared/pageFade.test.ts",
+      "sha256": "d804d28892f464a3b10bada388e9992400376bfe1e3319553fd5df1dcafd697d"
+    },
+    {
+      "path": "src/shared/pageFade.ts",
+      "sha256": "da86f1b2488999d486d5f306e399dab940a35688ae027e0b232eac42439e453c"
+    },
+    {
+      "path": "src/shared/pageTopology.test.ts",
+      "sha256": "3e0e4dcb1f3ae169021becf039ac3ec68f1abdaad653141652f1db15e3fa007f"
+    },
+    {
+      "path": "src/shared/pages.test.ts",
+      "sha256": "e056513728ed579dff7f76109c9c21fe0bb1f56d052bd4cb921687af4da91d98"
+    },
+    {
+      "path": "src/shared/pages.ts",
+      "sha256": "d49e4284fcee58e79d7bbf549b4f8c0135ab21ab6f2c82f36060ec4aeed979ba"
+    },
+    {
+      "path": "src/shared/poster.test.ts",
+      "sha256": "079c955516a196fae736fa2c6f97b86a0412a5104b5915acae1ec0a1fa91020d"
+    },
+    {
+      "path": "src/shared/poster.ts",
+      "sha256": "304d4265cbc7b633f915fd7051e7dc16c81476d23a5c916db879ddd20f339b79"
+    },
+    {
+      "path": "src/shared/posterGuard.test.ts",
+      "sha256": "f4446b323411c8a0a9f70167293d966797271dd90837516c9ec7cbb7480b12e3"
+    },
+    {
+      "path": "src/shared/posterGuard.ts",
+      "sha256": "94cd4f033d6d9ff36cd4e6254f3d03ebdc45f3b583557b0a19a234db450aade6"
+    },
+    {
+      "path": "src/shared/shellBoundary.test.ts",
+      "sha256": "d59b8ff75410a2491ddf243de333d60c73725551f0c0b6849c46899f09bb8f87"
+    },
+    {
+      "path": "src/state/inspectionStore.test.ts",
+      "sha256": "e14ae6fdf1803475e303087b6192e18126fa59aba68a5113d19e60660666d574"
+    },
+    {
+      "path": "src/state/inspectionStore.ts",
+      "sha256": "30c561c6de498ba07090796af8c6486342b53b8ad0a957bccfca85b889f4a7cb"
+    },
+    {
+      "path": "src/state/qualityStore.ts",
+      "sha256": "879ab56e5e5a7d5458f7390991f16b5535959e49ba7378b826882e0cd35fa29c"
+    },
+    {
+      "path": "src/state/scrollStore.test.ts",
+      "sha256": "b1775f9533b8f9999eb585204411814fbf8be7fde80278dacbc7ccf45b8aa50d"
+    },
+    {
+      "path": "src/state/scrollStore.ts",
+      "sha256": "aff8f279eca671e36a031e8012204f4af1c4866705351bd9f6fc34e5b1db6421"
+    },
+    {
+      "path": "src/state/torqueWrenchStore.test.ts",
+      "sha256": "021e93bb12606a79219904eb115322f08a24045c3876c14ddd93e896f570c1cd"
+    },
+    {
+      "path": "src/state/torqueWrenchStore.ts",
+      "sha256": "55bfa094846ce1a15c6e57042a8ecd4f19cc020eec1700383a405287e33f39e8"
+    },
+    {
+      "path": "src/studiomark-logo-main.tsx",
+      "sha256": "94a5ff184d44351adc8add1def7b788dbaffc3e16b7fd7b3f1ac119a35225fa7"
+    },
+    {
+      "path": "src/torque-wrench-lifecycle-census-main.tsx",
+      "sha256": "33eacfd3a7d9429b8e7c255277e84a278ddff2736974c8612104515b9f685e47"
+    },
+    {
+      "path": "src/torque-wrench-main.tsx",
+      "sha256": "e59b347a703904e4425694fbca240c23fb639859481cb5beeaae08705d52bf84"
+    },
+    {
+      "path": "src/types/portfolio.ts",
+      "sha256": "dd36880db79758067fb98846d1336f070bf5d7af87e5e39d21bcbdc0c2524930"
+    },
+    {
+      "path": "src/types/troika-three-text.d.ts",
+      "sha256": "9c234be2d8a56153b9593e5db77e6d301813e30a43a298157464b2ca25d19391"
+    },
+    {
+      "path": "src/utils/glbSceneAuditor.ts",
+      "sha256": "d3ebd912a2bc0a4f55913da3bcd78c541605d472e650206d93b1542d5f29f176"
+    },
+    {
+      "path": "src/utils/lenisGsapBridge.ts",
+      "sha256": "22c3cd7d4e10b5cd853012a726345c8e2b72a951b5fbe723c151d567bc849fbd"
+    },
+    {
+      "path": "torque-wrench/index.html",
+      "sha256": "0cb07c236f2f7f3273ce9dfc6ba6a8db95e07f4b647004755c80e9c27ada51cd"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "2eceb6b3cf821b1e503485be853812e0f95c2262b988044f3c95ad0c03a4005b"
+    },
+    {
+      "path": "vite.config.ts",
+      "sha256": "8f944a82d4a352e949caca06217a813b3c7129234da78e070b7412d32ec8ade2"
+    }
+  ],
+  "lockSha256": "82b0bf11b1a784134483ff33c82ff4c06d069abcc23571607fea83ca3566be4f",
+  "artifactManifestSha256": "f624a566bd5571ecef8a0dab052d7b13dc066efc11452f3241b241836c6b7bef",
+  "buildCommand": "npm run build",
+  "buildDir": "C:\\Users\\Markimus\\.codex\\worktrees\\jg042-performance\\jgun-torque-wrench\\dist",
+  "routes": {
+    "home": {
+      "path": "/home/",
+      "entry": "/assets/home-d0roOqed.js",
+      "htmlSha256": "46454366736e307de517c95db35bcc9b97710a1b1eefd2cb7dfc847871341664",
+      "entrySha256": "383e4a7458c932528805ca278798d5b47a8fbfae32a28bda7defa443e2cbce17"
+    },
+    "torque": {
+      "path": "/torque-wrench/",
+      "entry": "/assets/torque-wrench-Cph-EaWd.js",
+      "scene": "/assets/Scene-CqjR5e0C.js",
+      "htmlSha256": "24a8abbd249eb846dfd6453bfa47b52bc062271f01dcfc49fdb5266fc17e3fcb",
+      "entrySha256": "738a9b3419fda8c74cf27d35a7251c5e1f2ccc5b519dc2384de0f0df40dde1a5"
+    },
+    "quiet": {
+      "path": "/quiet-machine/",
+      "entry": "/assets/quiet-machine-hZhR18uC.js",
+      "scene": "/assets/QuietMachineScene-Dvev3np1.js",
+      "htmlSha256": "255a09b9f427731d574a55b713640d95ba8a5b412abbb7b55d741ebe8f7cbfbc",
+      "entrySha256": "0bf913ff1b2f4fd2d6b06f13ec7032f167623b37aef4d22d90a29fcf1640e91f"
+    }
+  },
+  "files": [
+    {
+      "path": "_headers",
+      "bytes": 646,
+      "sha256": "bb225e419b3542a1f1fc813d35d7252d3db7e1e4c1e513b4dd66b9c0eddf3ab7"
+    },
+    {
+      "path": "404.html",
+      "bytes": 2244,
+      "sha256": "67af9080f4d108bd2fa0603ce1b9b21ec9360fd3959826ba933dc5fd01236b5f"
+    },
+    {
+      "path": "armament/index.html",
+      "bytes": 2957,
+      "sha256": "a6843bcff5a796d3f59c245d1d3773e54421267d64b6b8eea83be33137f2b68d"
+    },
+    {
+      "path": "assets/armament-Dl89VARw.js",
+      "bytes": 1242,
+      "sha256": "b974fd20ac6758d04a763136a324d3a11fe3f25f446f695aef08cdf1b18de978"
+    },
+    {
+      "path": "assets/armament-DrHlf4sY.css",
+      "bytes": 870,
+      "sha256": "c0c9a728f124eccad1e87c8d68a2b67c717fcccfb48d761fe02b2b7cc00d957d"
+    },
+    {
+      "path": "assets/GLTFLoader-DE5jFSaY.js",
+      "bytes": 952547,
+      "sha256": "4f7ab09488d39c7e88cf6614c43db0ff4ce9e145b16f74e1e663236318702b1c"
+    },
+    {
+      "path": "assets/home-D-OsAxgN.css",
+      "bytes": 5915,
+      "sha256": "7a577658342dce6613f1ed83651770e561808437ff67d103af6984859249fade"
+    },
+    {
+      "path": "assets/home-d0roOqed.js",
+      "bytes": 36132,
+      "sha256": "383e4a7458c932528805ca278798d5b47a8fbfae32a28bda7defa443e2cbce17"
+    },
+    {
+      "path": "assets/layout-CKQOugDS.js",
+      "bytes": 10742,
+      "sha256": "fc8a0f8f6ba604a9ccacfe1ebc107f6488bc5dfe251e8a8308b1a5b095afa4f1"
+    },
+    {
+      "path": "assets/layout-DjNrqUTz.css",
+      "bytes": 15784,
+      "sha256": "9f981fce80183e958078ca4ae4f168e8f6b1a987b9feb3bd0ed3f7a293a81b10"
+    },
+    {
+      "path": "assets/pageFade-B4IAVBtS.js",
+      "bytes": 196199,
+      "sha256": "59ff823ca76bbe39aa83c3f1c2c1f8c86dde36858aa634a2ca0b72722abe7f26"
+    },
+    {
+      "path": "assets/PageNav-CEVxLrNZ.css",
+      "bytes": 43286,
+      "sha256": "a5ddd0cca0812f215ea9519409d90b7efd435e6c96048c238ca9c46880dbcf54"
+    },
+    {
+      "path": "assets/PageNav-DZxXaPKQ.js",
+      "bytes": 3409,
+      "sha256": "2c0ea16bc8772700a9ed9c0c363da4688bea39064e9ac0b993c26b2cc812b14b"
+    },
+    {
+      "path": "assets/quiet-machine-Ca-p-raH.css",
+      "bytes": 5326,
+      "sha256": "766ea4baa79aacf632219e47091b7156c6f27a0c00c1e79dad005c15cc7768a3"
+    },
+    {
+      "path": "assets/quiet-machine-hZhR18uC.js",
+      "bytes": 11112,
+      "sha256": "0bf913ff1b2f4fd2d6b06f13ec7032f167623b37aef4d22d90a29fcf1640e91f"
+    },
+    {
+      "path": "assets/QuietMachineScene-Dvev3np1.js",
+      "bytes": 162441,
+      "sha256": "34e71ade47fffd7039b71f5ffb460165caaf5b8a8f43624900f7235c770645c2"
+    },
+    {
+      "path": "assets/Scene-COXjaZGx.css",
+      "bytes": 13901,
+      "sha256": "1c6829f0f75511a2dc71d3072a3f9368fcaa361f4f489954cba5534e0331004f"
+    },
+    {
+      "path": "assets/Scene-CqjR5e0C.js",
+      "bytes": 891968,
+      "sha256": "ab74e18081a9666514ef3c035ba375bbfd180946a6e77c9eeadf72913f54e6ee"
+    },
+    {
+      "path": "assets/torque-wrench-Ce9kJ-6W.css",
+      "bytes": 18330,
+      "sha256": "0e7c9d271a36b11dc6aaf9c74bd5e70cc878ed877ed2726f74aad0a910aae19a"
+    },
+    {
+      "path": "assets/torque-wrench-Cph-EaWd.js",
+      "bytes": 56913,
+      "sha256": "738a9b3419fda8c74cf27d35a7251c5e1f2ccc5b519dc2384de0f0df40dde1a5"
+    },
+    {
+      "path": "draco/draco_decoder.js",
+      "bytes": 512498,
+      "sha256": "a47cd7c84911c5175bb0511c01ba41ddafb71873fd391f055def514398f5e7c4"
+    },
+    {
+      "path": "draco/draco_decoder.wasm",
+      "bytes": 192420,
+      "sha256": "a680d927bed9cb864ddbd63521868891af2bfbe755092761b4837487618df8ac"
+    },
+    {
+      "path": "draco/draco_wasm_wrapper.js",
+      "bytes": 58572,
+      "sha256": "f3ab54e2feabfe8bd37928b5f400bc10230dcc278c7e70bca5e025f63519d960"
+    },
+    {
+      "path": "drawing/jgun-sheet-v2.bin.gz",
+      "bytes": 4205481,
+      "sha256": "8d4a3d10ea75d7221ab510c4cd476fc762f74759e5f8fee266284ad03fecaec3"
+    },
+    {
+      "path": "drawing/jgun-sheet-v2.evidence.json",
+      "bytes": 4728,
+      "sha256": "3de7c90fdf12be636cb58a02dfc900e07d2a96419ba2beb3c3dcf1a57b78b5eb"
+    },
+    {
+      "path": "favicon.svg",
+      "bytes": 501,
+      "sha256": "4841321d7fbd19b64d96373f4cd8226d7c026efa8d7ba7f026acc6ed9837b6b3"
+    },
+    {
+      "path": "fonts/AcFastReference.ttf",
+      "bytes": 13392,
+      "sha256": "3bff43202631b0a68cfdd42061c10e863407654193ab4d60e4a20bb3b7ee9870"
+    },
+    {
+      "path": "fonts/BarlowCondensed-Medium.ttf",
+      "bytes": 103360,
+      "sha256": "262bd143292ce479ee0cd09a42b47ab173fca8e9c6eb5ed0b5c8a845bc371d17"
+    },
+    {
+      "path": "fonts/BarlowCondensed-SemiBold.ttf",
+      "bytes": 109428,
+      "sha256": "7b619d14bc2327509a9ef32b0890f709626f7ecc9ff61191c2a4314c5499d2d9"
+    },
+    {
+      "path": "fonts/helvetiker_bold.typeface.json",
+      "bytes": 61632,
+      "sha256": "bd68159ee0b8d10fe24b9daa2e32f19686f9d8269a79dc8d44203a66298bfa2f"
+    },
+    {
+      "path": "fonts/home/Archivo.woff2",
+      "bytes": 34928,
+      "sha256": "8f704806dbedeaaeca334b11ec348bc3ac3a439d6431544b3afb54f534ee4967"
+    },
+    {
+      "path": "fonts/home/JetBrainsMono.woff2",
+      "bytes": 31432,
+      "sha256": "83c005d49d8a6a50474c73a5a36ac0468076e9c4a29da7bdb14995d80560a5be"
+    },
+    {
+      "path": "fonts/home/Michroma.woff2",
+      "bytes": 17908,
+      "sha256": "754fdb31c9906e82cf9c0ecb1d0b528073818fc2c418a39932c83a34cca027b6"
+    },
+    {
+      "path": "fonts/home/SpaceGrotesk.woff2",
+      "bytes": 22288,
+      "sha256": "0640890476fc1198ab4de571fb658de443c4d85b66466ec09534a8737ab1ce9d"
+    },
+    {
+      "path": "fonts/NotoSansSymbols-OFL.txt",
+      "bytes": 4476,
+      "sha256": "dee1e0758c6ce86a7aee4aa812387de573fbe1b9a78bfc8332515fac2762aba5"
+    },
+    {
+      "path": "fonts/NotoSansSymbols-provenance.md",
+      "bytes": 1198,
+      "sha256": "df2dedba643b5da5e2d3696c751ee4b0e4e9d4c2fb88047deb714a84495b6733"
+    },
+    {
+      "path": "fonts/NotoSansSymbols-unicode-resolver-v1.0.1.woff",
+      "bytes": 84980,
+      "sha256": "f976f7aa246f27519879628c7c2376e0707afdb14fcb362346da53eaa36da763"
+    },
+    {
+      "path": "home/armament-showcase/ar-01.webp",
+      "bytes": 20634,
+      "sha256": "63fac78bddcf22bb7d803ee3cfabfbf2a8ed3802b69ddf970bcaf19372961bfc"
+    },
+    {
+      "path": "home/armament-showcase/ar-02.webp",
+      "bytes": 17066,
+      "sha256": "442ac7e1030bd3e87e280114f27b97b318a2c3e32cbe47137e7d263169c1bc05"
+    },
+    {
+      "path": "home/armament-showcase/ar-03.webp",
+      "bytes": 26582,
+      "sha256": "5d310902f75d81d3fe72bdf63464e4c0606cf4db65e80ed1d8feecc45d0bb99f"
+    },
+    {
+      "path": "home/armament-showcase/ar-04.webp",
+      "bytes": 23708,
+      "sha256": "3bfad9fc3559df9589a8b5c2aad3bad093a81319a6110ed5e934cf37830e519c"
+    },
+    {
+      "path": "home/armament-showcase/ar-05.webp",
+      "bytes": 35560,
+      "sha256": "4e8a3c5158687486fdb1ef1f5d69bff3a86878441519024fc3fdb029a9a60bdc"
+    },
+    {
+      "path": "home/armament-showcase/ar-06.webp",
+      "bytes": 28508,
+      "sha256": "d685e4ed9370eaa1a61498283f16dcb289dfd841fbd12a84a6cc8b2a8b422ed2"
+    },
+    {
+      "path": "home/armament-showcase/ar-07.webp",
+      "bytes": 29588,
+      "sha256": "b965f782d0b84cc6db2ac8c8881bf6e528e1b0c86e585749f9957aa3e038f105"
+    },
+    {
+      "path": "home/armament-showcase/ar-08.webp",
+      "bytes": 19924,
+      "sha256": "e3b7fa1bcbb1a63524b38b355fcf7a36315b3f5725a428969926d59c4c3decb6"
+    },
+    {
+      "path": "home/armament-showcase/ar-09.webp",
+      "bytes": 23360,
+      "sha256": "24a67ebf2307ee27de988cd96e065e8447acf050fcdd398eeebac403d3a1c834"
+    },
+    {
+      "path": "home/armament-showcase/ar-10.webp",
+      "bytes": 20316,
+      "sha256": "d92cc3c6332ff4f88bde4fc0a6cfad157d28d4d7e817af0544cc62e208895c12"
+    },
+    {
+      "path": "home/armament-showcase/ar-11.webp",
+      "bytes": 21350,
+      "sha256": "959bd9e0ad70338ca742e1b9991c6c61665bebc2275b879cd6844da40911673e"
+    },
+    {
+      "path": "home/armament-showcase/ar-12.webp",
+      "bytes": 16192,
+      "sha256": "7e2212f11d7df2dc6c64deccb9800a25cc8bf465f0ec5e02a496555d4f8428a2"
+    },
+    {
+      "path": "home/armament-showcase/ar-13.webp",
+      "bytes": 21488,
+      "sha256": "1561215b101cd80d8f7a6faa7427a145ce6a2b3defa9322da368ef4451cdbf95"
+    },
+    {
+      "path": "home/armament-showcase/ar-14.webp",
+      "bytes": 22976,
+      "sha256": "20b30d2953cd8c82160df06c0a875f3545ad0ffed39852736ae406966a747be3"
+    },
+    {
+      "path": "home/armament-showcase/ar-15.webp",
+      "bytes": 22976,
+      "sha256": "20b30d2953cd8c82160df06c0a875f3545ad0ffed39852736ae406966a747be3"
+    },
+    {
+      "path": "home/armament-showcase/ar-16.webp",
+      "bytes": 18976,
+      "sha256": "886270c49b9479e3969fe10602a0919f2e0bad0d4fa9cb769164a649314ea9da"
+    },
+    {
+      "path": "home/armament-showcase/ar-17.webp",
+      "bytes": 15842,
+      "sha256": "470e80981fd82f8441e60adfe280dca1b7679fb47f0ca3905e13261a3398ddc9"
+    },
+    {
+      "path": "home/armament-showcase/ar-18.webp",
+      "bytes": 22694,
+      "sha256": "2d18b598eff9d6cca09001f9f632b86d8c9851a89e34c4645ae3f5ae5c72aafe"
+    },
+    {
+      "path": "home/armament-showcase/ar-19.webp",
+      "bytes": 21570,
+      "sha256": "83739b1b3b9af3ce1f3f44f897990ee5561b208de3dd0a53af674e9c805d7f91"
+    },
+    {
+      "path": "home/armament-showcase/ar-20.webp",
+      "bytes": 19274,
+      "sha256": "745a1114dae449f86e5ed4bd8b94184ed8abcccb538c253c9b4e210bacdaa64b"
+    },
+    {
+      "path": "home/armament-showcase/ar-21.webp",
+      "bytes": 19488,
+      "sha256": "e35ff98dfc4d9800c5f395cff640a0e951255b6521472d33090b2f8e80057ef7"
+    },
+    {
+      "path": "home/armament-showcase/ar-22.webp",
+      "bytes": 15962,
+      "sha256": "4dbefac957bc2060e1bf333730a66d6847dbe4d34f2012fed1b512955e34564a"
+    },
+    {
+      "path": "home/armament-showcase/ar-23.webp",
+      "bytes": 11236,
+      "sha256": "6065599af95007c1513cfd69b84a127606873fe20a7aa796e92766221c39e15c"
+    },
+    {
+      "path": "home/armament-showcase/ar-24.webp",
+      "bytes": 14164,
+      "sha256": "000360a5c3c45c817f12d6a34fde6b7cb820a42001820e251e691f9ca0c3544e"
+    },
+    {
+      "path": "home/armament-showcase/ar-25.webp",
+      "bytes": 20628,
+      "sha256": "64b4e034a69de1b40b34075c510fd00fdf602862882b4c3952e11267d87675e0"
+    },
+    {
+      "path": "home/armament-showcase/ar-26.webp",
+      "bytes": 24996,
+      "sha256": "f50d53f236802dda5bc39df9a7dc88b2e9568413613f623bd08140766e1c2c77"
+    },
+    {
+      "path": "home/armament-showcase/ar-27.webp",
+      "bytes": 24346,
+      "sha256": "426e3d437b1b9bd3d97fa1ceca792a317a2027241050824c8baee5b0c60e9385"
+    },
+    {
+      "path": "home/armament-showcase/ar-28.webp",
+      "bytes": 17560,
+      "sha256": "6a96ce2069f57ebd7bc2175337f0b2e3ed6b62f31e97371906d6d122522a3eba"
+    },
+    {
+      "path": "home/armament-showcase/ar-29.webp",
+      "bytes": 17192,
+      "sha256": "41d6c97d56e4a71fa571211c42106e3795e75f84bb5cae238d0d804afa61e05f"
+    },
+    {
+      "path": "home/armament-showcase/ar-30.webp",
+      "bytes": 20116,
+      "sha256": "30c44583b02db773397cbe5b25f4c926f7906f294ae972886229ae41afb583b1"
+    },
+    {
+      "path": "home/armament-showcase/ar-31.webp",
+      "bytes": 14488,
+      "sha256": "f191db9a95ae498832ec1b23709cc2e349642e8f20ce783639bc73cd705883b8"
+    },
+    {
+      "path": "home/armament-showcase/manifest.json",
+      "bytes": 3115,
+      "sha256": "2aba768ec09bf2146acaa2603c744e28faa77ce669c8dd90107386c155479c00"
+    },
+    {
+      "path": "home/drawings/armament-receiver.webp",
+      "bytes": 85248,
+      "sha256": "347c5c4e53425b6d570ab90db026e4505c138a4ba5cf01f022800bc7167fedbd"
+    },
+    {
+      "path": "home/drawings/armament-sections.webp",
+      "bytes": 39288,
+      "sha256": "60459f01c4f06fec57c6e919ba68e91368d21400483bba9cbf4ccb8f833ddb9e"
+    },
+    {
+      "path": "home/drawings/gearbox-housing.webp",
+      "bytes": 60700,
+      "sha256": "eca79538fba4132251e2a18a0ab63571d50f30df367ba423fa65e984ec66f074"
+    },
+    {
+      "path": "home/drawings/gearbox-sections.webp",
+      "bytes": 81222,
+      "sha256": "dec76b442d030f274b5e3e38da07b7d7c2b1b0f21e10a22c22447369ac86c540"
+    },
+    {
+      "path": "home/drawings/pump-assembly.webp",
+      "bytes": 52518,
+      "sha256": "6510d4ae493be10e9f8bc469c48989b35d4f6d155c4d2badd08519bf21a161c0"
+    },
+    {
+      "path": "home/drawings/pump-door.webp",
+      "bytes": 43090,
+      "sha256": "17da7918a6a9186b0a1c6102d5215dbe60f8e330565fd5816e473feaedb94cef"
+    },
+    {
+      "path": "home/index.html",
+      "bytes": 2975,
+      "sha256": "46454366736e307de517c95db35bcc9b97710a1b1eefd2cb7dfc847871341664"
+    },
+    {
+      "path": "home/stacks/armament/01.webp",
+      "bytes": 43256,
+      "sha256": "32e96de3c23d377eb50d08e5a2364e773522e8f9cbd5a8cb287f375f4c0373e6"
+    },
+    {
+      "path": "home/stacks/armament/02.webp",
+      "bytes": 153714,
+      "sha256": "8763b9b71deb00a5c0b281b6fddecec6c171effe3f149c4687d6e8a1166460d2"
+    },
+    {
+      "path": "home/stacks/armament/03.webp",
+      "bytes": 65660,
+      "sha256": "272bb0827ab466b28ee5ec30fc51ec1eca1487f7b8ce19daf2c2b4dec3f77858"
+    },
+    {
+      "path": "home/stacks/armament/04.webp",
+      "bytes": 43936,
+      "sha256": "7d68c9fc44df9312740402d7e93742c4aec064ed0b1f06ab85191314d0bd0048"
+    },
+    {
+      "path": "home/stacks/armament/05.webp",
+      "bytes": 49086,
+      "sha256": "9cd35ce51bb6f913760b491d612c5894a737795a1ac567949900910f961a1b89"
+    },
+    {
+      "path": "home/stacks/armament/06.webp",
+      "bytes": 46904,
+      "sha256": "424b0b1e9d1285fa095e9bd1cb883307dcc217e2153c0f1bd2f5a699996243b3"
+    },
+    {
+      "path": "home/stacks/quiet-machine/01.webp",
+      "bytes": 56358,
+      "sha256": "27a565a77f66c65e30d5a684b80a25064e631330542715302d9cce0d75c4ca7d"
+    },
+    {
+      "path": "home/stacks/quiet-machine/02.webp",
+      "bytes": 29756,
+      "sha256": "6c106d7bc2f288abd6500f4a79d957cd0fd32e6d9c0094b879f2444a49229c75"
+    },
+    {
+      "path": "home/stacks/quiet-machine/03.webp",
+      "bytes": 48374,
+      "sha256": "601ad1febc69628d8155bcdfcbf10a12f95f2ecf6888532515a94e037e5cf850"
+    },
+    {
+      "path": "home/stacks/quiet-machine/04.webp",
+      "bytes": 53810,
+      "sha256": "3aa2feb2355a9d995d8e77b82b43f82c02c0c441f58a3ed908cf8f2f7f75a061"
+    },
+    {
+      "path": "home/stacks/quiet-machine/05.webp",
+      "bytes": 56038,
+      "sha256": "6395c4801dd48fb9f3cff2ba26e6511e49ee34320b499c16bcf63cbf10b9b83a"
+    },
+    {
+      "path": "home/stacks/quiet-machine/06.webp",
+      "bytes": 23166,
+      "sha256": "b3e138bfb9adeb038f2343abffda24bf833e3d47fd198ce847aec712f3431468"
+    },
+    {
+      "path": "home/stacks/renderings/02.webp",
+      "bytes": 17138,
+      "sha256": "91e28600f0d951f606a8a90e77410a8731c3cc026aba5688e890e02c840d42c0"
+    },
+    {
+      "path": "home/stacks/renderings/03.webp",
+      "bytes": 20280,
+      "sha256": "6dab6df3592261243423cd9a67f6e16179c6f534e071f3e03b7eb866707fb07d"
+    },
+    {
+      "path": "home/stacks/renderings/04.webp",
+      "bytes": 17948,
+      "sha256": "dcd179a292f5f9797eba464cce28da5016ca1bcf25eaa1df5a5fe897b189d6d6"
+    },
+    {
+      "path": "home/stacks/renderings/05.webp",
+      "bytes": 16678,
+      "sha256": "8ba821f958efa3ca58e80af72975b78de097363fff67581f539b33ce99596969"
+    },
+    {
+      "path": "home/stacks/torque-wrench/03.webp",
+      "bytes": 59856,
+      "sha256": "a1902d9c2595a39a0f0db08deeda392e69d56d08b620363c978e9018467f83e3"
+    },
+    {
+      "path": "home/stacks/torque-wrench/04.webp",
+      "bytes": 99820,
+      "sha256": "c8859b162e8698a473e722c64e186bd87ef61d98f37e9c5a2d727bbd5e5897b5"
+    },
+    {
+      "path": "home/stacks/torque-wrench/05.webp",
+      "bytes": 97864,
+      "sha256": "bd9ff6e6f3148385745458d3ecfa76e57ed43f8668bd1cddfbe0871e72cba637"
+    },
+    {
+      "path": "home/stacks/torque-wrench/06.webp",
+      "bytes": 71480,
+      "sha256": "5c7dd341e56941e0e3faff62e5f35ba411dc072366676b7d76a69bbb88fc5d0a"
+    },
+    {
+      "path": "images/rl300-shot-01-poster-960.webp",
+      "bytes": 26196,
+      "sha256": "956eaa6b447a718e86e8e8c8945d1a4a8b54f32697405d3ee058d702eb676493"
+    },
+    {
+      "path": "images/rl300-shot-01-poster.webp",
+      "bytes": 62296,
+      "sha256": "3b5ca3d7c8bb0ea1eb4370c71213f0615f9c352db3493b9621b1ec858fc7d244"
+    },
+    {
+      "path": "images/rl300-shot-02-poster-960.webp",
+      "bytes": 46820,
+      "sha256": "ac12c8768ac56e66c51176c2bf40763faee5b43177f392fe5b4332df4a1cad72"
+    },
+    {
+      "path": "images/rl300-shot-02-poster.webp",
+      "bytes": 114460,
+      "sha256": "ec2f58a4879f4f8f11f47b86c8a2975d49bd046e03125ca1ae17fd53ceafa3b2"
+    },
+    {
+      "path": "images/rl300-shot-03-poster-960.webp",
+      "bytes": 44190,
+      "sha256": "a46d3637a40397ac57c672f7e966eb820e251952cdd246fbb4ba9f69026283b6"
+    },
+    {
+      "path": "images/rl300-shot-03-poster.webp",
+      "bytes": 108668,
+      "sha256": "e798997410c1799875d5e13832cbb0952cb7631ba3182df75861e76343b48eb6"
+    },
+    {
+      "path": "images/rl300-shot-04-poster-960.webp",
+      "bytes": 21142,
+      "sha256": "0cdb8f08f8e72d50c8cdb7f359e7e0ccae106773d48f5542ff642676f33e8bab"
+    },
+    {
+      "path": "images/rl300-shot-04-poster.webp",
+      "bytes": 48354,
+      "sha256": "bbae859de0bd3a1bd563cf6171f8cf56290f690951cd587f44d8fa6997bb6a94"
+    },
+    {
+      "path": "images/rl300-shot-05-poster-960.webp",
+      "bytes": 39656,
+      "sha256": "59e6eb02bd670310cc19cb05a54fd4eecddacf524bcc4fda7437675c27b6f7ca"
+    },
+    {
+      "path": "images/rl300-shot-05-poster.webp",
+      "bytes": 99428,
+      "sha256": "e6a08b5027b6f257a0079ff0675c214072b44b0c7828e1b88d84c45da87de4da"
+    },
+    {
+      "path": "images/rl300-shot-06-poster-960.webp",
+      "bytes": 46272,
+      "sha256": "c26afc2e1544a268217c3362a321bcb1cb27cabfd4c735e58bb5dc9e15d0cdcc"
+    },
+    {
+      "path": "images/rl300-shot-06-poster.webp",
+      "bytes": 114676,
+      "sha256": "7b9be08de1d38257b9c9905315a195f3d5dd8d88238e7e26e962e7d58045f93b"
+    },
+    {
+      "path": "images/rl300-shot-07-poster-960.webp",
+      "bytes": 39072,
+      "sha256": "8de32ac8d0a049cb14637fecf7de1a361e8709615679c555d82b3f7d345ae3d8"
+    },
+    {
+      "path": "images/rl300-shot-07-poster.webp",
+      "bytes": 97524,
+      "sha256": "92f0181f33184a0009d8d0f07e662710ed6e4616a123cb957033b35e020d9615"
+    },
+    {
+      "path": "index.html",
+      "bytes": 3021,
+      "sha256": "c8a88803f0ba88418f83dfc09a9fd4db2be4a59ddd5e419d72aafdf406b15a19"
+    },
+    {
+      "path": "inspection/shaft/assembled-finale-desktop.webp",
+      "bytes": 19796,
+      "sha256": "94a3e12b79d768b26436c284140fd11633df01ff79121e82f015d033a49a68c4"
+    },
+    {
+      "path": "inspection/shaft/assembled-finale-narrow.webp",
+      "bytes": 12200,
+      "sha256": "edb75088a5f63e0db48378f6f76c38ba4f71a28a4484ac037604fe7848904092"
+    },
+    {
+      "path": "inspection/shaft/bullet-time-desktop.webp",
+      "bytes": 26246,
+      "sha256": "b35c8b7dd2847b16ac95b32bc9743034ad4670e7ef3960f095b5ea9cbfb77afc"
+    },
+    {
+      "path": "inspection/shaft/bullet-time-narrow.webp",
+      "bytes": 7158,
+      "sha256": "8c0003140cb08beafc50e15c3505e184cc871f13f1d6b8d6d2ed806635b52afc"
+    },
+    {
+      "path": "inspection/shaft/cool-stress-desktop.webp",
+      "bytes": 19842,
+      "sha256": "1a0d028fc34f860d8d77243ca372e0b6ab2817a030d222cab02ab93dfd1f0ecb"
+    },
+    {
+      "path": "inspection/shaft/cool-stress-narrow.webp",
+      "bytes": 14432,
+      "sha256": "e839d03547de870cbbecc508b06152e822204865b944c54a167d5b40d01f238a"
+    },
+    {
+      "path": "inspection/shaft/cutter-exit-desktop.webp",
+      "bytes": 15448,
+      "sha256": "a890981fe1dbd880d75e5078d9be6ee7adb90d037f6a9d8f09ed688ebe9acc4e"
+    },
+    {
+      "path": "inspection/shaft/cutter-exit-narrow.webp",
+      "bytes": 9810,
+      "sha256": "b8893edda29827e16b49bdfe366a3cc964fac78211aeeaed05301ef1c8572d24"
+    },
+    {
+      "path": "inspection/shaft/driveline-cascade-desktop.webp",
+      "bytes": 45242,
+      "sha256": "acb17d0aefbb21150625478288d6be89759d8f11e84df655937a3af1fc57cf02"
+    },
+    {
+      "path": "inspection/shaft/driveline-cascade-narrow.webp",
+      "bytes": 15710,
+      "sha256": "57f553bbcc60930baae67d0d514f3aa9a0aa96f2c4cba4f4138b7616f68cd51a"
+    },
+    {
+      "path": "inspection/shaft/hobbed-desktop.webp",
+      "bytes": 23390,
+      "sha256": "a7164b75c986f9e581f0ad961a99aa7539ba223e4e8c9918be1a463efdb787a7"
+    },
+    {
+      "path": "inspection/shaft/hobbed-narrow.webp",
+      "bytes": 13692,
+      "sha256": "334a1a66ebbe5451fd04193318f47eb808bb4b10cc3c91a709c37bc48dda9eec"
+    },
+    {
+      "path": "inspection/shaft/material-attempts-desktop.webp",
+      "bytes": 20146,
+      "sha256": "6a3acf3ae48ed657c8f0e18c976e9d89d0a74aa4fab155d99d4083990fc1f036"
+    },
+    {
+      "path": "inspection/shaft/material-attempts-narrow.webp",
+      "bytes": 10820,
+      "sha256": "b25505058bd017a6e8898c0318b74c4fce885976173ff9eb70b6f444bd37f213"
+    },
+    {
+      "path": "inspection/shaft/revised-blank-desktop.webp",
+      "bytes": 18608,
+      "sha256": "0e5be5d74c75e09bf42c8879e21fcb23516660aab3dce27838abaedceae01533"
+    },
+    {
+      "path": "inspection/shaft/revised-blank-narrow.webp",
+      "bytes": 10304,
+      "sha256": "c591f2a020758365be3274c9bacf8b39ec07d506aae3c6e5599d51a83ac4c814"
+    },
+    {
+      "path": "inspection/shaft/stage1-engagement-desktop.webp",
+      "bytes": 26710,
+      "sha256": "c12f99048c23ffa3837480ec1442bf29834429de7321decff2b8a9a102fa7182"
+    },
+    {
+      "path": "inspection/shaft/stage1-engagement-narrow.webp",
+      "bytes": 7242,
+      "sha256": "44dee2560a6d1febd1f2fc03bfcee457dd75f5be17d2d244d0bee141c554a50e"
+    },
+    {
+      "path": "inspection/shaft/support-after-desktop.webp",
+      "bytes": 15994,
+      "sha256": "29ce4633b5f9cf698a4ed89a0aea1db295871579605ee1a75bc609dafddccce7"
+    },
+    {
+      "path": "inspection/shaft/support-after-narrow.webp",
+      "bytes": 12584,
+      "sha256": "fa2562f4064f727bc474bc64c8f3b8d805be91d624ecda2abc751fb5b86c81c6"
+    },
+    {
+      "path": "inspection/shaft/support-before-desktop.webp",
+      "bytes": 15272,
+      "sha256": "33c991372a262d727b1b9aad6259a789ce9d0fb971231da84d2fc85b47052813"
+    },
+    {
+      "path": "inspection/shaft/support-before-narrow.webp",
+      "bytes": 12624,
+      "sha256": "c637dcba545c069381c40d2078efa002f6c581750eaac02fea6ae8650571415f"
+    },
+    {
+      "path": "models/Default.glb",
+      "bytes": 10671700,
+      "sha256": "8b07246cf857aca29d1832815d8d183e0a1fd8ef06da5a7a089019706a57a257"
+    },
+    {
+      "path": "models/knurling-tool.glb",
+      "bytes": 1798620,
+      "sha256": "e5bff99439eb6655ea9eda3929fcca2f3e388b98c5742dcef95c371423c8fbd8"
+    },
+    {
+      "path": "models/manufacturing-core-full.glb",
+      "bytes": 678008,
+      "sha256": "17f90d73a8312bb9b91b3e4468ea3a598e046df0897714091243fed6722183be"
+    },
+    {
+      "path": "models/manufacturing-core-lite.glb",
+      "bytes": 415424,
+      "sha256": "b38b91fa4371a1f04c28214ed5d6aaf8d97ffedb3e099d8eadea691c09200e6f"
+    },
+    {
+      "path": "models/msp-enclosure.glb",
+      "bytes": 2671600,
+      "sha256": "c1c919ab8f747e9e2bd9eeb51b5ac31ee66dc39145cac44ad7c8fddfa056428e"
+    },
+    {
+      "path": "models/rl300-extra-parts.glb",
+      "bytes": 387588,
+      "sha256": "e8dbc62ccaa0faad4a71ecb40f1e707cef594c4c4a90fcf6cdc7f6b7ee8070ca"
+    },
+    {
+      "path": "models/rl300-lite.glb",
+      "bytes": 1186488,
+      "sha256": "b0e47531d7646004db2a2ecef75a44d7bcfc74b220f81727cdda5d963d22fc5f"
+    },
+    {
+      "path": "models/role-map.json",
+      "bytes": 83136,
+      "sha256": "8c2699ad2e01302aad3e553a22bafc21fbfbb8fa301b6160c39e03f10fad302a"
+    },
+    {
+      "path": "og-image.png",
+      "bytes": 68525,
+      "sha256": "eac328624308020f9892d9b3cd8849e9b1d59f21b4c6dc6d9ade3e2b1114cd37"
+    },
+    {
+      "path": "quiet-machine/index.html",
+      "bytes": 3491,
+      "sha256": "255a09b9f427731d574a55b713640d95ba8a5b412abbb7b55d741ebe8f7cbfbc"
+    },
+    {
+      "path": "robots.txt",
+      "bytes": 25,
+      "sha256": "1cbdbc6504be7abe1267d01d7f565bfcfe5851ba3f6a3754d1d61c8f8a2c6aa3"
+    },
+    {
+      "path": "textures/studiomark-road/aerial_asphalt_01_ao_2k.jpg",
+      "bytes": 1929805,
+      "sha256": "fb9da6e73cbfca310032ee113389be2f084c4d28cd688f663952e4747d5532d0"
+    },
+    {
+      "path": "textures/studiomark-road/aerial_asphalt_01_diff_2k.jpg",
+      "bytes": 2802005,
+      "sha256": "a85ce28b8e6ed90acb0234832969b27f5b73fe055a0d5b94f34fc2943d319fb5"
+    },
+    {
+      "path": "textures/studiomark-road/aerial_asphalt_01_nor_gl_2k.jpg",
+      "bytes": 2751902,
+      "sha256": "cb7e5b75ff47ad672ab820f71b77566419b612e52e7791c5ed90a7fa27b71807"
+    },
+    {
+      "path": "textures/studiomark-road/aerial_asphalt_01_rough_2k.jpg",
+      "bytes": 1392536,
+      "sha256": "20fdcdc9fc2a3efef83fd8a3453d2bc0a8543ee3ebb2badf148e4c142704eeff"
+    },
+    {
+      "path": "textures/studiomark-road/shanghai_bund_2k.hdr",
+      "bytes": 6467753,
+      "sha256": "ed4be21489e86a915bc872072e7e6d83c163a2d2fbb1c260979f7b9224a3322b"
+    },
+    {
+      "path": "torque-wrench/index.html",
+      "bytes": 3238,
+      "sha256": "24a8abbd249eb846dfd6453bfa47b52bc062271f01dcfc49fdb5266fc17e3fcb"
+    },
+    {
+      "path": "video/showreel-v3-poster.jpg",
+      "bytes": 92666,
+      "sha256": "ffadc22e9796e82ce34faef454186a72599604ac163598028a8224e9fcd596b1"
+    },
+    {
+      "path": "video/showreel-v3.mp4",
+      "bytes": 18873120,
+      "sha256": "73dec2288e564c470e77ae4b31cbca53861dda09f062d938521b6efaa3467b56"
+    },
+    {
+      "path": "video/studiomark-bumper-puddle-crane.mp4",
+      "bytes": 10790559,
+      "sha256": "c1d8c7a755267626e2767eccde13dbf4d822572201cdc55e21c142c4c55846fc"
+    },
+    {
+      "path": "video/studiomark-bumper-puddle-crane.webm",
+      "bytes": 9413379,
+      "sha256": "759854badf309af896973215ecf7e4a8e9b4c563f665819b309edcdca00ef3ad"
+    },
+    {
+      "path": "video/studiomark-bumper-storm-ignition.mp4",
+      "bytes": 10784649,
+      "sha256": "cfc5a74be8853d08b4368ee0cc3b904672853b894063be39aa6e044f4c3f4c93"
+    },
+    {
+      "path": "video/studiomark-bumper-storm-ignition.webm",
+      "bytes": 11413469,
+      "sha256": "b925694030269993f538e8082e302ba34ce28cc9e6a3e429cf0f807902988879"
+    }
+  ]
+}

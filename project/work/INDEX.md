@@ -1,5 +1,7 @@
 # JGUN Work Registry
 
+**JG-042 — Portfolio performance:** accepted 2026-11-06; P01–P10 implementation in progress, P11 publication approval separate. [Plan](plans/JG-042-portfolio-performance.md) · [TODO](../../TODO.md#active) · [Evidence](evidence/JG-042-portfolio-performance/README.md). JG-041/showreel/logo lanes preserved.
+
 > **Current owner direction, 2026-11-03:** [Evolving portfolio and visual review](../context/owner-specs/evolving-portfolio-and-visual-review-2026-10-31.md) separates unfinished publication from task completion. The corrected homepage is published; develop the new HUD with visual concepts. Provisional HUD/framing polish and dense alias closure are deferred; show readability issues before further work and permit slight camera-angle refinements. Historical open gates/reviews remain recorded without becoming blanket publication blockers. Older delivery freezes below are superseded for the requested publication.
 
 > **JG-036 accepted 2026-10-08 — 3D hotspot clickability & revival (owner: address next session).** Live two-build diagnosis proved click-to-inspect hotspots have never worked anywhere in the lineage, and on HEAD zero badges render at all (pointer-dead under the content column + camera never flies on the old build; `STATION_REPLACED` + missing `window` gates + stale `lcd` window on HEAD; no verifier roster has ever clicked a hotspot). [Plan](plans/JG-036-hotspot-clickability-revival.md) · [diagnosis](evidence/JG-036-hotspot-clickability/diagnosis-2026-10-08.md).

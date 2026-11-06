@@ -1,0 +1,11 @@
+# P10 fresh implementation review request
+
+Update: the GLM-5.3/high direct review attempt timed out after 180 seconds with no content; no review result or acceptance. Mark explicitly selected **anthropic/claude-sonnet-5-5 / high** as the replacement P10 reviewer, one bounded review plus at most one correction follow-up. This substitution is recorded before dispatch. No GLM or DeepSeek retry pending.
+
+Reviewer selected by owner: `zai/glm-5.3`, reasoning effort `high`, standard intensity, fresh context. Parent author is OpenAI. No overall approver. No DeepSeek retry. No model substitution. If the native subagent route stalls, a single direct local opencodex chat-completions request may carry the same selected reviewer and a self-contained bounded artifact pack; backend effort is not independently observable. No dispatcher or new model is involved.
+
+Review only accepted JG-042 measurement tooling and exact public build exclusions. Challenge source/artifact binding, routes, cold/repeat context lifecycle, cache labels, readiness gates, observed scroll, long-task window math, truthful limitations, original inventory preservation and any unintended lane/caching/model changes. Compare actual files and test/build evidence; report only concrete actionable findings with path/line references and why they matter. Distinguish release blockers from optional improvements. Do not demand optional deferred experiments or full cinematic acceptance for this WIP scope. A review result grants no deployment approval.
+
+P05 export, P06 loader removal, P07 DPR and P09 upgrades are deferred without runtime changes. P08 already late in observed baseline; no change. P04 cost attribution, GPU, energy, hidden-tab and isolated prep spans unresolved. P02 natural paired measurements do not complete Lean-V1 valid/missing/stale startup/cache/shader roster. P03 tracked media exclusions are deferred pending lane coordination; only four local-only files are excluded.
+
+The candidate pack will include the exact final source files (numbered), accepted plan, experiment decisions, candidate/baseline identity summaries, runtime summary and proportional test/build evidence. Review rounds capped at two; the author must independently verify material findings.
