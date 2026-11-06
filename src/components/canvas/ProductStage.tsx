@@ -142,7 +142,9 @@ function ancestorNameMatches(object: THREE.Object3D, root: THREE.Object3D, patte
 const MATCH_NOTHING = /$^/
 
 /**
- * Node-name rules per protected GLB, taken from the audited manifests (src/data/glb-manifests.json).
+ * Node-name rules per protected GLB, taken from the audited manifest snapshot.
+ * Historical source: 2c74315005d83caf6d381a77c5829521f729ac9c:src/data/glb-manifests.json
+ * (JG-041 retired the unused checked-in snapshot; this component does not import it).
  * msp-enclosure: the outer shell is the two roots ENCLOSURE_CHASSIS and COMPOSITE_PANELS; the other
  * roots (pump, baffles, ducts) are the internals the fade must reveal. It has no node that is
  * unambiguously a rotor, so nothing spins until one is chosen. m249-transformed is one merged mesh

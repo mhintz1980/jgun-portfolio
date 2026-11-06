@@ -1,20 +1,27 @@
 /**
- * Degradation smoke check (run with: npx tsx scripts/check-fallback.tsx).
+ * Degradation smoke check. Run (CSS import is stubbed, packages stay external):
+ *   npx esbuild scripts/check-fallback.tsx --bundle --platform=node --format=esm --packages=external --loader:.css=empty --outfile=.scratch/check-fallback.mjs && node .scratch/check-fallback.mjs
  *
- * Renders <App/> in Node, where WebGL2 does not exist — the exact condition a
- * no-WebGL browser presents — and asserts the poster tier engages: static
- * poster + full case-study DOM, no <canvas>, no pointer-events-gated text.
+ * Renders the current /torque-wrench/ page (TorqueWrenchPage + a poster-tier
+ * store, the tier a no-WebGL browser resolves to) in Node and asserts the
+ * poster tier engages: static poster slots + full five-chapter DOM, no
+ * <canvas>, story not inert/hidden, no preloader. Component-level
+ * BootPanel/HotspotButton/TechnicalHUD assertions are unchanged.
  */
 import { createElement } from 'react'
 import { renderToString } from 'react-dom/server'
-import App from '../src/App'
+import { TorqueWrenchPage } from '../src/scene/torque-wrench/TorqueWrenchPage'
+import { createTorqueWrenchStore } from '../src/state/torqueWrenchStore'
 import { BootPanel } from '../src/components/BootSequence'
 import { TechnicalHUD } from '../src/components/TechnicalHUD'
 import { HotspotButton } from '../src/scene/Hotspots'
 import { HOTSPOTS } from '../src/data/caseStudies'
 import { setScrollState } from '../src/state/scrollStore'
 
-const html = renderToString(createElement(App))
+const html = renderToString(
+  createElement(TorqueWrenchPage, { store: createTorqueWrenchStore({ tier: 'poster' }) }),
+)
+const storyOpen = /<article[^>]*id="torque-story"[^>]*>/.exec(html)?.[0] ?? ''
 
 // Keyboard a11y: interactive surfaces must be real, tab-reachable buttons
 // with the HUD-cyan focus ring — not click-only divs.
@@ -39,13 +46,13 @@ const stalledBoot = renderToString(
 )
 
 const checks: Array<[string, boolean]> = [
-  ['poster title block renders', html.includes('Industrial Pneumatic Torque Wrench')],
-  ['static-mode notice renders', html.includes('STATIC RENDER MODE')],
-  ['case study 1 (gearbox) DOM present', html.includes('data-chapter="0"')],
-  ['case study 4 (AI matrix) DOM present', html.includes('data-chapter="3"')],
-  ['no <canvas> in poster tier', !html.includes('<canvas')],
-  ['chapter text not pointer-events-gated', !html.includes('pointer-events-none flex min-h-[220vh]')],
-  ['no boot sequence in poster tier', !html.includes('SYSTEM BOOT')],
+  ['poster title block renders', html.includes('Industrial Torque Wrench') && html.includes('<h1')],
+  ['static-mode notice renders', html.includes('data-torque-mode="static"') && html.includes('Work in progress')],
+  ['chapter 1 (drafting) DOM present', html.includes('data-torque-chapter="drafting"')],
+  ['chapter 4 (inspection) DOM present', html.includes('data-torque-chapter="inspection"') && html.includes('aria-controls="torque-inspection-detail"')],
+  ['no <canvas> in poster tier', !html.includes('<canvas') && !html.includes('data-torque-scene=')],
+  ['story text not inert or aria-hidden', storyOpen.includes('id="torque-story"') && !/inert|aria-hidden/.test(storyOpen)],
+  ['no preloader in poster tier', !html.includes('torque-preloader') && html.includes('data-torque-stage="poster"') && (html.match(/data-torque-poster-pending="stage-6"/g) ?? []).length === 5],
   ['stalled boot panel is pointer-transparent', stalledBoot.includes('pointer-events-none')],
   ['stalled boot panel is translucent, not opaque', stalledBoot.includes('bg-black/70')],
   ['stalled boot panel surfaces the fault', stalledBoot.includes('RESOURCE(S) FAILED')],

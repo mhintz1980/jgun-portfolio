@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "baseline": "2c74315005d83caf6d381a77c5829521f729ac9c",
+  "branch": "codex/jg041-b4-retirement",
+  "deleted": [
+    {
+      "path": "src/App.tsx",
+      "gitBlobBytes": 4380,
+      "gitBlobSha256": "2f5f93a4b05a12aee7b348a02d49b707507c509eb90f7f656a2e8f4725452821",
+      "originalCheckoutBytes": 4476,
+      "originalCheckoutSha256": "35fa81b903a1854b4ac50a1374e0b9152a183f51ec44d0b187c8d96ddc30de63",
+      "recovery": "2c74315005d83caf6d381a77c5829521f729ac9c:src/App.tsx"
+    },
+    {
+      "path": "src/components/IntroTitles.tsx",
+      "gitBlobBytes": 5651,
+      "gitBlobSha256": "0a6c3dd154e8edfef6043281affc62f6c6bc5fe85bd1aa2ca34441c8f071dcbe",
+      "originalCheckoutBytes": 5792,
+      "originalCheckoutSha256": "734fb674c085a7112d1503967c9c89b888fc21bcbc51a2e27865d409a47bf405",
+      "recovery": "2c74315005d83caf6d381a77c5829521f729ac9c:src/components/IntroTitles.tsx"
+    },
+    {
+      "path": "src/components/ToleranceStations.tsx",
+      "gitBlobBytes": 16208,
+      "gitBlobSha256": "e041a4f50530831787db761ccbfb75189e7633de116701cb7b72551331058b6f",
+      "originalCheckoutBytes": 16560,
+      "originalCheckoutSha256": "f68dbfad76528b2e11950147a76e2de99016e012b8946d20847993a0b2e7656e",
+      "recovery": "2c74315005d83caf6d381a77c5829521f729ac9c:src/components/ToleranceStations.tsx"
+    },
+    {
+      "path": "src/data/glb-manifests.json",
+      "gitBlobBytes": 287058,
+      "gitBlobSha256": "a3ac4a6fd0b0aa086d30d097cb2d9c18d12b5559095af5e2cecb8e260e2559ad",
+      "originalCheckoutBytes": 300152,
+      "originalCheckoutSha256": "1e8b5c719b750d574a25ff01017e870bc856161255832f81af2078c5f70e9ed6",
+      "recovery": "2c74315005d83caf6d381a77c5829521f729ac9c:src/data/glb-manifests.json"
+    },
+    {
+      "path": "src/main.tsx",
+      "gitBlobBytes": 311,
+      "gitBlobSha256": "cad4f0ef8a6704cccb758974ab6bee9b8b52a4410ac6c95893c72e69714e0b89",
+      "originalCheckoutBytes": 324,
+      "originalCheckoutSha256": "688b77709793488de203162e0065a775e06b9896e6817b0d5e04b29661bedb4a",
+      "recovery": "2c74315005d83caf6d381a77c5829521f729ac9c:src/main.tsx"
+    },
+    {
+      "path": "src/scene/SceneCanvas.tsx",
+      "gitBlobBytes": 26358,
+      "gitBlobSha256": "9e867977dad417e7d7210e3b2977ca75cacfe299631de3b9703a1778c169fc82",
+      "originalCheckoutBytes": 26954,
+      "originalCheckoutSha256": "f030f55fcfaefe97ba5880a208aff4704fc2679d821c7f8afbc4a99ad4ec59ad",
+      "recovery": "2c74315005d83caf6d381a77c5829521f729ac9c:src/scene/SceneCanvas.tsx"
+    },
+    {
+      "path": "src/scene/ScrollRig.tsx",
+      "gitBlobBytes": 3698,
+      "gitBlobSha256": "427fed2b2368e9a7adf39c619c7431676b44cedc85afc107d128611e6e798cfa",
+      "originalCheckoutBytes": 3796,
+      "originalCheckoutSha256": "f29f88cfc6710bdd3e8b35557732856af67dd13d4a2dbf1abf0a67ba6f0a8f1c",
+      "recovery": "2c74315005d83caf6d381a77c5829521f729ac9c:src/scene/ScrollRig.tsx"
+    }
+  ],
+  "gitSourceBytesRemoved": 343664,
+  "originalCheckoutBytesRemoved": 358054,
+  "noAssetsOrTestsDeleted": true,
+  "publicBehaviorChanged": false,
+  "sharedImportClosureChanged": false,
+  "pushAuthorized": false,
+  "deployAuthorized": false
+}

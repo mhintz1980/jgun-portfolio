@@ -62,7 +62,7 @@ const read = async page => {
   await page.waitForFunction(() => Boolean(window.__inspection), null, { timeout: 15000 })
   return page.evaluate(() => JSON.parse(JSON.stringify(window.__inspection)))
 }
-/** Live GPU resource census straight from the renderer probe (SceneCanvas.tsx:336). */
+/** Live GPU resource census from the renderer probe; legacy host recovery: 2c743150:src/scene/SceneCanvas.tsx. */
 const rendererInfo = page => page.evaluate(() => {
   const info = window.__threeRenderer?.info
   return { hasRenderer: !!window.__threeRenderer, programs: info?.programs?.length ?? null, geometries: info?.memory?.geometries ?? null, textures: info?.memory?.textures ?? null }
@@ -535,8 +535,8 @@ async function caseOrderingReadiness(mobile = false) {
         id: 'missing-three-renderer-probe',
         kind: 'missing-probe',
         gate: 'V1/V4',
-        file: 'src/scene/SceneCanvas.tsx',
-        line: '334',
+        file: 'src/scene/torque-wrench/Scene.tsx',
+        line: '94',
         detail: 'window.__threeRenderer is missing from the served production build; renderer.info program/memory gates cannot be proved.',
       })
     }
@@ -1110,7 +1110,7 @@ async function caseCensusLifecycle(mobile = false) {
       // Station CAD (Default/msp-enclosure/m249) is narrative page-load work; the static
       // inspection must never fetch its own tool asset.
       sub.measures.glbRequests = sub.requests.slice()
-      if (sub.requests.length) noteDefect({ id: 'reduced-motion-cad-fetches', kind: 'app', gate: 'V4', file: 'src/App.tsx', line: 37, detail: 'canvasActive only checks poster tier, so reduced-motion production pages mount SceneCanvas and fetch narrative CAD. V4 requires reduced/poster states to avoid CAD/tool fetches. Exact request URLs are retained in reduced-motion case evidence.' })
+      if (sub.requests.length) noteDefect({ id: 'reduced-motion-cad-fetches', kind: 'app', gate: 'V4', file: 'src/scene/torque-wrench/TorqueWrenchPage.tsx', line: 27, detail: 'V4 requires reduced/poster states to avoid CAD/tool fetches. The current page owns the poster/scene gate; exact request URLs are retained in reduced-motion case evidence. Historical App/SceneCanvas defect attribution remains in earlier reports.' })
       check(sub.requests.length === 0, `reduced-motion page fetched ${sub.requests.length} CAD/tool GLBs: ${JSON.stringify(sub.requests)}`)
       await returnKey(reducedPage)
       check(sub.errors.length === 0, `${sub.errors.length} console/page errors; first: ${sub.errors[0]}`)

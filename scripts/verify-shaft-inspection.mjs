@@ -13,7 +13,9 @@ const url = (process.argv.find(a => a.startsWith('--url='))?.slice(6) || 'http:/
 const out = path.resolve(process.argv.find(a => a.startsWith('--out='))?.slice(6) || 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/runtime/shaft')
 await fs.mkdir(out, { recursive: true })
 const sha256 = data => createHash('sha256').update(data).digest('hex')
-const sources = [...['story', 'script', 'schedule', 'kinematics', 'toolSpec', 'progression', 'shaftRuntime', 'camera'].map(n => `src/scene/inspection/shaft/${n}.ts`), 'src/scene/inspection/InspectionScene.tsx', 'src/scene/inspection/story.ts', 'src/scene/inspection/shaft/fosPresentation.ts', 'src/scene/inspection/shaft/frame.ts', 'src/components/StaticShaftStory.tsx', 'src/state/inspectionStore.ts', 'src/state/qualityStore.ts', 'src/scene/CameraRig.tsx', 'src/scene/PostProcessingComposer.tsx', 'src/components/RingInspection.tsx', 'src/components/ShaftStoryLayer.tsx', 'src/App.tsx']
+// JG-041: hash the current page/fallback owners. The retired root App is recoverable at
+// 2c74315005d83caf6d381a77c5829521f729ac9c:src/App.tsx; historical reports keep their original hashes.
+const sources = [...['story', 'script', 'schedule', 'kinematics', 'toolSpec', 'progression', 'shaftRuntime', 'camera'].map(n => `src/scene/inspection/shaft/${n}.ts`), 'src/scene/inspection/InspectionScene.tsx', 'src/scene/inspection/story.ts', 'src/scene/inspection/shaft/fosPresentation.ts', 'src/scene/inspection/shaft/frame.ts', 'src/components/StaticShaftStory.tsx', 'src/state/inspectionStore.ts', 'src/state/qualityStore.ts', 'src/scene/CameraRig.tsx', 'src/scene/PostProcessingComposer.tsx', 'src/components/RingInspection.tsx', 'src/components/ShaftStoryLayer.tsx', 'src/scene/torque-wrench/TorqueWrenchPage.tsx', 'src/scene/torque-wrench/cadGate.ts', 'src/scene/torque-wrench/tier.ts']
 const sourceHashes = Object.fromEntries(await Promise.all(sources.map(async f => [f, sha256(await fs.readFile(path.join(root, f)))])))
 // Pure authored samplers supply expectations; the actual state always comes from the browser.
 async function module(name) {
@@ -748,7 +750,7 @@ async function staticCase(narrow, kind) {
       await page.waitForTimeout(300)
     })
     r.measures.network = { allCAD: r.allCAD, inspection: r.inspectionRequests, narrative: r.narrativeRequests, throughExit: true, reducedNarrativeV4: kind === 'reduced' && r.narrativeRequests.length ? 'Owner choice unresolved; this S8 inspection-only check does not waive lifecycle V4 zero-CAD policy.' : null }
-    if (kind === 'poster') assertion(r, 'S8', r.allCAD.length === 0, `poster requested CAD/tool assets navigation through exit ${JSON.stringify(r.allCAD)}`, { file: 'src/App.tsx', line: 37 })
+    if (kind === 'poster') assertion(r, 'S8', r.allCAD.length === 0, `poster requested CAD/tool assets navigation through exit ${JSON.stringify(r.allCAD)}`, { file: 'src/scene/torque-wrench/TorqueWrenchPage.tsx', line: 27 })
     else assertion(r, 'S8', r.inspectionRequests.length === 0, `reduced static requested inspection manufacturing/knurling assets navigation through exit ${JSON.stringify(r.inspectionRequests)}`, { file: 'src/components/RingInspection.tsx', line: 52 })
   } catch (e) { assertion(r, 'S8', false, String(e)); report.harnessLimitations.push({ case: r.name, detail: String(e) }) }
   finally { await session?.close() }
