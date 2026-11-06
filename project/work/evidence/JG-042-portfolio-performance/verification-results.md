@@ -7,4 +7,12 @@
 - Corrected attribution: valid true, 0 errors, both readiness gates, forward/reverse checkpoints through .62–.825, actual AMD Radeon 780M / ANGLE D3D11 full tier. Old partial capture retained and labeled historical; no GPU/prep/CPU cause assertion.
 - Full cinematic/contract-18/Lean-V1 budgets, shader timing, GPU execution, power, hidden-tab and physical mobile remain unverified. No speedup claim or final owner visual acceptance.
 
-Final review-correction tests and exact final source identity will be appended. No deployment/publish authorization or action.
+Review-corrected source: `aa4814b9dd41920542c2b89f190d85a73bfa89eb`. Detached checkout moved to that exact commit: `npx tsc --noEmit` => no errors; pure Node roster **42/42 PASS, 0 FAIL**. The extra test covers odd/even median. Subsequent changes are low-severity documentation/comment cleanups only; exact final-commit closure is recorded separately. No application module, model, dependency or cache changes. Candidate artifact identity is the full JSON manifest, not the condensed excerpt sent in the reviewer pack.
+
+Replacement `narrow-torque-uncontended`: **10/10 valid**, five fresh-context cold/same-context repeat pairs, no build overlap; original timing-excluded rows preserved. This remains noisy local lab data and supports no gain estimate.
+
+`startup-cache-hardened`: **6/6 PASS** after identity hardening, with preflightIdentity, readinessObservationResolutionMs and actual navigated HTML hashing. It uses the fff71e0 artifact identity, which matches all 156 output bytes of aa4814b9 as well. `startup-cache-candidate` is retained explicitly as pre-hardening producer evidence. The fixture inputs are distinct while missing/stale both correctly produce live fallback.
+
+Detached aa4814b9 production build also PASS (794 modules, same existing chunk warning); artifact/source identity comparisons remain identical for all 156 files. Low-severity follow-up changes are comments, limitation strings and record keeping only, with no gate/algorithm change.
+
+Fresh delivered Sonnet review followed by one correction follow-up: **ACCEPT (tooling and exclusion scope)**. See fresh-review-sonnet-followup.md. Reviewer executed no tools and had a bounded pack, so independent execution/source identity proof remains the parent's responsibility. R4's exact commit/count requirement is satisfied by the detached checks above; final receipt pins any metadata-only follow-up. No deployment/publish authorization or action.

@@ -1,6 +1,7 @@
 // Launch exclusion: public/ files that stay in git but must never ship in dist/.
 // Vite copies public/ verbatim, so this plugin deletes the listed copies after the bundle is
-// written and fails the build if any survive. scripts/verify-launch-dist.mjs re-checks dist/.
+// written and fails the build if any survive. verify-launch-dist.mjs independently checks M249;
+// the exact local-only exclusions and source preservation are covered by the plugin test.
 import { existsSync, rmSync } from 'node:fs'
 import path from 'node:path'
 import type { Plugin, ResolvedConfig } from 'vite'

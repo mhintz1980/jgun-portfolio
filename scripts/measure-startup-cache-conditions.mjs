@@ -63,6 +63,7 @@ try{
     finally{await context.close();rows.push(row);console.log(JSON.stringify({profile,condition,valid:row.valid,errors:row.errors,sceneReadyMs:row.sceneReadyMs,sheetReadyMs:row.sheetReadyMs}));
       writeFileSync(output,JSON.stringify({source:identity.source,artifactManifestSha256:identity.artifactManifestSha256,rows,
         limitations:['Injected cache-condition diagnostics, not natural HTTP cache timings or performance budget acceptance.',
+          'Missing and stale have the same fallback outcome; fixture version/hash/interception records distinguish the inputs.',
           'No GPU/program compilation, power or full 20-phase Lean-V1 completion claim.']},null,2)+'\n')}
   }
 }finally{await browser.close()}

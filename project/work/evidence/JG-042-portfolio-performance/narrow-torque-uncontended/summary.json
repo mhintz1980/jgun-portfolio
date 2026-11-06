@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "source": "fff71e0988de6d461c308c4ed8f31813f24329ad",
+  "artifactManifestSha256": "f624a566bd5571ecef8a0dab052d7b13dc066efc11452f3241b241836c6b7bef",
+  "invocation": [
+    "--base=http://localhost:5272",
+    "--identity=project/work/evidence/JG-042-portfolio-performance/candidate-identity.json",
+    "--out=project/work/evidence/JG-042-portfolio-performance/narrow-torque-uncontended",
+    "--profiles=narrow",
+    "--routes=torque",
+    "--pairs=5"
+  ],
+  "records": 10,
+  "valid": 10,
+  "invalid": 0,
+  "leanV1Status": "UNVERIFIED — valid/missing/stale drawing-cache conditions and shader observables not covered by paired natural-startup runs.",
+  "groups": [
+    {
+      "profile": "narrow",
+      "route": "/torque-wrench/",
+      "kind": "cold",
+      "attempts": 5,
+      "valid": 5,
+      "readinessMs": [
+        3850.800000011921,
+        12939.400000035763,
+        17042.19999998808,
+        18054.399999976158,
+        20173.899999976158
+      ],
+      "median": 17042.19999998808,
+      "min": 3850.800000011921,
+      "max": 20173.899999976158
+    },
+    {
+      "profile": "narrow",
+      "route": "/torque-wrench/",
+      "kind": "repeat",
+      "attempts": 5,
+      "valid": 5,
+      "readinessMs": [
+        12878.400000035763,
+        13292.899999976158,
+        15159.699999988079,
+        17018.69999998808,
+        17211.30000001192
+      ],
+      "median": 15159.699999988079,
+      "min": 12878.400000035763,
+      "max": 17211.30000001192
+    }
+  ]
+}

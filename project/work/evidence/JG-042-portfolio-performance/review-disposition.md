@@ -12,3 +12,15 @@ Fresh selected reviewer `anthropic/claude-sonnet-5-5` / high; first delivered re
 8. **Optional corrections.** Duplicate profile/route keys rejected, even-count median corrected and regression tested. Home/QM pixel-response, window-bound latency, absent shader/GPU/power data and the shared fallback outcome for missing/stale are limitations, not fabricated observables. Distinct fixture SHA/version/interception records distinguish missing/stale test inputs; their expected live fallback result is intentionally the same.
 
 Actual isolated-commit checks: npx tsc --noEmit => no errors; seven pure Node files => 41 tests / 41 PASS, 0 FAIL; npm run build => PASS. Later JS-only review fixes require updated pure Node checks; they do not change any product bundle or TypeScript member closure. No full cinematic or performance-budget acceptance is claimed.
+
+## Final follow-up
+
+fresh-review-sonnet-followup.md: **ACCEPT (tooling and exclusion scope)**, no code defect or release blocker; reviewer ran no tools and explicitly qualified pack coverage. This is the second delivered review and the last review round.
+
+- R1: plugin comment now accurately distinguishes the independent M249 launch gate from the local-only plugin test; no new gate behavior.
+- R2: initial startup-cache-candidate remains labeled pre-hardening evidence; startup-cache-hardened reruns the exact six functional conditions with entry/scene/model preflight, fixture hash and navigated HTML verification, explicit polling resolution and missing/stale shared-fallback limitation.
+- R3: summary now names the author/native patch and exact post-run exclusion rule; the generator's ordinary summary is deliberately distinct from this annotated review artifact. Raw rows remain unchanged.
+- R4: review-corrected aa4814b9dd41920542c2b89f190d85a73bfa89eb was checked at exact detached HEAD: no TypeScript errors, 42/42 pure Node checks. Production build and final metadata receipt identify artifact/source separately. The reviewer pack intentionally condensed the full identity JSON; it is not the executable --identity file. The actual full manifest with sourceInputs/files is preserved.
+- R5: stale reviewer/status labels reconciled; preflightIdentity naming corrected. Corrected attribution's position-match statement comes from the parent's inspection of recorded checkpoint values, not an additional assertion in capture-portfolio-attribution.mjs. Replacement narrow torque run completed 10/10 valid and is retained separately.
+
+No third review is claimed. No review grants deployment/publish authorization. Original FAIL/partial observations and unresolved measurements remain explicit.

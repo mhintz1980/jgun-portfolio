@@ -1,7 +1,7 @@
 # JG-042 — Portfolio performance plan (accepted 2026-11-06)
 
 Status: ACCEPTED by Mark's receiving implementation prompt on 2026-11-06; P01–P10 conditional implementation and normal Task Intake authorized. P11 deployment/publish requires separate exact-candidate owner approval.
-Implementation status: in progress; see [execution evidence](../evidence/JG-042-portfolio-performance/README.md). Generated from
+Implementation status: bounded tooling/hygiene work executed and verified; fresh implementation review ACCEPT. P05/P06/P07/P09 deferred without adoption, P08 already-late path closed without change, P04 cost attribution and full performance-budget acceptance remain unresolved; P11 unapproved. See [execution evidence](../evidence/JG-042-portfolio-performance/README.md). Generated from
 Astra gpt-6-astra/xhigh strategic review (thread 01a1b020-7312-7462-8550-01da059929bb, zero tool
 calls; raw output: evidence/portfolio-performance-2026-11-06/astra-review.md) over the validated
 evidence set (repo-evidence + checker FINAL + deployed FINAL + recent-research + measured runs).

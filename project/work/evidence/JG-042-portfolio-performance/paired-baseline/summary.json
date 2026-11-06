@@ -233,5 +233,7 @@
       "route": "/torque-wrench/",
       "reason": "Conservatively exclude entire original timing group: tail overlapped candidate build. Functional validity retained; use uncontended rerun for timing evidence."
     }
-  ]
+  ],
+  "annotatedBy": "Codex parent via native apply_patch after roster completion; raw runs.jsonl unchanged",
+  "annotationRule": "All original narrow /torque-wrench/ timing values excluded conservatively due tail build overlap. 60/60 functional rows retained; 50 eligible timings. Use ../narrow-torque-uncontended/summary.json for replacement 5-pair timing evidence."
 }

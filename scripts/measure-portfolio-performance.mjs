@@ -58,7 +58,7 @@ async function sample(context, meta, profile, route, index) {
       'Tier/DPR observed at checkpoints; intermediate transitions may be missed.',
       'Readiness observed at up to 1000 ms polling resolution; evaluation/transport latency may add more delay.',
       'Home readiness is DOM main only; home/QM scrolling verifies document movement, not pixel/scene response.',
-      'Evaluation latency adds uncertainty to window bounds; servedIdentity is checked before the roster, not per row.',
+      'Evaluation latency adds uncertainty to window bounds; preflightIdentity is checked before the roster, not per row.',
       'Natural startup cache only; Lean-V1 valid/missing/stale injection roster NOT completed.'] }
   await page.addInitScript(initializer)
   cdp.on('Network.requestWillBeSent', e => {
