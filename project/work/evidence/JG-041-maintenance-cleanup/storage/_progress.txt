@@ -1,0 +1,19 @@
+B3 start 2026-11-06 01:23:13Z
+rows=145
+rootRefFiles=13
+rows_done=10 elapsed_s=14
+rows_done=20 elapsed_s=24
+rows_done=30 elapsed_s=33
+rows_done=40 elapsed_s=42
+rows_done=50 elapsed_s=52
+rows_done=60 elapsed_s=61
+rows_done=70 elapsed_s=69
+rows_done=80 elapsed_s=80
+rows_done=90 elapsed_s=89
+rows_done=100 elapsed_s=99
+rows_done=110 elapsed_s=107
+rows_done=120 elapsed_s=117
+rows_done=130 elapsed_s=126
+rows_done=140 elapsed_s=136
+writing outputs
+done elapsed_s=141
