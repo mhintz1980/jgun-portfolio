@@ -12,7 +12,7 @@
   "finalBrowserSmoke": { "url": "http://localhost:5286", "output": "output/playwright/jg041-b4-batch2/report.json", "cases": 9, "fatalOrHttpErrors": 0, "navigationPassed": 9, "exit": 0 },
   "finalPrivacyAndRedirects": { "armamentRobots": "noindex, nofollow", "armamentCanvasCount": 0, "armamentPrivateNavLinks": 0, "rootToHome": true, "rl300ToQuietMachinePreservesOtherQueryAndHash": true },
   "diffWhitespaceCheck": { "exit": 0 },
-  "isolatedCommitTree": { "status": "pending; recorded in final commit-tree verification evidence" },
+  "isolatedCommitTree": { "status": "passed", "commit": "ac3cade5af3c1ec1f1e38af1f28dcd8b02052812", "typecheckExit": 0, "pureNodeTests": 36, "pureNodeFailed": 0, "pureNodeExit": 0, "dirtyPaths": [], "dependencyMethod": "node_modules junction to previously clean-installed cleanup dependency tree; identical package and lock hashes; no dependency changes" },
   "sharedImportClosureChanged": false,
   "remotionValidation": "not required: no shared imported code or Remotion sources changed",
   "push": false,

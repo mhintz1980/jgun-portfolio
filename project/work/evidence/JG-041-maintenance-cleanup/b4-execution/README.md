@@ -29,7 +29,9 @@ No production page module, shared rig/RL300/inspection/drawing module, shader, a
 - Migrated fallback script: esbuild bundle with CSS empty/packages external, then Node; 19/19 pass. Both edited verifier scripts pass `node --check`; all 44 literal shaft-verifier paths resolve.
 - Production build: exit 0 before and after the second subset; standard >500 kB chunk warnings remain. Tailwind removed unused utility rules, so the shared CSS hash changed; this is why the built-page smoke is repeated on the final build.
 - First-subset focused public smoke: 9/9 cases pass (desktop/narrow/reduced-motion × home/torque-wrench/quiet-machine), zero fatal or HTTP errors, navigation exercised. Armament browser check passes: noindex,nofollow, no canvas, no private navigation link. Root and RL300 query redirects pass, including retained query/hash.
-- Final-build smoke, exact commit-tree verification, reviewer disposition and final preservation checks are recorded in [validation.json](validation.json) when completed. These are not inferred from the earlier build.
+- Final-build smoke: 9/9 pass again with zero fatal/HTTP errors and working navigation. Final armament privacy and both root redirects pass again. Asset gate: five HTML entries, no missing linked assets, no hashed Draco duplicates and M249 excluded.
+- Exact `ac3cade5af3c1ec1f1e38af1f28dcd8b02052812` commit tree checked in a second detached checkout: root typecheck exit 0 and all five Node suites / 36 tests pass, clean status. The dependency junction points to the earlier clean-installed cleanup dependency tree with identical package/lock hashes; no dependencies changed. [validation.json](validation.json) records these results. This final follow-up changes evidence only; its exact tree is also checked before delivery.
+- [Independent review](independent-review.md): first subset approved; expanded subset otherwise approvable with one exact source-line attribution correction, which the parent confirmed and fixed. No fallback-coverage or deletion-closure flaw found.
 
 Only a cleanup-owned preview on port 5286 and cleanup-owned output prefixes are used. Preview is restarted after each rebuild. Browser checks wait for scene readiness before sampling. The original shared dist, existing port 4173 services and other owners' files are untouched.
 
@@ -40,6 +42,8 @@ Recover a removed source with `git show 2c74315005d83caf6d381a77c5829521f729ac9c
 B4 is partially executed, not fully complete. CinematicRigRoute/ProductStage/CameraSplineStudio/rigRequest and the old manifest/replay spec remain reserved to preserve unique sandbox assertions pending their own retirement decision/mapping. BootSequence/Hotspots/TechnicalHUD and the legacy components exercised by retained tests remain. Older verifier campaigns, station/mechanical code and output directories are not mass-deleted. Each later subset needs its own relevant consumer closure; unrelated unresolved imports do not block an otherwise closed subset.
 
 Initial planning evidence remains in the original shared checkout at `project/work/evidence/JG-041-maintenance-cleanup/b4-retention/` as a dated snapshot; it is not rewritten to pretend the earlier all-KEEP state was a deletion approval. This execution record supersedes that checkpoint only for the seven explicit manifest paths under Mark's subsequent instruction.
+
+Preservation recheck: original shared HEAD/remote remain `2c743150`, tracked/staged diffs are empty there. All active-owner files remain in place. During this execution the showcase owner changed its own plan, MP4/WebM and assembly/verification scripts; those changed hashes are concurrency, not cleanup edits. No creative source/media was copied into or staged from the shared checkout. The deletion worktree contains only owned cleanup changes and remains separate pending any later integration instruction.
 
 ## Delegation
 
