@@ -2,6 +2,7 @@ import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import type { CenterpieceShape } from './types'
+import type { BumperFrameState } from './bumperTimeline'
 import {
   buildHexInlayGeometry,
   buildHexPlateGeometry,
@@ -27,6 +28,7 @@ interface StudioMarkCenterpieceProps {
   ior?: number
   chromaticAberration?: number
   glowColor?: string
+  bumperState?: BumperFrameState | null
 }
 
 /**
@@ -260,10 +262,12 @@ function useSMConcepts(
         clearcoat: 1.0,
       }),
       neon: new THREE.MeshStandardMaterial({
-        color: '#ffaa44',
-        emissive: new THREE.Color('#ff9d2e').lerp(accent, 0.25),
-        emissiveIntensity: 4.2,
-        toneMapped: false,
+        color: '#e09f52',
+        emissive: new THREE.Color('#d98c36').lerp(accent, 0.3),
+        emissiveIntensity: 1.25,
+        roughness: 0.2,
+        metalness: 0.35,
+        toneMapped: true,
       }),
     }
   }, [ior, roughness, transmission, thickness, chromaticAberration, glowColor])
@@ -296,6 +300,7 @@ export function StudioMarkCenterpiece({
   ior = 1.52,
   chromaticAberration = 0.05,
   glowColor = '#d2c4a3',
+  bumperState = null,
 }: StudioMarkCenterpieceProps) {
   const meshRef = useRef<THREE.Group>(null!)
   const innerGyroRef = useRef<THREE.Mesh>(null!)
@@ -331,6 +336,18 @@ export function StudioMarkCenterpiece({
   useFrame((state, dt) => {
     if (!meshRef.current) return
 
+    if (bumperState) {
+      const [rx, ry, rz] = bumperState.monogramRotation
+      meshRef.current.rotation.set(rx, ry, rz)
+      meshRef.current.position.y = bumperState.monogramPositionY
+      meshRef.current.scale.setScalar(bumperState.monogramScale)
+      mat.neon.emissiveIntensity = bumperState.neonIntensity
+      return
+    }
+
+    meshRef.current.scale.setScalar(1.0)
+    mat.neon.emissiveIntensity = 1.25
+
     const t = state.clock.elapsedTime
     const isMonogram = MONOGRAM_SHAPES.has(shape)
 
@@ -355,8 +372,8 @@ export function StudioMarkCenterpiece({
       }
     }
 
-    // Subtle gentle float bobbing
-    meshRef.current.position.y = 1.95 + Math.sin(t * 1.2) * 0.05
+    // Hover close to the wet street puddle (y = 1.24) so its reflection fills the foreground water
+    meshRef.current.position.y = 1.24 + Math.sin(t * 1.2) * 0.04
 
     // Differential spin for gyroscope inner ring
     if (innerGyroRef.current && spin) {
@@ -371,7 +388,7 @@ export function StudioMarkCenterpiece({
   })
 
   return (
-    <group ref={meshRef} position={[0, 1.95, 0]}>
+    <group ref={meshRef} position={[0, 1.24, 0]}>
       {/* CONCEPT 1: Continuous Mobius Ribbon + Sculptural SM Core */}
       {shape === 'sm-mobius' && (
         <group>

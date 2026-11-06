@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import type { CenterpieceShape, LogoConfig } from './types'
 import { THEME_PRESETS } from './types'
+import type { BumperMode } from './bumperTimeline'
 
 interface InspectorUIProps {
   config: LogoConfig
+  bumperMode?: BumperMode
   onChange: (updater: (prev: LogoConfig) => LogoConfig) => void
+  onSelectBumperMode?: (mode: BumperMode) => void
   onTriggerLightning: () => void
   onToggleAudio: () => void
   onCameraPreset: (preset: 'front' | 'water' | 'high' | 'reset') => void
@@ -12,7 +15,9 @@ interface InspectorUIProps {
 
 export function InspectorUI({
   config,
+  bumperMode = 'interactive',
   onChange,
+  onSelectBumperMode,
   onTriggerLightning,
   onToggleAudio,
   onCameraPreset,
@@ -94,7 +99,85 @@ export function InspectorUI({
         </div>
 
         {/* Top Right Quick Actions */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+          {/* Bumper 01: Storm Ignition */}
+          {onSelectBumperMode && (
+            <>
+              <button
+                onClick={() =>
+                  onSelectBumperMode(
+                    bumperMode === 'storm-ignition' ? 'interactive' : 'storm-ignition',
+                  )
+                }
+                title="Play Bumper 01: Storm Ignition (4.5s)"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  padding: '0.4rem 0.7rem',
+                  borderRadius: '6px',
+                  fontSize: '0.66rem',
+                  letterSpacing: '0.08em',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  cursor: 'pointer',
+                  backgroundColor:
+                    bumperMode === 'storm-ignition'
+                      ? 'rgba(210, 196, 163, 0.24)'
+                      : 'rgba(15, 23, 42, 0.78)',
+                  color: bumperMode === 'storm-ignition' ? config.glowColor : '#e2e8f0',
+                  border: `1px solid ${
+                    bumperMode === 'storm-ignition'
+                      ? config.glowColor
+                      : 'rgba(255, 255, 255, 0.14)'
+                  }`,
+                  backdropFilter: 'blur(12px)',
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                <span>🎬</span>
+                <span>Bumper 1: Storm Ignition</span>
+              </button>
+
+              {/* Bumper 04: Low Puddle Crane-Up */}
+              <button
+                onClick={() =>
+                  onSelectBumperMode(
+                    bumperMode === 'puddle-crane' ? 'interactive' : 'puddle-crane',
+                  )
+                }
+                title="Play Bumper 04: Low Puddle Crane-Up (5.0s)"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  padding: '0.4rem 0.7rem',
+                  borderRadius: '6px',
+                  fontSize: '0.66rem',
+                  letterSpacing: '0.08em',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  cursor: 'pointer',
+                  backgroundColor:
+                    bumperMode === 'puddle-crane'
+                      ? 'rgba(56, 232, 255, 0.22)'
+                      : 'rgba(15, 23, 42, 0.78)',
+                  color: bumperMode === 'puddle-crane' ? '#38e8ff' : '#e2e8f0',
+                  border: `1px solid ${
+                    bumperMode === 'puddle-crane'
+                      ? '#38e8ff'
+                      : 'rgba(255, 255, 255, 0.14)'
+                  }`,
+                  backdropFilter: 'blur(12px)',
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                <span>🎥</span>
+                <span>Bumper 4: Puddle Crane</span>
+              </button>
+            </>
+          )}
+
           {/* Audio Toggle */}
           <button
             onClick={onToggleAudio}

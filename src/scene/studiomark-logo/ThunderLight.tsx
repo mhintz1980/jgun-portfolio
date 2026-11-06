@@ -10,6 +10,7 @@ interface ThunderLightProps {
   autoLightning?: boolean
   frequency?: number // average seconds between strikes
   onThunderSound?: () => void
+  overrideIntensity?: number | null
 }
 
 /**
@@ -19,7 +20,7 @@ interface ThunderLightProps {
  * that light the entire scene, models, atmosphere, and rain drops uniformly.
  */
 export const ThunderLight = forwardRef<ThunderLightHandle, ThunderLightProps>(
-  ({ autoLightning = true, frequency = 14, onThunderSound }, ref) => {
+  ({ autoLightning = true, frequency = 14, onThunderSound, overrideIntensity = null }, ref) => {
     const dirLightRef = useRef<THREE.DirectionalLight>(null!)
     const hemiLightRef = useRef<THREE.HemisphereLight>(null!)
     const ambientLightRef = useRef<THREE.AmbientLight>(null!)
@@ -44,6 +45,19 @@ export const ThunderLight = forwardRef<ThunderLightHandle, ThunderLightProps>(
 
     // Auto lightning scheduler
     useFrame((_, dt) => {
+      if (overrideIntensity != null) {
+        if (dirLightRef.current) {
+          dirLightRef.current.intensity = overrideIntensity * 4.5
+        }
+        if (hemiLightRef.current) {
+          hemiLightRef.current.intensity = overrideIntensity * 1.5
+        }
+        if (ambientLightRef.current) {
+          ambientLightRef.current.intensity = overrideIntensity * 0.45
+        }
+        return
+      }
+
       if (autoLightning) {
         nextStrikeTimer.current -= dt
         if (nextStrikeTimer.current <= 0) {

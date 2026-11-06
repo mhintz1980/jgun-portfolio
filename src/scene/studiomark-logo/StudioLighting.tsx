@@ -38,63 +38,64 @@ export function StudioLighting({
 
       {/* Dedicated Front Monogram Grazing Point Light for Gold Trim & Glass Facets */}
       <pointLight
-        position={[0, 2.3, 2.4]}
+        position={[0, 1.45, 2.4]}
         color={glowColor}
-        intensity={2.2}
+        intensity={2.0}
         distance={6.5}
         decay={2}
       />
 
-      {/* Drei Studio Environment with Custom Specular Lightformers */}
-      <Environment resolution={256}>
+      {/* Drei Studio Environment combining Faraz's Shanghai Bund Night HDRI with Specular Lightformers */}
+      <Environment resolution={256} environmentIntensity={0.85}>
+        <Environment files="/textures/studiomark-road/shanghai_bund_2k.hdr" />
         {/* Front-Upper Softbox Strip (lights front bevels of titanium, gold & ceramic) */}
         <Lightformer
           form="rect"
-          intensity={3.2}
+          intensity={3.0}
           color="#fffaf0"
           scale={[7, 2.2]}
-          target={[0, 1.95, 0]}
-          position={[0, 4.8, 5.5]}
+          target={[0, 1.24, 0]}
+          position={[0, 4.2, 5.5]}
         />
 
         {/* Front-Lower Grazing Strip (catches bottom gold chamfers & M chevrons) */}
         <Lightformer
           form="rect"
-          intensity={1.8}
+          intensity={1.6}
           color={glowColor}
           scale={[6, 1.2]}
-          target={[0, 1.95, 0]}
-          position={[0, 0.6, 4.8]}
+          target={[0, 1.24, 0]}
+          position={[0, 0.5, 4.8]}
         />
 
-        {/* High-Angle Rear Rim Softbox (angled down, avoided from direct floor glare) */}
+        {/* High-Angle Rear Rim Softbox (angled down, reflects in wet street puddle) */}
         <Lightformer
           form="rect"
-          intensity={2.8}
+          intensity={2.6}
           color={glowColor}
           scale={[8, 2.5]}
-          target={[0, 1.95, 0]}
-          position={[0, 7.5, -6]}
+          target={[0, 1.24, 0]}
+          position={[0, 6.5, -6]}
         />
 
         {/* Crisp Left Rim Lightformer for Facet Edges */}
         <Lightformer
           form="rect"
-          intensity={3.4}
+          intensity={3.2}
           color="#f0f6ff"
           scale={[6, 3.5]}
-          target={[0, 1.95, 0]}
-          position={[-6, 3, 1.5]}
+          target={[0, 1.24, 0]}
+          position={[-6, 2.4, 1.5]}
         />
 
         {/* Crisp Right Rim Lightformer for Facet Edges */}
         <Lightformer
           form="rect"
-          intensity={3.4}
+          intensity={3.2}
           color={glowColor}
           scale={[6, 3.5]}
-          target={[0, 1.95, 0]}
-          position={[6, 3, 1.5]}
+          target={[0, 1.24, 0]}
+          position={[6, 2.4, 1.5]}
         />
 
         {/* Overhead Rain Streak Specular Ring */}

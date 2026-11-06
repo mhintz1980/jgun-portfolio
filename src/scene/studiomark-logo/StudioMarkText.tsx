@@ -8,6 +8,8 @@ interface StudioMarkTextProps {
   subtitle?: string
   glowColor?: string
   emissiveIntensity?: number
+  emissiveScale?: number
+  simTime?: number | null
 }
 
 export function StudioMarkText({
@@ -15,6 +17,8 @@ export function StudioMarkText({
   subtitle = 'PRECISION CAD × CREATIVE COMPUTING',
   glowColor = '#d2c4a3',
   emissiveIntensity = 4.5,
+  emissiveScale = 1.0,
+  simTime = null,
 }: StudioMarkTextProps) {
   const groupRef = useRef<THREE.Group>(null!)
   const pointLightRef = useRef<THREE.PointLight>(null!)
@@ -22,28 +26,33 @@ export function StudioMarkText({
   const colorObj = useMemo(() => new THREE.Color(glowColor), [glowColor])
 
   const emissiveMaterial = useMemo(() => {
+    // Architectural satin finish with restrained emissive so bevels stay razor-sharp
+    // (never blowing out into a glowing blob, matching the crisp look of Act I)
     return new THREE.MeshStandardMaterial({
-      color: colorObj,
+      color: new THREE.Color('#e8dfd1').lerp(colorObj, 0.35),
       emissive: colorObj,
-      emissiveIntensity: emissiveIntensity * 1.5,
-      roughness: 0.2,
-      metalness: 0.1,
+      emissiveIntensity: Math.min(0.42, emissiveIntensity * 0.085),
+      roughness: 0.22,
+      metalness: 0.16,
     })
   }, [colorObj, emissiveIntensity])
 
   useFrame((state) => {
     if (!groupRef.current) return
-    // Very subtle idle breathe
-    const breathe = Math.sin(state.clock.elapsedTime * 1.5) * 0.03
-    groupRef.current.position.y = 1.95 + breathe
+    const t = simTime ?? state.clock.elapsedTime
+    // Very subtle idle breathe, positioned at y = 1.24 so its reflection fills the foreground puddle
+    const breathe = Math.sin(t * 1.5) * 0.02
+    groupRef.current.position.y = 1.24 + breathe
+
+    emissiveMaterial.emissiveIntensity = Math.min(0.45, emissiveIntensity * 0.085) * emissiveScale
 
     if (pointLightRef.current) {
-      pointLightRef.current.intensity = emissiveIntensity * (1.2 + breathe * 2)
+      pointLightRef.current.intensity = (1.6 + breathe * 1.5) * emissiveScale
     }
   })
 
   return (
-    <group ref={groupRef} position={[0, 1.95, -1.85]}>
+    <group ref={groupRef} position={[0, 1.24, -1.85]}>
       {/* Dynamic point light casting text glow on raindrops and floor */}
       <pointLight
         ref={pointLightRef}

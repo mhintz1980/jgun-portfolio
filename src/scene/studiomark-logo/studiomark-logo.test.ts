@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { DEFAULT_LOGO_CONFIG, THEME_PRESETS } from './types'
 import { ProceduralStormAudio } from './audio'
+import { BUMPER_SPECS, evaluateBumperState } from './bumperTimeline'
 import * as THREE from 'three'
 
 describe('StudioMark 3D Logo Configuration & Theme Presets', () => {
@@ -80,4 +81,61 @@ describe('CAD Procedural Geometries', () => {
     geom.dispose()
   })
 })
+
+describe('Deterministic Bumper Timeline Choreography', () => {
+  it('evaluates Bumper 01 (storm-ignition) deterministically across Acts I-III', () => {
+    expect(BUMPER_SPECS['storm-ignition'].durationSec).toBe(4.5)
+    expect(BUMPER_SPECS['storm-ignition'].totalFrames).toBe(270)
+
+    const start = evaluateBumperState('storm-ignition', 0)
+    const interStroke = evaluateBumperState('storm-ignition', 1.2)
+    const strikePeak = evaluateBumperState('storm-ignition', 1.25)
+    const surge = evaluateBumperState('storm-ignition', 1.65)
+    const lockup = evaluateBumperState('storm-ignition', 4.2)
+
+    // Act I starts close with crisp warm filaments, sharp STUDIOMARK text, and cinema black fade-in
+    expect(start.neonIntensity).toBeCloseTo(0.85, 2)
+    expect(start.textEmissiveScale).toBe(1.0)
+    expect(start.fadeBlackOpacity).toBeCloseTo(1.0, 2)
+    expect(start.hudOpacity).toBe(0)
+
+    // Act II triggers realistic double-pulse lightning (brief inter-stroke dim at +0.05s, peak at +0.10s) and controlled filament surge
+    expect(interStroke.lightningIntensity).toBeCloseTo(0.12, 2)
+    expect(strikePeak.lightningIntensity).toBeGreaterThan(0.85)
+    expect(surge.neonIntensity).toBeGreaterThan(2.2)
+
+    // Act III settles into puddle-reflection hero lockup with constant sharp textEmissiveScale
+    expect(lockup.fadeBlackOpacity).toBe(0)
+    expect(lockup.hudOpacity).toBeCloseTo(1.0, 2)
+    expect(lockup.textEmissiveScale).toBe(1.0)
+    expect(lockup.cameraPosition[1]).toBeCloseTo(1.02, 1)
+    expect(lockup.cameraPosition[2]).toBeCloseTo(5.25, 2)
+    expect(lockup.cameraTarget[1]).toBeCloseTo(0.56, 2)
+    expect(Math.abs(lockup.monogramRotation[1])).toBeLessThan(0.06)
+  })
+
+  it('evaluates Bumper 04 (puddle-crane) from low water-level mirror gaze to hero lockup', () => {
+    expect(BUMPER_SPECS['puddle-crane'].durationSec).toBe(5.0)
+    expect(BUMPER_SPECS['puddle-crane'].totalFrames).toBe(300)
+
+    const puddleGaze = evaluateBumperState('puddle-crane', 0.3)
+    const midCrane = evaluateBumperState('puddle-crane', 2.25)
+    const heroLock = evaluateBumperState('puddle-crane', 4.6)
+
+    // Starts low above the puddle surface looking down at the reflection
+    expect(puddleGaze.cameraPosition[1]).toBeLessThan(0.45)
+    expect(puddleGaze.cameraTarget[1]).toBeLessThan(0.35)
+    expect(puddleGaze.puddleReflectivity).toBeGreaterThan(0.9)
+
+    // Mid-crane ascent has active lightning silhouette
+    expect(midCrane.lightningIntensity).toBeGreaterThan(0.85)
+    expect(midCrane.cameraPosition[1]).toBeGreaterThan(puddleGaze.cameraPosition[1])
+
+    // Hero lockup reaches reflection-balanced framing with HUD signature
+    expect(heroLock.cameraPosition[1]).toBeCloseTo(1.02, 2)
+    expect(heroLock.cameraTarget[1]).toBeCloseTo(0.56, 2)
+    expect(heroLock.hudOpacity).toBeCloseTo(1.0, 2)
+  })
+})
+
 

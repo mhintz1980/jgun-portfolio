@@ -169,6 +169,99 @@ export class ProceduralStormAudio {
     return this.isRunning
   }
 
+  /**
+   * Play synchronized procedural cinema sound design for Bumper #1 or Bumper #4.
+   * Synthesizes sub-bass impact, electrical neon arc surge, and crystalline glass lockup chord.
+   */
+  public playBumperCue(mode: 'storm-ignition' | 'puddle-crane') {
+    try {
+      const ctx = this.initContext()
+      if (!this.isRunning) {
+        this.startRain()
+      }
+      const now = ctx.currentTime
+
+      // Helper: schedule a sub-bass drop + electric arc at offsetSec
+      const scheduleArcAndSubDrop = (offsetSec: number, intensity = 1.0) => {
+        const t0 = now + offsetSec
+        // Sub-bass sine drop (62Hz -> 24Hz)
+        const sub = ctx.createOscillator()
+        sub.type = 'sine'
+        sub.frequency.setValueAtTime(62, t0)
+        sub.frequency.exponentialRampToValueAtTime(24, t0 + 1.45)
+
+        const subGain = ctx.createGain()
+        subGain.gain.setValueAtTime(0.001, t0)
+        subGain.gain.linearRampToValueAtTime(0.65 * intensity, t0 + 0.05)
+        subGain.gain.exponentialRampToValueAtTime(0.001, t0 + 1.6)
+
+        // Warm sawtooth electric transformer hum (110Hz -> 55Hz)
+        const hum = ctx.createOscillator()
+        hum.type = 'sawtooth'
+        hum.frequency.setValueAtTime(110, t0)
+        hum.frequency.exponentialRampToValueAtTime(55, t0 + 0.65)
+
+        const humFilter = ctx.createBiquadFilter()
+        humFilter.type = 'bandpass'
+        humFilter.frequency.setValueAtTime(260, t0)
+        humFilter.Q.setValueAtTime(2.5, t0)
+
+        const humGain = ctx.createGain()
+        humGain.gain.setValueAtTime(0.001, t0)
+        humGain.gain.linearRampToValueAtTime(0.18 * intensity, t0 + 0.04)
+        humGain.gain.exponentialRampToValueAtTime(0.001, t0 + 0.7)
+
+        sub.connect(subGain)
+        subGain.connect(this.masterGain!)
+        hum.connect(humFilter)
+        humFilter.connect(humGain)
+        humGain.connect(this.masterGain!)
+
+        sub.start(t0)
+        hum.start(t0)
+        sub.stop(t0 + 1.65)
+        hum.stop(t0 + 0.75)
+      }
+
+      // Helper: schedule crystalline harmonic lockup chime (D9sus4 glass resonance)
+      const scheduleLockupChime = (offsetSec: number) => {
+        const freqs = [293.66, 440.0, 587.33, 659.25, 880.0]
+        freqs.forEach((f, idx) => {
+          const t0 = now + offsetSec + idx * 0.035
+          const osc = ctx.createOscillator()
+          osc.type = 'sine'
+          osc.frequency.setValueAtTime(f, t0)
+
+          const g = ctx.createGain()
+          g.gain.setValueAtTime(0.001, t0)
+          g.gain.linearRampToValueAtTime(0.09 / (1 + idx * 0.25), t0 + 0.06)
+          g.gain.exponentialRampToValueAtTime(0.0008, t0 + 2.1)
+
+          osc.connect(g)
+          g.connect(this.masterGain!)
+          osc.start(t0)
+          osc.stop(t0 + 2.15)
+        })
+      }
+
+      if (mode === 'storm-ignition') {
+        // Strike 1 + Neon ignition at 1.15s, secondary surge at 1.55s, lockup chime at 2.85s
+        setTimeout(() => this.triggerThunder(1.0), 1150)
+        scheduleArcAndSubDrop(1.15, 1.0)
+        scheduleArcAndSubDrop(1.52, 0.7)
+        scheduleLockupChime(2.85)
+      } else {
+        // Puddle ripple thunder at 0.45s, mid-crane strike at 2.15s, lockup chime at 3.25s
+        setTimeout(() => this.triggerThunder(0.65), 450)
+        setTimeout(() => this.triggerThunder(1.0), 2150)
+        scheduleArcAndSubDrop(2.15, 0.9)
+        scheduleLockupChime(3.25)
+      }
+    } catch {
+      // Ignore if AudioContext is blocked
+    }
+  }
+
   public dispose() {
     this.stopRain()
     if (this.ctx && this.ctx.state !== 'closed') {

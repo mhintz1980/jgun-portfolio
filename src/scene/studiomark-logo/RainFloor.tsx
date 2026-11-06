@@ -1,29 +1,37 @@
-import { useMemo, useRef } from 'react'
+import { useLayoutEffect, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { MeshReflectorMaterial } from '@react-three/drei'
+import { MeshReflectorMaterial, useTexture } from '@react-three/drei'
 import * as THREE from 'three'
 
 interface RainFloorProps {
   rippleStrength?: number
   puddleReflectivity?: number
   rainEnabled?: boolean
+  simTime?: number | null
 }
 
 /**
- * Procedural GPU Ripple Normal Map Generator.
- * Directly implements Faraz Shaikh's analytic concentric ripple normal equation
- * (demo-2023-rain-puddle), rendered to an offscreen WebGLRenderTarget at 60 FPS.
- *
- * Real-time reactive: uIntensity uniform tracks rippleStrength dynamically
- * without re-allocating render targets or recompiling shaders.
+ * Procedural GPU Puddle + Asphalt Normal Map Generator.
+ * Combines Faraz Shaikh's analytic concentric ripple normal equation
+ * and FBM puddle mask (`demo-2023-rain-puddle`) with the real 2K photogrammetry
+ * asphalt normal map (`aerial_asphalt_01_nor_gl_2k.jpg`), rendered to an offscreen
+ * WebGLRenderTarget at 60 FPS:
+ * - Inside puddles (puddleMask -> 1): dead-flat water surface perturbed by concentric raindrop ripples.
+ * - Outside puddles (puddleMask -> 0): tactile wet street asphalt normal map.
  */
-function useRippleTexture(rainEnabled = true, rippleStrength = 0.35) {
+function usePuddleNormalTexture(
+  asphaltNormalTex: THREE.Texture,
+  puddleRoughnessTex: THREE.Texture,
+  rainEnabled = true,
+  rippleStrength = 0.35,
+  simTime: number | null = null,
+) {
   const { renderTarget, rippleScene, rippleCamera, material } = useMemo(() => {
     const target = new THREE.WebGLRenderTarget(512, 512, {
       minFilter: THREE.LinearFilter,
       magFilter: THREE.LinearFilter,
       format: THREE.RGBAFormat,
-      type: THREE.HalfFloatType,
+      type: THREE.UnsignedByteType,
       wrapS: THREE.RepeatWrapping,
       wrapT: THREE.RepeatWrapping,
     })
@@ -35,6 +43,8 @@ function useRippleTexture(rainEnabled = true, rippleStrength = 0.35) {
       uniforms: {
         uTime: { value: 0 },
         uIntensity: { value: rippleStrength },
+        uAsphaltNormal: { value: asphaltNormalTex },
+        uPuddleRoughness: { value: puddleRoughnessTex },
       },
       vertexShader: /* glsl */ `
         varying vec2 vUv;
@@ -46,6 +56,8 @@ function useRippleTexture(rainEnabled = true, rippleStrength = 0.35) {
       fragmentShader: /* glsl */ `
         uniform float uTime;
         uniform float uIntensity;
+        uniform sampler2D uAsphaltNormal;
+        uniform sampler2D uPuddleRoughness;
         varying vec2 vUv;
 
         #define MAX_RADIUS 1
@@ -64,7 +76,7 @@ function useRippleTexture(rainEnabled = true, rippleStrength = 0.35) {
           return fract((p3.xx + p3.yz) * p3.zy);
         }
 
-        // Faraz Shaikh analytic ripple normal equation
+        // Faraz Shaikh analytic ripple normal equation (demo-2023-rain-puddle)
         vec3 getRipples(vec2 uv, float time) {
           vec2 p0 = floor(uv);
           vec2 circles = vec2(0.);
@@ -75,15 +87,15 @@ function useRippleTexture(rainEnabled = true, rippleStrength = 0.35) {
               vec2 hsh = pi;
               vec2 p = pi + hash22(hsh);
 
-              float t = fract(0.35 * time + hash12(hsh));
+              float t = fract(0.32 * time + hash12(hsh));
               vec2 v = p - uv;
               float d = length(v) - 2.0 * t;
 
               float h = 1e-3;
               float d1 = d - h;
               float d2 = d + h;
-              float p1 = sin(31.0 * d1) * smoothstep(-0.6, -0.25, d1) * smoothstep(0.0, -0.25, d1);
-              float p2 = sin(31.0 * d2) * smoothstep(-0.6, -0.25, d2) * smoothstep(0.0, -0.25, d2);
+              float p1 = sin(31.0 * d1) * smoothstep(-0.6, -0.3, d1) * smoothstep(0.0, -0.3, d1);
+              float p2 = sin(31.0 * d2) * smoothstep(-0.6, -0.3, d2) * smoothstep(0.0, -0.3, d2);
               circles += 0.5 * normalize(v) * ((p2 - p1) / (2.0 * h) * (1.0 - t) * (1.0 - t));
             }
           }
@@ -92,11 +104,22 @@ function useRippleTexture(rainEnabled = true, rippleStrength = 0.35) {
         }
 
         void main() {
-          vec3 ripples = getRipples(vUv * 26.0, uTime);
-          vec2 slope = ripples.xy * uIntensity * 1.6;
-          vec3 n = normalize(vec3(-slope.x, -slope.y, 1.0));
-          // Encode tangent space normal to 0..1 RGB
-          gl_FragColor = vec4(n * 0.5 + 0.5, 1.0);
+          // Derive puddleMask directly from pre-baked puddleRoughnessMap (roughness ~ 0.015 inside puddles)
+          float roughSample = texture2D(uPuddleRoughness, vUv).r;
+          float puddleMask = 1.0 - smoothstep(0.04, 0.35, roughSample);
+
+          // Sample real 2K asphalt normal (tiled 3x3)
+          vec3 roadN = texture2D(uAsphaltNormal, vUv * 3.0).xyz * 2.0 - 1.0;
+          roadN = normalize(vec3(roadN.xy * 1.15, roadN.z));
+
+          // Compute analytic water ripples
+          vec3 ripples = getRipples(vUv * 34.0, uTime);
+          vec2 slope = ripples.xy * uIntensity * 0.85;
+          vec3 waterN = normalize(vec3(-slope.x, -slope.y, 1.0));
+
+          // Blend between rough street asphalt normal and flat rippling puddle water normal
+          vec3 finalN = normalize(mix(roadN, waterN, puddleMask));
+          gl_FragColor = vec4(finalN * 0.5 + 0.5, 1.0);
         }
       `,
     })
@@ -105,12 +128,21 @@ function useRippleTexture(rainEnabled = true, rippleStrength = 0.35) {
     scene.add(quad)
 
     return { renderTarget: target, rippleScene: scene, rippleCamera: camera, material: mat }
-  }, []) // stable singleton setup
+  }, [asphaltNormalTex, puddleRoughnessTex])
 
   useFrame(({ gl }, dt) => {
-    if (!rainEnabled) return
-    material.uniforms.uTime.value += dt * 1.5
-    material.uniforms.uIntensity.value = rippleStrength
+    material.uniforms.uAsphaltNormal.value = asphaltNormalTex
+    material.uniforms.uPuddleRoughness.value = puddleRoughnessTex
+    if (rainEnabled) {
+      if (simTime != null) {
+        material.uniforms.uTime.value = simTime * 1.65
+      } else {
+        material.uniforms.uTime.value += dt * 1.65
+      }
+      material.uniforms.uIntensity.value = rippleStrength
+    } else {
+      material.uniforms.uIntensity.value = 0.0
+    }
 
     const currentTarget = gl.getRenderTarget()
     gl.setRenderTarget(renderTarget)
@@ -122,13 +154,11 @@ function useRippleTexture(rainEnabled = true, rippleStrength = 0.35) {
 }
 
 /**
- * Procedural Puddle Mask & Roughness Texture.
- * Creates organic wet depression pools across the asphalt floor:
- * - Ultra-slick mirror puddle pools in the center (roughness ~0.02)
- * - Meandering puddle pools expanding outward
- * - Surrounding dark textured asphalt (roughness ~0.85)
+ * Procedural Puddle Roughness Map that carves glassy mirror pools (roughness ~ 0.01)
+ * into the surrounding wet textured asphalt street (roughness ~ 0.35 - 0.72),
+ * matching the exact FBM puddle mask in `usePuddleNormalTexture`.
  */
-function usePuddleMaskTexture() {
+function usePuddleRoughnessTexture() {
   return useMemo(() => {
     const size = 512
     const canvas = document.createElement('canvas')
@@ -136,79 +166,72 @@ function usePuddleMaskTexture() {
     canvas.height = size
     const ctx = canvas.getContext('2d')!
 
-    // Base asphalt fill
-    ctx.fillStyle = '#b8b8b8'
-    ctx.fillRect(0, 0, size, size)
-
-    const imgData = ctx.getImageData(0, 0, size, size)
+    const imgData = ctx.createImageData(size, size)
     const data = imgData.data
 
-    const seed = 37.19
-    function hash(x: number, y: number) {
-      const n = Math.sin(x * 12.9898 + y * 78.233 + seed) * 43758.5453
-      return n - Math.floor(n)
+    function hash12(x: number, y: number) {
+      let p3x = ((x * 0.1031) % 1 + 1) % 1
+      let p3y = ((y * 0.1031) % 1 + 1) % 1
+      let p3z = ((x * 0.1031) % 1 + 1) % 1
+      const dot = p3x * (p3y + 19.19) + p3y * (p3z + 19.19) + p3z * (p3x + 19.19)
+      p3x += dot
+      p3y += dot
+      p3z += dot
+      const v = (p3x + p3y) * p3z
+      return v - Math.floor(v)
     }
 
     function smoothNoise(x: number, y: number) {
-      const i = Math.floor(x)
-      const j = Math.floor(y)
-      const fx = x - i
-      const fy = y - j
-      const sx = fx * fx * (3 - 2 * fx)
-      const sy = fy * fy * (3 - 2 * fy)
-
-      const s00 = hash(i, j)
-      const s10 = hash(i + 1, j)
-      const s01 = hash(i, j + 1)
-      const s11 = hash(i + 1, j + 1)
-
-      const nx0 = s00 * (1 - sx) + s10 * sx
-      const nx1 = s01 * (1 - sx) + s11 * sx
-      return nx0 * (1 - sy) + nx1 * sy
+      const ix = Math.floor(x)
+      const iy = Math.floor(y)
+      const fx = x - ix
+      const fy = y - iy
+      const ux = fx * fx * (3 - 2 * fx)
+      const uy = fy * fy * (3 - 2 * fy)
+      const a = hash12(ix, iy)
+      const b = hash12(ix + 1, iy)
+      const c = hash12(ix, iy + 1)
+      const d = hash12(ix + 1, iy + 1)
+      return a + (b - a) * ux + (c - a) * uy + (a - b - c + d) * ux * uy
     }
 
     function fbm(x: number, y: number) {
       let v = 0
-      v += 0.50 * smoothNoise(x * 0.012, y * 0.012)
-      v += 0.28 * smoothNoise(x * 0.024, y * 0.024)
-      v += 0.14 * smoothNoise(x * 0.048, y * 0.048)
-      v += 0.08 * smoothNoise(x * 0.096, y * 0.096)
+      v += 0.50 * smoothNoise(x * 1.0, y * 1.0)
+      v += 0.28 * smoothNoise(x * 2.1, y * 2.1)
+      v += 0.14 * smoothNoise(x * 4.3, y * 4.3)
+      v += 0.08 * smoothNoise(x * 8.7, y * 8.7)
       return v
     }
 
-    const cx = size / 2
-    const cy = size / 2
+    function smoothstep(e0: number, e1: number, x: number) {
+      const t = Math.max(0, Math.min(1, (x - e0) / (e1 - e0)))
+      return t * t * (3 - 2 * t)
+    }
 
     for (let y = 0; y < size; y++) {
       for (let x = 0; x < size; x++) {
-        const dx = (x - cx) / (size * 0.44)
-        const dy = (y - cy) / (size * 0.44)
-        const dist = Math.sqrt(dx * dx + dy * dy)
+        const u = x / size
+        const v = 1.0 - y / size
+        const cx = (u - 0.5) * 2.0 * 0.85
+        const cy = (v - 0.5) * 2.0 * 0.75
+        const radialDist = Math.sqrt(cx * cx + cy * cy)
 
-        const noiseVal = fbm(x, y)
-        // Pool accumulates primarily in center studio zone
-        const puddleVal = noiseVal * 1.35 - dist * 0.58
+        const nVal = fbm(u * 5.5 + 3.1, v * 5.5 + 1.7)
+        const centerPool = smoothstep(0.95, 0.25, radialDist)
+        const puddleScore = nVal * 0.85 + centerPool * 0.65
+        const puddleMask = smoothstep(0.42, 0.62, puddleScore)
 
-        // Asphalt fine grain noise (adds tactile roughness to dry areas)
-        const grain = (hash(x * 2.1, y * 2.1) - 0.5) * 22
-
-        let roughness: number
-        if (puddleVal > 0.44) {
-          // Deep glassy puddle mirror pool
-          roughness = 8
-        } else if (puddleVal > 0.32) {
-          // Wet transition fringe
-          const t = (puddleVal - 0.32) / 0.12
-          roughness = Math.round(210 * (1 - t) + 8 * t)
-        } else {
-          // Surrounding dark asphalt pavement
-          roughness = Math.min(255, Math.max(160, Math.round(210 + grain)))
-        }
+        // Fine asphalt aggregate grain outside the puddle pools
+        const grain = (hash12(x * 1.7, y * 1.7) - 0.5) * 38
+        const asphaltRough = Math.min(235, Math.max(85, 148 + grain))
+        // Inside puddle: near-zero roughness (4 / 255 ≈ 0.015) for razor-sharp mirror reflection
+        const rByte = Math.round(asphaltRough * (1.0 - puddleMask) + 4 * puddleMask)
 
         const idx = (y * size + x) * 4
-        data[idx] = roughness
-        data[idx + 1] = roughness
-        data[idx + 2] = roughness
+        data[idx] = rByte
+        data[idx + 1] = rByte
+        data[idx + 2] = rByte
         data[idx + 3] = 255
       }
     }
@@ -217,62 +240,87 @@ function usePuddleMaskTexture() {
     const texture = new THREE.CanvasTexture(canvas)
     texture.wrapS = THREE.RepeatWrapping
     texture.wrapT = THREE.RepeatWrapping
-    texture.repeat.set(1.5, 1.5)
     return texture
   }, [])
 }
 
 export function RainFloor({
   rippleStrength = 0.35,
-  puddleReflectivity = 0.85,
+  puddleReflectivity = 0.92,
   rainEnabled = true,
+  simTime = null,
 }: RainFloorProps) {
   const floorRef = useRef<THREE.Mesh>(null!)
-  const rippleNormalMap = useRippleTexture(rainEnabled, rippleStrength)
-  const puddleMask = usePuddleMaskTexture()
+
+  // Real 2K photogrammetry asphalt textures from Faraz Shaikh's demo-2023-rain-puddle
+  const roadMaps = useTexture({
+    map: '/textures/studiomark-road/aerial_asphalt_01_diff_2k.jpg',
+    normalMap: '/textures/studiomark-road/aerial_asphalt_01_nor_gl_2k.jpg',
+    aoMap: '/textures/studiomark-road/aerial_asphalt_01_ao_2k.jpg',
+  })
+
+  useLayoutEffect(() => {
+    Object.values(roadMaps).forEach((tex) => {
+      tex.wrapS = tex.wrapT = THREE.RepeatWrapping
+      tex.repeat.set(3, 3)
+      tex.needsUpdate = true
+    })
+  }, [roadMaps])
+
+  const puddleRoughnessMap = usePuddleRoughnessTexture()
+  const compositeNormalMap = usePuddleNormalTexture(
+    roadMaps.normalMap,
+    puddleRoughnessMap,
+    rainEnabled,
+    rippleStrength,
+    simTime,
+  )
 
   const normalScaleVec = useMemo(
-    () => new THREE.Vector2(rippleStrength * 1.8, rippleStrength * 1.8),
+    () => new THREE.Vector2(0.65 + rippleStrength * 0.75, 0.65 + rippleStrength * 0.75),
     [rippleStrength],
   )
 
   return (
     <group position={[0, -0.01, 0]}>
-      {/* Primary Reflective Wet Puddle Floor with Real-Time Scene Mirroring */}
+      {/* Wet Asphalt Street & Mirror Puddle Floor (Faraz Shaikh reference look + Planar Mirror) */}
       <mesh
         ref={floorRef}
         rotation={[-Math.PI / 2, 0, 0]}
         receiveShadow
         position={[0, 0, 0]}
       >
-        <planeGeometry args={[32, 32, 64, 64]} />
+        <planeGeometry args={[28, 28, 32, 32]} />
         <MeshReflectorMaterial
-          blur={[220, 70]}
+          blur={[64, 18]}
           resolution={512}
-          mirror={puddleReflectivity}
-          mixBlur={0.55}
-          mixStrength={3.4}
-          roughness={0.08}
-          depthScale={0.35}
-          minDepthThreshold={0.3}
-          maxDepthThreshold={1.5}
-          color="#0a0e17"
-          metalness={0.22}
-          distortion={rainEnabled ? rippleStrength * 0.12 : 0.0}
-          distortionMap={rippleNormalMap}
-          normalMap={rippleNormalMap}
+          mirror={Math.max(0.95, puddleReflectivity)}
+          mixBlur={0.08}
+          mixStrength={8.5}
+          roughness={0.42}
+          depthScale={0.05}
+          minDepthThreshold={0.2}
+          maxDepthThreshold={1.6}
+          color="#586478"
+          metalness={0.55}
+          map={roadMaps.map}
+          aoMap={roadMaps.aoMap}
+          aoMapIntensity={0.5}
+          distortion={rainEnabled ? rippleStrength * 0.045 : 0.0}
+          distortionMap={compositeNormalMap}
+          normalMap={compositeNormalMap}
           normalScale={normalScaleVec}
-          roughnessMap={puddleMask}
+          roughnessMap={puddleRoughnessMap}
         />
       </mesh>
 
-      {/* Subtle outer darkening rim for infinite storm horizon vignette */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.001, 0]}>
-        <ringGeometry args={[6.5, 15.0, 64]} />
+      {/* Subtle outer horizon fade ring */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.002, 0]}>
+        <ringGeometry args={[8.5, 16.0, 64]} />
         <meshBasicMaterial
           color="#06080e"
           transparent
-          opacity={0.7}
+          opacity={0.78}
           depthWrite={false}
         />
       </mesh>

@@ -6,19 +6,23 @@ interface RainDropsProps {
   count?: number
   intensity?: 'heavy' | 'drizzle' | 'off'
   onDropImpact?: (x: number, z: number) => void
+  simTime?: number | null
 }
 
 export function RainDrops({
   count = 1400,
   intensity = 'heavy',
   onDropImpact,
+  simTime = null,
 }: RainDropsProps) {
   const meshRef = useRef<THREE.InstancedMesh>(null!)
   const dummy = useMemo(() => new THREE.Object3D(), [])
 
-  // Particle state arrays
+  // Particle state arrays + deterministic seed arrays
   const velocities = useMemo(() => new Float32Array(count), [count])
   const windOffsets = useMemo(() => new Float32Array(count), [count])
+  const seedPos = useMemo(() => new Float32Array(count * 3), [count])
+  const seedScaleY = useMemo(() => new Float32Array(count), [count])
 
   // Raindrop shader material with soft motion streak
   const rainMaterial = useMemo(() => {
@@ -54,28 +58,43 @@ export function RainDrops({
     })
   }, [])
 
-  // Initialize random drop distribution
+  // Initialize deterministic drop distribution (mulberry32 PRNG so renders are 100% repeatable)
   useEffect(() => {
     const mesh = meshRef.current
     if (!mesh) return
 
+    let seed = 0x534d3344
+    const nextRand = () => {
+      seed |= 0
+      seed = (seed + 0x6d2b79f5) | 0
+      let t = Math.imul(seed ^ (seed >>> 15), 1 | seed)
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+    }
+
     for (let i = 0; i < count; i++) {
-      dummy.position.set(
-        THREE.MathUtils.randFloatSpread(14),
-        THREE.MathUtils.randFloat(0.1, 9.5),
-        THREE.MathUtils.randFloatSpread(14),
-      )
+      const x0 = (nextRand() - 0.5) * 14
+      const y0 = 0.1 + nextRand() * 9.4
+      const z0 = (nextRand() - 0.5) * 14
+      const sy = 0.8 + nextRand() * 0.6
+
+      seedPos[i * 3] = x0
+      seedPos[i * 3 + 1] = y0
+      seedPos[i * 3 + 2] = z0
+      seedScaleY[i] = sy
+
+      dummy.position.set(x0, y0, z0)
       // Slight slant for wind
       dummy.rotation.z = -0.06
-      dummy.scale.set(1.0, THREE.MathUtils.randFloat(0.8, 1.4), 1.0)
+      dummy.scale.set(1.0, sy, 1.0)
       dummy.updateMatrix()
       mesh.setMatrixAt(i, dummy.matrix)
 
-      velocities[i] = THREE.MathUtils.randFloat(14.0, 22.0)
-      windOffsets[i] = THREE.MathUtils.randFloat(-0.4, -0.8)
+      velocities[i] = 14.0 + nextRand() * 8.0
+      windOffsets[i] = -0.4 - nextRand() * 0.4
     }
     mesh.instanceMatrix.needsUpdate = true
-  }, [count, dummy, velocities, windOffsets])
+  }, [count, dummy, seedPos, seedScaleY, velocities, windOffsets])
 
   useFrame((state, dt) => {
     if (intensity === 'off') {
@@ -84,16 +103,46 @@ export function RainDrops({
     }
 
     const targetOpacity = intensity === 'heavy' ? 0.38 : 0.18
-    rainMaterial.uniforms.uOpacity.value = THREE.MathUtils.lerp(
-      rainMaterial.uniforms.uOpacity.value,
-      targetOpacity,
-      dt * 4,
-    )
+    if (simTime != null) {
+      rainMaterial.uniforms.uOpacity.value = targetOpacity
+    } else {
+      rainMaterial.uniforms.uOpacity.value = THREE.MathUtils.lerp(
+        rainMaterial.uniforms.uOpacity.value,
+        targetOpacity,
+        dt * 4,
+      )
+    }
 
     const mesh = meshRef.current
     if (!mesh) return
 
     const speedScale = intensity === 'heavy' ? 1.0 : 0.65
+
+    if (simTime != null) {
+      const spanY = 9.8
+      for (let i = 0; i < count; i++) {
+        const x0 = seedPos[i * 3]
+        const y0 = seedPos[i * 3 + 1]
+        const z0 = seedPos[i * 3 + 2]
+        const fallDist = velocities[i] * simTime * speedScale
+        const y = 9.85 - (((9.85 - y0 + fallDist) % spanY + spanY) % spanY)
+        const cycle = Math.floor((9.85 - y0 + fallDist) / spanY)
+        const x = ((x0 + windOffsets[i] * ((9.85 - y) / velocities[i]) + cycle * 1.7 + 7) % 14) - 7
+
+        dummy.position.set(x, y, z0)
+        dummy.rotation.set(
+          0,
+          Math.atan2(state.camera.position.x - x, state.camera.position.z - z0),
+          -0.06,
+        )
+        dummy.scale.set(1.0, seedScaleY[i], 1.0)
+        dummy.updateMatrix()
+        mesh.setMatrixAt(i, dummy.matrix)
+      }
+      mesh.instanceMatrix.needsUpdate = true
+      return
+    }
+
     const pos = new THREE.Vector3()
     const rot = new THREE.Quaternion()
     const scale = new THREE.Vector3()
