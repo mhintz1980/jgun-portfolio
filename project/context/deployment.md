@@ -1,6 +1,16 @@
 # Deployment — studiomark.dev Runbook (JG-019)
 
-> **Current production, 2026-11-04:** Mark approved JG-040 Stage 3 and authorized release.
+> **Current production, verified 2026-11-07:** Mark approved the exact JG-042 WIP
+> candidate and authorized deployment. Production **`00413abd-482f-4a8b-8365-6ab2da8fbe5a`**
+> serves clean source **`8d8f045b2a87ca42c431c3dcf6b2bac8368edb1a`** from
+> `torque-wrench/rebuild`, via direct upload with production branch metadata `main`.
+> Isolated typecheck, 1,564 unit tests, 42 Node checks, 9/9 local and 9/9 live
+> publication smoke, 126/126 HTTP checks and browser root navigation PASS.
+> No speedup/full performance or final visual acceptance claimed; deferred
+> experiments and historical failures remain open. Rollback is `e796fe69`.
+> [Release evidence](../work/evidence/JG-042-portfolio-performance/release-2026-11-06/README.md).
+>
+> **Previous production, 2026-11-04:** Mark approved JG-040 Stage 3 and authorized release.
 > Deployment **`e796fe69`** serves clean source commit **`f83f4ba`**; root-to-`/home/`, the
 > other public pages and private armament remain intact. Isolated typecheck, 1,507 unit
 > tests, 36 Node verifier tests, build/asset gate, 68/68 live HUD checks and 9/9 publication

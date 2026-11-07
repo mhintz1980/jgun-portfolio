@@ -1,6 +1,6 @@
 # JG-042 execution evidence — 2026-11-06
 
-Implementation and integration checks complete for the bounded tooling/hygiene scope; fresh review ACCEPT with documented limitations. No deployment authorized. Accepted plan: [JG-042](../../plans/JG-042-portfolio-performance.md).
+Implementation and integration checks complete for the bounded tooling/hygiene scope; fresh review ACCEPT with documented limitations. Mark separately authorized deployment after receiving the exact P11 candidate on 2026-11-06. **P11 WIP release deployed and verified 2026-11-07:** production `00413abd-482f-4a8b-8365-6ab2da8fbe5a`, source `8d8f045b2a87ca42c431c3dcf6b2bac8368edb1a`; 9/9 live publication smoke and 126/126 HTTP identity/asset checks PASS. [Release, actual checks, transfer failures and rollback](release-2026-11-06/README.md). Full performance acceptance and deferred experiments remain open. Accepted plan: [JG-042](../../plans/JG-042-portfolio-performance.md).
 
 P01 revalidation: original branch torque-wrench/rebuild, HEAD `6ec4fe06b55a4f71865166ac1dfbc5a1a70502c2`, ahead three; no tracked modifications, concurrent untracked evidence/showcase/font media preserved. Isolated branch `codex/jg042-performance` at the same commit, with node_modules junction to the original workspace. Build: existing `npm run build` (tsc + Vite multi-page, unchanged settings/dependencies).
 

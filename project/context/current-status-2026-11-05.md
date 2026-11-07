@@ -1,12 +1,12 @@
-# Current status — 2026-11-05
+# Current status — updated 2026-11-07
 
 Concise record maintained under JG-041 B1. It points to evidence instead of copying test rosters. Older dated banners: [status history](status-history-2026-11-05.md). Queue: [TODO.md](../../TODO.md). Registry: [INDEX.md](../work/INDEX.md). Owner policy: [evolving portfolio and visual review](owner-specs/evolving-portfolio-and-visual-review-2026-10-31.md) (publish useful work in progress, HUD provisional, keep models central).
 
 ## Release identity (what is deployed)
 
-- **Latest release:** JG-040 Stage 3, approved by Mark and published 2026-11-04. Cloudflare Pages project jgun-portfolio (direct upload), production deployment e796fe69-b95b-4de9-93b1-cdfd2844b343, built from source f83f4ba3c380ee93da105ea0d102d3bc08cc5a31 on origin/torque-wrench/rebuild. Rollback deployment 81b234d0. Evidence: [release-2026-11-04.md](../work/evidence/JG-040-hud-d-inline/stage3-2026-11-04/release-2026-11-04.md); Stage 3 review packet: [README](../work/evidence/JG-040-hud-d-inline/README.md).
+- **Latest release:** owner-approved JG-042 WIP candidate, verified 2026-11-07. Cloudflare Pages project jgun-portfolio (direct upload), production deployment `00413abd-482f-4a8b-8365-6ab2da8fbe5a`, built from source `8d8f045b2a87ca42c431c3dcf6b2bac8368edb1a` on origin/torque-wrench/rebuild. Rollback deployment `e796fe69-b95b-4de9-93b1-cdfd2844b343`. Evidence: [release record](../work/evidence/JG-042-portfolio-performance/release-2026-11-06/README.md). This publishes the complete reviewed branch candidate, including earlier HUD/tracker, maintenance and merged media work; it does not complete deferred performance, showreel or visual work.
 - **Public pages served:** /home/ (JG-039 homepage, deployment 2b33b2f4 from 876f11fc on 2026-11-03; [release evidence](../work/evidence/JG-039-homepage/release-2026-11-03.md)), /torque-wrench/ (Stage 3 HUD), /quiet-machine/. The root forwards to /home/; the private armament page keeps its visibility policy and redactions.
-- **Later, not released:** commits after the release, including the torque-path tracker work (235f6fc4) and the 2026-11-05 phone-framing note (0b284226, the JG-041 baseline), have no release record after e796fe69.
+- **Release history:** the prior JG-040 Stage 3 release was `e796fe69` / source `f83f4ba3` ([record](../work/evidence/JG-040-hud-d-inline/stage3-2026-11-04/release-2026-11-04.md)). The tracker and other commits through `8d8f045b` are now in the reviewed WIP release. Later documentation/evidence closeout commits do not change its deployed source. Deferred phone framing, provisional HUD and showreel rework remain open.
 
 ## Active lanes
 

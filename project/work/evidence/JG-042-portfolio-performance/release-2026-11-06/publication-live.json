@@ -1,0 +1,177 @@
+{
+  "scope": "publication smoke only; cinematic/alias/final visual acceptance unclaimed",
+  "base": "https://studiomark.dev",
+  "capturedAt": "2026-11-07T05:52:53.417Z",
+  "launch": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "cases": [
+    {
+      "name": "desktop-home",
+      "errors": [],
+      "httpErrors": [],
+      "cadRequests": [],
+      "samples": [
+        {
+          "ready": true,
+          "loadedImages": 10,
+          "canvases": 1
+        }
+      ],
+      "navigation": true,
+      "result": "PASS"
+    },
+    {
+      "name": "desktop-torque-wrench",
+      "errors": [],
+      "httpErrors": [],
+      "cadRequests": [
+        "https://www.studiomark.dev/models/Default.glb",
+        "https://www.studiomark.dev/models/knurling-tool.glb",
+        "https://www.studiomark.dev/models/manufacturing-core-full.glb"
+      ],
+      "samples": [
+        {
+          "progress": 0,
+          "ready": true,
+          "canvases": 1
+        },
+        {
+          "progress": 0.6199993125146649,
+          "ready": true,
+          "canvases": 1
+        },
+        {
+          "progress": 0.9399886494279909,
+          "ready": true,
+          "canvases": 1
+        }
+      ],
+      "navigation": true,
+      "result": "PASS"
+    },
+    {
+      "name": "desktop-quiet-machine",
+      "errors": [],
+      "httpErrors": [],
+      "cadRequests": [
+        "https://www.studiomark.dev/models/rl300-extra-parts.glb",
+        "https://www.studiomark.dev/models/msp-enclosure.glb"
+      ],
+      "samples": [
+        {
+          "ready": true,
+          "u": 0.2,
+          "canvases": 1
+        }
+      ],
+      "navigation": true,
+      "result": "PASS"
+    },
+    {
+      "name": "narrow-home",
+      "errors": [],
+      "httpErrors": [],
+      "cadRequests": [],
+      "samples": [
+        {
+          "ready": true,
+          "loadedImages": 10,
+          "canvases": 1
+        }
+      ],
+      "navigation": true,
+      "result": "PASS"
+    },
+    {
+      "name": "narrow-torque-wrench",
+      "errors": [],
+      "httpErrors": [],
+      "cadRequests": [
+        "https://www.studiomark.dev/models/Default.glb",
+        "https://www.studiomark.dev/models/knurling-tool.glb",
+        "https://www.studiomark.dev/models/manufacturing-core-full.glb"
+      ],
+      "samples": [
+        {
+          "progress": 0,
+          "ready": true,
+          "canvases": 1
+        },
+        {
+          "progress": 0.6199880973992499,
+          "ready": true,
+          "canvases": 1
+        },
+        {
+          "progress": 0.940010510573701,
+          "ready": true,
+          "canvases": 1
+        }
+      ],
+      "navigation": true,
+      "result": "PASS"
+    },
+    {
+      "name": "narrow-quiet-machine",
+      "errors": [],
+      "httpErrors": [],
+      "cadRequests": [
+        "https://www.studiomark.dev/models/rl300-extra-parts.glb",
+        "https://www.studiomark.dev/models/msp-enclosure.glb"
+      ],
+      "samples": [
+        {
+          "ready": true,
+          "u": 0.19994075829383887,
+          "canvases": 1
+        }
+      ],
+      "navigation": true,
+      "result": "PASS"
+    },
+    {
+      "name": "reduced-home",
+      "errors": [],
+      "httpErrors": [],
+      "cadRequests": [],
+      "samples": [],
+      "poster": {
+        "canvases": 1,
+        "images": 4,
+        "storyCharacters": 3848
+      },
+      "navigation": true,
+      "result": "PASS"
+    },
+    {
+      "name": "reduced-torque-wrench",
+      "errors": [],
+      "httpErrors": [],
+      "cadRequests": [],
+      "samples": [],
+      "poster": {
+        "canvases": 0,
+        "images": 0,
+        "unfinishedPosterSlots": 5,
+        "storyCharacters": 2112
+      },
+      "navigation": true,
+      "result": "PASS"
+    },
+    {
+      "name": "reduced-quiet-machine",
+      "errors": [],
+      "httpErrors": [],
+      "cadRequests": [],
+      "samples": [],
+      "poster": {
+        "canvases": 0,
+        "images": 1,
+        "unfinishedPosterSlots": 0,
+        "storyCharacters": 296
+      },
+      "navigation": true,
+      "result": "PASS"
+    }
+  ],
+  "result": "PASS"
+}
