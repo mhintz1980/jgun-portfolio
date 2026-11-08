@@ -10,6 +10,8 @@
 The hero video for studiomark.dev, built in [Remotion](https://remotion.dev) 4.0.540.
 Output: `public/video/showreel-v3.mp4` (1920×1080, 30 fps, ~69 s, H.264, silent).
 
+> Editing the film? Start with [HANDOFF.md](HANDOFF.md): tools, lessons, file map, how to add a chapter or change copy.
+
 ## The idea
 
 The homepage already has a signature: a Revision-Orange thread that laces the page together
