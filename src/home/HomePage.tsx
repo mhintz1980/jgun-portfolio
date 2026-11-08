@@ -4,6 +4,7 @@ import ContactRope from './ContactRope'
 import DrawnName from './DrawnName'
 import ProjectStack from './ProjectStack'
 import RollingPhrase from './RollingPhrase'
+import ShowreelSection from './ShowreelSection'
 import { CONTACT, CORE_PROJECTS, FOOTER, HERO, PLUS, PLUS_ITEMS, STACKS, TESTIMONIAL, WORK } from './content'
 import type { ProjectId } from './content'
 import ThemeToggle from './ThemeToggle'
@@ -379,6 +380,8 @@ export default function HomePage() {
           <p className="home-hint home-hint-pointer">{HERO.hintPointer}</p>
           <p className="home-hint home-hint-touch">{HERO.hintTouch}</p>
         </section>
+
+        <ShowreelSection />
 
         <section id="work" className="home-work" aria-labelledby="home-work-title">
           <p className="home-label">{WORK.label}</p>

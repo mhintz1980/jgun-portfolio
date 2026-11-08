@@ -6,7 +6,9 @@ import { existsSync, rmSync } from 'node:fs'
 import path from 'node:path'
 import type { Plugin, ResolvedConfig } from 'vite'
 
-/** Exact build-copy exclusions. Preserve source media and concurrent showreel/logo assets. */
+/** Exact build-copy exclusions. Preserve source media and concurrent showreel/logo assets.
+ *  The three studiomark-showcase "Precision Revealed" files were REJECTED by the owner on
+ *  2026-11-08 (TODO.md JG-041). Keep them excluded; the homepage film is showreel-v3.mp4. */
 export const EXCLUDED_PUBLIC_ASSETS: readonly string[] = [
   'models/m249-transformed.glb',
   'fonts/gentilis_bold.typeface.json',
