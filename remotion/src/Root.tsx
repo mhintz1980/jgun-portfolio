@@ -6,6 +6,7 @@ import { WrenchAct, WRENCH_FRAMES } from './scenes/WrenchAct'
 import { MachineAct, MACHINE_FRAMES } from './scenes/MachineAct'
 import { ArmamentAct, ARMAMENT_FRAMES } from './scenes/ArmamentAct'
 import { Close, CLOSE_FRAMES } from './scenes/Close'
+import { LogoIdent, LOGO_FRAMES } from './scenes/LogoIdent'
 
 loadFonts()
 
@@ -20,6 +21,7 @@ export const RemotionRoot = () => (
       <Composition id="MachineAct" component={MachineAct} durationInFrames={MACHINE_FRAMES} {...HD} />
       <Composition id="ArmamentAct" component={ArmamentAct} durationInFrames={ARMAMENT_FRAMES} {...HD} />
       <Composition id="Close" component={Close} durationInFrames={CLOSE_FRAMES} {...HD} />
+      <Composition id="LogoIdent" component={LogoIdent} durationInFrames={LOGO_FRAMES} {...HD} />
     </Folder>
   </>
 )

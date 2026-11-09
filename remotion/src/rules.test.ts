@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import * as copy from './copy'
 import { FILM_ARMAMENT, showcase } from './armament'
+import { FILM_LOGO } from './logo'
 
 // The showreel's hard rules (owner rulings), checked in the root `npm test` gate.
 // Copy rules mirror src/home/content.test.ts and add the showreel brief's walls.
@@ -93,6 +94,23 @@ describe('showreel armament imagery', () => {
   })
   it('includes at least one representative image, so the label path is exercised', () => {
     expect(FILM_ARMAMENT.some((f) => showcase(f).label === 'representative')).toBe(true)
+  })
+})
+
+describe('showreel logo lane', () => {
+  // Owner 2026-11-08: the Storm Ignition bumper is the approved logo; the film stays silent;
+  // the rejected "Precision Revealed" showcase never appears.
+  it('plays only the approved bumper, always muted, with no audio track', () => {
+    expect(statSync(path.join(HERE, '..', '..', 'public', FILM_LOGO.src)).isFile()).toBe(true)
+    for (const { file, text } of SRC) {
+      for (const m of text.matchAll(/['"`]\/?(video\/[^'"`]+)['"`]/g)) expect(m[1], file).toBe(FILM_LOGO.src)
+      expect(text, file).not.toMatch(/precision-revealed/i)
+      expect(text, file).not.toMatch(/<(Audio|Html5Audio)\b/)
+      for (const m of text.matchAll(/<(OffthreadVideo|Video|Html5Video)\b[^>]*>/g)) expect(m[0], file).toMatch(/\bmuted\b/)
+    }
+  })
+  it('records the text baked into the bumper so the copy scan covers it', () => {
+    expect(copy.LOGO.burnedIn.length).toBeGreaterThan(0)
   })
 })
 

@@ -61,3 +61,8 @@ export const CLOSE = {
   cta: 'Pull the thread',
   site: 'studiomark.dev',
 } as const
+
+export const LOGO = {
+  /** Text baked into the approved bumper's pixels (src/logo.ts), recorded so the copy scan covers it. */
+  burnedIn: ['STUDIOMARK', 'PRECISION CAD × CREATIVE COMPUTING', 'STUDIOMARK.DEV', 'PRECISION CAD × REAL-TIME 3D ENGINEERING'],
+} as const

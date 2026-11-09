@@ -1,5 +1,14 @@
 # HANDOFF — Showreel v3, JG-041 iteration 1 (StudioMark logo ident) — 2026-11-09
 
+> **Update, later on 2026-11-09 — this replaces "Current state" and "Undecided" below.**
+> - The still "crash" was Remotion's first-run headless Chrome download, hidden by `tail`. No code fix.
+> - The 8 stills rendered (`project/work/evidence/JG-041-showreel-v3/stills-2026-11-09/`). The root
+>   gates passed (typecheck, 1565/1565 tests, build). The ending clip `remotion/out/showreel-v3-logo-review.mp4`
+>   (frames 2000–2222) rendered on Mark's go.
+> - Mark **approved** the logo ident, the stills and the clip, and the logo-ident code is committed.
+> - Mark **decided** in chat: change the motif from "follow the thread" to "follow the line". The
+>   details are under discussion. Don't build or render until he has agreed on them.
+
 Workspace: `C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench` (git worktree), branch
 `torque-wrench/rebuild` at `a77f549b`. Nothing from this session is committed except this file.
 Scope is video only (`remotion/`): no deploys, no edits to site pages, site choreography or the

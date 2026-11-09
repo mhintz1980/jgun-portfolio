@@ -42,11 +42,11 @@ export function Close() {
   const titleIn = ramp(f, 112, 138)
   const ledeIn = ramp(f, 132, 160)
   const ctaIn = ramp(f, 186, 214)
-  const loopOut = ramp(f, 340, 372, EASE.inOut)
+  // No fade-out here: the StudioMark ident wipes in over the hold and closes the loop itself.
   return (
     <AbsoluteFill>
       <Backdrop />
-      <AbsoluteFill style={{ opacity: 1 - loopOut }}>
+      <AbsoluteFill>
         <DrawnName text={CLOSE.name} draw={nameDraw} fill={nameFill} size={200} y={392} />
         <div style={{ position: 'absolute', left: 0, right: 0, top: 430, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 22 }}>
           <div style={{ display: 'flex', gap: 26, alignItems: 'baseline', fontFamily: F.hero, fontSize: 46, color: C.ink }}>
@@ -69,7 +69,7 @@ export function Close() {
           </Rise>
         </div>
       </AbsoluteFill>
-      <Thread points={pts} progress={draw} eyelets={pull < 0.02 ? EYELETS : []} opacity={1 - loopOut} />
+      <Thread points={pts} progress={draw} eyelets={pull < 0.02 ? EYELETS : []} />
     </AbsoluteFill>
   )
 }

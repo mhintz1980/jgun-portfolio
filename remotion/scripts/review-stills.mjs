@@ -28,6 +28,10 @@ const STILLS = [
   [54.2, '16-representative-cards'],
   [62.4, '17-close'],
   [66.0, '18-end-card'],
+  [69.0, '19-ident-wipe-in'],
+  [70.1, '20-ident-lightning'],
+  [72.8, '21-ident-lockup'],
+  [73.5, '22-back-to-paper'],
 ]
 
 let ffmpeg = 'ffmpeg'

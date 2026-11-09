@@ -1,7 +1,9 @@
 # Showreel v3 — "The Thread"
 
 The hero video for studiomark.dev, built in [Remotion](https://remotion.dev) 4.0.540.
-Output: `public/video/showreel-v3.mp4` (1920×1080, 30 fps, ~69 s, H.264, silent).
+Output: `public/video/showreel-v3.mp4` (1920×1080, 30 fps, H.264, silent). The committed MP4
+is the accepted ~69 s cut; the source now runs ~74 s with the StudioMark ident (JG-041
+iteration 1, awaiting owner review — render it to a separately named review MP4 first).
 
 ## The idea
 
@@ -14,7 +16,8 @@ The homepage already has a signature: a Revision-Orange thread that laces the pa
 | 01 Torque wrench | 195–735 | That line becomes the drive axis. The wrench is plotted along it as a hidden-line CAD drawing, then one front sweeps the sheet — paper turns to studio, linework turns to metal. Two-speed shift, then the real rear-extraction explosion with the gear train turning. |
 | 02 Quiet machine | 711–1251 | A vertical thread cut wipes into the enclosure; the site's own section study plays: incision, supply air, two feeds, noise control. |
 | 03 Armament | 1227–1707 | Back on paper: the thread becomes a scan line across x-ray renders, then dark plates and labelled reference cards. |
-| Close | 1707–2082 | The thread laces the three projects, the name is drawn again, and the thread pulls taut under the address. The last frame is the first frame, so the hero can loop. |
+| Close | 1707–2082 | The thread laces the three projects, the name is drawn again, and the thread pulls taut under the address. |
+| StudioMark ident | 2058–2223 | The orange cut line wipes in the owner-approved "Storm Ignition" logo bumper (muted). Its lockup holds while the cut line wipes the blank sheet back in. The last frame is the first frame, so the hero can loop. |
 
 ## Nothing is faked
 
@@ -44,6 +47,9 @@ the film share one instance.
 - no source mentions the M249 models, and no engineering drawings (`home/drawings`,
   `home/stacks`, `public/drawing`) are used. The wrench linework is a live edge render of
   `Default.glb` — no dimensions, title block or part numbers;
+- the logo lane plays only the approved bumper (`src/logo.ts`), always muted, with no audio
+  element; the text baked into the bumper is recorded in `copy.LOGO` so the copy scan covers it;
+  the rejected "Precision Revealed" showcase is never referenced;
 - no AI-generated imagery anywhere.
 
 ## Commands
