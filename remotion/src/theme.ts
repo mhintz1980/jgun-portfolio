@@ -1,7 +1,7 @@
 import { continueRender, delayRender, staticFile } from 'remotion'
 
 // Site tokens (src/home/layout.css): paper + ink for the drawing world, the dark theme's navy
-// for the 3D studio, and Revision Orange for the thread that runs through the whole film.
+// for the 3D studio, and Revision Orange for the line that runs through the whole film.
 export const C = {
   paper: '#f4f1ea',
   paperSurface: '#fbf9f4',

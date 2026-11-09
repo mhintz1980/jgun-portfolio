@@ -58,7 +58,7 @@ export const CLOSE = {
   titleBottom: 'Systems Builder',
   lede: '20+ years designing precision tooling, tactical armaments, and industrial pump packages.',
   recap: ['Torque wrench', 'Quiet machine', 'Armament'],
-  cta: 'Pull the thread',
+  cta: 'Follow the line',
   site: 'studiomark.dev',
 } as const
 

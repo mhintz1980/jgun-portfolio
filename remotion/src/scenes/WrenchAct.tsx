@@ -13,6 +13,7 @@ import { SplitBackground } from '../three/SplitBackground'
 import { mixHex, preToneMapped, track, type CamKey } from '../three/track'
 import { GridLayer } from '../ui/Backdrop'
 import { Wrench, type ScreenAnchor } from '../three/Wrench'
+import { PenHead } from '../ui/Line'
 import { Eyebrow, Rise, RuleTag } from '../ui/Type'
 import { AXIS_Y } from './Opening'
 
@@ -63,10 +64,10 @@ export function WrenchAct() {
   const fillX = worldXAtScreen(split * 1920, cam)
   const front = split * 1920
 
-  // The thread from the opening becomes the drive axis: the plotter head eats it as it draws.
+  // The line from the opening is the drive axis: the plotter pen eats it as it draws.
   const plotX = mix(X0, X1, plotT)
   const head = projectPoint([plotX, 0, 0], cam)
-  const threadOpacity = 1 - ramp(f, 76, 96)
+  const axisOpacity = 1 - ramp(f, 76, 96)
 
   // Callouts are positioned imperatively from the 3D frame (anchors computed after the pose).
   const calloutRefs = useRef<(HTMLDivElement | null)[]>([])
@@ -126,15 +127,14 @@ export function WrenchAct() {
         </svg>
       )}
 
-      {/* Thread → axis */}
-      <svg width={1920} height={1080} style={{ position: 'absolute', inset: 0, opacity: threadOpacity }}>
+      {/* The line → the axis */}
+      <svg width={1920} height={1080} style={{ position: 'absolute', inset: 0, opacity: axisOpacity }}>
         <line x1={0} y1={AXIS_Y} x2={Math.max(0, head.x)} y2={AXIS_Y} stroke={C.orange} strokeWidth={3} opacity={1 - ramp(f, 0, 14)} />
         <line x1={Math.max(0, head.x)} y1={AXIS_Y} x2={1920} y2={AXIS_Y} stroke={C.orange} strokeWidth={3} />
         {plotT < 0.999 && (
-          <g transform={`translate(${head.x} ${head.y})`} opacity={ramp(f, 0, 10)}>
-            <circle r={18} fill={C.orange} opacity={0.22} />
-            <circle r={6} fill={C.orange} />
-            <line x1={0} y1={-70} x2={0} y2={70} stroke={C.orange} strokeWidth={1.5} opacity={0.7} />
+          <g opacity={ramp(f, 0, 10)}>
+            <line x1={head.x} y1={head.y - 70} x2={head.x} y2={head.y + 70} stroke={C.orange} strokeWidth={1.5} opacity={0.7} />
+            <PenHead x={head.x} y={head.y} reach={18} />
           </g>
         )}
       </svg>

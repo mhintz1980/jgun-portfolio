@@ -1,7 +1,7 @@
 import { AbsoluteFill, Freeze, OffthreadVideo, Sequence, staticFile } from 'remotion'
 import { FILM_LOGO } from '../logo'
 import { Backdrop } from '../ui/Backdrop'
-import { ThreadWipe, WIPE } from '../ui/ThreadWipe'
+import { LineWipe, WIPE } from '../ui/LineWipe'
 
 /** Paper frames after the wipe completes, so the loop seam lands on a settled blank sheet. */
 const SETTLE = 6
@@ -18,9 +18,9 @@ export function LogoIdent() {
         <OffthreadVideo src={staticFile(FILM_LOGO.src)} muted />
       </Freeze>
       <Sequence from={FILM_LOGO.frames} name="Back to paper">
-        <ThreadWipe>
+        <LineWipe>
           <Backdrop />
-        </ThreadWipe>
+        </LineWipe>
       </Sequence>
     </AbsoluteFill>
   )

@@ -1,4 +1,4 @@
-# JG-041 — Showreel v3 "The Thread": iteration plan
+# JG-041 — Showreel v3 "The Line": iteration plan
 
 Opened 2026-11-08. Scope: video only (`remotion/`). No deploys, no edits to site pages,
 site choreography or the `../src` files the film imports.
@@ -10,8 +10,29 @@ site choreography or the `../src` files the film imports.
   **after the Close**, played muted, loop still landing on frame 0. Puddle Crane was not picked.
 - Owner ruling in chat, 2026-11-09: logo ident, stills and ending clip **approved**.
 - Owner ruling in chat, 2026-11-09: the motif changes from **"follow the thread" to "follow the
-  line"**. The details are being discussed; nothing is built or rendered yet. (The TODO.md entry
-  in `306b2880` that called this swap "withdrawn" was agent-written, not an owner ruling.)
+  line"**. (The TODO.md entry in `306b2880` that called this swap "withdrawn" was agent-written,
+  not an owner ruling.)
+- Owner ruling in chat, 2026-11-09: **option B, "full plotter"** (the line also sketches each
+  product before its 3D or image appears), and the film is renamed **"The Line"**.
+
+## Iteration 2 — "The Line" (full plotter)
+
+Built in two slices so the owner sees stills before the costly 3D work.
+
+**Slice 1 (2D, timings unchanged so the approved ident keeps its frames):**
+
+| Item | Change |
+|---|---|
+| `src/ui/Line.tsx` (replaces `Thread.tsx`) | Ruled polyline: thin ink construction pass, then the orange object line inked over it; crosshair pen head (`PenHead`); crosshair registration marks that light as the ink reaches them. |
+| `src/scenes/Opening.tsx` | Line ruled at y=820 through three marks (fading in from frame 0, which fixes the loop-seam pop), inked while the name draws, then slid parallel onto the drive axis (y=540). |
+| `src/scenes/Close.tsx` | Same line through three marks at y=730; each project label rises with a short leader as the ink reaches its mark; the line slides down to underline the address. CTA "Follow the line". |
+| `src/scenes/WrenchAct.tsx` | Plotter head is the same `PenHead`. |
+| `src/ui/LineWipe.tsx` (was `ThreadWipe.tsx`), Sequence names, comments, still names, README | Renamed thread → line. Composition id `Showreel` and `showreel-v3.mp4` unchanged. |
+
+**Slice 2 (waits on the owner's go after slice-1 stills):** a linework pre-roll for the Quiet
+machine (feature edges plotted before the solid enclosure, done in `remotion/src/three/` only,
+appending a fill plane to the section plane rather than replacing it) and a plotted outline of
+the armament x-ray before the scan (derived at render time from the existing image, no new asset).
 
 ## Iteration 1 — logo ident after the Close
 
@@ -26,9 +47,8 @@ site choreography or the `../src` files the film imports.
 | `src/rules.test.ts` | One new block for the logo lane: video only from the approved file, played muted, no audio elements, text recorded. |
 | `scripts/review-stills.mjs`, `README.md` | Stills and act table updated for the new ending. |
 
-Out of scope for this iteration: the thread → line change (iteration 2, details under
-discussion), identity act, rendering-tool act, armament 3D. Each waits on owner material and
-go-ahead.
+Out of scope for this iteration: the thread → line change (now iteration 2), identity act,
+rendering-tool act, armament 3D. Each waits on owner material and go-ahead.
 
 ### Review path (2026-11-08 iteration rule)
 

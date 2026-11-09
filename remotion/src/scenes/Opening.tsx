@@ -4,30 +4,28 @@ import { EASE, mix, ramp } from '../ease'
 import { C, F } from '../theme'
 import { Backdrop } from '../ui/Backdrop'
 import { DrawnName } from '../ui/DrawnName'
-import { Thread, type Pt } from '../ui/Thread'
+import { Line, type Pt } from '../ui/Line'
 import { Eyebrow, Rise } from '../ui/Type'
 
-/** The laced thread of the opening, and the straight axis it pulls into (y = AXIS_Y). */
+/** The opening's ruled line, and the drive axis it slides up to become (y = AXIS_Y). */
 export const AXIS_Y = 540
-const LACED: Pt[] = [
-  { x: -40, y: 820 },
-  { x: 300, y: 760 },
-  { x: 620, y: 900 },
-  { x: 960, y: 820 },
-  { x: 1300, y: 900 },
-  { x: 1620, y: 780 },
-  { x: 1960, y: 840 },
-]
-export const OPENING_EYELETS: Pt[] = [LACED[2], LACED[3], LACED[4]]
+const LINE_Y = 820
+const MARKS_X = [620, 960, 1300]
 
 export const OPENING_FRAMES = 195
 
 export function Opening() {
   const f = useCurrentFrame()
-  const draw = ramp(f, 6, 70, EASE.draw)
-  // The thread tightens into the drive axis the torque wrench is about to be drawn on.
-  const pull = ramp(f, 150, 192, EASE.inOut)
-  const pts = LACED.map((p, i) => ({ x: p.x, y: mix(p.y, AXIS_Y, pull) + (i === 0 || i === LACED.length - 1 ? 0 : 0) }))
+  // Ruled thin in ink, then inked in Revision Orange while the name is drawn.
+  const construct = ramp(f, 4, 40, EASE.draw)
+  const ink = ramp(f, 40, 92, EASE.draw)
+  // Then the whole line slides parallel, like a T-square, onto the drive axis the torque
+  // wrench is about to be drawn on.
+  const slide = ramp(f, 150, 192, EASE.inOut)
+  const y = mix(LINE_Y, AXIS_Y, slide)
+  const pts: Pt[] = [{ x: -40, y }, ...MARKS_X.map((x) => ({ x, y })), { x: 1960, y }]
+  // The marks fade in from blank paper (so the loop lands cleanly) and clear before the slide.
+  const markOpacity = ramp(f, 0, 24) * (1 - ramp(f, 140, 156))
   const nameDraw = ramp(f, 18, 78, EASE.draw)
   const nameFill = ramp(f, 72, 94, EASE.out)
   const titleIn = ramp(f, 86, 112)
@@ -60,7 +58,7 @@ export function Opening() {
           </div>
         </div>
       </AbsoluteFill>
-      <Thread points={pts} progress={draw} eyelets={pull < 0.02 ? OPENING_EYELETS : []} opacity={1} />
+      <Line points={pts} construct={construct} ink={ink} marks={pts.slice(1, -1)} markOpacity={markOpacity} />
     </AbsoluteFill>
   )
 }

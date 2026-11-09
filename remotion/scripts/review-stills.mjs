@@ -10,14 +10,14 @@ mkdirSync(out, { recursive: true })
 
 // One still per beat (seconds), named for what the owner should look at.
 const STILLS = [
-  [1.9, '01-thread-laces'],
+  [1.9, '01-line-ruled'],
   [4.6, '02-name-drawn'],
   [8.2, '03-wrench-plotted'],
   [10.2, '04-drawing-becomes-object'],
   [12.6, '05-wrench-hero'],
   [17.6, '06-rear-extraction'],
   [22.6, '07-wrench-out'],
-  [24.0, '08-thread-cut-wipe'],
+  [24.0, '08-line-cut-wipe'],
   [28.6, '09-incision'],
   [32.6, '10-supply-air'],
   [36.2, '11-two-feeds'],

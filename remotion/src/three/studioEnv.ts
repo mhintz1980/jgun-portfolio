@@ -35,7 +35,7 @@ function createStudio() {
   softbox(7, 5, [0, 8, -1], '#ffffff', 4.5)
   softbox(2, 8, [2, 2, -7], '#e6efff', 8)
   softbox(14, 10, [0, -6.5, 7.5], '#f5f7f9', 1.2)
-  // A warm Revision-Orange kicker so the thread colour lives in the reflections too.
+  // A warm Revision-Orange kicker so the line colour lives in the reflections too.
   softbox(1.2, 7, [-7, 1, -3], '#ff7a3d', 2.2)
   for (const p of [[-5, 0, -4], [5, -2, 0]] as const) {
     const flag = new Mesh(new PlaneGeometry(4, 10), new MeshBasicMaterial({ color: 0x000000, side: DoubleSide, toneMapped: false }))

@@ -16,7 +16,7 @@ export function ArmamentAct() {
   const titleIn = ramp(f, 22, 48)
   const titleOut = ramp(f, 300, 322, EASE.in)
 
-  // Shot 1 — the light table: the thread scans an x-ray render of my fire-control work, ghost → solid.
+  // Shot 1 — the light table: the line scans an x-ray render of my fire-control work, ghost → solid.
   const plateIn = ramp(f, 8, 40)
   const scan = ramp(f, 40, 128, EASE.inOut)
   const scanX = PLATE.x + PLATE.w * scan

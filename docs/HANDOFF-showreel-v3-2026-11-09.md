@@ -6,8 +6,11 @@
 >   gates passed (typecheck, 1565/1565 tests, build). The ending clip `remotion/out/showreel-v3-logo-review.mp4`
 >   (frames 2000–2222) rendered on Mark's go.
 > - Mark **approved** the logo ident, the stills and the clip, and the logo-ident code is committed.
-> - Mark **decided** in chat: change the motif from "follow the thread" to "follow the line". The
->   details are under discussion. Don't build or render until he has agreed on them.
+> - Mark **decided** in chat: change the motif from "follow the thread" to "follow the line", picked
+>   option B ("full plotter"), and renamed the film "The Line".
+> - Iteration 2 slice 1 (2D line, Opening, Close, pen head, renames) is built and owner-approved.
+>   Stills are in `project/work/evidence/JG-041-showreel-v3/stills-2026-11-09-line/`. Slice 2 (Machine
+>   linework pre-roll, Armament outline) is in the plan. No re-render until Mark says so.
 
 Workspace: `C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench` (git worktree), branch
 `torque-wrench/rebuild` at `a77f549b`. Nothing from this session is committed except this file.

@@ -49,7 +49,7 @@ export function MachineAct() {
   const titleOut = ramp(f, 150, 170, EASE.in)
   const captionIn = ramp(local, 6, 24) * (1 - ramp(local, len - 16, len - 2, EASE.in))
   const b = MACHINE.beats[beat]
-  // Cut flash: the thread slashes across the frame at the jump between beats.
+  // Cut flash: the line cuts across the frame at the jump between beats.
   const slash = ramp(f, MACHINE_CUT - 5, MACHINE_CUT + 5, EASE.inOut)
 
   return (

@@ -89,7 +89,7 @@ function prepare(scene: Group): Prepared {
   const inner = new Group()
   inner.position.set(-rig.center.x, -rig.center.y, -rig.center.z)
   inner.add(scene)
-  // Model Z (the drive axis, handle at −Z) → world +X: the wrench lies along the thread.
+  // Model Z (the drive axis, handle at −Z) → world +X: the wrench lies along the line.
   root.rotation.set(0, Math.PI / 2, 0)
   root.add(inner)
   const size = new Box3().setFromObject(root).getSize(new Vector3())

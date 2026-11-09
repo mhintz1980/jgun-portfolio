@@ -3,11 +3,11 @@ import { AbsoluteFill, useCurrentFrame } from 'remotion'
 import { EASE, mix, ramp } from '../ease'
 import { C } from '../theme'
 
-/** Overlap between acts that hand over with a thread wipe. */
+/** Overlap between acts that hand over with a line wipe. */
 export const WIPE = 24
 
 /** The next shot enters from the right behind a vertical Revision-Orange cut line. */
-export function ThreadWipe({ children }: { children: ReactNode }) {
+export function LineWipe({ children }: { children: ReactNode }) {
   const f = useCurrentFrame()
   const t = ramp(f, 0, WIPE, EASE.inOut)
   const x = mix(1920 + 30, -30, t)
