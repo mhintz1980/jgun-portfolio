@@ -1,11 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { LCD_REVEAL_WINDOW } from '../data/caseStudies'
-import {
-  explodeHoldGate,
-  explodeShadowOpacity,
-  lcdMicroRimIntensity,
-  studioSpotNudge,
-} from './jgunVisualGates'
+import { explodeHoldGate, explodeShadowOpacity, lcdMicroRimIntensity, studioSpotNudge } from './jgunVisualGates'
 
 /**
  * JG-032 — JGUN progress-gate tests. The SceneCanvas is global, so every

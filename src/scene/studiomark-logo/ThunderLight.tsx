@@ -116,27 +116,13 @@ export const ThunderLight = forwardRef<ThunderLightHandle, ThunderLightProps>(
     return (
       <group>
         {/* Overhead directional lightning bolt with cold blue tint */}
-        <directionalLight
-          ref={dirLightRef}
-          position={[-7, 18, -3]}
-          color="#b5d7ff"
-          intensity={0}
-        />
+        <directionalLight ref={dirLightRef} position={[-7, 18, -3]} color="#b5d7ff" intensity={0} />
 
         {/* Full-scene atmospheric storm flash (sky to ground illumination) */}
-        <hemisphereLight
-          ref={hemiLightRef}
-          color="#9ec5ff"
-          groundColor="#1e2738"
-          intensity={0}
-        />
+        <hemisphereLight ref={hemiLightRef} color="#9ec5ff" groundColor="#1e2738" intensity={0} />
 
         {/* Ambient storm brightness pulse */}
-        <ambientLight
-          ref={ambientLightRef}
-          color="#80a9f5"
-          intensity={0}
-        />
+        <ambientLight ref={ambientLightRef} color="#80a9f5" intensity={0} />
       </group>
     )
   },

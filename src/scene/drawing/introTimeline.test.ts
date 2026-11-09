@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest'
-const smooth01 = (value: number) => { const x = Math.max(0, Math.min(1, value)); return x * x * (3 - 2 * x) }
+const smooth01 = (value: number) => {
+  const x = Math.max(0, Math.min(1, value))
+  return x * x * (3 - 2 * x)
+}
 import { BRANCH_START_T } from './electricalScore'
 import {
   DRAWING_INTRO_WINDOW,
@@ -116,7 +119,8 @@ describe('opening close-reading scroll remap (JG-035 O3)', () => {
   })
 
   it('leaves pacedProgress untouched from raw .33 on (trace, rupture, rise, downstream)', () => {
-    const oldPaced = (s: number) => s <= INTRO_SCROLL_SHARE ? (DRAWING_INTRO_WINDOW.releaseEnd / INTRO_SCROLL_SHARE) * s : null
+    const oldPaced = (s: number) =>
+      s <= INTRO_SCROLL_SHARE ? (DRAWING_INTRO_WINDOW.releaseEnd / INTRO_SCROLL_SHARE) * s : null
     for (let i = 0; i <= 170; i += 1) {
       const s = 0.33 + (i / 170) * (INTRO_SCROLL_SHARE - 0.33)
       expect(pacedProgress(s)).toBeCloseTo(oldPaced(s)!, 12)
@@ -243,11 +247,18 @@ describe('intro phase map', () => {
     const atU = (u: number) => state(flickerStart + u * span).lampPower
     // u is failure-local time; the keys are the immutable art-directed envelope.
     const keys: [number, number][] = [
-      [0.12, 0.58], [0.18, 0.92],
-      [0.28, 0.14], [0.34, 0.78],
-      [0.46, 0.36], [0.51, 0.86],
-      [0.64, 0.015], [0.72, 0.015], [0.78, 0.58],
-      [0.85, 0.08], [0.91, 0.34], [1, 0],
+      [0.12, 0.58],
+      [0.18, 0.92],
+      [0.28, 0.14],
+      [0.34, 0.78],
+      [0.46, 0.36],
+      [0.51, 0.86],
+      [0.64, 0.015],
+      [0.72, 0.015],
+      [0.78, 0.58],
+      [0.85, 0.08],
+      [0.91, 0.34],
+      [1, 0],
     ]
     expect(state(flickerStart).lampPower).toBe(1)
     for (const [u, power] of keys) expect(atU(u)).toBeCloseTo(power, 12)
@@ -308,7 +319,11 @@ describe('intro phase map', () => {
     }
     expect(runs).toHaveLength(5)
     const expected: [number, number][] = [
-      [0.12, 0.58], [0.28, 0.14], [0.46, 0.36], [0.68, 0.015], [0.85, 0.08],
+      [0.12, 0.58],
+      [0.28, 0.14],
+      [0.46, 0.36],
+      [0.68, 0.015],
+      [0.85, 0.08],
     ]
     runs.forEach((run, k) => {
       expect(run.power).toBeCloseTo(expected[k][1], 4)
@@ -382,7 +397,12 @@ describe('intro phase map', () => {
 
   it('opens the perspective move only at the authored orbit boundary', () => {
     const state = (t: number) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd)
-    for (const t of [INTRO_PHASES.metalStart, INTRO_PHASES.riseStart, INTRO_PHASES.detachStart, INTRO_PHASES.orbitStart - 0.001]) {
+    for (const t of [
+      INTRO_PHASES.metalStart,
+      INTRO_PHASES.riseStart,
+      INTRO_PHASES.detachStart,
+      INTRO_PHASES.orbitStart - 0.001,
+    ]) {
       expect(state(t).perspective).toBe(0)
     }
     expect(state((INTRO_PHASES.orbitStart + 1) / 2).perspective).toBeCloseTo(0.5, 12)
@@ -462,7 +482,9 @@ describe('intro phase map', () => {
     const focused = drawingIntroState(INTRO_PHASES.focusEnd * DRAWING_INTRO_WINDOW.releaseEnd)
     expect(focused.focus).toBe(1)
     expect(focused.pulse).toBe(0)
-    const pulsing = drawingIntroState(0.5 * (INTRO_PHASES.pulseStart + INTRO_PHASES.pulseEnd) * DRAWING_INTRO_WINDOW.releaseEnd)
+    const pulsing = drawingIntroState(
+      0.5 * (INTRO_PHASES.pulseStart + INTRO_PHASES.pulseEnd) * DRAWING_INTRO_WINDOW.releaseEnd,
+    )
     expect(pulsing.focus).toBe(1)
     expect(pulsing.pulse).toBe(1)
   })
@@ -487,7 +509,9 @@ describe('intro phase map', () => {
       expect(drawingIntroState((i / 1000) * DRAWING_INTRO_WINDOW.releaseEnd, SOLVED_CROSSING).drawingOpacity).toBe(1)
     }
     // The legacy wave crossing cannot resurrect the old fade either.
-    expect(drawingIntroState(INTRO_PHASES.waveEnd * DRAWING_INTRO_WINDOW.releaseEnd, LEGACY_CROSSING).drawingOpacity).toBe(1)
+    expect(
+      drawingIntroState(INTRO_PHASES.waveEnd * DRAWING_INTRO_WINDOW.releaseEnd, LEGACY_CROSSING).drawingOpacity,
+    ).toBe(1)
     expect(drawingIntroState(DRAWING_INTRO_WINDOW.releaseEnd, LEGACY_CROSSING).drawingOpacity).toBe(1)
   })
 
@@ -525,17 +549,25 @@ describe('intro phase map', () => {
     // Authored phase boundaries plus the old failure-window fractions: every edge where
     // a channel can move must reproduce identically under reverse scrubbing.
     const boundaries = [
-      INTRO_PHASES.focusEnd, INTRO_PHASES.onboardEnd, INTRO_PHASES.flickerStart,
-      INTRO_PHASES.blackoutStart, INTRO_PHASES.pulseStart, INTRO_PHASES.pulseEnd,
-      INTRO_PHASES.bulgeStart, INTRO_PHASES.fractureStart, INTRO_PHASES.fractureEnd,
-      INTRO_PHASES.lampReturnEnd, INTRO_PHASES.metalStart, INTRO_PHASES.detachStart,
-      INTRO_PHASES.orbitStart, INTRO_PHASES.waveEnd,
+      INTRO_PHASES.focusEnd,
+      INTRO_PHASES.onboardEnd,
+      INTRO_PHASES.flickerStart,
+      INTRO_PHASES.blackoutStart,
+      INTRO_PHASES.pulseStart,
+      INTRO_PHASES.pulseEnd,
+      INTRO_PHASES.bulgeStart,
+      INTRO_PHASES.fractureStart,
+      INTRO_PHASES.fractureEnd,
+      INTRO_PHASES.lampReturnEnd,
+      INTRO_PHASES.metalStart,
+      INTRO_PHASES.detachStart,
+      INTRO_PHASES.orbitStart,
+      INTRO_PHASES.waveEnd,
     ]
     const samples = [
-      0, 0.24, 0.3, 0.4, 0.42, 0.4368, 0.4452, 0.4592, 0.4676, 0.4844, 0.4914,
-      0.5096, 0.5208, 0.5292, 0.539, 0.5474, 0.55, 0.63, 0.7, 0.72, 0.76, 0.78,
-      0.8, 0.82, 0.835, 0.84, 0.85, 0.86, 0.87, 0.88, 0.885, 0.9, 0.91, 0.94,
-      0.96, 0.98, 0.99, 1,
+      0, 0.24, 0.3, 0.4, 0.42, 0.4368, 0.4452, 0.4592, 0.4676, 0.4844, 0.4914, 0.5096, 0.5208, 0.5292, 0.539, 0.5474,
+      0.55, 0.63, 0.7, 0.72, 0.76, 0.78, 0.8, 0.82, 0.835, 0.84, 0.85, 0.86, 0.87, 0.88, 0.885, 0.9, 0.91, 0.94, 0.96,
+      0.98, 0.99, 1,
     ].concat(boundaries)
     const forward = samples.map((t) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd, crossing))
 
@@ -561,10 +593,9 @@ describe('paper barrier breakthrough', () => {
     expect(state(INTRO_PHASES.fractureStart).pressure).toBe(1)
     // maxPeak: .84 is the pressure maximum; .88 is the flat end of the release.
     for (let i = 0; i <= 2000; i += 1) expect(state(i / 2000).pressure).toBeLessThanOrEqual(1)
-    expect(state(INTRO_PHASES.fractureStart).pressure).toBe(Math.max(
-      state(INTRO_PHASES.fractureStart - 0.01).pressure,
-      state(INTRO_PHASES.fractureStart + 0.01).pressure,
-    ))
+    expect(state(INTRO_PHASES.fractureStart).pressure).toBe(
+      Math.max(state(INTRO_PHASES.fractureStart - 0.01).pressure, state(INTRO_PHASES.fractureStart + 0.01).pressure),
+    )
     expect(state(1).pressure).toBe(1)
     for (const t of [0, 0.2, 0.38, 0.58, 0.66, 0.78]) expect(state(t).pressure).toBe(0)
 
@@ -668,7 +699,9 @@ describe('paper barrier breakthrough', () => {
     for (let i = 0; i <= 1000; i += 1) {
       expect(state(i / 1000).drawingOpacity).toBe(1)
     }
-    expect(drawingIntroState(INTRO_PHASES.waveEnd * DRAWING_INTRO_WINDOW.releaseEnd, LEGACY_CROSSING).drawingOpacity).toBe(1)
+    expect(
+      drawingIntroState(INTRO_PHASES.waveEnd * DRAWING_INTRO_WINDOW.releaseEnd, LEGACY_CROSSING).drawingOpacity,
+    ).toBe(1)
   })
 
   it('reproduces every breakthrough channel exactly under reverse scrubbing', () => {

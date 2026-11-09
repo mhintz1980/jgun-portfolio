@@ -1,4 +1,3 @@
-
 /**
  * JG-035 paper breakthrough — the torn hole, the thick fragments that cover it, and the
  * charred rim that stays behind.
@@ -31,14 +30,7 @@
  * contract, and the traced contour is never simplified or moved — `profile` is the exact
  * input contour.
  */
-import {
-  BufferGeometry,
-  Float32BufferAttribute,
-  ShapeUtils,
-  Uint32BufferAttribute,
-  Vector2,
-  Vector3,
-} from 'three'
+import { BufferGeometry, Float32BufferAttribute, ShapeUtils, Uint32BufferAttribute, Vector2, Vector3 } from 'three'
 import type { CleanupFailureSink } from '../drawingGeometry'
 
 interface OwnedDisposable {
@@ -238,7 +230,10 @@ class SegmentIndex {
   private readonly stride = 8192
   private readonly offset = 4096
 
-  constructor(private readonly points: number[][], private readonly cell: number) {
+  constructor(
+    private readonly points: number[][],
+    private readonly cell: number,
+  ) {
     for (let i = 0; i < points.length; i += 1) {
       const a = points[i]
       const b = points[(i + 1) % points.length]
@@ -301,7 +296,7 @@ class SegmentIndex {
       }
       const a = this.points[segment]
       const b = this.points[(segment + 1) % this.points.length]
-      if ((a[1] > y) !== (b[1] > y) && x < a[0] + ((y - a[1]) * (b[0] - a[0])) / (b[1] - a[1])) inside = !inside
+      if (a[1] > y !== b[1] > y && x < a[0] + ((y - a[1]) * (b[0] - a[0])) / (b[1] - a[1])) inside = !inside
     })
     return hitsBoundary ? true : inside
   }
@@ -356,7 +351,7 @@ export class YBandIndex {
       }
       const a = this.points[segment]
       const b = this.points[(segment + 1) % this.points.length]
-      if ((a[1] > y) !== (b[1] > y) && x < a[0] + ((y - a[1]) * (b[0] - a[0])) / (b[1] - a[1])) inside = !inside
+      if (a[1] > y !== b[1] > y && x < a[0] + ((y - a[1]) * (b[0] - a[0])) / (b[1] - a[1])) inside = !inside
     })
     return hitsBoundary ? true : inside
   }
@@ -476,7 +471,7 @@ export function rasterTornOutline(profile: number[][]): number[][] {
     for (let i = 0, j = profile.length - 1; i < profile.length; j = i++) {
       const a = profile[j]
       const b = profile[i]
-      if ((a[1] > y) !== (b[1] > y)) {
+      if (a[1] > y !== b[1] > y) {
         crossings.push(a[0] + ((y - a[1]) * (b[0] - a[0])) / (b[1] - a[1]))
       }
     }
@@ -559,7 +554,14 @@ export function rasterTornOutline(profile: number[][]): number[][] {
 }
 
 /** Half-plane clip; keeps the side the plane's normal points away from when keepNegative. */
-function clipHalfPlane(polygon: number[][], mx: number, my: number, nx: number, ny: number, keepNegative: boolean): number[][] {
+function clipHalfPlane(
+  polygon: number[][],
+  mx: number,
+  my: number,
+  nx: number,
+  ny: number,
+  keepNegative: boolean,
+): number[][] {
   const out: number[][] = []
   const count = polygon.length
   for (let i = 0; i < count; i += 1) {
@@ -620,7 +622,14 @@ function ringCentroid(ring: number[][]): Vector2 {
  * Deterministic seeds: a jittered lattice over the hole whose pitch is adjusted so the kept
  * (inside, inset) seeds land on the fragment target. No randomness and no RNG state.
  */
-function placeSeeds(minX: number, minY: number, maxX: number, maxY: number, index: SegmentIndex, target: number): number[][] {
+function placeSeeds(
+  minX: number,
+  minY: number,
+  maxX: number,
+  maxY: number,
+  index: SegmentIndex,
+  target: number,
+): number[][] {
   const width = Math.max(1e-6, maxX - minX)
   const height = Math.max(1e-6, maxY - minY)
   let span = Math.max(2, Math.round(Math.sqrt(target)))
@@ -652,47 +661,57 @@ function placeSeeds(minX: number, minY: number, maxX: number, maxY: number, inde
 /** Voronoi cells of the seeds clipped to the hole: an exact, disjoint partition of it. */
 function partitionOutline(outline: number[][], seeds: number[][]): number[][][] {
   const cells: number[][][] = []
-  const triangles = ShapeUtils.triangulateShape(outline.map(p => new Vector2(p[0],p[1])), []).map(f => f.map(i => outline[i]))
-  const key = (p:number[]) => `${Math.round(p[0]*1e8)},${Math.round(p[1]*1e8)}`
+  const triangles = ShapeUtils.triangulateShape(
+    outline.map((p) => new Vector2(p[0], p[1])),
+    [],
+  ).map((f) => f.map((i) => outline[i]))
+  const key = (p: number[]) => `${Math.round(p[0] * 1e8)},${Math.round(p[1] * 1e8)}`
   for (let k = 0; k < seeds.length; k += 1) {
     // Clip convex triangles separately. Clipping a concave ring directly invents bridges
     // when a Voronoi plane disconnects it. Cancel shared triangle edges to recover boundaries.
-    const edges = new Map<string, {a:number[],b:number[]}>()
+    const edges = new Map<string, { a: number[]; b: number[] }>()
     for (const triangle of triangles) {
       let part = triangle
-      for (let j=0;j<seeds.length && part.length>=3;j++) {
-        if(j===k) continue
-        const a=seeds[k],b=seeds[j]
-        part=clipHalfPlane(part,(a[0]+b[0])/2,(a[1]+b[1])/2,b[0]-a[0],b[1]-a[1],true)
+      for (let j = 0; j < seeds.length && part.length >= 3; j++) {
+        if (j === k) continue
+        const a = seeds[k],
+          b = seeds[j]
+        part = clipHalfPlane(part, (a[0] + b[0]) / 2, (a[1] + b[1]) / 2, b[0] - a[0], b[1] - a[1], true)
       }
-      part=cleanRing(part)
-      if(part.length<3 || Math.abs(signedArea(part))<1e-16) continue
-      if(signedArea(part)<0)part.reverse()
-      for(let i=0;i<part.length;i++) {
-        const a=part[i],b=part[(i+1)%part.length],ak=key(a),bk=key(b)
-        if(ak===bk)continue
-        if(!edges.delete(`${bk}|${ak}`))edges.set(`${ak}|${bk}`,{a,b})
+      part = cleanRing(part)
+      if (part.length < 3 || Math.abs(signedArea(part)) < 1e-16) continue
+      if (signedArea(part) < 0) part.reverse()
+      for (let i = 0; i < part.length; i++) {
+        const a = part[i],
+          b = part[(i + 1) % part.length],
+          ak = key(a),
+          bk = key(b)
+        if (ak === bk) continue
+        if (!edges.delete(`${bk}|${ak}`)) edges.set(`${ak}|${bk}`, { a, b })
       }
     }
-    const outgoing = new Map<string, {a:number[],b:number[]}[]>()
-    for(const edge of edges.values()) {
-      const ak=key(edge.a),bucket=outgoing.get(ak)??[]
-      bucket.push(edge);outgoing.set(ak,bucket)
+    const outgoing = new Map<string, { a: number[]; b: number[] }[]>()
+    for (const edge of edges.values()) {
+      const ak = key(edge.a),
+        bucket = outgoing.get(ak) ?? []
+      bucket.push(edge)
+      outgoing.set(ak, bucket)
     }
-    while(outgoing.size) {
-      const start=outgoing.keys().next().value as string
-      let cursor=start
-      const ring:number[][]=[]
+    while (outgoing.size) {
+      const start = outgoing.keys().next().value as string
+      let cursor = start
+      const ring: number[][] = []
       do {
-        const bucket=outgoing.get(cursor)
-        if(!bucket?.length)throw new Error('Open fragment boundary after triangle clipping')
-        const edge=bucket.pop()!
-        if(!bucket.length)outgoing.delete(cursor)
-        ring.push(edge.a);cursor=key(edge.b)
-      }while(cursor!==start)
-      const cell=cleanRing(ring)
-      if(cell.length>=3 && Math.abs(signedArea(cell))>1e-14) {
-        if(signedArea(cell)<0)cell.reverse()
+        const bucket = outgoing.get(cursor)
+        if (!bucket?.length) throw new Error('Open fragment boundary after triangle clipping')
+        const edge = bucket.pop()!
+        if (!bucket.length) outgoing.delete(cursor)
+        ring.push(edge.a)
+        cursor = key(edge.b)
+      } while (cursor !== start)
+      const cell = cleanRing(ring)
+      if (cell.length >= 3 && Math.abs(signedArea(cell)) > 1e-14) {
+        if (signedArea(cell) < 0) cell.reverse()
         cells.push(cell)
       }
     }
@@ -794,7 +813,8 @@ function seamRibbons(seams: Seam[]): { id: number; points: number[][] }[] {
     }
     const points = nodes.map((index) => nodePoints[index])
     let length = 0
-    for (let i = 1; i < points.length; i += 1) length += Math.hypot(points[i][0] - points[i - 1][0], points[i][1] - points[i - 1][1])
+    for (let i = 1; i < points.length; i += 1)
+      length += Math.hypot(points[i][0] - points[i - 1][0], points[i][1] - points[i - 1][1])
     if (length < CRACK_MIN_LENGTH) continue
     ribbons.push({ id: ribbons.length, points })
   }
@@ -810,35 +830,52 @@ function buildPaperGeometry(
   hole: number[][],
   cleanupFailureSink?: CleanupFailureSink,
 ): BufferGeometry {
-  const outer = [[-width / 2, -height / 2], [width / 2, -height / 2],
-    [width / 2, height / 2], [-width / 2, height / 2]]
+  const outer = [
+    [-width / 2, -height / 2],
+    [width / 2, -height / 2],
+    [width / 2, height / 2],
+    [-width / 2, height / 2],
+  ]
   const all = [...outer, ...hole]
-  const faces = ShapeUtils.triangulateShape(outer.map(p => new Vector2(...p as [number, number])),
-    [hole.map(p => new Vector2(...p as [number, number]))])
-  const positions: number[] = [], normals: number[] = [], indices: number[] = []
-  const columns = Math.ceil(width / PAPER_CELL), rows = Math.ceil(height / PAPER_CELL)
-  const dx = width / columns, dy = height / rows
+  const faces = ShapeUtils.triangulateShape(
+    outer.map((p) => new Vector2(...(p as [number, number]))),
+    [hole.map((p) => new Vector2(...(p as [number, number])))],
+  )
+  const positions: number[] = [],
+    normals: number[] = [],
+    indices: number[] = []
+  const columns = Math.ceil(width / PAPER_CELL),
+    rows = Math.ceil(height / PAPER_CELL)
+  const dx = width / columns,
+    dy = height / rows
   const bound = (polygon: number[][], axis: number, maximum: boolean) =>
-    polygon.reduce((v, p) => maximum ? Math.max(v, p[axis]) : Math.min(v, p[axis]), maximum ? -Infinity : Infinity)
+    polygon.reduce((v, p) => (maximum ? Math.max(v, p[axis]) : Math.min(v, p[axis])), maximum ? -Infinity : Infinity)
   for (const face of faces) {
-    const triangle = face.map(i => all[i])
+    const triangle = face.map((i) => all[i])
     const loY = Math.max(0, Math.floor((bound(triangle, 1, false) + height / 2) / dy))
     const hiY = Math.min(rows - 1, Math.floor((bound(triangle, 1, true) + height / 2) / dy))
     for (let row = loY; row <= hiY; row++) {
-      const y0 = -height / 2 + row * dy, y1 = y0 + dy
+      const y0 = -height / 2 + row * dy,
+        y1 = y0 + dy
       const strip = clipHalfPlane(clipHalfPlane(triangle, 0, y0, 0, 1, false), 0, y1, 0, 1, true)
       if (strip.length < 3) continue
       const loX = Math.max(0, Math.floor((bound(strip, 0, false) + width / 2) / dx))
       const hiX = Math.min(columns - 1, Math.floor((bound(strip, 0, true) + width / 2) / dx))
       for (let column = loX; column <= hiX; column++) {
-        const x0 = -width / 2 + column * dx, x1 = x0 + dx
+        const x0 = -width / 2 + column * dx,
+          x1 = x0 + dx
         const cell = cleanRing(clipHalfPlane(clipHalfPlane(strip, x0, 0, 1, 0, false), x1, 0, 1, 0, true))
         if (cell.length < 3) continue
         for (let i = 1; i < cell.length - 1; i++) {
-          const a = cell[0], b = cell[i], c = cell[i + 1]
-          if (Math.abs((b[0]-a[0])*(c[1]-a[1])-(c[0]-a[0])*(b[1]-a[1])) < 1e-18) continue
+          const a = cell[0],
+            b = cell[i],
+            c = cell[i + 1]
+          if (Math.abs((b[0] - a[0]) * (c[1] - a[1]) - (c[0] - a[0]) * (b[1] - a[1])) < 1e-18) continue
           const base = positions.length / 3
-          for (const p of [a, b, c]) { positions.push(p[0], p[1], 0); normals.push(0, 0, 1) }
+          for (const p of [a, b, c]) {
+            positions.push(p[0], p[1], 0)
+            normals.push(0, 0, 1)
+          }
           indices.push(base, base + 1, base + 2)
         }
       }
@@ -874,8 +911,8 @@ function buildFragmentGeometry(
   )
   const indices: number[] = []
   for (const face of faces) {
-    const [a,b,c] = face.map(i => ring[i])
-    if ((b[0]-a[0])*(c[1]-a[1])-(c[0]-a[0])*(b[1]-a[1]) < 0) [face[1],face[2]] = [face[2],face[1]]
+    const [a, b, c] = face.map((i) => ring[i])
+    if ((b[0] - a[0]) * (c[1] - a[1]) - (c[0] - a[0]) * (b[1] - a[1]) < 0) [face[1], face[2]] = [face[2], face[1]]
     indices.push(face[0], face[1], face[2])
   }
   for (const face of faces) indices.push(count + face[0], count + face[2], count + face[1])
@@ -885,10 +922,18 @@ function buildFragmentGeometry(
     const next = (i + 1) % count
     const base = positions.length / 3
     positions.push(
-      ring[i][0] - center.x, ring[i][1] - center.y, 0,
-      ring[next][0] - center.x, ring[next][1] - center.y, 0,
-      (ring[next][0] - center.x) * BACK_TAPER, (ring[next][1] - center.y) * BACK_TAPER, -BREAKTHROUGH_THICKNESS,
-      (ring[i][0] - center.x) * BACK_TAPER, (ring[i][1] - center.y) * BACK_TAPER, -BREAKTHROUGH_THICKNESS,
+      ring[i][0] - center.x,
+      ring[i][1] - center.y,
+      0,
+      ring[next][0] - center.x,
+      ring[next][1] - center.y,
+      0,
+      (ring[next][0] - center.x) * BACK_TAPER,
+      (ring[next][1] - center.y) * BACK_TAPER,
+      -BREAKTHROUGH_THICKNESS,
+      (ring[i][0] - center.x) * BACK_TAPER,
+      (ring[i][1] - center.y) * BACK_TAPER,
+      -BREAKTHROUGH_THICKNESS,
     )
     indices.push(base, base + 2, base + 3, base, base + 1, base + 2)
   }
@@ -899,9 +944,9 @@ function buildFragmentGeometry(
     // Front, back and the side walls need real normals: the rest plane reads normal.z.
     geometry.computeVertexNormals()
     const faceNormals = geometry.getAttribute('normal')
-    for (let i=0;i<count;i++) {
-      faceNormals.setXYZ(i,0,0,1)
-      faceNormals.setXYZ(count+i,0,0,-1)
+    for (let i = 0; i < count; i++) {
+      faceNormals.setXYZ(i, 0, 0, 1)
+      faceNormals.setXYZ(count + i, 0, 0, -1)
     }
     return geometry
   } catch (error) {
@@ -977,7 +1022,6 @@ function buildRibbonGeometry(
   }
 }
 
-
 /** Outward unit normal of every edge of a counter-clockwise polygon. */
 function edgeNormals(points: number[][]): number[][] {
   return points.map((point, index) => {
@@ -1021,7 +1065,11 @@ function buildRimGeometry(outline: number[][], cleanupFailureSink?: CleanupFailu
   for (let i = 0; i < count; i += 1) {
     const point = path[i]
     const outward = bisectors[i]
-    positions.push(point[0] + outward[0] * BREAKTHROUGH_RIM_WIDTH, point[1] + outward[1] * BREAKTHROUGH_RIM_WIDTH, BREAKTHROUGH_RIM_FRONT_Z)
+    positions.push(
+      point[0] + outward[0] * BREAKTHROUGH_RIM_WIDTH,
+      point[1] + outward[1] * BREAKTHROUGH_RIM_WIDTH,
+      BREAKTHROUGH_RIM_FRONT_Z,
+    )
     normals.push(0, 0, 1)
   }
   for (let i = 0; i < count; i += 1) {
@@ -1080,83 +1128,89 @@ export function makeBreakthroughGeometry(
   }
   const seeds = placeSeeds(minX, minY, maxX, maxY, outlineIndex, FRAGMENT_TARGET)
   const cells = partitionOutline(outline, seeds)
-  if(cells.length<BREAKTHROUGH_FRAGMENT_MIN || cells.length>BREAKTHROUGH_FRAGMENT_MAX) throw new Error('Paper fragment count outside the geometry budget')
+  if (cells.length < BREAKTHROUGH_FRAGMENT_MIN || cells.length > BREAKTHROUGH_FRAGMENT_MAX)
+    throw new Error('Paper fragment count outside the geometry budget')
   const fragments: BreakthroughFragment[] = []
   const ownedGeometries: BufferGeometry[] = []
   let fragmentArea = 0
   let fragmentZMin = Infinity
   let fragmentZMax = -Infinity
-try {
-  cells.forEach((ring, index) => {
-    const center = ringCentroid(ring)
-    const geometry = buildFragmentGeometry(ring, center, cleanupFailureSink)
-    ownedGeometries.push(geometry)
-    fragmentArea += Math.abs(signedArea(ring))
-    const zValues = geometry.getAttribute('position').array
-    for (let i = 2; i < zValues.length; i += 3) {
-      if (zValues[i] < fragmentZMin) fragmentZMin = zValues[i]
-      if (zValues[i] > fragmentZMax) fragmentZMax = zValues[i]
-    }
-    const azimuth = hashIndex(index, SALT_SPIN + 1) * Math.PI * 2
-    const radial = BREAKTHROUGH_FRAGMENT_RADIAL_MIN
-      + (BREAKTHROUGH_FRAGMENT_RADIAL_MAX - BREAKTHROUGH_FRAGMENT_RADIAL_MIN) * hashIndex(index, SALT_RADIAL)
-    const lift = BREAKTHROUGH_FRAGMENT_LIFT_MIN
-      + (BREAKTHROUGH_FRAGMENT_LIFT_MAX - BREAKTHROUGH_FRAGMENT_LIFT_MIN) * hashIndex(index, SALT_LIFT)
-    fragments.push({
-      geometry,
-      center,
-      // Deterministic per unit of normalised scroll: out of the sheet, unevenly spread.
-      velocity: new Vector3(Math.cos(azimuth) * radial, Math.sin(azimuth) * radial, lift),
-      spin: new Vector3(
-        (hashIndex(index, SALT_SPIN) * 2 - 1) * BREAKTHROUGH_FRAGMENT_SPIN_MAX,
-        (hashIndex(index, SALT_SPIN + 2) * 2 - 1) * BREAKTHROUGH_FRAGMENT_SPIN_MAX,
-        (hashIndex(index, SALT_SPIN + 3) * 2 - 1) * BREAKTHROUGH_FRAGMENT_SPIN_MAX,
-      ),
-      delay: hashIndex(index, SALT_DELAY) * BREAKTHROUGH_FRAGMENT_DELAY_MAX,
+  try {
+    cells.forEach((ring, index) => {
+      const center = ringCentroid(ring)
+      const geometry = buildFragmentGeometry(ring, center, cleanupFailureSink)
+      ownedGeometries.push(geometry)
+      fragmentArea += Math.abs(signedArea(ring))
+      const zValues = geometry.getAttribute('position').array
+      for (let i = 2; i < zValues.length; i += 3) {
+        if (zValues[i] < fragmentZMin) fragmentZMin = zValues[i]
+        if (zValues[i] > fragmentZMax) fragmentZMax = zValues[i]
+      }
+      const azimuth = hashIndex(index, SALT_SPIN + 1) * Math.PI * 2
+      const radial =
+        BREAKTHROUGH_FRAGMENT_RADIAL_MIN +
+        (BREAKTHROUGH_FRAGMENT_RADIAL_MAX - BREAKTHROUGH_FRAGMENT_RADIAL_MIN) * hashIndex(index, SALT_RADIAL)
+      const lift =
+        BREAKTHROUGH_FRAGMENT_LIFT_MIN +
+        (BREAKTHROUGH_FRAGMENT_LIFT_MAX - BREAKTHROUGH_FRAGMENT_LIFT_MIN) * hashIndex(index, SALT_LIFT)
+      fragments.push({
+        geometry,
+        center,
+        // Deterministic per unit of normalised scroll: out of the sheet, unevenly spread.
+        velocity: new Vector3(Math.cos(azimuth) * radial, Math.sin(azimuth) * radial, lift),
+        spin: new Vector3(
+          (hashIndex(index, SALT_SPIN) * 2 - 1) * BREAKTHROUGH_FRAGMENT_SPIN_MAX,
+          (hashIndex(index, SALT_SPIN + 2) * 2 - 1) * BREAKTHROUGH_FRAGMENT_SPIN_MAX,
+          (hashIndex(index, SALT_SPIN + 3) * 2 - 1) * BREAKTHROUGH_FRAGMENT_SPIN_MAX,
+        ),
+        delay: hashIndex(index, SALT_DELAY) * BREAKTHROUGH_FRAGMENT_DELAY_MAX,
+      })
     })
-  })
 
-  const seams = collectSeams(cells, outlineIndex)
-  const ribbons = seamRibbons(seams)
-  const cracks = buildRibbonGeometry(ribbons, BREAKTHROUGH_CRACK_Z, BREAKTHROUGH_CRACK_HALF_WIDTH, cleanupFailureSink)
-  ownedGeometries.push(cracks)
-  const paper = buildPaperGeometry(width, height, outline, cleanupFailureSink)
-  ownedGeometries.push(paper)
-  const edge = buildRimGeometry(outline, cleanupFailureSink)
-  ownedGeometries.push(edge)
+    const seams = collectSeams(cells, outlineIndex)
+    const ribbons = seamRibbons(seams)
+    const cracks = buildRibbonGeometry(ribbons, BREAKTHROUGH_CRACK_Z, BREAKTHROUGH_CRACK_HALF_WIDTH, cleanupFailureSink)
+    ownedGeometries.push(cracks)
+    const paper = buildPaperGeometry(width, height, outline, cleanupFailureSink)
+    ownedGeometries.push(paper)
+    const edge = buildRimGeometry(outline, cleanupFailureSink)
+    ownedGeometries.push(edge)
 
-  // Measured, not assumed: how far past the exact profile the hole actually reaches.
-  const profileIndex = new SegmentIndex(profile, GRID_CELL)
-  const profileArea = new YBandIndex(profile)
-  let maxBoundaryDeviation = 0
-  for (const point of outline) {
-    if (profileArea.contains(point[0], point[1], 0)) continue
-    const deviation = profileIndex.nearest(point[0], point[1], 0.004)
-    if (deviation > maxBoundaryDeviation) maxBoundaryDeviation = deviation
+    // Measured, not assumed: how far past the exact profile the hole actually reaches.
+    const profileIndex = new SegmentIndex(profile, GRID_CELL)
+    const profileArea = new YBandIndex(profile)
+    let maxBoundaryDeviation = 0
+    for (const point of outline) {
+      if (profileArea.contains(point[0], point[1], 0)) continue
+      const deviation = profileIndex.nearest(point[0], point[1], 0.004)
+      if (deviation > maxBoundaryDeviation) maxBoundaryDeviation = deviation
+    }
+
+    let disposed = false
+    return {
+      paper,
+      fragments,
+      edge,
+      cracks,
+      profile,
+      outline,
+      tornContour: outline,
+      area,
+      fragmentArea,
+      thickness: BREAKTHROUGH_THICKNESS,
+      maxBoundaryDeviation,
+      fragmentZRange: [
+        Number.isFinite(fragmentZMin) ? fragmentZMin : 0,
+        Number.isFinite(fragmentZMax) ? fragmentZMax : 0,
+      ],
+      dispose: (sink?: CleanupFailureSink) => {
+        if (disposed) return
+        disposed = true
+        disposeAll([paper, edge, cracks, ...fragments.map((fragment) => fragment.geometry)], sink)
+      },
+    }
+  } catch (error) {
+    rollbackOwned(ownedGeometries, cleanupFailureSink)
+    throw error
   }
-
-  let disposed = false
-  return {
-    paper,
-    fragments,
-    edge,
-    cracks,
-    profile,
-    outline,
-    tornContour: outline,
-    area,
-    fragmentArea,
-    thickness: BREAKTHROUGH_THICKNESS,
-    maxBoundaryDeviation,
-    fragmentZRange: [Number.isFinite(fragmentZMin) ? fragmentZMin : 0, Number.isFinite(fragmentZMax) ? fragmentZMax : 0],
-    dispose: (sink?: CleanupFailureSink) => {
-      if (disposed) return
-      disposed = true
-      disposeAll([paper, edge, cracks, ...fragments.map((fragment) => fragment.geometry)], sink)
-    },
-  }
-} catch (error) {
-  rollbackOwned(ownedGeometries, cleanupFailureSink)
-  throw error
-}
 }

@@ -1,10 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import {
-  PAPER_GRAIN_MIX,
-  PAPER_GRAIN_SEED,
-  PAPER_GRAIN_SIZE,
-  fillPaperGrain,
-} from './drawingGeometry'
+import { PAPER_GRAIN_MIX, PAPER_GRAIN_SEED, PAPER_GRAIN_SIZE, fillPaperGrain } from './drawingGeometry'
 
 /** JG-032 — paper grain: deterministic, unbiased, intro-only overlay. */
 describe('JG-032 procedural paper grain', () => {

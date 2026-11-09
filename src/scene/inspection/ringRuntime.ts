@@ -28,13 +28,15 @@ export function createRingRuntime(session: StorySession, ctx: StoryContext): Sto
   const global = (typeof window !== 'undefined' ? window : {}) as unknown as Record<string, unknown>
   const proof = {
     seek(time: number, entryElapsedValue = 2) {
-      inspection.playing = false; inspection.entryElapsed = entryElapsedValue
+      inspection.playing = false
+      inspection.entryElapsed = entryElapsedValue
       inspection.time = Math.max(0, Math.min(inspection.duration, time))
     },
     mask: runtime.mask.bind(runtime),
     progress: runtime.progress.bind(runtime),
   }
-  if (typeof location !== 'undefined' && new URLSearchParams(location.search).has('inspectionProof')) global.__inspectionProof = proof
+  if (typeof location !== 'undefined' && new URLSearchParams(location.search).has('inspectionProof'))
+    global.__inspectionProof = proof
   const dispose = runtime.dispose.bind(runtime)
   runtime.dispose = () => {
     if (global.__inspectionProof === proof) delete global.__inspectionProof

@@ -8,7 +8,8 @@ const root = fileURLToPath(new URL('../', import.meta.url))
 const entry = path.join(root, 'src/torque-wrench-main.tsx')
 const gate = path.join(root, 'src/scene/torque-wrench/cadGate.ts')
 const allowedStaticPackages = /^(react(?:\/|$)|react-dom(?:\/|$))/
-const narrativePackages = /^(three(?:\/|$)|@react-three\/|gsap(?:\/|$)|lenis(?:\/|$)|postprocessing(?:\/|$)|troika-three-text(?:\/|$)|three-stdlib(?:\/|$))/
+const narrativePackages =
+  /^(three(?:\/|$)|@react-three\/|gsap(?:\/|$)|lenis(?:\/|$)|postprocessing(?:\/|$)|troika-three-text(?:\/|$)|three-stdlib(?:\/|$))/
 const configPath = ts.findConfigFile(root, ts.sys.fileExists)
 const config = ts.readConfigFile(configPath, ts.sys.readFile)
 const options = ts.parseJsonConfigFileContent(config.config, ts.sys, root).options
@@ -24,11 +25,19 @@ function inspect(file, deferred = false) {
   if (seen.has(file)) return
   seen.add(file)
   const rel = relative(file)
-  const privateReuse = deferred && (
-    rel.startsWith('src/scene/rig/') || rel.startsWith('src/scene/drawing/') ||
-    rel.startsWith('src/scene/inspection/') || rel === 'src/data/caseStudies.ts'
-  )
-  if (rel !== 'src/torque-wrench-main.tsx' && rel !== 'src/state/torqueWrenchStore.ts' && !rel.startsWith('src/scene/torque-wrench/') && !rel.startsWith('src/shared/') && !privateReuse) {
+  const privateReuse =
+    deferred &&
+    (rel.startsWith('src/scene/rig/') ||
+      rel.startsWith('src/scene/drawing/') ||
+      rel.startsWith('src/scene/inspection/') ||
+      rel === 'src/data/caseStudies.ts')
+  if (
+    rel !== 'src/torque-wrench-main.tsx' &&
+    rel !== 'src/state/torqueWrenchStore.ts' &&
+    !rel.startsWith('src/scene/torque-wrench/') &&
+    !rel.startsWith('src/shared/') &&
+    !privateReuse
+  ) {
     errors.push(`Outside Stage 1 local/shared surface: ${rel}`)
     return
   }
@@ -52,7 +61,10 @@ function inspect(file, deferred = false) {
       else inspect(target.resolvedFileName, true)
       return
     }
-    if (rel === 'src/state/torqueWrenchStore.ts' && !['../scene/torque-wrench/beatTimeline', '../scene/torque-wrench/beats'].includes(specifier)) {
+    if (
+      rel === 'src/state/torqueWrenchStore.ts' &&
+      !['../scene/torque-wrench/beatTimeline', '../scene/torque-wrench/beats'].includes(specifier)
+    ) {
       errors.push(`Page-local store imports outside its pure timeline contract: ${specifier}`)
       return
     }
@@ -77,12 +89,24 @@ function inspect(file, deferred = false) {
     if (ts.isImportDeclaration(node) && ts.isStringLiteral(node.moduleSpecifier)) {
       if (!node.importClause?.isTypeOnly) {
         const bindings = node.importClause?.namedBindings
-        const onlyTypes = bindings && ts.isNamedImports(bindings) && !node.importClause.name && bindings.elements.every((item) => item.isTypeOnly)
+        const onlyTypes =
+          bindings &&
+          ts.isNamedImports(bindings) &&
+          !node.importClause.name &&
+          bindings.elements.every((item) => item.isTypeOnly)
         if (!onlyTypes) check(node.moduleSpecifier.text, false)
       }
     }
-    if (ts.isExportDeclaration(node) && node.moduleSpecifier && ts.isStringLiteral(node.moduleSpecifier) && !node.isTypeOnly) {
-      const onlyTypes = node.exportClause && ts.isNamedExports(node.exportClause) && node.exportClause.elements.every((item) => item.isTypeOnly)
+    if (
+      ts.isExportDeclaration(node) &&
+      node.moduleSpecifier &&
+      ts.isStringLiteral(node.moduleSpecifier) &&
+      !node.isTypeOnly
+    ) {
+      const onlyTypes =
+        node.exportClause &&
+        ts.isNamedExports(node.exportClause) &&
+        node.exportClause.elements.every((item) => item.isTypeOnly)
       if (!onlyTypes) check(node.moduleSpecifier.text, false)
     }
     if (ts.isCallExpression(node) && node.expression.kind === ts.SyntaxKind.ImportKeyword) {
@@ -107,5 +131,17 @@ if (!visited.has(gate)) errors.push('Entry does not reach the CAD gate')
 if (lazy.length !== 1 || lazy[0].from !== relative(gate) || lazy[0].specifier !== './Scene') {
   errors.push('Expected exactly one lazy edge: CAD gate -> ./Scene')
 }
-console.log(JSON.stringify({ pass: errors.length === 0, staticModules: [...visited].map(relative).sort(), lazyModules: [...lazyVisited].map(relative).sort(), lazy, errors }, null, 2))
+console.log(
+  JSON.stringify(
+    {
+      pass: errors.length === 0,
+      staticModules: [...visited].map(relative).sort(),
+      lazyModules: [...lazyVisited].map(relative).sort(),
+      lazy,
+      errors,
+    },
+    null,
+    2,
+  ),
+)
 process.exitCode = errors.length ? 1 : 0

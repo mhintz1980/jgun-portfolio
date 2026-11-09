@@ -6,17 +6,20 @@ import { PRIVATE_PIT_ANGULAR_CELLS, PRIVATE_PIT_STRATUM_M } from './PitGeometry'
 import type { ShaderMaterial } from 'three'
 
 const outline = Array.from({ length: 32 }, (_, i) => {
-  const a = i / 32 * Math.PI * 2
-  const r = .13 + .01 * Math.sin(a * 5)
+  const a = (i / 32) * Math.PI * 2
+  const r = 0.13 + 0.01 * Math.sin(a * 5)
   return [Math.cos(a) * r, Math.sin(a) * r]
 })
 
 const g = (v: number) => (Number.isInteger(v) ? v.toFixed(1) : String(v))
-const declaredUniforms = (source: string) =>
-  Array.from(source.matchAll(/uniform\s+\w+\s+(\w+);/g), m => m[1])
+const declaredUniforms = (source: string) => Array.from(source.matchAll(/uniform\s+\w+\s+(\w+);/g), (m) => m[1])
 
-const build = () => makePortal(outline, -1, new Vector2(0, 0), { value: 0 }, undefined,
-  { fissureEnergy: { value: 0 }, fissureGrowth: { value: 0 }, rocky: true })
+const build = () =>
+  makePortal(outline, -1, new Vector2(0, 0), { value: 0 }, undefined, {
+    fissureEnergy: { value: 0 },
+    fissureGrowth: { value: 0 },
+    rocky: true,
+  })
 
 it('selects wall vs closure fragments and wires every declared uniform', () => {
   const portal = build()
@@ -81,9 +84,11 @@ it('keeps fissure emission blue-gated and the palette cool basalt with warm lip 
 
   const dark = wall.uniforms.uPortalRockDark.value
   const light = wall.uniforms.uPortalRockLight.value
-  expect(dark.x).toBeCloseTo(0.018); expect(dark.y).toBeCloseTo(0.022)
-  expect(dark.z).toBeCloseTo(0.030)
-  expect(light.x).toBeCloseTo(0.135); expect(light.y).toBeCloseTo(0.156)
+  expect(dark.x).toBeCloseTo(0.018)
+  expect(dark.y).toBeCloseTo(0.022)
+  expect(dark.z).toBeCloseTo(0.03)
+  expect(light.x).toBeCloseTo(0.135)
+  expect(light.y).toBeCloseTo(0.156)
   expect(light.z).toBeCloseTo(0.184)
   // Cool basalt: blue channel dominates both endpoints; warm bounce is a separate lip term.
   expect(dark.z).toBeGreaterThan(dark.x)

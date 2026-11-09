@@ -78,12 +78,24 @@ const RATE_SLOW = 0.22
 const RATE_RECAP = 4
 
 const clamp01 = (x: number) => (x < 0 ? 0 : x > 1 ? 1 : x)
-const ease = (x: number) => { const t = clamp01(x); return t * t * (3 - 2 * t) }
+const ease = (x: number) => {
+  const t = clamp01(x)
+  return t * t * (3 - 2 * t)
+}
 /** Integral of ease over [0, u]. */
-const easeIntegral = (u: number) => { const t = clamp01(u); return t * t * t - t * t * t * t / 2 }
+const easeIntegral = (u: number) => {
+  const t = clamp01(u)
+  return t * t * t - (t * t * t * t) / 2
+}
 const mod1 = (x: number) => x - Math.floor(x)
 
-interface RateSegment { readonly t0: number; readonly t1: number; readonly r0: number; readonly r1: number; readonly m0: number }
+interface RateSegment {
+  readonly t0: number
+  readonly t1: number
+  readonly r0: number
+  readonly r1: number
+  readonly m0: number
+}
 
 /**
  * Rate segments dm/dt: frozen before 2 s, eased onset 2..3 s (C1 out of the frozen pre-roll
@@ -226,10 +238,20 @@ export function infeedRhoAt(m: number): number {
  * Move that event to the first actual face contact within the SAME nearest-space sector
  * (half a pitch either side of the centre). Precompute once, never allocate during sample.
  */
-const STOCK_ENTRY_PHASE = Math.acos(1 - 2 * (FACE_START_MM - SHAPER_LEADING_FACE_Y_MM - SHAPER_STROKE_CENTRE_Y_MIN_MM)
-  / (SHAPER_STROKE_CENTRE_Y_MAX_MM - SHAPER_STROKE_CENTRE_Y_MIN_MM)) / (2 * Math.PI)
-const STOCK_EXIT_PHASE = Math.acos(1 - 2 * (SHAPING_FACE_END_MM - SHAPER_LEADING_FACE_Y_MM - SHAPER_STROKE_CENTRE_Y_MIN_MM)
-  / (SHAPER_STROKE_CENTRE_Y_MAX_MM - SHAPER_STROKE_CENTRE_Y_MIN_MM)) / (2 * Math.PI)
+const STOCK_ENTRY_PHASE =
+  Math.acos(
+    1 -
+      (2 * (FACE_START_MM - SHAPER_LEADING_FACE_Y_MM - SHAPER_STROKE_CENTRE_Y_MIN_MM)) /
+        (SHAPER_STROKE_CENTRE_Y_MAX_MM - SHAPER_STROKE_CENTRE_Y_MIN_MM),
+  ) /
+  (2 * Math.PI)
+const STOCK_EXIT_PHASE =
+  Math.acos(
+    1 -
+      (2 * (SHAPING_FACE_END_MM - SHAPER_LEADING_FACE_Y_MM - SHAPER_STROKE_CENTRE_Y_MIN_MM)) /
+        (SHAPER_STROKE_CENTRE_Y_MAX_MM - SHAPER_STROKE_CENTRE_Y_MIN_MM),
+  ) /
+  (2 * Math.PI)
 const PASS_REPEAT_M = 2 * WORK_REV_M
 const HALF_SPACE_WINDOW_M = SPACE_PITCH_RAD / (2 * Math.abs(WORK_RATE))
 /** Tiny interior offset avoids an acos/cos roundoff putting the event outside the face. */
@@ -246,10 +268,15 @@ for (let i = 0; i < SHAFT_SPACES; i++) {
   const event = Math.max(entry + CONTACT_INTERIOR_M, Math.min(c, exit - CONTACT_INTERIOR_M))
   const eventEdge = strokeCentreYAt(event) + SHAPER_LEADING_FACE_Y_MM
   const nearest = Math.round((MESH_AZ_RAD - SPACE_CLOCK_RAD - WORK_RATE * event) / SPACE_PITCH_RAD)
-  if (event < c - HALF_SPACE_WINDOW_M || event >= c + HALF_SPACE_WINDOW_M
-    || eventEdge < FACE_START_MM || eventEdge > SHAPING_FACE_END_MM
-    || ((nearest % SHAFT_SPACES) + SHAFT_SPACES) % SHAFT_SPACES !== i
-    || strokePhaseAt(event) >= 0.5 || infeedRhoAt(event) >= SHAFT_OD_MM - 1e-3) {
+  if (
+    event < c - HALF_SPACE_WINDOW_M ||
+    event >= c + HALF_SPACE_WINDOW_M ||
+    eventEdge < FACE_START_MM ||
+    eventEdge > SHAPING_FACE_END_MM ||
+    ((nearest % SHAFT_SPACES) + SHAFT_SPACES) % SHAFT_SPACES !== i ||
+    strokePhaseAt(event) >= 0.5 ||
+    infeedRhoAt(event) >= SHAFT_OD_MM - 1e-3
+  ) {
     throw new Error('Shaper contact event does not fit the certified nearest-space stock window')
   }
   FIRST_CONTACT_PASS_M.push(event)
@@ -275,9 +302,14 @@ const HOB_FEED_SPAN_MM = HOB_STOP_YC_MM - HOB_INFEED_YC_MM
 /** Hob centre y (mm) along the certified path: infeed yc, feed +Y, hold, withdraw below the face. */
 export function hobYcAt(t: number): number {
   if (t < T_HOB_INFEED_END) return HOB_INFEED_YC_MM
-  if (t < T_HOB_FEED_END) return HOB_INFEED_YC_MM + HOB_FEED_SPAN_MM * ease((t - T_HOB_INFEED_END) / (T_HOB_FEED_END - T_HOB_INFEED_END))
+  if (t < T_HOB_FEED_END)
+    return HOB_INFEED_YC_MM + HOB_FEED_SPAN_MM * ease((t - T_HOB_INFEED_END) / (T_HOB_FEED_END - T_HOB_INFEED_END))
   if (t < T_HOB_RETRACT_END) return HOB_STOP_YC_MM
-  if (t < T_HOB_WITHDRAW_END) return HOB_STOP_YC_MM + (HOB_WITHDRAW_YC_MM - HOB_STOP_YC_MM) * ease((t - T_HOB_RETRACT_END) / (T_HOB_WITHDRAW_END - T_HOB_RETRACT_END))
+  if (t < T_HOB_WITHDRAW_END)
+    return (
+      HOB_STOP_YC_MM +
+      (HOB_WITHDRAW_YC_MM - HOB_STOP_YC_MM) * ease((t - T_HOB_RETRACT_END) / (T_HOB_WITHDRAW_END - T_HOB_RETRACT_END))
+    )
   return HOB_WITHDRAW_YC_MM
 }
 
@@ -310,8 +342,7 @@ export function hobPhiAt(t: number): number {
         if (t < 31.8) {
           const u = (t - 31) / 0.8
           revs += HOB_REV_RATE * 0.8 * (u - easeIntegral(u))
-        }
-        else revs += HOB_REV_RATE * 0.8 * 0.5
+        } else revs += HOB_REV_RATE * 0.8 * 0.5
       }
     }
   }
@@ -355,7 +386,11 @@ export function followMfAt(t: number): number {
   if (t < T_SHAPING_START) return 0
   if (t < T_STARTUP_EASE_END) {
     // Weight 1 through the eased startup: mf = m(t) on that segment (same closed form).
-    return (T_STARTUP_EASE_END - T_SHAPING_START) * RATE_NORMAL * easeIntegral((t - T_SHAPING_START) / (T_STARTUP_EASE_END - T_SHAPING_START))
+    return (
+      (T_STARTUP_EASE_END - T_SHAPING_START) *
+      RATE_NORMAL *
+      easeIntegral((t - T_SHAPING_START) / (T_STARTUP_EASE_END - T_SHAPING_START))
+    )
   }
   if (t < T_EASE_DOWN) return MF_AT_STARTUP_END + (t - T_STARTUP_EASE_END)
   if (t < T_SLOW_START) {
@@ -366,7 +401,7 @@ export function followMfAt(t: number): number {
   if (t < T_EASE_UP_END) return MF_AT_SLOW_START
   if (t < 12) return MF_AT_RECAP_START + 4 * easeIntegral(t - T_EASE_UP_END)
   if (t < T_RECAP_END) return MF_AT_12 + 4 * (t - 12)
-  if (t < T_SHAPING_END) return MF_AT_RECAP_END + 4 * ((t - T_RECAP_END) - easeIntegral(t - T_RECAP_END))
+  if (t < T_SHAPING_END) return MF_AT_RECAP_END + 4 * (t - T_RECAP_END - easeIntegral(t - T_RECAP_END))
   return FOLLOW_MF_TOTAL
 }
 
@@ -520,8 +555,8 @@ export function sampleShaftKinematics(time: number, out: ShaftKinematicsFrame): 
     out.spaceDepth[i] = depth > 1 ? 1 : depth
   }
   // Groove overtravel is tool motion, not tooth-stock contact.
-  const inStock = shaping && cuttingStroke && edgeY >= FACE_START_MM && edgeY <= SHAPING_FACE_END_MM
-    && infeedRho < SHAFT_OD_MM - 1e-3
+  const inStock =
+    shaping && cuttingStroke && edgeY >= FACE_START_MM && edgeY <= SHAPING_FACE_END_MM && infeedRho < SHAFT_OD_MM - 1e-3
   if (inStock) {
     const raw = (MESH_AZ_RAD - SPACE_CLOCK_RAD - workPhi) / SPACE_PITCH_RAD
     const index = ((Math.round(raw) % SHAFT_SPACES) + SHAFT_SPACES) % SHAFT_SPACES
@@ -562,7 +597,7 @@ export function sampleShaftKinematics(time: number, out: ShaftKinematicsFrame): 
   // display-rate guard
   const strokeHz = shaping ? rate / STROKE_PERIOD_M : 0
   const gashHz = shaping
-    ? (SHAPER_TEETH * CUTTER_RATE / (2 * Math.PI)) * rate
+    ? ((SHAPER_TEETH * CUTTER_RATE) / (2 * Math.PI)) * rate
     : hobbing
       ? HOB_FLUTES * out.hobRevRate
       : 0

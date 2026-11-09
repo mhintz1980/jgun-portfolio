@@ -44,7 +44,13 @@ describe('PAGES registry', () => {
   })
 
   it('carries the nav label and a non-empty long name on every row', () => {
-    expect(PAGES.map((page) => page.label)).toEqual(['TORQUE WRENCH', 'THE QUIET MACHINE', 'HOME', 'HOMEPAGE', 'ARMAMENT'])
+    expect(PAGES.map((page) => page.label)).toEqual([
+      'TORQUE WRENCH',
+      'THE QUIET MACHINE',
+      'HOME',
+      'HOMEPAGE',
+      'ARMAMENT',
+    ])
     for (const page of PAGES) expect(page.name.length, `${page.id}: name`).toBeGreaterThan(0)
   })
 
@@ -97,7 +103,14 @@ describe('PAGES registry', () => {
 
 describe('armament placeholder', () => {
   it('is private, fading and served at /armament/', () => {
-    expect(byId('armament')).toMatchObject({ index: 5, path: '/armament/', htmlEntry: 'armament/index.html', reserved: false, fadeIn: true, private: true })
+    expect(byId('armament')).toMatchObject({
+      index: 5,
+      path: '/armament/',
+      htmlEntry: 'armament/index.html',
+      reserved: false,
+      fadeIn: true,
+      private: true,
+    })
   })
 })
 

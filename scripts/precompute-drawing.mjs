@@ -50,9 +50,12 @@ async function measure(page, target, expectedPrecomputed, reload = false) {
   await page.waitForFunction(() => !!window.__precomputeReady, null, { timeout: 120000 })
   const result = await page.evaluate(() => ({ ...window.__precomputeReady, devicePixelRatio }))
   if (result.stats.precomputed !== expectedPrecomputed) {
-    throw new Error(`Expected precomputed=${expectedPrecomputed}, got ${result.stats.precomputed}; check server asset freshness`)
+    throw new Error(
+      `Expected precomputed=${expectedPrecomputed}, got ${result.stats.precomputed}; check server asset freshness`,
+    )
   }
-  if (!expectedPrecomputed && result.stats.cacheHit) throw new Error('Live baseline unexpectedly reused an in-memory sheet')
+  if (!expectedPrecomputed && result.stats.cacheHit)
+    throw new Error('Live baseline unexpectedly reused an in-memory sheet')
   return result
 }
 async function verifyInstalled(page, asset) {
@@ -62,13 +65,15 @@ async function verifyInstalled(page, asset) {
     if (!source) return false
     const { data, layout } = source
     const sheet = cache.cachedSheet(data, layout)
-    return sheet?.stats.precomputed === 1
-      && await cache.drawingCacheKey(data, layout) === expected.key
-      && JSON.stringify(sheet.ink.segs) === JSON.stringify(expected.segs)
-      && JSON.stringify(sheet.ink.fills) === JSON.stringify(expected.fills)
-      && JSON.stringify(sheet.ink.texts) === JSON.stringify(expected.texts)
-      && JSON.stringify(sheet.marks) === JSON.stringify(expected.marks)
-      && JSON.stringify(cache.cachedProfile(data, layout)) === JSON.stringify(expected.profile)
+    return (
+      sheet?.stats.precomputed === 1 &&
+      (await cache.drawingCacheKey(data, layout)) === expected.key &&
+      JSON.stringify(sheet.ink.segs) === JSON.stringify(expected.segs) &&
+      JSON.stringify(sheet.ink.fills) === JSON.stringify(expected.fills) &&
+      JSON.stringify(sheet.ink.texts) === JSON.stringify(expected.texts) &&
+      JSON.stringify(sheet.marks) === JSON.stringify(expected.marks) &&
+      JSON.stringify(cache.cachedProfile(data, layout)) === JSON.stringify(expected.profile)
+    )
   }, asset)
 }
 
@@ -92,24 +97,44 @@ try {
   const output = new URL('../public/drawing/', import.meta.url)
   await mkdir(output, { recursive: true })
   // Invalidate previous evidence before replacing its asset, including if verification fails.
-  await writeFile(new URL('jgun-sheet-v2.evidence.json', output), JSON.stringify({ status: 'pending', key: asset.key }) + '\n')
+  await writeFile(
+    new URL('jgun-sheet-v2.evidence.json', output),
+    JSON.stringify({ status: 'pending', key: asset.key }) + '\n',
+  )
   await writeFile(new URL('jgun-sheet-v2.bin.gz', output), gzip)
 
   const cachedContext = await browser.newContext(options)
   const cachedPage = await makePage(cachedContext)
   const coldPrecomputed = await measure(cachedPage, url.href, 1)
-  if (!await verifyInstalled(cachedPage, asset)) throw new Error('Cold precompute HTTP roundtrip differs from live bake')
+  if (!(await verifyInstalled(cachedPage, asset)))
+    throw new Error('Cold precompute HTTP roundtrip differs from live bake')
   const warmReload = await measure(cachedPage, url.href, 1, true)
-  if (!await verifyInstalled(cachedPage, asset)) throw new Error('Warm precompute HTTP roundtrip differs from live bake')
+  if (!(await verifyInstalled(cachedPage, asset)))
+    throw new Error('Warm precompute HTTP roundtrip differs from live bake')
   await cachedContext.close()
   const evidence = {
-    status: 'verified', generatedAt: new Date().toISOString(), url: url.href,
-    key: asset.key, cacheVersion: asset.version, containerVersion: 3,
-    environment: { channel, browserVersion: browser.version(), platform: platform(), osRelease: release(), cpu: cpus()[0]?.model, ...options },
-    method: 'One sample each: fresh-context live bake with cache bypass; fresh-context precompute load; same-context precompute reload. Timing ends at first sheet-stats publication (not first visible frame). Browser/GPU process and Vite server are shared and may be warm. HTTP cache behavior on reload is server-dependent. No claim of OS/disk/GPU-cold timing.',
-    coldLive, coldPrecomputed, warmReload,
+    status: 'verified',
+    generatedAt: new Date().toISOString(),
+    url: url.href,
+    key: asset.key,
+    cacheVersion: asset.version,
+    containerVersion: 3,
+    environment: {
+      channel,
+      browserVersion: browser.version(),
+      platform: platform(),
+      osRelease: release(),
+      cpu: cpus()[0]?.model,
+      ...options,
+    },
+    method:
+      'One sample each: fresh-context live bake with cache bypass; fresh-context precompute load; same-context precompute reload. Timing ends at first sheet-stats publication (not first visible frame). Browser/GPU process and Vite server are shared and may be warm. HTTP cache behavior on reload is server-dependent. No claim of OS/disk/GPU-cold timing.',
+    coldLive,
+    coldPrecomputed,
+    warmReload,
     exact: true,
-    containerBytes: container.length, gzipBytes: gzip.length,
+    containerBytes: container.length,
+    gzipBytes: gzip.length,
     // Legacy full-asset JSON size, serialized only for the evidence comparison line.
     legacyJsonBytesForComparison: Buffer.byteLength(JSON.stringify(asset)),
   }

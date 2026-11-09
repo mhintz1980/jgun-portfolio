@@ -67,16 +67,26 @@ export function buildEdgeSet(position: Float32Array): EdgeSet {
   const degenerate = new Uint8Array(triCount)
   for (let t = 0; t < triCount; t += 1) {
     const o = t * 9
-    const ux = position[o + 3] - position[o], uy = position[o + 4] - position[o + 1], uz = position[o + 5] - position[o + 2]
-    const vx = position[o + 6] - position[o], vy = position[o + 7] - position[o + 1], vz = position[o + 8] - position[o + 2]
-    let nx = uy * vz - uz * vy, ny = uz * vx - ux * vz, nz = ux * vy - uy * vx
+    const ux = position[o + 3] - position[o],
+      uy = position[o + 4] - position[o + 1],
+      uz = position[o + 5] - position[o + 2]
+    const vx = position[o + 6] - position[o],
+      vy = position[o + 7] - position[o + 1],
+      vz = position[o + 8] - position[o + 2]
+    let nx = uy * vz - uz * vy,
+      ny = uz * vx - ux * vz,
+      nz = ux * vy - uy * vx
     const len = Math.hypot(nx, ny, nz)
     if (len < 1e-14) {
       degenerate[t] = 1
       continue
     }
-    nx /= len; ny /= len; nz /= len
-    normals[t * 3] = nx; normals[t * 3 + 1] = ny; normals[t * 3 + 2] = nz
+    nx /= len
+    ny /= len
+    nz /= len
+    normals[t * 3] = nx
+    normals[t * 3 + 1] = ny
+    normals[t * 3 + 2] = nz
   }
   const cosCrease = Math.cos((CREASE_DEG * Math.PI) / 180)
   // edge key -> first triangle (+1, negative once consumed by a second face)
@@ -85,7 +95,14 @@ export function buildEdgeSet(position: Float32Array): EdgeSet {
   const smooth: number[] = []
   const smoothNormals: number[] = []
   const pushEdge = (out: number[], a: number, b: number) => {
-    out.push(position[a * 3], position[a * 3 + 1], position[a * 3 + 2], position[b * 3], position[b * 3 + 1], position[b * 3 + 2])
+    out.push(
+      position[a * 3],
+      position[a * 3 + 1],
+      position[a * 3 + 2],
+      position[b * 3],
+      position[b * 3 + 1],
+      position[b * 3 + 2],
+    )
   }
   const firstVertex = new Map<number, number>()
   for (let t = 0; t < triCount; t += 1) {
@@ -106,11 +123,21 @@ export function buildEdgeSet(position: Float32Array): EdgeSet {
       if (seen < 0) continue // non-manifold third face: already emitted
       edges.set(key, -1)
       const s = seen - 1
-      const d = normals[s * 3] * normals[t * 3] + normals[s * 3 + 1] * normals[t * 3 + 1] + normals[s * 3 + 2] * normals[t * 3 + 2]
+      const d =
+        normals[s * 3] * normals[t * 3] +
+        normals[s * 3 + 1] * normals[t * 3 + 1] +
+        normals[s * 3 + 2] * normals[t * 3 + 2]
       if (d < cosCrease) pushEdge(hard, va, vb)
       else {
         pushEdge(smooth, va, vb)
-        smoothNormals.push(normals[s * 3], normals[s * 3 + 1], normals[s * 3 + 2], normals[t * 3], normals[t * 3 + 1], normals[t * 3 + 2])
+        smoothNormals.push(
+          normals[s * 3],
+          normals[s * 3 + 1],
+          normals[s * 3 + 2],
+          normals[t * 3],
+          normals[t * 3 + 1],
+          normals[t * 3 + 2],
+        )
       }
       firstVertex.delete(key)
     }
@@ -307,12 +334,12 @@ function depthField(
               // Reporting failures cannot interrupt renderer restoration.
             }
           } else if (!hasPrimaryError) throw cleanupErrors[0]
-          }
         }
-      } catch (error) {
-        hasPrimaryError = true
-        throw error
       }
+    } catch (error) {
+      hasPrimaryError = true
+      throw error
+    }
     const z = new Float32Array(w * h)
     for (let i = 0; i < w * h; i += 1) {
       if (pixels[i * 4 + 3] < 128) {
@@ -401,7 +428,9 @@ export function extractView(
         tmpA.x + (tmpB.x - tmpA.x) * u,
         tmpA.y + (tmpB.y - tmpA.y) * u,
         tmpA.z + (tmpB.z - tmpA.z) * u,
-      ) ? 1 : 0
+      )
+        ? 1
+        : 0
     }
     // Hysteresis against depth-quantisation flicker (knurls, threads, grazing faces): bridge
     // hidden gaps of up to 2 samples (~3 px), then drop visible flecks shorter than 3 samples

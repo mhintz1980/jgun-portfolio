@@ -7,5 +7,5 @@ export function torqueHudChapter(chapter: TorquePosterChapterId, studyVisible: b
 }
 
 export function torqueHudSeekStart(chapter: TorquePosterChapterId, beatStart: number): number {
-  return chapter === 'inspection' ? .62 : beatStart
+  return chapter === 'inspection' ? 0.62 : beatStart
 }

@@ -239,7 +239,7 @@ export function configurePrivatePitMaterial(shader: ShaderMaterial): void {
   shader.fragmentShader = wall ? PRIVATE_PIT_WALL_FRAGMENT : PRIVATE_PIT_CLOSURE_FRAGMENT
   shader.uniforms.uPrivateSurroundings ??= { value: 1 }
   shader.uniforms.uPortalFissure?.value.set(0.579, 0.923, 1.12)
-  shader.uniforms.uPortalRockDark?.value.set(0.018, 0.022, 0.030)
+  shader.uniforms.uPortalRockDark?.value.set(0.018, 0.022, 0.03)
   shader.uniforms.uPortalRockLight?.value.set(0.135, 0.156, 0.184)
   if (shader.uniforms.uPortalRockExtinction) shader.uniforms.uPortalRockExtinction.value = 0.28
   shader.uniforms.uPortalHaze?.value.set(0.008, 0.014, 0.024)

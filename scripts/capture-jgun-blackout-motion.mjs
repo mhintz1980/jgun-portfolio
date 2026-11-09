@@ -30,10 +30,12 @@ import { chromium } from 'playwright'
 import { mkdir, readdir, rename, rm, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 
-const args = Object.fromEntries(process.argv.slice(2).map((arg) => {
-  const [key, ...value] = arg.replace(/^--/, '').split('=')
-  return [key, value.join('=')]
-}))
+const args = Object.fromEntries(
+  process.argv.slice(2).map((arg) => {
+    const [key, ...value] = arg.replace(/^--/, '').split('=')
+    return [key, value.join('=')]
+  }),
+)
 
 // The built preview is authoritative: the dev server HMR can tear the scene down mid-capture.
 const url = args.url || 'http://localhost:4173'
@@ -46,15 +48,24 @@ const radius = Math.max(1, Math.min(12, Number(args.radius || 4)))
 // ratchet is never overridden here: a mismatched tier is retried on a fresh page and, if it still
 // does not match, fails the run, so a lite frame can never be filed as full-tier proof.
 const requireTier = args['require-tier'] || ''
-const passes = (args.passes || 'stills,video').split(',').map((s) => s.trim()).filter(Boolean)
-for (const pass of passes) if (!['stills', 'video'].includes(pass)) throw new Error('Unknown pass "' + pass + '" (expected stills, video)')
-const out = path.resolve(args.out || ('project/work/evidence/JG-035-opening-drafting-table/storm-visible-dark-2026-09-30/' + label + '-motion'))
+const passes = (args.passes || 'stills,video')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean)
+for (const pass of passes)
+  if (!['stills', 'video'].includes(pass)) throw new Error('Unknown pass "' + pass + '" (expected stills, video)')
+const out = path.resolve(
+  args.out || 'project/work/evidence/JG-035-opening-drafting-table/storm-visible-dark-2026-09-30/' + label + '-motion',
+)
 
 const CASES = {
   desktop: { width: 1600, height: 900 },
   narrow: { width: 390, height: 844 },
 }
-const caseNames = (args.cases || 'desktop,narrow').split(',').map((s) => s.trim()).filter(Boolean)
+const caseNames = (args.cases || 'desktop,narrow')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean)
 for (const name of caseNames) {
   if (!CASES[name]) throw new Error('Unknown case "' + name + '" (expected ' + Object.keys(CASES).join(', ') + ')')
 }
@@ -86,7 +97,10 @@ const BEATS = { lit: 0.4, dark: 0.59, trace: 0.69, pressure: 0.82, lift: 0.94, r
 const SCRUB = { from: 0.4, to: 1 }
 
 const clamp01 = (x) => Math.max(0, Math.min(1, x))
-const smooth01 = (x) => { const t = clamp01(x); return t * t * (3 - 2 * t) }
+const smooth01 = (x) => {
+  const t = clamp01(x)
+  return t * t * (3 - 2 * t)
+}
 const round = (v, n = 3) => (typeof v === 'number' && Number.isFinite(v) ? Number(v.toFixed(n)) : null)
 const median = (values) => {
   const s = [...values].filter(Number.isFinite).sort((a, b) => a - b)
@@ -115,8 +129,16 @@ function checkpointName(t) {
   if (beat) return 'beat-' + beat[0]
   const index = FLICKER.u.findIndex((u) => Math.abs(FLICKER.start + u * (FLICKER.end - FLICKER.start) - t) < 1e-9)
   if (index >= 0) {
-    return 'flicker-k' + String(index).padStart(2, '0') + '-' + flickerKind(index)
-      + '-u' + sanitize(FLICKER.u[index].toFixed(3)) + '-p' + sanitize(FLICKER.power[index].toFixed(3))
+    return (
+      'flicker-k' +
+      String(index).padStart(2, '0') +
+      '-' +
+      flickerKind(index) +
+      '-u' +
+      sanitize(FLICKER.u[index].toFixed(3)) +
+      '-p' +
+      sanitize(FLICKER.power[index].toFixed(3))
+    )
   }
   return 't' + sanitize(t.toFixed(3))
 }
@@ -128,10 +150,19 @@ function expectedPowerFor(t) {
     let i = 0
     while (i < FLICKER.u.length - 2 && u >= FLICKER.u[i + 1]) i += 1
     const local = (u - FLICKER.u[i]) / Math.max(1e-9, FLICKER.u[i + 1] - FLICKER.u[i])
-    return { value: FLICKER.power[i] + (FLICKER.power[i + 1] - FLICKER.power[i]) * smooth01(local), source: 'plan', hard: true }
+    return {
+      value: FLICKER.power[i] + (FLICKER.power[i + 1] - FLICKER.power[i]) * smooth01(local),
+      source: 'plan',
+      hard: true,
+    }
   }
   if (t < LAMP_RETURN.start) return { value: 0, source: 'plan', hard: true }
-  if (t < LAMP_RETURN.end) return { value: smooth01((t - LAMP_RETURN.start) / (LAMP_RETURN.end - LAMP_RETURN.start)), source: 'derived', hard: false }
+  if (t < LAMP_RETURN.end)
+    return {
+      value: smooth01((t - LAMP_RETURN.start) / (LAMP_RETURN.end - LAMP_RETURN.start)),
+      source: 'derived',
+      hard: false,
+    }
   return { value: 1, source: 'plan', hard: false }
 }
 
@@ -144,12 +175,23 @@ function flickerCheckpoints() {
 }
 
 function checkpointList() {
-  const requested = (args.points || '').split(',').map((s) => s.trim()).filter(Boolean).map(Number)
+  const requested = (args.points || '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .map(Number)
   if (requested.length) {
-    if (requested.some((t) => !Number.isFinite(t) || t < 0 || t > 1)) throw new Error('Expected finite intro times in [0,1]')
+    if (requested.some((t) => !Number.isFinite(t) || t < 0 || t > 1))
+      throw new Error('Expected finite intro times in [0,1]')
     return requested.map((t) => ({ t, kind: 'custom', u: null, power: null, name: checkpointName(t) }))
   }
-  const beats = Object.entries(BEATS).map(([name, t]) => ({ t, kind: 'beat', u: null, power: null, name: 'beat-' + name }))
+  const beats = Object.entries(BEATS).map(([name, t]) => ({
+    t,
+    kind: 'beat',
+    u: null,
+    power: null,
+    name: 'beat-' + name,
+  }))
   const unique = new Map()
   for (const checkpoint of [...beats, ...flickerCheckpoints()]) {
     if (!unique.has(checkpoint.t.toFixed(6))) unique.set(checkpoint.t.toFixed(6), checkpoint)
@@ -167,7 +209,8 @@ const PAGE_HELPERS = () => {
     pickCanvas() {
       for (const canvas of Array.from(document.querySelectorAll('canvas'))) {
         const rect = canvas.getBoundingClientRect()
-        if (canvas.isConnected && canvas.width > 1 && canvas.height > 1 && rect.width > 1 && rect.height > 1) return canvas
+        if (canvas.isConnected && canvas.width > 1 && canvas.height > 1 && rect.width > 1 && rect.height > 1)
+          return canvas
       }
       return null
     },
@@ -232,7 +275,9 @@ const STILL_PATCHES = () => {
   // per-group accessor, and each item already carries its own ink.ts GROUP.
   try {
     for (const item of api.captureTextBounds?.()?.items ?? []) if (item.bounds) textBoxes.push(item.bounds)
-  } catch { /* the lettering layer has no ready layout yet */ }
+  } catch {
+    /* the lettering layer has no ready layout yet */
+  }
 
   const FRAME = { x: -0.38, y: -0.23, w: 0.76, h: 0.46 }
   const BLOCKED = [
@@ -240,7 +285,8 @@ const STILL_PATCHES = () => {
     { x: 0.14, y: -0.145, w: 0.24, h: 0.036 },
     { x: 0.198, y: 0.118, w: 0.176, h: 0.106 },
   ]
-  const inside = (p, r, pad) => p[0] >= r.x - pad && p[0] <= r.x + r.w + pad && p[1] >= r.y - pad && p[1] <= r.y + r.h + pad
+  const inside = (p, r, pad) =>
+    p[0] >= r.x - pad && p[0] <= r.x + r.w + pad && p[1] >= r.y - pad && p[1] <= r.y + r.h + pad
   const CELL = 0.008
   const occupied = new Set()
   for (const s of segs) {
@@ -248,13 +294,16 @@ const STILL_PATCHES = () => {
     const steps = Math.max(1, Math.ceil(length / (CELL * 0.5)))
     for (let k = 0; k <= steps; k += 1) {
       const u = k / steps
-      occupied.add(Math.floor((s.a[0] + (s.b[0] - s.a[0]) * u) / CELL) + ',' + Math.floor((s.a[1] + (s.b[1] - s.a[1]) * u) / CELL))
+      occupied.add(
+        Math.floor((s.a[0] + (s.b[0] - s.a[0]) * u) / CELL) + ',' + Math.floor((s.a[1] + (s.b[1] - s.a[1]) * u) / CELL),
+      )
     }
   }
   const clearOfInk = (p) => {
-    const ix = Math.floor(p[0] / CELL), iy = Math.floor(p[1] / CELL)
+    const ix = Math.floor(p[0] / CELL),
+      iy = Math.floor(p[1] / CELL)
     for (let dx = -2; dx <= 2; dx += 1) {
-      for (let dy = -2; dy <= 2; dy += 1) if (occupied.has((ix + dx) + ',' + (iy + dy))) return false
+      for (let dy = -2; dy <= 2; dy += 1) if (occupied.has(ix + dx + ',' + (iy + dy))) return false
     }
     return true
   }
@@ -277,7 +326,10 @@ const STILL_PATCHES = () => {
       for (const p of candidates) {
         let nearest = Infinity
         for (const c of paper) nearest = Math.min(nearest, Math.hypot(p[0] - c[0], p[1] - c[1]))
-        if (nearest > bestDistance) { bestDistance = nearest; best = p }
+        if (nearest > bestDistance) {
+          bestDistance = nearest
+          best = p
+        }
       }
       if (!best) break
       paper.push(best)
@@ -322,7 +374,14 @@ const STILL_SAMPLER = async ({ b64, patches, radius }) => {
   const sample = (p) => {
     const x = Math.round(p.x)
     const y = Math.round(p.y)
-    if (!Number.isFinite(x) || !Number.isFinite(y) || x < radius || y < radius || x >= image.width - radius || y >= image.height - radius) {
+    if (
+      !Number.isFinite(x) ||
+      !Number.isFinite(y) ||
+      x < radius ||
+      y < radius ||
+      x >= image.width - radius ||
+      y >= image.height - radius
+    ) {
       return { sheet: p.sheet, x, y, valid: false }
     }
     const size = radius * 2 + 1
@@ -331,7 +390,16 @@ const STILL_SAMPLER = async ({ b64, patches, radius }) => {
     for (let i = 0; i < data.length; i += 4) lum.push(0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2])
     const sorted = [...lum].sort((a, b) => a - b)
     const at = (q) => sorted[Math.min(sorted.length - 1, Math.max(0, Math.round(q * (sorted.length - 1))))]
-    return { sheet: p.sheet, x, y, valid: true, min: sorted[0], median: at(0.5), max: sorted[sorted.length - 1], mean: lum.reduce((a, b) => a + b, 0) / lum.length }
+    return {
+      sheet: p.sheet,
+      x,
+      y,
+      valid: true,
+      min: sorted[0],
+      median: at(0.5),
+      max: sorted[sorted.length - 1],
+      mean: lum.reduce((a, b) => a + b, 0) / lum.length,
+    }
   }
   return { paper: patches.paper.map(sample), ink: patches.ink.map(sample) }
 }
@@ -342,9 +410,20 @@ const summarizePixels = (pixels) => {
   const ink = gather(pixels?.ink)
   return {
     paper: paper.length
-      ? { count: paper.length, median: round(median(paper.map((p) => p.median)), 2), min: round(Math.min(...paper.map((p) => p.min)), 2), max: round(Math.max(...paper.map((p) => p.max)), 2) }
+      ? {
+          count: paper.length,
+          median: round(median(paper.map((p) => p.median)), 2),
+          min: round(Math.min(...paper.map((p) => p.min)), 2),
+          max: round(Math.max(...paper.map((p) => p.max)), 2),
+        }
       : null,
-    ink: ink.length ? { count: ink.length, median: round(median(ink.map((p) => p.median)), 2), min: round(Math.min(...ink.map((p) => p.min)), 2) } : null,
+    ink: ink.length
+      ? {
+          count: ink.length,
+          median: round(median(ink.map((p) => p.median)), 2),
+          min: round(Math.min(...ink.map((p) => p.min)), 2),
+        }
+      : null,
     inkOverStock: ink.length ? round(median(ink.map((p) => p.median - p.min)), 2) : null,
   }
 }
@@ -381,10 +460,23 @@ try {
     const { width, height } = CASES[caseName]
     const caseOut = path.join(out, caseName)
     await mkdir(caseOut, { recursive: true })
-    const entry = { viewport: { width, height }, gpu: null, consoleErrors: [], checkpoints: [], stills: [], motion: null, video: null }
+    const entry = {
+      viewport: { width, height },
+      gpu: null,
+      consoleErrors: [],
+      checkpoints: [],
+      stills: [],
+      motion: null,
+      video: null,
+    }
     const checkpoints = checkpointList().map((checkpoint) => {
       const expected = expectedPowerFor(checkpoint.t)
-      return { ...checkpoint, expectedPower: round(expected.value, 4), expectedSource: expected.source, hard: expected.hard }
+      return {
+        ...checkpoint,
+        expectedPower: round(expected.value, 4),
+        expectedSource: expected.source,
+        hard: expected.hard,
+      }
     })
     entry.checkpoints = checkpoints
 
@@ -402,14 +494,27 @@ try {
       }
       const openPage = async () => {
         await closePage()
-        context = await browser.newContext({ viewport: { width, height }, reducedMotion: 'no-preference', deviceScaleFactor: 1, serviceWorkers: 'block' })
+        context = await browser.newContext({
+          viewport: { width, height },
+          reducedMotion: 'no-preference',
+          deviceScaleFactor: 1,
+          serviceWorkers: 'block',
+        })
         await context.addInitScript(PAGE_HELPERS)
         page = await context.newPage()
         page.on('pageerror', (error) => errors.push(String(error.message)))
-        page.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()) })
+        page.on('console', (message) => {
+          if (message.type() === 'error') errors.push(message.text())
+        })
         await page.goto(url, { waitUntil: 'domcontentloaded' })
-        await page.waitForFunction(() => window.__drawingProof?.ready && window.__telemetry?.drawing?.annotationsReady, null, { timeout: 120000 })
-        await page.evaluate(() => { window.__scrollCommitDisabled = true })
+        await page.waitForFunction(
+          () => window.__drawingProof?.ready && window.__telemetry?.drawing?.annotationsReady,
+          null,
+          { timeout: 120000 },
+        )
+        await page.evaluate(() => {
+          window.__scrollCommitDisabled = true
+        })
         return page
       }
       try {
@@ -425,12 +530,26 @@ try {
               if (!live.canvasConnected) throw new Error('CANVAS_MISSING')
               if (live.contextLost) throw new Error('CONTEXT_LOST')
               await page.evaluate((progress) => window.__drawingProof.setProgress(progress), checkpoint.t * INTRO_SHARE)
-              await page.waitForFunction((expected) => Math.abs((window.__telemetry?.drawing?.phase ?? -1) - expected) < 1e-6, checkpoint.t, { timeout: 30000 })
-              await page.waitForFunction(() => {
-                const c = window.__telemetry?.camera
-                const g = c?.goal
-                return !!g && Math.hypot(c.x - g.position[0], c.y - g.position[1], c.z - g.position[2]) < 1e-4 && Math.abs(c.fov - g.fov) < 1e-4
-              }, null, { timeout: 15000 }).catch(() => false)
+              await page.waitForFunction(
+                (expected) => Math.abs((window.__telemetry?.drawing?.phase ?? -1) - expected) < 1e-6,
+                checkpoint.t,
+                { timeout: 30000 },
+              )
+              await page
+                .waitForFunction(
+                  () => {
+                    const c = window.__telemetry?.camera
+                    const g = c?.goal
+                    return (
+                      !!g &&
+                      Math.hypot(c.x - g.position[0], c.y - g.position[1], c.z - g.position[2]) < 1e-4 &&
+                      Math.abs(c.fov - g.fov) < 1e-4
+                    )
+                  },
+                  null,
+                  { timeout: 15000 },
+                )
+                .catch(() => false)
               // The reading pool trails the look-at point with a damped lag; let it arrive.
               await page.waitForTimeout(450)
               const reading = await page.evaluate(() => {
@@ -457,7 +576,11 @@ try {
                   declines: t.performance.declines,
                   camera: t.camera,
                   cameraResidual: t.camera.goal
-                    ? Math.hypot(t.camera.x - t.camera.goal.position[0], t.camera.y - t.camera.goal.position[1], t.camera.z - t.camera.goal.position[2])
+                    ? Math.hypot(
+                        t.camera.x - t.camera.goal.position[0],
+                        t.camera.y - t.camera.goal.position[1],
+                        t.camera.z - t.camera.goal.position[2],
+                      )
                     : null,
                   stats: api.sheetStats(),
                   maxRegistrationPx: Math.max(...registration.projectedFeatures.map((f) => f.errorPixels)),
@@ -477,8 +600,18 @@ try {
               const patches = await page.evaluate(STILL_PATCHES)
               const file = 'still-' + checkpoint.name + '.png'
               const png = await page.screenshot({ path: path.join(stillsDir, file) })
-              const pixels = summarizePixels(await page.evaluate(STILL_SAMPLER, { b64: png.toString('base64'), patches, radius }))
-              still = { ...checkpoint, attempt, file, errorCount: errors.length, ...reading, pixels, patchCounts: patches.counts }
+              const pixels = summarizePixels(
+                await page.evaluate(STILL_SAMPLER, { b64: png.toString('base64'), patches, radius }),
+              )
+              still = {
+                ...checkpoint,
+                attempt,
+                file,
+                errorCount: errors.length,
+                ...reading,
+                pixels,
+                patchCounts: patches.counts,
+              }
               break
             } catch (error) {
               still = { ...checkpoint, attempt, ok: false, error: String(error) }
@@ -486,21 +619,30 @@ try {
             }
           }
           entry.stills.push(still)
-          await writeFile(path.join(caseOut, 'frames.json'), JSON.stringify({ url, case: caseName, viewport: { width, height }, gpu: entry.gpu, checkpoints, stills: entry.stills }, null, 2))
-          console.log(JSON.stringify({
-            case: caseName,
-            t: still.t,
-            name: still.name,
-            kind: still.kind,
-            ok: still.ok !== false,
-            phase: round(still.phase, 6),
-            power: round(still.lampPower, 4),
-            expected: still.expectedPower,
-            paper: still.pixels?.paper?.median ?? null,
-            inkStock: still.pixels?.inkOverStock ?? null,
-            tier: still.tier ?? null,
-            error: still.error ?? null,
-          }))
+          await writeFile(
+            path.join(caseOut, 'frames.json'),
+            JSON.stringify(
+              { url, case: caseName, viewport: { width, height }, gpu: entry.gpu, checkpoints, stills: entry.stills },
+              null,
+              2,
+            ),
+          )
+          console.log(
+            JSON.stringify({
+              case: caseName,
+              t: still.t,
+              name: still.name,
+              kind: still.kind,
+              ok: still.ok !== false,
+              phase: round(still.phase, 6),
+              power: round(still.lampPower, 4),
+              expected: still.expectedPower,
+              paper: still.pixels?.paper?.median ?? null,
+              inkStock: still.pixels?.inkOverStock ?? null,
+              tier: still.tier ?? null,
+              error: still.error ?? null,
+            }),
+          )
         }
       } finally {
         await closePage()
@@ -523,90 +665,103 @@ try {
       const page = await context.newPage()
       const video = page.video()
       page.on('pageerror', (error) => errors.push(String(error.message)))
-      page.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()) })
+      page.on('console', (message) => {
+        if (message.type() === 'error') errors.push(message.text())
+      })
       let samples = []
       let gpu = null
       let saved = null
       try {
         await page.goto(url, { waitUntil: 'domcontentloaded' })
-        await page.waitForFunction(() => window.__drawingProof?.ready && window.__telemetry?.drawing?.annotationsReady, null, { timeout: 120000 })
-        await page.evaluate(() => { window.__scrollCommitDisabled = true })
+        await page.waitForFunction(
+          () => window.__drawingProof?.ready && window.__telemetry?.drawing?.annotationsReady,
+          null,
+          { timeout: 120000 },
+        )
+        await page.evaluate(() => {
+          window.__scrollCommitDisabled = true
+        })
         gpu = await page.evaluate(() => window.__captureHelpers.gpu())
         // Hold the lit beat briefly so the video opens on a readable frame.
         await page.evaluate((progress) => window.__drawingProof.setProgress(progress), SCRUB.from * INTRO_SHARE)
         await page.waitForTimeout(1200)
-        samples = await page.evaluate(async ({ from, to, share, duration: seconds, sampleInterval: interval }) => {
-          const result = []
-          const began = performance.now()
-          let lastSample = -Infinity
-          // A continuous scrub: scroll time stays the only render input, exactly as live.
-          while (true) {
-            const elapsed = (performance.now() - began) / 1000
-            if (elapsed > seconds) break
-            const t = from + (to - from) * Math.min(1, elapsed / seconds)
-            window.__drawingProof.setProgress(t * share)
-            if (elapsed - lastSample >= interval) {
-              lastSample = elapsed
-              const d = window.__telemetry.drawing
-              const c = window.__telemetry.camera
+        samples = await page
+          .evaluate(
+            async ({ from, to, share, duration: seconds, sampleInterval: interval }) => {
+              const result = []
+              const began = performance.now()
+              let lastSample = -Infinity
+              // A continuous scrub: scroll time stays the only render input, exactly as live.
+              while (true) {
+                const elapsed = (performance.now() - began) / 1000
+                if (elapsed > seconds) break
+                const t = from + (to - from) * Math.min(1, elapsed / seconds)
+                window.__drawingProof.setProgress(t * share)
+                if (elapsed - lastSample >= interval) {
+                  lastSample = elapsed
+                  const d = window.__telemetry.drawing
+                  const c = window.__telemetry.camera
+                  result.push({
+                    seconds: Number(elapsed.toFixed(3)),
+                    t: Number(t.toFixed(5)),
+                    phase: d.phase,
+                    lampPower: d.lampPower,
+                    blackout: d.blackout,
+                    pulse: d.pulse,
+                    pulseHead: d.pulseHead,
+                    poseT: d.poseT,
+                    pbr: d.pbr,
+                    vellum: d.vellum,
+                    bulge: d.bulgeDisplacement,
+                    waveTime: d.waveTime,
+                    focus: d.focus,
+                    lineOpacity: d.lineOpacity,
+                    inkLuminance: d.inkLuminance,
+                    camera: { x: c.x, y: c.y, z: c.z, fov: c.fov },
+                    tier: window.__telemetry.performance.tier,
+                    liveness: window.__captureHelpers.liveness(),
+                  })
+                }
+                await new Promise(requestAnimationFrame)
+              }
+              // Land exactly on the endpoint and hold it. The while loop can break a frame short of
+              // `to`, so without this the resolved handoff is never actually rendered or recorded.
+              window.__drawingProof.setProgress(to * share)
+              await new Promise((resolve) => setTimeout(resolve, 750))
+              const dEnd = window.__telemetry.drawing
+              const cEnd = window.__telemetry.camera
               result.push({
-                seconds: Number(elapsed.toFixed(3)),
-                t: Number(t.toFixed(5)),
-                phase: d.phase,
-                lampPower: d.lampPower,
-                blackout: d.blackout,
-                pulse: d.pulse,
-                pulseHead: d.pulseHead,
-                poseT: d.poseT,
-                pbr: d.pbr,
-                vellum: d.vellum,
-                bulge: d.bulgeDisplacement,
-                waveTime: d.waveTime,
-                focus: d.focus,
-                lineOpacity: d.lineOpacity,
-                inkLuminance: d.inkLuminance,
-                camera: { x: c.x, y: c.y, z: c.z, fov: c.fov },
+                seconds: seconds,
+                t: to,
+                final: true,
+                phase: dEnd.phase,
+                lampPower: dEnd.lampPower,
+                blackout: dEnd.blackout,
+                pulse: dEnd.pulse,
+                pulseHead: dEnd.pulseHead,
+                poseT: dEnd.poseT,
+                pbr: dEnd.pbr,
+                vellum: dEnd.vellum,
+                bulge: dEnd.bulgeDisplacement,
+                waveTime: dEnd.waveTime,
+                focus: dEnd.focus,
+                lineOpacity: dEnd.lineOpacity,
+                inkLuminance: dEnd.inkLuminance,
+                minZ: dEnd.minZ,
+                localZ: dEnd.localZ,
+                camera: { x: cEnd.x, y: cEnd.y, z: cEnd.z, fov: cEnd.fov },
                 tier: window.__telemetry.performance.tier,
                 liveness: window.__captureHelpers.liveness(),
               })
-            }
-            await new Promise(requestAnimationFrame)
-          }
-          // Land exactly on the endpoint and hold it. The while loop can break a frame short of
-          // `to`, so without this the resolved handoff is never actually rendered or recorded.
-          window.__drawingProof.setProgress(to * share)
-          await new Promise((resolve) => setTimeout(resolve, 750))
-          const dEnd = window.__telemetry.drawing
-          const cEnd = window.__telemetry.camera
-          result.push({
-            seconds: seconds,
-            t: to,
-            final: true,
-            phase: dEnd.phase,
-            lampPower: dEnd.lampPower,
-            blackout: dEnd.blackout,
-            pulse: dEnd.pulse,
-            pulseHead: dEnd.pulseHead,
-            poseT: dEnd.poseT,
-            pbr: dEnd.pbr,
-            vellum: dEnd.vellum,
-            bulge: dEnd.bulgeDisplacement,
-            waveTime: dEnd.waveTime,
-            focus: dEnd.focus,
-            lineOpacity: dEnd.lineOpacity,
-            inkLuminance: dEnd.inkLuminance,
-            minZ: dEnd.minZ,
-            localZ: dEnd.localZ,
-            camera: { x: cEnd.x, y: cEnd.y, z: cEnd.z, fov: cEnd.fov },
-            tier: window.__telemetry.performance.tier,
-            liveness: window.__captureHelpers.liveness(),
+              return result
+            },
+            { from: SCRUB.from, to: SCRUB.to, share: INTRO_SHARE, duration, sampleInterval },
+          )
+          .catch((error) => {
+            // A torn-down page mid-scrub must be reported, not thrown out of the pass loop.
+            errors.push('scrub: ' + String(error))
+            return []
           })
-          return result
-        }, { from: SCRUB.from, to: SCRUB.to, share: INTRO_SHARE, duration, sampleInterval }).catch((error) => {
-          // A torn-down page mid-scrub must be reported, not thrown out of the pass loop.
-          errors.push('scrub: ' + String(error))
-          return []
-        })
         // Let the final frames reach the recorder before the context is torn down.
         await page.waitForTimeout(1400)
       } finally {
@@ -615,9 +770,12 @@ try {
         await context.close()
       }
       const files = (await readdir(videoDir).catch(() => [])).filter((name) => name.endsWith('.webm'))
-      const source = saved && path.dirname(saved) === videoDir && files.includes(path.basename(saved))
-        ? saved
-        : (files.length ? path.join(videoDir, files[0]) : null)
+      const source =
+        saved && path.dirname(saved) === videoDir && files.includes(path.basename(saved))
+          ? saved
+          : files.length
+            ? path.join(videoDir, files[0])
+            : null
       if (source) {
         const target = path.join(videoDir, caseName + '.webm')
         if (path.resolve(source) !== path.resolve(target)) await rename(source, target)
@@ -642,8 +800,25 @@ try {
         maxLampPower: samples.length ? round(Math.max(...samples.map((s) => s.lampPower)), 4) : null,
       }
       entry.consoleErrors = [...entry.consoleErrors, ...errors]
-      await writeFile(path.join(caseOut, 'motion-telemetry.json'), JSON.stringify({ url, case: caseName, viewport: { width, height }, gpu, duration, sampleInterval, scrub: SCRUB, samples }, null, 2))
-      console.log(JSON.stringify({ case: caseName, pass: 'video', samples: samples.length, video: entry.video?.file ?? null, tiers: entry.motion.tiers, minPower: entry.motion.minLampPower, errors: errors.length }))
+      await writeFile(
+        path.join(caseOut, 'motion-telemetry.json'),
+        JSON.stringify(
+          { url, case: caseName, viewport: { width, height }, gpu, duration, sampleInterval, scrub: SCRUB, samples },
+          null,
+          2,
+        ),
+      )
+      console.log(
+        JSON.stringify({
+          case: caseName,
+          pass: 'video',
+          samples: samples.length,
+          video: entry.video?.file ?? null,
+          tiers: entry.motion.tiers,
+          minPower: entry.motion.minLampPower,
+          errors: errors.length,
+        }),
+      )
     }
 
     report.cases[caseName] = entry
@@ -658,11 +833,15 @@ for (const [caseName, entry] of Object.entries(report.cases)) {
   if (entry.consoleErrors.length) failures.push(caseName + ': ' + entry.consoleErrors.length + ' console error(s)')
   for (const still of entry.stills) {
     if (still.ok === false) failures.push(caseName + '/' + still.name + ': ' + still.error)
-    if (still.liveness && (!still.liveness.canvasConnected || still.liveness.contextLost)) failures.push(caseName + '/' + still.name + ': canvas not live')
+    if (still.liveness && (!still.liveness.canvasConnected || still.liveness.contextLost))
+      failures.push(caseName + '/' + still.name + ': canvas not live')
     if (still.hard && typeof still.lampPower === 'number' && Math.abs(still.lampPower - still.expectedPower) > 0.06) {
-      failures.push(caseName + '/' + still.name + ': lampPower ' + round(still.lampPower, 4) + ' off plan ' + still.expectedPower)
+      failures.push(
+        caseName + '/' + still.name + ': lampPower ' + round(still.lampPower, 4) + ' off plan ' + still.expectedPower,
+      )
     }
-    if (requireTier && still.tier && still.tier !== requireTier) failures.push(caseName + '/' + still.name + ': tier ' + still.tier + ' != required ' + requireTier)
+    if (requireTier && still.tier && still.tier !== requireTier)
+      failures.push(caseName + '/' + still.name + ': tier ' + still.tier + ' != required ' + requireTier)
   }
   if (entry.motion?.contextLost) failures.push(caseName + ': context lost during the scrub')
   if (entry.motion?.canvasMissing) failures.push(caseName + ': canvas missing during the scrub')
@@ -676,11 +855,23 @@ const motionFailures = []
 if (passes.includes('video')) {
   for (const [caseName, entry] of Object.entries(report.cases)) {
     const motion = entry.motion
-    if (!motion) { motionFailures.push(caseName + ': video requested but the motion pass recorded no telemetry'); continue }
+    if (!motion) {
+      motionFailures.push(caseName + ': video requested but the motion pass recorded no telemetry')
+      continue
+    }
     if (!(motion.samples > 0)) motionFailures.push(caseName + ': video requested but no motion telemetry was recorded')
-    if (!motion.live) motionFailures.push(caseName + ': video requested but the canvas was not live throughout (' + motion.notLive + ' dead sample(s))')
-    if (motion.tierMismatch) motionFailures.push(caseName + ': motion ran tiers ' + JSON.stringify(motion.tiers) + ', not the required ' + requireTier)
-    if (motion.finalT !== SCRUB.to) motionFailures.push(caseName + ': motion never landed on the ' + SCRUB.to + ' endpoint (finalT=' + motion.finalT + ')')
+    if (!motion.live)
+      motionFailures.push(
+        caseName + ': video requested but the canvas was not live throughout (' + motion.notLive + ' dead sample(s))',
+      )
+    if (motion.tierMismatch)
+      motionFailures.push(
+        caseName + ': motion ran tiers ' + JSON.stringify(motion.tiers) + ', not the required ' + requireTier,
+      )
+    if (motion.finalT !== SCRUB.to)
+      motionFailures.push(
+        caseName + ': motion never landed on the ' + SCRUB.to + ' endpoint (finalT=' + motion.finalT + ')',
+      )
     if (!entry.video) motionFailures.push(caseName + ': no review video written')
   }
 }
@@ -701,4 +892,3 @@ console.log(failures.length ? label + ' — REVIEW ARTIFACTS INCOMPLETE' : label
 for (const failure of failures) console.log('  ' + failure)
 console.log('Evidence: ' + out)
 if (failures.length) process.exitCode = 1
-

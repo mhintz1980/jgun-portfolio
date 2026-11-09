@@ -1,5 +1,15 @@
 import { describe, expect, it } from 'vitest'
-import { REACH, createRope, endToEnd, isSolved, loopsToFit, maxSpeed, step, straightLayout, tangledLayout } from './rope'
+import {
+  REACH,
+  createRope,
+  endToEnd,
+  isSolved,
+  loopsToFit,
+  maxSpeed,
+  step,
+  straightLayout,
+  tangledLayout,
+} from './rope'
 
 const anchor = { x: 10, y: 110 }
 const length = 1000

@@ -32,7 +32,9 @@ export function SpatialRig() {
       telemetry.stage.active = 0
       telemetry.stage.alpha = [1, 0, 0]
       telemetry.stage.transitionIntensity = 0
-      prevAlpha[0] = 1; prevAlpha[1] = 0; prevAlpha[2] = 0
+      prevAlpha[0] = 1
+      prevAlpha[1] = 0
+      prevAlpha[2] = 0
       return
     }
 
@@ -54,7 +56,9 @@ export function SpatialRig() {
       Math.abs(alphas[1] - prevAlpha[1]),
       Math.abs(alphas[2] - prevAlpha[2]),
     )
-    prevAlpha[0] = alphas[0]; prevAlpha[1] = alphas[1]; prevAlpha[2] = alphas[2]
+    prevAlpha[0] = alphas[0]
+    prevAlpha[1] = alphas[1]
+    prevAlpha[2] = alphas[2]
 
     // Scale raw delta to 0..1 and inject into exponential decay accumulator.
     // Denominator 0.085 accounts for the smoothstep derivative (dα/dp = 37.5 at
@@ -65,7 +69,7 @@ export function SpatialRig() {
     const decay = 1 - Math.exp(-safeDelta / 0.35)
     telemetry.stage.transitionIntensity = Math.max(
       telemetry.stage.transitionIntensity * (1 - decay) + scaled * decay,
-      scaled,   // inject the raw spike on the frame it happens
+      scaled, // inject the raw spike on the frame it happens
     )
     // Hard clamp to 1.
     if (telemetry.stage.transitionIntensity > 1) telemetry.stage.transitionIntensity = 1

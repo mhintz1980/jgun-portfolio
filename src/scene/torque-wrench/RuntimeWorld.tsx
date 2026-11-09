@@ -2,7 +2,20 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
-import { Box3, Group, InstancedMesh, Material, Matrix4, Mesh, MeshPhysicalMaterial, PerspectiveCamera, PMREMGenerator, Raycaster, Vector3, type Object3D } from 'three'
+import {
+  Box3,
+  Group,
+  InstancedMesh,
+  Material,
+  Matrix4,
+  Mesh,
+  MeshPhysicalMaterial,
+  PerspectiveCamera,
+  PMREMGenerator,
+  Raycaster,
+  Vector3,
+  type Object3D,
+} from 'three'
 import { ConvexHull } from 'three/examples/jsm/math/ConvexHull.js'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { STAGE_IDS } from '../../data/caseStudies'
@@ -31,7 +44,13 @@ import {
   samplePrivateInspection,
   samplePrivateRingCamera,
 } from './InspectionDirector'
-import { MECHANISM_TRANSLATION, RING_WINDOW_END, RING_WINDOW_START, sampleMechanism, type MechanismSample } from './MechanismDirector'
+import {
+  MECHANISM_TRANSLATION,
+  RING_WINDOW_END,
+  RING_WINDOW_START,
+  sampleMechanism,
+  type MechanismSample,
+} from './MechanismDirector'
 import { createResourceScope } from './resourceScope'
 import { createOpeningSampler, DEFAULT_FINAL_INK_T, finalInkTimeFromStyles, sampleOpening } from './OpeningDirector'
 import { sampleOpeningCamera } from './OpeningCamera'
@@ -47,7 +66,14 @@ import { captureCanonicalRingAnchor } from './ringAnchor'
 import { samplePrivateRing } from './RingInspection'
 import { createJourneySample, sampleJourney } from './JourneyDirector'
 import { createJourneyCameraSampler, createJourneyPose, orbitCamera } from './JourneyCamera'
-import { createJourneyPlanes, effectiveMeshOpacity, measureShaftLandmarks, measureShaftDisplacement, registerShaft, registrationScale } from './shaftJourneyRegistration'
+import {
+  createJourneyPlanes,
+  effectiveMeshOpacity,
+  measureShaftLandmarks,
+  measureShaftDisplacement,
+  registerShaft,
+  registrationScale,
+} from './shaftJourneyRegistration'
 import { applyShaftLook } from './shaftJourneyLook'
 import { captureGrooveProof, type GrooveCaptureOptions } from './grooveProof'
 import { isTorqueHotspotActive } from './hotspotData'
@@ -74,14 +100,24 @@ const GROOVE_NAMES = Object.freeze({ red: 'P000420 Speed Indicator (Red)', blue:
 /** 26 surface extrema of a part, in its own frame, used as candidate callout anchors. */
 function createSurfaceFeature(node: Object3D) {
   node.updateWorldMatrix(true, true)
-  const inverse = node.matrixWorld.clone().invert(), transform = new Matrix4(), point = new Vector3()
-  const directions: Vector3[] = [], points: Vector3[] = [], scores: number[] = []
-  for (let x = -1; x <= 1; x++) for (let y = -1; y <= 1; y++) for (let z = -1; z <= 1; z++) {
-    if (!x && !y && !z) continue
-    directions.push(new Vector3(x, y, z).normalize()); points.push(new Vector3()); scores.push(-Infinity)
-  }
+  const inverse = node.matrixWorld.clone().invert(),
+    transform = new Matrix4(),
+    point = new Vector3()
+  const directions: Vector3[] = [],
+    points: Vector3[] = [],
+    scores: number[] = []
+  for (let x = -1; x <= 1; x++)
+    for (let y = -1; y <= 1; y++)
+      for (let z = -1; z <= 1; z++) {
+        if (!x && !y && !z) continue
+        directions.push(new Vector3(x, y, z).normalize())
+        points.push(new Vector3())
+        scores.push(-Infinity)
+      }
   const meshes: Mesh[] = []
-  node.traverse(child => { if (child instanceof Mesh) meshes.push(child) })
+  node.traverse((child) => {
+    if (child instanceof Mesh) meshes.push(child)
+  })
   const visit = (each: (p: Vector3) => void) => {
     for (const mesh of meshes) {
       transform.multiplyMatrices(inverse, mesh.matrixWorld)
@@ -90,21 +126,31 @@ function createSurfaceFeature(node: Object3D) {
     }
   }
   const bounds = new Box3()
-  visit(p => {
+  visit((p) => {
     bounds.expandByPoint(p)
     for (let j = 0; j < directions.length; j++) scores[j] = Math.max(scores[j], p.dot(directions[j]))
   })
   // Average every vertex within 2% of the extreme: on a band or cylinder the radial extremum
   // is a whole edge-to-edge column, and its mid-point is the exposed face, not a chamfer edge.
-  const tolerance = .02 * Math.max(1e-6, bounds.getSize(new Vector3()).length())
+  const tolerance = 0.02 * Math.max(1e-6, bounds.getSize(new Vector3()).length())
   const counts = directions.map(() => 0)
-  visit(p => {
+  visit((p) => {
     for (let j = 0; j < directions.length; j++) {
-      if (p.dot(directions[j]) >= scores[j] - tolerance) { points[j].add(p); counts[j]++ }
+      if (p.dot(directions[j]) >= scores[j] - tolerance) {
+        points[j].add(p)
+        counts[j]++
+      }
     }
   })
   for (let j = 0; j < directions.length; j++) if (counts[j]) points[j].multiplyScalar(1 / counts[j])
-  return { node, points, scores, center: node.worldToLocal(new Box3().setFromObject(node).getCenter(new Vector3())), inverse: new Matrix4(), direction: new Vector3() }
+  return {
+    node,
+    points,
+    scores,
+    center: node.worldToLocal(new Box3().setFromObject(node).getCenter(new Vector3())),
+    inverse: new Matrix4(),
+    direction: new Vector3(),
+  }
 }
 
 interface SurroundingMaterialEntry {
@@ -126,7 +172,7 @@ interface PrivateRingKnurlMaterial {
 }
 
 function cloneMaterialShape(source: Material | Material[], unique: Map<Material, Material>): Material | Material[] {
-  if (Array.isArray(source)) return source.map(value => cloneMaterialShape(value, unique) as Material)
+  if (Array.isArray(source)) return source.map((value) => cloneMaterialShape(value, unique) as Material)
   let clone = unique.get(source)
   if (!clone) {
     clone = source.clone()
@@ -138,34 +184,59 @@ function cloneMaterialShape(source: Material | Material[], unique: Map<Material,
   return clone
 }
 
-export default function RuntimeWorld({ store, onFailure, playback, isolation }: TorqueSceneProps & { isolation: InspectionIsolationSample }) {
+export default function RuntimeWorld({
+  store,
+  onFailure,
+  playback,
+  isolation,
+}: TorqueSceneProps & { isolation: InspectionIsolationSample }) {
   // Explicit decoder URL is local to this hook; no global preload or root hero import.
   const { scene: model } = useGLTF(MODEL_URL, '/draco/')
   const { gl, scene, camera, size } = useThree()
   const rig = useMemo(() => buildWrenchRig(model), [model])
   const studyOwnedMeshes = useMemo(() => {
     const meshes = new Set<Object3D>()
-    for (const id of STAGE_IDS) rig.stages[id].carrier?.traverse(object => meshes.add(object))
-    rig.bearing?.traverse(object => meshes.add(object))
-    rig.outputShaft?.traverse(object => meshes.add(object))
-    for (const mesh of rig.meshes) if (mesh.userData.partNumber === 'K000210' || mesh.userData.partNumber === 'K000211') meshes.add(mesh)
+    for (const id of STAGE_IDS) rig.stages[id].carrier?.traverse((object) => meshes.add(object))
+    rig.bearing?.traverse((object) => meshes.add(object))
+    rig.outputShaft?.traverse((object) => meshes.add(object))
+    for (const mesh of rig.meshes)
+      if (mesh.userData.partNumber === 'K000210' || mesh.userData.partNumber === 'K000211') meshes.add(mesh)
     return meshes
   }, [rig])
   const center = useMemo(() => [-rig.center.x, -rig.center.y, -rig.center.z] as const, [rig])
-  const sourceSupports = useMemo(() => rig.meshes.filter(mesh => mesh.userData.partNumber === 'K000210' || mesh.userData.partNumber === 'K000211'), [rig])
+  const sourceSupports = useMemo(
+    () => rig.meshes.filter((mesh) => mesh.userData.partNumber === 'K000210' || mesh.userData.partNumber === 'K000211'),
+    [rig],
+  )
   const sourceOccurrenceLabels = useMemo(() => {
     const labels = new Map<Mesh, { unit: string; kind: string; occurrence: string }>()
     for (const id of STAGE_IDS) {
       const stage = rig.stages[id]
-      stage.carrier?.traverse(object => {
+      stage.carrier?.traverse((object) => {
         if (!(object instanceof Mesh)) return
-        let ancestor: Object3D | null = object, planet: Object3D | undefined
-        while (ancestor && ancestor !== stage.carrier) { if (stage.planets.includes(ancestor)) { planet = ancestor; break }; ancestor = ancestor.parent }
-        labels.set(object, { unit: id, kind: planet ? 'planet' : 'carrier', occurrence: planet?.name ?? stage.carrier!.name })
+        let ancestor: Object3D | null = object,
+          planet: Object3D | undefined
+        while (ancestor && ancestor !== stage.carrier) {
+          if (stage.planets.includes(ancestor)) {
+            planet = ancestor
+            break
+          }
+          ancestor = ancestor.parent
+        }
+        labels.set(object, {
+          unit: id,
+          kind: planet ? 'planet' : 'carrier',
+          occurrence: planet?.name ?? stage.carrier!.name,
+        })
       })
     }
-    rig.handleRoot?.traverse(object => {
-      if (object instanceof Mesh) labels.set(object, { unit: 'handle', kind: rig.originalMaterials.get(object) === roleMaterial('anodizedAluminum') ? 'shell' : 'interior', occurrence: object.name || object.parent?.name || 'handle' })
+    rig.handleRoot?.traverse((object) => {
+      if (object instanceof Mesh)
+        labels.set(object, {
+          unit: 'handle',
+          kind: rig.originalMaterials.get(object) === roleMaterial('anodizedAluminum') ? 'shell' : 'interior',
+          occurrence: object.name || object.parent?.name || 'handle',
+        })
     })
     return labels
   }, [rig])
@@ -174,20 +245,26 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
   const aspect = size.width / Math.max(1, size.height)
   const scope = useRef<ReturnType<typeof createResourceScope> | null>(null)
   const terminal = useRef(false)
-  const reportFailure = useCallback((error: unknown) => {
-    if (terminal.current) return
-    terminal.current = true
-    onFailure(error)
-  }, [onFailure])
-  const reportSheetCleanup = useCallback((errors: readonly unknown[]) => {
-    if (errors.length) reportFailure(new AggregateError(errors, 'Sheet presentation cleanup failed'))
-  }, [reportFailure])
+  const reportFailure = useCallback(
+    (error: unknown) => {
+      if (terminal.current) return
+      terminal.current = true
+      onFailure(error)
+    },
+    [onFailure],
+  )
+  const reportSheetCleanup = useCallback(
+    (errors: readonly unknown[]) => {
+      if (errors.length) reportFailure(new AggregateError(errors, 'Sheet presentation cleanup failed'))
+    },
+    [reportFailure],
+  )
   const shaft = useRef<StoryRuntime | null>(null)
   const ring = useRef<StoryRuntime | null>(null)
   const ringProbe = useMemo(createRingRuntimeProbe, [])
   const ringCamera = useMemo(createPrivateRingCamera, [])
   const ringExitCamera = useMemo(createPrivateRingCamera, [])
-  const ringBaseDistance = useRef(.24)
+  const ringBaseDistance = useRef(0.24)
   const ringExitPose = useMemo(createJourneyPose, [])
   const entryInverse = useMemo(() => new Matrix4(), [])
   const entryFromDirection = useMemo(() => new Vector3(), [])
@@ -206,29 +283,58 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
   const surroundingMaterials = useRef<PrivateSurroundingMaterials | null>(null)
   const sourceRingMaterials = useRef<PrivateSurroundingMaterials | null>(null)
   const sourceKnurlProof = useMemo(() => {
-    const proof = { outerVertices: 0, knurledOuterVertices: 0, boreVertices: 0, knurledBoreVertices: 0,
-      faceVertices: 0, knurledFaceVertices: 0, maxRadius: 0, thresholdStart: RING_SWITCH_OD_MASK_START, thresholdFull: RING_SWITCH_OD_MASK_FULL }
+    const proof = {
+      outerVertices: 0,
+      knurledOuterVertices: 0,
+      boreVertices: 0,
+      knurledBoreVertices: 0,
+      faceVertices: 0,
+      knurledFaceVertices: 0,
+      maxRadius: 0,
+      thresholdStart: RING_SWITCH_OD_MASK_START,
+      thresholdFull: RING_SWITCH_OD_MASK_FULL,
+    }
     for (const mesh of rig.meshes) {
       if (rig.originalMaterials.get(mesh) !== roleMaterial('ringSwitch')) continue
-      const p = mesh.geometry.getAttribute('position'), n = mesh.geometry.getAttribute('normal')
+      const p = mesh.geometry.getAttribute('position'),
+        n = mesh.geometry.getAttribute('normal')
       for (let i = 0; i < p.count; i++) {
-        const radius = Math.hypot(p.getX(i), p.getY(i)), normalLength = Math.hypot(n.getX(i), n.getY(i), n.getZ(i))
+        const radius = Math.hypot(p.getX(i), p.getY(i)),
+          normalLength = Math.hypot(n.getX(i), n.getY(i), n.getZ(i))
         const axial = Math.abs(n.getZ(i) / normalLength)
-        const outward = (p.getX(i) * n.getX(i) + p.getY(i) * n.getY(i)) / Math.max(radius * Math.hypot(n.getX(i), n.getY(i)), 1e-8)
-        const masked = axial < .2 && outward >= .5 && radius >= RING_SWITCH_OD_MASK_FULL
+        const outward =
+          (p.getX(i) * n.getX(i) + p.getY(i) * n.getY(i)) / Math.max(radius * Math.hypot(n.getX(i), n.getY(i)), 1e-8)
+        const masked = axial < 0.2 && outward >= 0.5 && radius >= RING_SWITCH_OD_MASK_FULL
         proof.maxRadius = Math.max(proof.maxRadius, radius)
-        if (axial >= .2) { proof.faceVertices++; if (masked) proof.knurledFaceVertices++ }
-        else if (outward < -.5) { proof.boreVertices++; if (masked) proof.knurledBoreVertices++ }
-        else if (radius >= .0375 && outward >= .5) { proof.outerVertices++; if (masked) proof.knurledOuterVertices++ }
+        if (axial >= 0.2) {
+          proof.faceVertices++
+          if (masked) proof.knurledFaceVertices++
+        } else if (outward < -0.5) {
+          proof.boreVertices++
+          if (masked) proof.knurledBoreVertices++
+        } else if (radius >= 0.0375 && outward >= 0.5) {
+          proof.outerVertices++
+          if (masked) proof.knurledOuterVertices++
+        }
       }
     }
     return proof
   }, [rig])
   const openingFinalInkT = useRef(DEFAULT_FINAL_INK_T)
-  const manualCamera = useMemo(() => ({ open: false, transitioning: false, elapsed: 0,
-    from: { position: new Vector3(), target: new Vector3(), up: new Vector3(0, 1, 0), fov: 42 } }), [])
+  const manualCamera = useMemo(
+    () => ({
+      open: false,
+      transitioning: false,
+      elapsed: 0,
+      from: { position: new Vector3(), target: new Vector3(), up: new Vector3(0, 1, 0), fov: 42 },
+    }),
+    [],
+  )
   const stopAndAppreciate = useMemo(createStopAndAppreciateController, [])
-  const appreciatePose = useMemo<CameraHandoffPose>(() => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(0, 1, 0), fov: 42 }), [])
+  const appreciatePose = useMemo<CameraHandoffPose>(
+    () => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(0, 1, 0), fov: 42 }),
+    [],
+  )
   const drawing = useRef<ReturnType<typeof snapshotDrawing> | null>(null)
   const layout = useRef<ReturnType<typeof makeDrawingLayout> | null>(null)
   const [sheetBake, setSheetBake] = useState<SheetBakeResult | null>(null)
@@ -236,44 +342,92 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
   // created before it exists, so registration/stats are read lazily through this ref.
   const bakedSheet = useRef<SheetBakeResult | null>(null)
   const sheetRuntime = useRef<PrivateSheetRuntime | null>(null)
-  const installSheetRuntime = useCallback((runtime: PrivateSheetRuntime | null) => { sheetRuntime.current = runtime }, [])
+  const installSheetRuntime = useCallback((runtime: PrivateSheetRuntime | null) => {
+    sheetRuntime.current = runtime
+  }, [])
   const extractionContext = useMemo(createExtractionContext, [])
-  const sheetFrame = useMemo<DrawingFrameInput>(() => ({ intro: sampleOpening(0),
-    tier: store.getState().tier === 'lite' ? 'lite' : 'full', reducedMotion: false,
-    proofMode: 'normal', retirement: 0, cameraLookTargetWorld: null,
-    surroundingsOpacity: 1, cameraSheetDistance: 1, delta: 0,
-  }), [store])
+  const sheetFrame = useMemo<DrawingFrameInput>(
+    () => ({
+      intro: sampleOpening(0),
+      tier: store.getState().tier === 'lite' ? 'lite' : 'full',
+      reducedMotion: false,
+      proofMode: 'normal',
+      retirement: 0,
+      cameraLookTargetWorld: null,
+      surroundingsOpacity: 1,
+      cameraSheetDistance: 1,
+      delta: 0,
+    }),
+    [store],
+  )
   const previousProgress = useRef<number | null>(null)
   const sampleOpeningFrame = useMemo(createOpeningSampler, [])
   const readSheetFrame = useMemo(() => () => sheetFrame, [sheetFrame])
-  const pose = useMemo<SheetCameraPose>(() => ({
-    position: new Vector3(), target: new Vector3(), up: new Vector3(0, 1, 0),
-    fov: 34, ortho: 0, distance: 1,
-  }), [])
-  const channels = useMemo<MechanismSample>(() => ({ shift: 0, explode: 0, gearAngle: 0, idle: 0, ghostOpacity: 1 }), [])
+  const pose = useMemo<SheetCameraPose>(
+    () => ({
+      position: new Vector3(),
+      target: new Vector3(),
+      up: new Vector3(0, 1, 0),
+      fov: 34,
+      ortho: 0,
+      distance: 1,
+    }),
+    [],
+  )
+  const channels = useMemo<MechanismSample>(
+    () => ({ shift: 0, explode: 0, gearAngle: 0, idle: 0, ghostOpacity: 1 }),
+    [],
+  )
   const inspection = useMemo(createPrivateInspectionSample, [])
   const target = useMemo(() => new Vector3(), [])
   // Geometry bounds are measured once in each animation unit's local frame.
   // Projection follows its matrixWorld, including carrier rotation and extraction.
   const hotspots = useMemo(() => {
     model.updateWorldMatrix(true, true)
-    const clutch = rig.meshes.find(mesh => mesh.name === GROOVE_NAMES.blue) ?? rig.clutch.static
+    const clutch = rig.meshes.find((mesh) => mesh.name === GROOVE_NAMES.blue) ?? rig.clutch.static
     const nodes = [clutch, rig.clutch.ringSwitch, rig.lcdCluster?.readout ?? null, rig.stages.stage2.planets[0] ?? null]
     const ids = ['clutch-housing', 'ring-switch', 'lcd-manometer', 'stage2-planet']
     return nodes.map((node, i) => {
       const bounds = node ? new Box3().setFromObject(node) : new Box3()
       const world = bounds.isEmpty() ? new Vector3() : bounds.getCenter(new Vector3())
       const local = node ? node.worldToLocal(world.clone()) : new Vector3()
-      return { id: ids[i], node, local, world: new Vector3(), projected: new Vector3(),
-        radius: Math.max(.015, bounds.isEmpty() ? .015 : bounds.getSize(new Vector3()).length() / 2),
-        screen: { id: ids[i], x: 0, y: 0, visible: false, reason: 'inactive', occluder: '' } }
+      return {
+        id: ids[i],
+        node,
+        local,
+        world: new Vector3(),
+        projected: new Vector3(),
+        radius: Math.max(0.015, bounds.isEmpty() ? 0.015 : bounds.getSize(new Vector3()).length() / 2),
+        screen: { id: ids[i], x: 0, y: 0, visible: false, reason: 'inactive', occluder: '' },
+      }
     })
   }, [model, rig])
-  const overlay = useMemo(() => ({ progress: 0, subjectTime: 0, studyVisible: false, manual: false,
-    explode: 0, surroundingsOpacity: 1, ringVisible: false,
-    focusId: null as string | null, anchors: hotspots.map(item => item.screen) }), [hotspots])
-  const focus = useMemo(() => ({ id: null as string | null, weight: 0, progress: 0, initialized: false,
-    position: new Vector3(), target: new Vector3(), direction: new Vector3() }), [])
+  const overlay = useMemo(
+    () => ({
+      progress: 0,
+      subjectTime: 0,
+      studyVisible: false,
+      manual: false,
+      explode: 0,
+      surroundingsOpacity: 1,
+      ringVisible: false,
+      focusId: null as string | null,
+      anchors: hotspots.map((item) => item.screen),
+    }),
+    [hotspots],
+  )
+  const focus = useMemo(
+    () => ({
+      id: null as string | null,
+      weight: 0,
+      progress: 0,
+      initialized: false,
+      position: new Vector3(),
+      target: new Vector3(),
+      direction: new Vector3(),
+    }),
+    [],
+  )
   const hotspotRay = useMemo(() => new Raycaster(), [])
   const hotspotDirection = useMemo(() => new Vector3(), [])
   const hotspotHits = useMemo(() => [] as ReturnType<Raycaster['intersectObjects']>, [])
@@ -285,7 +439,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
   // visible surface extremum instead.
   const planetFeatures = useMemo(() => rig.stages.stage2.planets.map(createSurfaceFeature), [rig])
   const hotspotFeatures = useMemo(() => {
-    const groove = (name: string) => rig.meshes.find(mesh => mesh.name === name) ?? null
+    const groove = (name: string) => rig.meshes.find((mesh) => mesh.name === name) ?? null
     const features = (...nodes: (Object3D | null | undefined)[]) =>
       nodes.filter((node): node is Object3D => Boolean(node)).map(createSurfaceFeature)
     return {
@@ -298,9 +452,18 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
     }
   }, [rig])
   const blendCamera = useMemo(createCameraHandoff, [])
-  const handoffFrom = useMemo<CameraHandoffPose>(() => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 42 }), [])
-  const handoffTo = useMemo<CameraHandoffPose>(() => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 42 }), [])
-  const handoffResult = useMemo<CameraHandoffPose>(() => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 42 }), [])
+  const handoffFrom = useMemo<CameraHandoffPose>(
+    () => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 42 }),
+    [],
+  )
+  const handoffTo = useMemo<CameraHandoffPose>(
+    () => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 42 }),
+    [],
+  )
+  const handoffResult = useMemo<CameraHandoffPose>(
+    () => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 42 }),
+    [],
+  )
   const journey = useMemo(createJourneySample, [])
   const lastStudyProgress = useRef(0)
   const journeyCamera = useMemo(createJourneyCameraSampler, [])
@@ -312,67 +475,156 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
   const shaftRestInverse = useRef<Matrix4 | null>(null)
   const planes = useMemo(createJourneyPlanes, [])
   const supportReturnOffset = useMemo<[number, number, number]>(() => [0, 0, 0], [])
-  const presentation = useMemo<ShaftPresentation>(() => ({ entryOpaque: true, contextOpacity: 1, phaseCorrection: 0, narrativeAlpha: 0, supportReturnOffset }), [supportReturnOffset])
+  const presentation = useMemo<ShaftPresentation>(
+    () => ({ entryOpaque: true, contextOpacity: 1, phaseCorrection: 0, narrativeAlpha: 0, supportReturnOffset }),
+    [supportReturnOffset],
+  )
   const applyShaftTakeover = useMemo(() => createShaftTakeover(rig), [rig])
   const sourceShaftMaterials = useRef<PrivateSurroundingMaterials | null>(null)
-  const probe = useMemo(() => ({
-    ready: false, frames: 0, hiddenFrames: 0, progress: 0,
-    rig: {} as WrenchMechanicsProbe,
-    camera: { position: [0, 0, 0], target: [0, 0, 0], up: [0, 1, 0], quaternion: [0, 0, 0, 1], fov: 34 },
-    inspection: { ready: false, subjectTime: 0, cameraTime: 0, machiningRate: 0, arcWeight: 0,
-      feaDwellWeight: 0, hobSwingWeight: 0, surroundingsOpacity: 1 },
-    ring: { ready: false, time: 0, cameraTime: 0, knurlMultiplier: RING_KNURL_DEPTH_MULTIPLIER,
-      effectiveNormalStrength: 0, returnBlend: 0, sourceOpacity: 1, sourceVisible: true, cloneOpacity: 0 },
-    isolation: { surroundingsOpacity: 1, manual: false, manualTransition: 'settled', ringVisible: false, shaftVisible: false },
-    renderer: { calls: 0, triangles: 0, geometries: 0, textures: 0 },
-    // Drawing/sheet observables: whether the bake installed, which tier it used, whether the
-    // frozen precompute matched these inputs (precomputed 1) or the live bake ran (0), and the
-    // side-view ink registration measured lazily on demand.
-    sheet: { baked: false, tier: '', precomputed: -1, stats: {} as Record<string, number>,
-      registration: null as unknown },
-    journey: {} as Record<string, unknown>,
-    stopAndAppreciate: {
-      mode: 'idle', freeLookActive: false, whipBackActive: false, whipBackProgress: 1,
-      passiveWeight: 0, yawDeg: 0, pitchDeg: 0, frozenProgress: null, wheelAccumPx: 0,
-    } as StopAndAppreciateTelemetry,
-    stage: 'stage3-model-host',
-  }), [])
+  const probe = useMemo(
+    () => ({
+      ready: false,
+      frames: 0,
+      hiddenFrames: 0,
+      progress: 0,
+      rig: {} as WrenchMechanicsProbe,
+      camera: { position: [0, 0, 0], target: [0, 0, 0], up: [0, 1, 0], quaternion: [0, 0, 0, 1], fov: 34 },
+      inspection: {
+        ready: false,
+        subjectTime: 0,
+        cameraTime: 0,
+        machiningRate: 0,
+        arcWeight: 0,
+        feaDwellWeight: 0,
+        hobSwingWeight: 0,
+        surroundingsOpacity: 1,
+      },
+      ring: {
+        ready: false,
+        time: 0,
+        cameraTime: 0,
+        knurlMultiplier: RING_KNURL_DEPTH_MULTIPLIER,
+        effectiveNormalStrength: 0,
+        returnBlend: 0,
+        sourceOpacity: 1,
+        sourceVisible: true,
+        cloneOpacity: 0,
+      },
+      isolation: {
+        surroundingsOpacity: 1,
+        manual: false,
+        manualTransition: 'settled',
+        ringVisible: false,
+        shaftVisible: false,
+      },
+      renderer: { calls: 0, triangles: 0, geometries: 0, textures: 0 },
+      // Drawing/sheet observables: whether the bake installed, which tier it used, whether the
+      // frozen precompute matched these inputs (precomputed 1) or the live bake ran (0), and the
+      // side-view ink registration measured lazily on demand.
+      sheet: {
+        baked: false,
+        tier: '',
+        precomputed: -1,
+        stats: {} as Record<string, number>,
+        registration: null as unknown,
+      },
+      journey: {} as Record<string, unknown>,
+      stopAndAppreciate: {
+        mode: 'idle',
+        freeLookActive: false,
+        whipBackActive: false,
+        whipBackProgress: 1,
+        passiveWeight: 0,
+        yawDeg: 0,
+        pitchDeg: 0,
+        frozenProgress: null,
+        wheelAccumPx: 0,
+      } as StopAndAppreciateTelemetry,
+      stage: 'stage3-model-host',
+    }),
+    [],
+  )
 
   useEffect(() => {
-    const owned = createResourceScope(errors => onFailure(new AggregateError(errors, 'Private scene cleanup failed')))
+    const owned = createResourceScope((errors) => onFailure(new AggregateError(errors, 'Private scene cleanup failed')))
     // Restore the cached static buckets before prewarming/baking a new host.
     applyShaftTakeover(0)
     owned.defer(() => applyShaftTakeover(0))
     scope.current = owned
-    const fail = (error: unknown) => { if (owned.current()) reportFailure(error) }
+    const fail = (error: unknown) => {
+      if (owned.current()) reportFailure(error)
+    }
     const globals = window as unknown as Record<string, unknown>
     // Per-frame cost guard: this walks every source mesh and the whole study
     // runtime graph with regex tests, so it only runs when telemetry is read.
     const measureJourneyCensus = () => {
-      const sourceShaft = rig.meshes.find(mesh => mesh.userData.partNumber === 'P001835')
-      const sourceOpacities = rig.meshes.map(mesh => ({ part: mesh.userData.partNumber ?? mesh.name, opacity: effectiveMeshOpacity(mesh) }))
-      let studyGearboxOpacity = 0, studyShaftOpacity = 0
-      const studyContexts: Array<{name:string;opacity:number}> = []
-      shaft.current?.root.traverse(object => {
+      const sourceShaft = rig.meshes.find((mesh) => mesh.userData.partNumber === 'P001835')
+      const sourceOpacities = rig.meshes.map((mesh) => ({
+        part: mesh.userData.partNumber ?? mesh.name,
+        opacity: effectiveMeshOpacity(mesh),
+      }))
+      let studyGearboxOpacity = 0,
+        studyShaftOpacity = 0
+      const studyContexts: Array<{ name: string; opacity: number }> = []
+      shaft.current?.root.traverse((object) => {
         if (!(object instanceof Mesh)) return
-        const opacity=effectiveMeshOpacity(object)
-        let ancestor: Object3D | null=object, isShaft=false, isContext=false
-        while(ancestor && ancestor!==shaft.current?.root) {
-          if (/study-(legacyshaft|approvedshaft)/.test(ancestor.name)) isShaft=true
-          if (/study-(housing|legacyhousing|.*bearing|.*ring)|shaft-finale|shaft-rigid-support-pair|study-narrative-rest-registration/.test(ancestor.name)) isContext=true
-          ancestor=ancestor.parent
+        const opacity = effectiveMeshOpacity(object)
+        let ancestor: Object3D | null = object,
+          isShaft = false,
+          isContext = false
+        while (ancestor && ancestor !== shaft.current?.root) {
+          if (/study-(legacyshaft|approvedshaft)/.test(ancestor.name)) isShaft = true
+          if (
+            /study-(housing|legacyhousing|.*bearing|.*ring)|shaft-finale|shaft-rigid-support-pair|study-narrative-rest-registration/.test(
+              ancestor.name,
+            )
+          )
+            isContext = true
+          ancestor = ancestor.parent
         }
-        if(isShaft) studyShaftOpacity=Math.max(studyShaftOpacity,opacity)
-        if(isContext && !isShaft) { studyGearboxOpacity=Math.max(studyGearboxOpacity,opacity);studyContexts.push({name:object.name,opacity}) }
+        if (isShaft) studyShaftOpacity = Math.max(studyShaftOpacity, opacity)
+        if (isContext && !isShaft) {
+          studyGearboxOpacity = Math.max(studyGearboxOpacity, opacity)
+          studyContexts.push({ name: object.name, opacity })
+        }
       })
-      const sourceGearboxVisible=rig.meshes.some(mesh=>mesh.userData.partNumber!=='P001835'&&effectiveMeshOpacity(mesh)>.001)
-      const studyGearboxVisible=studyGearboxOpacity>.001
-      return {...journey, oldInspectionProgress:lastStudyProgress.current,oldMechanismProgress:journey.mechanismProgress,
-        sourceGearboxVisible,studyGearboxVisible,visibleGearboxCount:Number(sourceGearboxVisible)+Number(studyGearboxVisible),
-        sourceShaftVisible:!!sourceShaft && effectiveMeshOpacity(sourceShaft)>.001,studyShaftVisible:studyShaftOpacity>.001,
-        sourceOpacities,studyContexts,sourceShaftOpacity:sourceShaft?effectiveMeshOpacity(sourceShaft):0,studyShaftOpacity,
-        sourceShaftMaterial:sourceShaft?(m=>({color:m.color.getHexString(),metalness:m.metalness,roughness:m.roughness,envMapIntensity:m.envMapIntensity}))(sourceShaft.material as unknown as {color:{getHexString():string};metalness:number;roughness:number;envMapIntensity:number}):null,
-        cameraRegistrationMatrix:cameraRegistration.toArray(),registrationMatrix:registration.toArray(),registrationScale:registrationScale(registration),displacement:displacement.toArray()}
+      const sourceGearboxVisible = rig.meshes.some(
+        (mesh) => mesh.userData.partNumber !== 'P001835' && effectiveMeshOpacity(mesh) > 0.001,
+      )
+      const studyGearboxVisible = studyGearboxOpacity > 0.001
+      return {
+        ...journey,
+        oldInspectionProgress: lastStudyProgress.current,
+        oldMechanismProgress: journey.mechanismProgress,
+        sourceGearboxVisible,
+        studyGearboxVisible,
+        visibleGearboxCount: Number(sourceGearboxVisible) + Number(studyGearboxVisible),
+        sourceShaftVisible: !!sourceShaft && effectiveMeshOpacity(sourceShaft) > 0.001,
+        studyShaftVisible: studyShaftOpacity > 0.001,
+        sourceOpacities,
+        studyContexts,
+        sourceShaftOpacity: sourceShaft ? effectiveMeshOpacity(sourceShaft) : 0,
+        studyShaftOpacity,
+        sourceShaftMaterial: sourceShaft
+          ? ((m) => ({
+              color: m.color.getHexString(),
+              metalness: m.metalness,
+              roughness: m.roughness,
+              envMapIntensity: m.envMapIntensity,
+            }))(
+              sourceShaft.material as unknown as {
+                color: { getHexString(): string }
+                metalness: number
+                roughness: number
+                envMapIntensity: number
+              },
+            )
+          : null,
+        cameraRegistrationMatrix: cameraRegistration.toArray(),
+        registrationMatrix: registration.toArray(),
+        registrationScale: registrationScale(registration),
+        displacement: displacement.toArray(),
+      }
     }
     // Cache immutable local CAD hulls, never animated poses. Their affine
     // transforms retain exact projection extrema through arbitrary seeks.
@@ -397,150 +649,246 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       motionSample: () => {
         const detail: Record<string, unknown> = {}
         shaft.current?.telemetry(detail)
-        const motion = detail.shaft as { stage1: { sunRotZ: number; cascadeRotZ: number[]; cascadePlanetRotZ: number[][]; planetRotZ: number; meshPhaseError: number }; finale: { inputRpm: number; driveAngle: number } } | undefined
-        return { frames: probe.frames, progress: probe.progress, time: probe.inspection.subjectTime,
-          sun: motion?.stage1.sunRotZ, carriers: motion?.stage1.cascadeRotZ.slice(),
-          localPlanet: motion?.stage1.planetRotZ, inputRpm: motion?.finale.inputRpm,
-          planets: motion?.stage1.cascadePlanetRotZ, driveAngle: motion?.finale.driveAngle,
-          sourceCarriers: STAGE_IDS.map(id => rig.stages[id].carrier?.rotation.z ?? 0),
-          sourcePlanets: STAGE_IDS.map(id => rig.stages[id].planets.map(planet => planet.rotation.z)),
+        const motion = detail.shaft as
+          | {
+              stage1: {
+                sunRotZ: number
+                cascadeRotZ: number[]
+                cascadePlanetRotZ: number[][]
+                planetRotZ: number
+                meshPhaseError: number
+              }
+              finale: { inputRpm: number; driveAngle: number }
+            }
+          | undefined
+        return {
+          frames: probe.frames,
+          progress: probe.progress,
+          time: probe.inspection.subjectTime,
+          sun: motion?.stage1.sunRotZ,
+          carriers: motion?.stage1.cascadeRotZ.slice(),
+          localPlanet: motion?.stage1.planetRotZ,
+          inputRpm: motion?.finale.inputRpm,
+          planets: motion?.stage1.cascadePlanetRotZ,
+          driveAngle: motion?.finale.driveAngle,
+          sourceCarriers: STAGE_IDS.map((id) => rig.stages[id].carrier?.rotation.z ?? 0),
+          sourcePlanets: STAGE_IDS.map((id) => rig.stages[id].planets.map((planet) => planet.rotation.z)),
           sourceOutput: rig.outputShaft?.rotation.z,
-          sourceInput: rig.meshes.find(mesh => mesh.userData.partNumber === 'P001835')?.rotation.z,
-          meshPhaseError: motion?.stage1.meshPhaseError }
+          sourceInput: rig.meshes.find((mesh) => mesh.userData.partNumber === 'P001835')?.rotation.z,
+          meshPhaseError: motion?.stage1.meshPhaseError,
+        }
       },
       // On-demand authoring/proof port. Scan actual installed vertex positions,
       // retaining directional extrema rather than proxy box corners. No frame cost.
       cinematography: (includeWitnesses = true) => {
-        scene.updateMatrixWorld(true); camera.updateMatrixWorld(true)
+        scene.updateMatrixWorld(true)
+        camera.updateMatrixWorld(true)
         const subjects: Array<{ name: string; matrixWorld: number[] }> = []
         const witnesses: Array<{ name: string; points: number[][]; kind: string }> = []
-        const shaperRegion = shaperContactRegion(sampleShaftKinematics(probe.inspection.subjectTime, shaperWitnessKinematics))
-        const point = new Vector3(), localPoint = new Vector3(), direction = new Vector3()
+        const shaperRegion = shaperContactRegion(
+          sampleShaftKinematics(probe.inspection.subjectTime, shaperWitnessKinematics),
+        )
+        const point = new Vector3(),
+          localPoint = new Vector3(),
+          direction = new Vector3()
         const hullPoints = (points: Vector3[]) => {
-          const unique = [...new Map(points.map(p => [p.toArray().join(','), p])).values()]
-          if (unique.length < 4) return unique.map(p => p.toArray())
+          const unique = [...new Map(points.map((p) => [p.toArray().join(','), p])).values()]
+          if (unique.length < 4) return unique.map((p) => p.toArray())
           // ConvexHull.vertices contains ALL input nodes, including interior
           // vertices. Only face half-edges identify the actual hull witnesses.
           const hull = new ConvexHull().setFromPoints(unique)
           const extreme = new Map<string, Vector3>()
           for (const face of hull.faces) {
             let edge = face.edge
-            do { const p = edge.head().point; extreme.set(p.toArray().join(','), p); edge = edge.next } while (edge !== face.edge)
+            do {
+              const p = edge.head().point
+              extreme.set(p.toArray().join(','), p)
+              edge = edge.next
+            } while (edge !== face.edge)
           }
-          return extreme.size ? [...extreme.values()].map(p => p.toArray()) : unique.map(p => p.toArray())
+          return extreme.size ? [...extreme.values()].map((p) => p.toArray()) : unique.map((p) => p.toArray())
         }
         const scan = (root: Object3D, prefix: string) => {
           const inverseRoot = root.matrixWorld.clone().invert()
-          root.traverseVisible(object => {
-          if (!(object instanceof Mesh)) return
-          if (prefix === 'shatter' && !object.name.startsWith('paper-fragment-')) return
-          if (prefix === 'drawing' && object.name !== 'engineering-drawing-Z0') return
-          if (prefix === 'ring-source') {
-            // Merged primitive meshes often have no partNumber themselves.
-            // The authenticated rig unit owns every installed P003068 child.
-            let ringPart = false
-            for (let node: Object3D | null = object; node; node = node.parent) {
-              if (node === rig.clutch.ringSwitch) { ringPart = true; break }
-              if (node === root) break
+          root.traverseVisible((object) => {
+            if (!(object instanceof Mesh)) return
+            if (prefix === 'shatter' && !object.name.startsWith('paper-fragment-')) return
+            if (prefix === 'drawing' && object.name !== 'engineering-drawing-Z0') return
+            if (prefix === 'ring-source') {
+              // Merged primitive meshes often have no partNumber themselves.
+              // The authenticated rig unit owns every installed P003068 child.
+              let ringPart = false
+              for (let node: Object3D | null = object; node; node = node.parent) {
+                if (node === rig.clutch.ringSwitch) {
+                  ringPart = true
+                  break
+                }
+                if (node === root) break
+              }
+              if (!ringPart) return
             }
-            if (!ringPart) return
-          }
-          const mats = Array.isArray(object.material) ? object.material : [object.material]
-          if (mats.every(m => !m.visible || m.opacity < .01)) return
-          const attribute = object.geometry.getAttribute('position')
-          if (!attribute) return
-          const name = `${prefix}/${object.uuid}/${object.name}`
-          let stage1Unit = false, selectedPlanet = false, sourceRingUnit = false
-          for (let ancestor: Object3D | null = object; ancestor && ancestor !== root; ancestor = ancestor.parent) {
-            if (ancestor.userData.stage1CascadeIndex === 0) stage1Unit = true
-            if (Number.isInteger(ancestor.userData.studyPlanetOccurrence)) selectedPlanet = true
-            if (ancestor === rig.clutch.ringSwitch) sourceRingUnit = true
-          }
-          const stage1Contact = stage1Unit && selectedPlanet
-          const matrices: Matrix4[] = []
-          if (object instanceof InstancedMesh) {
-            for (let i = 0; i < object.count; i++) {
-              const instance = new Matrix4()
-              object.getMatrixAt(i, instance)
-              matrices.push(instance.premultiply(object.matrixWorld))
+            const mats = Array.isArray(object.material) ? object.material : [object.material]
+            if (mats.every((m) => !m.visible || m.opacity < 0.01)) return
+            const attribute = object.geometry.getAttribute('position')
+            if (!attribute) return
+            const name = `${prefix}/${object.uuid}/${object.name}`
+            let stage1Unit = false,
+              selectedPlanet = false,
+              sourceRingUnit = false
+            for (let ancestor: Object3D | null = object; ancestor && ancestor !== root; ancestor = ancestor.parent) {
+              if (ancestor.userData.stage1CascadeIndex === 0) stage1Unit = true
+              if (Number.isInteger(ancestor.userData.studyPlanetOccurrence)) selectedPlanet = true
+              if (ancestor === rig.clutch.ringSwitch) sourceRingUnit = true
             }
-          } else matrices.push(object.matrixWorld)
-          for (let i = 0; i < matrices.length; i++) subjects.push({
-            name: matrices.length === 1 ? name : name + '/instance-' + i,
-            matrixWorld: matrices[i].toArray(),
-          })
-          if (!includeWitnesses) return
-          const worldPoints: Vector3[] = [], contactPoints: Vector3[] = []
-          let contactCount = 0
-          const version = 'version' in attribute ? attribute.version : attribute.data.version
-          let cached = geometryHulls.get(object.geometry)
-          if (!cached || cached.attribute !== attribute || cached.version !== version) {
-            const local = Array.from({ length: attribute.count }, (_, i) => new Vector3().fromBufferAttribute(attribute, i))
-            cached = { attribute, version, points: hullPoints(local) }
-            geometryHulls.set(object.geometry, cached)
-          }
-          for (const matrix of matrices) for (const vertex of cached.points) {
-            worldPoints.push(new Vector3(...vertex).applyMatrix4(matrix))
-          }
-          const sourceShaftContact = prefix === 'assembly' && probe.progress >= .56 && probe.progress <= .62
-            && object.userData.partNumber === 'P001835' && shaft.current
-          const contactInverse = sourceShaftContact ? shaft.current!.root.matrixWorld.clone().invert() : inverseRoot
-          const hasContact = sourceShaftContact || prefix === 'ring' && /P003068-inspection-CAD|KNURL_WHEEL/.test(object.name)
-            || prefix === 'shaft' && (stage1Contact || /shaper-cutter-disc|hob.*(body|thread|cutter|flute)|hobbing-tool|^(legacyshaft|approvedshaft)$/i.test(object.name))
-          if (hasContact) for (const matrix of matrices) for (let i = 0; i < attribute.count; i++) {
-            point.fromBufferAttribute(attribute, i).applyMatrix4(matrix)
-            localPoint.copy(point).applyMatrix4(inverseRoot)
-            if(sourceShaftContact)localPoint.copy(point).applyMatrix4(contactInverse)
-            const ringContact = prefix === 'ring' && /P003068-inspection-CAD|KNURL_WHEEL/.test(object.name)
-            const shaperToolContact = object.name === 'shaper-cutter-disc'
-              && isShaperToolContactPoint(localPoint, shaperRegion)
-            const shaperWorkContact = shaperRegion.active && (object.name === 'legacyshaft' || object.name === 'approvedshaft')
-              && isShaperShaftContactPoint(localPoint, shaperRegion)
-            const shaftContact = prefix === 'shaft' && (shaperToolContact || shaperWorkContact
-              || /hob.*(body|thread|cutter|flute)|hobbing-tool/i.test(object.name)
-              || (stage1Contact && localPoint.z >= -.014 && localPoint.z <= -.002
-                && Math.hypot(localPoint.x, localPoint.y) < .012)
-              || (!shaperRegion.active && (object.name === 'legacyshaft' || object.name === 'approvedshaft')
-                && localPoint.z >= -.014 && localPoint.z <= -.002))
-            if (ringContact || shaftContact || sourceShaftContact && localPoint.z>=-.014 && localPoint.z<=-.002) {
-              contactPoints.push(point.clone())
-              contactCount++
+            const stage1Contact = stage1Unit && selectedPlanet
+            const matrices: Matrix4[] = []
+            if (object instanceof InstancedMesh) {
+              for (let i = 0; i < object.count; i++) {
+                const instance = new Matrix4()
+                object.getMatrixAt(i, instance)
+                matrices.push(instance.premultiply(object.matrixWorld))
+              }
+            } else matrices.push(object.matrixWorld)
+            for (let i = 0; i < matrices.length; i++)
+              subjects.push({
+                name: matrices.length === 1 ? name : name + '/instance-' + i,
+                matrixWorld: matrices[i].toArray(),
+              })
+            if (!includeWitnesses) return
+            const worldPoints: Vector3[] = [],
+              contactPoints: Vector3[] = []
+            let contactCount = 0
+            const version = 'version' in attribute ? attribute.version : attribute.data.version
+            let cached = geometryHulls.get(object.geometry)
+            if (!cached || cached.attribute !== attribute || cached.version !== version) {
+              const local = Array.from({ length: attribute.count }, (_, i) =>
+                new Vector3().fromBufferAttribute(attribute, i),
+              )
+              cached = { attribute, version, points: hullPoints(local) }
+              geometryHulls.set(object.geometry, cached)
             }
-          }
-          const activeAssembly = prefix === 'assembly' && (probe.progress >= .395 && probe.progress < .46
-            || probe.progress>=.46 && probe.progress<.56 && (sourceRingUnit || object.name===GROOVE_NAMES.blue || object.name===GROOVE_NAMES.red))
-          // Suspended shards are foreground context. Their complete matrices
-          // still undergo physical/replay proof; active framing follows the wrench.
-          witnesses.push({ name, points: matrices.length === 1 ? worldPoints.map(p => p.toArray()) : hullPoints(worldPoints), kind: activeAssembly ? 'active' : prefix })
-          if (contactCount) witnesses.push({ name: name + '/' + (stage1Contact ? 'planetP000247' : 'tooth-groove'), points: hullPoints(contactPoints), kind: 'contact' })
+            for (const matrix of matrices)
+              for (const vertex of cached.points) {
+                worldPoints.push(new Vector3(...vertex).applyMatrix4(matrix))
+              }
+            const sourceShaftContact =
+              prefix === 'assembly' &&
+              probe.progress >= 0.56 &&
+              probe.progress <= 0.62 &&
+              object.userData.partNumber === 'P001835' &&
+              shaft.current
+            const contactInverse = sourceShaftContact ? shaft.current!.root.matrixWorld.clone().invert() : inverseRoot
+            const hasContact =
+              sourceShaftContact ||
+              (prefix === 'ring' && /P003068-inspection-CAD|KNURL_WHEEL/.test(object.name)) ||
+              (prefix === 'shaft' &&
+                (stage1Contact ||
+                  /shaper-cutter-disc|hob.*(body|thread|cutter|flute)|hobbing-tool|^(legacyshaft|approvedshaft)$/i.test(
+                    object.name,
+                  )))
+            if (hasContact)
+              for (const matrix of matrices)
+                for (let i = 0; i < attribute.count; i++) {
+                  point.fromBufferAttribute(attribute, i).applyMatrix4(matrix)
+                  localPoint.copy(point).applyMatrix4(inverseRoot)
+                  if (sourceShaftContact) localPoint.copy(point).applyMatrix4(contactInverse)
+                  const ringContact = prefix === 'ring' && /P003068-inspection-CAD|KNURL_WHEEL/.test(object.name)
+                  const shaperToolContact =
+                    object.name === 'shaper-cutter-disc' && isShaperToolContactPoint(localPoint, shaperRegion)
+                  const shaperWorkContact =
+                    shaperRegion.active &&
+                    (object.name === 'legacyshaft' || object.name === 'approvedshaft') &&
+                    isShaperShaftContactPoint(localPoint, shaperRegion)
+                  const shaftContact =
+                    prefix === 'shaft' &&
+                    (shaperToolContact ||
+                      shaperWorkContact ||
+                      /hob.*(body|thread|cutter|flute)|hobbing-tool/i.test(object.name) ||
+                      (stage1Contact &&
+                        localPoint.z >= -0.014 &&
+                        localPoint.z <= -0.002 &&
+                        Math.hypot(localPoint.x, localPoint.y) < 0.012) ||
+                      (!shaperRegion.active &&
+                        (object.name === 'legacyshaft' || object.name === 'approvedshaft') &&
+                        localPoint.z >= -0.014 &&
+                        localPoint.z <= -0.002))
+                  if (
+                    ringContact ||
+                    shaftContact ||
+                    (sourceShaftContact && localPoint.z >= -0.014 && localPoint.z <= -0.002)
+                  ) {
+                    contactPoints.push(point.clone())
+                    contactCount++
+                  }
+                }
+            const activeAssembly =
+              prefix === 'assembly' &&
+              ((probe.progress >= 0.395 && probe.progress < 0.46) ||
+                (probe.progress >= 0.46 &&
+                  probe.progress < 0.56 &&
+                  (sourceRingUnit || object.name === GROOVE_NAMES.blue || object.name === GROOVE_NAMES.red)))
+            // Suspended shards are foreground context. Their complete matrices
+            // still undergo physical/replay proof; active framing follows the wrench.
+            witnesses.push({
+              name,
+              points: matrices.length === 1 ? worldPoints.map((p) => p.toArray()) : hullPoints(worldPoints),
+              kind: activeAssembly ? 'active' : prefix,
+            })
+            if (contactCount)
+              witnesses.push({
+                name: name + '/' + (stage1Contact ? 'planetP000247' : 'tooth-groove'),
+                points: hullPoints(contactPoints),
+                kind: 'contact',
+              })
           })
         }
         if (probe.isolation.shaftVisible && shaft.current) scan(shaft.current.root, 'shaft')
         else if (probe.isolation.ringVisible && ring.current) {
           scan(ring.current.root, 'ring')
           if (group.current && group.current.visible) scan(group.current, 'ring-source')
-        }
-        else if (probe.progress < .395 && sheetRuntime.current) scan(sheetRuntime.current.group, 'drawing')
+        } else if (probe.progress < 0.395 && sheetRuntime.current) scan(sheetRuntime.current.group, 'drawing')
         else if (group.current) scan(group.current, 'assembly')
-        if(includeWitnesses && probe.progress<.395 && sheetRuntime.current) {
-          const groups=activeDrawingDetailGroups(sheetFrame.intro.t)
-          const points=sheetRuntime.current.drawingDetailPoints(groups).map(p=>new Vector3(...p).applyMatrix4(sheetRuntime.current!.group.matrixWorld).toArray())
+        if (includeWitnesses && probe.progress < 0.395 && sheetRuntime.current) {
+          const groups = activeDrawingDetailGroups(sheetFrame.intro.t)
+          const points = sheetRuntime.current
+            .drawingDetailPoints(groups)
+            .map((p) => new Vector3(...p).applyMatrix4(sheetRuntime.current!.group.matrixWorld).toArray())
           // Empty/unready detail geometry stays explicit and cannot pass.
-          witnesses.push({name:'drawing/active-ink-groups-'+groups.join('-'),points,kind:'active'})
+          witnesses.push({ name: 'drawing/active-ink-groups-' + groups.join('-'), points, kind: 'active' })
         }
-        if (probe.progress >= .42 && probe.progress <= .46 && sheetRuntime.current) scan(sheetRuntime.current.group, 'shatter')
+        if (probe.progress >= 0.42 && probe.progress <= 0.46 && sheetRuntime.current)
+          scan(sheetRuntime.current.group, 'shatter')
         direction.subVectors(target, camera.position).normalize()
-        return { camera: { position: camera.position.toArray(), target: target.toArray(), up: camera.up.toArray(),
-          fov: camera instanceof PerspectiveCamera ? camera.fov : 42, quaternion: camera.quaternion.toArray() }, subjects, witnesses,
-          viewport: [size.width, size.height], progress: probe.progress,
-          frame: probe.isolation.shaftVisible ? shaft.current?.root.matrixWorld.toArray()
-            : probe.isolation.ringVisible ? ring.current?.root.matrixWorld.toArray() : undefined,
+        return {
+          camera: {
+            position: camera.position.toArray(),
+            target: target.toArray(),
+            up: camera.up.toArray(),
+            fov: camera instanceof PerspectiveCamera ? camera.fov : 42,
+            quaternion: camera.quaternion.toArray(),
+          },
+          subjects,
+          witnesses,
+          viewport: [size.width, size.height],
+          progress: probe.progress,
+          frame: probe.isolation.shaftVisible
+            ? shaft.current?.root.matrixWorld.toArray()
+            : probe.isolation.ringVisible
+              ? ring.current?.root.matrixWorld.toArray()
+              : undefined,
           ringTime: ring.current?.frame.time ?? null,
-          shatter: probe.progress >= .42 && probe.progress <= .46 && sheetRuntime.current
-            ? { ...(includeWitnesses ? sheetRuntime.current.shatterInputs() : {}), frame: sheetRuntime.current.group.matrixWorld.toArray(), subjectTime: sheetFrame.intro.t } : null,
+          shatter:
+            probe.progress >= 0.42 && probe.progress <= 0.46 && sheetRuntime.current
+              ? {
+                  ...(includeWitnesses ? sheetRuntime.current.shatterInputs() : {}),
+                  frame: sheetRuntime.current.group.matrixWorld.toArray(),
+                  subjectTime: sheetFrame.intro.t,
+                }
+              : null,
           inspection: { subjectTime: probe.inspection.subjectTime, cameraTime: probe.inspection.cameraTime },
           sheetRenderState: sheetRuntime.current?.renderState() ?? null,
-          poleDot: Math.abs(direction.dot(camera.up.clone().normalize())) }
+          poleDot: Math.abs(direction.dot(camera.up.clone().normalize())),
+        }
       },
       cascadeProof: (options?: Parameters<typeof captureCascadeProof>[5]) => {
         if (!shaft.current) throw new Error('Cascade study unavailable')
@@ -555,50 +903,89 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         copy.renderer.drawingBuffer = [context.drawingBufferWidth, context.drawingBufferHeight]
         // pulseRegistration is lazy and cached inside the bake result; never throws for a live bake.
         copy.sheet.registration = bakedSheet.current ? bakedSheet.current.pulseRegistration() : null
-        const base = (node: Object3D | null) => node ? rig.basePositions.get(node)?.z ?? null : null
+        const base = (node: Object3D | null) => (node ? (rig.basePositions.get(node)?.z ?? null) : null)
         // Opening/pit telemetry for the Stage 4 recovery A/B: the canonical intro state the
         // private sheet is actually rendering, plus the solved bake crossing when installed.
         // Read the bake through its ref: this port's effect does not re-run when the bake state
         // lands, so a captured `sheetBake` binding would report a stale null forever.
         const baked = bakedSheet.current
         copy.sheet.stats = baked ? { ...baked.stats } : {}
-        copy.opening = { ...sheetFrame.intro, retirement: sheetFrame.retirement,
-          sheetDistance: sheetFrame.cameraSheetDistance, tier: sheetFrame.tier,
+        copy.opening = {
+          ...sheetFrame.intro,
+          retirement: sheetFrame.retirement,
+          sheetDistance: sheetFrame.cameraSheetDistance,
+          tier: sheetFrame.tier,
           crossing: baked?.extraction.crossing ?? null,
           modelMatrix: group.current?.matrix.toArray() ?? null,
           sheetMatrix: extractionContext.sheetMatrix.toArray(),
-          extraction: baked ? { initialZ: baked.extraction.initialZ, travel: baked.extraction.travel,
-            pressureTravel: baked.extraction.pressureTravel } : null,
+          extraction: baked
+            ? {
+                initialZ: baked.extraction.initialZ,
+                travel: baked.extraction.travel,
+                pressureTravel: baked.extraction.pressureTravel,
+              }
+            : null,
           finalInkT: openingFinalInkT.current,
-          bakeInstalled: Boolean(baked), sheetVisible: Boolean(baked) && sheetFrame.retirement < 1 }
-        copy.housingMaterials = rig.meshes.filter(mesh => rig.originalMaterials.get(mesh) === roleMaterial('blackOxideSteel'))
-          .map(mesh => ({ name: mesh.name, partNumber: mesh.userData.partNumber,
-            programs: (Array.isArray(mesh.material) ? mesh.material : [mesh.material]).map(material => material.customProgramCacheKey()) }))
+          bakeInstalled: Boolean(baked),
+          sheetVisible: Boolean(baked) && sheetFrame.retirement < 1,
+        }
+        copy.housingMaterials = rig.meshes
+          .filter((mesh) => rig.originalMaterials.get(mesh) === roleMaterial('blackOxideSteel'))
+          .map((mesh) => ({
+            name: mesh.name,
+            partNumber: mesh.userData.partNumber,
+            programs: (Array.isArray(mesh.material) ? mesh.material : [mesh.material]).map((material) =>
+              material.customProgramCacheKey(),
+            ),
+          }))
         const display = rig.lcdCluster?.readout
         if (display) {
           display.updateWorldMatrix(true, false)
           const centre = new Box3().setFromObject(display).getCenter(new Vector3())
-          const facing = display.getWorldDirection(new Vector3()).dot(new Vector3().subVectors(camera.position, centre).normalize())
+          const facing = display
+            .getWorldDirection(new Vector3())
+            .dot(new Vector3().subVectors(camera.position, centre).normalize())
           copy.lcdDisplay = { centreWorld: centre.toArray(), centreNdc: centre.project(camera).toArray(), facing }
         }
         copy.mechanical = {
-          channels: { ...channels }, tier: store.getState().tier,
+          channels: { ...channels },
+          tier: store.getState().tier,
           bearingZ: rig.bearing?.position.z ?? null,
-          baseZ: { handleZ: base(rig.handleRoot), outputZ: base(rig.outputShaft), clutchZ: base(rig.clutch.static),
-            slidingZ: base(rig.clutch.sliding), ringSwitchZ: base(rig.clutch.ringSwitch), bearingZ: base(rig.bearing),
-            stageZ: STAGE_IDS.map(id => base(rig.stages[id].carrier)) },
-          present: { handle: !!rig.handleRoot, output: !!rig.outputShaft, clutch: !!rig.clutch.static,
-            sliding: !!rig.clutch.sliding, ringSwitch: !!rig.clutch.ringSwitch, bearing: !!rig.bearing,
-            stages: STAGE_IDS.map(id => !!rig.stages[id].carrier) },
-          planetRotByStage: STAGE_IDS.map(id => rig.stages[id].planets.map(planet => planet.rotation.z)),
-          ghostMaterials: [...rig.ghostMaterials].map(([mesh, material]) => ({ mesh: mesh.name, uuid: mesh.uuid,
-            opacity: material.opacity, transparent: material.transparent, depthWrite: material.depthWrite,
-            attached: Array.isArray(mesh.material) ? mesh.material.includes(material) : mesh.material === material,
-            effectiveOpacity: effectiveMeshOpacity(mesh),
-            applied: (Array.isArray(mesh.material) ? mesh.material : [mesh.material]).map(current => ({
-              opacity: current.opacity, transparent: current.transparent, depthWrite: current.depthWrite,
-            })),
-          })).sort((a, b) => a.mesh.localeCompare(b.mesh)),
+          baseZ: {
+            handleZ: base(rig.handleRoot),
+            outputZ: base(rig.outputShaft),
+            clutchZ: base(rig.clutch.static),
+            slidingZ: base(rig.clutch.sliding),
+            ringSwitchZ: base(rig.clutch.ringSwitch),
+            bearingZ: base(rig.bearing),
+            stageZ: STAGE_IDS.map((id) => base(rig.stages[id].carrier)),
+          },
+          present: {
+            handle: !!rig.handleRoot,
+            output: !!rig.outputShaft,
+            clutch: !!rig.clutch.static,
+            sliding: !!rig.clutch.sliding,
+            ringSwitch: !!rig.clutch.ringSwitch,
+            bearing: !!rig.bearing,
+            stages: STAGE_IDS.map((id) => !!rig.stages[id].carrier),
+          },
+          planetRotByStage: STAGE_IDS.map((id) => rig.stages[id].planets.map((planet) => planet.rotation.z)),
+          ghostMaterials: [...rig.ghostMaterials]
+            .map(([mesh, material]) => ({
+              mesh: mesh.name,
+              uuid: mesh.uuid,
+              opacity: material.opacity,
+              transparent: material.transparent,
+              depthWrite: material.depthWrite,
+              attached: Array.isArray(mesh.material) ? mesh.material.includes(material) : mesh.material === material,
+              effectiveOpacity: effectiveMeshOpacity(mesh),
+              applied: (Array.isArray(mesh.material) ? mesh.material : [mesh.material]).map((current) => ({
+                opacity: current.opacity,
+                transparent: current.transparent,
+                depthWrite: current.depthWrite,
+              })),
+            }))
+            .sort((a, b) => a.mesh.localeCompare(b.mesh)),
         }
         if (ring.current) {
           const runtimeDetail: Record<string, unknown> = {}
@@ -619,23 +1006,31 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
           copy.ring.sourceBounds = { min: bounds.min.toArray(), max: bounds.max.toArray() }
         }
         const visibleRing = probe.isolation.ringVisible
-          ? ring.current?.root.getObjectByName('inspection-P003068-spin') : sourceRing
+          ? ring.current?.root.getObjectByName('inspection-P003068-spin')
+          : sourceRing
         if (visibleRing) {
           visibleRing.updateWorldMatrix(true, true)
-          const box = new Box3().setFromObject(visibleRing), point = new Vector3()
+          const box = new Box3().setFromObject(visibleRing),
+            point = new Vector3()
           const rect = [Infinity, Infinity, -Infinity, -Infinity]
           let behind = false
           for (let i = 0; i < 8; i++) {
-            point.set(i & 1 ? box.max.x : box.min.x, i & 2 ? box.max.y : box.min.y, i & 4 ? box.max.z : box.min.z).project(camera)
+            point
+              .set(i & 1 ? box.max.x : box.min.x, i & 2 ? box.max.y : box.min.y, i & 4 ? box.max.z : box.min.z)
+              .project(camera)
             behind ||= point.z > 1
-            const x = (point.x + 1) * size.width / 2, y = (1 - point.y) * size.height / 2
-            rect[0] = Math.min(rect[0], x); rect[1] = Math.min(rect[1], y)
-            rect[2] = Math.max(rect[2], x); rect[3] = Math.max(rect[3], y)
+            const x = ((point.x + 1) * size.width) / 2,
+              y = ((1 - point.y) * size.height) / 2
+            rect[0] = Math.min(rect[0], x)
+            rect[1] = Math.min(rect[1], y)
+            rect[2] = Math.max(rect[2], x)
+            rect[3] = Math.max(rect[3], y)
           }
           copy.ring.projectedBounds = { rect, behind, viewport: [size.width, size.height] }
         }
         copy.ring.sourceMaterialPrograms = sourceRingMaterials.current
-          ? [...sourceRingMaterials.current.unique.values()].map(material => material.customProgramCacheKey()) : []
+          ? [...sourceRingMaterials.current.unique.values()].map((material) => material.customProgramCacheKey())
+          : []
         copy.ring.sourceKnurlSurface = sourceKnurlProof
         if (rig.handleRoot) {
           const box = new Box3().setFromObject(rig.handleRoot)
@@ -645,20 +1040,33 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         copy.isolation.actualMaxOpacity = 0
         for (const entry of surroundingMaterials.current?.entries ?? []) {
           const materials = Array.isArray(entry.clone) ? entry.clone : [entry.clone]
-          for (const material of materials) copy.isolation.actualMaxOpacity = Math.max(copy.isolation.actualMaxOpacity, material.opacity)
+          for (const material of materials)
+            copy.isolation.actualMaxOpacity = Math.max(copy.isolation.actualMaxOpacity, material.opacity)
         }
         copy.journey = JSON.parse(JSON.stringify(measureJourneyCensus()))
-        if (probe.inspection.ready && shaft.current) copy.journey.supportHandoff = measureSupportHandoff(sourceSupports, shaft.current.root)
-        const sourceShaft = rig.meshes.find(mesh => mesh.userData.partNumber === 'P001835')
-        if (sourceShaft && shaft.current) copy.journey.shaftLandmarks = measureShaftLandmarks(sourceShaft, shaft.current.root, registration)
+        if (probe.inspection.ready && shaft.current)
+          copy.journey.supportHandoff = measureSupportHandoff(sourceSupports, shaft.current.root)
+        const sourceShaft = rig.meshes.find((mesh) => mesh.userData.partNumber === 'P001835')
+        if (sourceShaft && shaft.current)
+          copy.journey.shaftLandmarks = measureShaftLandmarks(sourceShaft, shaft.current.root, registration)
         copy.isolation.progress = isolation.progress
         copy.isolation.occurrences = (surroundingMaterials.current?.entries ?? []).map(({ mesh, source, clone }) => ({
-          name: mesh.name, uuid: mesh.uuid, part: mesh.userData.partNumber ?? null,
+          name: mesh.name,
+          uuid: mesh.uuid,
+          part: mesh.userData.partNumber ?? null,
           ...sourceOccurrenceLabels.get(mesh),
-          parent: mesh.parent?.name, visible: effectiveMeshOpacity(mesh) > .001,
+          parent: mesh.parent?.name,
+          visible: effectiveMeshOpacity(mesh) > 0.001,
           studyOwned: studyOwnedMeshes.has(mesh),
-          source: (Array.isArray(source) ? source : [source]).map(m => ({ opacity: m.opacity, depthWrite: m.depthWrite })),
-          applied: (Array.isArray(clone) ? clone : [clone]).map(m => ({ opacity: m.opacity, transparent: m.transparent, depthWrite: m.depthWrite })),
+          source: (Array.isArray(source) ? source : [source]).map((m) => ({
+            opacity: m.opacity,
+            depthWrite: m.depthWrite,
+          })),
+          applied: (Array.isArray(clone) ? clone : [clone]).map((m) => ({
+            opacity: m.opacity,
+            transparent: m.transparent,
+            depthWrite: m.depthWrite,
+          })),
         }))
         if (shaft.current) {
           const detail: Record<string, unknown> = {}
@@ -680,33 +1088,57 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         if (!shaft.current) throw new Error('Installed study unavailable')
         return shaft.current.contactCapture?.(gl, camera)
       },
-      visibilityCapture: (kind: 'ring' | 'mainHousing' | 'surroundings' | 'fadeOccurrences' | 'drivetrain' | 'stage2' | 'stage5' | 'stage3' | 'stage4' | 'output', individual = false) => {
+      visibilityCapture: (
+        kind:
+          | 'ring'
+          | 'mainHousing'
+          | 'surroundings'
+          | 'fadeOccurrences'
+          | 'drivetrain'
+          | 'stage2'
+          | 'stage5'
+          | 'stage3'
+          | 'stage4'
+          | 'output',
+        individual = false,
+      ) => {
         const nodes: Object3D[] = []
         if (kind === 'ring') {
           // During restoration the source is opaque beneath the dissolving clone.
           // Remove both to measure the subject's actual contribution, rather than only clone residue.
-          const clone = probe.isolation.ringVisible ? ring.current?.root.getObjectByName('inspection-P003068-spin') : null
+          const clone = probe.isolation.ringVisible
+            ? ring.current?.root.getObjectByName('inspection-P003068-spin')
+            : null
           if (clone) nodes.push(clone)
           if (rig.clutch.ringSwitch) nodes.push(rig.clutch.ringSwitch)
         } else if (kind === 'mainHousing') {
           nodes.push(...rig.ghostMaterials.keys())
         } else if (kind === 'surroundings' || kind === 'fadeOccurrences') {
-          nodes.push(...(surroundingMaterials.current?.entries ?? []).map(entry => entry.mesh))
-          if (kind === 'fadeOccurrences') for (let i = nodes.length - 1; i >= 0; i--) if (!sourceOccurrenceLabels.has(nodes[i] as Mesh)) nodes.splice(i, 1)
+          nodes.push(...(surroundingMaterials.current?.entries ?? []).map((entry) => entry.mesh))
+          if (kind === 'fadeOccurrences')
+            for (let i = nodes.length - 1; i >= 0; i--)
+              if (!sourceOccurrenceLabels.has(nodes[i] as Mesh)) nodes.splice(i, 1)
         } else {
-          shaft.current?.root.traverse(object => {
-            if (!(object instanceof Mesh) || effectiveMeshOpacity(object) <= .001) return
+          shaft.current?.root.traverse((object) => {
+            if (!(object instanceof Mesh) || effectiveMeshOpacity(object) <= 0.001) return
             let ancestor: Object3D | null = object
             while (ancestor && ancestor !== shaft.current?.root) {
               const unitIndex = ancestor.userData.stage1CascadeIndex
-              const selectedIndex = kind === 'output' ? 6 : kind === 'stage5' ? 2 : kind === 'stage3' ? 4 : kind === 'stage4' ? 5 : 1
-              if (kind === 'drivetrain' ? typeof unitIndex === 'number' && unitIndex < 7 : unitIndex === selectedIndex) { nodes.push(object); break }
+              const selectedIndex =
+                kind === 'output' ? 6 : kind === 'stage5' ? 2 : kind === 'stage3' ? 4 : kind === 'stage4' ? 5 : 1
+              if (
+                kind === 'drivetrain' ? typeof unitIndex === 'number' && unitIndex < 7 : unitIndex === selectedIndex
+              ) {
+                nodes.push(object)
+                break
+              }
               ancestor = ancestor.parent
             }
           })
         }
         const captured = captureVisibilityContribution(gl, scene, camera, nodes, individual, kind === 'fadeOccurrences')
-        for (let i = 0; i < captured.occurrences.length; i++) Object.assign(captured.occurrences[i], sourceOccurrenceLabels.get(nodes[i] as Mesh))
+        for (let i = 0; i < captured.occurrences.length; i++)
+          Object.assign(captured.occurrences[i], sourceOccurrenceLabels.get(nodes[i] as Mesh))
         return captured
       },
       grooveCapture: (options?: GrooveCaptureOptions) => {
@@ -721,27 +1153,49 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       grooveRects: () => {
         if (!(camera instanceof PerspectiveCamera)) throw new Error('Perspective camera unavailable')
         camera.updateMatrixWorld(true)
-        const width = gl.domElement.width, height = gl.domElement.height
-        const corner = new Vector3(), box = new Box3()
+        const width = gl.domElement.width,
+          height = gl.domElement.height
+        const corner = new Vector3(),
+          box = new Box3()
         const read = (name: string) => {
-          const mesh = rig.meshes.find(candidate => candidate.name === name)
+          const mesh = rig.meshes.find((candidate) => candidate.name === name)
           if (!mesh) return null
           mesh.updateWorldMatrix(true, false)
           box.setFromObject(mesh)
-          let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity, behind = false
+          let minX = Infinity,
+            minY = Infinity,
+            maxX = -Infinity,
+            maxY = -Infinity,
+            behind = false
           for (let i = 0; i < 8; i++) {
             corner.set(i & 1 ? box.max.x : box.min.x, i & 2 ? box.max.y : box.min.y, i & 4 ? box.max.z : box.min.z)
             corner.project(camera)
             if (corner.z > 1) behind = true
-            const x = (corner.x * 0.5 + 0.5) * width, y = (1 - (corner.y * 0.5 + 0.5)) * height
-            minX = Math.min(minX, x); maxX = Math.max(maxX, x); minY = Math.min(minY, y); maxY = Math.max(maxY, y)
+            const x = (corner.x * 0.5 + 0.5) * width,
+              y = (1 - (corner.y * 0.5 + 0.5)) * height
+            minX = Math.min(minX, x)
+            maxX = Math.max(maxX, x)
+            minY = Math.min(minY, y)
+            maxY = Math.max(maxY, y)
           }
           const material = Array.isArray(mesh.material) ? mesh.material[0] : mesh.material
-          return { name, visible: mesh.visible, behindCamera: behind, opacity: material?.opacity ?? null,
-            rect: [minX, minY, maxX, maxY], drawingBuffer: [width, height] }
+          return {
+            name,
+            visible: mesh.visible,
+            behindCamera: behind,
+            opacity: material?.opacity ?? null,
+            rect: [minX, minY, maxX, maxY],
+            drawingBuffer: [width, height],
+          }
         }
-        return { progress: probe.progress, shift: channels.shift, blue: read(GROOVE_NAMES.blue), red: read(GROOVE_NAMES.red),
-          surroundingsOpacity: probe.isolation.surroundingsOpacity, ringVisible: probe.isolation.ringVisible }
+        return {
+          progress: probe.progress,
+          shift: channels.shift,
+          blue: read(GROOVE_NAMES.blue),
+          red: read(GROOVE_NAMES.red),
+          surroundingsOpacity: probe.isolation.surroundingsOpacity,
+          ringVisible: probe.isolation.ringVisible,
+        }
       },
       cutterCapture: () => {
         if (!shaft.current || !(camera instanceof PerspectiveCamera)) throw new Error('Installed study unavailable')
@@ -755,9 +1209,19 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       const id = (event as CustomEvent<{ id?: string | null }>).detail?.id
       // A DOM button can be activated between projection ticks. Its part stays
       // valid during that short transition even if the center ray just changed.
-      if (id == null || (isTorqueHotspotActive(id, overlay.progress, overlay.explode, overlay.surroundingsOpacity,
-        overlay.ringVisible, overlay.studyVisible, overlay.manual)
-        && hotspots.some(item => item.id === id && item.node))) {
+      if (
+        id == null ||
+        (isTorqueHotspotActive(
+          id,
+          overlay.progress,
+          overlay.explode,
+          overlay.surroundingsOpacity,
+          overlay.ringVisible,
+          overlay.studyVisible,
+          overlay.manual,
+        ) &&
+          hotspots.some((item) => item.id === id && item.node))
+      ) {
         if (id) stopAndAppreciate.toggleFreeLook(false, store.getProgress())
         focus.id = id ?? null
         focus.progress = store.getProgress()
@@ -766,7 +1230,9 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
     }
     window.addEventListener('torque-part-focus', selectPart)
     owned.defer(() => window.removeEventListener('torque-part-focus', selectPart))
-    owned.defer(() => { if (globals.__torqueWorld === port) delete globals.__torqueWorld })
+    owned.defer(() => {
+      if (globals.__torqueWorld === port) delete globals.__torqueWorld
+    })
     const hudHost = gl.domElement.parentElement
     const pageRoot = document.querySelector<HTMLElement>('.torque-page')
     const freeLookBtn = document.createElement('button')
@@ -800,7 +1266,8 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       pageRoot?.removeAttribute('data-torque-freelook-dragging')
     })
     const onPointerMove = (event: PointerEvent) => {
-      const w = Math.max(1, window.innerWidth), h = Math.max(1, window.innerHeight)
+      const w = Math.max(1, window.innerWidth),
+        h = Math.max(1, window.innerHeight)
       stopAndAppreciate.setPointerNormalized((event.clientX / w) * 2 - 1, (event.clientY / h) * 2 - 1)
       stopAndAppreciate.movePointerDrag(event.clientX, event.clientY, w, h)
     }
@@ -829,10 +1296,19 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         syncFreeLookButton(false)
       } else if (stopAndAppreciate.snapshot().freeLookActive) {
         const step = 0.12
-        if (event.key === 'ArrowLeft' || event.key === 'a' || event.key === 'A') { event.preventDefault(); stopAndAppreciate.nudgeOrbit(step, 0) }
-        else if (event.key === 'ArrowRight' || event.key === 'd' || event.key === 'D') { event.preventDefault(); stopAndAppreciate.nudgeOrbit(-step, 0) }
-        else if (event.key === 'ArrowUp' || event.key === 'w' || event.key === 'W') { event.preventDefault(); stopAndAppreciate.nudgeOrbit(0, -step) }
-        else if (event.key === 'ArrowDown' || event.key === 's' || event.key === 'S') { event.preventDefault(); stopAndAppreciate.nudgeOrbit(0, step) }
+        if (event.key === 'ArrowLeft' || event.key === 'a' || event.key === 'A') {
+          event.preventDefault()
+          stopAndAppreciate.nudgeOrbit(step, 0)
+        } else if (event.key === 'ArrowRight' || event.key === 'd' || event.key === 'D') {
+          event.preventDefault()
+          stopAndAppreciate.nudgeOrbit(-step, 0)
+        } else if (event.key === 'ArrowUp' || event.key === 'w' || event.key === 'W') {
+          event.preventDefault()
+          stopAndAppreciate.nudgeOrbit(0, -step)
+        } else if (event.key === 'ArrowDown' || event.key === 's' || event.key === 'S') {
+          event.preventDefault()
+          stopAndAppreciate.nudgeOrbit(0, step)
+        }
       }
     }
     window.addEventListener('pointermove', onPointerMove, { passive: true })
@@ -847,74 +1323,118 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       window.removeEventListener('wheel', onWheel)
       window.removeEventListener('keydown', onKeyDown)
     })
-    const contextLost = (event: Event) => { event.preventDefault(); fail(new Error('Private WebGL context lost')) }
+    const contextLost = (event: Event) => {
+      event.preventDefault()
+      fail(new Error('Private WebGL context lost'))
+    }
     gl.domElement.addEventListener('webglcontextlost', contextLost)
     owned.defer(() => gl.domElement.removeEventListener('webglcontextlost', contextLost))
     const waitVisible = async () => {
-      if (document.hidden) await new Promise<void>((resolve, reject) => {
-        const cleanup = () => { document.removeEventListener('visibilitychange', visible); owned.signal.removeEventListener('abort', aborted) }
-        const visible = () => { if (!document.hidden) { cleanup(); resolve() } }
-        const aborted = () => { cleanup(); reject(new DOMException('Private initialization cancelled', 'AbortError')) }
-        document.addEventListener('visibilitychange', visible)
-        owned.signal.addEventListener('abort', aborted, { once: true })
-        if (owned.signal.aborted) aborted()
-      })
+      if (document.hidden)
+        await new Promise<void>((resolve, reject) => {
+          const cleanup = () => {
+            document.removeEventListener('visibilitychange', visible)
+            owned.signal.removeEventListener('abort', aborted)
+          }
+          const visible = () => {
+            if (!document.hidden) {
+              cleanup()
+              resolve()
+            }
+          }
+          const aborted = () => {
+            cleanup()
+            reject(new DOMException('Private initialization cancelled', 'AbortError'))
+          }
+          document.addEventListener('visibilitychange', visible)
+          owned.signal.addEventListener('abort', aborted, { once: true })
+          if (owned.signal.aborted) aborted()
+        })
     }
     const initializeVisible = async () => {
-    try {
-      await waitVisible()
-      if (!owned.current()) return
-      const shaftMesh = rig.meshes.find(mesh => mesh.userData.partNumber === 'P001835')
-      if (!shaftMesh?.parent) throw new Error('Rendered source P001835 missing')
-      // This is a model-space displacement, independent of extraction and recentering.
-      applyWrenchMechanics(rig, { shift: 0, explode: 0, gearAngle: 0, idle: 0 })
-      model.updateWorldMatrix(true, true)
-      shaftRestInverse.current = new Matrix4().copy(model.matrixWorld).invert().multiply(shaftMesh.parent.matrixWorld).invert()
-      applyWrenchMechanics(rig, { shift: 1, explode: 0, gearAngle: 0, idle: 0 })
-      measureShaftDisplacement(model, shaftMesh.parent, shaftRestInverse.current, heldDisplacement)
-      // Rest snapshot is page-owned; cached merged rig and its materials are borrowed.
-      applyWrenchMechanics(rig, { shift: 0, explode: 0, gearAngle: 0, idle: 0 })
-      // snapshotDrawing recenters raw CAD world positions itself. Remove the host's
-      // centering temporarily so StrictMode/remount cannot apply the offset twice.
-      const host = centered.current
-      host?.position.set(0, 0, 0)
-      model.updateWorldMatrix(true, true)
-      let snapshot: ReturnType<typeof snapshotDrawing>
-      try { snapshot = snapshotDrawing({ ...rig, meshes: model.userData.journeyDrawingMeshes ?? rig.meshes }) }
-      finally { host?.position.set(...center); model.updateWorldMatrix(true, true) }
-      owned.own(snapshot.geometry)
-      drawing.current = snapshot
-      layout.current = makeDrawingLayout(aspect, snapshot.bounds)
-      owned.defer(() => { if (drawing.current === snapshot) drawing.current = null })
-      const pmrem = owned.own(new PMREMGenerator(gl))
-      const room = owned.own(new RoomEnvironment())
-      const environment = owned.own(pmrem.fromScene(room, 0.04))
-      scene.environment = environment.texture
-      scene.environmentIntensity = 1
-      owned.defer(() => { if (scene.environment === environment.texture) scene.environment = null })
-      gl.localClippingEnabled = true
-      probe.ready = true
-      bakeSheet({ gl, data: snapshot, layout: makeDrawingLayout(1, snapshot.bounds), content: applyPrivateSheetContent,
-        beforeGpu: waitVisible,
-        tier: store.getState().tier === 'lite' ? 'lite' : 'full', signal: owned.signal,
-        onCleanupFailure: errors => { if (errors.length) onFailure(new AggregateError(errors, 'Sheet cleanup failed')) },
-      }).then(result => {
-        owned.own(result)
-        if (owned.current()) {
-          const styles = result.lines.geometry.getAttribute('aStyle')
-          openingFinalInkT.current = finalInkTimeFromStyles(styles.array as ArrayLike<number>, styles.itemSize)
-          bakedSheet.current = result
-          probe.sheet.baked = true
-          probe.sheet.tier = store.getState().tier === 'lite' ? 'lite' : 'full'
-          probe.sheet.precomputed = result.stats.precomputed ?? -1
-          probe.sheet.stats = { ...result.stats }
-          setSheetBake(result)
-          if (typeof window !== 'undefined') {
-            window.dispatchEvent(new CustomEvent('torque-sheet-ready', { detail: { stats: result.stats } }))
-          }
+      try {
+        await waitVisible()
+        if (!owned.current()) return
+        const shaftMesh = rig.meshes.find((mesh) => mesh.userData.partNumber === 'P001835')
+        if (!shaftMesh?.parent) throw new Error('Rendered source P001835 missing')
+        // This is a model-space displacement, independent of extraction and recentering.
+        applyWrenchMechanics(rig, { shift: 0, explode: 0, gearAngle: 0, idle: 0 })
+        model.updateWorldMatrix(true, true)
+        shaftRestInverse.current = new Matrix4()
+          .copy(model.matrixWorld)
+          .invert()
+          .multiply(shaftMesh.parent.matrixWorld)
+          .invert()
+        applyWrenchMechanics(rig, { shift: 1, explode: 0, gearAngle: 0, idle: 0 })
+        measureShaftDisplacement(model, shaftMesh.parent, shaftRestInverse.current, heldDisplacement)
+        // Rest snapshot is page-owned; cached merged rig and its materials are borrowed.
+        applyWrenchMechanics(rig, { shift: 0, explode: 0, gearAngle: 0, idle: 0 })
+        // snapshotDrawing recenters raw CAD world positions itself. Remove the host's
+        // centering temporarily so StrictMode/remount cannot apply the offset twice.
+        const host = centered.current
+        host?.position.set(0, 0, 0)
+        model.updateWorldMatrix(true, true)
+        let snapshot: ReturnType<typeof snapshotDrawing>
+        try {
+          snapshot = snapshotDrawing({ ...rig, meshes: model.userData.journeyDrawingMeshes ?? rig.meshes })
+        } finally {
+          host?.position.set(...center)
+          model.updateWorldMatrix(true, true)
         }
-      }, error => { if (owned.current()) fail(error) })
-    } catch (error) { if (owned.current()) { fail(error); owned.dispose() } }
+        owned.own(snapshot.geometry)
+        drawing.current = snapshot
+        layout.current = makeDrawingLayout(aspect, snapshot.bounds)
+        owned.defer(() => {
+          if (drawing.current === snapshot) drawing.current = null
+        })
+        const pmrem = owned.own(new PMREMGenerator(gl))
+        const room = owned.own(new RoomEnvironment())
+        const environment = owned.own(pmrem.fromScene(room, 0.04))
+        scene.environment = environment.texture
+        scene.environmentIntensity = 1
+        owned.defer(() => {
+          if (scene.environment === environment.texture) scene.environment = null
+        })
+        gl.localClippingEnabled = true
+        probe.ready = true
+        bakeSheet({
+          gl,
+          data: snapshot,
+          layout: makeDrawingLayout(1, snapshot.bounds),
+          content: applyPrivateSheetContent,
+          beforeGpu: waitVisible,
+          tier: store.getState().tier === 'lite' ? 'lite' : 'full',
+          signal: owned.signal,
+          onCleanupFailure: (errors) => {
+            if (errors.length) onFailure(new AggregateError(errors, 'Sheet cleanup failed'))
+          },
+        }).then(
+          (result) => {
+            owned.own(result)
+            if (owned.current()) {
+              const styles = result.lines.geometry.getAttribute('aStyle')
+              openingFinalInkT.current = finalInkTimeFromStyles(styles.array as ArrayLike<number>, styles.itemSize)
+              bakedSheet.current = result
+              probe.sheet.baked = true
+              probe.sheet.tier = store.getState().tier === 'lite' ? 'lite' : 'full'
+              probe.sheet.precomputed = result.stats.precomputed ?? -1
+              probe.sheet.stats = { ...result.stats }
+              setSheetBake(result)
+              if (typeof window !== 'undefined') {
+                window.dispatchEvent(new CustomEvent('torque-sheet-ready', { detail: { stats: result.stats } }))
+              }
+            }
+          },
+          (error) => {
+            if (owned.current()) fail(error)
+          },
+        )
+      } catch (error) {
+        if (owned.current()) {
+          fail(error)
+          owned.dispose()
+        }
+      }
     }
     void initializeVisible()
     return () => {
@@ -939,7 +1459,10 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
   useFrame((_state, delta) => {
     const owned = scope.current
     if (terminal.current || !owned?.current() || !probe.ready || !(camera instanceof PerspectiveCamera)) return
-    if (document.hidden) { probe.hiddenFrames++; return }
+    if (document.hidden) {
+      probe.hiddenFrames++
+      return
+    }
     try {
       const requestedProgress = stopAndAppreciate.resolveProgress(store.getProgress())
       sampleJourney(requestedProgress, probe.inspection.ready, journey)
@@ -951,9 +1474,13 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       sheetFrame.retirement = Math.max(0, Math.min(1, (progress - 0.46) / 0.04))
       const manual = playback?.isOpen() ?? false
       if (manual !== manualCamera.open) {
-        manualCamera.open = manual; manualCamera.transitioning = true; manualCamera.elapsed = 0
-        manualCamera.from.position.copy(camera.position); manualCamera.from.target.copy(target)
-        manualCamera.from.up.copy(camera.up); manualCamera.from.fov = camera.fov
+        manualCamera.open = manual
+        manualCamera.transitioning = true
+        manualCamera.elapsed = 0
+        manualCamera.from.position.copy(camera.position)
+        manualCamera.from.target.copy(target)
+        manualCamera.from.up.copy(camera.up)
+        manualCamera.from.fov = camera.fov
       }
       const studyProgress = manual
         ? 0.735 + (playback?.advance(manualCamera.transitioning ? 0 : delta, true) ?? 0) * 0.205
@@ -974,8 +1501,14 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       applyWrenchMechanics(rig, channels)
       applyShaftTakeover(progress, channels.gearAngle)
       if (sheetBake && group.current) {
-        applyOpeningExtractionCore(sheetFrame.intro.poseT, sheetBake.layout, sheetBake.extraction,
-          sheetBake.flex, sheetFrame.tier, extractionContext)
+        applyOpeningExtractionCore(
+          sheetFrame.intro.poseT,
+          sheetBake.layout,
+          sheetBake.extraction,
+          sheetBake.flex,
+          sheetFrame.tier,
+          extractionContext,
+        )
         group.current.matrixAutoUpdate = false
         group.current.matrix.copy(extractionContext.modelMatrix)
         group.current.matrixWorldNeedsUpdate = true
@@ -983,7 +1516,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       for (const material of rig.ghostMaterials.values()) {
         material.opacity = channels.ghostOpacity
         // A translucent shell must never start occluding the interior halfway through a fade.
-        material.depthWrite = channels.ghostOpacity >= .999999
+        material.depthWrite = channels.ghostOpacity >= 0.999999
       }
       if (!surroundingMaterials.current && (manual || progress >= RING_LOAD_AT)) {
         const unique = new Map<Material, Material>()
@@ -1000,7 +1533,15 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
             if (!source) throw new Error('Surrounding material source unavailable')
             const isRing = rig.originalMaterials.get(mesh) === roleMaterial('ringSwitch')
             const isShaft = mesh.userData.partNumber === 'P001835'
-            const entry = { mesh, source, visible: mesh.visible, clone: cloneMaterialShape(source, isShaft ? shaftUnique : isRing ? ringUnique : studyOwnedMeshes.has(mesh) ? studyUnique : unique) }
+            const entry = {
+              mesh,
+              source,
+              visible: mesh.visible,
+              clone: cloneMaterialShape(
+                source,
+                isShaft ? shaftUnique : isRing ? ringUnique : studyOwnedMeshes.has(mesh) ? studyUnique : unique,
+              ),
+            }
             ;(isShaft ? shaftEntries : isRing ? ringEntries : entries).push(entry)
           }
         } catch (error) {
@@ -1019,9 +1560,18 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         owned.defer(() => {
           if (surroundingMaterials.current?.unique === unique) surroundingMaterials.current = null
           if (sourceRingMaterials.current?.unique === ringUnique) sourceRingMaterials.current = null
-          for (const entry of entries) { entry.mesh.material = entry.source; entry.mesh.visible = entry.visible }
-          for (const entry of ringEntries) { entry.mesh.material = entry.source; entry.mesh.visible = entry.visible }
-          for (const entry of shaftEntries) { entry.mesh.material = entry.source; entry.mesh.visible = entry.visible }
+          for (const entry of entries) {
+            entry.mesh.material = entry.source
+            entry.mesh.visible = entry.visible
+          }
+          for (const entry of ringEntries) {
+            entry.mesh.material = entry.source
+            entry.mesh.visible = entry.visible
+          }
+          for (const entry of shaftEntries) {
+            entry.mesh.material = entry.source
+            entry.mesh.visible = entry.visible
+          }
           if (sourceShaftMaterials.current?.unique === shaftUnique) sourceShaftMaterials.current = null
           for (const clone of unique.values()) clone.dispose()
           for (const clone of studyUnique.values()) clone.dispose()
@@ -1035,8 +1585,12 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       if (privateSurroundings) {
         for (const { mesh, source, clone } of privateSurroundings.entries) {
           // Study owns these internals until the exact source handoff. Exterior/handle may return earlier.
-          const fade = !manual && studyOwnedMeshes.has(mesh) && progress >= .62 && progress < .845 ? 0
-            : !manual && studyOwnedMeshes.has(mesh) && progress >= .845 && progress < .855 ? 1 : surroundingsOpacity
+          const fade =
+            !manual && studyOwnedMeshes.has(mesh) && progress >= 0.62 && progress < 0.845
+              ? 0
+              : !manual && studyOwnedMeshes.has(mesh) && progress >= 0.845 && progress < 0.855
+                ? 1
+                : surroundingsOpacity
           if (Array.isArray(source) && Array.isArray(clone)) {
             for (let i = 0; i < source.length; i++) copyMaterialFade(source[i], clone[i], fade, !manual && studyVisible)
           } else if (!Array.isArray(source) && !Array.isArray(clone)) {
@@ -1051,8 +1605,11 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       probe.isolation.ringVisible = ringVisible
       probe.isolation.shaftVisible = studyVisible
       overlay.progress = progress
-      overlay.studyVisible = studyVisible; overlay.manual = manual
-      overlay.explode = channels.explode; overlay.surroundingsOpacity = surroundingsOpacity; overlay.ringVisible = ringVisible
+      overlay.studyVisible = studyVisible
+      overlay.manual = manual
+      overlay.explode = channels.explode
+      overlay.surroundingsOpacity = surroundingsOpacity
+      overlay.ringVisible = ringVisible
       if (!manual && progress >= RING_LOAD_AT && !ring.current) {
         const source = rig.clutch.ringSwitch
         if (!source) throw new Error('Private ring source unavailable')
@@ -1061,17 +1618,40 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         owned.defer(() => session.cancel())
         let runtime: StoryRuntime
         model.updateWorldMatrix(true, true)
-        try { runtime = createRingRuntimeCore(session, { gl, scene, hero: model, rig,
-          tier: store.getState().tier === 'lite' ? 'lite' : 'full', aspect }, {
-          source, meshes: rig.meshes.filter(mesh => rig.originalMaterials.get(mesh) === roleMaterial('ringSwitch')),
-          initialTime: 0, getEntryElapsed: () => 2, probe: ringProbe,
-          sampleFrame: samplePrivateRing,
-          onCleanupError: report => failures.cleanup(report),
-        }) } catch (error) { failures.reject(error); throw error }
-        owned.defer(() => { failures.disposing(); try { runtime.dispose() } finally { failures.disposed() } })
+        try {
+          runtime = createRingRuntimeCore(
+            session,
+            { gl, scene, hero: model, rig, tier: store.getState().tier === 'lite' ? 'lite' : 'full', aspect },
+            {
+              source,
+              meshes: rig.meshes.filter((mesh) => rig.originalMaterials.get(mesh) === roleMaterial('ringSwitch')),
+              initialTime: 0,
+              getEntryElapsed: () => 2,
+              probe: ringProbe,
+              sampleFrame: samplePrivateRing,
+              onCleanupError: (report) => failures.cleanup(report),
+            },
+          )
+        } catch (error) {
+          failures.reject(error)
+          throw error
+        }
+        owned.defer(() => {
+          failures.disposing()
+          try {
+            runtime.dispose()
+          } finally {
+            failures.disposed()
+          }
+        })
         source.updateWorldMatrix(true, true)
-        const inverse = source.matrixWorld.clone().invert(), union = new Box3(), bounds = new Box3(), transform = new Matrix4()
-        for (const mesh of rig.meshes.filter(mesh => rig.originalMaterials.get(mesh) === roleMaterial('ringSwitch'))) {
+        const inverse = source.matrixWorld.clone().invert(),
+          union = new Box3(),
+          bounds = new Box3(),
+          transform = new Matrix4()
+        for (const mesh of rig.meshes.filter(
+          (mesh) => rig.originalMaterials.get(mesh) === roleMaterial('ringSwitch'),
+        )) {
           mesh.geometry.computeBoundingBox()
           bounds.copy(mesh.geometry.boundingBox!).applyMatrix4(transform.multiplyMatrices(inverse, mesh.matrixWorld))
           union.union(bounds)
@@ -1086,7 +1666,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         if (!spin) throw new Error('Private ring material host unavailable')
         const knurl: PrivateRingKnurlMaterial[] = []
         try {
-          spin.traverse(object => {
+          spin.traverse((object) => {
             if (!(object instanceof Mesh) || !(object.material instanceof MeshPhysicalMaterial)) return
             const source = object.material
             const clone = source.clone()
@@ -1097,7 +1677,9 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
             clone.polygonOffsetUnits = -1
             const order = object.renderOrder
             object.renderOrder = 3
-            owned.defer(() => { object.renderOrder = order })
+            owned.defer(() => {
+              object.renderOrder = order
+            })
             knurl.push({ mesh: object, source, clone })
           })
         } catch (error) {
@@ -1109,25 +1691,35 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         ringKnurlMaterials.current = knurl
         owned.defer(() => {
           if (ringKnurlMaterials.current === knurl) ringKnurlMaterials.current = null
-          for (const material of knurl) { material.mesh.material = material.source; material.clone.dispose() }
+          for (const material of knurl) {
+            material.mesh.material = material.source
+            material.clone.dispose()
+          }
         })
         failures.loading()
         ring.current = runtime
         ringBaseDistance.current = runtime.camera.position.length()
         scene.add(runtime.root)
-        runtime.ready.then(() => {
-          if (owned.current()) { probe.ring.ready = true; ringReady.current = ring.current === runtime }
-          failures.resolve()
-        }, error => {
-          if (owned.current()) failures.reject(error)
-          else failures.disposed()
-        })
+        runtime.ready.then(
+          () => {
+            if (owned.current()) {
+              probe.ring.ready = true
+              ringReady.current = ring.current === runtime
+            }
+            failures.resolve()
+          },
+          (error) => {
+            if (owned.current()) failures.reject(error)
+            else failures.disposed()
+          },
+        )
       }
       if (ring.current) {
         const runtime = ring.current
         const ringTime = ringTimeAt(progress)
         runtime.sample(ringTime)
-        runtime.apply(); runtime.root.visible = ringVisible
+        runtime.apply()
+        runtime.root.visible = ringVisible
         // Re-derive the world anchor from the group's CURRENT transform every frame.
         if (group.current) {
           group.current.updateWorldMatrix(true, false)
@@ -1139,14 +1731,20 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         // The knurl close-up leans toward the live upper die so it frames the roller pressing into the OD.
         const dieWheel = runtime.root.getObjectByName('KT_UPPER_KNURL_WHEEL_RH')
         let ringFocus: PrivateRingFocus | undefined
-        if (dieWheel && progress >= RING_CLOSEUP_START - .01 && progress <= RING_CLOSEUP_END + .01) {
+        if (dieWheel && progress >= RING_CLOSEUP_START - 0.01 && progress <= RING_CLOSEUP_END + 0.01) {
           // Tool animation and anchor changed this frame. Read the die only after descendants agree.
           runtime.root.updateWorldMatrix(true, true)
           ringFocusPoint.setFromMatrixPosition(dieWheel.matrixWorld)
           ringFocusPoint.applyMatrix4(ringFocusInverse.copy(runtime.root.matrixWorld).invert())
           ringFocus = ringFocusPoint
         }
-        const privateRingCamera = samplePrivateRingCamera(progress, ringBaseDistance.current, ringCamera, aspect, ringFocus)
+        const privateRingCamera = samplePrivateRingCamera(
+          progress,
+          ringBaseDistance.current,
+          ringCamera,
+          aspect,
+          ringFocus,
+        )
         runtime.camera.position.set(privateRingCamera.px, privateRingCamera.py, privateRingCamera.pz)
         runtime.camera.target.set(privateRingCamera.tx, privateRingCamera.ty, privateRingCamera.tz)
         runtime.camera.up.set(privateRingCamera.ux, privateRingCamera.uy, privateRingCamera.uz)
@@ -1155,7 +1753,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         runtime.camera.up.transformDirection(ringAnchor)
         ringWorldCenter.setFromMatrixPosition(ringAnchor)
         runtime.camera.fov = privateRingCamera.fov
-        const exit = samplePrivateRingCamera(.56, ringBaseDistance.current, ringExitCamera, aspect)
+        const exit = samplePrivateRingCamera(0.56, ringBaseDistance.current, ringExitCamera, aspect)
         ringExitPose.position.set(exit.px, exit.py, exit.pz).applyMatrix4(ringAnchor)
         ringExitPose.target.set(exit.tx, exit.ty, exit.tz).applyMatrix4(ringAnchor)
         ringExitPose.up.set(exit.ux, exit.uy, exit.uz).transformDirection(ringAnchor)
@@ -1168,7 +1766,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
             clone.roughness = source.roughness
             clone.opacity = source.opacity
             clone.transparent = source.transparent
-            if (clone.opacity < .999) clone.transparent = true
+            if (clone.opacity < 0.999) clone.transparent = true
             clone.depthWrite = source.depthWrite
             clone.normalScale.set(
               source.normalScale.x * RING_KNURL_DEPTH_MULTIPLIER,
@@ -1186,26 +1784,51 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         const session = createStorySession('shaft', { id: 1, current: owned.current, fail: failures.primary })
         owned.defer(() => session.cancel())
         let runtime: StoryRuntime
-        try { runtime = createShaftRuntime(session, { gl, scene, hero: model, rig, tier: store.getState().tier === 'lite' ? 'lite' : 'full', aspect }, {
-          presentation,
-          onCleanupFailure: reports => {
-            failures.cleanupMany(reports.map(failure => ({ phase: failures.phase(), ...failure })))
-          },
-        }) } catch (error) { failures.reject(error); throw error }
+        try {
+          runtime = createShaftRuntime(
+            session,
+            { gl, scene, hero: model, rig, tier: store.getState().tier === 'lite' ? 'lite' : 'full', aspect },
+            {
+              presentation,
+              onCleanupFailure: (reports) => {
+                failures.cleanupMany(reports.map((failure) => ({ phase: failures.phase(), ...failure })))
+              },
+            },
+          )
+        } catch (error) {
+          failures.reject(error)
+          throw error
+        }
         failures.loading()
         shaft.current = runtime
         scene.add(runtime.root)
-        owned.defer(() => { failures.disposing(); try { runtime.dispose() } finally { failures.disposed(); runtime.root.removeFromParent() } })
-        runtime.ready.then(() => {
-          failures.resolve()
-          if (owned.current()) {
-            const measured = measureSupportHandoff(sourceSupports, runtime.root)
-            supportReturnOffset[0] = measured.offset[0]; supportReturnOffset[1] = measured.offset[1]; supportReturnOffset[2] = measured.offset[2]
-            probe.inspection.ready = true
+        owned.defer(() => {
+          failures.disposing()
+          try {
+            runtime.dispose()
+          } finally {
+            failures.disposed()
+            runtime.root.removeFromParent()
           }
-        }, error => { if (owned.current()) failures.reject(error); else failures.disposed() })
+        })
+        runtime.ready.then(
+          () => {
+            failures.resolve()
+            if (owned.current()) {
+              const measured = measureSupportHandoff(sourceSupports, runtime.root)
+              supportReturnOffset[0] = measured.offset[0]
+              supportReturnOffset[1] = measured.offset[1]
+              supportReturnOffset[2] = measured.offset[2]
+              probe.inspection.ready = true
+            }
+          },
+          (error) => {
+            if (owned.current()) failures.reject(error)
+            else failures.disposed()
+          },
+        )
       }
-      const sourceShaft = rig.meshes.find(mesh => mesh.userData.partNumber === 'P001835')
+      const sourceShaft = rig.meshes.find((mesh) => mesh.userData.partNumber === 'P001835')
       if (sourceShaft?.parent && shaftRestInverse.current) {
         measureShaftDisplacement(model, sourceShaft.parent, shaftRestInverse.current, displacement)
         registerShaft(model.matrixWorld, displacement, registration)
@@ -1227,7 +1850,8 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         runtime.apply()
         planes.transform(runtime.root, registration)
         runtime.root.matrixAutoUpdate = false
-        runtime.root.matrix.copy(registration); runtime.root.matrixWorldNeedsUpdate = true
+        runtime.root.matrix.copy(registration)
+        runtime.root.matrixWorldNeedsUpdate = true
         runtime.root.visible = studyVisible
         probe.inspection.subjectTime = inspection.subjectTime
         probe.inspection.cameraTime = inspection.cameraTime
@@ -1249,14 +1873,18 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       const returnBlend = ring.current?.frame.returnBlend ?? 0
       const sourceShaftFade = manual ? 0 : journey.sourceShaftOpacity
       for (const { mesh, source, clone } of sourceShaftMaterials.current?.entries ?? []) {
-        const sources = Array.isArray(source) ? source : [source], clones = Array.isArray(clone) ? clone : [clone]
-        for (let i=0;i<sources.length;i++) { copyMaterialFade(sources[i],clones[i],sourceShaftFade); applyShaftLook(sources[i],clones[i],manual ? 0 : journey.sourceShaftLook) }
-        mesh.visible = sourceShaftFade > .001
+        const sources = Array.isArray(source) ? source : [source],
+          clones = Array.isArray(clone) ? clone : [clone]
+        for (let i = 0; i < sources.length; i++) {
+          copyMaterialFade(sources[i], clones[i], sourceShaftFade)
+          applyShaftLook(sources[i], clones[i], manual ? 0 : journey.sourceShaftLook)
+        }
+        mesh.visible = sourceShaftFade > 0.001
       }
       const sourceRingFade = manual ? 0 : ringVisible ? (returnBlend > 0 ? 1 : 0) : surroundingsOpacity
       // The opaque source under the retiring clone must remain renderable even
       // while all non-ring surroundings are still fully isolated.
-      if (group.current && ringCameraWindow && sourceRingFade > .001) group.current.visible = true
+      if (group.current && ringCameraWindow && sourceRingFade > 0.001) group.current.visible = true
       for (const { mesh, source, clone } of sourceRingMaterials.current?.entries ?? []) {
         if (Array.isArray(source) && Array.isArray(clone)) {
           for (let i = 0; i < source.length; i++) copyMaterialFade(source[i], clone[i], sourceRingFade)
@@ -1265,70 +1893,105 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         }
         mesh.visible = sourceRingFade > 0.001
       }
-      if (group.current) group.current.visible = surroundingsOpacity > 0.001 || sourceRingFade > 0.001 || sourceShaftFade > .001
+      if (group.current)
+        group.current.visible = surroundingsOpacity > 0.001 || sourceRingFade > 0.001 || sourceShaftFade > 0.001
       probe.ring.returnBlend = returnBlend
       probe.ring.sourceOpacity = sourceRingFade
       probe.ring.sourceVisible = sourceRingFade > 0.001
       probe.ring.cloneOpacity = ringVisible ? 1 - returnBlend : 0
-      if (!studyVisible || (!manual && progress > .825)) {
+      if (!studyVisible || (!manual && progress > 0.825)) {
         if (progress < 0.46 && layout.current) {
           sampleOpeningCamera(layout.current, aspect, progress, pose)
-          camera.position.copy(pose.position); target.copy(pose.target); camera.up.copy(pose.up); camera.fov = pose.fov
-        } else if (progress < .56) {
+          camera.position.copy(pose.position)
+          target.copy(pose.target)
+          camera.up.copy(pose.up)
+          camera.fov = pose.fov
+        } else if (progress < 0.56) {
           // The mechanism is translated by +W: the unchanged legacy camera is sampled at p - W
           // (clamped to its own [.46,.675] domain, so the ring window holds its start pose).
           sampleLegacyMechanismCamera(progress - MECHANISM_TRANSLATION, aspect, channels.explode, pose)
-          camera.position.copy(pose.position); target.copy(pose.target); camera.up.copy(pose.up); camera.fov = pose.fov
+          camera.position.copy(pose.position)
+          target.copy(pose.target)
+          camera.up.copy(pose.up)
+          camera.fov = pose.fov
         } else {
           // Provisional mechanical overview; final opening/inspection handoffs remain gates.
           const spread = channels.explode
           const narrow = aspect < 0.8
-          camera.position.set(0.32 - spread * .94, 0.16 + spread * .02, 0.42 - spread * .10)
+          camera.position.set(0.32 - spread * 0.94, 0.16 + spread * 0.02, 0.42 - spread * 0.1)
           target.set(0, 0, -0.15 * spread)
           if (narrow) camera.position.lerpVectors(target, camera.position, 1 + 1.2 * spread)
-          camera.up.set(0, 1, 0); camera.fov = narrow ? 58 : 42
+          camera.up.set(0, 1, 0)
+          camera.fov = narrow ? 58 : 42
         }
       }
       // Resolve each private domain join from current canonical samples, never a
       // previous-frame pose. The next subject may load early but keeps its
       // original visibility/mechanical window. Quintic weights stop at seams.
-      let handoffStart = 0, handoffEnd = 0
-      const ringCam = !manual && progress >= RING_WINDOW_START && progress <= .56 && !studyVisible && ring.current ? ring.current.camera : null
+      let handoffStart = 0,
+        handoffEnd = 0
+      const ringCam =
+        !manual && progress >= RING_WINDOW_START && progress <= 0.56 && !studyVisible && ring.current
+          ? ring.current.camera
+          : null
       if (ringCam && progress < RING_CAMERA_ENTRY_END) {
         // Entry moves on a ring-centred arc while the context fades.
-        handoffStart = RING_WINDOW_START; handoffEnd = RING_CAMERA_ENTRY_END
+        handoffStart = RING_WINDOW_START
+        handoffEnd = RING_CAMERA_ENTRY_END
         handoffTo.position.copy(ringCam.position)
         handoffTo.target.copy(ringCam.target)
-        handoffTo.up.copy(ringCam.up); handoffTo.fov = ringCam.fov
+        handoffTo.up.copy(ringCam.up)
+        handoffTo.fov = ringCam.fov
       } else if (ringCam) {
-        camera.position.copy(ringCam.position); target.copy(ringCam.target)
-        camera.up.copy(ringCam.up); camera.fov = ringCam.fov
+        camera.position.copy(ringCam.position)
+        target.copy(ringCam.target)
+        camera.up.copy(ringCam.up)
+        camera.fov = ringCam.fov
       }
       if (handoffEnd > handoffStart) {
-        handoffFrom.position.copy(camera.position); handoffFrom.target.copy(target)
-        handoffFrom.up.copy(camera.up); handoffFrom.fov = camera.fov
+        handoffFrom.position.copy(camera.position)
+        handoffFrom.target.copy(target)
+        handoffFrom.up.copy(camera.up)
+        handoffFrom.fov = camera.fov
         entryInverse.copy(ringAnchor).invert()
         entryFromDirection.subVectors(handoffFrom.position, handoffFrom.target).transformDirection(entryInverse)
         entryToDirection.subVectors(handoffTo.position, handoffTo.target).transformDirection(entryInverse)
-        const azA = Math.atan2(entryFromDirection.x, entryFromDirection.z), azB = Math.atan2(entryToDirection.x, entryToDirection.z)
+        const azA = Math.atan2(entryFromDirection.x, entryFromDirection.z),
+          azB = Math.atan2(entryToDirection.x, entryToDirection.z)
         const shortest = Math.atan2(Math.sin(azB - azA), Math.cos(azB - azA))
-        orbitCamera(handoffFrom, handoffTo, (progress - handoffStart) / (handoffEnd - handoffStart), ringAnchor, handoffResult, shortest >= 0 ? 1 : -1)
-        camera.position.copy(handoffResult.position); target.copy(handoffResult.target)
-        camera.up.copy(handoffResult.up); camera.fov = handoffResult.fov
+        orbitCamera(
+          handoffFrom,
+          handoffTo,
+          (progress - handoffStart) / (handoffEnd - handoffStart),
+          ringAnchor,
+          handoffResult,
+          shortest >= 0 ? 1 : -1,
+        )
+        camera.position.copy(handoffResult.position)
+        target.copy(handoffResult.target)
+        camera.up.copy(handoffResult.up)
+        camera.fov = handoffResult.fov
       }
-      if (!manual && progress >= .56 && progress <= 1) {
+      if (!manual && progress >= 0.56 && progress <= 1) {
         journeyCamera(progress, aspect, cameraRegistration, journeyPose, ring.current ? ringExitPose : undefined)
-        camera.position.copy(journeyPose.position);target.copy(journeyPose.target);camera.up.copy(journeyPose.up);camera.fov=journeyPose.fov
+        camera.position.copy(journeyPose.position)
+        target.copy(journeyPose.target)
+        camera.up.copy(journeyPose.up)
+        camera.fov = journeyPose.fov
       }
       // Journey census (opacity sweep + study traversal) is built on demand in snapshot().
       lastStudyProgress.current = studyProgress
       if (manualCamera.transitioning) {
-        manualCamera.elapsed = Math.min(1, manualCamera.elapsed + Math.min(delta, .1))
-        handoffTo.position.copy(camera.position); handoffTo.target.copy(target)
-        handoffTo.up.copy(camera.up); handoffTo.fov = camera.fov
+        manualCamera.elapsed = Math.min(1, manualCamera.elapsed + Math.min(delta, 0.1))
+        handoffTo.position.copy(camera.position)
+        handoffTo.target.copy(target)
+        handoffTo.up.copy(camera.up)
+        handoffTo.fov = camera.fov
         blendCamera(manualCamera.from, handoffTo, manualCamera.elapsed, 0, 1, handoffResult)
-        camera.position.copy(handoffResult.position); target.copy(handoffResult.target)
-        camera.up.copy(handoffResult.up); camera.fov = handoffResult.fov
+        camera.position.copy(handoffResult.position)
+        target.copy(handoffResult.target)
+        camera.up.copy(handoffResult.up)
+        camera.fov = handoffResult.fov
         if (manualCamera.elapsed === 1) manualCamera.transitioning = false
       }
       probe.isolation.manualTransition = manualCamera.transitioning ? (manual ? 'entering' : 'exiting') : 'settled'
@@ -1346,83 +2009,145 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       // Inspection focus is a local override. Native scroll releases it back to
       // the current authored camera without changing the narrative clock.
       // A focused callout also releases when its own beat ends or a special sequence begins.
-      if (focus.id && (Math.abs(progress - focus.progress) > .0003 || probe.stopAndAppreciate.freeLookActive
-        || !isTorqueHotspotActive(focus.id, progress, channels.explode, surroundingsOpacity, ringVisible, studyVisible, manual))) focus.id = null
-      const selected = hotspots.find(item => item.id === focus.id)
+      if (
+        focus.id &&
+        (Math.abs(progress - focus.progress) > 0.0003 ||
+          probe.stopAndAppreciate.freeLookActive ||
+          !isTorqueHotspotActive(
+            focus.id,
+            progress,
+            channels.explode,
+            surroundingsOpacity,
+            ringVisible,
+            studyVisible,
+            manual,
+          ))
+      )
+        focus.id = null
+      const selected = hotspots.find((item) => item.id === focus.id)
       if (selected?.node) {
         selected.node.updateWorldMatrix(true, false)
         selected.world.copy(selected.local).applyMatrix4(selected.node.matrixWorld)
         if (!focus.initialized) {
           focus.direction.subVectors(camera.position, target).normalize()
-          if (selected.id === 'clutch-housing') focus.direction.set(-.85, .22, .48).normalize().transformDirection(ringAnchor)
+          if (selected.id === 'clutch-housing')
+            focus.direction.set(-0.85, 0.22, 0.48).normalize().transformDirection(ringAnchor)
           if (selected.id === 'lcd-manometer') selected.node.getWorldDirection(focus.direction)
           focus.initialized = true
         }
         focus.target.copy(selected.world)
-        const minimumDistance = selected.id === 'clutch-housing' ? .24 : .11
-        focus.position.copy(selected.world).addScaledVector(focus.direction, Math.max(minimumDistance, selected.radius * 3.6))
+        const minimumDistance = selected.id === 'clutch-housing' ? 0.24 : 0.11
+        focus.position
+          .copy(selected.world)
+          .addScaledVector(focus.direction, Math.max(minimumDistance, selected.radius * 3.6))
       }
-      focus.weight += ((selected ? 1 : 0) - focus.weight) * (1 - Math.exp(-8 * Math.min(delta, .1)))
-      if (focus.weight > .0001) {
+      focus.weight += ((selected ? 1 : 0) - focus.weight) * (1 - Math.exp(-8 * Math.min(delta, 0.1)))
+      if (focus.weight > 0.0001) {
         camera.position.lerp(focus.position, focus.weight)
         target.lerp(focus.target, focus.weight)
       }
       overlay.focusId = focus.id
       overlay.subjectTime = inspection.subjectTime
-      camera.lookAt(target); camera.updateProjectionMatrix(); camera.updateMatrixWorld(true)
-      hotspotTick.current += Math.min(delta, .1)
-      if (hotspotTick.current >= .075) {
+      camera.lookAt(target)
+      camera.updateProjectionMatrix()
+      camera.updateMatrixWorld(true)
+      hotspotTick.current += Math.min(delta, 0.1)
+      if (hotspotTick.current >= 0.075) {
         hotspotTick.current = 0
         model.updateWorldMatrix(true, true)
         hotspotBlockers.length = 0
         for (const mesh of rig.meshes) {
-          let visible = true, parent: Object3D | null = mesh
-          while (parent) { if (!parent.visible) { visible = false; break }; parent = parent.parent }
-          if (visible && effectiveMeshOpacity(mesh) >= .5) hotspotBlockers.push(mesh)
+          let visible = true,
+            parent: Object3D | null = mesh
+          while (parent) {
+            if (!parent.visible) {
+              visible = false
+              break
+            }
+            parent = parent.parent
+          }
+          if (visible && effectiveMeshOpacity(mesh) >= 0.5) hotspotBlockers.push(mesh)
         }
         for (const item of hotspots) {
           // One callout per dedicated beat and none during special sequences (Session 1C, owner 05-1/05-2.png).
-          const active = isTorqueHotspotActive(item.id, progress, channels.explode, surroundingsOpacity, ringVisible, studyVisible, manual)
+          const active = isTorqueHotspotActive(
+            item.id,
+            progress,
+            channels.explode,
+            surroundingsOpacity,
+            ringVisible,
+            studyVisible,
+            manual,
+          )
           item.screen.visible = false
-          item.screen.reason = 'inactive'; item.screen.occluder = ''
+          item.screen.reason = 'inactive'
+          item.screen.occluder = ''
           if (!active || !item.node) continue
           {
-            const candidates = item.id === 'stage2-planet' ? planetFeatures
-              : item.id === 'clutch-housing' ? (channels.shift >= .5 ? hotspotFeatures.clutchUp : hotspotFeatures.clutchDown)
-                : item.id === 'ring-switch' ? hotspotFeatures.ring : hotspotFeatures.lcd
+            const candidates =
+              item.id === 'stage2-planet'
+                ? planetFeatures
+                : item.id === 'clutch-housing'
+                  ? channels.shift >= 0.5
+                    ? hotspotFeatures.clutchUp
+                    : hotspotFeatures.clutchDown
+                  : item.id === 'ring-switch'
+                    ? hotspotFeatures.ring
+                    : hotspotFeatures.lcd
             for (const candidate of candidates) {
               candidate.inverse.copy(candidate.node.matrixWorld).invert()
-              candidate.direction.copy(camera.position).applyMatrix4(candidate.inverse).sub(candidate.center).normalize()
+              candidate.direction
+                .copy(camera.position)
+                .applyMatrix4(candidate.inverse)
+                .sub(candidate.center)
+                .normalize()
               // The most camera-facing real surface vertex is the most useful
               // leader endpoint. Try the four nearest surface extrema.
-              for (let k = 0; k < candidate.points.length; k++) candidate.scores[k] = candidate.points[k].dot(candidate.direction)
+              for (let k = 0; k < candidate.points.length; k++)
+                candidate.scores[k] = candidate.points[k].dot(candidate.direction)
               // The LCD readout is a flat decal: its centre is on the visible face, so try it first.
               for (let j = item.id === 'lcd-manometer' ? -1 : 0; j < 4; j++) {
                 if (j < 0) item.world.copy(candidate.center).applyMatrix4(candidate.node.matrixWorld)
                 else {
                   let best = 0
-                  for (let k = 1; k < candidate.scores.length; k++) if (candidate.scores[k] > candidate.scores[best]) best = k
+                  for (let k = 1; k < candidate.scores.length; k++)
+                    if (candidate.scores[k] > candidate.scores[best]) best = k
                   candidate.scores[best] = -Infinity
                   item.world.copy(candidate.points[best]).applyMatrix4(candidate.node.matrixWorld)
                 }
                 item.projected.copy(item.world).project(camera)
                 item.screen.reason = 'outside-view'
-                if (Math.abs(item.projected.x) > .96 || Math.abs(item.projected.y) > .94 || Math.abs(item.projected.z) > 1) continue
+                if (
+                  Math.abs(item.projected.x) > 0.96 ||
+                  Math.abs(item.projected.y) > 0.94 ||
+                  Math.abs(item.projected.z) > 1
+                )
+                  continue
                 hotspotDirection.subVectors(item.world, camera.position)
-                hotspotRay.far = hotspotDirection.length() + .0005
+                hotspotRay.far = hotspotDirection.length() + 0.0005
                 hotspotRay.set(camera.position, hotspotDirection.normalize())
                 hotspotHits.length = 0
                 hotspotRay.intersectObjects(hotspotBlockers, false, hotspotHits)
                 const hit = hotspotHits[0]
-                item.screen.reason = 'occluded'; item.screen.occluder = hit?.object.name || '(unnamed surface)'
-                let belongs = false, ancestor: Object3D | null = hit?.object ?? null
-                while (ancestor) { if (ancestor === candidate.node) { belongs = true; break }; ancestor = ancestor.parent }
+                item.screen.reason = 'occluded'
+                item.screen.occluder = hit?.object.name || '(unnamed surface)'
+                let belongs = false,
+                  ancestor: Object3D | null = hit?.object ?? null
+                while (ancestor) {
+                  if (ancestor === candidate.node) {
+                    belongs = true
+                    break
+                  }
+                  ancestor = ancestor.parent
+                }
                 // No hit: nothing stands in front (code-built decals are not raycast blockers).
                 if (hit && !belongs) continue
-                item.node = candidate.node; item.local.copy(candidate.center)
-                item.screen.x = (item.projected.x * .5 + .5) * size.width
-                item.screen.y = (.5 - item.projected.y * .5) * size.height
-                item.screen.visible = true; item.screen.reason = 'visible'
+                item.node = candidate.node
+                item.local.copy(candidate.center)
+                item.screen.x = (item.projected.x * 0.5 + 0.5) * size.width
+                item.screen.y = (0.5 - item.projected.y * 0.5) * size.height
+                item.screen.visible = true
+                item.screen.reason = 'visible'
                 item.screen.occluder = ''
                 break
               }
@@ -1434,25 +2159,41 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       }
       sheetFrame.cameraLookTargetWorld = target
       sheetFrame.cameraSheetDistance = camera.position.distanceTo(target)
-      probe.progress = progress; probe.frames++
+      probe.progress = progress
+      probe.frames++
       camera.position.toArray(probe.camera.position)
       target.toArray(probe.camera.target)
       camera.up.toArray(probe.camera.up)
       camera.quaternion.toArray(probe.camera.quaternion)
       probe.camera.fov = camera.fov
-      probe.renderer.calls = gl.info.render.calls; probe.renderer.triangles = gl.info.render.triangles
-      probe.renderer.geometries = gl.info.memory.geometries; probe.renderer.textures = gl.info.memory.textures
-    } catch (error) { reportFailure(error) }
+      probe.renderer.calls = gl.info.render.calls
+      probe.renderer.triangles = gl.info.render.triangles
+      probe.renderer.geometries = gl.info.memory.geometries
+      probe.renderer.textures = gl.info.memory.textures
+    } catch (error) {
+      reportFailure(error)
+    }
   }, -2)
 
-  return <>
-    <ambientLight intensity={0.25} />
-    <directionalLight position={[1.5, 2, 1]} intensity={1.7} />
-    <directionalLight position={[-2, 1, -1.5]} intensity={0.6} color="#7dd3fc" />
-    <group ref={group} name="private-wrench-world" dispose={null}>
-      <group ref={centered} position={center}><primitive object={model} dispose={null} /></group>
-    </group>
-    {sheetBake && <PrivateSheet baked={sheetBake} frame={readSheetFrame} context={extractionContext} onRuntime={installSheetRuntime}
-      onCleanupFailure={reportSheetCleanup} />}
-  </>
+  return (
+    <>
+      <ambientLight intensity={0.25} />
+      <directionalLight position={[1.5, 2, 1]} intensity={1.7} />
+      <directionalLight position={[-2, 1, -1.5]} intensity={0.6} color="#7dd3fc" />
+      <group ref={group} name="private-wrench-world" dispose={null}>
+        <group ref={centered} position={center}>
+          <primitive object={model} dispose={null} />
+        </group>
+      </group>
+      {sheetBake && (
+        <PrivateSheet
+          baked={sheetBake}
+          frame={readSheetFrame}
+          context={extractionContext}
+          onRuntime={installSheetRuntime}
+          onCleanupFailure={reportSheetCleanup}
+        />
+      )}
+    </>
+  )
 }

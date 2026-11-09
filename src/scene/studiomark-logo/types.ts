@@ -133,4 +133,3 @@ export const DEFAULT_LOGO_CONFIG: LogoConfig = {
   audioEnabled: false,
   audioVolume: 0.4,
 }
-

@@ -19,10 +19,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import crypto from 'node:crypto'
 
-const { chromium } = await import(
-  process.env.PLAYWRIGHT_MODULE ||
-    'playwright'
-)
+const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright')
 
 const BASE = process.env.BASE_URL || 'http://localhost:4173'
 const OUT = process.env.OUT || 'project/work/evidence/rl300-quiet-machine'
@@ -96,7 +93,11 @@ for (const opt of [
   if ('executablePath' in opt && !opt.executablePath) continue
   try {
     browser = await chromium.launch(opt)
-    report.meta.browserLaunch = opt.channel ? `channel:${opt.channel}` : opt.executablePath ? `executablePath:${opt.executablePath}` : 'bundled'
+    report.meta.browserLaunch = opt.channel
+      ? `channel:${opt.channel}`
+      : opt.executablePath
+        ? `executablePath:${opt.executablePath}`
+        : 'bundled'
     break
   } catch (e) {
     attempts.push(`${opt.channel || opt.executablePath || 'bundled'}: ${String(e).split('\n')[0]}`)
@@ -128,16 +129,20 @@ for (const vp of VIEWPORTS) {
       const len = Number(h['content-length'] || 0)
       const u = new URL(res.url())
       transfers.push({ path: u.pathname, status: res.status(), bytes: len, type: h['content-type'] || '' })
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   })
 
   const t0 = Date.now()
   await page.goto(BASE + '/?chapter=0', { waitUntil: 'networkidle' })
-  await page.waitForFunction(
-    () => Boolean(window.__drawingProof?.ready && window.__telemetry?.drawing?.annotationsReady),
-    null,
-    { timeout: 60000 },
-  ).catch(() => report.errors.push(`${vp.label}: drawingProof never became ready`))
+  await page
+    .waitForFunction(
+      () => Boolean(window.__drawingProof?.ready && window.__telemetry?.drawing?.annotationsReady),
+      null,
+      { timeout: 60000 },
+    )
+    .catch(() => report.errors.push(`${vp.label}: drawingProof never became ready`))
   const loadMs = Date.now() - t0
 
   if (!report.host.ua) {
@@ -169,7 +174,9 @@ for (const vp of VIEWPORTS) {
   }
   vpRec.totalScrollableHeightPx = vpRec.documentHeightPx - vpRec.innerHeightPx
 
-  await page.evaluate(() => { window.__scrollCommitDisabled = true })
+  await page.evaluate(() => {
+    window.__scrollCommitDisabled = true
+  })
 
   /**
    * The app exposes no WebGLRenderer global (window.__rig is the JGUN node map),
@@ -197,10 +204,19 @@ for (const vp of VIEWPORTS) {
     }
     for (const g of ctxs) {
       g.__rl300Wrapped = true
-      for (const [fn, key] of [['drawElements', 'elements'], ['drawArrays', 'arrays'], ['drawElementsInstanced', 'instanced'], ['drawArraysInstanced', 'instanced']]) {
+      for (const [fn, key] of [
+        ['drawElements', 'elements'],
+        ['drawArrays', 'arrays'],
+        ['drawElementsInstanced', 'instanced'],
+        ['drawArraysInstanced', 'instanced'],
+      ]) {
         const orig = g[fn]
         if (typeof orig !== 'function') continue
-        g[fn] = function (...a) { counted.calls++; counted[key]++; return orig.apply(this, a) }
+        g[fn] = function (...a) {
+          counted.calls++
+          counted[key]++
+          return orig.apply(this, a)
+        }
       }
     }
     window.__rl300Probe = {
@@ -253,7 +269,10 @@ for (const vp of VIEWPORTS) {
           totalMeshes++
           let vis = o.visible
           let par = o.parent
-          while (vis && par) { vis = par.visible; par = par.parent }
+          while (vis && par) {
+            vis = par.visible
+            par = par.parent
+          }
           if (!vis) return
           visibleMeshes++
           const g = o.geometry
@@ -337,7 +356,8 @@ for (const vp of VIEWPORTS) {
   await page.waitForTimeout(300)
   vpRec.liteTierAtHold = await page.evaluate(() => {
     const scene = window.__threeScene
-    let meshes = 0, tris = 0
+    let meshes = 0,
+      tris = 0
     scene?.traverse((o) => {
       if (!o.isMesh || !o.visible) return
       meshes++
@@ -367,16 +387,25 @@ for (const vp of VIEWPORTS) {
     const rows = []
     for (const e of ents) {
       const p = new URL(e.name, location.href).pathname
-      const k = p.startsWith('/models') ? 'models'
-        : p.includes('draco') ? 'draco'
-        : p.startsWith('/assets') ? 'app-bundle'
-        : 'other'
+      const k = p.startsWith('/models')
+        ? 'models'
+        : p.includes('draco')
+          ? 'draco'
+          : p.startsWith('/assets')
+            ? 'app-bundle'
+            : 'other'
       const t = e.transferSize || 0
       const d = e.decodedBodySize || 0
       byKind[k] = (byKind[k] || 0) + t
       transfer += t
       decoded += d
-      rows.push({ path: p, transferSize: t, decodedBodySize: d, durationMs: +e.duration.toFixed(1), initiatorType: e.initiatorType })
+      rows.push({
+        path: p,
+        transferSize: t,
+        decodedBodySize: d,
+        durationMs: +e.duration.toFixed(1),
+        initiatorType: e.initiatorType,
+      })
     }
     return {
       source: 'PerformanceResourceTiming',
@@ -420,18 +449,31 @@ fs.writeFileSync(path.join(OUT, '00-baseline.json'), JSON.stringify(report, null
 
 const d = report.viewports['desktop-1440x900']
 console.log('BASELINE_OK')
-console.log(`host: ${report.host.webglRenderer || 'unknown GPU'} | dpr=${report.host.devicePixelRatio} | cores=${report.host.hardwareConcurrency}`)
+console.log(
+  `host: ${report.host.webglRenderer || 'unknown GPU'} | dpr=${report.host.devicePixelRatio} | cores=${report.host.hardwareConcurrency}`,
+)
 for (const [label, v] of Object.entries(report.viewports)) {
-  console.log(`${label}: docHeight=${v.documentHeightPx}px scrollable=${v.totalScrollableHeightPx}px tier=${v.tier} loadMs=${v.loadMs} consoleErrors=${v.consoleErrors.length}`)
+  console.log(
+    `${label}: docHeight=${v.documentHeightPx}px scrollable=${v.totalScrollableHeightPx}px tier=${v.tier} loadMs=${v.loadMs} consoleErrors=${v.consoleErrors.length}`,
+  )
 }
 if (d) {
   console.log('desktop stops (progress | station | visibleMeshes | visibleTris | drawCalls):')
   for (const s of d.stops) {
     if (!s.beat && Math.round(s.progress * 100) % 10 !== 0) continue
-    console.log(`  ${s.progress.toFixed(3)} ${s.station.padEnd(24)} meshes=${String(s.visibleMeshes).padStart(5)} tris=${String(s.visibleTris).padStart(7)} calls=${s.rendererInfo?.glDrawCalls ?? 'n/a'}${s.beat ? '  <- ' + s.beat : ''}`)
+    console.log(
+      `  ${s.progress.toFixed(3)} ${s.station.padEnd(24)} meshes=${String(s.visibleMeshes).padStart(5)} tris=${String(s.visibleTris).padStart(7)} calls=${s.rendererInfo?.glDrawCalls ?? 'n/a'}${s.beat ? '  <- ' + s.beat : ''}`,
+    )
   }
   console.log('perf holds:', JSON.stringify(d.perfHolds))
   console.log('lite at hold:', JSON.stringify(d.liteTierAtHold))
-  console.log('network:', JSON.stringify(d.network.byKind), 'totalTransfer=', d.network.totalTransferBytes, 'totalDecoded=', d.network.totalDecodedBytes)
+  console.log(
+    'network:',
+    JSON.stringify(d.network.byKind),
+    'totalTransfer=',
+    d.network.totalTransferBytes,
+    'totalDecoded=',
+    d.network.totalDecodedBytes,
+  )
 }
 if (report.errors.length) console.log('ERRORS:', report.errors.join(' ; '))

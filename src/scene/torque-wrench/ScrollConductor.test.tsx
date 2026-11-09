@@ -48,10 +48,8 @@ function makeDependencies(failTriggerCreate = false): TorqueConductorDependencie
     window: windowTarget,
     document: {
       visibilityState: 'visible' as const,
-      addEventListener: (type: string, listener: () => void) =>
-        documentTarget.addEventListener(type, listener),
-      removeEventListener: (type: string, listener: () => void) =>
-        documentTarget.removeEventListener(type, listener),
+      addEventListener: (type: string, listener: () => void) => documentTarget.addEventListener(type, listener),
+      removeEventListener: (type: string, listener: () => void) => documentTarget.removeEventListener(type, listener),
     },
     gsap: {
       ticker: {
@@ -94,7 +92,7 @@ describe('ScrollConductor React wrapper', () => {
     const onFailure = vi.fn()
     const cleanup = installScrollConductor(store, onFailure, makeDependencies())
     expect(store.getConductorDiagnostics().activeConductors).toBe(1)
-    expect(store.getProgress()).toBeCloseTo(torqueNarrativeProgress(.25), 10)
+    expect(store.getProgress()).toBeCloseTo(torqueNarrativeProgress(0.25), 10)
     cleanup()
     cleanup()
     expect(store.getConductorDiagnostics().activeConductors).toBe(0)

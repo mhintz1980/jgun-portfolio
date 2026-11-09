@@ -1,7 +1,14 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import { CHAPTERS, HOTSPOTS, MATERIAL_MODE_LABELS } from '../data/caseStudies'
 import { characteristicKey, GdtSymbol } from '../components/GdtSymbols'
-import { getScrollState, navigateToStation, setScrollState, SPATIAL_STATIONS, telemetry, useScrollValue } from '../state/scrollStore'
+import {
+  getScrollState,
+  navigateToStation,
+  setScrollState,
+  SPATIAL_STATIONS,
+  telemetry,
+  useScrollValue,
+} from '../state/scrollStore'
 import { useQuality } from '../state/qualityStore'
 import type { MaterialMode } from '../types/portfolio'
 
@@ -120,7 +127,7 @@ export function TechnicalHUD() {
 
   const progressRef = useRef<HTMLSpanElement>(null)
   const datumCoordsRef = useRef<HTMLSpanElement>(null)
-  const modeControlsRef=useRef<HTMLDivElement>(null)
+  const modeControlsRef = useRef<HTMLDivElement>(null)
   const chromeRef = useRef<HTMLDivElement>(null)
   const hotspotLayerHostRef = useRef<HTMLDivElement>(null)
 
@@ -142,7 +149,7 @@ export function TechnicalHUD() {
     let frame = 0
     const tick = (): void => {
       const { progress } = getScrollState()
-      if(modeControlsRef.current)modeControlsRef.current.style.visibility=progress<=.12?'hidden':'visible'
+      if (modeControlsRef.current) modeControlsRef.current.style.visibility = progress <= 0.12 ? 'hidden' : 'visible'
       // JG-035: the drafting-table intro is a warm, physical scene — the cyan instrument
       // chrome stays out of it and fades up as the model takes over at the handoff.
       if (chromeRef.current) {
@@ -168,10 +175,7 @@ export function TechnicalHUD() {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-20 select-none font-mono text-[11px] tracking-widest text-cyan-300/90">
-      <div
-        ref={hotspotLayerHostRef}
-        className="pointer-events-none absolute inset-0 z-0"
-      />
+      <div ref={hotspotLayerHostRef} className="pointer-events-none absolute inset-0 z-0" />
       {/* Scroll/chapter telemetry only makes sense when the scroll rig is
           live — under reduced motion the chapter tracker never runs, so these
           would freeze on stale values. Hide them; keep the mode switcher. */}
@@ -239,7 +243,11 @@ export function TechnicalHUD() {
       )}
 
       {/* Bottom-right: material mode switcher */}
-      <div ref={modeControlsRef} style={{visibility:'hidden'}} className="pointer-events-auto absolute bottom-5 right-5 z-10 flex flex-col items-end gap-1">
+      <div
+        ref={modeControlsRef}
+        style={{ visibility: 'hidden' }}
+        className="pointer-events-auto absolute bottom-5 right-5 z-10 flex flex-col items-end gap-1"
+      >
         {MODES.map((mode) => (
           <button
             key={mode}

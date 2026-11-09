@@ -1,10 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import {
-  BULLET_TIME_RATE,
-  BULLET_TIME_SHOT_SPECS,
-  sampleBulletTimeRate,
-  sampleBulletTimeWarp,
-} from './bulletTime'
+import { BULLET_TIME_RATE, BULLET_TIME_SHOT_SPECS, sampleBulletTimeRate, sampleBulletTimeWarp } from './bulletTime'
 
 const shots = Object.values(BULLET_TIME_SHOT_SPECS)
 const clockCases = [
@@ -38,7 +33,11 @@ describe('bullet-time shot specifications', () => {
 
   it('defines every shot once with matching record keys', () => {
     expect(Object.keys(BULLET_TIME_SHOT_SPECS).sort()).toEqual([
-      'hobContact', 'ringSwitch', 'shaperContact', 'shatter', 'stage1Ignition',
+      'hobContact',
+      'ringSwitch',
+      'shaperContact',
+      'shatter',
+      'stage1Ignition',
     ])
     expect(new Set(shots.map(({ id }) => id)).size).toBe(shots.length)
     expect(Object.isFrozen(BULLET_TIME_SHOT_SPECS)).toBe(true)
@@ -83,7 +82,7 @@ describe.each(clockCases)('$id bullet-time clock', ({ rate, ramp }) => {
 
   it('holds exactly 0.1 across the entire inclusive plateau', () => {
     for (let i = 0; i <= 100; i++) {
-      const u = i === 100 ? 1 - knee : knee + (1 - 2 * knee) * i / 100
+      const u = i === 100 ? 1 - knee : knee + ((1 - 2 * knee) * i) / 100
       expect(sampleRate(u)).toBe(BULLET_TIME_RATE)
     }
   })
@@ -92,8 +91,8 @@ describe.each(clockCases)('$id bullet-time clock', ({ rate, ramp }) => {
     let previousEntry = sampleRate(0)
     let previousExit = sampleRate(1 - knee)
     for (let i = 1; i <= 100; i++) {
-      const entry = sampleRate(knee * i / 100)
-      const exit = sampleRate(1 - knee + knee * i / 100)
+      const entry = sampleRate((knee * i) / 100)
+      const exit = sampleRate(1 - knee + (knee * i) / 100)
       expect(entry).toBeLessThan(previousEntry)
       expect(exit).toBeGreaterThan(previousExit)
       expect(entry).toBeGreaterThanOrEqual(rate)
@@ -177,8 +176,14 @@ describe('finite ordinary parameter clamps', () => {
   })
 
   it.each([
-    [-10, 1e-4], [0, 1e-4], [1e-6, 1e-4],
-    [0.05, 0.05], [0.25, 0.25], [0.45, 0.45], [0.5, 0.45], [10, 0.45],
+    [-10, 1e-4],
+    [0, 1e-4],
+    [1e-6, 1e-4],
+    [0.05, 0.05],
+    [0.25, 0.25],
+    [0.45, 0.45],
+    [0.5, 0.45],
+    [10, 0.45],
   ])('clamps ramp %s to %s for both samplers', (ramp, effectiveRamp) => {
     for (const rate of [0.05, 0.1, 0.25, 1]) {
       for (const u of [0, 0.00005, 0.025, 0.1, 0.4, 0.5, 0.9, 0.975, 0.99995, 1]) {

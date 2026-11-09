@@ -33,8 +33,13 @@ const U32_MAX = 0xffff_ffff
 const align8 = (n: number) => (n + 7) & ~7
 
 function isContainer(bytes: Uint8Array): boolean {
-  return bytes.length >= HEADER_BYTES
-    && bytes[0] === MAGIC[0] && bytes[1] === MAGIC[1] && bytes[2] === MAGIC[2] && bytes[3] === MAGIC[3]
+  return (
+    bytes.length >= HEADER_BYTES &&
+    bytes[0] === MAGIC[0] &&
+    bytes[1] === MAGIC[1] &&
+    bytes[2] === MAGIC[2] &&
+    bytes[3] === MAGIC[3]
+  )
 }
 
 /** True when every value is finite; NaN/Infinity must never enter the container. */
@@ -76,11 +81,19 @@ export function encodeDrawingPrecompute(asset: DrawingPrecompute): Uint8Array<Ar
   view.setUint32(24, sidecarBytes.length, true)
   out.set(sidecarBytes, HEADER_BYTES)
   let offset = dataStart
-  for (let i = 0; i < segs.length; i += 1) { view.setFloat64(offset, segs[i], true); offset += 8 }
-  for (let i = 0; i < fills.length; i += 1) { view.setFloat64(offset, fills[i], true); offset += 8 }
+  for (let i = 0; i < segs.length; i += 1) {
+    view.setFloat64(offset, segs[i], true)
+    offset += 8
+  }
+  for (let i = 0; i < fills.length; i += 1) {
+    view.setFloat64(offset, fills[i], true)
+    offset += 8
+  }
   for (let i = 0; i < profile.length; i += 1) {
-    view.setFloat64(offset, profile[i][0], true); offset += 8
-    view.setFloat64(offset, profile[i][1], true); offset += 8
+    view.setFloat64(offset, profile[i][0], true)
+    offset += 8
+    view.setFloat64(offset, profile[i][1], true)
+    offset += 8
   }
   return out
 }

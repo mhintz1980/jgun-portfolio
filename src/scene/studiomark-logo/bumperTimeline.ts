@@ -100,10 +100,7 @@ function evaluateLightningStrike(t: number, strikeStartSec: number, peakScale = 
 /**
  * Evaluate exact deterministic scene parameters at `timeSec` for either bumper.
  */
-export function evaluateBumperState(
-  mode: Exclude<BumperMode, 'interactive'>,
-  rawTimeSec: number,
-): BumperFrameState {
+export function evaluateBumperState(mode: Exclude<BumperMode, 'interactive'>, rawTimeSec: number): BumperFrameState {
   const spec = BUMPER_SPECS[mode]
   const t = Math.max(0, Math.min(spec.durationSec, rawTimeSec))
   const progress = t / spec.durationSec
@@ -144,7 +141,7 @@ export function evaluateBumperState(
 
     const targetX = lerp(0.06, 0.0, wMidToHero)
     const targetY = lerp(0.68, 0.56, wMidToHero)
-    const targetZ = lerp(-0.15, -0.20, wMidToHero)
+    const targetZ = lerp(-0.15, -0.2, wMidToHero)
 
     const cameraFov = lerp(40, 45, wMidToHero)
     const cameraRoll = lerp(-0.035, 0.0, smootherstep(0.6, 3.1, t))
@@ -154,7 +151,7 @@ export function evaluateBumperState(
     // then swings with authority through 0 into a subtle breathing showcase poise.
     const rotSweep = smootherstep(0.2, 3.25, t)
     const rotY = lerp(-0.58, 0.0, rotSweep) + Math.sin((t - 3.25) * 1.2) * 0.035 * smoothstep(3.1, 3.8, t)
-    const rotX = lerp(0.10, 0.02, rotSweep)
+    const rotX = lerp(0.1, 0.02, rotSweep)
     const rotZ = lerp(-0.04, 0.0, rotSweep)
 
     const monogramPositionY = 1.24 + Math.sin(t * 1.5) * 0.025
@@ -245,13 +242,14 @@ export function evaluateBumperState(
   // Camera target tilts smoothly upward from the wet puddle reflection to balanced reflection+emblem framing
   const targetX = 0.0
   const targetY = lerp(0.18, 0.56, smootherstep(0.95, 3.25, t))
-  const targetZ = lerp(-0.35, -0.20, wCrane)
+  const targetZ = lerp(-0.35, -0.2, wCrane)
 
   const cameraFov = lerp(40, 45, wCrane)
   const cameraRoll = lerp(0.02, 0.0, wCrane)
 
   // Monogram rotation: gentle turn into locked hero symmetry as the crane reaches eye level
-  const rotY = lerp(0.42, 0.0, smootherstep(1.1, 3.45, t)) + Math.sin((t - 3.45) * 1.1) * 0.035 * smoothstep(3.3, 4.0, t)
+  const rotY =
+    lerp(0.42, 0.0, smootherstep(1.1, 3.45, t)) + Math.sin((t - 3.45) * 1.1) * 0.035 * smoothstep(3.3, 4.0, t)
   const rotX = lerp(-0.06, 0.02, wCrane)
   const rotZ = 0.0
 
@@ -275,7 +273,7 @@ export function evaluateBumperState(
 
   // Puddle ripples start active during the low-angle puddle gaze, then calm for mirror clarity
   const impactPulse = Math.exp(-Math.pow((t - 0.55) / 0.38, 2)) * 0.18
-  const rippleStrength = lerp(0.30, 0.16, wCrane) + impactPulse
+  const rippleStrength = lerp(0.3, 0.16, wCrane) + impactPulse
   const puddleReflectivity = lerp(0.96, 0.95, wCrane * 0.5)
 
   const bloomIntensity = 0.28 + lightningIntensity * 0.18
@@ -304,4 +302,3 @@ export function evaluateBumperState(
     fadeBlackOpacity: fadeIn,
   }
 }
-

@@ -1,12 +1,18 @@
 import { describe, expect, it } from 'vitest'
 import {
-  TORQUE_HOTSPOTS, isTorqueHotspotActive, isTorqueHotspotActiveForSample, layoutTorqueCallouts, leadersIntersect, segmentsIntersect,
-  torqueCalloutReveal, type CalloutInput,
+  TORQUE_HOTSPOTS,
+  isTorqueHotspotActive,
+  isTorqueHotspotActiveForSample,
+  layoutTorqueCallouts,
+  leadersIntersect,
+  segmentsIntersect,
+  torqueCalloutReveal,
+  type CalloutInput,
 } from './hotspotData'
 
-const ids = TORQUE_HOTSPOTS.map(item => item.id)
+const ids = TORQUE_HOTSPOTS.map((item) => item.id)
 const activeAt = (p: number, explode = 1, surroundings = 1, ring = false, study = false, manual = false) =>
-  ids.filter(id => isTorqueHotspotActive(id, p, explode, surroundings, ring, study, manual))
+  ids.filter((id) => isTorqueHotspotActive(id, p, explode, surroundings, ring, study, manual))
 
 describe('torque hotspot gate (doc45 issue 5)', () => {
   it('shows no callout during the ring-switch knurling sequence', () => {
@@ -44,8 +50,11 @@ describe('torque hotspot gate (doc45 issue 5)', () => {
   it('uses the same suspension gate for DOM samples even with visible anchors and existing focus', () => {
     for (const hotspot of TORQUE_HOTSPOTS) {
       const sample = {
-        progress: (hotspot.window[0] + hotspot.window[1]) / 2, subjectTime: 0,
-        studyVisible: false, manual: false, focusId: hotspot.id,
+        progress: (hotspot.window[0] + hotspot.window[1]) / 2,
+        subjectTime: 0,
+        studyVisible: false,
+        manual: false,
+        focusId: hotspot.id,
         anchors: [{ id: hotspot.id, x: 500, y: 400, visible: true, reason: '', occluder: '' }],
       }
       expect(isTorqueHotspotActiveForSample(hotspot.id, sample)).toBe(hotspot.id === 'lcd-manometer')
@@ -89,7 +98,8 @@ describe('callout leader layout', () => {
     ]
     const placed = layoutTorqueCallouts(inputs, viewport)
     for (let i = 0; i < placed.length; i++) {
-      for (let j = i + 1; j < placed.length; j++) expect(leadersIntersect(placed[i].leader, placed[j].leader)).toBe(false)
+      for (let j = i + 1; j < placed.length; j++)
+        expect(leadersIntersect(placed[i].leader, placed[j].leader)).toBe(false)
     }
   })
 
@@ -105,7 +115,11 @@ describe('callout leader layout', () => {
   })
 
   it('keeps cards inside the safe viewport', () => {
-    for (const anchor of [{ x: 5, y: 5 }, { x: 1435, y: 895 }, { x: 720, y: 450 }]) {
+    for (const anchor of [
+      { x: 5, y: 5 },
+      { x: 1435, y: 895 },
+      { x: 720, y: 450 },
+    ]) {
       const [card] = layoutTorqueCallouts([{ id: 'c', anchor, width: 320, height: 150 }], viewport)
       expect(card.left).toBeGreaterThanOrEqual(28)
       expect(card.left + card.width).toBeLessThanOrEqual(1440 - 28)
@@ -117,24 +131,33 @@ describe('callout leader layout', () => {
   it('never returns crossing leaders or overlapping cards (randomised)', () => {
     let seed = 12345
     const rand = () => (seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648
-    let kept = 0, total = 0
+    let kept = 0,
+      total = 0
     for (let trial = 0; trial < 2000; trial++) {
       const narrow = trial % 3 === 0
       const vp = narrow ? { width: 390, height: 844, top: 16, bottom: 104, side: 12 } : viewport
       const count = 2 + Math.floor(rand() * 3)
       const inputs: CalloutInput[] = Array.from({ length: count }, (_, i) => ({
-        id: `h${i}`, anchor: { x: rand() * vp.width, y: rand() * vp.height },
-        width: narrow ? 200 : 260 + rand() * 80, height: 90 + rand() * 80,
+        id: `h${i}`,
+        anchor: { x: rand() * vp.width, y: rand() * vp.height },
+        width: narrow ? 200 : 260 + rand() * 80,
+        height: 90 + rand() * 80,
       }))
       const placed = layoutTorqueCallouts(inputs, vp)
-      total += count; kept += placed.length
+      total += count
+      kept += placed.length
       expect(placed.length).toBeGreaterThanOrEqual(1)
       expect(placed[0].id).toBe('h0')
       for (let i = 0; i < placed.length; i++) {
         for (let j = i + 1; j < placed.length; j++) {
           expect(leadersIntersect(placed[i].leader, placed[j].leader)).toBe(false)
-          const a = placed[i], b = placed[j]
-          const overlap = a.left < b.left + b.width && b.left < a.left + a.width && a.top < b.top + b.height && b.top < a.top + a.height
+          const a = placed[i],
+            b = placed[j]
+          const overlap =
+            a.left < b.left + b.width &&
+            b.left < a.left + a.width &&
+            a.top < b.top + b.height &&
+            b.top < a.top + a.height
           expect(overlap).toBe(false)
         }
       }

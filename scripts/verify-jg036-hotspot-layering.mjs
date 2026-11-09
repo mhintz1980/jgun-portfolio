@@ -28,7 +28,11 @@ import { describeLaunch, launchBrowser } from './lib/browser-launch.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const arg = (key, fallback) =>
-  process.argv.find((value) => value.startsWith(`--${key}=`))?.split('=').slice(1).join('=') ?? fallback
+  process.argv
+    .find((value) => value.startsWith(`--${key}=`))
+    ?.split('=')
+    .slice(1)
+    .join('=') ?? fallback
 const url = arg('url', 'http://localhost:5199')
 const qualityLock = process.argv.includes('--quality-lock') || process.argv.includes('--qualityLock')
 const staticOnly = process.argv.includes('--static-only')
@@ -82,15 +86,19 @@ const report = {
   task: 'JG-036 Scope 1 hotspot layering and keeper revival',
   url: targetUrl.href,
   qualityLock,
-  evidenceClass: qualityLock ? 'quality-locked functional/visual candidate; G6/performance excluded' : 'normal-quality candidate',
-  qualityPolicy: 'Run without --quality-lock first. A quality-locked rerun is allowed only if the inherited global canvas failure reproduces; it never closes tier/performance/G6.',
+  evidenceClass: qualityLock
+    ? 'quality-locked functional/visual candidate; G6/performance excluded'
+    : 'normal-quality candidate',
+  qualityPolicy:
+    'Run without --quality-lock first. A quality-locked rerun is allowed only if the inherited global canvas failure reproduces; it never closes tier/performance/G6.',
   label,
   startedAt: new Date().toISOString(),
   browser: describeLaunch(),
   servedModelProof: 'NOT ATTRIBUTION: this browser verifier asserts no model identity; model selection is parent-owned',
   ownerDecision: {
     narrowed: 'One legacy keeper per assembly in the Station 1 Hotspots layer; later additions are a separate task.',
-    extras: 'Station 2 enclosure and Station 3 M249 stage producers keep their extra callout badges active; owner-permitted (2026-10-08).',
+    extras:
+      'Station 2 enclosure and Station 3 M249 stage producers keep their extra callout badges active; owner-permitted (2026-10-08).',
     producerPaths: [
       'src/scene/Hotspots.tsx (Station 1 legacy keeper filter)',
       'src/scene/stages/Station2_AcousticEnclosure.tsx (Station 2 stage callouts)',
@@ -113,8 +121,7 @@ const openGate = (message) => {
   report.openGates.push(message)
   console.warn(`OPEN: ${message}`)
 }
-const camDistance = (a, b) =>
-  Math.hypot((a.x ?? 0) - (b.x ?? 0), (a.y ?? 0) - (b.y ?? 0), (a.z ?? 0) - (b.z ?? 0))
+const camDistance = (a, b) => Math.hypot((a.x ?? 0) - (b.x ?? 0), (a.y ?? 0) - (b.y ?? 0), (a.z ?? 0) - (b.z ?? 0))
 
 const readCamera = (page) =>
   page.evaluate(() => ({
@@ -155,19 +162,14 @@ const gotoChapterSection = async (page, chapterIndex) => {
   const section = page.locator(`[data-chapter="${chapterIndex}"]`)
   await section.waitFor({ state: 'attached', timeout: 20000 })
   await section.evaluate((el) => el.scrollIntoView({ behavior: 'instant', block: 'center' }))
-  const chapterReached = () =>
-    page.evaluate((idx) => window.__telemetry?.scroll?.chapter === idx, chapterIndex)
+  const chapterReached = () => page.evaluate((idx) => window.__telemetry?.scroll?.chapter === idx, chapterIndex)
   if (!(await chapterReached())) {
     for (let index = 0; index < 8 && !(await chapterReached()); index += 1) {
       await page.mouse.wheel(0, 360)
       await page.waitForTimeout(400)
     }
   }
-  await page.waitForFunction(
-    (idx) => window.__telemetry?.scroll?.chapter === idx,
-    chapterIndex,
-    { timeout: 30000 },
-  )
+  await page.waitForFunction((idx) => window.__telemetry?.scroll?.chapter === idx, chapterIndex, { timeout: 30000 })
   await page.waitForTimeout(1500)
   const before = await readCamera(page)
   await page.waitForTimeout(350)
@@ -176,30 +178,32 @@ const gotoChapterSection = async (page, chapterIndex) => {
 }
 
 const hitProbe = (page, x, y) =>
-  page.evaluate(({ x: px, y: py }) => {
-    const element = document.elementFromPoint(px, py)
-    if (!element) return { present: false }
-    const chain = []
-    let cursor = element
-    for (let index = 0; index < 6 && cursor; index += 1, cursor = cursor.parentElement) {
-      chain.push({
-        tag: cursor.tagName,
-        className: String(cursor.className || ''),
-        dataLayer: cursor.dataset?.jg036HotspotLayer ? 'hotspot-layer' : undefined,
-      })
-    }
-    return {
-      present: true,
-      tag: element.tagName,
-      text: element.textContent?.trim().slice(0, 120) ?? '',
-      chain,
-      inHotspotLayer: Boolean(element.closest('[data-jg036-hotspot-layer]')),
-      closestBadge: element.closest('button[aria-pressed]')?.textContent?.trim().slice(0, 120) ?? '',
-    }
-  }, { x, y })
+  page.evaluate(
+    ({ x: px, y: py }) => {
+      const element = document.elementFromPoint(px, py)
+      if (!element) return { present: false }
+      const chain = []
+      let cursor = element
+      for (let index = 0; index < 6 && cursor; index += 1, cursor = cursor.parentElement) {
+        chain.push({
+          tag: cursor.tagName,
+          className: String(cursor.className || ''),
+          dataLayer: cursor.dataset?.jg036HotspotLayer ? 'hotspot-layer' : undefined,
+        })
+      }
+      return {
+        present: true,
+        tag: element.tagName,
+        text: element.textContent?.trim().slice(0, 120) ?? '',
+        chain,
+        inHotspotLayer: Boolean(element.closest('[data-jg036-hotspot-layer]')),
+        closestBadge: element.closest('button[aria-pressed]')?.textContent?.trim().slice(0, 120) ?? '',
+      }
+    },
+    { x, y },
+  )
 
-const badgeLocator = (page, keeper) =>
-  page.locator('button[aria-pressed]').filter({ hasText: keeper.label }).first()
+const badgeLocator = (page, keeper) => page.locator('button[aria-pressed]').filter({ hasText: keeper.label }).first()
 
 // Authored mirrors of CameraRig's intro-handoff factor (introTimeline.ts).
 // Every keeper sits far past the ramp; modeling it exactly keeps the oracle
@@ -214,14 +218,9 @@ const authoredInspectGoal = (keeper, caseDef, camera) => {
   const portrait = aspect < 0.9
 
   // CameraRig §6: authored frame + rotor exploded-handle offset.
-  const rotorOffsetZ =
-    keeper.id === 'rotor' ? dataModule.EXPLODE_OFFSETS.handle * (camera.explodeFactor ?? 0) : 0
-  const framePosition = keeper.inspectFrame.position.map((value, index) =>
-    index === 2 ? value + rotorOffsetZ : value,
-  )
-  const frameTarget = keeper.inspectFrame.target.map((value, index) =>
-    index === 2 ? value + rotorOffsetZ : value,
-  )
+  const rotorOffsetZ = keeper.id === 'rotor' ? dataModule.EXPLODE_OFFSETS.handle * (camera.explodeFactor ?? 0) : 0
+  const framePosition = keeper.inspectFrame.position.map((value, index) => (index === 2 ? value + rotorOffsetZ : value))
+  const frameTarget = keeper.inspectFrame.target.map((value, index) => (index === 2 ? value + rotorOffsetZ : value))
   let fov = keeper.inspectFrame.fov
 
   // CameraRig §6.5: authored portrait dolly ramp and FOV widening.
@@ -229,14 +228,12 @@ const authoredInspectGoal = (keeper, caseDef, camera) => {
   const ch4 = progress >= 0.76 ? smoothstepT(Math.min((progress - 0.76) / 0.24, 1)) : 0
   const dolly = portrait ? 1 + portraitW * (1 + 0.8 * ch4) : 1
   fov += portrait ? 10 * portraitW : 0
-  const dollyPosition = dolly > 1
-    ? frameTarget.map((value, index) => value + (framePosition[index] - value) * dolly)
-    : framePosition
+  const dollyPosition =
+    dolly > 1 ? frameTarget.map((value, index) => value + (framePosition[index] - value) * dolly) : framePosition
 
   // CameraRig §7: framing bias along camera-left (desktop) / portrait -Y.
   const biasVec = dataModule.framingBiasVec(progress)
-  const att = (lo, hi) =>
-    Math.min(Math.max((progress - lo) / 0.015, 0), Math.max((hi - progress) / 0.015, 0), 1)
+  const att = (lo, hi) => Math.min(Math.max((progress - lo) / 0.015, 0), Math.max((hi - progress) / 0.015, 0), 1)
   const flightAtt = 1 - 0.75 * Math.max(att(0.53, 0.598), att(0.722, 0.758))
   const afterIntro = smoothstepT(clamp01((progress - DRAWING_INTRO_RELEASE_END) / 0.03))
   const biasX = (portrait ? biasVec.x * 0.25 * flightAtt : biasVec.x * flightAtt) * afterIntro
@@ -280,16 +277,13 @@ const inspectGoalCheck = (camera, keeper, caseDef) => {
   const unwrappedPosition = expected.frameTarget.map(
     (value, index) => value + (goal.position[index] - value) / expected.dolly,
   )
-  const positionDelta = Math.hypot(
-    ...unwrappedPosition.map((value, index) => value - expected.framePosition[index]),
-  )
+  const positionDelta = Math.hypot(...unwrappedPosition.map((value, index) => value - expected.framePosition[index]))
   const targetDelta = Math.hypot(...goal.target.map((value, index) => value - expected.finalTarget[index]))
   const fovDelta = Math.abs(goal.fov - expected.fov)
   const positionLimit = 0.045
   const targetLimit = 0.01
   const fovLimit = 0.01
-  const ok =
-    dollyDelta <= 0.001 && positionDelta <= positionLimit && targetDelta <= targetLimit && fovDelta <= fovLimit
+  const ok = dollyDelta <= 0.001 && positionDelta <= positionLimit && targetDelta <= targetLimit && fovDelta <= fovLimit
   const reason = ok
     ? undefined
     : dollyDelta > 0.001
@@ -415,12 +409,13 @@ const probeAndClickBadge = async (page, keeper, caseDef) => {
   const cameraExited = await readCamera(page)
   const goalBefore = cameraBefore.goal
   const goalAfterExit = cameraExited.goal
-  const goalDelta = goalBefore && goalAfterExit
-    ? Math.hypot(
-        ...goalBefore.position.map((value, index) => value - goalAfterExit.position[index]),
-        ...goalBefore.target.map((value, index) => value - goalAfterExit.target[index]),
-      )
-    : Number.POSITIVE_INFINITY
+  const goalDelta =
+    goalBefore && goalAfterExit
+      ? Math.hypot(
+          ...goalBefore.position.map((value, index) => value - goalAfterExit.position[index]),
+          ...goalBefore.target.map((value, index) => value - goalAfterExit.target[index]),
+        )
+      : Number.POSITIVE_INFINITY
   const progressDelta = Math.abs((cameraBefore.progress ?? -1) - (cameraExited.progress ?? -2))
   const poseDelta = camDistance(cameraBefore, cameraExited)
   const fovDelta = Math.abs((cameraBefore.fov ?? -1) - (cameraExited.fov ?? -2))
@@ -457,7 +452,9 @@ const sourceContract = async () => {
     write: false,
     logLevel: 'silent',
   })
-  const module = await import(`data:text/javascript;base64,${Buffer.from(bundled.outputFiles[0].text).toString('base64')}`)
+  const module = await import(
+    `data:text/javascript;base64,${Buffer.from(bundled.outputFiles[0].text).toString('base64')}`
+  )
   dataModule = module
   const active = [...module.ACTIVE_HOTSPOT_IDS].sort()
   const expected = KEEPERS.map((keeper) => keeper.id).sort()
@@ -478,13 +475,17 @@ const sourceContract = async () => {
     authoredIdsUnique: new Set(module.HOTSPOTS.map((def) => def.id)).size === module.HOTSPOTS.length,
     // CameraRig frame keys are unquoted when they are valid identifiers
     // (rotor:) and quoted for hyphenated ids ('duct-intake':, 'm249-trunnion':).
-    allFramesRetained: KEEPERS.every(
-      (keeper) => new RegExp(`(?<![\\w$])(['\\"])${keeper.id}\\1\\s*:|(?<![\\w$-])${keeper.id}\\s*:`).test(source.camera),
+    allFramesRetained: KEEPERS.every((keeper) =>
+      new RegExp(`(?<![\\w$])(['\\"])${keeper.id}\\1\\s*:|(?<![\\w$-])${keeper.id}\\s*:`).test(source.camera),
     ),
-    portalWired: source.hotspots.includes('getHotspotLayerPortal') && source.hotspots.includes('portal={hotspotPortal ?? undefined}'),
+    portalWired:
+      source.hotspots.includes('getHotspotLayerPortal') &&
+      source.hotspots.includes('portal={hotspotPortal ?? undefined}'),
     keeperFilterWired: source.hotspots.includes('ACTIVE_HOTSPOT_IDS.has(h.id)'),
     noDiagnosticAllHotspotUnblock: !source.hotspots.includes('HOTSPOTS.flatMap('),
-    hudLayerWired: source.hud.includes('dataset.jg036HotspotLayer') && source.hud.includes('pointer-events-none absolute inset-0 z-0'),
+    hudLayerWired:
+      source.hud.includes('dataset.jg036HotspotLayer') &&
+      source.hud.includes('pointer-events-none absolute inset-0 z-0'),
     chapterTrackPointerInert: /relative z-0 pointer-events-none/.test(source.chapters),
     chapterDescendantControlsNative: source.chapters.includes("[&_:is(button,a,[role='button'])]:pointer-events-auto"),
   }
@@ -609,13 +610,15 @@ const exerciseCase = async (browser, caseDef) => {
     }
     await chapterButton.click({ timeout: 20000 })
     await page.waitForFunction(
-      () => document.querySelector('button[aria-controls="gearbox-case-study"]')?.getAttribute('aria-expanded') === 'true',
+      () =>
+        document.querySelector('button[aria-controls="gearbox-case-study"]')?.getAttribute('aria-expanded') === 'true',
       null,
       { timeout: 20000 },
     )
     await chapterButton.click({ timeout: 20000 })
     await page.waitForFunction(
-      () => document.querySelector('button[aria-controls="gearbox-case-study"]')?.getAttribute('aria-expanded') === 'false',
+      () =>
+        document.querySelector('button[aria-controls="gearbox-case-study"]')?.getAttribute('aria-expanded') === 'false',
       null,
       { timeout: 20000 },
     )
@@ -734,7 +737,9 @@ try {
   await sourceContract()
   if (!staticOnly) {
     if (process.platform !== 'win32') {
-      openGate(`hardware gate: platform ${process.platform} would use SwiftShader; this evidence cannot claim Windows hardware GL`)
+      openGate(
+        `hardware gate: platform ${process.platform} would use SwiftShader; this evidence cannot claim Windows hardware GL`,
+      )
       fail('JG-036 runtime evidence requires installed Windows Chrome with hardware ANGLE/D3D11')
     }
     browser = await launchBrowser(chromium)
@@ -758,6 +763,12 @@ try {
     reportPath = path.join(out, `${label}-${Date.now()}-verification-report.json`)
   }
   fs.writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`)
-  console.log(JSON.stringify({ status: report.status, reportPath, failures: report.failures, openGates: report.openGates }, null, 2))
+  console.log(
+    JSON.stringify(
+      { status: report.status, reportPath, failures: report.failures, openGates: report.openGates },
+      null,
+      2,
+    ),
+  )
   if (report.failures.length) process.exitCode = 1
 }

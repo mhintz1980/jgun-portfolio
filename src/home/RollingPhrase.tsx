@@ -21,11 +21,7 @@ export default function RollingPhrase({ lead, phrases }: RollingPhraseProps) {
   }, [ticks, done, paused])
 
   return (
-    <p
-      className="home-rolling"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
+    <p className="home-rolling" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <span className="home-sr">
         {lead} {phrases.join(' ')}
       </span>

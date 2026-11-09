@@ -32,18 +32,20 @@ export function runSceneLifecycle(options: SceneLifecycleOptions): SceneLifecycl
   // restarting the real import or changing readiness back to loading.
   if (sceneStatus !== 'ready') store.setSceneStatus('loading')
   const canAttach = () => live && store.getState().tier !== 'poster' && store.getState().sceneStatus !== 'failed'
-  Promise.resolve().then(() => canAttach() ? load() : null).then(
-    (module) => {
-      if (!module || !canAttach()) return
-      onReady(module.default)
-      store.setSceneStatus('ready')
-    },
-    (error) => {
-      if (!canAttach()) return
-      onFailure(error)
-      store.setSceneStatus('failed')
-    },
-  )
+  Promise.resolve()
+    .then(() => (canAttach() ? load() : null))
+    .then(
+      (module) => {
+        if (!module || !canAttach()) return
+        onReady(module.default)
+        store.setSceneStatus('ready')
+      },
+      (error) => {
+        if (!canAttach()) return
+        onFailure(error)
+        store.setSceneStatus('failed')
+      },
+    )
   return {
     dispose() {
       live = false

@@ -44,7 +44,11 @@ const compiled = await build({
   ],
 })
 const compiledModule = { exports: {} }
-new Function('require', 'module', 'exports', compiled.outputFiles[0].text)(require, compiledModule, compiledModule.exports)
+new Function('require', 'module', 'exports', compiled.outputFiles[0].text)(
+  require,
+  compiledModule,
+  compiledModule.exports,
+)
 const {
   DRAWING_INTRO_WINDOW,
   INTRO_PHASES,
@@ -91,11 +95,19 @@ const state = (t, crossing) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releas
 const allFinite = (value) =>
   typeof value === 'number' ? Number.isFinite(value) : Object.values(value).every(allFinite)
 const LAMP_FAILURE_KEYS = [
-  [0, 1], [0.12, 0.58], [0.18, 0.92],
-  [0.28, 0.14], [0.34, 0.78],
-  [0.46, 0.36], [0.51, 0.86],
-  [0.64, 0.015], [0.72, 0.015], [0.78, 0.58],
-  [0.85, 0.08], [0.91, 0.34], [1, 0],
+  [0, 1],
+  [0.12, 0.58],
+  [0.18, 0.92],
+  [0.28, 0.14],
+  [0.34, 0.78],
+  [0.46, 0.36],
+  [0.51, 0.86],
+  [0.64, 0.015],
+  [0.72, 0.015],
+  [0.78, 0.58],
+  [0.85, 0.08],
+  [0.91, 0.34],
+  [1, 0],
 ]
 const flickerT = (u) => INTRO_PHASES.flickerStart + u * (INTRO_PHASES.blackoutStart - INTRO_PHASES.flickerStart)
 // An asymmetric tetrahedron deliberately lacks most AABB corners: transformed
@@ -159,7 +171,12 @@ const fixtureMinZ = (extraction, t) =>
   Math.min(...fixtureSidePoints.map((point) => point[2])) + fixtureLift(extraction, t)
 /** Pose time at which the u^1.4 lift has travelled `distance` metres. */
 const poseTimeForLift = (extraction, distance) =>
-  0.5 + 0.5 * Math.pow((distance - (extraction.pressureTravel ?? 0)) / (extraction.travel - (extraction.pressureTravel ?? 0)), 1 / 1.4)
+  0.5 +
+  0.5 *
+    Math.pow(
+      (distance - (extraction.pressureTravel ?? 0)) / (extraction.travel - (extraction.pressureTravel ?? 0)),
+      1 / 1.4,
+    )
 /** Independent 44-step bisection of the same predicate the shipped solver states. */
 const bisectCrossing = (extraction) => {
   let lo = 0.4
@@ -238,7 +255,7 @@ check('storm phase boundaries retain pressure .79-.84 and fracture .84-.88', () 
     fractureStart: 0.84,
     fractureEnd: 0.88,
     detachStart: 0.88,
-    orbitStart: 0.90,
+    orbitStart: 0.9,
     waveEnd: 0.97,
   }
   for (const [key, value] of Object.entries(expected)) close(INTRO_PHASES[key], value, 1e-12, key)
@@ -289,14 +306,19 @@ check('lamp envelope hits five unequal failures, weak recoveries, and the fourth
   const recoveries = [2, 4, 6, 9, 11].map((index) => samples[index])
   assert.equal(new Set(dips.map((sample) => sample.expected)).size, 5, 'the five dip minima must be unequal')
   assert.ok(dips.every((sample) => sample.expected < 1))
-  assert.ok(recoveries.every((sample) => sample.expected < 1), 'recoveries stay below full lamp power')
+  assert.ok(
+    recoveries.every((sample) => sample.expected < 1),
+    'recoveries stay below full lamp power',
+  )
   assert.ok(dips.every((sample, index) => sample.expected < recoveries[index].expected))
   const shelfStart = flickerT(0.64)
   const shelfEnd = flickerT(0.72)
   close(shelfStart, 0.5332, 1e-12)
   close(shelfEnd, 0.5436, 1e-12)
   close(state((shelfStart + shelfEnd) / 2).lampPower, 0.015, 1e-12)
-  measurements.push(...samples.map((sample) => ({ flickerU: sample.u, introT: flickerT(sample.u), lampPower: sample.value })))
+  measurements.push(
+    ...samples.map((sample) => ({ flickerU: sample.u, introT: flickerT(sample.u), lampPower: sample.value })),
+  )
 })
 
 check('focus completes before the pulse; the reserved onboarding window carries nothing else', () => {
@@ -342,23 +364,36 @@ check('causal push precedes rupture; every fracture frame reveals fully lit meta
       assert.ok(s.poseT > 0.4, `model must continue through rupture at t=${s.t}`)
     }
   }
-  assert.ok(firstOpenT >= INTRO_PHASES.fractureEnd - 1e-9 && firstOpenT <= INTRO_PHASES.fractureEnd + 0.001,
-    `first open frame must be the fracture end; got ${firstOpenT}`)
-  assert.ok(firstMotionT >= 0.79 && firstMotionT <= 0.791,
-    `first motion frame must be the rise start; got ${firstMotionT}`)
-  assert.ok(firstMotionT < INTRO_PHASES.fractureStart && firstMotionT < firstOpenT, 'the object must cause the rupture before the opening clears')
+  assert.ok(
+    firstOpenT >= INTRO_PHASES.fractureEnd - 1e-9 && firstOpenT <= INTRO_PHASES.fractureEnd + 0.001,
+    `first open frame must be the fracture end; got ${firstOpenT}`,
+  )
+  assert.ok(
+    firstMotionT >= 0.79 && firstMotionT <= 0.791,
+    `first motion frame must be the rise start; got ${firstMotionT}`,
+  )
+  assert.ok(
+    firstMotionT < INTRO_PHASES.fractureStart && firstMotionT < firstOpenT,
+    'the object must cause the rupture before the opening clears',
+  )
   measurements.push({ firstOpenFrameT: firstOpenT, firstMotionFrameT: firstMotionT, fullyLitMetalByT: 0.84 })
 })
 
 check('pulse follows the owner burst/hold score: monotone, exact plateaus, no whole-window activation', () => {
   // 10% in .20 s, hold .20 s, 15% in .15 s, hold .15 s, 20% in .15 s ... (calibrated 100 s sweep, t = .765-.79)
   const at = (seconds) => state(electricalTimeAt(seconds)).pulseHead
-  close(at(0.2), 0.1, 1e-9); close(at(0.3), 0.1, 1e-9); close(at(0.4), 0.1, 1e-9)
-  close(at(0.55), 0.25, 1e-9); close(at(0.7), 0.25, 1e-9); close(at(0.85), 0.45, 1e-9)
+  close(at(0.2), 0.1, 1e-9)
+  close(at(0.3), 0.1, 1e-9)
+  close(at(0.4), 0.1, 1e-9)
+  close(at(0.55), 0.25, 1e-9)
+  close(at(0.7), 0.25, 1e-9)
+  close(at(0.85), 0.45, 1e-9)
   close(at(1.25), 1, 1e-9)
   let last = -1
   for (let i = 0; i <= 1000; i += 1) {
-    const head = state(INTRO_PHASES.pulseStart + (i / 1000) * (INTRO_PHASES.pulseEnd - INTRO_PHASES.pulseStart)).pulseHead
+    const head = state(
+      INTRO_PHASES.pulseStart + (i / 1000) * (INTRO_PHASES.pulseEnd - INTRO_PHASES.pulseStart),
+    ).pulseHead
     assert.ok(head >= last - 1e-12)
     last = head
   }
@@ -371,7 +406,12 @@ check('shockwave runs once, after the solved crossing, on a sheet still held opa
   const crossing = FIXTURE_SOLVED_CROSSING
   const waveStart = introScrollTimeFor(crossing)
   const waveProbe = waveStart + Math.min(0.01, (INTRO_PHASES.waveEnd - waveStart) / 2)
-  measurements.push({ crossing, waveStartScrollT: waveStart, waveEnd: INTRO_PHASES.waveEnd, waveScrollSpan: INTRO_PHASES.waveEnd - waveStart })
+  measurements.push({
+    crossing,
+    waveStartScrollT: waveStart,
+    waveEnd: INTRO_PHASES.waveEnd,
+    waveScrollSpan: INTRO_PHASES.waveEnd - waveStart,
+  })
   assert.equal(state(waveStart - 0.01, crossing).waveActive, 0)
   assert.equal(state(waveProbe, crossing).waveActive, 1)
   assert.equal(state(1, crossing).waveActive, 0)
@@ -386,7 +426,8 @@ check('pose reparameterization is monotone and leaves the pose axis itself unmov
   close(introPoseTime(0), 0)
   close(introPoseTime(INTRO_PHASES.riseStart), 0.4, 1e-12)
   close(introPoseTime(1), 1, 1e-12)
-  for (const pose of [0.1, 0.4, 0.7, FIXTURE_SOLVED_CROSSING, 1]) close(introPoseTime(introScrollTimeFor(pose)), pose, 1e-10)
+  for (const pose of [0.1, 0.4, 0.7, FIXTURE_SOLVED_CROSSING, 1])
+    close(introPoseTime(introScrollTimeFor(pose)), pose, 1e-10)
   let previous = -1
   for (let i = 0; i <= 2000; i += 1) {
     const value = introPoseTime(i / 2000)
@@ -445,7 +486,10 @@ for (const [label, aspect] of [
   check(`${label}: sheet is the fixed drafting-table size on every viewport`, () => {
     close(layout.width, SHEET_WIDTH, 1e-12)
     close(layout.height, SHEET_HEIGHT, 1e-12)
-    assert.deepEqual(layout.views.map((v) => v.name), ['side', 'top', 'section', 'front', 'rear', 'bottom'])
+    assert.deepEqual(
+      layout.views.map((v) => v.name),
+      ['side', 'top', 'section', 'front', 'rear', 'bottom'],
+    )
     assert.equal(layout.views[0].scale, 1)
     for (const v of layout.views.slice(1)) assert.equal(v.scale, 0.5, `${v.name} is a 1:2 removed view`)
   })
@@ -464,7 +508,10 @@ for (const [label, aspect] of [
     )
     const views = makeDrawingLayout(aspect, real).views.map((v) => [v.name, box(v.rect)])
     for (const [name, b] of views) {
-      assert.ok(b.x0 >= frame.x0 && b.x1 <= frame.x1 && b.y0 >= frame.y0 && b.y1 <= frame.y1, `${name} inside the frame`)
+      assert.ok(
+        b.x0 >= frame.x0 && b.x1 <= frame.x1 && b.y0 >= frame.y0 && b.y1 <= frame.y1,
+        `${name} inside the frame`,
+      )
       for (const [k, z] of furniture) assert.ok(!hit(b, z), `${name} clear of ${k}`)
     }
     for (let i = 0; i < views.length; i += 1)
@@ -496,26 +543,44 @@ for (const [label, aspect] of [
     // This fixture asks whether the object moves and remains below the deformed stock,
     // rather than merely echoing a solver flag.
     const field = { sample: () => 1 }
-    for (const [tier, peak] of [['full', 0.012], ['lite', 0.0054]]) {
+    for (const [tier, peak] of [
+      ['full', 0.012],
+      ['lite', 0.0054],
+    ]) {
       const pressureExtraction = solveExtraction(data, layout)
       bindExtractionPressure(pressureExtraction, layout, field, tier)
       assert.ok(pressureExtraction.pressureTravel > 0, `${tier}: zero causal push`)
       let previous = -Infinity
-      for (const t of [0.79, 0.80, 0.81, 0.825, 0.835, 0.84]) {
+      for (const t of [0.79, 0.8, 0.81, 0.825, 0.835, 0.84]) {
         const u = Math.min(1, Math.max(0, (t - 0.79) / 0.05))
         const pressure = u * u * (3 - 2 * u)
         const pose = introPoseTime(t)
-        const matrix = relativePose(pose, layout, pressureExtraction.travel, pressureExtraction.initialZ,
-          new Matrix4(), pressureExtraction.clearanceTravel, pressureExtraction.pressureTravel)
+        const matrix = relativePose(
+          pose,
+          layout,
+          pressureExtraction.travel,
+          pressureExtraction.initialZ,
+          new Matrix4(),
+          pressureExtraction.clearanceTravel,
+          pressureExtraction.pressureTravel,
+        )
         const vertices = independentVertices(matrix)
-        const top = Math.max(...vertices.map(p => p.z))
+        const top = Math.max(...vertices.map((p) => p.z))
         assert.ok(top >= previous - 1e-12, `${tier}: push reversed at ${t}`)
         if (t > 0.79) assert.ok(top > previous, `${tier}: model failed to push at ${t}`)
         previous = top
-        assert.ok(vertices.every(p => p.z <= peak * pressure - 0.000275 + 1e-9), `${tier}: model pierced intact stock at ${t}`)
-        close(Math.min(...vertices.map(p => p.z)), fixtureMinZ(pressureExtraction, pose), 1e-9)
+        assert.ok(
+          vertices.every((p) => p.z <= peak * pressure - 0.000275 + 1e-9),
+          `${tier}: model pierced intact stock at ${t}`,
+        )
+        close(Math.min(...vertices.map((p) => p.z)), fixtureMinZ(pressureExtraction, pose), 1e-9)
       }
-      measurements.push({ viewport: label, tier, pressureTravelM: pressureExtraction.pressureTravel, pressureTopCeilingM: peak })
+      measurements.push({
+        viewport: label,
+        tier,
+        pressureTravelM: pressureExtraction.pressureTravel,
+        pressureTopCeilingM: peak,
+      })
     }
   })
   check(`${label}: solver contact is an actual support vertex within 1e-9 m`, () => {
@@ -528,7 +593,14 @@ for (const [label, aspect] of [
     // Tolerances below ride the fixture's Float32 positions (a ~2e-10 quantisation), not the law.
     close(fixtureMinZ(extraction, FIXTURE_CONTACT_POSE), 0, 1e-9, 'closed-form contact must sit on the plane:')
     assert.ok(extraction.crossing > 0.4 && extraction.crossing < 1)
-    const m = relativePose(extraction.crossing, layout, extraction.travel, extraction.initialZ, new Matrix4(), extraction.clearanceTravel)
+    const m = relativePose(
+      extraction.crossing,
+      layout,
+      extraction.travel,
+      extraction.initialZ,
+      new Matrix4(),
+      extraction.clearanceTravel,
+    )
     const actual = independentMinimum(m)
     close(actual.z, 0, 1e-9)
     vectorClose(extraction.contact, actual, 1e-9)
@@ -536,15 +608,36 @@ for (const [label, aspect] of [
     // Contact is measured on the actual vertex support, and the clearance law still says the
     // model stands exactly 0.0006 m clear at the pose where \`clearanceTravel\` is spent. That
     // parameter is kept for interface compatibility and must not affect the pose.
-    const rest = relativePose(0.4, layout, extraction.travel, extraction.initialZ, new Matrix4(), extraction.clearanceTravel)
+    const rest = relativePose(
+      0.4,
+      layout,
+      extraction.travel,
+      extraction.initialZ,
+      new Matrix4(),
+      extraction.clearanceTravel,
+    )
     close(extraction.clearanceTravel, -independentMinimum(rest).z + 0.0006, 1e-9, 'clearance travel law:')
     close(fixtureMinZ(extraction, FIXTURE_CLEARANCE_POSE), 0.0006, 1e-9, 'clearance pose must stand 0.0006 m clear:')
     assert.ok(extraction.crossing < FIXTURE_CLEARANCE_POSE, 'contact must precede the recorded clearance pose')
     const before = independentMinimum(
-      relativePose(extraction.crossing - 1e-6, layout, extraction.travel, extraction.initialZ, new Matrix4(), extraction.clearanceTravel),
+      relativePose(
+        extraction.crossing - 1e-6,
+        layout,
+        extraction.travel,
+        extraction.initialZ,
+        new Matrix4(),
+        extraction.clearanceTravel,
+      ),
     ).z
     const after = independentMinimum(
-      relativePose(extraction.crossing + 1e-6, layout, extraction.travel, extraction.initialZ, new Matrix4(), extraction.clearanceTravel),
+      relativePose(
+        extraction.crossing + 1e-6,
+        layout,
+        extraction.travel,
+        extraction.initialZ,
+        new Matrix4(),
+        extraction.clearanceTravel,
+      ),
     ).z
     assert.ok(before < 0, `before crossing must be negative; got ${before}`)
     assert.ok(after > 0, `after crossing must be positive; got ${after}`)
@@ -568,7 +661,14 @@ for (const [label, aspect] of [
     let previous = -Infinity
     for (let i = 0; i <= 300; i += 1) {
       const t = 0.4 + (i / 300) * 0.6
-      const m = relativePose(t, layout, extraction.travel, extraction.initialZ, new Matrix4(), extraction.clearanceTravel)
+      const m = relativePose(
+        t,
+        layout,
+        extraction.travel,
+        extraction.initialZ,
+        new Matrix4(),
+        extraction.clearanceTravel,
+      )
       const minZ = independentMinimum(m).z
       assert.ok(minZ > previous - 1e-15, `vertex support must not fall back at t=${t}: ${previous} -> ${minZ}`)
       previous = minZ
@@ -590,7 +690,14 @@ for (const [label, aspect] of [
       const model = new Matrix4()
       const sheet = new Matrix4()
       const cached = applyExtraction(t, layout, extraction, model, sheet)
-      const relative = relativePose(t, layout, extraction.travel, extraction.initialZ, new Matrix4(), extraction.clearanceTravel)
+      const relative = relativePose(
+        t,
+        layout,
+        extraction.travel,
+        extraction.initialZ,
+        new Matrix4(),
+        extraction.clearanceTravel,
+      )
       close(cached, independentMinimum(relative).z, 1e-9)
       forward.set(t, { model: [...model.elements], sheet: [...sheet.elements], cached })
     }
@@ -633,7 +740,12 @@ console.log(
       failed: failed.length,
       measurements,
       sourceSha256: Object.fromEntries(
-        sourcePaths.map((p) => [p, createHash('sha256').update(fs.readFileSync(path.join(root, p))).digest('hex')]),
+        sourcePaths.map((p) => [
+          p,
+          createHash('sha256')
+            .update(fs.readFileSync(path.join(root, p)))
+            .digest('hex'),
+        ]),
       ),
     },
     null,

@@ -11,10 +11,7 @@ interface StudioLightingProps {
  * front/rim accent lights so metallic bevels, ceramic ridges, and optical glass
  * facets read with razor-sharp contrast against the dark storm backdrop.
  */
-export function StudioLighting({
-  glowColor = '#d2c4a3',
-  ambientDarkness = 0.8,
-}: StudioLightingProps) {
+export function StudioLighting({ glowColor = '#d2c4a3', ambientDarkness = 0.8 }: StudioLightingProps) {
   const ambientIntensity = (1.0 - ambientDarkness) * 0.55 + 0.18
 
   return (
@@ -23,27 +20,13 @@ export function StudioLighting({
       <ambientLight color="#1a2436" intensity={ambientIntensity} />
 
       {/* Warm Key Front-Left Fill for Monogram Bevels & Ceramic Crests */}
-      <directionalLight
-        position={[-3.5, 4.5, 5.5]}
-        color="#fff6e6"
-        intensity={1.65}
-      />
+      <directionalLight position={[-3.5, 4.5, 5.5]} color="#fff6e6" intensity={1.65} />
 
       {/* Crisp Cool Front-Right Specular Rim Light */}
-      <directionalLight
-        position={[4.0, 3.2, 4.5]}
-        color="#dbeafe"
-        intensity={1.35}
-      />
+      <directionalLight position={[4.0, 3.2, 4.5]} color="#dbeafe" intensity={1.35} />
 
       {/* Dedicated Front Monogram Grazing Point Light for Gold Trim & Glass Facets */}
-      <pointLight
-        position={[0, 1.45, 2.4]}
-        color={glowColor}
-        intensity={2.0}
-        distance={6.5}
-        decay={2}
-      />
+      <pointLight position={[0, 1.45, 2.4]} color={glowColor} intensity={2.0} distance={6.5} decay={2} />
 
       {/* Drei Studio Environment combining Faraz's Shanghai Bund Night HDRI with Specular Lightformers */}
       <Environment resolution={256} environmentIntensity={0.85}>

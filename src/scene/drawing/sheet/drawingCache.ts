@@ -50,22 +50,34 @@ async function abortable<T>(work: Promise<T>, signal?: AbortSignal): Promise<T> 
 
 /** Generator opt-out lives here so DrawingLinework needs no tooling-only branch. */
 export function drawingCacheBypassed(): boolean {
-  return typeof window !== 'undefined'
-    && new URLSearchParams(window.location.search).get('drawingCache') === 'bypass'
+  return typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('drawingCache') === 'bypass'
 }
 
 /** Tooling access to the immutable source of the last live bake or installed asset. */
-export function drawingPrecomputeSource() { return latest }
+export function drawingPrecomputeSource() {
+  return latest
+}
 
 function layoutKey(data: DrawingGeometry, layout: DrawingLayout): string {
   return JSON.stringify({
     version: DRAWING_CACHE_VERSION,
-    bounds: data.bounds, units: data.units, features: data.features,
-    width: layout.width, height: layout.height,
-    primaryRotation: layout.primaryRotation.elements, primaryCenter: layout.primaryCenter,
+    bounds: data.bounds,
+    units: data.units,
+    features: data.features,
+    width: layout.width,
+    height: layout.height,
+    primaryRotation: layout.primaryRotation.elements,
+    primaryCenter: layout.primaryCenter,
     sectionLineY: layout.sectionLineY,
-    views: layout.views.map(({ name, rect, transform, scale, section, label, scaleLabel }) =>
-      ({ name, rect, transform: transform.elements, scale, section, label, scaleLabel })),
+    views: layout.views.map(({ name, rect, transform, scale, section, label, scaleLabel }) => ({
+      name,
+      rect,
+      transform: transform.elements,
+      scale,
+      section,
+      label,
+      scaleLabel,
+    })),
   })
 }
 
@@ -82,7 +94,11 @@ function entryFor(data: DrawingGeometry, layout: DrawingLayout): Entry {
 /** SHA-256 includes every rest-pose position and index byte, including winding/order.
  * Snapshot geometry is immutable. No model simplification, welding or rounding is done here.
  */
-export async function drawingCacheKey(data: DrawingGeometry, layout: DrawingLayout, signal?: AbortSignal): Promise<string> {
+export async function drawingCacheKey(
+  data: DrawingGeometry,
+  layout: DrawingLayout,
+  signal?: AbortSignal,
+): Promise<string> {
   checkAbort(signal)
   const position = data.geometry.getAttribute('position').array
   const bytes = new Uint8Array(position.buffer, position.byteOffset, position.byteLength)
@@ -103,7 +119,10 @@ export function cachedSheet(data: DrawingGeometry, layout: DrawingLayout): Compo
   if (drawingCacheBypassed()) return undefined
   const entry = entryFor(data, layout)
   if (!entry.sheet) return undefined
-  return { ...entry.sheet, stats: { ...entry.sheet.stats, cacheHit: 1, precomputed: entry.precomputed ? 1 : 0, totalMs: 0, edgeSetMs: 0 } }
+  return {
+    ...entry.sheet,
+    stats: { ...entry.sheet.stats, cacheHit: 1, precomputed: entry.precomputed ? 1 : 0, totalMs: 0, edgeSetMs: 0 },
+  }
 }
 
 export function cachedProfile(data: DrawingGeometry, layout: DrawingLayout): number[][] | undefined {
@@ -130,9 +149,14 @@ export async function exportDrawingPrecompute(): Promise<DrawingPrecompute> {
   if (precomputed) throw new Error('Cannot export an installed precompute; generate with ?drawingCache=bypass')
   if (!sheet || !profile?.length) throw new Error('Drawing bake is incomplete')
   return {
-    version: DRAWING_CACHE_VERSION, key: await drawingCacheKey(data, layout),
-    segs: sheet.ink.segs, fills: sheet.ink.fills, texts: sheet.ink.texts,
-    marks: sheet.marks, stats: sheet.stats, profile,
+    version: DRAWING_CACHE_VERSION,
+    key: await drawingCacheKey(data, layout),
+    segs: sheet.ink.segs,
+    fills: sheet.ink.fills,
+    texts: sheet.ink.texts,
+    marks: sheet.marks,
+    stats: sheet.stats,
+    profile,
   }
 }
 
@@ -145,22 +169,41 @@ export async function encodedDrawingPrecompute(): Promise<Uint8Array<ArrayBuffer
 function valid(value: unknown): value is DrawingPrecompute {
   if (!value || typeof value !== 'object') return false
   const p = value as DrawingPrecompute
-  const numbers = (v: unknown, stride: number) => Array.isArray(v) && v.length % stride === 0 && v.every(Number.isFinite)
-  return p.version === DRAWING_CACHE_VERSION && typeof p.key === 'string'
-    && numbers(p.segs, 9) && numbers(p.fills, 15)
-    && Array.isArray(p.profile) && p.profile.length > 3 && p.profile.every((point) => numbers(point, 2) && point.length === 2)
-    && Array.isArray(p.texts) && p.texts.every((t) => t && typeof t.text === 'string'
-      && [t.x, t.y, t.size, t.group, t.key].every(Number.isFinite) && t.size > 0
-      && (t.scaleX === undefined || Number.isFinite(t.scaleX) && t.scaleX > 0)
-      && (t.rotation === undefined || Number.isFinite(t.rotation))
-      && (t.color === undefined || ['ink', 'graphite', 'red'].includes(t.color))
-      && (t.weight === undefined || ['medium', 'semibold', 'handwriting'].includes(t.weight)))
-    && !!p.marks && Object.values(p.marks).every((point) => numbers(point, 2) && point.length === 2)
-    && !!p.stats && Object.values(p.stats).every(Number.isFinite)
+  const numbers = (v: unknown, stride: number) =>
+    Array.isArray(v) && v.length % stride === 0 && v.every(Number.isFinite)
+  return (
+    p.version === DRAWING_CACHE_VERSION &&
+    typeof p.key === 'string' &&
+    numbers(p.segs, 9) &&
+    numbers(p.fills, 15) &&
+    Array.isArray(p.profile) &&
+    p.profile.length > 3 &&
+    p.profile.every((point) => numbers(point, 2) && point.length === 2) &&
+    Array.isArray(p.texts) &&
+    p.texts.every(
+      (t) =>
+        t &&
+        typeof t.text === 'string' &&
+        [t.x, t.y, t.size, t.group, t.key].every(Number.isFinite) &&
+        t.size > 0 &&
+        (t.scaleX === undefined || (Number.isFinite(t.scaleX) && t.scaleX > 0)) &&
+        (t.rotation === undefined || Number.isFinite(t.rotation)) &&
+        (t.color === undefined || ['ink', 'graphite', 'red'].includes(t.color)) &&
+        (t.weight === undefined || ['medium', 'semibold', 'handwriting'].includes(t.weight)),
+    ) &&
+    !!p.marks &&
+    Object.values(p.marks).every((point) => numbers(point, 2) && point.length === 2) &&
+    !!p.stats &&
+    Object.values(p.stats).every(Number.isFinite)
+  )
 }
 
-export async function installDrawingPrecompute(data: DrawingGeometry, layout: DrawingLayout, value: unknown,
-  signal?: AbortSignal): Promise<boolean> {
+export async function installDrawingPrecompute(
+  data: DrawingGeometry,
+  layout: DrawingLayout,
+  value: unknown,
+  signal?: AbortSignal,
+): Promise<boolean> {
   checkAbort(signal)
   if (drawingCacheBypassed()) return false
   if (!valid(value)) return false
@@ -173,7 +216,8 @@ export async function installDrawingPrecompute(data: DrawingGeometry, layout: Dr
   for (const n of value.fills) ink.fills.push(n)
   for (const text of value.texts) ink.texts.push({ ...text })
   const entry: Entry = {
-    layout: layoutKey(data, layout), precomputed: true,
+    layout: layoutKey(data, layout),
+    precomputed: true,
     sheet: { ink, marks: structuredClone(value.marks), stats: { ...value.stats } },
     profile: value.profile.map((point) => [...point]),
   }
@@ -205,8 +249,12 @@ export async function decodeDrawingPayload(bytes: Uint8Array<ArrayBuffer>, signa
 }
 
 /** Call before composeSheet/bakeProfile. Any missing/stale/broken asset falls back to live CAD. */
-export async function prepareDrawingCache(data: DrawingGeometry, layout: DrawingLayout,
-  url = '/drawing/jgun-sheet-v2.bin.gz', signal?: AbortSignal): Promise<boolean> {
+export async function prepareDrawingCache(
+  data: DrawingGeometry,
+  layout: DrawingLayout,
+  url = '/drawing/jgun-sheet-v2.bin.gz',
+  signal?: AbortSignal,
+): Promise<boolean> {
   checkAbort(signal)
   if (drawingCacheBypassed()) {
     entries.delete(data)

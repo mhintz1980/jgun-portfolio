@@ -10,13 +10,18 @@ afterEach(() => vi.restoreAllMocks())
 function context(): StoryContext {
   return {
     gl: { toneMappingExposure: 1 } as StoryContext['gl'],
-    scene: new Scene(), hero: new Scene(), rig: null, tier: 'full', aspect: 16 / 9,
+    scene: new Scene(),
+    hero: new Scene(),
+    rig: null,
+    tier: 'full',
+    aspect: 16 / 9,
   }
 }
 
 describe('shaft runtime synchronous construction ownership', () => {
   it.each(['shaper-clamp-nut', 'hob-arbor'] as const)(
-    'forwards partial %s factory cleanup faults and still releases runtime siblings when the reporter throws', faultMesh => {
+    'forwards partial %s factory cleanup faults and still releases runtime siblings when the reporter throws',
+    (faultMesh) => {
       const primary = new Error(`${faultMesh} attachment failed`)
       const toolCleanup = new Error('partial tool geometry cleanup failed')
       const hostCleanup = new Error('runtime light cleanup failed')
@@ -46,7 +51,9 @@ describe('shaft runtime synchronous construction ownership', () => {
         releases.push(this)
         if (this === failedGeometry) throw toolCleanup
       })
-      const lights = vi.spyOn(DirectionalLight.prototype, 'dispose').mockImplementation(() => { throw hostCleanup })
+      const lights = vi.spyOn(DirectionalLight.prototype, 'dispose').mockImplementation(() => {
+        throw hostCleanup
+      })
       const materials = vi.spyOn(MeshStandardMaterial.prototype, 'dispose').mockImplementation(() => {})
       const reporter = vi.fn((failures: readonly ShaftCleanupFailure[]) => {
         mutableReports.push(failures)
@@ -55,14 +62,17 @@ describe('shaft runtime synchronous construction ownership', () => {
       const fail = vi.fn()
       const session = createStorySession('shaft', { id: 72, current: () => true, fail })
       let caught: unknown
-      try { createShaftRuntime(session, context(), { onCleanupFailure: reporter }) }
-      catch (error) { caught = error }
+      try {
+        createShaftRuntime(session, context(), { onCleanupFailure: reporter })
+      } catch (error) {
+        caught = error
+      }
       expect(caught).toBe(primary)
       // Shaper prefix: disc/shoulder/nut. Hob: completed ten-geometry sketch
       // shaper plus body/collar/arbor. Every allocation must still release once.
       expect(allocations.size).toBe(faultMesh === 'shaper-clamp-nut' ? 3 : 13)
       expect(releases).toHaveLength(allocations.size)
-      for (const geometry of allocations) expect(releases.filter(value => value === geometry)).toHaveLength(1)
+      for (const geometry of allocations) expect(releases.filter((value) => value === geometry)).toHaveLength(1)
       expect(lights).toHaveBeenCalledTimes(2)
       expect(materials).toHaveBeenCalledTimes(8) // shaper flank plus hob gold/steel surfaces
       expect(reporter).toHaveBeenCalledTimes(2)
@@ -90,12 +100,21 @@ describe('shaft runtime synchronous construction ownership', () => {
     const constructionError = new Error('first material clone failed')
     const failures: unknown[] = []
     const materialDispose = vi.spyOn(MeshStandardMaterial.prototype, 'dispose').mockImplementation(() => {})
-    vi.spyOn(MeshStandardMaterial.prototype, 'clone').mockImplementation(() => { throw constructionError })
-    vi.spyOn(DirectionalLight.prototype, 'dispose').mockImplementation(() => { throw new Error('light cleanup failed') })
+    vi.spyOn(MeshStandardMaterial.prototype, 'clone').mockImplementation(() => {
+      throw constructionError
+    })
+    vi.spyOn(DirectionalLight.prototype, 'dispose').mockImplementation(() => {
+      throw new Error('light cleanup failed')
+    })
     const session = createStorySession('shaft', { id: 71, current: () => true, fail: vi.fn() })
-    expect(() => createShaftRuntime(session, context(), {
-      onCleanupFailure: errors => { failures.push(...errors); throw new Error('reporter failed') },
-    })).toThrow(constructionError)
+    expect(() =>
+      createShaftRuntime(session, context(), {
+        onCleanupFailure: (errors) => {
+          failures.push(...errors)
+          throw new Error('reporter failed')
+        },
+      }),
+    ).toThrow(constructionError)
     expect(materialDispose).toHaveBeenCalledOnce()
     expect(failures).toHaveLength(2)
   })

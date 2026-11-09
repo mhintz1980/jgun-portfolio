@@ -41,7 +41,11 @@ export const TORQUE_HUD_STEPS: Readonly<Record<string, TorqueHudStep>> = Object.
 })
 
 const CHAPTER_INDEX: Record<TorquePosterChapterId, number> = {
-  drafting: 1, breakthrough: 2, mechanism: 3, inspection: 4, close: 5,
+  drafting: 1,
+  breakthrough: 2,
+  mechanism: 3,
+  inspection: 4,
+  close: 5,
 }
 
 /** Step line text for a beat under the displayed chapter. The `NN·n` prefix is shown only

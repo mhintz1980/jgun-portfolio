@@ -28,10 +28,13 @@ export function TorqueWrenchPage({ store }: TorqueWrenchPageProps) {
   const sceneWanted = tier !== 'poster'
   const posterLayer = tier === 'poster' || sceneStatus === 'failed'
 
-  const failScene = useCallback((_error: unknown) => {
-    setSceneComponent(null)
-    store.setSceneStatus('failed')
-  }, [store])
+  const failScene = useCallback(
+    (_error: unknown) => {
+      setSceneComponent(null)
+      store.setSceneStatus('failed')
+    },
+    [store],
+  )
 
   // The DOM story is mounted; release the shared fade-in now (releaseFade is a no-op when the
   // head shell never set data-fade="in").
@@ -98,8 +101,8 @@ export function TorqueWrenchPage({ store }: TorqueWrenchPageProps) {
       <footer className="torque-footer">
         <PrivatePageNav tier={tier} variant="endcard" />
         <p className="torque-colophon">
-          Work in progress. Pneumatic Torque Wrench. The five-chapter story runs from drafting and
-          breakthrough into mechanism, inspection, and close.
+          Work in progress. Pneumatic Torque Wrench. The five-chapter story runs from drafting and breakthrough into
+          mechanism, inspection, and close.
         </p>
       </footer>
     </div>

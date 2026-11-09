@@ -52,12 +52,12 @@ const WHOLE_GROUPS = Object.freeze(Array.from({ length: GROUP_COUNT }, (_, i) =>
  * surrounding sheet stock is context. Selection is by shot time, never by
  * which vertices happen to fit the camera. Transition ownership changes at
  * the halfway point between the existing read/reveal shot anchors. */
-export function activeDrawingDetailGroups(t:number):readonly number[] {
-  if(t<.0325)return DETAIL_D_GROUPS
-  if(t<.1125)return TITLE_GROUPS
-  if(t<.185)return INPUT_GROUPS
-  if(t<.265)return OUTPUT_GROUPS
-  if(t<(.29+INTRO_PHASES.onboardEnd)/2)return WHOLE_GROUPS
+export function activeDrawingDetailGroups(t: number): readonly number[] {
+  if (t < 0.0325) return DETAIL_D_GROUPS
+  if (t < 0.1125) return TITLE_GROUPS
+  if (t < 0.185) return INPUT_GROUPS
+  if (t < 0.265) return OUTPUT_GROUPS
+  if (t < (0.29 + INTRO_PHASES.onboardEnd) / 2) return WHOLE_GROUPS
   return SIDE_GROUPS
 }
 
@@ -91,7 +91,8 @@ function shots(layout: DrawingLayout, aspect: number): Shot[] {
   // handwriting beside Section A–A. Framing derives from the real note rectangles (desktop vs narrow),
   // not magic distances. Time spent here comes from the remap in introTimeline (O3), not these keys.
   const reading = (cx: number, cy: number, w: number, h: number, wNarrow: number) => ({
-    x: cx, y: cy,
+    x: cx,
+    y: cy,
     dist: Math.max(fitWidth((portrait ? wNarrow : w) * 1.1, 30, aspect), fitHeight(h * 1.1, 30)),
   })
   const title = reading(0.26, -0.158, 0.26, 0.15, 0.15)
@@ -132,7 +133,12 @@ const scratchN = new Vector3()
  * Write the intro camera pose for intro time `t`. Bounded eased moves stop cleanly
  * on the primary elevation without spline overshoot during the registration hold.
  */
-export function introCameraPose(layout: DrawingLayout, aspect: number, t: number, out: SheetCameraPose): SheetCameraPose {
+export function introCameraPose(
+  layout: DrawingLayout,
+  aspect: number,
+  t: number,
+  out: SheetCameraPose,
+): SheetCameraPose {
   const list = shots(layout, aspect)
   let i = 0
   while (i < list.length - 2 && t >= list[i + 1].t) i += 1

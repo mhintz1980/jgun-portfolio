@@ -39,10 +39,10 @@ export const STAGE_TRANSITIONS = {
  *   - ISOLATION_MOUNTS: [0.0, 0.025, -0.055] (structure-borne decoupling base)
  */
 export const STATION2_CAD_ANCHORS = {
-  enclosureChassis: [0.0, 2.30, -0.40] as const,
-  compositePanels: [1.80, 1.50, 0.30] as const,
+  enclosureChassis: [0.0, 2.3, -0.4] as const,
+  compositePanels: [1.8, 1.5, 0.3] as const,
   pumpHousing: [0.022, 0.943, -0.055] as const,
-  acousticBaffles: [-1.319, 1.590, -0.433] as const,
+  acousticBaffles: [-1.319, 1.59, -0.433] as const,
   ductIntake: [0.0, 1.158, 0.893] as const,
   ductExhaust: [-0.101, 1.282, -1.225] as const,
   isolationMounts: [0.0, 0.025, -0.055] as const,
@@ -89,6 +89,8 @@ export function stageEnvelope(
  * (after the enter cross-fade settles, before the exit begins).
  */
 export function airflowIntensity(progress: number): number {
-  return clamp01((progress - STAGE_TRANSITIONS.enclosureIn[1]) /
-    (STAGE_TRANSITIONS.enclosureOut[0] - STAGE_TRANSITIONS.enclosureIn[1]))
+  return clamp01(
+    (progress - STAGE_TRANSITIONS.enclosureIn[1]) /
+      (STAGE_TRANSITIONS.enclosureOut[0] - STAGE_TRANSITIONS.enclosureIn[1]),
+  )
 }

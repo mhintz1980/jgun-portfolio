@@ -97,7 +97,7 @@ function useSMMonogramGeometry() {
     mShape.lineTo(0.05, 0.9)
     mShape.lineTo(0.36, 0.9)
     mShape.lineTo(0.58, 0.12)
-    mShape.lineTo(0.80, 0.9)
+    mShape.lineTo(0.8, 0.9)
     mShape.lineTo(1.11, 0.9)
     mShape.lineTo(1.11, -0.9)
     mShape.lineTo(0.82, -0.9)
@@ -151,7 +151,7 @@ function useSMConcepts(
 
       // Concept 3: Shared-Spine Modernist Emblem (Centered interwoven S & M with gold bevel trim)
       spineS: buildSStrokeGeometry({ width: 0.25, depth: 0.26, crest: true, scaleX: 1.05, scaleY: 1.02, weave }),
-      spineSGold: buildSStrokeGeometry({ width: 0.31, depth: 0.20, chamfer: 0.03, scaleX: 1.05, scaleY: 1.02, weave }),
+      spineSGold: buildSStrokeGeometry({ width: 0.31, depth: 0.2, chamfer: 0.03, scaleX: 1.05, scaleY: 1.02, weave }),
       spineM: buildMGeometry({ depth: 0.26, bevel: 0.035 }),
       spineMGold: buildMGeometry({ scale: 1.055, depth: 0.19, bevel: 0.035 }),
 
@@ -183,7 +183,7 @@ function useSMConcepts(
       // Concept 6: Architectural Prism Monolith
       monolithM: buildPrismMonolithGeometry(),
       monolithS: buildSStrokeGeometry({
-        width: 0.30,
+        width: 0.3,
         depth: 0.52,
         chamfer: 0.06,
         scaleX: 1.08,
@@ -308,14 +308,7 @@ export function StudioMarkCenterpiece({
 
   const hexGeometry = useHexGemGeometry()
   const smGeometry = useSMMonogramGeometry()
-  const { geo, mat } = useSMConcepts(
-    ior,
-    roughness,
-    transmission,
-    thickness,
-    chromaticAberration,
-    glowColor,
-  )
+  const { geo, mat } = useSMConcepts(ior, roughness, transmission, thickness, chromaticAberration, glowColor)
 
   // High-end transmissive glass material for classic geometric primitives
   const glassMaterial = useMemo(() => {
@@ -406,7 +399,12 @@ export function StudioMarkCenterpiece({
           <mesh geometry={geo.hexPlate} material={mat.gold} scale={[1.03, 1.03, 0.88]} position={[-0.03, 0.03, 0.01]} />
           {/* Lower-left wedge + Lower-right M structural frame */}
           <mesh geometry={geo.hexRim} material={mat.titanium} position={[0.02, -0.02, 0]} castShadow />
-          <mesh geometry={geo.hexRim} material={mat.gold} scale={[1.028, 1.028, 0.88]} position={[0.02, -0.02, -0.02]} />
+          <mesh
+            geometry={geo.hexRim}
+            material={mat.gold}
+            scale={[1.028, 1.028, 0.88]}
+            position={[0.02, -0.02, -0.02]}
+          />
           {/* Smoky optical crystal M core */}
           <mesh geometry={geo.hexInlay} material={mat.smoky} position={[0.02, -0.02, 0.01]} />
         </group>
@@ -453,13 +451,9 @@ export function StudioMarkCenterpiece({
         </group>
       )}
 
-      {shape === 'hex-gem' && (
-        <mesh geometry={hexGeometry} material={glassMaterial} castShadow />
-      )}
+      {shape === 'hex-gem' && <mesh geometry={hexGeometry} material={glassMaterial} castShadow />}
 
-      {shape === 'sm-monogram' && (
-        <mesh geometry={smGeometry} material={glassMaterial} castShadow />
-      )}
+      {shape === 'sm-monogram' && <mesh geometry={smGeometry} material={glassMaterial} castShadow />}
 
       {shape === 'torus-knot' && (
         <mesh material={glassMaterial} castShadow>

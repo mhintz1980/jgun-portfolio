@@ -93,11 +93,7 @@ export function StudioMarkText({
             anchorY="middle"
           >
             {subtitle}
-            <meshBasicMaterial
-              color={glowColor}
-              transparent
-              opacity={0.88}
-            />
+            <meshBasicMaterial color={glowColor} transparent opacity={0.88} />
           </Text>
         </Center>
       )}
@@ -110,4 +106,3 @@ export function StudioMarkText({
     </group>
   )
 }
-

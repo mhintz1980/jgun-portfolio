@@ -109,16 +109,25 @@ function stripComments(text: string): string {
 
 describe('the registry and its entries', () => {
   it('lists the entries this build serves', () => {
-    expect(entries.map((item) => item.entry)).toEqual(['torque-wrench/index.html', 'quiet-machine/index.html', 'index.html', 'home/index.html', 'armament/index.html'])
+    expect(entries.map((item) => item.entry)).toEqual([
+      'torque-wrench/index.html',
+      'quiet-machine/index.html',
+      'index.html',
+      'home/index.html',
+      'armament/index.html',
+    ])
   })
 
-  it.each(entries.filter((item) => item.entry !== 'index.html').map((item) => [item.entry] as const))('%s exists and names an entry module that exists', (entry) => {
-    expect(existsSync(path.join(ROOT, entry))).toBe(true)
-    const html = entries.find((item) => item.entry === entry)?.html ?? ''
-    const src = /<script type="module" src="([^"]+)"><\/script>/.exec(html)?.[1]
-    expect(src, `${entry} module script`).toBeDefined()
-    expect(existsSync(path.join(ROOT, (src as string).replace(/^\//, '')))).toBe(true)
-  })
+  it.each(entries.filter((item) => item.entry !== 'index.html').map((item) => [item.entry] as const))(
+    '%s exists and names an entry module that exists',
+    (entry) => {
+      expect(existsSync(path.join(ROOT, entry))).toBe(true)
+      const html = entries.find((item) => item.entry === entry)?.html ?? ''
+      const src = /<script type="module" src="([^"]+)"><\/script>/.exec(html)?.[1]
+      expect(src, `${entry} module script`).toBeDefined()
+      expect(existsSync(path.join(ROOT, (src as string).replace(/^\//, '')))).toBe(true)
+    },
+  )
 
   it('index.html is a redirect-only root shell: no module script, so the legacy root app never ships', () => {
     const html = entries.find((item) => item.entry === 'index.html')?.html ?? ''
@@ -131,12 +140,17 @@ describe('the registry and its entries', () => {
     const exported: unknown = viteConfig
     const resolved = (
       typeof exported === 'function'
-        ? await (exported as (env: { command: 'build'; mode: string }) => unknown)({ command: 'build', mode: 'production' })
+        ? await (exported as (env: { command: 'build'; mode: string }) => unknown)({
+            command: 'build',
+            mode: 'production',
+          })
         : await exported
     ) as { appType?: string; build?: { rollupOptions?: { input?: unknown } } }
     expect(resolved.appType).toBe('mpa')
     const input = resolved.build?.rollupOptions?.input as Record<string, string>
-    expect(input && typeof input === 'object' && !Array.isArray(input), 'rollupOptions.input is a keyed object').toBe(true)
+    expect(input && typeof input === 'object' && !Array.isArray(input), 'rollupOptions.input is a keyed object').toBe(
+      true,
+    )
     const live = PAGES.filter((page) => page.htmlEntry !== null)
     expect(Object.keys(input).sort()).toEqual(live.map((page) => page.id).sort())
     for (const page of PAGES.filter((item) => item.reserved)) expect(Object.keys(input), page.id).not.toContain(page.id)
@@ -147,16 +161,19 @@ describe('the registry and its entries', () => {
 })
 
 describe('the shell block', () => {
-  it.each(entries.map((item) => [item.entry] as const))('%s has one shell block, with every sub-block inside it', (entry) => {
-    const html = entries.find((item) => item.entry === entry)?.html ?? ''
-    expect(count(html, '<!-- shell:begin -->')).toBe(1)
-    expect(count(html, '<!-- shell:end -->')).toBe(1)
-    const shell = shellBlock(html)
-    expect(shell).not.toBeNull()
-    for (const sub of [fadeBlock(html), redirectBlock(html)]) {
-      if (sub !== null) expect((shell as string).includes(sub)).toBe(true)
-    }
-  })
+  it.each(entries.map((item) => [item.entry] as const))(
+    '%s has one shell block, with every sub-block inside it',
+    (entry) => {
+      const html = entries.find((item) => item.entry === entry)?.html ?? ''
+      expect(count(html, '<!-- shell:begin -->')).toBe(1)
+      expect(count(html, '<!-- shell:end -->')).toBe(1)
+      const shell = shellBlock(html)
+      expect(shell).not.toBeNull()
+      for (const sub of [fadeBlock(html), redirectBlock(html)]) {
+        if (sub !== null) expect((shell as string).includes(sub)).toBe(true)
+      }
+    },
+  )
 
   it('has no scroll length inside it, comments stripped', () => {
     for (const { entry, html } of entries) {
@@ -224,9 +241,23 @@ describe('the fade sub-block', () => {
       expect(body).toContain('5000')
       const NOW = 1_700_000_000_000
       const flags: (string | null)[] = [
-        null, '', '   ', 'soon', 'NaN', 'Infinity', '-Infinity', '1e999',
-        String(NOW), String(NOW - 1), String(NOW - 4999), String(NOW - 5000), String(NOW - 60_000), String(NOW + 1),
-        ` ${NOW - 10} `, '0x10', `${NOW - 100}.5`,
+        null,
+        '',
+        '   ',
+        'soon',
+        'NaN',
+        'Infinity',
+        '-Infinity',
+        '1e999',
+        String(NOW),
+        String(NOW - 1),
+        String(NOW - 4999),
+        String(NOW - 5000),
+        String(NOW - 60_000),
+        String(NOW + 1),
+        ` ${NOW - 10} `,
+        '0x10',
+        `${NOW - 100}.5`,
       ]
       for (const raw of flags) {
         const label = `flag ${JSON.stringify(raw)}`
@@ -258,12 +289,15 @@ describe('the fade sub-block', () => {
       expect(run.queries).toEqual([REDUCED_MOTION_QUERY])
     })
 
-    it.each(scripts)('%s: a fresh flag under reduced motion sets no data-fade and consumes the flag', (_entry, body) => {
-      const run = runFadeScript(body, { raw: String(NOW - 100), now: NOW, reduced: true })
-      expect(run.attributes).toEqual({})
-      expect(run.removed).toEqual([FADE_KEY])
-      expect(run.queries).toEqual([REDUCED_MOTION_QUERY])
-    })
+    it.each(scripts)(
+      '%s: a fresh flag under reduced motion sets no data-fade and consumes the flag',
+      (_entry, body) => {
+        const run = runFadeScript(body, { raw: String(NOW - 100), now: NOW, reduced: true })
+        expect(run.attributes).toEqual({})
+        expect(run.removed).toEqual([FADE_KEY])
+        expect(run.queries).toEqual([REDUCED_MOTION_QUERY])
+      },
+    )
 
     it.each(scripts)('%s: a stale flag sets nothing and is consumed', (_entry, body) => {
       for (const reduced of [false, true]) {
@@ -353,9 +387,12 @@ describe('the redirect sub-block', () => {
     expect(pageHref('home')).toBe(EXPECTED[''])
   })
 
-  it.each(PROBES.map((probe) => [probe] as const))('probe "%s" forwards exactly once to its literal target', (probe) => {
-    expect(run(probe)).toEqual([EXPECTED[probe]])
-  })
+  it.each(PROBES.map((probe) => [probe] as const))(
+    'probe "%s" forwards exactly once to its literal target',
+    (probe) => {
+      expect(run(probe)).toEqual([EXPECTED[probe]])
+    },
+  )
 
   it('keeps the other params and the fragment, and drops only study', () => {
     expect(run('', '#inspection')).toEqual(['/home/#inspection'])

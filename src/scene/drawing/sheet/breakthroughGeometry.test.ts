@@ -88,7 +88,8 @@ class GridIndex {
           const dx = b[0] - a[0]
           const dy = b[1] - a[1]
           const lengthSquared = dx * dx + dy * dy
-          const t = lengthSquared > 0 ? Math.max(0, Math.min(1, ((x - a[0]) * dx + (y - a[1]) * dy) / lengthSquared)) : 0
+          const t =
+            lengthSquared > 0 ? Math.max(0, Math.min(1, ((x - a[0]) * dx + (y - a[1]) * dy) / lengthSquared)) : 0
           const candidate = Math.hypot(x - (a[0] + dx * t), y - (a[1] + dy * t))
           if (candidate < best) best = candidate
         }
@@ -133,14 +134,16 @@ describe('JG-035 breakthrough geometry on the real traced profile', () => {
     const profile = baked.profile
     const outline = baked.outline
     // The source contour survives verbatim: no closing duplicate, same winding, same area.
-    const rawArea = source.reduce((sum, point, i) => {
-      const next = source[(i + 1) % source.length]
-      return sum + (point[0] * next[1] - next[0] * point[1])
-    }, 0) / 2
-    const profileArea = profile.reduce((sum, point, i) => {
-      const next = profile[(i + 1) % profile.length]
-      return sum + (point[0] * next[1] - next[0] * point[1])
-    }, 0) / 2
+    const rawArea =
+      source.reduce((sum, point, i) => {
+        const next = source[(i + 1) % source.length]
+        return sum + (point[0] * next[1] - next[0] * point[1])
+      }, 0) / 2
+    const profileArea =
+      profile.reduce((sum, point, i) => {
+        const next = profile[(i + 1) % profile.length]
+        return sum + (point[0] * next[1] - next[0] * point[1])
+      }, 0) / 2
     expect(profileArea).toBeCloseTo(rawArea, 12)
     expect(profileArea).toBeGreaterThan(0)
     // Every exact profile vertex still sits inside the hole: nothing was clipped away.
@@ -218,10 +221,10 @@ describe('JG-035 breakthrough geometry on the real traced profile', () => {
       let backChecked = 0
       for (let i = 0; i < index.length; i += 3) {
         const face = [index[i], index[i + 1], index[i + 2]]
-        if (face.every(v => position[v * 3 + 2] === 0)) {
+        if (face.every((v) => position[v * 3 + 2] === 0)) {
           for (const v of face) expect(normal[v * 3 + 2]).toBeGreaterThan(0.99)
           frontChecked++
-        } else if (face.every(v => Math.abs(position[v * 3 + 2] + BREAKTHROUGH_THICKNESS) < 1e-9)) {
+        } else if (face.every((v) => Math.abs(position[v * 3 + 2] + BREAKTHROUGH_THICKNESS) < 1e-9)) {
           for (const v of face) expect(normal[v * 3 + 2]).toBeLessThan(-0.99)
           backChecked++
         }
@@ -231,7 +234,8 @@ describe('JG-035 breakthrough geometry on the real traced profile', () => {
       // Cells are inside the hole (so the sum of areas proves an exact partition), and the
       // centroid sits on the fragment's own local origin, which is where the parent mounts it.
       for (let i = 0; i < position.length; i += 3) {
-        const x = position[i] + fragment.center.x, y = position[i + 1] + fragment.center.y
+        const x = position[i] + fragment.center.x,
+          y = position[i + 1] + fragment.center.y
         expect(hole.contains(x, y, 1e-7)).toBe(true)
       }
       expect(centroids.has(`${fragment.center.x.toFixed(9)},${fragment.center.y.toFixed(9)}`)).toBe(false)
@@ -249,7 +253,10 @@ describe('JG-035 breakthrough geometry on the real traced profile', () => {
       expect(velocity.z).toBeGreaterThanOrEqual(0.3)
     }
     expect(Math.max(...velocities.map((v) => v.z)) - Math.min(...velocities.map((v) => v.z))).toBeGreaterThan(0.05)
-    expect(Math.max(...velocities.map((v) => Math.hypot(v.x, v.y))) - Math.min(...velocities.map((v) => Math.hypot(v.x, v.y)))).toBeGreaterThan(0.05)
+    expect(
+      Math.max(...velocities.map((v) => Math.hypot(v.x, v.y))) -
+        Math.min(...velocities.map((v) => Math.hypot(v.x, v.y))),
+    ).toBeGreaterThan(0.05)
     for (const fragment of baked.fragments) {
       expect(Math.abs(fragment.spin.x)).toBeGreaterThan(0)
       for (const axis of [fragment.spin.x, fragment.spin.y, fragment.spin.z]) {
@@ -262,13 +269,15 @@ describe('JG-035 breakthrough geometry on the real traced profile', () => {
     const again = makeBreakthroughGeometry(source, SHEET_WIDTH, SHEET_HEIGHT)
     const first = baked.fragments[0]
     const second = again.fragments[0]
-    expect((second.geometry.getAttribute('position').array as Float32Array)).toEqual(first.geometry.getAttribute('position').array as Float32Array)
+    expect(second.geometry.getAttribute('position').array as Float32Array).toEqual(
+      first.geometry.getAttribute('position').array as Float32Array,
+    )
     expect(second.center.toArray()).toEqual(first.center.toArray())
     expect(second.velocity.toArray()).toEqual(first.velocity.toArray())
     expect(second.spin.toArray()).toEqual(first.spin.toArray())
     expect(baked.area).toBe(again.area)
     expect(baked.maxBoundaryDeviation).toBe(again.maxBoundaryDeviation)
-    expect((again.paper.getAttribute('position').array as Float32Array)).toEqual(paperPositions)
+    expect(again.paper.getAttribute('position').array as Float32Array).toEqual(paperPositions)
     again.dispose()
   }, 240000)
 
@@ -277,7 +286,8 @@ describe('JG-035 breakthrough geometry on the real traced profile', () => {
     const triangles = paperIndices.length / 3
     const hole = new YBandIndex(baked.outline)
     const boundary = new GridIndex(baked.outline)
-    let longest = 0, bridges = 0
+    let longest = 0,
+      bridges = 0
     for (let triangle = 0; triangle < triangles; triangle += 1) {
       const vertices = triangleVertices(paperPositions, paperIndices, triangle)
       const a = vertices[0]
@@ -286,9 +296,10 @@ describe('JG-035 breakthrough geometry on the real traced profile', () => {
       meshArea += Math.abs((b[0] - a[0]) * (c[1] - a[1]) - (c[0] - a[0]) * (b[1] - a[1])) / 2
       // Sheet edges stay short enough for the paperFlex vertex displacement. Positions are
       // float32, so a quad diagonal measured off them carries ~1e-7 of storage noise.
-      longest = Math.max(longest,maxEdge(vertices))
+      longest = Math.max(longest, maxEdge(vertices))
       // Float32 boundary slivers can shift by nanometres; no interior centroid may bridge.
-      const cx = (a[0] + b[0] + c[0]) / 3, cy = (a[1] + b[1] + c[1]) / 3
+      const cx = (a[0] + b[0] + c[0]) / 3,
+        cy = (a[1] + b[1] + c[1]) / 3
       if (boundary.nearest(cx, cy, 1e-7) >= 1e-7 && hole.contains(cx, cy, 0)) bridges++
     }
     expect(longest).toBeLessThanOrEqual(BREAKTHROUGH_PAPER_SUBDIVISION + 1e-7)
@@ -299,7 +310,8 @@ describe('JG-035 breakthrough geometry on the real traced profile', () => {
     const normals = baked.paper.getAttribute('normal').array as Float32Array
     let incorrectNormals = 0
     for (let i = 0; i < normals.length; i += 3) {
-      if(normals[i]!==0 || normals[i+1]!==0 || normals[i+2]!==1 || paperPositions[i+2]!==0) incorrectNormals++
+      if (normals[i] !== 0 || normals[i + 1] !== 0 || normals[i + 2] !== 1 || paperPositions[i + 2] !== 0)
+        incorrectNormals++
     }
     expect(incorrectNormals).toBe(0)
   }, 60000)
@@ -314,7 +326,9 @@ describe('JG-035 breakthrough geometry on the real traced profile', () => {
       expect(z).toBeGreaterThanOrEqual(-BREAKTHROUGH_THICKNESS - 1e-9)
       if (Math.abs(z + BREAKTHROUGH_THICKNESS) < 1e-9) wallBottom += 1
       // The rim starts on the hole edge and grows outward: never deep inside the aperture.
-      expect(hole.nearest(position[i], position[i + 1], BREAKTHROUGH_TORN_MAX + BREAKTHROUGH_RIM_TOLERANCE)).toBeLessThanOrEqual(BREAKTHROUGH_TORN_MAX + BREAKTHROUGH_RIM_TOLERANCE + 1e-9)
+      expect(
+        hole.nearest(position[i], position[i + 1], BREAKTHROUGH_TORN_MAX + BREAKTHROUGH_RIM_TOLERANCE),
+      ).toBeLessThanOrEqual(BREAKTHROUGH_TORN_MAX + BREAKTHROUGH_RIM_TOLERANCE + 1e-9)
     }
     expect(wallBottom).toBeGreaterThan(3 * 100)
 
@@ -340,10 +354,15 @@ describe('JG-035 breakthrough geometry on the real traced profile', () => {
     // Ribbon width is the glow half-width on both sides of the seam. Position is float32, so
     // the comparison tolerance is a micrometre, well above the storage epsilon at this scale.
     for (let i = 0; i < count; i += 2) {
-      expect(Math.abs(Math.hypot(
-        crackPositions[i * 3] - crackPositions[(i + 1) * 3],
-        crackPositions[i * 3 + 1] - crackPositions[(i + 1) * 3 + 1],
-      ) - 2 * BREAKTHROUGH_CRACK_HALF_WIDTH)).toBeLessThan(1e-6)
+      expect(
+        Math.abs(
+          Math.hypot(
+            crackPositions[i * 3] - crackPositions[(i + 1) * 3],
+            crackPositions[i * 3 + 1] - crackPositions[(i + 1) * 3 + 1],
+          ) -
+            2 * BREAKTHROUGH_CRACK_HALF_WIDTH,
+        ),
+      ).toBeLessThan(1e-6)
     }
     // No triangle may join two different ribbons: disjoint cracks never bridge into sheets.
     const ids = new Set<number>()
@@ -361,8 +380,38 @@ describe('JG-035 breakthrough geometry on the real traced profile', () => {
   })
 
   it('rejects profiles that cannot describe a hole', () => {
-    expect(() => makeBreakthroughGeometry([[0, 0], [1, 0]], SHEET_WIDTH, SHEET_HEIGHT)).toThrow()
-    expect(() => makeBreakthroughGeometry([[0, 0], [0, 0], [0, 0]], SHEET_WIDTH, SHEET_HEIGHT)).toThrow()
-    expect(() => makeBreakthroughGeometry([[0, 0], [1, 0], [1, 1], [0, 1]], 0.4, 0.2)).toThrow()
+    expect(() =>
+      makeBreakthroughGeometry(
+        [
+          [0, 0],
+          [1, 0],
+        ],
+        SHEET_WIDTH,
+        SHEET_HEIGHT,
+      ),
+    ).toThrow()
+    expect(() =>
+      makeBreakthroughGeometry(
+        [
+          [0, 0],
+          [0, 0],
+          [0, 0],
+        ],
+        SHEET_WIDTH,
+        SHEET_HEIGHT,
+      ),
+    ).toThrow()
+    expect(() =>
+      makeBreakthroughGeometry(
+        [
+          [0, 0],
+          [1, 0],
+          [1, 1],
+          [0, 1],
+        ],
+        0.4,
+        0.2,
+      ),
+    ).toThrow()
   })
 })

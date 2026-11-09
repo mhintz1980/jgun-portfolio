@@ -28,9 +28,11 @@ describe('private unified electrical emission', () => {
   })
   it('preserves path growth during dark holds without leaving lit seams', () => {
     const a = samplePrivateElectrical(privateElectricalTimeAt(0.22), 0)
-    const b = samplePrivateElectrical(privateElectricalTimeAt(0.40), 0)
-    expect(a.outline).toBe(0.24); expect(b.outline).toBe(0.24)
-    expect(a.energy).toBe(0); expect(b.energy).toBe(0)
+    const b = samplePrivateElectrical(privateElectricalTimeAt(0.4), 0)
+    expect(a.outline).toBe(0.24)
+    expect(b.outline).toBe(0.24)
+    expect(a.energy).toBe(0)
+    expect(b.energy).toBe(0)
     expect(a.afterglow).toBeGreaterThan(b.afterglow)
     expect(b.afterglow).toBeGreaterThan(0.45)
   })
@@ -49,8 +51,8 @@ describe('private unified electrical emission', () => {
     expect(samplePrivateElectrical(1, 1).energy).toBe(0)
   })
   it('reverses and seeks reproducibly without accumulated state', () => {
-    const times = [0.60, 0.625, 0.655, 0.675, 0.70, 0.72, 0.75, 0.78, 0.81, 0.847, 0.86, 0.9]
-    const forward = times.map(t => samplePrivateElectrical(t, 0.5))
+    const times = [0.6, 0.625, 0.655, 0.675, 0.7, 0.72, 0.75, 0.78, 0.81, 0.847, 0.86, 0.9]
+    const forward = times.map((t) => samplePrivateElectrical(t, 0.5))
     for (let i = times.length - 1; i >= 0; i--) expect(samplePrivateElectrical(times[i], 0.5)).toEqual(forward[i])
     expect(() => samplePrivateElectrical(NaN, 0)).toThrow()
   })

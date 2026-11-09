@@ -37,7 +37,8 @@ import {
 import { FOS_ATTEMPTS, FOS_CENTER_Y, FOS_MAX, FOS_REVISED, fosColor } from './fosPresentation'
 
 const DEG = Math.PI / 180
-const PROFILE_PATH = 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile-study.json'
+const PROFILE_PATH =
+  'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile-study.json'
 
 interface ProfileStudy {
   angular_step_deg: number
@@ -109,7 +110,8 @@ describe('legacy shaping law', () => {
   })
   it('fills the face band to OD at depth 0 and leaves the groove untouched', () => {
     const state = shapingState([0])
-    for (const [, y, a] of samples) expect(progressedRadius(SHAFT_ROOT_MM + 0.31, y, a, state, 'legacy')).toBe(SHAFT_OD_MM)
+    for (const [, y, a] of samples)
+      expect(progressedRadius(SHAFT_ROOT_MM + 0.31, y, a, state, 'legacy')).toBe(SHAFT_OD_MM)
     for (const y of [SHAPING_FACE_END_MM + 0.005, 10.41, 10.94, 13.0]) {
       const r = SHAFT_ROOT_MM + 0.42
       expect(progressedRadius(r, y, 0.3, state, 'legacy')).toBe(r)
@@ -256,7 +258,9 @@ describe('monotonicity and determinism', () => {
       next() * Math.PI * 2,
     ])
     const expected = new Map<number, number>()
-    inputs.forEach((value, index) => expected.set(index, progressedRadius(value[0], value[1], value[2], state, 'legacy')))
+    inputs.forEach((value, index) =>
+      expected.set(index, progressedRadius(value[0], value[1], value[2], state, 'legacy')),
+    )
     const order = inputs.map((_, index) => index).sort(() => next() - 0.5)
     for (const index of order) {
       const [r, y, a] = inputs[index]
@@ -291,14 +295,30 @@ describe('monotonicity and determinism', () => {
     const inverseIdentity = uniforms.uShaftInverse.value
     const normalIdentity = uniforms.uShaftNormalMatrix.value
     const transform = new Matrix4().makeScale(1000, 1000, 1000)
-    const stress = { kind: 'cool' as const, mix: 0.3, scanProgress: 0.6, yMin: 9, yMax: 13, rMax: 6, centerY: 13.4, hotspotFos: 2.55, bodyFos: 3 }
+    const stress = {
+      kind: 'cool' as const,
+      mix: 0.3,
+      scanProgress: 0.6,
+      yMin: 9,
+      yMax: 13,
+      rMax: 6,
+      centerY: 13.4,
+      hotspotFos: 2.55,
+      bodyFos: 3,
+    }
     // Factories allocate at setup time; only the samplers and writers run in the guarded loop.
     counts.arrays = 0
     counts.typed = 0
     let checksum = 0
     try {
       for (let i = 0; i < 5000; i++) {
-        checksum += progressedRadius(SHAFT_ROOT_MM + 0.3, FACE_START_MM + (i % 97) * 0.07, (i % 10) * 0.31, state, 'legacy')
+        checksum += progressedRadius(
+          SHAFT_ROOT_MM + 0.3,
+          FACE_START_MM + (i % 97) * 0.07,
+          (i % 10) * 0.31,
+          state,
+          'legacy',
+        )
         checksum += progressedRadius(SHAFT_ROOT_MM + 0.3, 6 + (i % 53) * 0.13, (i % 7) * 0.4, hob, 'approved')
         writeProgressionUniforms(uniforms, state, 'legacy')
         writeStressUniforms(uniforms, stress)
@@ -320,26 +340,48 @@ describe('monotonicity and determinism', () => {
   it('has no constructor, array-literal or object-literal allocations in per-call function bodies', () => {
     const source = readFileSync(resolve(process.cwd(), 'src/scene/inspection/shaft/progression.ts'), 'utf8')
     const ast = ts.createSourceFile('progression.ts', source, ts.ScriptTarget.Latest, true)
-    const names = new Set(['progressedRadius', 'hobFloorRadius', 'spaceIndexAt', 'writeProgressionUniforms', 'writeStressUniforms', 'setShaftTransform'])
+    const names = new Set([
+      'progressedRadius',
+      'hobFloorRadius',
+      'spaceIndexAt',
+      'writeProgressionUniforms',
+      'writeStressUniforms',
+      'setShaftTransform',
+    ])
     const checked: string[] = []
     for (const node of ast.statements) {
       if (!ts.isFunctionDeclaration(node) || !node.name || !node.body || !names.has(node.name.text)) continue
       checked.push(node.name.text)
       const visit = (child: ts.Node) => {
-        expect(ts.isNewExpression(child) || ts.isArrayLiteralExpression(child) || ts.isObjectLiteralExpression(child), child.getText(ast)).toBe(false)
+        expect(
+          ts.isNewExpression(child) || ts.isArrayLiteralExpression(child) || ts.isObjectLiteralExpression(child),
+          child.getText(ast),
+        ).toBe(false)
         child.forEachChild(visit)
       }
       visit(node.body)
     }
     expect(checked).toHaveLength(names.size)
-    console.log('A4: six per-call functions allocation-free by source audit; 5000 sampled/written calls preserve caller-owned buffers')
+    console.log(
+      'A4: six per-call functions allocation-free by source audit; 5000 sampled/written calls preserve caller-owned buffers',
+    )
   })
 })
 
 describe('shader patch', () => {
-  const VERTEX_SRC = ['#include <common>', 'void main() {', '#include <beginnormal_vertex>', '#include <begin_vertex>', '}'].join('\n')
+  const VERTEX_SRC = [
+    '#include <common>',
+    'void main() {',
+    '#include <beginnormal_vertex>',
+    '#include <begin_vertex>',
+    '}',
+  ].join('\n')
   const FRAGMENT_SRC = ['#include <common>', 'void main() {', '#include <emissivemap_fragment>', '}'].join('\n')
-  interface ShaderStub { uniforms: Record<string, unknown>; vertexShader: string; fragmentShader: string }
+  interface ShaderStub {
+    uniforms: Record<string, unknown>
+    vertexShader: string
+    fragmentShader: string
+  }
 
   it('injects the progression law, normal blend and stress overlay markers', () => {
     const material = new MeshStandardMaterial()
@@ -357,7 +399,9 @@ describe('shader patch', () => {
     expect(shader.vertexShader).toContain('jgProgressedRadius(jgLocal4.xyz, jgClamp)')
     expect(shader.vertexShader).toContain('jgNew > jgRadius + 0.000001')
     expect(shader.vertexShader).not.toContain('jgRadius > 0.000001 && jgMode')
-    expect(shader.vertexShader).toContain('jgRadius > 0.0 ? atan(jgLocal.z - uShaftAxis.z, jgLocal.x - uShaftAxis.x) : 0.0')
+    expect(shader.vertexShader).toContain(
+      'jgRadius > 0.0 ? atan(jgLocal.z - uShaftAxis.z, jgLocal.x - uShaftAxis.x) : 0.0',
+    )
     // The registered bundle places the shaft away from the local origin, so
     // every radial law measures from the axis rather than from the origin.
     expect(shader.vertexShader).toContain('uShaftAxis')
@@ -385,7 +429,14 @@ describe('shader patch', () => {
       expect(shader.vertexShader).toContain(PROGRESSION_VERTEX_MARKER)
       expect(shader.vertexShader).not.toContain('#include <begin_vertex>')
       expect(shader.vertexShader).not.toMatch(/jgProgressedRadius\(jg(?:NormalLocal|Local4),/)
-      for (const key of ['uStressKind', 'uStressMix', 'uStressScanProgress', 'uStressYMin', 'uStressYMax', 'uStressRMax']) {
+      for (const key of [
+        'uStressKind',
+        'uStressMix',
+        'uStressScanProgress',
+        'uStressYMin',
+        'uStressYMax',
+        'uStressRMax',
+      ]) {
         expect(shader.uniforms[key]).toBe(uniforms[key as keyof typeof uniforms])
       }
       material.dispose()
@@ -427,7 +478,17 @@ describe('shader patch', () => {
     expect(uniforms.uFaceEnd.value).toBe(SHAPING_FACE_END_MM)
     expect(uniforms.uEngagedPreviousDepth.value).toBe(0)
     for (const kind of ['warm', 'cool', 'none'] as const) {
-      writeStressUniforms(uniforms, { kind, mix: 0.4, scanProgress: 0.8, yMin: 9.9, yMax: 13.78, rMax: 6.074, centerY: 10.41, hotspotFos: 0.55, bodyFos: 3 })
+      writeStressUniforms(uniforms, {
+        kind,
+        mix: 0.4,
+        scanProgress: 0.8,
+        yMin: 9.9,
+        yMax: 13.78,
+        rMax: 6.074,
+        centerY: 10.41,
+        hotspotFos: 0.55,
+        bodyFos: 3,
+      })
       expect(uniforms.uStressKind.value).toBe({ none: 0, warm: 1, cool: 2 }[kind])
       expect(uniforms.uStressMix.value).toBe(0.4)
       expect(uniforms.uStressScanProgress.value).toBe(0.8)
@@ -440,27 +501,35 @@ describe('shader patch', () => {
   })
 })
 
-
 describe('Stage 1 axial flank contact glint', () => {
   it('defaults off, updates caller-owned scalars, sanitizes unsafe values and clears on legacy seeks', () => {
-    const uniforms = createProgressionUniforms(), state = createProgressionState()
-    const y = uniforms.uAxialContactY, mix = uniforms.uAxialContactMix
-    expect(y.value).toBe(0); expect(mix.value).toBe(0)
+    const uniforms = createProgressionUniforms(),
+      state = createProgressionState()
+    const y = uniforms.uAxialContactY,
+      mix = uniforms.uAxialContactMix
+    expect(y.value).toBe(0)
+    expect(mix.value).toBe(0)
     writeProgressionUniforms(uniforms, state, 'approved', 6.35, 0.8)
-    expect(uniforms.uAxialContactY).toBe(y); expect(uniforms.uAxialContactMix).toBe(mix)
-    expect(y.value).toBe(6.35); expect(mix.value).toBe(0.8)
+    expect(uniforms.uAxialContactY).toBe(y)
+    expect(uniforms.uAxialContactMix).toBe(mix)
+    expect(y.value).toBe(6.35)
+    expect(mix.value).toBe(0.8)
     writeProgressionUniforms(uniforms, state, 'approved', 1e6, 2)
-    expect(y.value).toBe(9.525); expect(mix.value).toBe(1)
+    expect(y.value).toBe(9.525)
+    expect(mix.value).toBe(1)
     writeProgressionUniforms(uniforms, state, 'approved', -1, -1)
-    expect(y.value).toBe(0); expect(mix.value).toBe(0)
+    expect(y.value).toBe(0)
+    expect(mix.value).toBe(0)
     for (const bad of [NaN, Infinity, -Infinity]) {
       writeProgressionUniforms(uniforms, state, 'approved', bad, bad)
-      expect(y.value).toBe(0); expect(mix.value).toBe(0)
+      expect(y.value).toBe(0)
+      expect(mix.value).toBe(0)
     }
     writeProgressionUniforms(uniforms, state, 'legacy', 6.35, 1)
     expect(mix.value).toBe(0)
     writeProgressionUniforms(uniforms, state, 'approved')
-    expect(y.value).toBe(0); expect(mix.value).toBe(0)
+    expect(y.value).toBe(0)
+    expect(mix.value).toBe(0)
     writeProgressionUniforms(uniforms, state)
     expect(mix.value).toBe(0)
   })
@@ -470,7 +539,11 @@ describe('Stage 1 axial flank contact glint', () => {
       const uniforms = createProgressionUniforms()
       applyProgression(material, uniforms)
       const src = material instanceof MeshPhysicalMaterial ? ShaderLib.physical : ShaderLib.standard
-      const shader = { uniforms: {} as Record<string, unknown>, vertexShader: src.vertexShader, fragmentShader: src.fragmentShader }
+      const shader = {
+        uniforms: {} as Record<string, unknown>,
+        vertexShader: src.vertexShader,
+        fragmentShader: src.fragmentShader,
+      }
       ;(material.onBeforeCompile as unknown as (s: typeof shader, r: unknown) => void)(shader, {})
       expect(shader.uniforms.uAxialContactY).toBe(uniforms.uAxialContactY)
       expect(shader.uniforms.uAxialContactMix).toBe(uniforms.uAxialContactMix)
@@ -480,16 +553,42 @@ describe('Stage 1 axial flank contact glint', () => {
       expect(shader.fragmentShader).toContain('0.18 * jgContactMask')
       // Evaluate the emitted scalar mask itself: exercises its ordered smoothstep,
       // face/radius gates and mix clamp without creating a parallel CPU law.
-      const maskSource = shader.fragmentShader.slice(shader.fragmentShader.indexOf('float jgContactLine ='), shader.fragmentShader.indexOf('  roughnessFactor = mix(roughnessFactor, min'))
-        .replace(/\bfloat\b/g, 'let').replace(/vShaftLocal\.y/g, 'y')
+      const maskSource = shader.fragmentShader
+        .slice(
+          shader.fragmentShader.indexOf('float jgContactLine ='),
+          shader.fragmentShader.indexOf('  roughnessFactor = mix(roughnessFactor, min'),
+        )
+        .replace(/\bfloat\b/g, 'let')
+        .replace(/vShaftLocal\.y/g, 'y')
       const smoothstep = (a: number, b: number, x: number) => {
         expect(b).toBeGreaterThan(a)
         const u = Math.max(0, Math.min(1, (x - a) / (b - a)))
         return u * u * (3 - 2 * u)
       }
-      const mask = new Function('y', 'jgContactR', 'jgContactFlank', 'uAxialContactY', 'uAxialContactMix', 'smoothstep', 'step', 'abs', 'clamp', `${maskSource}\nreturn jgContactMask`)
-      const sample = (y: number, r = 5.2, flank = 1, mix = 1) => mask(y, r, flank, 6.35, mix, smoothstep,
-        (edge: number, x: number) => x < edge ? 0 : 1, Math.abs, (x: number, a: number, b: number) => Math.max(a, Math.min(b, x))) as number
+      const mask = new Function(
+        'y',
+        'jgContactR',
+        'jgContactFlank',
+        'uAxialContactY',
+        'uAxialContactMix',
+        'smoothstep',
+        'step',
+        'abs',
+        'clamp',
+        `${maskSource}\nreturn jgContactMask`,
+      )
+      const sample = (y: number, r = 5.2, flank = 1, mix = 1) =>
+        mask(
+          y,
+          r,
+          flank,
+          6.35,
+          mix,
+          smoothstep,
+          (edge: number, x: number) => (x < edge ? 0 : 1),
+          Math.abs,
+          (x: number, a: number, b: number) => Math.max(a, Math.min(b, x)),
+        ) as number
       expect(sample(6.35)).toBe(1)
       expect(sample(6.25)).toBeCloseTo(0.5, 12)
       expect(sample(6.55)).toBe(0)
@@ -502,7 +601,8 @@ describe('Stage 1 axial flank contact glint', () => {
       for (let i = 0; i <= 100; i++) {
         const value = sample(6.1 + i * 0.005, 5.2, i / 100, i / 80)
         expect(Number.isFinite(value)).toBe(true)
-        expect(value).toBeGreaterThanOrEqual(0); expect(value).toBeLessThanOrEqual(1)
+        expect(value).toBeGreaterThanOrEqual(0)
+        expect(value).toBeLessThanOrEqual(1)
       }
       material.dispose()
     }
@@ -510,7 +610,11 @@ describe('Stage 1 axial flank contact glint', () => {
 })
 
 describe('axisymmetric FEA groove gradient (Issue 3)', () => {
-  const STUDIES = [['4140', FOS_ATTEMPTS['4140']], ['4340', FOS_ATTEMPTS['4340']], ['c300', FOS_ATTEMPTS.c300]] as const
+  const STUDIES = [
+    ['4140', FOS_ATTEMPTS['4140']],
+    ['4340', FOS_ATTEMPTS['4340']],
+    ['c300', FOS_ATTEMPTS.c300],
+  ] as const
   const fosAt = (dy: number, hot: number, body = FOS_MAX) => body + (hot - body) * stressFieldAt(dy, hot)
   const hueAt = (dy: number, hot: number) => new Color(...fosColor(fosAt(dy, hot))).getHSL({ h: 0, s: 0, l: 0 }).h * 360
 
@@ -599,7 +703,9 @@ describe('axisymmetric FEA groove gradient (Issue 3)', () => {
 
   it('numerically matches the emitted GLSL across the groove, shoulders and alloy transitions', () => {
     // Execute the emitted scalar helper with JS equivalents of GLSL builtins; no second field formula.
-    const glsl = stressFieldGlsl().replace(/float jgStressField\(float dy, float hotspotFos\)/, 'function jgStressField(dy, hotspotFos)').replace(/\bfloat\b/g, 'let')
+    const glsl = stressFieldGlsl()
+      .replace(/float jgStressField\(float dy, float hotspotFos\)/, 'function jgStressField(dy, hotspotFos)')
+      .replace(/\bfloat\b/g, 'let')
     const gpu = new Function('clamp', 'mix', 'exp', `${glsl}\nreturn jgStressField`)(
       (x: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, x)),
       (a: number, b: number, t: number) => a + (b - a) * t,
@@ -616,7 +722,11 @@ describe('axisymmetric FEA groove gradient (Issue 3)', () => {
     const glsl = stressFieldGlsl()
     const material = new MeshStandardMaterial()
     applyProgression(material, createProgressionUniforms())
-    const shader = { uniforms: {}, vertexShader: '#include <common>\n#include <beginnormal_vertex>\n#include <begin_vertex>', fragmentShader: '#include <common>\n#include <emissivemap_fragment>' }
+    const shader = {
+      uniforms: {},
+      vertexShader: '#include <common>\n#include <beginnormal_vertex>\n#include <begin_vertex>',
+      fragmentShader: '#include <common>\n#include <emissivemap_fragment>',
+    }
     ;(material.onBeforeCompile as unknown as (s: typeof shader, r: unknown) => void)(shader, {})
     const overlay = makeStressOverlayMaterial(createProgressionUniforms())
     for (const source of [shader.fragmentShader, overlay.fragmentShader]) {

@@ -4,36 +4,69 @@ import { gzipSync } from 'node:zlib'
 import type { DrawingGeometry, DrawingLayout } from '../drawingGeometry'
 import { InkBuilder, PEN_COLOR, penColorOf, withPenColor } from './ink'
 import {
-  DRAWING_CACHE_VERSION, cachedProfile, cachedSheet, drawingCacheKey,
-  drawingPrecomputeSource, exportDrawingPrecompute, installDrawingPrecompute,
-  prepareDrawingCache, rememberProfile, rememberSheet,
+  DRAWING_CACHE_VERSION,
+  cachedProfile,
+  cachedSheet,
+  drawingCacheKey,
+  drawingPrecomputeSource,
+  exportDrawingPrecompute,
+  installDrawingPrecompute,
+  prepareDrawingCache,
+  rememberProfile,
+  rememberSheet,
 } from './drawingCache'
-import {
-  decodeDrawingPrecompute, encodeDrawingPrecompute,
-} from './drawingCodec'
+import { decodeDrawingPrecompute, encodeDrawingPrecompute } from './drawingCodec'
 
 function fixture() {
   const geometry = new BufferGeometry()
   geometry.setAttribute('position', new Float32BufferAttribute([0, 0, 0, 1, 0, 0, 0, 1, 0], 3))
   geometry.setIndex([0, 1, 2])
   const data: DrawingGeometry = {
-    geometry, bounds: new Box3(new Vector3(), new Vector3(1, 1, 0)),
-    features: {}, units: {}, rigCenter: new Vector3(), sourceTriangles: 1,
+    geometry,
+    bounds: new Box3(new Vector3(), new Vector3(1, 1, 0)),
+    features: {},
+    units: {},
+    rigCenter: new Vector3(),
+    sourceTriangles: 1,
   }
   const layout: DrawingLayout = {
-    width: 1, height: 1, primaryRotation: new Matrix4(), primaryCenter: new Vector3(),
-    views: [], fitDistance: 1, narrow: false, sectionLineY: 0,
+    width: 1,
+    height: 1,
+    primaryRotation: new Matrix4(),
+    primaryCenter: new Vector3(),
+    views: [],
+    fitDistance: 1,
+    narrow: false,
+    sectionLineY: 0,
   }
   return { data, layout }
 }
 async function liveBake(data: DrawingGeometry, layout: DrawingLayout) {
   const ink = new InkBuilder()
   ink.segs.push(0, 0, 1, 1, 0.001, 0, 0, 1, 0)
-  ink.text({ text: 'R', x: 0.12, y: 0.05, size: 0.0038, group: 16, key: 0.2, dur: 0.015,
-    weight: 'handwriting', color: 'graphite', scaleX: 0.97, rotation: -0.025,
-    anchorX: 'left', anchorY: 'baseline', letterSpacing: 0 })
+  ink.text({
+    text: 'R',
+    x: 0.12,
+    y: 0.05,
+    size: 0.0038,
+    group: 16,
+    key: 0.2,
+    dur: 0.015,
+    weight: 'handwriting',
+    color: 'graphite',
+    scaleX: 0.97,
+    rotation: -0.025,
+    anchorX: 'left',
+    anchorY: 'baseline',
+    letterSpacing: 0,
+  })
   rememberSheet(data, layout, { ink, marks: { origin: [0, 0] }, stats: { segments: 1, totalMs: 10 } })
-  rememberProfile(data, layout, [[0, 0], [1, 0], [1, 1], [0, 1]])
+  rememberProfile(data, layout, [
+    [0, 0],
+    [1, 0],
+    [1, 1],
+    [0, 1],
+  ])
   return exportDrawingPrecompute()
 }
 afterEach(() => {
@@ -45,7 +78,10 @@ afterEach(() => {
 function deferred<T>() {
   let resolve!: (value: T | PromiseLike<T>) => void
   let reject!: (reason?: unknown) => void
-  const promise = new Promise<T>((ok, fail) => { resolve = ok; reject = fail })
+  const promise = new Promise<T>((ok, fail) => {
+    resolve = ok
+    reject = fail
+  })
   return { promise, resolve, reject }
 }
 
@@ -65,10 +101,12 @@ describe('drawing cache caller cancellation', () => {
     const fetch = vi.fn()
     vi.stubGlobal('fetch', fetch)
     vi.stubGlobal('window', { location: { search: '?drawingCache=bypass' } })
-    await expect(prepareDrawingCache(data, layout, undefined, controller.signal))
-      .rejects.toMatchObject({ name: 'AbortError' })
-    await expect(installDrawingPrecompute(data, layout, asset, controller.signal))
-      .rejects.toMatchObject({ name: 'AbortError' })
+    await expect(prepareDrawingCache(data, layout, undefined, controller.signal)).rejects.toMatchObject({
+      name: 'AbortError',
+    })
+    await expect(installDrawingPrecompute(data, layout, asset, controller.signal)).rejects.toMatchObject({
+      name: 'AbortError',
+    })
     expect(fetch).not.toHaveBeenCalled()
     vi.unstubAllGlobals()
     expect(cachedSheet(data, layout)?.stats.precomputed).toBe(1)
@@ -82,10 +120,13 @@ describe('drawing cache caller cancellation', () => {
     const add = vi.spyOn(controller.signal, 'addEventListener')
     const remove = vi.spyOn(controller.signal, 'removeEventListener')
     let internal!: AbortSignal
-    vi.stubGlobal('fetch', vi.fn((_url, init: RequestInit) => {
-      internal = init.signal!
-      return headers.promise
-    }))
+    vi.stubGlobal(
+      'fetch',
+      vi.fn((_url, init: RequestInit) => {
+        internal = init.signal!
+        return headers.promise
+      }),
+    )
     const result = prepareDrawingCache(data, layout, undefined, controller.signal)
     const rejected = expect(result).rejects.toMatchObject({ name: 'AbortError' })
     controller.abort(new Error('arbitrary caller error'))
@@ -99,11 +140,19 @@ describe('drawing cache caller cancellation', () => {
 
   it('cancels a deferred body without fallback or a late install', async () => {
     const { data, layout, asset } = await precomputeFixture()
-    const body = deferred<ArrayBuffer>(), entered = deferred<void>()
+    const body = deferred<ArrayBuffer>(),
+      entered = deferred<void>()
     const controller = new AbortController()
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
-      ok: true, arrayBuffer: () => { entered.resolve(); return body.promise },
-    }))
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        arrayBuffer: () => {
+          entered.resolve()
+          return body.promise
+        },
+      }),
+    )
     const result = prepareDrawingCache(data, layout, undefined, controller.signal)
     await entered.promise
     const rejected = expect(result).rejects.toMatchObject({ name: 'AbortError' })
@@ -116,12 +165,18 @@ describe('drawing cache caller cancellation', () => {
 
   it('cancels deferred gzip decompression and leaves no cache entry', async () => {
     const { data, layout, asset } = await precomputeFixture()
-    const decoded = deferred<ArrayBuffer>(), entered = deferred<void>()
+    const decoded = deferred<ArrayBuffer>(),
+      entered = deferred<void>()
     const controller = new AbortController()
     // Fetch returns wire bytes; the Response constructed by the decoder is deferred.
     const bytes = new Uint8Array(gzipSync(JSON.stringify(asset)))
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, arrayBuffer: async () => bytes.buffer.slice(
-      bytes.byteOffset, bytes.byteOffset + bytes.byteLength) }))
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        arrayBuffer: async () => bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength),
+      }),
+    )
     const response = vi.spyOn(Response.prototype, 'arrayBuffer').mockImplementation(() => {
       entered.resolve()
       return decoded.promise
@@ -141,13 +196,21 @@ describe('drawing cache caller cancellation', () => {
     it(`blocks publication when caller aborts during hash ${phase}`, async () => {
       const { data, layout, asset } = await precomputeFixture()
       const digest = crypto.subtle.digest.bind(crypto.subtle)
-      const pending = deferred<ArrayBuffer>(), entered = deferred<void>()
+      const pending = deferred<ArrayBuffer>(),
+        entered = deferred<void>()
       let calls = 0
-      vi.stubGlobal('crypto', { subtle: { digest: vi.fn((algorithm: AlgorithmIdentifier, bytes: BufferSource) => {
-        calls += 1
-        if (calls === phase) { entered.resolve(); return pending.promise }
-        return digest(algorithm, bytes)
-      }) } })
+      vi.stubGlobal('crypto', {
+        subtle: {
+          digest: vi.fn((algorithm: AlgorithmIdentifier, bytes: BufferSource) => {
+            calls += 1
+            if (calls === phase) {
+              entered.resolve()
+              return pending.promise
+            }
+            return digest(algorithm, bytes)
+          }),
+        },
+      })
       vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify(asset))))
       const controller = new AbortController()
       const result = prepareDrawingCache(data, layout, undefined, controller.signal)
@@ -166,12 +229,16 @@ describe('drawing cache caller cancellation', () => {
     const { data, layout, asset } = await precomputeFixture()
     const controller = new AbortController()
     const clone = structuredClone
-    vi.stubGlobal('structuredClone', vi.fn((value: unknown) => {
-      controller.abort('cancel before entries.set')
-      return clone(value)
-    }))
-    await expect(installDrawingPrecompute(data, layout, asset, controller.signal))
-      .rejects.toMatchObject({ name: 'AbortError' })
+    vi.stubGlobal(
+      'structuredClone',
+      vi.fn((value: unknown) => {
+        controller.abort('cancel before entries.set')
+        return clone(value)
+      }),
+    )
+    await expect(installDrawingPrecompute(data, layout, asset, controller.signal)).rejects.toMatchObject({
+      name: 'AbortError',
+    })
     expect(cachedSheet(data, layout)).toBeUndefined()
   })
 
@@ -183,8 +250,9 @@ describe('drawing cache caller cancellation', () => {
     controller.abort('host retired')
     expect(cachedSheet(data, layout)?.ink.texts).toEqual(asset.texts)
     expect(cachedProfile(data, layout)).toEqual(asset.profile)
-    await expect(prepareDrawingCache(data, layout, undefined, controller.signal))
-      .rejects.toMatchObject({ name: 'AbortError' })
+    await expect(prepareDrawingCache(data, layout, undefined, controller.signal)).rejects.toMatchObject({
+      name: 'AbortError',
+    })
     expect(cachedSheet(data, layout)?.stats.precomputed).toBe(1)
   })
 
@@ -195,10 +263,13 @@ describe('drawing cache caller cancellation', () => {
     const add = vi.spyOn(controller.signal, 'addEventListener')
     const remove = vi.spyOn(controller.signal, 'removeEventListener')
     let internal!: AbortSignal
-    vi.stubGlobal('fetch', vi.fn((_url, init: RequestInit) => {
-      internal = init.signal!
-      return Promise.resolve(new Response(JSON.stringify(asset)))
-    }))
+    vi.stubGlobal(
+      'fetch',
+      vi.fn((_url, init: RequestInit) => {
+        internal = init.signal!
+        return Promise.resolve(new Response(JSON.stringify(asset)))
+      }),
+    )
     expect(await prepareDrawingCache(data, layout, undefined, controller.signal)).toBe(true)
     expect(remove).toHaveBeenCalledWith('abort', add.mock.calls[0][1])
     expect(vi.getTimerCount()).toBe(0)
@@ -211,7 +282,10 @@ describe('drawing cache caller cancellation', () => {
     const { data, layout, asset } = await precomputeFixture()
     await installDrawingPrecompute(data, layout, asset)
     const controller = new AbortController()
-    vi.stubGlobal('fetch', vi.fn(() => new Promise<Response>(() => {})))
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(() => new Promise<Response>(() => {})),
+    )
     const result = prepareDrawingCache(data, layout, undefined, controller.signal)
     const rejected = expect(result).rejects.toMatchObject({ name: 'AbortError' })
     controller.abort(null)
@@ -225,7 +299,8 @@ describe('drawing cache caller cancellation', () => {
     const controller = new AbortController()
     for (const response of [
       new Response(JSON.stringify({ ...asset, version: 7 })),
-      new Response('corrupt'), new Response('missing', { status: 404 }),
+      new Response('corrupt'),
+      new Response('missing', { status: 404 }),
     ]) {
       vi.stubGlobal('fetch', vi.fn().mockResolvedValue(response))
       expect(await prepareDrawingCache(data, layout, undefined, controller.signal)).toBe(false)
@@ -243,14 +318,20 @@ describe('drawing cache caller cancellation', () => {
         const { data, layout } = fixture()
         const entered = deferred<void>()
         let internal!: AbortSignal
-        vi.stubGlobal('fetch', vi.fn((_url, init: RequestInit) => {
-          internal = init.signal!
-          if (phase === 'headers') return new Promise<Response>(() => {})
-          return Promise.resolve({ ok: true, arrayBuffer: () => {
-            entered.resolve()
-            return new Promise<ArrayBuffer>(() => {})
-          } })
-        }))
+        vi.stubGlobal(
+          'fetch',
+          vi.fn((_url, init: RequestInit) => {
+            internal = init.signal!
+            if (phase === 'headers') return new Promise<Response>(() => {})
+            return Promise.resolve({
+              ok: true,
+              arrayBuffer: () => {
+                entered.resolve()
+                return new Promise<ArrayBuffer>(() => {})
+              },
+            })
+          }),
+        )
         const controller = new AbortController()
         const result = prepareDrawingCache(data, layout, undefined, callerSignal ? controller.signal : undefined)
         if (phase === 'body') await entered.promise
@@ -270,11 +351,16 @@ describe('drawing cache caller cancellation', () => {
   it('applies the body-phase timeout through awaited hashing without publishing a late entry', async () => {
     const { data, layout, asset } = await precomputeFixture()
     vi.useFakeTimers()
-    const pending = deferred<ArrayBuffer>(), entered = deferred<void>()
-    vi.stubGlobal('crypto', { subtle: { digest: vi.fn(() => {
-      entered.resolve()
-      return pending.promise
-    }) } })
+    const pending = deferred<ArrayBuffer>(),
+      entered = deferred<void>()
+    vi.stubGlobal('crypto', {
+      subtle: {
+        digest: vi.fn(() => {
+          entered.resolve()
+          return pending.promise
+        }),
+      },
+    })
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify(asset))))
     const result = prepareDrawingCache(data, layout)
     await entered.promise
@@ -302,7 +388,8 @@ describe('drawing precompute integrity', () => {
   })
 
   it('keys source content independently of geometry identity, and includes layout', async () => {
-    const a = fixture(), b = fixture()
+    const a = fixture(),
+      b = fixture()
     expect(await drawingCacheKey(a.data, a.layout)).toBe(await drawingCacheKey(b.data, b.layout))
     b.layout.primaryCenter.x = 0.1
     expect(await drawingCacheKey(a.data, a.layout)).not.toBe(await drawingCacheKey(b.data, b.layout))
@@ -335,7 +422,12 @@ describe('drawing precompute integrity', () => {
     ink.line(0, 2, 1, 2, 0.001, 0, 0.2, 0.1, withPenColor(0, PEN_COLOR.graphite))
     ink.line(0, 3, 1, 3, 0.001, 0, 0.3, 0.1, withPenColor(1, PEN_COLOR.graphite)) // dashed graphite
     rememberSheet(data, layout, { ink, marks: { origin: [0, 0] }, stats: { segments: 4, totalMs: 1 } })
-    rememberProfile(data, layout, [[0, 0], [1, 0], [1, 1], [0, 1]])
+    rememberProfile(data, layout, [
+      [0, 0],
+      [1, 0],
+      [1, 1],
+      [0, 1],
+    ])
     const asset = await exportDrawingPrecompute()
     const colours = (segs: number[]) => Array.from({ length: segs.length / 9 }, (_, i) => penColorOf(segs[i * 9 + 8]))
     expect(colours(asset.segs)).toEqual([0, 1, 2, 2])
@@ -351,9 +443,17 @@ describe('drawing precompute integrity', () => {
     const asset = await liveBake(data, layout)
     expect(await installDrawingPrecompute(data, layout, { ...asset, version: DRAWING_CACHE_VERSION - 1 })).toBe(false)
     expect(await installDrawingPrecompute(data, layout, { ...asset, segs: [NaN] })).toBe(false)
-    for (const fields of [{ scaleX: 0 }, { scaleX: -1 }, { scaleX: Infinity }, { rotation: NaN },
-      { color: 'blue' }, { weight: 'synthetic' }]) {
-      expect(await installDrawingPrecompute(data, layout, { ...asset, texts: [{ ...asset.texts[0], ...fields }] })).toBe(false)
+    for (const fields of [
+      { scaleX: 0 },
+      { scaleX: -1 },
+      { scaleX: Infinity },
+      { rotation: NaN },
+      { color: 'blue' },
+      { weight: 'synthetic' },
+    ]) {
+      expect(
+        await installDrawingPrecompute(data, layout, { ...asset, texts: [{ ...asset.texts[0], ...fields }] }),
+      ).toBe(false)
     }
     data.geometry.setIndex([0, 2, 1])
     expect(await installDrawingPrecompute(data, layout, asset)).toBe(false)
@@ -428,7 +528,13 @@ describe('drawing precompute integrity', () => {
       expect(decodeDrawingPrecompute(container.subarray(0, cut))).toBeNull()
     }
     // Corrupt metadata: length/counts that do not add up to the real byteLength.
-    for (const [offset, value] of [[4, 0], [4, 99], [12, 3], [20, 3], [24, 0xffff_ffff]]) {
+    for (const [offset, value] of [
+      [4, 0],
+      [4, 99],
+      [12, 3],
+      [20, 3],
+      [24, 0xffff_ffff],
+    ]) {
       const corrupt = new Uint8Array(container)
       new DataView(corrupt.buffer).setUint32(offset, value, true)
       expect(decodeDrawingPrecompute(corrupt)).toBeNull()

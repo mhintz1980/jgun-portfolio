@@ -64,7 +64,9 @@ export function InspectionControl({ playback, live }: { playback?: InspectionPla
 
   useEffect(() => {
     if (!open || !live) return
-    const sync = () => { if (seekRef.current) seekRef.current.value = String((playback?.snapshot().progress ?? 0) * 100) }
+    const sync = () => {
+      if (seekRef.current) seekRef.current.value = String((playback?.snapshot().progress ?? 0) * 100)
+    }
     sync()
     const timer = window.setInterval(sync, 100)
     return () => window.clearInterval(timer)
@@ -79,8 +81,10 @@ export function InspectionControl({ playback, live }: { playback?: InspectionPla
         aria-expanded={open}
         aria-controls="torque-inspection-detail"
         onClick={() => {
-          if (open) { playback?.close(); triggerRef.current?.focus({ preventScroll: true }) }
-          else if (live) playback?.open()
+          if (open) {
+            playback?.close()
+            triggerRef.current?.focus({ preventScroll: true })
+          } else if (live) playback?.open()
           setOpen(!open)
         }}
       >
@@ -94,21 +98,33 @@ export function InspectionControl({ playback, live }: { playback?: InspectionPla
         hidden={!open}
       >
         <p>
-          Input shaft P001835 carries the 10-tooth sun gear from Detail B. Shaping it needed a
-          relief groove for the cutter, and that groove held the minimum FOS below 1.0 in 4140,
-          4340 and C300. Rotary hobbing needs no groove, so the revised shaft keeps a smooth blank.
-          After the runout check, the Stage 1 carrier (A000591) slides four 12-tooth P000247
-          planets onto the sun for full .250″ face width, and torque runs through the five stages
-          to the square drive. Gear speeds in this study are slowed for viewing.
+          Input shaft P001835 carries the 10-tooth sun gear from Detail B. Shaping it needed a relief groove for the
+          cutter, and that groove held the minimum FOS below 1.0 in 4140, 4340 and C300. Rotary hobbing needs no groove,
+          so the revised shaft keeps a smooth blank. After the runout check, the Stage 1 carrier (A000591) slides four
+          12-tooth P000247 planets onto the sun for full .250″ face width, and torque runs through the five stages to
+          the square drive. Gear speeds in this study are slowed for viewing.
         </p>
-        {live && <div className="torque-inspection__playback">
-          <button type="button" onClick={() => playback?.play()}>Play shaft study</button>
-          <button type="button" onClick={() => playback?.pause()}>Pause shaft study</button>
-          <label>Study position
-            <input ref={seekRef} type="range" min="0" max="100" defaultValue="0"
-              onChange={event => playback?.seek(Number(event.currentTarget.value) / 100)} />
-          </label>
-        </div>}
+        {live && (
+          <div className="torque-inspection__playback">
+            <button type="button" onClick={() => playback?.play()}>
+              Play shaft study
+            </button>
+            <button type="button" onClick={() => playback?.pause()}>
+              Pause shaft study
+            </button>
+            <label>
+              Study position
+              <input
+                ref={seekRef}
+                type="range"
+                min="0"
+                max="100"
+                defaultValue="0"
+                onChange={(event) => playback?.seek(Number(event.currentTarget.value) / 100)}
+              />
+            </label>
+          </div>
+        )}
       </div>
     </div>
   )
@@ -133,7 +149,12 @@ export function Story({ playback, live }: { playback?: InspectionPlayback; live?
       {TORQUE_POSTER_CHAPTERS.map((chapter, index) => {
         const copy = CHAPTER_COPY[chapter.id]
         return (
-          <section key={chapter.id} className="torque-chapter" data-torque-chapter={chapter.id} aria-labelledby={`torque-chapter-${chapter.id}-title`}>
+          <section
+            key={chapter.id}
+            className="torque-chapter"
+            data-torque-chapter={chapter.id}
+            aria-labelledby={`torque-chapter-${chapter.id}-title`}
+          >
             <p className="torque-chapter__index" aria-hidden="true">
               {String(index + 1).padStart(2, '0')}
             </p>

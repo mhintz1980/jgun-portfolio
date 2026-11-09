@@ -4,11 +4,12 @@ import { TORQUE_HUD_STEPS, torqueHudStepText } from './hudCopy'
 
 describe('HUD step copy', () => {
   it('labels every beat except the ending hand-off, with no unknown ids', () => {
-    const ids = TORQUE_BEATS.map(beat => beat.id).filter(id => id !== 'close-ownership')
+    const ids = TORQUE_BEATS.map((beat) => beat.id).filter((id) => id !== 'close-ownership')
     expect(Object.keys(TORQUE_HUD_STEPS).sort()).toEqual([...ids].sort())
   })
   it('keeps every step line short enough not to wrap on narrow', () => {
-    for (const id of Object.keys(TORQUE_HUD_STEPS)) expect(torqueHudStepText(id, TORQUE_HUD_STEPS[id].chapter)!.length).toBeLessThanOrEqual(36)
+    for (const id of Object.keys(TORQUE_HUD_STEPS))
+      expect(torqueHudStepText(id, TORQUE_HUD_STEPS[id].chapter)!.length).toBeLessThanOrEqual(36)
   })
   it('numbers steps only under their own displayed chapter', () => {
     expect(torqueHudStepText('inspection-isolation', 'mechanism')).toBe('03·3  Isolating the input shaft')

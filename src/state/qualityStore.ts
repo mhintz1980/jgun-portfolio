@@ -39,8 +39,7 @@ function detectWebGL2(): boolean {
   }
 }
 
-const reducedMotionQuery =
-  typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)') : null
+const reducedMotionQuery = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)') : null
 
 const state: QualityState = {
   tier: detectWebGL2() ? 'full' : 'poster',
@@ -71,7 +70,8 @@ export function getQuality(): QualityState {
  * via `forcePoster()` — and the explicit proof hook `setTier()` are NOT affected. Never
  * set in production URLs; harness reports must record it.
  */
-export const qualityLocked = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('qualityLock')
+export const qualityLocked =
+  typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('qualityLock')
 
 /** Step down one tier: full → lite → poster. No-op at poster or while `?qualityLock` is set (explicit proof-hook steps still apply). */
 export function degradeQuality(explicit = false): void {

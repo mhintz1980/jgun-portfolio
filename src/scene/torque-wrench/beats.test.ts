@@ -40,7 +40,9 @@ describe('torque beat inventory', () => {
     const rupture = TORQUE_BEATS.find((beat) => beat.id === 'breakthrough-rupture')!
     expect(read.end - read.start).toBeGreaterThan(rupture.end - rupture.start)
     expect(TORQUE_BEATS.find((beat) => beat.interaction === 'bullet-time')).toMatchObject({
-      id: 'inspection-bullet-time', director: 'inspection', poster: 'inspection',
+      id: 'inspection-bullet-time',
+      director: 'inspection',
+      poster: 'inspection',
     })
   })
 
@@ -51,16 +53,21 @@ describe('torque beat inventory', () => {
 
   it('places the ring study at [.46,.505] and places the full shaft before final source extraction', () => {
     const ring = TORQUE_BEATS.find((beat) => beat.id === 'inspection-ring')!
-    expect(ring).toMatchObject({ start: .46, end: .505, poster: 'mechanism', director: 'inspection' })
+    expect(ring).toMatchObject({ start: 0.46, end: 0.505, poster: 'mechanism', director: 'inspection' })
     const ids = ['mechanism-switch', 'inspection-isolation', 'mechanism-extraction', 'mechanism-exploded-hold']
-    const bounds = [[.505, .56], [.56, .62], [.855, .93], [.93, .94]]
+    const bounds = [
+      [0.505, 0.56],
+      [0.56, 0.62],
+      [0.855, 0.93],
+      [0.93, 0.94],
+    ]
     ids.forEach((id, i) => {
-      const beat = TORQUE_BEATS.find(candidate => candidate.id === id)!
-      expect([beat.start,beat.end]).toEqual(bounds[i])
-      expect(beat.poster).toBe(i<1?'mechanism':i<2?'inspection':'close')
+      const beat = TORQUE_BEATS.find((candidate) => candidate.id === id)!
+      expect([beat.start, beat.end]).toEqual(bounds[i])
+      expect(beat.poster).toBe(i < 1 ? 'mechanism' : i < 2 ? 'inspection' : 'close')
     })
-    expect(TORQUE_BEATS.find(beat => beat.id === 'inspection-shaping')).toMatchObject({start:.62,end:.68})
-    expect(TORQUE_BEATS.find((beat) => beat.id === 'breakthrough-emergence')).toMatchObject({ start: .435, end: .46 })
+    expect(TORQUE_BEATS.find((beat) => beat.id === 'inspection-shaping')).toMatchObject({ start: 0.62, end: 0.68 })
+    expect(TORQUE_BEATS.find((beat) => beat.id === 'breakthrough-emergence')).toMatchObject({ start: 0.435, end: 0.46 })
   })
 
   it('leaves the reduced-motion/static chapter output independent of beat coordinates', () => {
@@ -77,7 +84,7 @@ describe('torque beat inventory', () => {
     const timeline = createBeatTimeline(TORQUE_BEATS, TORQUE_DIRECTOR_IDS)
     // Different physical distances normalize to the same canonical input and sample.
     for (const range of [5000, TORQUE_SCROLL_VIEWPORTS * 900, 80000]) {
-      expect(timeline.sample((range / 2) / range)).toEqual(sampleTorqueBeat(0.5))
+      expect(timeline.sample(range / 2 / range)).toEqual(sampleTorqueBeat(0.5))
     }
   })
 })

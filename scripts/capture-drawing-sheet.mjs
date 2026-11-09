@@ -5,7 +5,10 @@ import { chromium } from 'playwright'
 const base = process.argv[2] ?? 'http://localhost:5199'
 const out = process.argv[3] ?? '.scratch/drawing-sheet'
 fs.mkdirSync(out, { recursive: true })
-const browser = await chromium.launch({ channel: 'chrome', args: ['--use-gl=angle', '--enable-gpu', '--ignore-gpu-blocklist'] })
+const browser = await chromium.launch({
+  channel: 'chrome',
+  args: ['--use-gl=angle', '--enable-gpu', '--ignore-gpu-blocklist'],
+})
 try {
   const page = await browser.newPage({ viewport: { width: 1600, height: 900 } })
   page.on('pageerror', (e) => console.error('pageerror', String(e)))

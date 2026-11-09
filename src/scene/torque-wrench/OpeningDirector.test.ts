@@ -1,16 +1,25 @@
 import { expect, it } from 'vitest'
-import { breakthroughSubjectTimeAt, bulletTimeRiseFloor, BULLET_TIME_RISE_PAST_CROSSING, breakthroughTimeAt, createOpeningSampler, openingTimeAt, sampleOpening,
-  SHATTER_SUBJECT_KNOTS } from './OpeningDirector'
+import {
+  breakthroughSubjectTimeAt,
+  bulletTimeRiseFloor,
+  BULLET_TIME_RISE_PAST_CROSSING,
+  breakthroughTimeAt,
+  createOpeningSampler,
+  openingTimeAt,
+  sampleOpening,
+  SHATTER_SUBJECT_KNOTS,
+} from './OpeningDirector'
 import { TORQUE_PACING_SCALE, torqueScrollFraction } from './scrollPacing'
 import { BULLET_TIME_RATE } from './bulletTime'
 import { drawingIntroState, DRAWING_INTRO_WINDOW } from '../drawing/introTimeline'
 
 it('suspends breakthrough physics while the continuous camera path keeps moving', () => {
-  const a = .868, b = .922
-  expect(breakthroughTimeAt(b) - breakthroughTimeAt(a)).toBeLessThan((b - a) * .15)
-  expect(breakthroughTimeAt(.84)).toBe(.84)
+  const a = 0.868,
+    b = 0.922
+  expect(breakthroughTimeAt(b) - breakthroughTimeAt(a)).toBeLessThan((b - a) * 0.15)
+  expect(breakthroughTimeAt(0.84)).toBe(0.84)
   expect(breakthroughTimeAt(1)).toBe(1)
-  const times = [.84, .85, .86, .89, .93, .95, .99, 1]
+  const times = [0.84, 0.85, 0.86, 0.89, 0.93, 0.95, 0.99, 1]
   const forward = times.map(breakthroughTimeAt)
   expect(times.slice().reverse().map(breakthroughTimeAt).reverse()).toEqual(forward)
   expect(forward.every((t, i) => !i || t >= forward[i - 1])).toBe(true)
@@ -20,9 +29,15 @@ it('aligns intact pressure, first rupture and completed emergence to canonical b
   expect(openingTimeAt(0.395)).toBeCloseTo(0.79)
   expect(openingTimeAt(0.42)).toBeCloseTo(0.84)
   expect(openingTimeAt(0.46)).toBe(1)
-  const samples = [0, .265, .32, .36, .395, .42, .435, .46, 1]
-  const forward = samples.map(p => sampleOpening(p))
-  expect(samples.slice().reverse().map(p => sampleOpening(p)).reverse()).toEqual(forward)
+  const samples = [0, 0.265, 0.32, 0.36, 0.395, 0.42, 0.435, 0.46, 1]
+  const forward = samples.map((p) => sampleOpening(p))
+  expect(
+    samples
+      .slice()
+      .reverse()
+      .map((p) => sampleOpening(p))
+      .reverse(),
+  ).toEqual(forward)
   expect(() => openingTimeAt(NaN)).toThrow()
   for (let i = 1; i < samples.length; i++) expect(forward[i].t).toBeGreaterThanOrEqual(forward[i - 1].t)
 })
@@ -35,8 +50,9 @@ it('installs a solved crossing while progress is held, then freezes the exact sa
   const installed = sample(progress, 0.865)
   expect(installed).toEqual(sampleOpening(progress, 0.865))
   expect(installed).not.toBe(fallback) // crossing invalidates even when both waves have not begun
-  const sensitiveProgress = Array.from({ length: 1001 }, (_, i) => i * 0.46 / 1000)
-    .find(p => sampleOpening(p, 0.865).lightSweepPosition !== sampleOpening(p, 0.9).lightSweepPosition)
+  const sensitiveProgress = Array.from({ length: 1001 }, (_, i) => (i * 0.46) / 1000).find(
+    (p) => sampleOpening(p, 0.865).lightSweepPosition !== sampleOpening(p, 0.9).lightSweepPosition,
+  )
   expect(sensitiveProgress).toBeDefined()
   const beforeWave = sample(sensitiveProgress!, 0.9)
   const solvedWave = sample(sensitiveProgress!, 0.865)
@@ -63,13 +79,16 @@ it('starts cracking shortly after lights-out, completes in 4 bursts with C1 hold
   expect(firstBurst.sparkAnticipation).toBe(0)
 
   // Exact plateaus in the 3 holds between the 4 outline bursts:
-  const hold1A = sampleOpening(0.356), hold1B = sampleOpening(0.362)
+  const hold1A = sampleOpening(0.356),
+    hold1B = sampleOpening(0.362)
   expect(hold1A.pulseHead).toBeCloseTo(0.24, 6)
   expect(hold1B.pulseHead).toBeCloseTo(0.24, 6)
-  const hold2A = sampleOpening(0.371), hold2B = sampleOpening(0.374)
+  const hold2A = sampleOpening(0.371),
+    hold2B = sampleOpening(0.374)
   expect(hold2A.pulseHead).toBeCloseTo(0.52, 6)
   expect(hold2B.pulseHead).toBeCloseTo(0.52, 6)
-  const hold3A = sampleOpening(0.379), hold3B = sampleOpening(0.380)
+  const hold3A = sampleOpening(0.379),
+    hold3B = sampleOpening(0.38)
   expect(hold3A.pulseHead).toBeCloseTo(0.82, 6)
   expect(hold3B.pulseHead).toBeCloseTo(0.82, 6)
 
@@ -80,7 +99,9 @@ it('starts cracking shortly after lights-out, completes in 4 bursts with C1 hold
   expect(sampleOpening(0.407).crackGrowth).toBe(1)
 
   // Monotone completion and C1 continuity across the entire electrical window.
-  let prevHead = 0, prevWeb = 0, prevHeadStep = 0
+  let prevHead = 0,
+    prevWeb = 0,
+    prevHeadStep = 0
   for (let i = 0; i <= 400; i++) {
     const p = 0.34 + (i / 400) * 0.08
     const s = sampleOpening(p)
@@ -88,7 +109,9 @@ it('starts cracking shortly after lights-out, completes in 4 bursts with C1 hold
     expect(s.crackGrowth).toBeGreaterThanOrEqual(prevWeb - 1e-12)
     const headStep = s.pulseHead - prevHead
     if (i > 1) expect(Math.abs(headStep - prevHeadStep)).toBeLessThan(0.025)
-    prevHead = s.pulseHead; prevWeb = s.crackGrowth; prevHeadStep = headStep
+    prevHead = s.pulseHead
+    prevWeb = s.crackGrowth
+    prevHeadStep = headStep
   }
 
   // Shatter (fracture) boundaries remain unchanged at progress 0.42..0.46.
@@ -100,13 +123,16 @@ it('starts cracking shortly after lights-out, completes in 4 bursts with C1 hold
 
 const fnv = (text: string, seed: number) => {
   let h = seed >>> 0
-  for (let i = 0; i < text.length; i++) { h ^= text.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0 }
+  for (let i = 0; i < text.length; i++) {
+    h ^= text.charCodeAt(i)
+    h = Math.imul(h, 16777619) >>> 0
+  }
   return h.toString(16)
 }
 /** Measured native document range: 39442.74 px / 900 px viewport. */
 const BASE_VIEWPORTS = 43.825
 const nativeViewports = (p: number) => torqueScrollFraction(p) * TORQUE_PACING_SCALE * BASE_VIEWPORTS
-const event = (t: number) => Math.max(0, Math.min(1, (t - .84) / .04))
+const event = (t: number) => Math.max(0, Math.min(1, (t - 0.84) / 0.04))
 
 it('leaves every full IntroState through progress .42 byte-identical to the pre-T6 opening', () => {
   // Digests recorded from the unmodified source: 4,201 serialized states at p = i * 1e-4 and .42.
@@ -122,85 +148,93 @@ it('leaves every full IntroState through progress .42 byte-identical to the pre-
 })
 
 it('runs the shatter subject clock monotone, C1 at .42, ending exactly at t = 1', () => {
-  expect(SHATTER_SUBJECT_KNOTS[0]).toEqual([.42, .84])
+  expect(SHATTER_SUBJECT_KNOTS[0]).toEqual([0.42, 0.84])
   // Plateau start is the exact integral of the entry-knee ratio (not an authored constant); the plateau end
   // adds exactly rate * the un-dilated opening-clock displacement.
   expect(SHATTER_SUBJECT_KNOTS[2][1]).toBeCloseTo(
-    SHATTER_SUBJECT_KNOTS[1][1] + (openingTimeAt(.452) - openingTimeAt(.43008)) * BULLET_TIME_RATE, 12,
+    SHATTER_SUBJECT_KNOTS[1][1] + (openingTimeAt(0.452) - openingTimeAt(0.43008)) * BULLET_TIME_RATE,
+    12,
   )
-  expect(SHATTER_SUBJECT_KNOTS[2][1]).toBeGreaterThan(.857)
-  expect(breakthroughSubjectTimeAt(.46)).toBe(1)
+  expect(SHATTER_SUBJECT_KNOTS[2][1]).toBeGreaterThan(0.857)
+  expect(breakthroughSubjectTimeAt(0.46)).toBe(1)
   expect(breakthroughSubjectTimeAt(1)).toBe(1)
   expect(() => breakthroughSubjectTimeAt(NaN)).toThrow()
   let prior = -1
   for (let i = 0; i <= 8000; i++) {
-    const t = breakthroughSubjectTimeAt(.4 + i * 1e-5)
+    const t = breakthroughSubjectTimeAt(0.4 + i * 1e-5)
     expect(t).toBeGreaterThanOrEqual(prior)
     prior = t
   }
   const h = 1e-6
-  const normalRate = (openingTimeAt(.43612 + h) - openingTimeAt(.43612 - h)) / (2 * h)
-  const subjectRate = (breakthroughSubjectTimeAt(.43612 + h) - breakthroughSubjectTimeAt(.43612 - h)) / (2 * h)
+  const normalRate = (openingTimeAt(0.43612 + h) - openingTimeAt(0.43612 - h)) / (2 * h)
+  const subjectRate = (breakthroughSubjectTimeAt(0.43612 + h) - breakthroughSubjectTimeAt(0.43612 - h)) / (2 * h)
   expect(subjectRate / normalRate).toBeCloseTo(BULLET_TIME_RATE, 6)
-  for (const boundary of [.43008, .452]) {
+  for (const boundary of [0.43008, 0.452]) {
     const epsilon = 1e-7
-    const leftRatio = ((breakthroughSubjectTimeAt(boundary) - breakthroughSubjectTimeAt(boundary - epsilon))
-      / (openingTimeAt(boundary) - openingTimeAt(boundary - epsilon)))
-    const rightRatio = ((breakthroughSubjectTimeAt(boundary + epsilon) - breakthroughSubjectTimeAt(boundary))
-      / (openingTimeAt(boundary + epsilon) - openingTimeAt(boundary)))
+    const leftRatio =
+      (breakthroughSubjectTimeAt(boundary) - breakthroughSubjectTimeAt(boundary - epsilon)) /
+      (openingTimeAt(boundary) - openingTimeAt(boundary - epsilon))
+    const rightRatio =
+      (breakthroughSubjectTimeAt(boundary + epsilon) - breakthroughSubjectTimeAt(boundary)) /
+      (openingTimeAt(boundary + epsilon) - openingTimeAt(boundary))
     expect(leftRatio).toBeCloseTo(BULLET_TIME_RATE, 3)
     expect(rightRatio).toBeCloseTo(BULLET_TIME_RATE, 3)
     expect(Math.abs(leftRatio - rightRatio)).toBeLessThan(0.002)
   }
-  const left = (breakthroughSubjectTimeAt(.42) - breakthroughSubjectTimeAt(.42 - h)) / h
-  const right = (breakthroughSubjectTimeAt(.42 + h) - breakthroughSubjectTimeAt(.42)) / h
+  const left = (breakthroughSubjectTimeAt(0.42) - breakthroughSubjectTimeAt(0.42 - h)) / h
+  const right = (breakthroughSubjectTimeAt(0.42 + h) - breakthroughSubjectTimeAt(0.42)) / h
   expect(Math.abs(right - left)).toBeLessThan(1e-3)
   // Seek and reverse evaluation are order independent.
-  const ps = Array.from({ length: 41 }, (_, i) => .42 + i * .001)
+  const ps = Array.from({ length: 41 }, (_, i) => 0.42 + i * 0.001)
   expect(ps.slice().reverse().map(breakthroughSubjectTimeAt).reverse()).toEqual(ps.map(breakthroughSubjectTimeAt))
 })
 
 it('holds shard separation nearly still, then releases within the native-viewport rate bound', () => {
-  const hold = [.43008, .452]
-  const e0 = event(breakthroughSubjectTimeAt(hold[0])), e1 = event(breakthroughSubjectTimeAt(hold[1]))
+  const hold = [0.43008, 0.452]
+  const e0 = event(breakthroughSubjectTimeAt(hold[0])),
+    e1 = event(breakthroughSubjectTimeAt(hold[1]))
   expect(e1 - e0).toBeGreaterThan(0)
-  expect(e1 - e0).toBeLessThanOrEqual(.25)
+  expect(e1 - e0).toBeLessThanOrEqual(0.25)
   expect(nativeViewports(hold[1]) - nativeViewports(hold[0])).toBeGreaterThan(2)
   let peak = 0
   const h = 1e-6
-  for (let p = .42; p <= .46; p += 2e-5) {
-    const rate = (event(breakthroughSubjectTimeAt(p + h)) - event(breakthroughSubjectTimeAt(p - h)))
-      / (nativeViewports(p + h) - nativeViewports(p - h))
+  for (let p = 0.42; p <= 0.46; p += 2e-5) {
+    const rate =
+      (event(breakthroughSubjectTimeAt(p + h)) - event(breakthroughSubjectTimeAt(p - h))) /
+      (nativeViewports(p + h) - nativeViewports(p - h))
     peak = Math.max(peak, rate)
-    if (p >= hold[0] && p <= hold[1]) expect(rate).toBeLessThan(.12)
+    if (p >= hold[0] && p <= hold[1]) expect(rate).toBeLessThan(0.12)
   }
   expect(peak).toBeLessThanOrEqual(1.5)
-  expect(sampleOpening(.46).t).toBe(1)
+  expect(sampleOpening(0.46).t).toBe(1)
 })
 
 it('keeps the post-shatter glow fade and lamp return tightly joined to the pre-T6 clock', () => {
   const legacy = (p: number) => breakthroughTimeAt(openingTimeAt(p))
   const invert = (clock: (p: number) => number, t: number) => {
-    let low = .42, high = .46
+    let low = 0.42,
+      high = 0.46
     for (let i = 0; i < 60; i++) {
       const mid = (low + high) / 2
-      if (clock(mid) < t) low = mid; else high = mid
+      if (clock(mid) < t) low = mid
+      else high = mid
     }
     return (low + high) / 2
   }
-  for (const t of [.9, .92, .94, .96, .98, .99]) {
-    expect(Math.abs(invert(breakthroughSubjectTimeAt, t) - invert(legacy, t))).toBeLessThanOrEqual(.01)
+  for (const t of [0.9, 0.92, 0.94, 0.96, 0.98, 0.99]) {
+    expect(Math.abs(invert(breakthroughSubjectTimeAt, t) - invert(legacy, t))).toBeLessThanOrEqual(0.01)
   }
   // Owner extended the airborne hold on 2026-10-21; the release now lands at
   // .456 and still completes before the Ring Switch window at .46.
-  expect(invert(breakthroughSubjectTimeAt, .88)).toBeLessThanOrEqual(.456)
+  expect(invert(breakthroughSubjectTimeAt, 0.88)).toBeLessThanOrEqual(0.456)
 })
 
-it.each([0.6, 0.865, 0.9])('continues lifting without an intermediate plateau to .46, crossing %s', crossing => {
+it.each([0.6, 0.865, 0.9])('continues lifting without an intermediate plateau to .46, crossing %s', (crossing) => {
   expect(bulletTimeRiseFloor(0.42, crossing)).toBe(0)
   let last = sampleOpening(0.42, crossing).poseT
   for (let n = 1; n <= 4000; n++) {
-    const p = 0.42 + 0.04 * n / 4000, pose = sampleOpening(p, crossing).poseT
+    const p = 0.42 + (0.04 * n) / 4000,
+      pose = sampleOpening(p, crossing).poseT
     expect(pose, 'strict ascent at ' + p).toBeGreaterThan(last)
     expect(pose).toBeLessThanOrEqual(1)
     last = pose
@@ -217,8 +251,14 @@ it.each([0.6, 0.865, 0.9])('continues lifting without an intermediate plateau to
     const right = (sampleOpening(p + h, crossing).poseT - pose) / h
     expect(Math.abs(left - right), 'C1 join at ' + p).toBeLessThan(0.002)
   }
-  const ps = [.46, .452, .455, .43008, .42, .4599, .436]
-  expect(ps.slice().reverse().map(p => sampleOpening(p, crossing)).reverse()).toEqual(ps.map(p => sampleOpening(p, crossing)))
+  const ps = [0.46, 0.452, 0.455, 0.43008, 0.42, 0.4599, 0.436]
+  expect(
+    ps
+      .slice()
+      .reverse()
+      .map((p) => sampleOpening(p, crossing))
+      .reverse(),
+  ).toEqual(ps.map((p) => sampleOpening(p, crossing)))
 })
 
 it('keeps fracture, pressure and the electrical subject clock independent of the new pose path', () => {

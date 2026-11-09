@@ -3,11 +3,7 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { Group, Vector2 } from 'three'
 import type { ExtractionContext } from '../drawing/poseCore'
 import type { SheetBakeResult } from '../drawing/sheet/sheetBake'
-import {
-  createPrivateSheetRuntime,
-  type DrawingFrameInput,
-  type PrivateSheetRuntime,
-} from './privateSheetRuntime'
+import { createPrivateSheetRuntime, type DrawingFrameInput, type PrivateSheetRuntime } from './privateSheetRuntime'
 
 export interface PrivateSheetProps {
   baked: SheetBakeResult
@@ -29,7 +25,7 @@ export function PrivateSheet({ baked, frame, context, onCleanupFailure, onRuntim
   // Allocate after commit, not useMemo/render: StrictMode cleanup then remount
   // creates a fresh presentation while preserving the parent's borrowed bake.
   useLayoutEffect(() => {
-    const presentation = createPrivateSheetRuntime(baked, errors => latest.current.onCleanupFailure(errors))
+    const presentation = createPrivateSheetRuntime(baked, (errors) => latest.current.onCleanupFailure(errors))
     try {
       mount.current!.add(presentation.group)
       // Compile hidden rupture materials against the installed lights/environment
@@ -44,7 +40,9 @@ export function PrivateSheet({ baked, frame, context, onCleanupFailure, onRuntim
         // light is not counted again as both target-scene and subtree lighting.
         gl.compile(scene, camera)
         presentation.stats.shaderWarmReady = 1
-      } finally { presentation.group.visible = visible }
+      } finally {
+        presentation.group.visible = visible
+      }
       runtime.current = presentation
       latest.current.onRuntime(presentation)
     } catch (error) {
@@ -54,7 +52,11 @@ export function PrivateSheet({ baked, frame, context, onCleanupFailure, onRuntim
     }
     return () => {
       if (runtime.current === presentation) runtime.current = null
-      try { latest.current.onRuntime(null) } finally { presentation.dispose() }
+      try {
+        latest.current.onRuntime(null)
+      } finally {
+        presentation.dispose()
+      }
     }
   }, [baked, gl, camera, scene])
 

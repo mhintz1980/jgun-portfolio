@@ -27,7 +27,9 @@ export default function ShowreelSection() {
       if (autoPausing) autoPausing = false
       else viewerPaused = true
     }
-    const onPlay = () => { viewerPaused = false }
+    const onPlay = () => {
+      viewerPaused = false
+    }
     video.addEventListener('pause', onPause)
     video.addEventListener('play', onPlay)
     const observer = new IntersectionObserver(

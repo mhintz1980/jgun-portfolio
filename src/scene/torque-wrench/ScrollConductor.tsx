@@ -6,10 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import { torqueNarrativeProgress } from './scrollPacing'
 import type { TorqueWrenchStore } from '../../state/torqueWrenchStore'
-import {
-  createTorqueScrollConductor,
-  type TorqueConductorDependencies,
-} from './conductorRuntime'
+import { createTorqueScrollConductor, type TorqueConductorDependencies } from './conductorRuntime'
 
 let scrollTriggerRegistered = false
 
@@ -44,8 +41,12 @@ export function installScrollConductor(
       dependencies.registerPlugin()
       scrollTriggerRegistered = true
     }
-    const conductor = createTorqueScrollConductor({ store, ...dependencies,
-      mapScrollProgress: torqueNarrativeProgress, onCleanupFailure: onFailure })
+    const conductor = createTorqueScrollConductor({
+      store,
+      ...dependencies,
+      mapScrollProgress: torqueNarrativeProgress,
+      onCleanupFailure: onFailure,
+    })
     return () => conductor.dispose()
   } catch (error) {
     onFailure(error)

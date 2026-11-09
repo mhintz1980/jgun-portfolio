@@ -13,7 +13,10 @@ export default function CinematicRigRoute() {
   const modelPath = resolveRigModel(window.location.search)
 
   return (
-    <div id="cinematic-scroll-container" style={{ position: 'relative', width: '100%', height: '100vh', background: '#05070a' }}>
+    <div
+      id="cinematic-scroll-container"
+      style={{ position: 'relative', width: '100%', height: '100vh', background: '#05070a' }}
+    >
       <Canvas gl={{ antialias: false, powerPreference: 'high-performance' }} dpr={[1, 1.5]}>
         <color attach="background" args={['#05070a']} />
         <Suspense fallback={null}>

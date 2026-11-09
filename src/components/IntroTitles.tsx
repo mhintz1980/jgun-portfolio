@@ -130,7 +130,10 @@ export function IntroTitles() {
             ))}
           </h2>
           {card.body && (
-            <p data-body className="mt-5 max-w-[30rem] font-mono text-[12px] leading-relaxed tracking-[0.06em] opacity-0">
+            <p
+              data-body
+              className="mt-5 max-w-[30rem] font-mono text-[12px] leading-relaxed tracking-[0.06em] opacity-0"
+            >
               {card.body}
             </p>
           )}

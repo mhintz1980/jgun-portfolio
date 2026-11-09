@@ -1,6 +1,9 @@
 // Local copies: introTimeline imports this module, so importing back would create a cycle.
 const clamp01 = (x: number): number => Math.max(0, Math.min(1, x))
-const smooth01 = (x: number): number => { const t = clamp01(x); return t * t * (3 - 2 * t) }
+const smooth01 = (x: number): number => {
+  const t = clamp01(x)
+  return t * t * (3 - 2 * t)
+}
 
 /**
  * JG-035 owner revision O1 (2026-10-07) — the electrical outline as a crack that bursts,
@@ -27,7 +30,12 @@ export const OUTLINE_START_T = 0.765
 export const OUTLINE_BURST_SECONDS = 1.25
 
 /** One burst: perimeter completion travels `from` -> `to` between `t0` and `t1` calibration seconds. */
-export interface BurstKey { t0: number; t1: number; from: number; to: number }
+export interface BurstKey {
+  t0: number
+  t1: number
+  from: number
+  to: number
+}
 
 /**
  * Owner-specified rhythm: fast burst, brief pause, farther burst, shorter pause ... until the
@@ -52,7 +60,10 @@ export function burstProgress(elapsed: number): number {
   if (elapsed <= 0) return 0
   let value = 0
   for (const key of BURST_KEYS) {
-    if (elapsed >= key.t1) { value = key.to; continue }
+    if (elapsed >= key.t1) {
+      value = key.to
+      continue
+    }
     if (elapsed > key.t0) return key.from + (key.to - key.from) * smooth01((elapsed - key.t0) / (key.t1 - key.t0))
     return value
   }
@@ -63,7 +74,8 @@ export function burstProgress(elapsed: number): number {
 export const electricalElapsed = (t: number): number => CALIBRATION_SWEEP_SECONDS * (t * 0.5 - OUTLINE_START_RAW)
 
 /** Intro t at which a calibration second occurs. Inverse of `electricalElapsed`. */
-export const electricalTimeAt = (seconds: number): number => 2 * (seconds / CALIBRATION_SWEEP_SECONDS + OUTLINE_START_RAW)
+export const electricalTimeAt = (seconds: number): number =>
+  2 * (seconds / CALIBRATION_SWEEP_SECONDS + OUTLINE_START_RAW)
 
 export const BRANCH_START_T = electricalTimeAt(BRANCH_START_SECONDS)
 export const BRANCH_END_T = electricalTimeAt(BRANCH_START_SECONDS + OUTLINE_BURST_SECONDS)
@@ -82,7 +94,13 @@ export interface ElectricalSample {
   branchElapsed: number
 }
 
-export const newElectricalSample = (): ElectricalSample => ({ outline: 0, branch: 0, anticipation: 0, elapsed: 0, branchElapsed: 0 })
+export const newElectricalSample = (): ElectricalSample => ({
+  outline: 0,
+  branch: 0,
+  anticipation: 0,
+  elapsed: 0,
+  branchElapsed: 0,
+})
 
 /**
  * @param t intro-normalised scroll time

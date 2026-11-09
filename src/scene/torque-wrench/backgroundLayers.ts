@@ -27,9 +27,7 @@ export interface BackgroundSample {
 }
 
 function srgbToLinear(channel: number): number {
-  return channel <= 0.04045
-    ? channel / 12.92
-    : ((channel + 0.055) / 1.055) ** 2.4
+  return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4
 }
 
 function linearColor(r: number, g: number, b: number): [number, number, number] {
@@ -55,21 +53,21 @@ const LAYER_SCALE = Object.freeze([
 
 const LAYER_COLOR = Object.freeze([
   Object.freeze([
-    linearColor(0.09, 0.10, 0.13),
+    linearColor(0.09, 0.1, 0.13),
     linearColor(0.095, 0.11, 0.14),
-    linearColor(0.09, 0.10, 0.13),
+    linearColor(0.09, 0.1, 0.13),
     linearColor(0.085, 0.095, 0.12),
-    linearColor(0.09, 0.10, 0.13),
+    linearColor(0.09, 0.1, 0.13),
     linearColor(0.085, 0.095, 0.12),
     linearColor(0.08, 0.09, 0.115),
   ]),
   Object.freeze([
-    linearColor(0.22, 0.21, 0.20),
+    linearColor(0.22, 0.21, 0.2),
     linearColor(0.23, 0.22, 0.21),
-    linearColor(0.22, 0.21, 0.20),
-    linearColor(0.21, 0.20, 0.19),
-    linearColor(0.22, 0.21, 0.20),
-    linearColor(0.22, 0.21, 0.20),
+    linearColor(0.22, 0.21, 0.2),
+    linearColor(0.21, 0.2, 0.19),
+    linearColor(0.22, 0.21, 0.2),
+    linearColor(0.22, 0.21, 0.2),
     linearColor(0.225, 0.215, 0.205),
   ]),
   Object.freeze([
@@ -78,7 +76,7 @@ const LAYER_COLOR = Object.freeze([
     linearColor(0.45, 0.42, 0.38),
     linearColor(0.44, 0.415, 0.375),
     linearColor(0.43, 0.405, 0.37),
-    linearColor(0.425, 0.40, 0.365),
+    linearColor(0.425, 0.4, 0.365),
     linearColor(0.42, 0.395, 0.36),
   ]),
 ])

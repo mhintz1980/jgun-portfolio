@@ -36,7 +36,12 @@ export default function ThemeToggle() {
           ) : (
             <svg width="18" height="18" viewBox="0 0 16 16" focusable="false">
               <circle cx="8" cy="8" r="3.2" fill="currentColor" />
-              <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.4 1.4M11.6 11.6 13 13M3 13l1.4-1.4M11.6 4.4 13 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              <path
+                d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.4 1.4M11.6 11.6 13 13M3 13l1.4-1.4M11.6 4.4 13 3"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+              />
             </svg>
           )}
         </span>

@@ -3,8 +3,18 @@ import { storyChapterAt } from '../story'
 import { shaftBeat, shaftBeats, shaftStory } from './story'
 import { CASCADE_REVEAL_EVENTS } from './schedule'
 import {
-  createShaftScriptFrame, sampleShaftScript, SHAFT_ATTRIBUTION_TEXT, SHAFT_CARD_GAP, SHAFT_CARD_TEXT, SHAFT_IMPULSE,
-  SHAFT_CAPTION_TEXT, SHAFT_MATERIAL_ATTEMPTS, SHAFT_RECAP_CAPTION_TEXT, SHAFT_READABLE, SHAFT_STAMP_TEXT, type ShaftScriptFrame,
+  createShaftScriptFrame,
+  sampleShaftScript,
+  SHAFT_ATTRIBUTION_TEXT,
+  SHAFT_CARD_GAP,
+  SHAFT_CARD_TEXT,
+  SHAFT_IMPULSE,
+  SHAFT_CAPTION_TEXT,
+  SHAFT_MATERIAL_ATTEMPTS,
+  SHAFT_RECAP_CAPTION_TEXT,
+  SHAFT_READABLE,
+  SHAFT_STAMP_TEXT,
+  type ShaftScriptFrame,
 } from './script'
 
 const STEP = 1 / 240
@@ -14,8 +24,25 @@ const samples = (from: number, to: number): number[] => {
   for (let t = from; t <= to + STEP / 2; t += STEP) times.push(Math.min(t, to))
   return times
 }
-const snapshot = (f: ShaftScriptFrame): string => JSON.stringify([f.card, f.cardText, f.cardOpacity, f.stamp, f.stampScale, f.attribution, f.remainingTeeth, f.stressIllustrative, f.stress, f.stressMix, f.scanProgress, f.caption, f.captionText, f.discrete])
-const signature = (f: ShaftScriptFrame): string => [f.card, f.stamp, f.attribution, f.remainingTeeth, f.stressIllustrative, f.stress, f.caption].join('|')
+const snapshot = (f: ShaftScriptFrame): string =>
+  JSON.stringify([
+    f.card,
+    f.cardText,
+    f.cardOpacity,
+    f.stamp,
+    f.stampScale,
+    f.attribution,
+    f.remainingTeeth,
+    f.stressIllustrative,
+    f.stress,
+    f.stressMix,
+    f.scanProgress,
+    f.caption,
+    f.captionText,
+    f.discrete,
+  ])
+const signature = (f: ShaftScriptFrame): string =>
+  [f.card, f.stamp, f.attribution, f.remainingTeeth, f.stressIllustrative, f.stress, f.caption].join('|')
 const visibleCard = (t: number): string => {
   const f = sampleShaftScript(t, false, createShaftScriptFrame())
   return f.cardOpacity > 0.05 ? f.card : 'none'
@@ -27,16 +54,30 @@ describe('shaft story metadata', () => {
     expect(shaftStory.kind).toBe('shaft')
     expect(shaftStory.version).toBe(1)
     expect(shaftStory.duration).toBe(66.9)
-    expect(shaftStory.chapters.map(c => [c.id, c.label, c.start, c.end])).toEqual([
+    expect(shaftStory.chapters.map((c) => [c.id, c.label, c.start, c.end])).toEqual([
       ['why-groove', 'Why the groove was needed', 0, 15],
       ['materials', 'Material attempts', 15, 22.6],
       ['process', 'Changing the process', 22.6, 35],
       ['stage1-cascade', 'Planetary mesh and driveline cascade', 35, 66.9],
     ])
     expect(shaftStory.assets).toHaveLength(2)
-    expect({ ...shaftStory.assets[0] }).toEqual({ id: 'manufacturing-core', url: 'models/manufacturing-core-full.glb', tier: 'full', required: true, maxBytes: 2 * 1024 * 1024, sha256: null })
-    expect({ ...shaftStory.assets[1] }).toEqual({ id: 'manufacturing-core', url: 'models/manufacturing-core-lite.glb', tier: 'lite', required: false, maxBytes: 2 * 1024 * 1024, sha256: null })
-    expect(shaftStory.assets.filter(a => a.required)).toHaveLength(1)
+    expect({ ...shaftStory.assets[0] }).toEqual({
+      id: 'manufacturing-core',
+      url: 'models/manufacturing-core-full.glb',
+      tier: 'full',
+      required: true,
+      maxBytes: 2 * 1024 * 1024,
+      sha256: null,
+    })
+    expect({ ...shaftStory.assets[1] }).toEqual({
+      id: 'manufacturing-core',
+      url: 'models/manufacturing-core-lite.glb',
+      tier: 'lite',
+      required: false,
+      maxBytes: 2 * 1024 * 1024,
+      sha256: null,
+    })
+    expect(shaftStory.assets.filter((a) => a.required)).toHaveLength(1)
     expect([...shaftStory.entryWindow]).toEqual([0.12, 0.525])
     expect(shaftStory.staticAlt).toBe('shaft-study')
     expect(Object.isFrozen(shaftStory)).toBe(true)
@@ -61,7 +102,7 @@ describe('shaft story metadata', () => {
     expect(storyChapterAt(shaftStory, 66.9)).toBe(3)
   })
   it('exports one frozen contiguous beat table covering 0..66.9', () => {
-    expect(shaftBeats.map(b => [b.id, b.start, b.end])).toEqual([
+    expect(shaftBeats.map((b) => [b.id, b.start, b.end])).toEqual([
       ['isolate', 0, 2],
       ['shaping', 2, 6],
       ['slow-exit', 6, 11],
@@ -104,16 +145,16 @@ describe('authored strings', () => {
       for (const dash of dashLike) expect(text).not.toContain(dash)
       for (const ch of text) if (ch === '-') expect(ch.charCodeAt(0)).toBe(0x2d)
     }
-    expect([...SHAFT_RECAP_CAPTION_TEXT].filter(ch => ch === '—')).toHaveLength(1)
+    expect([...SHAFT_RECAP_CAPTION_TEXT].filter((ch) => ch === '—')).toHaveLength(1)
     expect(SHAFT_RECAP_CAPTION_TEXT).not.toContain('-')
-    for (const dash of dashLike.filter(d => d !== '—')) expect(SHAFT_RECAP_CAPTION_TEXT).not.toContain(dash)
+    for (const dash of dashLike.filter((d) => d !== '—')) expect(SHAFT_RECAP_CAPTION_TEXT).not.toContain(dash)
   })
 })
 
 describe('material attempt schedule', () => {
   it('uses 2.8, 2.5 and 2.3 s attempts starting at 15 inside the materials beat', () => {
-    expect(SHAFT_MATERIAL_ATTEMPTS.map(a => a.card)).toEqual(['4140', '4340', 'c300'])
-    const lengths = SHAFT_MATERIAL_ATTEMPTS.map(a => a.end - a.start)
+    expect(SHAFT_MATERIAL_ATTEMPTS.map((a) => a.card)).toEqual(['4140', '4340', 'c300'])
+    const lengths = SHAFT_MATERIAL_ATTEMPTS.map((a) => a.end - a.start)
     expect(lengths[0]).toBeCloseTo(2.8, 9)
     expect(lengths[1]).toBeCloseTo(2.5, 9)
     expect(lengths[2]).toBeCloseTo(2.3, 9)
@@ -294,9 +335,14 @@ describe('determinism, reduced motion and the discrete key', () => {
     const frame = createShaftScriptFrame()
     for (const reducedMotion of [false, true]) {
       for (const [time, caption] of [
-        [34.999999, 'none'], [35, 'stage1-mesh'], [38.499999, 'stage1-mesh'],
-        [38.5, 'bullet-time'], [40.199999, 'bullet-time'], [40.2, 'driveline-cascade'],
-        [66.9, 'driveline-cascade'], [99, 'driveline-cascade'],
+        [34.999999, 'none'],
+        [35, 'stage1-mesh'],
+        [38.499999, 'stage1-mesh'],
+        [38.5, 'bullet-time'],
+        [40.199999, 'bullet-time'],
+        [40.2, 'driveline-cascade'],
+        [66.9, 'driveline-cascade'],
+        [99, 'driveline-cascade'],
       ] as const) {
         expect(sampleShaftScript(time, reducedMotion, frame)).toBe(frame)
         expect(frame.caption).toBe(caption)
@@ -310,11 +356,16 @@ describe('determinism, reduced motion and the discrete key', () => {
   })
   it('keeps one announcement identity within each phase across forward, reverse and random seeks', () => {
     const frame = createShaftScriptFrame()
-    const phases = [[35, 38.5], [38.5, 40.2], [40.2, 66.9]] as const
+    const phases = [
+      [35, 38.5],
+      [38.5, 40.2],
+      [40.2, 66.9],
+    ] as const
     const keys: number[] = []
     for (const [start, end] of phases) {
       sampleShaftScript(start, false, frame)
-      const key = frame.discrete, text = frame.captionText
+      const key = frame.discrete,
+        text = frame.captionText
       keys.push(key)
       for (const fraction of [0.9, 0.1, 0.5, 0, 0.999999]) {
         sampleShaftScript(start + (end - start) * fraction, false, frame)
@@ -332,9 +383,22 @@ describe('determinism, reduced motion and the discrete key', () => {
     expect(SHAFT_CAPTION_TEXT['driveline-cascade']).toContain('the input accelerates to its cap')
   })
   it('keeps cascade announcements stable through every reveal and the capped output hold', () => {
-    const times = [40.2, ...CASCADE_REVEAL_EVENTS.flatMap(event =>
-      [event.planetStart, event.planetFull, event.carrierStart, event.carrierFull]),
-    51, 51.2, 51.4, 55.5, 56.5, 57, 66.9]
+    const times = [
+      40.2,
+      ...CASCADE_REVEAL_EVENTS.flatMap((event) => [
+        event.planetStart,
+        event.planetFull,
+        event.carrierStart,
+        event.carrierFull,
+      ]),
+      51,
+      51.2,
+      51.4,
+      55.5,
+      56.5,
+      57,
+      66.9,
+    ]
     for (const reducedMotion of [false, true]) {
       const frame = createShaftScriptFrame()
       const expected = snapshot(sampleShaftScript(40.2, reducedMotion, frame))
@@ -351,15 +415,19 @@ describe('determinism, reduced motion and the discrete key', () => {
       return seed / 4294967296
     }
     const times = Array.from({ length: 500 }, () => next() * 66.9)
-    const expected = new Map(times.map(t => [t, snapshot(sampleShaftScript(t, false, createShaftScriptFrame()))]))
+    const expected = new Map(times.map((t) => [t, snapshot(sampleShaftScript(t, false, createShaftScriptFrame()))]))
     const shuffled = [...times].sort(() => next() - 0.5)
     const frame = createShaftScriptFrame()
     for (const t of shuffled) {
       sampleShaftScript(t, false, frame)
       expect(snapshot(frame)).toBe(expected.get(t))
     }
-    expect(snapshot(sampleShaftScript(-5, false, createShaftScriptFrame()))).toBe(snapshot(sampleShaftScript(0, false, createShaftScriptFrame())))
-    expect(snapshot(sampleShaftScript(99, false, createShaftScriptFrame()))).toBe(snapshot(sampleShaftScript(66.9, false, createShaftScriptFrame())))
+    expect(snapshot(sampleShaftScript(-5, false, createShaftScriptFrame()))).toBe(
+      snapshot(sampleShaftScript(0, false, createShaftScriptFrame())),
+    )
+    expect(snapshot(sampleShaftScript(99, false, createShaftScriptFrame()))).toBe(
+      snapshot(sampleShaftScript(66.9, false, createShaftScriptFrame())),
+    )
   })
   it('writes into a caller-owned frame without adding keys', () => {
     const frame = createShaftScriptFrame()
@@ -402,6 +470,8 @@ describe('determinism, reduced motion and the discrete key', () => {
       prevSig = sig
     }
     expect(changeTimes).toHaveLength(17)
-    expect(changeTimes.map(t => Number(t.toFixed(2)))).toEqual([11, 15, 16.16, 16.31, 17.8, 18.96, 19.11, 20.3, 21.46, 21.61, 22.6, 25, 32.8, 33.2, 35, 38.5, 40.2])
+    expect(changeTimes.map((t) => Number(t.toFixed(2)))).toEqual([
+      11, 15, 16.16, 16.31, 17.8, 18.96, 19.11, 20.3, 21.46, 21.61, 22.6, 25, 32.8, 33.2, 35, 38.5, 40.2,
+    ])
   })
 })

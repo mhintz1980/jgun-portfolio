@@ -17,12 +17,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { getQuality } from '../../state/qualityStore'
 import { getScrollState, telemetry } from '../../state/scrollStore'
 import { airflowIntensity, stageEnvelope, STAGE_TRANSITIONS, STATION2_CAD_ANCHORS } from './stageWindows'
-import {
-  APERTURE_COLS,
-  APERTURE_INSET,
-  APERTURE_ROWS,
-  airwayRouteParams,
-} from './airflowRoute'
+import { APERTURE_COLS, APERTURE_INSET, APERTURE_ROWS, airwayRouteParams } from './airflowRoute'
 
 /**
  * JG-018 → JG-032 — CH.03 RL-300 / MSP SAFE Enclosure Thermal Airflow Field.
@@ -444,11 +439,7 @@ export function AirflowField() {
     const safeDelta = Math.min(delta, 0.1)
     const { progress } = getScrollState()
 
-    const envelope = stageEnvelope(
-      progress,
-      STAGE_TRANSITIONS.enclosureIn,
-      STAGE_TRANSITIONS.enclosureOut,
-    )
+    const envelope = stageEnvelope(progress, STAGE_TRANSITIONS.enclosureIn, STAGE_TRANSITIONS.enclosureOut)
 
     // Pump pulse: visible only inside the [0.610, 0.700] internals window
     if (pumpPulse) {
@@ -505,10 +496,7 @@ export function AirflowField() {
     mat.uniforms.uFlow.value = flow.current
     mat.uniforms.uAlpha.value = envelope.alpha
     mat.uniforms.uMouseActive.value = mouseActive.current
-    ;(mat.uniforms.uViewport.value as Vector2).set(
-      state.size.width,
-      state.size.height,
-    )
+    ;(mat.uniforms.uViewport.value as Vector2).set(state.size.width, state.size.height)
     telemetry.stage.flow = flow.current
   })
 

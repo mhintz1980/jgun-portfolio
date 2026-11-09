@@ -1,11 +1,32 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { InstancedBufferGeometry, ShaderLib, ShaderMaterial, Texture, type WebGLRenderer } from 'three'
-import { drawingIntroState, DRAWING_INTRO_WINDOW, INTRO_PHASES, introScrollTimeFor, REDUCED_MOTION_INTRO_T } from '../introTimeline'
+import {
+  drawingIntroState,
+  DRAWING_INTRO_WINDOW,
+  INTRO_PHASES,
+  introScrollTimeFor,
+  REDUCED_MOTION_INTRO_T,
+} from '../introTimeline'
 import { InkBuilder, makeInkFills, makeInkLines, makeSheetUniforms } from './ink'
 import { makeSheetText } from './sheetText'
-import { clearPaperFlexField, getPaperFlexField, CONTACT_SHADOW_MAX, makePaperFlexField, paperContactShadow, paperFlexAmplitude, paperVellum, PAPER_FLEX_MAX, PAPER_FLEX_STEP } from './paperFlex'
+import {
+  clearPaperFlexField,
+  getPaperFlexField,
+  CONTACT_SHADOW_MAX,
+  makePaperFlexField,
+  paperContactShadow,
+  paperFlexAmplitude,
+  paperVellum,
+  PAPER_FLEX_MAX,
+  PAPER_FLEX_STEP,
+} from './paperFlex'
 
-const rectangle = [[-0.15, -0.05], [0.15, -0.05], [0.15, 0.05], [-0.15, 0.05]]
+const rectangle = [
+  [-0.15, -0.05],
+  [0.15, -0.05],
+  [0.15, 0.05],
+  [-0.15, 0.05],
+]
 
 afterEach(() => {
   vi.restoreAllMocks()
@@ -75,8 +96,13 @@ describe('barrier pressure and release', () => {
 
   it('reverse scrubbing is identical, with a restrained lite and flat proof/reduced fallback', () => {
     const times = Array.from({ length: 101 }, (_, i) => i / 100)
-    const forward = times.map(t => at(t))
-    expect([...times].reverse().map(t => at(t)).reverse()).toEqual(forward)
+    const forward = times.map((t) => at(t))
+    expect(
+      [...times]
+        .reverse()
+        .map((t) => at(t))
+        .reverse(),
+    ).toEqual(forward)
     expect(Math.max(...forward)).toBeLessThanOrEqual(PAPER_FLEX_MAX)
     expect(at(0.82, 'lite')).toBeCloseTo(at(0.82) * 0.45)
     for (const t of times) {
@@ -105,14 +131,17 @@ describe('profile-derived pressure field', () => {
     expect(clearPaperFlexField(b)).toBe(true)
     expect(getPaperFlexField()).toBeNull()
     expect(clearPaperFlexField(b)).toBe(false)
-    a.texture.dispose(); b.texture.dispose()
+    a.texture.dispose()
+    b.texture.dispose()
   })
 
   it('rolls back a post-allocation failure without changing the previous publication', () => {
     const previous = makePaperFlexField(rectangle, 0.8, 0.5)
     const primary = new Error('texture setup')
     const dispose = vi.spyOn(Texture.prototype, 'dispose')
-    vi.spyOn(Texture.prototype, 'needsUpdate', 'set').mockImplementation(() => { throw primary })
+    vi.spyOn(Texture.prototype, 'needsUpdate', 'set').mockImplementation(() => {
+      throw primary
+    })
     const sink = vi.fn()
     expect(() => makePaperFlexField(rectangle, 0.8, 0.5, 256, 160, sink)).toThrow(primary)
     expect(dispose).toHaveBeenCalledOnce()
@@ -125,10 +154,17 @@ describe('profile-derived pressure field', () => {
 
   it('reports a throwing rollback disposer separately and preserves the primary error if its sink throws', () => {
     const previous = makePaperFlexField(rectangle, 0.8, 0.5)
-    const primary = new Error('texture setup'), cleanup = new Error('dispose listener')
-    const dispose = vi.spyOn(Texture.prototype, 'dispose').mockImplementation(() => { throw cleanup })
-    vi.spyOn(Texture.prototype, 'needsUpdate', 'set').mockImplementation(() => { throw primary })
-    const sink = vi.fn((_errors: readonly unknown[]) => { throw new Error('reporting sink') })
+    const primary = new Error('texture setup'),
+      cleanup = new Error('dispose listener')
+    const dispose = vi.spyOn(Texture.prototype, 'dispose').mockImplementation(() => {
+      throw cleanup
+    })
+    vi.spyOn(Texture.prototype, 'needsUpdate', 'set').mockImplementation(() => {
+      throw primary
+    })
+    const sink = vi.fn((_errors: readonly unknown[]) => {
+      throw new Error('reporting sink')
+    })
     expect(() => makePaperFlexField(rectangle, 0.8, 0.5, 256, 160, sink)).toThrow(primary)
     expect(dispose).toHaveBeenCalledOnce()
     expect(sink).toHaveBeenCalledExactlyOnceWith([cleanup])
@@ -148,19 +184,31 @@ describe('profile-derived pressure field', () => {
     expect(sample(128, 80)).toBeGreaterThan(sample(128, 90))
     expect(sample(128, 98)).toBeGreaterThan(0)
     expect(sample(128, 125)).toBe(0)
-    for (let x = 0; x < 256; x += 1) { expect(sample(x, 0)).toBe(0); expect(sample(x, 159)).toBe(0) }
-    for (let y = 0; y < 160; y += 1) { expect(sample(0, y)).toBe(0); expect(sample(255, y)).toBe(0) }
-    a.texture.dispose(); b.texture.dispose()
+    for (let x = 0; x < 256; x += 1) {
+      expect(sample(x, 0)).toBe(0)
+      expect(sample(x, 159)).toBe(0)
+    }
+    for (let y = 0; y < 160; y += 1) {
+      expect(sample(0, y)).toBe(0)
+      expect(sample(255, y)).toBe(0)
+    }
+    a.texture.dispose()
+    b.texture.dispose()
   })
 
   it('follows a translated profile and gracefully handles a missing profile', () => {
-    const a = makePaperFlexField(rectangle.map(([x, y]) => [x, y + 0.1]), 0.8, 0.5)
+    const a = makePaperFlexField(
+      rectangle.map(([x, y]) => [x, y + 0.1]),
+      0.8,
+      0.5,
+    )
     const data = a.texture.image.data!
     expect(Number(data[(112 * 256 + 128) * 4])).toBeGreaterThan(230)
     expect(Number(data[(65 * 256 + 128) * 4])).toBe(0)
     const empty = makePaperFlexField([], 0.8, 0.5)
     expect(empty.peak).toBe(0)
-    a.texture.dispose(); empty.texture.dispose()
+    a.texture.dispose()
+    empty.texture.dispose()
   })
 })
 
@@ -185,18 +233,24 @@ describe('all printed layers share the paper deformation', () => {
     expect(material.uniforms.uFlexAmplitude).toBe(uniforms.uFlexAmplitude)
     expect(material.vertexShader).toContain('paperDisplacement(p)')
     expect(material.vertexShader).not.toContain('waveDisplacement')
-    geometry.dispose(); material.dispose()
+    geometry.dispose()
+    material.dispose()
     ink.tri(0, 0, 0.001, 0, 0, 0.001, 0)
     const fills = makeInkFills(ink, uniforms)
     expect((fills.material as ShaderMaterial).uniforms.uFlexAmplitude).toBe(uniforms.uFlexAmplitude)
     expect((fills.material as ShaderMaterial).vertexShader).toContain('paperDisplacement(position.xy)')
-    fills.geometry.dispose(); (fills.material as ShaderMaterial).dispose()
+    fills.geometry.dispose()
+    ;(fills.material as ShaderMaterial).dispose()
   })
 
   it('injects text flex after Troika batching and shares live uniform references', () => {
     const uniforms = makeSheetUniforms()
     const text = makeSheetText([], uniforms)
-    const shader = { uniforms: {}, vertexShader: ShaderLib.basic.vertexShader, fragmentShader: ShaderLib.basic.fragmentShader }
+    const shader = {
+      uniforms: {},
+      vertexShader: ShaderLib.basic.vertexShader,
+      fragmentShader: ShaderLib.basic.fragmentShader,
+    }
     const material = text.object.material as ShaderMaterial
     material.onBeforeCompile(shader as Parameters<typeof material.onBeforeCompile>[0], {} as WebGLRenderer)
     expect(shader.vertexShader).toContain('uTroikaMatricesTexture')
@@ -267,8 +321,13 @@ describe('contact-shadow separation', () => {
 
   it('is deterministic under reverse scrub and off in flat / poster modes', () => {
     const samples = Array.from({ length: 201 }, (_, i) => i / 200)
-    const forward = samples.map(t => at(t))
-    expect([...samples].reverse().map(t => at(t)).reverse()).toEqual(forward)
+    const forward = samples.map((t) => at(t))
+    expect(
+      [...samples]
+        .reverse()
+        .map((t) => at(t))
+        .reverse(),
+    ).toEqual(forward)
     expect(at(separationT + 0.01, 'full', true)).toEqual([0, 0])
     expect(at(separationT + 0.01, 'poster')).toEqual([0, 0])
     expect(paperContactShadow(NaN, crossing, 1, 'full')).toEqual([0, 0])

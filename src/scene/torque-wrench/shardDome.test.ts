@@ -23,7 +23,8 @@ describe('shard dome', () => {
     expect(Math.hypot(dome[1].vx, dome[1].vy)).toBeGreaterThan(0.3)
   })
   it('is deterministic', () => {
-    const a = createShardDome([shard(0.05, 0.03)], { x: 0, y: 0 }), b = createShardDome([shard(0.05, 0.03)], { x: 0, y: 0 })
+    const a = createShardDome([shard(0.05, 0.03)], { x: 0, y: 0 }),
+      b = createShardDome([shard(0.05, 0.03)], { x: 0, y: 0 })
     expect(a).toEqual(b)
   })
 })

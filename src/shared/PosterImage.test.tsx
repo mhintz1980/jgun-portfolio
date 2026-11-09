@@ -19,7 +19,9 @@ describe('PosterImage', () => {
   it('renders a figure with a narrow source and a sized, described desktop image', () => {
     const markup = renderToStaticMarkup(<PosterImage entry={entry} />)
     expect(markup).toContain('<figure class="shell-poster" data-poster="pit" data-poster-status="temporary">')
-    expect(markup).toContain('<source media="(max-width: 600px)" srcSet="/torque-wrench/posters/pit-narrow.webp" width="828" height="1472"/>')
+    expect(markup).toContain(
+      '<source media="(max-width: 600px)" srcSet="/torque-wrench/posters/pit-narrow.webp" width="828" height="1472"/>',
+    )
     expect(markup).toContain('alt="The exposed pit under the registered paper."')
     expect(markup).toContain('src="/torque-wrench/posters/pit-desktop.webp"')
     expect(markup).toContain('width="1920" height="1080"')
@@ -28,14 +30,20 @@ describe('PosterImage', () => {
   })
 
   it('omits the source when there is no narrow crop, and honours loading and className', () => {
-    const markup = renderToStaticMarkup(<PosterImage entry={{ ...entry, narrow: undefined }} className="qm-poster" loading="eager" />)
+    const markup = renderToStaticMarkup(
+      <PosterImage entry={{ ...entry, narrow: undefined }} className="qm-poster" loading="eager" />,
+    )
     expect(markup).not.toContain('<source')
     expect(markup).toContain('class="qm-poster"')
     expect(markup).toContain('loading="eager"')
   })
 
   it('renders children inside the figure', () => {
-    const markup = renderToStaticMarkup(<PosterImage entry={entry}><figcaption>Pit</figcaption></PosterImage>)
+    const markup = renderToStaticMarkup(
+      <PosterImage entry={entry}>
+        <figcaption>Pit</figcaption>
+      </PosterImage>,
+    )
     expect(markup).toMatch(/<figcaption>Pit<\/figcaption><\/figure>$/)
   })
 

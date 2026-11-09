@@ -7,16 +7,19 @@ import { Group, MathUtils, MeshBasicMaterial } from 'three'
 import { createCadTransitionMaterial } from '../shaders/CadTransitionShader'
 import { buildWrenchRig } from './rig/nodeRoles'
 import { applyWrenchMechanics, type WrenchMechanicsFrame } from './rig/wrenchMechanics'
-import {
-  STAGE_IDS,
-} from '../data/caseStudies'
+import { STAGE_IDS } from '../data/caseStudies'
 import { getScrollState, telemetry } from '../state/scrollStore'
 import { getQuality } from '../state/qualityStore'
 import type { MaterialMode } from '../types/portfolio'
 import { Hotspots } from './Hotspots'
 import { DrawingLinework } from './drawing/DrawingLinework'
 import { DrawingProofRenderer } from './drawing/DrawingProofRenderer'
-import { DRAWING_INTRO_WINDOW, REDUCED_MOTION_INTRO_T, drawingIntroState, remapHeroProgress } from './drawing/introTimeline'
+import {
+  DRAWING_INTRO_WINDOW,
+  REDUCED_MOTION_INTRO_T,
+  drawingIntroState,
+  remapHeroProgress,
+} from './drawing/introTimeline'
 import { snapshotDrawing } from './drawing/drawingGeometry'
 import { drawingRuntime } from './drawing/extractionPose'
 import { introPbrActivation, roleMaterial } from './rig/materials'
@@ -82,33 +85,48 @@ export function TorqueWrenchHero() {
   const lastMode = useRef<MaterialMode>('solid')
   const wasInspecting = useRef(false)
   // Opt-in, root-only comparator input. Private runtime imports no root store/proof code.
-  const mechanicalProofEnabled = useMemo(() => typeof window !== 'undefined'
-    && new URLSearchParams(window.location.search).get('mechanicalProof') === '1', [])
+  const mechanicalProofEnabled = useMemo(
+    () => typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('mechanicalProof') === '1',
+    [],
+  )
   const heldMechanics = useRef<MechanicalProofFrame | null>(null)
   const appliedMechanics = useRef<MechanicalProofFrame | null>(null)
   const mechanicalProofFrames = useRef(0)
   useLayoutEffect(() => {
     if (!mechanicalProofEnabled) return
     let current = true
-    const release = () => { heldMechanics.current = null }
+    const release = () => {
+      heldMechanics.current = null
+    }
     const port = {
       version: 1,
       seek: (frame: MechanicalProofFrame) => {
         if (!current) throw new Error('Mechanical proof host unmounted')
         const keys = ['shift', 'explode', 'gearAngle', 'idle', 'ghostOpacity'] as const
-        if (!frame || keys.some(key => !Number.isFinite(frame[key]))) {
+        if (!frame || keys.some((key) => !Number.isFinite(frame[key]))) {
           throw new RangeError('Mechanical proof channels must be finite')
         }
-        if (['shift', 'explode', 'ghostOpacity'].some(key => {
-          const value = frame[key as keyof MechanicalProofFrame]
-          return value < 0 || value > 1
-        })) throw new RangeError('Mechanical proof normalized channels must be in [0,1]')
-        heldMechanics.current = { shift: frame.shift, explode: frame.explode,
-          gearAngle: frame.gearAngle, idle: frame.idle, ghostOpacity: frame.ghostOpacity }
+        if (
+          ['shift', 'explode', 'ghostOpacity'].some((key) => {
+            const value = frame[key as keyof MechanicalProofFrame]
+            return value < 0 || value > 1
+          })
+        )
+          throw new RangeError('Mechanical proof normalized channels must be in [0,1]')
+        heldMechanics.current = {
+          shift: frame.shift,
+          explode: frame.explode,
+          gearAngle: frame.gearAngle,
+          idle: frame.idle,
+          ghostOpacity: frame.ghostOpacity,
+        }
       },
-      snapshot: () => ({ source: 'TorqueWrenchHero/useFrame', active: current && heldMechanics.current !== null,
+      snapshot: () => ({
+        source: 'TorqueWrenchHero/useFrame',
+        active: current && heldMechanics.current !== null,
         frames: mechanicalProofFrames.current,
-        channels: appliedMechanics.current ? { ...appliedMechanics.current } : null }),
+        channels: appliedMechanics.current ? { ...appliedMechanics.current } : null,
+      }),
       release,
     }
     const globals = window as unknown as Record<string, unknown>
@@ -129,9 +147,14 @@ export function TorqueWrenchHero() {
   useLayoutEffect(() => {
     scene.userData.wrenchRig = rig
     inspection.source = rig.clutch.ringSwitch
-    inspection.meshes = rig.meshes.filter(mesh => rig.originalMaterials.get(mesh) === roleMaterial('ringSwitch'))
+    inspection.meshes = rig.meshes.filter((mesh) => rig.originalMaterials.get(mesh) === roleMaterial('ringSwitch'))
     if (inspection.active) notifyInspection()
-    return () => { if (inspection.source === rig.clutch.ringSwitch) { inspection.source = null; inspection.meshes = [] } }
+    return () => {
+      if (inspection.source === rig.clutch.ringSwitch) {
+        inspection.source = null
+        inspection.meshes = []
+      }
+    }
   }, [rig])
 
   // Sweep bounds are measured in the GLTF scene frame (nodeRoles), while the
@@ -149,8 +172,7 @@ export function TorqueWrenchHero() {
     [rig],
   )
   const blueprintMaterial = useMemo(
-    () =>
-      new MeshBasicMaterial({ color: '#38e8ff', wireframe: true, transparent: true, opacity: 0.35 }),
+    () => new MeshBasicMaterial({ color: '#38e8ff', wireframe: true, transparent: true, opacity: 0.35 }),
     [],
   )
 
@@ -174,9 +196,9 @@ export function TorqueWrenchHero() {
       // 2. Continuous gear sweep through the extraction
       .to(anim, { gearRotation: GEAR_ROTATION_SWEEP, duration: 0.9 }, 0.12)
       // 3. Housing ghost in: outer shell fades to transparent (0.15) to reveal internals
-      .to(anim, { ghost: 1, duration: 0.20 }, 0.27)
+      .to(anim, { ghost: 1, duration: 0.2 }, 0.27)
       // 4. Rear extraction: reduction stages extract rearward out of the housing
-      .to(anim, { explode: 1, duration: 0.50 }, 0.47)
+      .to(anim, { explode: 1, duration: 0.5 }, 0.47)
       // 5. Housing ghost out: transitions back away from transparency to solid opaque
       //    around the ~40% global progress mark as components clear the shell.
       .to(anim, { ghost: 0, duration: 0.25 }, 0.54)
@@ -186,10 +208,15 @@ export function TorqueWrenchHero() {
     const savedAnim = { ...anim }
     const removeInspection = subscribeInspection(() => {
       if (inspection.active && !held) {
-        held = true; savedTime = timeline.totalTime(); Object.assign(savedAnim, anim)
-        timeline.scrollTrigger?.getTween()?.pause(); timeline.pause()
+        held = true
+        savedTime = timeline.totalTime()
+        Object.assign(savedAnim, anim)
+        timeline.scrollTrigger?.getTween()?.pause()
+        timeline.pause()
       } else if (!inspection.active && held) {
-        held = false; timeline.totalTime(savedTime, true); Object.assign(anim, savedAnim)
+        held = false
+        timeline.totalTime(savedTime, true)
+        Object.assign(anim, savedAnim)
         timeline.scrollTrigger?.getTween()?.resume()
       }
     })
@@ -208,7 +235,12 @@ export function TorqueWrenchHero() {
     }
   }
 
-  const writeRigTelemetry = (explode: number, ghostOpacity: number, shift: number, gearAngle = anim.gearRotation): void => {
+  const writeRigTelemetry = (
+    explode: number,
+    ghostOpacity: number,
+    shift: number,
+    gearAngle = anim.gearRotation,
+  ): void => {
     telemetry.rig.handleZ = rig.handleRoot?.position.z ?? 0
     telemetry.rig.outputZ = rig.outputShaft?.position.z ?? 0
     telemetry.rig.clutchZ = rig.clutch.static?.position.z ?? 0
@@ -234,7 +266,10 @@ export function TorqueWrenchHero() {
       wasInspecting.current = true
       return
     }
-    if (wasInspecting.current) { wasInspecting.current = false; return }
+    if (wasInspecting.current) {
+      wasInspecting.current = false
+      return
+    }
     const held = heldMechanics.current
     const { progress, chapter, chapterProgress, materialMode: narrativeMaterialMode } = getScrollState()
     const materialMode = held ? 'solid' : narrativeMaterialMode
@@ -357,7 +392,7 @@ export function TorqueWrenchHero() {
     // order while giving the shared drawing/model handoff room to settle.
     let shiftAmount = 0
     const shiftInStart = remapHeroProgress(0.05)
-    const shiftInEnd = remapHeroProgress(0.10)
+    const shiftInEnd = remapHeroProgress(0.1)
     const shiftHoldEnd = remapHeroProgress(0.12)
     const shiftOutEnd = remapHeroProgress(0.17)
     if (progress >= shiftInStart && progress < shiftInEnd) {

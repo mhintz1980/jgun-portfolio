@@ -157,7 +157,12 @@ declare global {
 }
 
 const MAX_EVENTS = 512
-type TruncatedFlag = 'contextTruncated' | 'effectTruncated' | 'domCommitTruncated' | 'r3fCommitTruncated' | 'statusTruncated'
+type TruncatedFlag =
+  | 'contextTruncated'
+  | 'effectTruncated'
+  | 'domCommitTruncated'
+  | 'r3fCommitTruncated'
+  | 'statusTruncated'
 const state: CensusState = {
   startedAt: new Date().toISOString(),
   phase: 'startup',
@@ -227,15 +232,19 @@ HTMLCanvasElement.prototype.getContext = function getContext(
     return result
   } finally {
     if (/^webgl2?$/i.test(requestedType)) {
-      push(state.contexts, {
-        index: state.contexts.length,
-        requestedType: requestedType.toLowerCase(),
-        connectedAtCall,
-        returnedContext: result !== null && result !== undefined,
-        canvasId,
-        phase: state.phase,
-        timestamp: now(),
-      }, 'contextTruncated')
+      push(
+        state.contexts,
+        {
+          index: state.contexts.length,
+          requestedType: requestedType.toLowerCase(),
+          connectedAtCall,
+          returnedContext: result !== null && result !== undefined,
+          canvasId,
+          phase: state.phase,
+          timestamp: now(),
+        },
+        'contextTruncated',
+      )
     }
   }
 } as HTMLCanvasElement['getContext']
@@ -339,19 +348,27 @@ const uninstallPageFade = installPageFade(document)
 const store = createTorqueWrenchStore({
   tier: resolveEntryTier(window.location.search, readReducedMotion()),
 })
-push(state.status, {
-  status: store.getState().sceneStatus,
-  tier: store.getState().tier,
-  censusPhase: state.phase,
-  timestamp: now(),
-}, 'statusTruncated')
-store.subscribe(() => {
-  push(state.status, {
+push(
+  state.status,
+  {
     status: store.getState().sceneStatus,
     tier: store.getState().tier,
     censusPhase: state.phase,
     timestamp: now(),
-  }, 'statusTruncated')
+  },
+  'statusTruncated',
+)
+store.subscribe(() => {
+  push(
+    state.status,
+    {
+      status: store.getState().sceneStatus,
+      tier: store.getState().tier,
+      censusPhase: state.phase,
+      timestamp: now(),
+    },
+    'statusTruncated',
+  )
 })
 
 const root = createRoot(container)
@@ -361,15 +378,19 @@ flushSync(() => {
       <Profiler
         id="torque-dom-subtree"
         onRender={(id, reactPhase, actualDuration, baseDuration, startTime, commitTime) => {
-          push(state.domCommits, {
-            id,
-            reactPhase,
-            censusPhase: state.phase,
-            actualDuration,
-            baseDuration,
-            startTime,
-            commitTime,
-          }, 'domCommitTruncated')
+          push(
+            state.domCommits,
+            {
+              id,
+              reactPhase,
+              censusPhase: state.phase,
+              actualDuration,
+              baseDuration,
+              startTime,
+              commitTime,
+            },
+            'domCommitTruncated',
+          )
         }}
       >
         <CensusProbe name="dom-before-page" />

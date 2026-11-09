@@ -27,7 +27,10 @@ let _badgeFrameEpoch = -1
  * 2D nominal screen displacement and explosion offsets for Station 1 hotspots.
  */
 const HANDLE_UNIT_OFFSET = EXPLODE_OFFSETS.handle
-const HOTSPOT_CONFIG: Record<string, { dx: number; dy: number; unitOffset: number; offset?: [number, number, number] }> = {
+const HOTSPOT_CONFIG: Record<
+  string,
+  { dx: number; dy: number; unitOffset: number; offset?: [number, number, number] }
+> = {
   rotor: { dx: 220, dy: -100, unitOffset: HANDLE_UNIT_OFFSET, offset: [0, 0, -0.0315] },
   'motor-housing': { dx: 220, dy: 70, unitOffset: HANDLE_UNIT_OFFSET, offset: [0, 0, -0.019] },
   flange: { dx: 220, dy: -130, unitOffset: HANDLE_UNIT_OFFSET, offset: [0, 0.028, 0] },
@@ -98,7 +101,9 @@ export function HotspotButton({
         {datumLetter && (
           <span
             className={`inline-flex h-5 min-w-[22px] shrink-0 items-center justify-center border px-1 font-mono text-[11px] font-bold text-cyan-100 ${
-              dim ? 'border-cyan-300/60 bg-cyan-950/60' : 'border-cyan-300 bg-cyan-950/80 shadow-[0_0_8px_rgba(0,229,255,0.4)]'
+              dim
+                ? 'border-cyan-300/60 bg-cyan-950/60'
+                : 'border-cyan-300 bg-cyan-950/80 shadow-[0_0_8px_rgba(0,229,255,0.4)]'
             }`}
           >
             -{datumLetter}-
@@ -335,7 +340,7 @@ export function SpatialHotspotAnchor({
     }
 
     // 7. Clamp badge coordinates strictly within safe area
-    const spanX = isMobile ? 20 : (nominalDx ? Math.abs(nominalDx) : 150)
+    const spanX = isMobile ? 20 : nominalDx ? Math.abs(nominalDx) : 150
     let bx = isRight ? ax + spanX : ax - spanX
     if (isRight) {
       bx = Math.max(safeLeft, Math.min(bx, safeRight - badgeW))
@@ -343,7 +348,7 @@ export function SpatialHotspotAnchor({
       bx = Math.min(safeRight, Math.max(bx, safeLeft + badgeW))
     }
 
-    const spanY = nominalDy !== undefined ? nominalDy : (ay > size.height * 0.5 ? -60 : 60)
+    const spanY = nominalDy !== undefined ? nominalDy : ay > size.height * 0.5 ? -60 : 60
     let by = ay + spanY
     by = Math.max(safeTop, Math.min(by, safeBottom - badgeH))
 
@@ -401,29 +406,16 @@ export function SpatialHotspotAnchor({
 
   const active = selected || hovered
   const dim = tone === 'dim'
-  const strokeColor = active
-    ? '#00e5ff'
-    : dim
-      ? 'rgba(34, 211, 238, 0.32)'
-      : 'rgba(34, 211, 238, 0.65)'
+  const strokeColor = active ? '#00e5ff' : dim ? 'rgba(34, 211, 238, 0.32)' : 'rgba(34, 211, 238, 0.65)'
   const strokeWidth = active ? 1.5 : dim ? 0.9 : 1.1
   const restTickOpacity = dim ? '0.4' : '0.75'
 
   return (
     <group
       ref={groupRef}
-      position={[
-        position[0] + anchorOffset[0],
-        position[1] + anchorOffset[1],
-        position[2] + anchorOffset[2],
-      ]}
+      position={[position[0] + anchorOffset[0], position[1] + anchorOffset[1], position[2] + anchorOffset[2]]}
     >
-      <Html
-        center={false}
-        portal={hotspotPortal ?? undefined}
-        zIndexRange={[40, 0]}
-        style={{ pointerEvents: 'none' }}
-      >
+      <Html center={false} portal={hotspotPortal ?? undefined} zIndexRange={[40, 0]} style={{ pointerEvents: 'none' }}>
         <div ref={containerRef} className="relative">
           {/* Dynamic SVG Leader Line */}
           <svg
@@ -526,7 +518,9 @@ export function Hotspots() {
     // enclosure and Station 3 M249 stage producers own their extra clickable
     // callout badges independently; both remain active per owner confirmation
     // 2026-10-08 and are intentionally not filtered here.
-    return HOTSPOTS.filter((h) => ACTIVE_HOTSPOT_IDS.has(h.id) && (!STATION_REPLACED.has(h.id) || h.id === 'rotor')).flatMap((def) => {
+    return HOTSPOTS.filter(
+      (h) => ACTIVE_HOTSPOT_IDS.has(h.id) && (!STATION_REPLACED.has(h.id) || h.id === 'rotor'),
+    ).flatMap((def) => {
       const rows = rowsFor(def.occurrence)
       if (rows.length === 0) return []
       let entry = rows[0]
@@ -553,7 +547,8 @@ export function Hotspots() {
       {anchors
         .filter(
           ({ def }) =>
-            progress>0.12 && (def.window
+            progress > 0.12 &&
+            (def.window
               ? progress >= def.window[0] && progress <= def.window[1]
               : def.chapters.includes(chapter as ChapterIndex)),
         )
@@ -575,4 +570,3 @@ export function Hotspots() {
     </>
   )
 }
-

@@ -1,10 +1,7 @@
 // CPU-testable lifecycle core for the private torque document's one scroll conductor.
 // React owns nothing here; ScrollConductor passes browser implementations in and disposes the
 // returned handle on unmount. Startup is transactional and every API object is injectable.
-import type {
-  TorqueConductorDiagnostics,
-  TorqueWrenchStore,
-} from '../../state/torqueWrenchStore'
+import type { TorqueConductorDiagnostics, TorqueWrenchStore } from '../../state/torqueWrenchStore'
 import { recordTorqueConductorDiagnostics } from '../../state/torqueWrenchStore'
 
 export interface TorqueLenisLike {
@@ -263,7 +260,9 @@ export function createTorqueScrollConductor(options: TorqueConductorOptions): To
     // conductor's own Lenis instead of fighting it with native scrolling. Cleared on destroy.
     latestTorqueLenis = lenis
 
-    const removeLenisScrollHandler = lenis.on('scroll', () => { if (active) dependencies.scrollTrigger.update() })
+    const removeLenisScrollHandler = lenis.on('scroll', () => {
+      if (active) dependencies.scrollTrigger.update()
+    })
     ownedLenisScrollHandlers.add(removeLenisScrollHandler)
 
     const ticker = dependencies.gsap.ticker
@@ -336,9 +335,8 @@ export function createTorqueScrollConductor(options: TorqueConductorOptions): To
     dependencies.window.addEventListener('pageshow', onPageShow)
     ownedDomRemovals.set(onPageShow, () => dependencies.window.removeEventListener('pageshow', onPageShow))
     dependencies.document.addEventListener('visibilitychange', onVisibilityChange)
-    ownedDomRemovals.set(
-      onVisibilityChange,
-      () => dependencies.document.removeEventListener('visibilitychange', onVisibilityChange),
+    ownedDomRemovals.set(onVisibilityChange, () =>
+      dependencies.document.removeEventListener('visibilitychange', onVisibilityChange),
     )
 
     const unsubscribeLifecycle = store.subscribe(() => {

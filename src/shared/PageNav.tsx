@@ -46,7 +46,14 @@ export interface PageNavProps {
 
 const VARIANT_CLASS = { header: 'shell-nav-header', endcard: 'shell-nav-endcard' } as const
 
-export function PageNav({ current, tier, variant, label = 'Pages', numbered = false, currentAsText = false }: PageNavProps) {
+export function PageNav({
+  current,
+  tier,
+  variant,
+  label = 'Pages',
+  numbered = false,
+  currentAsText = false,
+}: PageNavProps) {
   return (
     <nav className={`shell-nav ${VARIANT_CLASS[variant]}`} aria-label={label}>
       <ul className="shell-nav-list">

@@ -32,7 +32,16 @@
 // media transition are separate parent-verified categories. None are claimed here.
 
 import { createHash } from 'node:crypto'
-import { closeSync, existsSync, lstatSync, mkdirSync, openSync, readFileSync, realpathSync, writeFileSync } from 'node:fs'
+import {
+  closeSync,
+  existsSync,
+  lstatSync,
+  mkdirSync,
+  openSync,
+  readFileSync,
+  realpathSync,
+  writeFileSync,
+} from 'node:fs'
 import { createRequire } from 'node:module'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -41,7 +50,14 @@ import https from 'node:https'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.resolve(HERE, '..')
-const EVIDENCE_ROOT = path.join(ROOT, 'project', 'work', 'evidence', 'torque-wrench-rebuild', '08-stage4-opening-recovery')
+const EVIDENCE_ROOT = path.join(
+  ROOT,
+  'project',
+  'work',
+  'evidence',
+  'torque-wrench-rebuild',
+  '08-stage4-opening-recovery',
+)
 const SCRATCH_ROOT = path.resolve(ROOT, '.scratch')
 const HARNESS_PATH = path.join(HERE, 'verify-torque-pointer-functional.mjs')
 const CONTRACT_PATH = path.join(ROOT, 'docs', 'torque-wrench-rebuild', '18-stage0-verification-contract-proposal.md')
@@ -118,18 +134,24 @@ function requireValue(args, key) {
 
 function validateUrl(raw) {
   let url
-  try { url = new URL(raw) } catch (error) { usage('bad --url: ' + error.message) }
+  try {
+    url = new URL(raw)
+  } catch (error) {
+    usage('bad --url: ' + error.message)
+  }
   const loopback = new Set(['localhost', '127.0.0.1', '::1', '[::1]'])
   if (!/^https?:$/.test(url.protocol)) usage('--url must use http(s)')
   if (!loopback.has(url.hostname)) usage('--url host must be loopback')
-  if (url.pathname !== '/torque-wrench' && url.pathname !== '/torque-wrench/') usage('--url path must be /torque-wrench/')
+  if (url.pathname !== '/torque-wrench' && url.pathname !== '/torque-wrench/')
+    usage('--url path must be /torque-wrench/')
   if (url.search || url.hash) usage('--url must not carry query/hash; the harness adds quality')
   return url
 }
 
 function validateBuildDir(raw) {
   const resolved = path.resolve(raw)
-  if (resolved !== SCRATCH_ROOT && !resolved.startsWith(SCRATCH_ROOT + path.sep)) usage('--build-dir must resolve inside ' + SCRATCH_ROOT)
+  if (resolved !== SCRATCH_ROOT && !resolved.startsWith(SCRATCH_ROOT + path.sep))
+    usage('--build-dir must resolve inside ' + SCRATCH_ROOT)
   if (!existsSync(resolved)) usage('--build-dir does not exist')
   const real = realpathSync(resolved)
   if (real !== SCRATCH_ROOT && !real.startsWith(SCRATCH_ROOT + path.sep)) usage('--build-dir resolves outside .scratch')
@@ -142,7 +164,8 @@ function validateOut(raw) {
   if (!existsSync(parent)) usage('--out parent does not exist (explicit outputs do not create directories)')
   const realRoot = realpathSync(EVIDENCE_ROOT)
   const realParent = realpathSync(parent)
-  if (realParent !== realRoot && !realParent.startsWith(realRoot + path.sep)) usage('--out must stay inside ' + EVIDENCE_ROOT)
+  if (realParent !== realRoot && !realParent.startsWith(realRoot + path.sep))
+    usage('--out must stay inside ' + EVIDENCE_ROOT)
   try {
     lstatSync(resolved) // Includes dangling symlinks: no existing directory entry may be replaced.
     usage('--out already exists; guarded reports refuse overwrite: ' + resolved)
@@ -156,19 +179,29 @@ function validateOut(raw) {
 function defaultOut(viewport, tier) {
   mkdirSync(EVIDENCE_ROOT, { recursive: true })
   const stamp = new Date().toISOString().replace(/[:.]/g, '-')
-  const random = createHash('sha256').update(process.pid + ':' + Date.now() + ':' + Math.random()).digest('hex').slice(0, 8)
+  const random = createHash('sha256')
+    .update(process.pid + ':' + Date.now() + ':' + Math.random())
+    .digest('hex')
+    .slice(0, 8)
   return path.join(EVIDENCE_ROOT, 'pointer-functional-' + viewport + '-' + tier + '-' + stamp + '-' + random + '.json')
 }
 
-const sha256 = data => createHash('sha256').update(data).digest('hex')
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-const finite = value => typeof value === 'number' && Number.isFinite(value)
+const sha256 = (data) => createHash('sha256').update(data).digest('hex')
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+const finite = (value) => typeof value === 'number' && Number.isFinite(value)
 const check = (assertions, name, status, actual) => {
   const normalized = status === 'UNVERIFIED' ? 'UNVERIFIED' : status ? 'PASS' : 'FAIL'
   assertions.push({ name, status: normalized, actual })
   return normalized
 }
-const aggregateStatus = statuses => statuses.includes('FAIL') ? 'FAIL' : statuses.includes('UNVERIFIED') ? 'UNVERIFIED' : statuses.length > 0 && statuses.every(status => status === 'PASS') ? 'PASS' : 'FAIL'
+const aggregateStatus = (statuses) =>
+  statuses.includes('FAIL')
+    ? 'FAIL'
+    : statuses.includes('UNVERIFIED')
+      ? 'UNVERIFIED'
+      : statuses.length > 0 && statuses.every((status) => status === 'PASS')
+        ? 'PASS'
+        : 'FAIL'
 
 function sleepUntil(start, offset) {
   const remaining = start + offset - Date.now()
@@ -179,12 +212,22 @@ function sleepUntil(start, offset) {
 async function fetchBytes(url) {
   const client = new URL(url).protocol === 'https:' ? https : http
   return new Promise((resolve, reject) => {
-    const request = client.get(url, { headers: { 'Accept-Encoding': 'identity' }, timeout: READY_TIMEOUT_MS }, response => {
-      const chunks = []
-      response.on('data', chunk => chunks.push(chunk))
-      response.on('end', () => resolve({ status: response.statusCode ?? 0, bytes: Buffer.concat(chunks), contentEncoding: response.headers['content-encoding'] ?? null }))
-      response.on('error', reject)
-    })
+    const request = client.get(
+      url,
+      { headers: { 'Accept-Encoding': 'identity' }, timeout: READY_TIMEOUT_MS },
+      (response) => {
+        const chunks = []
+        response.on('data', (chunk) => chunks.push(chunk))
+        response.on('end', () =>
+          resolve({
+            status: response.statusCode ?? 0,
+            bytes: Buffer.concat(chunks),
+            contentEncoding: response.headers['content-encoding'] ?? null,
+          }),
+        )
+        response.on('error', reject)
+      },
+    )
     request.on('timeout', () => request.destroy(new Error('fetch timeout')))
     request.on('error', reject)
   })
@@ -209,7 +252,8 @@ function localAsset(build, assetPath, required = true) {
     throw new Error('BLOCKED: build asset missing: ' + relative)
   }
   const realFile = realpathSync(file)
-  if (realFile !== realBuild && !realFile.startsWith(realBuild + path.sep)) throw new Error('BLOCKED: asset resolves outside build: ' + relative)
+  if (realFile !== realBuild && !realFile.startsWith(realBuild + path.sep))
+    throw new Error('BLOCKED: asset resolves outside build: ' + relative)
   const bytes = readFileSync(file)
   return { path: relative, present: true, bytes: bytes.length, sha256: sha256(bytes) }
 }
@@ -220,7 +264,14 @@ async function servedAsset(origin, assetPath, required = true) {
     if (!required) return { path: assetPath, present: false, status: result.status }
     throw new Error('BLOCKED: served asset ' + assetPath + ' returned HTTP ' + result.status)
   }
-  return { path: assetPath, present: true, status: result.status, bytes: result.bytes.length, sha256: sha256(result.bytes), contentEncoding: result.contentEncoding }
+  return {
+    path: assetPath,
+    present: true,
+    status: result.status,
+    bytes: result.bytes.length,
+    sha256: sha256(result.bytes),
+    contentEncoding: result.contentEncoding,
+  }
 }
 
 function sourceIdentity() {
@@ -246,7 +297,10 @@ function sourceIdentity() {
     if (!existsSync(file)) throw new Error('BLOCKED: source input missing: ' + relative)
     const bytes = readFileSync(file)
     hashes[relative] = sha256(bytes)
-    aggregate.update(relative).update(Buffer.from([0])).update(bytes)
+    aggregate
+      .update(relative)
+      .update(Buffer.from([0]))
+      .update(bytes)
   }
   const harnessBytes = readFileSync(HARNESS_PATH)
   return { files: hashes, aggregateSha256: aggregate.digest('hex'), harnessSha256: sha256(harnessBytes) }
@@ -257,13 +311,18 @@ async function loadBuildGraph(buildDir, origin) {
   if (!existsSync(manifestPath)) throw new Error('BLOCKED: .vite/manifest.json missing; rebuild with manifest enabled')
   const manifestBytes = readFileSync(manifestPath)
   let manifest
-  try { manifest = JSON.parse(manifestBytes.toString('utf8')) } catch (error) { throw new Error('BLOCKED: invalid manifest JSON: ' + error.message) }
+  try {
+    manifest = JSON.parse(manifestBytes.toString('utf8'))
+  } catch (error) {
+    throw new Error('BLOCKED: invalid manifest JSON: ' + error.message)
+  }
   const entryKey = 'torque-wrench/index.html'
   const entry = manifest[entryKey]
   if (!entry?.isEntry || !entry.file) throw new Error('BLOCKED: manifest has no torque-wrench entry')
-  const sceneKey = Object.keys(manifest).find(key => /^src\/scene\/torque-wrench\/Scene\.[tj]sx?$/.test(key))
+  const sceneKey = Object.keys(manifest).find((key) => /^src\/scene\/torque-wrench\/Scene\.[tj]sx?$/.test(key))
   if (!sceneKey) throw new Error('BLOCKED: manifest has no RuntimeWorld Scene chunk')
-  if (!Array.isArray(entry.dynamicImports) || !entry.dynamicImports.includes(sceneKey)) throw new Error('BLOCKED: entry does not dynamically import Scene chunk ' + sceneKey)
+  if (!Array.isArray(entry.dynamicImports) || !entry.dynamicImports.includes(sceneKey))
+    throw new Error('BLOCKED: entry does not dynamically import Scene chunk ' + sceneKey)
   const htmlPath = '/torque-wrench/'
   const entryPath = '/' + entry.file
   const scenePath = '/' + manifest[sceneKey].file
@@ -288,8 +347,9 @@ async function loadBuildGraph(buildDir, origin) {
 
   const htmlText = readFileSync(path.join(buildDir, 'torque-wrench', 'index.html'), 'utf8')
   const srcs = collectModuleSrcs(htmlText)
-  const candidates = srcs.filter(src => !src.includes('@vite/client'))
-  if (candidates.length !== 1 || candidates[0] !== entryPath) throw new Error('BLOCKED: HTML entry is not exact manifest entry: ' + candidates.join(','))
+  const candidates = srcs.filter((src) => !src.includes('@vite/client'))
+  if (candidates.length !== 1 || candidates[0] !== entryPath)
+    throw new Error('BLOCKED: HTML entry is not exact manifest entry: ' + candidates.join(','))
 
   return {
     mode: 'built',
@@ -306,35 +366,62 @@ async function loadBuildGraph(buildDir, origin) {
 
 function preflight() {
   const checks = []
-  const add = (name, pass, detail) => checks.push({ name, status: pass === 'UNVERIFIED' ? 'UNVERIFIED' : pass ? 'PASS' : 'FAIL', detail: detail || '' })
+  const add = (name, pass, detail) =>
+    checks.push({ name, status: pass === 'UNVERIFIED' ? 'UNVERIFIED' : pass ? 'PASS' : 'FAIL', detail: detail || '' })
   const require = createRequire(import.meta.url)
   try {
     const playwrightVersion = JSON.parse(readFileSync(require.resolve('playwright/package.json'), 'utf8')).version
     add('installed playwright resolvable', Boolean(playwrightVersion), 'version ' + playwrightVersion)
-  } catch (error) { add('installed playwright resolvable', false, String(error)) }
+  } catch (error) {
+    add('installed playwright resolvable', false, String(error))
+  }
   const browserLaunch = path.join(ROOT, 'scripts', 'lib', 'browser-launch.mjs')
   add('browser-launch helper present', existsSync(browserLaunch), browserLaunch)
   add('contract18 present', existsSync(CONTRACT_PATH), CONTRACT_PATH)
   add('plan13 present', existsSync(PLAN_PATH), PLAN_PATH)
-  const read = relative => existsSync(path.join(ROOT, relative)) ? readFileSync(path.join(ROOT, relative), 'utf8') : ''
+  const read = (relative) =>
+    existsSync(path.join(ROOT, relative)) ? readFileSync(path.join(ROOT, relative), 'utf8') : ''
   const storyText = read('src/scene/torque-wrench/Story.tsx')
-  add('Story inspection control source present', storyText.includes('torque-inspection__toggle') && storyText.includes('aria-expanded'), 'src/scene/torque-wrench/Story.tsx')
+  add(
+    'Story inspection control source present',
+    storyText.includes('torque-inspection__toggle') && storyText.includes('aria-expanded'),
+    'src/scene/torque-wrench/Story.tsx',
+  )
   const cssText = read('src/scene/torque-wrench/torque-wrench.css')
-  add('live-mode pointer-inert scene CSS present', cssText.includes(".torque-page[data-torque-mode='live'] .torque-scene") && cssText.includes('pointer-events: none'), 'src/scene/torque-wrench/torque-wrench.css')
+  add(
+    'live-mode pointer-inert scene CSS present',
+    cssText.includes(".torque-page[data-torque-mode='live'] .torque-scene") && cssText.includes('pointer-events: none'),
+    'src/scene/torque-wrench/torque-wrench.css',
+  )
   const runtimeText = read('src/scene/torque-wrench/RuntimeWorld.tsx')
   const pageText = read('src/scene/torque-wrench/TorqueWrenchPage.tsx')
-  add('reduced-motion media listener source present (observation only; transition NOT claimed here)', pageText.includes('REDUCED_MOTION_QUERY') && pageText.includes("addEventListener('change'"), 'src/scene/torque-wrench/TorqueWrenchPage.tsx')
+  add(
+    'reduced-motion media listener source present (observation only; transition NOT claimed here)',
+    pageText.includes('REDUCED_MOTION_QUERY') && pageText.includes("addEventListener('change'"),
+    'src/scene/torque-wrench/TorqueWrenchPage.tsx',
+  )
   // Invariance-only basis: this harness is valid only while the product installs no pointer
   // dynamics. If pointer-dynamics source appears, the §6 offset-discrimination rerun is
   // required and this preflight must FAIL so invariance evidence is never reused for it.
   const pointerDynamicsPath = path.join(ROOT, 'src', 'scene', 'torque-wrench', 'pointerDynamics.ts')
-  const dynamicsPattern = /pointerdown|pointermove|pointerup|pointercancel|onPointer|setPointerCapture|releasePointerCapture/i
+  const dynamicsPattern =
+    /pointerdown|pointermove|pointerup|pointercancel|onPointer|setPointerCapture|releasePointerCapture/i
   const dynamicsAbsent = !existsSync(pointerDynamicsPath) && !dynamicsPattern.test(runtimeText)
-  add('no pointer-dynamics source in RuntimeWorld/pointerDynamics (invariance-only basis)', dynamicsAbsent,
-    dynamicsAbsent ? 'invariance scope valid; pointerDynamics.ts absent and RuntimeWorld has no pointer handlers'
-      : 'pointer-dynamics source detected; §6 offset-discrimination rerun required before any pointer claims')
-  add('RuntimeWorld world/camera telemetry source present', runtimeText.includes('__torqueWorld') && runtimeText.includes('camera.quaternion.toArray') && runtimeText.includes('target.toArray'), 'src/scene/torque-wrench/RuntimeWorld.tsx')
-  return { checks, ok: checks.every(item => item.status === 'PASS') }
+  add(
+    'no pointer-dynamics source in RuntimeWorld/pointerDynamics (invariance-only basis)',
+    dynamicsAbsent,
+    dynamicsAbsent
+      ? 'invariance scope valid; pointerDynamics.ts absent and RuntimeWorld has no pointer handlers'
+      : 'pointer-dynamics source detected; §6 offset-discrimination rerun required before any pointer claims',
+  )
+  add(
+    'RuntimeWorld world/camera telemetry source present',
+    runtimeText.includes('__torqueWorld') &&
+      runtimeText.includes('camera.quaternion.toArray') &&
+      runtimeText.includes('target.toArray'),
+    'src/scene/torque-wrench/RuntimeWorld.tsx',
+  )
+  return { checks, ok: checks.every((item) => item.status === 'PASS') }
 }
 
 function pointerProbeInit() {
@@ -350,8 +437,13 @@ function pointerProbeInit() {
     nativeEvents: [],
     seen: {},
     start(label) {
-      this.started = true; this.origin = performance.now(); this.capture = true
-      this.marker = label; this.markers.length = 0; this.frames.length = 0; this.dropped = 0
+      this.started = true
+      this.origin = performance.now()
+      this.capture = true
+      this.marker = label
+      this.markers.length = 0
+      this.frames.length = 0
+      this.dropped = 0
       this.nativeEvents.length = 0
       this.mark(label)
     },
@@ -360,21 +452,40 @@ function pointerProbeInit() {
       this.markers.push({ label, t: performance.now() - this.origin })
     },
     drain() {
-      const copy = { frames: this.frames.slice(), dropped: this.dropped, markers: this.markers.slice(), nativeEvents: this.nativeEvents.slice(), errors: this.errors.slice() }
-      this.frames.length = 0; this.dropped = 0; this.markers.length = 0; this.nativeEvents.length = 0
+      const copy = {
+        frames: this.frames.slice(),
+        dropped: this.dropped,
+        markers: this.markers.slice(),
+        nativeEvents: this.nativeEvents.slice(),
+        errors: this.errors.slice(),
+      }
+      this.frames.length = 0
+      this.dropped = 0
+      this.markers.length = 0
+      this.nativeEvents.length = 0
       return copy
     },
   }
   Object.defineProperty(window, '__jg038PointerProbe', { value: probe, configurable: false })
   for (const type of ['pointermove', 'pointerdown', 'pointerup', 'pointercancel']) {
-    window.addEventListener(type, event => {
-      if (!probe.capture || !event.isTrusted) return
-      probe.nativeEvents.push({ type, t: performance.now() - probe.origin, isTrusted: event.isTrusted,
-        clientX: Number.isFinite(event.clientX) ? event.clientX : null, clientY: Number.isFinite(event.clientY) ? event.clientY : null,
-        pointerId: event.pointerId ?? null, pointerType: event.pointerType ?? null })
-    }, { capture: true, passive: true })
+    window.addEventListener(
+      type,
+      (event) => {
+        if (!probe.capture || !event.isTrusted) return
+        probe.nativeEvents.push({
+          type,
+          t: performance.now() - probe.origin,
+          isTrusted: event.isTrusted,
+          clientX: Number.isFinite(event.clientX) ? event.clientX : null,
+          clientY: Number.isFinite(event.clientY) ? event.clientY : null,
+          pointerId: event.pointerId ?? null,
+          pointerType: event.pointerType ?? null,
+        })
+      },
+      { capture: true, passive: true },
+    )
   }
-  const sample = now => {
+  const sample = (now) => {
     requestAnimationFrame(sample)
     if (!probe.capture) return
     try {
@@ -382,8 +493,16 @@ function pointerProbeInit() {
       const narrative = window.__torqueNarrative
       let snapshot = null
       let narrativeSample = null
-      try { snapshot = world && typeof world.snapshot === 'function' ? world.snapshot() : null } catch (error) { probe.errors.push(String(error)) }
-      try { narrativeSample = narrative && typeof narrative.snapshot === 'function' ? narrative.snapshot() : null } catch (error) { probe.errors.push(String(error)) }
+      try {
+        snapshot = world && typeof world.snapshot === 'function' ? world.snapshot() : null
+      } catch (error) {
+        probe.errors.push(String(error))
+      }
+      try {
+        narrativeSample = narrative && typeof narrative.snapshot === 'function' ? narrative.snapshot() : null
+      } catch (error) {
+        probe.errors.push(String(error))
+      }
       const scrollingElement = document.scrollingElement || document.documentElement
       const maxScroll = Math.max(0, (scrollingElement.scrollHeight || 0) - (scrollingElement.clientHeight || 0))
       const camera = snapshot?.camera ?? null
@@ -393,24 +512,40 @@ function pointerProbeInit() {
         scrollY: Number.isFinite(window.scrollY) ? window.scrollY : null,
         maxScroll,
         nativeProgress: maxScroll > 0 ? window.scrollY / maxScroll : null,
-        lamps: { lampPower: snapshot?.opening?.lampPower, blackout: snapshot?.opening?.blackout,
-          illumination: snapshot?.opening?.illumination, lightSweep: snapshot?.opening?.lightSweep,
+        lamps: {
+          lampPower: snapshot?.opening?.lampPower,
+          blackout: snapshot?.opening?.blackout,
+          illumination: snapshot?.opening?.illumination,
+          lightSweep: snapshot?.opening?.lightSweep,
           lightSweepPosition: snapshot?.opening?.lightSweepPosition,
-          portalLight: snapshot?.sheet?.stats?.portalLight, portalPulse: snapshot?.sheet?.stats?.portalPulse },
-        progress: Number.isFinite(snapshot?.progress) ? snapshot.progress : Number.isFinite(narrativeSample?.progress) ? narrativeSample.progress : null,
-        narrative: narrativeSample ? {
-          beatId: narrativeSample.beatId ?? null, localProgress: narrativeSample.localProgress ?? null,
-          phase: narrativeSample.phase ?? null, stateKey: narrativeSample.stateKey ?? null,
-        } : null,
-        camera: camera ? {
-          position: camera.position ?? null,
-          target: camera.target ?? null,
-          quaternion: camera.quaternion ?? null,
-          fov: Number.isFinite(camera.fov) ? camera.fov : null,
-        } : null,
+          portalLight: snapshot?.sheet?.stats?.portalLight,
+          portalPulse: snapshot?.sheet?.stats?.portalPulse,
+        },
+        progress: Number.isFinite(snapshot?.progress)
+          ? snapshot.progress
+          : Number.isFinite(narrativeSample?.progress)
+            ? narrativeSample.progress
+            : null,
+        narrative: narrativeSample
+          ? {
+              beatId: narrativeSample.beatId ?? null,
+              localProgress: narrativeSample.localProgress ?? null,
+              phase: narrativeSample.phase ?? null,
+              stateKey: narrativeSample.stateKey ?? null,
+            }
+          : null,
+        camera: camera
+          ? {
+              position: camera.position ?? null,
+              target: camera.target ?? null,
+              quaternion: camera.quaternion ?? null,
+              fov: Number.isFinite(camera.fov) ? camera.fov : null,
+            }
+          : null,
       }
       probe.seen.cameraPosition = probe.seen.cameraPosition || Boolean(frame.camera?.position?.every(Number.isFinite))
-      probe.seen.cameraQuaternion = probe.seen.cameraQuaternion || Boolean(frame.camera?.quaternion?.every(Number.isFinite))
+      probe.seen.cameraQuaternion =
+        probe.seen.cameraQuaternion || Boolean(frame.camera?.quaternion?.every(Number.isFinite))
       probe.seen.cameraFov = probe.seen.cameraFov || Number.isFinite(frame.camera?.fov)
       probe.seen.progress = probe.seen.progress || Number.isFinite(frame.progress)
       probe.seen.narrative = probe.seen.narrative || Boolean(frame.narrative)
@@ -424,18 +559,30 @@ function pointerProbeInit() {
 }
 
 async function waitForReady(page) {
-  await page.waitForFunction(() => {
-    const snapshot = window.__torqueWorld?.snapshot?.()
-    return snapshot?.ready === true && snapshot?.sheet?.baked === true
-      && Array.isArray(snapshot?.camera?.quaternion) && document.querySelector('.torque-scene canvas') !== null
-  }, null, { timeout: READY_TIMEOUT_MS, polling: 100 })
+  await page.waitForFunction(
+    () => {
+      const snapshot = window.__torqueWorld?.snapshot?.()
+      return (
+        snapshot?.ready === true &&
+        snapshot?.sheet?.baked === true &&
+        Array.isArray(snapshot?.camera?.quaternion) &&
+        document.querySelector('.torque-scene canvas') !== null
+      )
+    },
+    null,
+    { timeout: READY_TIMEOUT_MS, polling: 100 },
+  )
 }
 
 async function readRuntime(page) {
   return page.evaluate(() => {
     const world = window.__torqueWorld
     let snapshot = null
-    try { snapshot = world?.snapshot?.() ?? null } catch (error) { return { error: String(error) } }
+    try {
+      snapshot = world?.snapshot?.() ?? null
+    } catch (error) {
+      return { error: String(error) }
+    }
     const canvas = document.querySelector('.torque-scene canvas')
     const scrollingElement = document.scrollingElement || document.documentElement
     const maxScroll = Math.max(0, (scrollingElement.scrollHeight || 0) - (scrollingElement.clientHeight || 0))
@@ -448,12 +595,18 @@ async function readRuntime(page) {
       tier: snapshot?.mechanical?.tier ?? snapshot?.sheet?.tier ?? null,
       camera: snapshot?.camera ?? null,
       renderer: snapshot?.renderer ?? null,
-      ready: snapshot?.ready === true, baked: snapshot?.sheet?.baked === true,
-      visibility: document.visibilityState, canvasPresent: Boolean(canvas),
+      ready: snapshot?.ready === true,
+      baked: snapshot?.sheet?.baked === true,
+      visibility: document.visibilityState,
+      canvasPresent: Boolean(canvas),
       narrative: window.__torqueNarrative?.snapshot?.() ?? null,
-      beats: Array.isArray(window.__torqueNarrative?.beats) ? window.__torqueNarrative.beats.map(beat => ({ id: beat.id, start: beat.start, end: beat.end })) : [],
+      beats: Array.isArray(window.__torqueNarrative?.beats)
+        ? window.__torqueNarrative.beats.map((beat) => ({ id: beat.id, start: beat.start, end: beat.end }))
+        : [],
       viewport: {
-        innerWidth, innerHeight, devicePixelRatio,
+        innerWidth,
+        innerHeight,
+        devicePixelRatio,
         canvasCss: canvas ? [canvas.clientWidth, canvas.clientHeight] : null,
       },
       scenePointerEvents: getComputedStyle(document.querySelector('.torque-scene') ?? document.body).pointerEvents,
@@ -462,15 +615,19 @@ async function readRuntime(page) {
 }
 
 async function drainProbe(page) {
-  await page.evaluate(() => new Promise(resolve => {
-    if (typeof requestAnimationFrame === 'function') requestAnimationFrame(() => requestAnimationFrame(() => resolve(true)))
-    else setTimeout(() => resolve(true), 50)
-  }))
+  await page.evaluate(
+    () =>
+      new Promise((resolve) => {
+        if (typeof requestAnimationFrame === 'function')
+          requestAnimationFrame(() => requestAnimationFrame(() => resolve(true)))
+        else setTimeout(() => resolve(true), 50)
+      }),
+  )
   return page.evaluate(() => window.__jg038PointerProbe.drain())
 }
 
 async function markInput(page, label) {
-  await page.evaluate(name => window.__jg038PointerProbe.mark(name), label)
+  await page.evaluate((name) => window.__jg038PointerProbe.mark(name), label)
 }
 
 async function probeNow(page) {
@@ -479,17 +636,29 @@ async function probeNow(page) {
 
 function dist3(a, b) {
   return Array.isArray(a) && Array.isArray(b) && a.length === 3 && b.length === 3 && a.every(finite) && b.every(finite)
-    ? Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]) : null
+    ? Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2])
+    : null
 }
 
 function quatAngleDeg(a, b) {
-  if (!Array.isArray(a) || !Array.isArray(b) || a.length !== 4 || b.length !== 4 || !a.every(finite) || !b.every(finite)) return null
+  if (
+    !Array.isArray(a) ||
+    !Array.isArray(b) ||
+    a.length !== 4 ||
+    b.length !== 4 ||
+    !a.every(finite) ||
+    !b.every(finite)
+  )
+    return null
   const dot = Math.abs(a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3])
-  return 2 * Math.acos(Math.min(1, Math.max(-1, dot))) * 180 / Math.PI
+  return (2 * Math.acos(Math.min(1, Math.max(-1, dot))) * 180) / Math.PI
 }
 
 function inverseRotate(q, v) {
-  const qx = -q[0], qy = -q[1], qz = -q[2], qw = q[3]
+  const qx = -q[0],
+    qy = -q[1],
+    qz = -q[2],
+    qw = q[3]
   const tx = 2 * (qy * v[2] - qz * v[1])
   const ty = 2 * (qz * v[0] - qx * v[2])
   const tz = 2 * (qx * v[1] - qy * v[0])
@@ -501,52 +670,75 @@ function inverseRotate(q, v) {
 }
 
 function cameraObservablesComplete(camera) {
-  return Boolean(camera
-    && Array.isArray(camera.position) && camera.position.length === 3 && camera.position.every(finite)
-    && Array.isArray(camera.target) && camera.target.length === 3 && camera.target.every(finite)
-    && Array.isArray(camera.quaternion) && camera.quaternion.length === 4 && camera.quaternion.every(finite)
-    && finite(camera.fov))
+  return Boolean(
+    camera &&
+      Array.isArray(camera.position) &&
+      camera.position.length === 3 &&
+      camera.position.every(finite) &&
+      Array.isArray(camera.target) &&
+      camera.target.length === 3 &&
+      camera.target.every(finite) &&
+      Array.isArray(camera.quaternion) &&
+      camera.quaternion.length === 4 &&
+      camera.quaternion.every(finite) &&
+      finite(camera.fov),
+  )
 }
 
 // Harness computation of the §6 'projected displacement' observable: project one fixed
 // reference world point through the installed camera pose (position/quaternion/fov) with a
 // perspective projection and report CSS-px screen position. Not a product-reported value.
 function projectPointToCssPx(camera, point, viewportWidth, viewportHeight) {
-  if (!cameraObservablesComplete(camera) || !Array.isArray(point) || point.length !== 3 || !point.every(finite)) return null
+  if (!cameraObservablesComplete(camera) || !Array.isArray(point) || point.length !== 3 || !point.every(finite))
+    return null
   const rel = [point[0] - camera.position[0], point[1] - camera.position[1], point[2] - camera.position[2]]
   const cam = inverseRotate(camera.quaternion, rel)
   if (!(cam[2] < -1e-6)) return null // point behind the camera plane; projection undefined
-  const tanHalfFov = Math.tan(camera.fov * Math.PI / 360)
+  const tanHalfFov = Math.tan((camera.fov * Math.PI) / 360)
   const aspect = viewportWidth / viewportHeight
-  const ndcX = (cam[0] / -cam[2]) / (tanHalfFov * aspect)
-  const ndcY = (cam[1] / -cam[2]) / tanHalfFov
-  return [(ndcX + 1) / 2 * viewportWidth, (1 - ndcY) / 2 * viewportHeight]
+  const ndcX = cam[0] / -cam[2] / (tanHalfFov * aspect)
+  const ndcY = cam[1] / -cam[2] / tanHalfFov
+  return [((ndcX + 1) / 2) * viewportWidth, ((1 - ndcY) / 2) * viewportHeight]
 }
 
 function pointerWindowStats(frames, baseline, referencePoint, viewport) {
   const stats = {
-    framesConsidered: 0, projectedSamples: 0, projectedNulls: 0,
-    maxProjectedPx: null, maxAngleDeg: null, maxPositionM: null, maxFovDeg: null, incompleteFrames: 0,
-    projectedBasis: 'UNVERIFIED', baselineProjectedPx: null,
+    framesConsidered: 0,
+    projectedSamples: 0,
+    projectedNulls: 0,
+    maxProjectedPx: null,
+    maxAngleDeg: null,
+    maxPositionM: null,
+    maxFovDeg: null,
+    incompleteFrames: 0,
+    projectedBasis: 'UNVERIFIED',
+    baselineProjectedPx: null,
   }
   if (!cameraObservablesComplete(baseline.camera)) return stats
   stats.baselineProjectedPx = projectPointToCssPx(baseline.camera, referencePoint, viewport.width, viewport.height)
   stats.projectedBasis = stats.baselineProjectedPx ? 'PASS' : 'UNVERIFIED'
   for (const frame of frames) {
-    if (!cameraObservablesComplete(frame.camera)) { stats.incompleteFrames++; continue }
+    if (!cameraObservablesComplete(frame.camera)) {
+      stats.incompleteFrames++
+      continue
+    }
     stats.framesConsidered += 1
     if (stats.baselineProjectedPx) {
       const projected = projectPointToCssPx(frame.camera, referencePoint, viewport.width, viewport.height)
       if (projected) {
         stats.projectedSamples += 1
-        const delta = Math.hypot(projected[0] - stats.baselineProjectedPx[0], projected[1] - stats.baselineProjectedPx[1])
+        const delta = Math.hypot(
+          projected[0] - stats.baselineProjectedPx[0],
+          projected[1] - stats.baselineProjectedPx[1],
+        )
         if (stats.maxProjectedPx === null || delta > stats.maxProjectedPx) stats.maxProjectedPx = delta
       } else stats.projectedNulls += 1
     }
     const angle = quatAngleDeg(baseline.camera.quaternion, frame.camera.quaternion)
     if (angle !== null && (stats.maxAngleDeg === null || angle > stats.maxAngleDeg)) stats.maxAngleDeg = angle
     const posDelta = dist3(baseline.camera.position, frame.camera.position)
-    if (posDelta !== null && (stats.maxPositionM === null || posDelta > stats.maxPositionM)) stats.maxPositionM = posDelta
+    if (posDelta !== null && (stats.maxPositionM === null || posDelta > stats.maxPositionM))
+      stats.maxPositionM = posDelta
     if (finite(baseline.camera.fov) && finite(frame.camera.fov)) {
       const fovDelta = Math.abs(frame.camera.fov - baseline.camera.fov)
       if (stats.maxFovDeg === null || fovDelta > stats.maxFovDeg) stats.maxFovDeg = fovDelta
@@ -557,26 +749,38 @@ function pointerWindowStats(frames, baseline, referencePoint, viewport) {
 
 function canonicalInvarianceStats(frames, baseline) {
   const stats = {
-    framesConsidered: 0, narrativeFrames: 0, maxProgressDelta: null,
-    beatIdChanges: [], stateKeyChanges: [], basis: 'UNVERIFIED',
+    framesConsidered: 0,
+    narrativeFrames: 0,
+    maxProgressDelta: null,
+    beatIdChanges: [],
+    stateKeyChanges: [],
+    basis: 'UNVERIFIED',
   }
   if (!baseline.narrative?.beatId || !baseline.narrative?.stateKey || !finite(baseline.progress)) return stats
   stats.basis = 'PASS'
   for (const frame of frames) {
-    if (!frame.narrative?.beatId || !frame.narrative?.stateKey) { stats.basis = 'UNVERIFIED'; continue }
+    if (!frame.narrative?.beatId || !frame.narrative?.stateKey) {
+      stats.basis = 'UNVERIFIED'
+      continue
+    }
     stats.framesConsidered += 1
-    if (!finite(frame.progress)) { stats.basis = 'UNVERIFIED'; continue }
+    if (!finite(frame.progress)) {
+      stats.basis = 'UNVERIFIED'
+      continue
+    }
     stats.narrativeFrames += 1
     const delta = Math.abs(frame.progress - baseline.progress)
     if (stats.maxProgressDelta === null || delta > stats.maxProgressDelta) stats.maxProgressDelta = delta
-    if (frame.narrative.beatId !== baseline.narrative.beatId) stats.beatIdChanges.push({ t: frame.t, from: baseline.narrative.beatId, to: frame.narrative.beatId })
-    if (frame.narrative.stateKey !== baseline.narrative.stateKey) stats.stateKeyChanges.push({ t: frame.t, from: baseline.narrative.stateKey, to: frame.narrative.stateKey })
+    if (frame.narrative.beatId !== baseline.narrative.beatId)
+      stats.beatIdChanges.push({ t: frame.t, from: baseline.narrative.beatId, to: frame.narrative.beatId })
+    if (frame.narrative.stateKey !== baseline.narrative.stateKey)
+      stats.stateKeyChanges.push({ t: frame.t, from: baseline.narrative.stateKey, to: frame.narrative.stateKey })
   }
   return stats
 }
 
 function framesBetween(frames, startT, endT) {
-  return frames.filter(frame => frame.t >= startT && (endT === null || frame.t <= endT))
+  return frames.filter((frame) => frame.t >= startT && (endT === null || frame.t <= endT))
 }
 
 async function dispatchLeg(page, label, from, to, rosterStartDate, probeT0, legIndex) {
@@ -586,19 +790,27 @@ async function dispatchLeg(page, label, from, to, rosterStartDate, probeT0, legI
   const startOffset = legStart - rosterStartDate
   const dispatches = []
   for (let i = 1; i <= MOVE_STEPS_PER_LEG; i++) {
-    await sleepUntil(legStart, Math.round(i * LEG_MS / MOVE_STEPS_PER_LEG))
+    await sleepUntil(legStart, Math.round((i * LEG_MS) / MOVE_STEPS_PER_LEG))
     const fraction = i / MOVE_STEPS_PER_LEG
     const x = from[0] + (to[0] - from[0]) * fraction
     const y = from[1] + (to[1] - from[1]) * fraction
     const beforeOffset = Date.now() - rosterStartDate
     await page.mouse.move(x, y)
-    dispatches.push({ step: i, x, y, beforeDispatchOffsetMs: beforeOffset, afterDispatchOffsetMs: Date.now() - rosterStartDate })
-    await sleepUntil(legStart, Math.round(i * LEG_MS / MOVE_STEPS_PER_LEG))
+    dispatches.push({
+      step: i,
+      x,
+      y,
+      beforeDispatchOffsetMs: beforeOffset,
+      afterDispatchOffsetMs: Date.now() - rosterStartDate,
+    })
+    await sleepUntil(legStart, Math.round((i * LEG_MS) / MOVE_STEPS_PER_LEG))
   }
   const endOffset = Date.now() - rosterStartDate
   return {
-    label, legIndex,
-    from: { x: from[0], y: from[1] }, to: { x: to[0], y: to[1] },
+    label,
+    legIndex,
+    from: { x: from[0], y: from[1] },
+    to: { x: to[0], y: to[1] },
     requestedDurationMs: LEG_MS,
     windowProbeT: { start: nativeStart, end: await probeNow(page) },
     dispatches,
@@ -606,9 +818,17 @@ async function dispatchLeg(page, label, from, to, rosterStartDate, probeT0, legI
 }
 
 function trustedMovesInWindow(nativeEvents, window) {
-  return nativeEvents.filter(event => event.type === 'pointermove' && event.isTrusted
-    && event.pointerType === 'mouse' && finite(event.clientX) && finite(event.clientY) && finite(event.t)
-    && event.t >= window.start - 50 && event.t <= window.end + 50)
+  return nativeEvents.filter(
+    (event) =>
+      event.type === 'pointermove' &&
+      event.isTrusted &&
+      event.pointerType === 'mouse' &&
+      finite(event.clientX) &&
+      finite(event.clientY) &&
+      finite(event.t) &&
+      event.t >= window.start - 50 &&
+      event.t <= window.end + 50,
+  )
 }
 
 async function settleAndBaseline(page, label) {
@@ -616,14 +836,17 @@ async function settleAndBaseline(page, label) {
   await markInput(page, label + ':baseline')
   const probeT0 = await probeNow(page)
   const captured = await drainProbe(page)
-  const baselineFrame = [...captured.frames].reverse().find(frame => frame.camera) ?? null
+  const baselineFrame = [...captured.frames].reverse().find((frame) => frame.camera) ?? null
   return { captured, baselineFrame, probeT0 }
 }
 
 async function runPointerRoster(page, options, provenance) {
   const assertions = []
   const segments = []
-  const viewport = await page.evaluate(() => { const c = document.querySelector('.torque-scene canvas'); return { width: c?.clientWidth ?? 0, height: c?.clientHeight ?? 0 } })
+  const viewport = await page.evaluate(() => {
+    const c = document.querySelector('.torque-scene canvas')
+    return { width: c?.clientWidth ?? 0, height: c?.clientHeight ?? 0 }
+  })
   const runtimeStart = await readRuntime(page)
 
   // ---- Segment 1: full §3 roster at the drafting (reading) beat, scroll untouched. ----
@@ -633,11 +856,19 @@ async function runPointerRoster(page, options, provenance) {
     check(assertions, 'drafting: baseline camera observable exists', 'UNVERIFIED', null)
   } else {
     const baseline = drafting.baselineFrame
-    const referencePoint = Array.isArray(baseline.camera?.target) && baseline.camera.target.every(finite)
-      ? baseline.camera.target : [0, 0, 0]
-    const referenceBasis = referencePoint === baseline.camera?.target ? 'baseline camera target' : 'world origin (baseline target unavailable)'
+    const referencePoint =
+      Array.isArray(baseline.camera?.target) && baseline.camera.target.every(finite)
+        ? baseline.camera.target
+        : [0, 0, 0]
+    const referenceBasis =
+      referencePoint === baseline.camera?.target
+        ? 'baseline camera target'
+        : 'world origin (baseline target unavailable)'
     const corners = [
-      [0, 0], [viewport.width - 1, 0], [viewport.width - 1, viewport.height - 1], [0, viewport.height - 1],
+      [0, 0],
+      [viewport.width - 1, 0],
+      [viewport.width - 1, viewport.height - 1],
+      [0, viewport.height - 1],
     ]
     const center = [Math.round(viewport.width / 2), Math.round(viewport.height / 2)]
     const rosterStart = Date.now()
@@ -645,15 +876,21 @@ async function runPointerRoster(page, options, provenance) {
     const legs = []
     const points = [center, corners[0], corners[1], corners[2], corners[3], center]
     for (let i = 1; i < points.length; i++) {
-      legs.push(await dispatchLeg(page, 'drafting:leg:' + i, points[i - 1], points[i], rosterStart, drafting.probeT0, i))
+      legs.push(
+        await dispatchLeg(page, 'drafting:leg:' + i, points[i - 1], points[i], rosterStart, drafting.probeT0, i),
+      )
     }
     const legsEndProbeT = await probeNow(page)
     await markInput(page, 'roster:drafting:hold')
     const holdIndex = await page.evaluate(() => window.__jg038PointerProbe.frames.length)
-    await page.waitForFunction(index => {
-      const rows = window.__jg038PointerProbe.frames
-      return rows[index] && rows.at(-1).t - rows[index].t >= 5000
-    }, holdIndex, { timeout: 10000, polling: 100 })
+    await page.waitForFunction(
+      (index) => {
+        const rows = window.__jg038PointerProbe.frames
+        return rows[index] && rows.at(-1).t - rows[index].t >= 5000
+      },
+      holdIndex,
+      { timeout: 10000, polling: 100 },
+    )
     await markInput(page, 'roster:drafting:end')
     const captured = await drainProbe(page)
     const endProbeT = await probeNow(page)
@@ -666,62 +903,163 @@ async function runPointerRoster(page, options, provenance) {
     const holdStats = pointerWindowStats(holdFrames, baseline, referencePoint, viewport)
     const canonical = canonicalInvarianceStats(captured.frames, baseline)
     const projectedLimit = PROJECTED_FRACTION * Math.min(viewport.width, viewport.height)
-    check(assertions, 'drafting: observed raw hold spans five seconds', holdFrames.length > 1 && holdFrames.at(-1).t - holdFrames[0].t >= HOLD_MS,
-      { frames: holdFrames.length, spanMs: holdFrames.length ? holdFrames.at(-1).t - holdFrames[0].t : null })
-    check(assertions, 'drafting: all camera/narrative observations complete',
-      legFrames.length > 1 && captured.frames.every(f => finite(f.t) && cameraObservablesComplete(f.camera)
-        && finite(f.progress) && finite(f.nativeProgress) && f.narrative?.beatId && f.narrative?.stateKey), captured.frames.length)
+    check(
+      assertions,
+      'drafting: observed raw hold spans five seconds',
+      holdFrames.length > 1 && holdFrames.at(-1).t - holdFrames[0].t >= HOLD_MS,
+      { frames: holdFrames.length, spanMs: holdFrames.length ? holdFrames.at(-1).t - holdFrames[0].t : null },
+    )
+    check(
+      assertions,
+      'drafting: all camera/narrative observations complete',
+      legFrames.length > 1 &&
+        captured.frames.every(
+          (f) =>
+            finite(f.t) &&
+            cameraObservablesComplete(f.camera) &&
+            finite(f.progress) &&
+            finite(f.nativeProgress) &&
+            f.narrative?.beatId &&
+            f.narrative?.stateKey,
+        ),
+      captured.frames.length,
+    )
     const holdBase = holdFrames[0]
-    const holdLampNative = holdBase && holdFrames.every(f => finite(f.nativeProgress) && Math.abs(f.nativeProgress - holdBase.nativeProgress) <= PROGRESS_EPS
-      && Object.keys(holdBase.lamps).every(k => finite(f.lamps[k]) && finite(holdBase.lamps[k]) && Math.abs(f.lamps[k] - holdBase.lamps[k]) <= 1e-4))
+    const holdLampNative =
+      holdBase &&
+      holdFrames.every(
+        (f) =>
+          finite(f.nativeProgress) &&
+          Math.abs(f.nativeProgress - holdBase.nativeProgress) <= PROGRESS_EPS &&
+          Object.keys(holdBase.lamps).every(
+            (k) => finite(f.lamps[k]) && finite(holdBase.lamps[k]) && Math.abs(f.lamps[k] - holdBase.lamps[k]) <= 1e-4,
+          ),
+      )
     check(assertions, 'drafting: finite lamp/native hold invariance', Boolean(holdLampNative), holdBase?.lamps)
     for (const leg of legs) {
       const events = trustedMovesInWindow(captured.nativeEvents, leg.windowProbeT)
-      check(assertions, leg.label + ': observed mouse endpoints', events.some(e => Math.abs(e.clientX - leg.from.x) <= 1 && Math.abs(e.clientY - leg.from.y) <= 1)
-        && events.some(e => Math.abs(e.clientX - leg.to.x) <= 1 && Math.abs(e.clientY - leg.to.y) <= 1), events)
-      check(assertions, leg.label + ': observed dispatch window at least requested500ms',
-        leg.windowProbeT.end - leg.windowProbeT.start >= LEG_MS, leg.windowProbeT)
+      check(
+        assertions,
+        leg.label + ': observed mouse endpoints',
+        events.some((e) => Math.abs(e.clientX - leg.from.x) <= 1 && Math.abs(e.clientY - leg.from.y) <= 1) &&
+          events.some((e) => Math.abs(e.clientX - leg.to.x) <= 1 && Math.abs(e.clientY - leg.to.y) <= 1),
+        events,
+      )
+      check(
+        assertions,
+        leg.label + ': observed dispatch window at least requested500ms',
+        leg.windowProbeT.end - leg.windowProbeT.start >= LEG_MS,
+        leg.windowProbeT,
+      )
     }
 
-    check(assertions, 'drafting: baseline narrative observable exists', baseline.narrative ? true : 'UNVERIFIED', baseline.narrative)
-    check(assertions, 'drafting: trusted pointermove delivered in every leg',
-      legs.every(leg => trustedMovesInWindow(captured.nativeEvents, leg.windowProbeT).length >= 1),
-      legs.map(leg => ({ label: leg.label, trustedMoves: trustedMovesInWindow(captured.nativeEvents, leg.windowProbeT).length })))
-    check(assertions, 'drafting: projected displacement during legs <= 1% of shorter viewport (' + projectedLimit.toFixed(2) + 'px)',
+    check(
+      assertions,
+      'drafting: baseline narrative observable exists',
+      baseline.narrative ? true : 'UNVERIFIED',
+      baseline.narrative,
+    )
+    check(
+      assertions,
+      'drafting: trusted pointermove delivered in every leg',
+      legs.every((leg) => trustedMovesInWindow(captured.nativeEvents, leg.windowProbeT).length >= 1),
+      legs.map((leg) => ({
+        label: leg.label,
+        trustedMoves: trustedMovesInWindow(captured.nativeEvents, leg.windowProbeT).length,
+      })),
+    )
+    check(
+      assertions,
+      'drafting: projected displacement during legs <= 1% of shorter viewport (' + projectedLimit.toFixed(2) + 'px)',
       legStats.maxProjectedPx === null ? 'UNVERIFIED' : legStats.maxProjectedPx <= projectedLimit,
-      { maxProjectedPx: legStats.maxProjectedPx, limitPx: projectedLimit, projectedSamples: legStats.projectedSamples, projectedNulls: legStats.projectedNulls })
-    check(assertions, 'drafting: reading suppression residual <= ' + SUPPRESSION_RESIDUAL_PX + ' CSS px',
+      {
+        maxProjectedPx: legStats.maxProjectedPx,
+        limitPx: projectedLimit,
+        projectedSamples: legStats.projectedSamples,
+        projectedNulls: legStats.projectedNulls,
+      },
+    )
+    check(
+      assertions,
+      'drafting: reading suppression residual <= ' + SUPPRESSION_RESIDUAL_PX + ' CSS px',
       legStats.maxProjectedPx === null ? 'UNVERIFIED' : legStats.maxProjectedPx <= SUPPRESSION_RESIDUAL_PX,
-      { maxProjectedPx: legStats.maxProjectedPx, limitPx: SUPPRESSION_RESIDUAL_PX })
-    check(assertions, 'drafting: projected observable complete (no behind-camera/unprojectable frames)',
+      { maxProjectedPx: legStats.maxProjectedPx, limitPx: SUPPRESSION_RESIDUAL_PX },
+    )
+    check(
+      assertions,
+      'drafting: projected observable complete (no behind-camera/unprojectable frames)',
       legStats.projectedNulls === 0 && legStats.projectedBasis === 'PASS' ? true : 'UNVERIFIED',
-      { projectedNulls: legStats.projectedNulls, baselineProjectedPx: legStats.baselineProjectedPx, referenceBasis })
-    check(assertions, 'drafting: angular offset during legs <= ' + ANGLE_LIMIT_DEG + ' deg',
+      { projectedNulls: legStats.projectedNulls, baselineProjectedPx: legStats.baselineProjectedPx, referenceBasis },
+    )
+    check(
+      assertions,
+      'drafting: angular offset during legs <= ' + ANGLE_LIMIT_DEG + ' deg',
       legStats.maxAngleDeg === null ? 'UNVERIFIED' : legStats.maxAngleDeg <= ANGLE_LIMIT_DEG,
-      { maxAngleDeg: legStats.maxAngleDeg, limitDeg: ANGLE_LIMIT_DEG })
-    check(assertions, 'drafting: center return within ' + RETURN_LIMIT_MS + 'ms of final center-leg end',
-      returnStats.maxProjectedPx === null || returnStats.maxAngleDeg === null ? 'UNVERIFIED'
-        : (returnStats.maxProjectedPx <= projectedLimit && returnStats.maxAngleDeg <= ANGLE_LIMIT_DEG ? true : false),
-      { maxProjectedPx: returnStats.maxProjectedPx, maxAngleDeg: returnStats.maxAngleDeg, windowMs: RETURN_LIMIT_MS, frames: returnFrames.length })
-    check(assertions, 'drafting: 5s hold position drift <= ' + HOLD_POSITION_M + 'm',
-      holdStats.maxPositionM === null ? 'UNVERIFIED' : holdStats.maxPositionM <= HOLD_POSITION_M, { maxPositionM: holdStats.maxPositionM })
-    check(assertions, 'drafting: 5s hold quaternion drift <= ' + HOLD_ANGLE_DEG + 'deg',
-      holdStats.maxAngleDeg === null ? 'UNVERIFIED' : holdStats.maxAngleDeg <= HOLD_ANGLE_DEG, { maxAngleDeg: holdStats.maxAngleDeg })
-    check(assertions, 'drafting: 5s hold FOV drift <= ' + HOLD_FOV_DEG + 'deg',
-      holdStats.maxFovDeg === null ? 'UNVERIFIED' : holdStats.maxFovDeg <= HOLD_FOV_DEG, { maxFovDeg: holdStats.maxFovDeg })
-    check(assertions, 'drafting: canonical progress constant during roster (pointer cannot modify canonical state)',
-      canonical.basis === 'UNVERIFIED' ? 'UNVERIFIED' : (canonical.maxProgressDelta !== null && canonical.maxProgressDelta <= PROGRESS_EPS && canonical.beatIdChanges.length === 0),
-      { maxProgressDelta: canonical.maxProgressDelta, eps: PROGRESS_EPS, beatIdChanges: canonical.beatIdChanges })
-    check(assertions, 'drafting: canonical stateKey constant during roster',
-      canonical.basis === 'UNVERIFIED' ? 'UNVERIFIED' : (canonical.narrativeFrames > 0 && canonical.stateKeyChanges.length === 0),
-      { narrativeFrames: canonical.narrativeFrames, stateKeyChanges: canonical.stateKeyChanges })
+      { maxAngleDeg: legStats.maxAngleDeg, limitDeg: ANGLE_LIMIT_DEG },
+    )
+    check(
+      assertions,
+      'drafting: center return within ' + RETURN_LIMIT_MS + 'ms of final center-leg end',
+      returnStats.maxProjectedPx === null || returnStats.maxAngleDeg === null
+        ? 'UNVERIFIED'
+        : returnStats.maxProjectedPx <= projectedLimit && returnStats.maxAngleDeg <= ANGLE_LIMIT_DEG
+          ? true
+          : false,
+      {
+        maxProjectedPx: returnStats.maxProjectedPx,
+        maxAngleDeg: returnStats.maxAngleDeg,
+        windowMs: RETURN_LIMIT_MS,
+        frames: returnFrames.length,
+      },
+    )
+    check(
+      assertions,
+      'drafting: 5s hold position drift <= ' + HOLD_POSITION_M + 'm',
+      holdStats.maxPositionM === null ? 'UNVERIFIED' : holdStats.maxPositionM <= HOLD_POSITION_M,
+      { maxPositionM: holdStats.maxPositionM },
+    )
+    check(
+      assertions,
+      'drafting: 5s hold quaternion drift <= ' + HOLD_ANGLE_DEG + 'deg',
+      holdStats.maxAngleDeg === null ? 'UNVERIFIED' : holdStats.maxAngleDeg <= HOLD_ANGLE_DEG,
+      { maxAngleDeg: holdStats.maxAngleDeg },
+    )
+    check(
+      assertions,
+      'drafting: 5s hold FOV drift <= ' + HOLD_FOV_DEG + 'deg',
+      holdStats.maxFovDeg === null ? 'UNVERIFIED' : holdStats.maxFovDeg <= HOLD_FOV_DEG,
+      { maxFovDeg: holdStats.maxFovDeg },
+    )
+    check(
+      assertions,
+      'drafting: canonical progress constant during roster (pointer cannot modify canonical state)',
+      canonical.basis === 'UNVERIFIED'
+        ? 'UNVERIFIED'
+        : canonical.maxProgressDelta !== null &&
+            canonical.maxProgressDelta <= PROGRESS_EPS &&
+            canonical.beatIdChanges.length === 0,
+      { maxProgressDelta: canonical.maxProgressDelta, eps: PROGRESS_EPS, beatIdChanges: canonical.beatIdChanges },
+    )
+    check(
+      assertions,
+      'drafting: canonical stateKey constant during roster',
+      canonical.basis === 'UNVERIFIED'
+        ? 'UNVERIFIED'
+        : canonical.narrativeFrames > 0 && canonical.stateKeyChanges.length === 0,
+      { narrativeFrames: canonical.narrativeFrames, stateKeyChanges: canonical.stateKeyChanges },
+    )
     segments.push({
       label: 'drafting-reading-roster',
       phase: 'drafting (reading)',
       cornerPoints: { center, corners },
-      referencePoint, referenceBasis,
-      legs, legWindowsMs: { legs: drafting.probeT0, legsEnd: legsEndProbeT, end: endProbeT },
-      legStats, returnStats, holdStats, canonical,
+      referencePoint,
+      referenceBasis,
+      legs,
+      legWindowsMs: { legs: drafting.probeT0, legsEnd: legsEndProbeT, end: endProbeT },
+      legStats,
+      returnStats,
+      holdStats,
+      canonical,
       ambientDriftControl: pointerWindowStats(drafting.captured.frames, baseline, referencePoint, viewport),
       probe: captured,
     })
@@ -729,30 +1067,50 @@ async function runPointerRoster(page, options, provenance) {
 
   // ---- Segment 2: fracture suppression micro-roster at the breakthrough midpoint. ----
   const runtimeForBeats = runtimeStart.beats?.length ? runtimeStart : await readRuntime(page)
-  const fractureBeat = (runtimeForBeats.beats ?? []).find(beat => beat.id === 'breakthrough-rupture') ?? null
+  const fractureBeat = (runtimeForBeats.beats ?? []).find((beat) => beat.id === 'breakthrough-rupture') ?? null
   if (!fractureBeat) {
     check(assertions, 'fracture: breakthrough beat exposed via narrative port', 'UNVERIFIED', runtimeForBeats.beats)
-    segments.push({ label: 'fracture-suppression-roster', phase: 'breakthrough', status: 'UNVERIFIED', reason: 'breakthrough beat not exposed' })
+    segments.push({
+      label: 'fracture-suppression-roster',
+      phase: 'breakthrough',
+      status: 'UNVERIFIED',
+      reason: 'breakthrough beat not exposed',
+    })
   } else {
     const targetProgress = (fractureBeat.start + fractureBeat.end) / 2
-    await page.evaluate(target => {
+    await page.evaluate((target) => {
       const scrollingElement = document.scrollingElement || document.documentElement
       const maxScroll = Math.max(0, (scrollingElement.scrollHeight || 0) - (scrollingElement.clientHeight || 0))
       window.scrollTo(0, target * maxScroll)
     }, targetProgress)
     const fracture = await settleAndBaseline(page, 'roster:fracture')
     const runtimeAtFracture = await readRuntime(page)
-    check(assertions, 'fracture: native seek reached breakthrough midpoint (+/- ' + SEEK_PROGRESS_TOL + ')',
-      finite(runtimeAtFracture.progress) ? Math.abs(runtimeAtFracture.progress - targetProgress) <= SEEK_PROGRESS_TOL : 'UNVERIFIED',
-      { targetProgress, observedProgress: runtimeAtFracture.progress })
+    check(
+      assertions,
+      'fracture: native seek reached breakthrough midpoint (+/- ' + SEEK_PROGRESS_TOL + ')',
+      finite(runtimeAtFracture.progress)
+        ? Math.abs(runtimeAtFracture.progress - targetProgress) <= SEEK_PROGRESS_TOL
+        : 'UNVERIFIED',
+      { targetProgress, observedProgress: runtimeAtFracture.progress },
+    )
     if (!fracture.baselineFrame) {
       check(assertions, 'fracture: baseline camera observable exists', 'UNVERIFIED', null)
-      segments.push({ label: 'fracture-suppression-roster', phase: 'breakthrough', status: 'UNVERIFIED', reason: 'no camera baseline' })
+      segments.push({
+        label: 'fracture-suppression-roster',
+        phase: 'breakthrough',
+        status: 'UNVERIFIED',
+        reason: 'no camera baseline',
+      })
     } else {
       const baseline = fracture.baselineFrame
-      const referencePoint = Array.isArray(baseline.camera?.target) && baseline.camera.target.every(finite)
-        ? baseline.camera.target : [0, 0, 0]
-      const viewportNow = await page.evaluate(() => { const c = document.querySelector('.torque-scene canvas'); return { width: c?.clientWidth ?? 0, height: c?.clientHeight ?? 0 } })
+      const referencePoint =
+        Array.isArray(baseline.camera?.target) && baseline.camera.target.every(finite)
+          ? baseline.camera.target
+          : [0, 0, 0]
+      const viewportNow = await page.evaluate(() => {
+        const c = document.querySelector('.torque-scene canvas')
+        return { width: c?.clientWidth ?? 0, height: c?.clientHeight ?? 0 }
+      })
       const corner = [viewportNow.width - 1, 0]
       const center = [Math.round(viewportNow.width / 2), Math.round(viewportNow.height / 2)]
       const rosterStart = Date.now()
@@ -760,7 +1118,9 @@ async function runPointerRoster(page, options, provenance) {
       const legs = []
       const points = [center, corner, center]
       for (let i = 1; i < points.length; i++) {
-        legs.push(await dispatchLeg(page, 'fracture:leg:' + i, points[i - 1], points[i], rosterStart, fracture.probeT0, i))
+        legs.push(
+          await dispatchLeg(page, 'fracture:leg:' + i, points[i - 1], points[i], rosterStart, fracture.probeT0, i),
+        )
       }
       await markInput(page, 'roster:fracture:end')
       const captured = await drainProbe(page)
@@ -768,30 +1128,70 @@ async function runPointerRoster(page, options, provenance) {
       const stats = pointerWindowStats(legFrames, baseline, referencePoint, viewportNow)
       const canonical = canonicalInvarianceStats(captured.frames, baseline)
       const projectedLimit = PROJECTED_FRACTION * Math.min(viewportNow.width, viewportNow.height)
-      check(assertions, 'fracture: complete finite camera/narrative observations', legFrames.length > 1
-        && legFrames.every(f => finite(f.t) && cameraObservablesComplete(f.camera) && finite(f.progress)
-          && f.narrative?.beatId && f.narrative?.stateKey), legFrames.length)
-      check(assertions, 'fracture: trusted pointermove delivered in every leg',
-        legs.every(leg => trustedMovesInWindow(captured.nativeEvents, leg.windowProbeT).length >= 1),
-        legs.map(leg => ({ label: leg.label, trustedMoves: trustedMovesInWindow(captured.nativeEvents, leg.windowProbeT).length })))
-      check(assertions, 'fracture: suppression residual <= ' + SUPPRESSION_RESIDUAL_PX + ' CSS px',
+      check(
+        assertions,
+        'fracture: complete finite camera/narrative observations',
+        legFrames.length > 1 &&
+          legFrames.every(
+            (f) =>
+              finite(f.t) &&
+              cameraObservablesComplete(f.camera) &&
+              finite(f.progress) &&
+              f.narrative?.beatId &&
+              f.narrative?.stateKey,
+          ),
+        legFrames.length,
+      )
+      check(
+        assertions,
+        'fracture: trusted pointermove delivered in every leg',
+        legs.every((leg) => trustedMovesInWindow(captured.nativeEvents, leg.windowProbeT).length >= 1),
+        legs.map((leg) => ({
+          label: leg.label,
+          trustedMoves: trustedMovesInWindow(captured.nativeEvents, leg.windowProbeT).length,
+        })),
+      )
+      check(
+        assertions,
+        'fracture: suppression residual <= ' + SUPPRESSION_RESIDUAL_PX + ' CSS px',
         stats.maxProjectedPx === null ? 'UNVERIFIED' : stats.maxProjectedPx <= SUPPRESSION_RESIDUAL_PX,
-        { maxProjectedPx: stats.maxProjectedPx, limitPx: SUPPRESSION_RESIDUAL_PX })
-      check(assertions, 'fracture: projected displacement during legs <= 1% of shorter viewport',
+        { maxProjectedPx: stats.maxProjectedPx, limitPx: SUPPRESSION_RESIDUAL_PX },
+      )
+      check(
+        assertions,
+        'fracture: projected displacement during legs <= 1% of shorter viewport',
         stats.maxProjectedPx === null ? 'UNVERIFIED' : stats.maxProjectedPx <= projectedLimit,
-        { maxProjectedPx: stats.maxProjectedPx, limitPx: projectedLimit, projectedSamples: stats.projectedSamples, projectedNulls: stats.projectedNulls })
-      check(assertions, 'fracture: angular offset during legs <= ' + ANGLE_LIMIT_DEG + ' deg',
+        {
+          maxProjectedPx: stats.maxProjectedPx,
+          limitPx: projectedLimit,
+          projectedSamples: stats.projectedSamples,
+          projectedNulls: stats.projectedNulls,
+        },
+      )
+      check(
+        assertions,
+        'fracture: angular offset during legs <= ' + ANGLE_LIMIT_DEG + ' deg',
         stats.maxAngleDeg === null ? 'UNVERIFIED' : stats.maxAngleDeg <= ANGLE_LIMIT_DEG,
-        { maxAngleDeg: stats.maxAngleDeg, limitDeg: ANGLE_LIMIT_DEG })
-      check(assertions, 'fracture: canonical progress/beatId constant during micro-roster',
-        canonical.basis === 'UNVERIFIED' ? 'UNVERIFIED' : (canonical.maxProgressDelta !== null && canonical.maxProgressDelta <= PROGRESS_EPS && canonical.beatIdChanges.length === 0),
-        { maxProgressDelta: canonical.maxProgressDelta, eps: PROGRESS_EPS, beatIdChanges: canonical.beatIdChanges })
+        { maxAngleDeg: stats.maxAngleDeg, limitDeg: ANGLE_LIMIT_DEG },
+      )
+      check(
+        assertions,
+        'fracture: canonical progress/beatId constant during micro-roster',
+        canonical.basis === 'UNVERIFIED'
+          ? 'UNVERIFIED'
+          : canonical.maxProgressDelta !== null &&
+              canonical.maxProgressDelta <= PROGRESS_EPS &&
+              canonical.beatIdChanges.length === 0,
+        { maxProgressDelta: canonical.maxProgressDelta, eps: PROGRESS_EPS, beatIdChanges: canonical.beatIdChanges },
+      )
       segments.push({
         label: 'fracture-suppression-roster',
         phase: 'breakthrough midpoint ' + targetProgress,
         cornerPoints: { center, corner },
         referencePoint,
-        legs, legStats: stats, canonical,
+        legs,
+        legStats: stats,
+        canonical,
         probe: captured,
       })
     }
@@ -802,15 +1202,39 @@ async function runPointerRoster(page, options, provenance) {
 }
 
 function runtimeIdentityAssertions(assertions, runtime, viewport, tier, label) {
-  check(assertions, label + ': actual viewport and device DPR', runtime.viewport?.innerWidth === viewport.width
-    && runtime.viewport?.innerHeight === viewport.height && runtime.viewport?.devicePixelRatio === viewport.deviceScaleFactor, runtime.viewport)
-  check(assertions, label + ': actual live tier', runtime.tier === tier && runtime.mode === 'live', { tier: runtime.tier, mode: runtime.mode })
-  check(assertions, label + ': actual canvas basis and liveness', runtime.canvasPresent && runtime.ready && runtime.baked
-    && runtime.visibility === 'visible' && runtime.scenePointerEvents === 'none'
-    && runtime.viewport?.canvasCss?.[0] > 0 && runtime.viewport.canvasCss[0] <= viewport.width
-    && runtime.viewport?.canvasCss?.[1] > 0 && runtime.viewport.canvasCss[1] <= viewport.height, runtime)
+  check(
+    assertions,
+    label + ': actual viewport and device DPR',
+    runtime.viewport?.innerWidth === viewport.width &&
+      runtime.viewport?.innerHeight === viewport.height &&
+      runtime.viewport?.devicePixelRatio === viewport.deviceScaleFactor,
+    runtime.viewport,
+  )
+  check(assertions, label + ': actual live tier', runtime.tier === tier && runtime.mode === 'live', {
+    tier: runtime.tier,
+    mode: runtime.mode,
+  })
+  check(
+    assertions,
+    label + ': actual canvas basis and liveness',
+    runtime.canvasPresent &&
+      runtime.ready &&
+      runtime.baked &&
+      runtime.visibility === 'visible' &&
+      runtime.scenePointerEvents === 'none' &&
+      runtime.viewport?.canvasCss?.[0] > 0 &&
+      runtime.viewport.canvasCss[0] <= viewport.width &&
+      runtime.viewport?.canvasCss?.[1] > 0 &&
+      runtime.viewport.canvasCss[1] <= viewport.height,
+    runtime,
+  )
   const backend = runtime.renderer?.backend
-  check(assertions, label + ': observed renderer backend', typeof backend === 'string' && backend.length > 0 ? true : 'UNVERIFIED', backend ?? null)
+  check(
+    assertions,
+    label + ': observed renderer backend',
+    typeof backend === 'string' && backend.length > 0 ? true : 'UNVERIFIED',
+    backend ?? null,
+  )
 }
 
 async function runCategory(browser, options, provenance) {
@@ -819,7 +1243,13 @@ async function runCategory(browser, options, provenance) {
   const started = Date.now()
   let context = null
   const collectors = { consoleErrors: [], pageErrors: [], requestFailed: [], httpErrors: [] }
-  const result = { category: 'pointer-roster', requestedViewport: viewport.label, requestedTier: tier, assertions: [], status: 'FAIL' }
+  const result = {
+    category: 'pointer-roster',
+    requestedViewport: viewport.label,
+    requestedTier: tier,
+    assertions: [],
+    status: 'FAIL',
+  }
   const inner = async () => {
     context = await browser.newContext({
       viewport: { width: viewport.width, height: viewport.height },
@@ -830,58 +1260,122 @@ async function runCategory(browser, options, provenance) {
       reducedMotion: 'no-preference',
     })
     const page = await context.newPage()
-    page.on('console', message => { if (message.type() === 'error') collectors.consoleErrors.push(message.text()) })
-    page.on('pageerror', error => collectors.pageErrors.push(String(error)))
-    page.on('requestfailed', request => collectors.requestFailed.push({ url: request.url(), error: request.failure()?.errorText ?? 'unknown' }))
-    page.on('response', response => { if (response.status() >= 400) collectors.httpErrors.push({ url: response.url(), status: response.status() }) })
+    page.on('console', (message) => {
+      if (message.type() === 'error') collectors.consoleErrors.push(message.text())
+    })
+    page.on('pageerror', (error) => collectors.pageErrors.push(String(error)))
+    page.on('requestfailed', (request) =>
+      collectors.requestFailed.push({ url: request.url(), error: request.failure()?.errorText ?? 'unknown' }),
+    )
+    page.on('response', (response) => {
+      if (response.status() >= 400) collectors.httpErrors.push({ url: response.url(), status: response.status() })
+    })
     await page.addInitScript(pointerProbeInit)
     const url = new URL(options.url)
     url.searchParams.set('quality', tier)
     await page.goto(url.toString(), { waitUntil: 'domcontentloaded', timeout: READY_TIMEOUT_MS })
     await waitForReady(page)
     await page.evaluate(() => window.__jg038PointerProbe.start('ready'))
-    const scripts = await page.evaluate(() => [...document.querySelectorAll('script[src]')].map(element => new URL(element.src).pathname))
-    check(result.assertions, 'pointer-roster: loaded entry identity', scripts.includes(provenance.expectedEntry), scripts)
+    const scripts = await page.evaluate(() =>
+      [...document.querySelectorAll('script[src]')].map((element) => new URL(element.src).pathname),
+    )
+    check(
+      result.assertions,
+      'pointer-roster: loaded entry identity',
+      scripts.includes(provenance.expectedEntry),
+      scripts,
+    )
     const runtimeProbe = await readRuntime(page)
     runtimeIdentityAssertions(result.assertions, runtimeProbe, viewport, tier, 'pointer-roster start')
-    check(result.assertions, 'pointer-roster: live-mode scene layer is pointer-inert per source CSS contract',
-      runtimeProbe.scenePointerEvents === 'none' ? true : 'UNVERIFIED', { scenePointerEvents: runtimeProbe.scenePointerEvents })
+    check(
+      result.assertions,
+      'pointer-roster: live-mode scene layer is pointer-inert per source CSS contract',
+      runtimeProbe.scenePointerEvents === 'none' ? true : 'UNVERIFIED',
+      { scenePointerEvents: runtimeProbe.scenePointerEvents },
+    )
     const roster = await runPointerRoster(page, options, provenance)
     result.segments = roster.segments
     result.assertions.push(...roster.assertions)
     result.runtimeStart = roster.runtimeStart
     result.runtimeEnd = roster.runtimeEnd
     runtimeIdentityAssertions(result.assertions, roster.runtimeEnd, viewport, tier, 'pointer-roster end')
-    const probes = result.segments.flatMap(segment => [segment.probe].filter(Boolean))
-    check(result.assertions, 'pointer-roster: zero probe errors', probes.every(probe => probe.errors.length === 0), probes.flatMap(probe => probe.errors))
-    check(result.assertions, 'pointer-roster: zero dropped samples', probes.every(probe => probe.dropped === 0), probes.map(probe => probe.dropped))
-    check(result.assertions, 'pointer-roster: zero console errors', collectors.consoleErrors.length === 0, collectors.consoleErrors)
-    check(result.assertions, 'pointer-roster: zero uncaught page errors', collectors.pageErrors.length === 0, collectors.pageErrors)
-    check(result.assertions, 'pointer-roster: zero failed requests', collectors.requestFailed.length === 0, collectors.requestFailed)
-    check(result.assertions, 'pointer-roster: zero HTTP errors', collectors.httpErrors.length === 0, collectors.httpErrors)
-    result.status = aggregateStatus(result.assertions.map(item => item.status))
+    const probes = result.segments.flatMap((segment) => [segment.probe].filter(Boolean))
+    check(
+      result.assertions,
+      'pointer-roster: zero probe errors',
+      probes.every((probe) => probe.errors.length === 0),
+      probes.flatMap((probe) => probe.errors),
+    )
+    check(
+      result.assertions,
+      'pointer-roster: zero dropped samples',
+      probes.every((probe) => probe.dropped === 0),
+      probes.map((probe) => probe.dropped),
+    )
+    check(
+      result.assertions,
+      'pointer-roster: zero console errors',
+      collectors.consoleErrors.length === 0,
+      collectors.consoleErrors,
+    )
+    check(
+      result.assertions,
+      'pointer-roster: zero uncaught page errors',
+      collectors.pageErrors.length === 0,
+      collectors.pageErrors,
+    )
+    check(
+      result.assertions,
+      'pointer-roster: zero failed requests',
+      collectors.requestFailed.length === 0,
+      collectors.requestFailed,
+    )
+    check(
+      result.assertions,
+      'pointer-roster: zero HTTP errors',
+      collectors.httpErrors.length === 0,
+      collectors.httpErrors,
+    )
+    result.status = aggregateStatus(result.assertions.map((item) => item.status))
   }
   let timer
-  const watchdog = new Promise(resolve => {
-    timer = setTimeout(() => { result.watchdog = true; resolve({ watchdog: true }) }, CASE_TIMEOUT_MS)
+  const watchdog = new Promise((resolve) => {
+    timer = setTimeout(() => {
+      result.watchdog = true
+      resolve({ watchdog: true })
+    }, CASE_TIMEOUT_MS)
   })
   try {
     const raced = await Promise.race([inner(), watchdog])
     if (raced?.watchdog) result.watchdog = true
   } catch (error) {
-    check(result.assertions, 'pointer-roster: category completed without harness exception', false, String(error?.stack ?? error))
+    check(
+      result.assertions,
+      'pointer-roster: category completed without harness exception',
+      false,
+      String(error?.stack ?? error),
+    )
     result.status = 'FAIL'
   } finally {
     clearTimeout(timer)
     if (context) await context.close().catch(() => {})
   }
   if (result.watchdog) {
-    check(result.assertions, 'pointer-roster: bounded watchdog', false, 'exceeded ' + CASE_TIMEOUT_MS + 'ms; context closed')
+    check(
+      result.assertions,
+      'pointer-roster: bounded watchdog',
+      false,
+      'exceeded ' + CASE_TIMEOUT_MS + 'ms; context closed',
+    )
     result.status = 'FAIL'
   }
   result.durationMs = Date.now() - started
   result.collectors = collectors
-  result.provenanceBindings = { buildDir: provenance.buildDir, expectedEntry: provenance.expectedEntry, scenePath: provenance.scenePath }
+  result.provenanceBindings = {
+    buildDir: provenance.buildDir,
+    expectedEntry: provenance.expectedEntry,
+    scenePath: provenance.scenePath,
+  }
   return result
 }
 
@@ -902,7 +1396,8 @@ async function main() {
       checkpoint: 'C:/Users/Markimus/AppData/Local/Temp/JG-038-release-checkpoint-2026-10-14.md',
       parentRuntimeOwner: 'chat:01a13b10-6d9b-7f80-9ce8-3fd20d86fbe1',
       authorSeat: 'Ohm pointer-harness scope reassigned to the receiving local session (GLM-5.3-Flash high)',
-      writeOwnership: 'scripts/verify-torque-pointer-functional.mjs only; parent owns runtime, integration and every other file',
+      writeOwnership:
+        'scripts/verify-torque-pointer-functional.mjs only; parent owns runtime, integration and every other file',
     },
     capturedAt: new Date().toISOString(),
     url: url.toString(),
@@ -916,18 +1411,22 @@ async function main() {
     },
     pointerContract: {
       source: 'docs/torque-wrench-rebuild/18-stage0-verification-contract-proposal.md §3/§6',
-      roster: 'center -> four corners -> center, 500ms per leg, then 5s hold; fracture micro-roster at breakthrough midpoint',
+      roster:
+        'center -> four corners -> center, 500ms per leg, then 5s hold; fracture micro-roster at breakthrough midpoint',
       limits: {
         projectedDisplacementFractionOfShorterViewport: PROJECTED_FRACTION,
         angularOffsetDeg: ANGLE_LIMIT_DEG,
         centerReturnMs: RETURN_LIMIT_MS,
         suppressionResidualCssPx: SUPPRESSION_RESIDUAL_PX,
-        holdPositionM: HOLD_POSITION_M, holdAngleDeg: HOLD_ANGLE_DEG, holdFovDeg: HOLD_FOV_DEG,
+        holdPositionM: HOLD_POSITION_M,
+        holdAngleDeg: HOLD_ANGLE_DEG,
+        holdFovDeg: HOLD_FOV_DEG,
       },
     },
     pointerDynamicsBasis: {
       implemented: false,
-      rerunRequirement: 'When pointer dynamics are integrated, rerun with §6 offset discrimination (pointer-active vs pointer-absent difference). This invariance report must not be reused for that claim.',
+      rerunRequirement:
+        'When pointer dynamics are integrated, rerun with §6 offset discrimination (pointer-active vs pointer-absent difference). This invariance report must not be reused for that claim.',
     },
     coverage: {
       completeForSelectedScope: false,
@@ -964,8 +1463,13 @@ async function main() {
       if (!actual.startsWith(evidence + path.sep)) throw new Error('source-report must stay inside task evidence root')
       const bytes = readFileSync(actual)
       JSON.parse(bytes.toString('utf8'))
-      report.sourceReport = { path: actual, bytes: bytes.length, sha256: sha256(bytes),
-        interpretation: 'Parent record bytes bound only; build/source causality requires independent interpretation of this record.' }
+      report.sourceReport = {
+        path: actual,
+        bytes: bytes.length,
+        sha256: sha256(bytes),
+        interpretation:
+          'Parent record bytes bound only; build/source causality requires independent interpretation of this record.',
+      }
     } else report.sourceReport = { status: 'UNVERIFIED', reason: 'No --source-report supplied.' }
     report.build = await loadBuildGraph(buildDir, url.origin)
 
@@ -975,7 +1479,9 @@ async function main() {
     config.ignoreDefaultArgs = ['--hide-scrollbars']
     browser = await playwright.chromium.launch(config)
     report.browser = {
-      playwrightConfiguredVersion: JSON.parse(readFileSync(createRequire(import.meta.url).resolve('playwright/package.json'), 'utf8')).version,
+      playwrightConfiguredVersion: JSON.parse(
+        readFileSync(createRequire(import.meta.url).resolve('playwright/package.json'), 'utf8'),
+      ).version,
       observedVersion: browser.version(),
       launchDescription: launchModule.describeLaunch(),
       launchConfig: config,
@@ -986,7 +1492,9 @@ async function main() {
     report.harnessStable = { status: report.source.harnessSha256 === report.sourceEnd.harnessSha256 ? 'PASS' : 'FAIL' }
     report.sourceBuildCausality = {
       status: 'UNVERIFIED',
-      liveSourceChangedDuringRun: Object.keys(report.source.files).filter(file => report.source.files[file] !== report.sourceEnd.files[file]),
+      liveSourceChangedDuringRun: Object.keys(report.source.files).filter(
+        (file) => report.source.files[file] !== report.sourceEnd.files[file],
+      ),
       note: 'Live source hashes do not establish build-time source causality. A parent-authored build/source record is required; post-build product drift cannot inherit served-build claims.',
     }
     try {
@@ -994,18 +1502,28 @@ async function main() {
       const before = report.build
       const after = report.buildEnd
       report.servedIdentityAfterRuntime = {
-        status: before.manifestIdentity.sha256 === after.manifestIdentity.sha256
-          && Object.keys(before.assets).every(key => before.assets[key].served.sha256 === after.assets[key].served.sha256
-            && before.assets[key].local.sha256 === after.assets[key].local.sha256) ? 'PASS' : 'FAIL',
+        status:
+          before.manifestIdentity.sha256 === after.manifestIdentity.sha256 &&
+          Object.keys(before.assets).every(
+            (key) =>
+              before.assets[key].served.sha256 === after.assets[key].served.sha256 &&
+              before.assets[key].local.sha256 === after.assets[key].local.sha256,
+          )
+            ? 'PASS'
+            : 'FAIL',
         note: 'HTML/entry/Scene/CAD/decoder served and local bytes fetched again after runtime.',
       }
     } catch (error) {
       report.servedIdentityAfterRuntime = { status: 'FAIL', error: String(error) }
     }
-    report.coverage.selectedFunctionalStatus = aggregateStatus(report.categories.map(category => category.status))
+    report.coverage.selectedFunctionalStatus = aggregateStatus(report.categories.map((category) => category.status))
     report.coverage.completeForSelectedScope = report.coverage.selectedFunctionalStatus === 'PASS'
-    report.overallStatus = aggregateStatus([report.coverage.selectedFunctionalStatus,
-      report.servedIdentityAfterRuntime.status, report.sourceBuildCausality.status, report.harnessStable.status])
+    report.overallStatus = aggregateStatus([
+      report.coverage.selectedFunctionalStatus,
+      report.servedIdentityAfterRuntime.status,
+      report.sourceBuildCausality.status,
+      report.harnessStable.status,
+    ])
     exitCode = report.overallStatus === 'PASS' ? EXIT.PASS : EXIT.FAIL
   } catch (error) {
     report.overallStatus = 'BLOCKED'
@@ -1033,7 +1551,7 @@ async function main() {
   process.exit(exitCode)
 }
 
-main().catch(error => {
+main().catch((error) => {
   console.error('INTERNAL: ' + (error?.stack ?? String(error)))
   process.exit(EXIT.INTERNAL)
 })

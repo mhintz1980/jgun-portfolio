@@ -34,12 +34,7 @@ import {
   makeDrawingLayout,
   makePaperGrainTexture,
 } from './drawingGeometry'
-import {
-  applyExtraction,
-  drawingRuntime,
-  relativePose,
-  lowestVertex,
-} from './extractionPose'
+import { applyExtraction, drawingRuntime, relativePose, lowestVertex } from './extractionPose'
 import { sheetReveal } from './sheetCamera'
 import { bakeSheet, type SheetBakeResult } from './sheet/sheetBake'
 import { GROUP, INK_GRAPHITE, INK_RED, WAVE_GLSL } from './sheet/ink'
@@ -259,24 +254,30 @@ export function DrawingLinework({ data }: { data: DrawingGeometry }) {
     const layout = makeDrawingLayout(1, data.bounds)
     const tier = getQuality().tier === 'full' ? 'full' : 'lite'
     void bakeSheet({
-      gl, data, layout, tier, signal: controller.signal,
+      gl,
+      data,
+      layout,
+      tier,
+      signal: controller.signal,
       onCleanupFailure: (errors) => {
         if (errors.length) console.error('Drawing cleanup failed', errors)
       },
-    }).then((result) => {
-      if (controller.signal.aborted || bakeEpoch.current !== epoch) {
-        result.dispose()
-        return
-      }
-      installed = result
-      window.__sheetStats = result.stats
-      setBaked(result)
-    }).catch((error) => {
-      if (!controller.signal.aborted && bakeEpoch.current === epoch) {
-        console.error('Drawing initialization failed', error)
-        forcePoster()
-      }
     })
+      .then((result) => {
+        if (controller.signal.aborted || bakeEpoch.current !== epoch) {
+          result.dispose()
+          return
+        }
+        installed = result
+        window.__sheetStats = result.stats
+        setBaked(result)
+      })
+      .catch((error) => {
+        if (!controller.signal.aborted && bakeEpoch.current === epoch) {
+          console.error('Drawing initialization failed', error)
+          forcePoster()
+        }
+      })
     return () => {
       if (bakeEpoch.current === epoch) ++bakeEpoch.current
       controller.abort()
@@ -332,7 +333,7 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     })
     const desk = new ShaderMaterial({
       uniforms,
-      vertexShader: planeVertex.replace("p.z += paperDisplacement(vPlane) * uDisplace;", ""),
+      vertexShader: planeVertex.replace('p.z += paperDisplacement(vPlane) * uDisplace;', ''),
       fragmentShader: deskFragment,
       transparent: true,
       depthWrite: false,
@@ -347,17 +348,36 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
       side: DoubleSide,
       toneMapped: false,
     })
-    const cracks = new ShaderMaterial({ uniforms, vertexShader: WAVE_GLSL + LIGHTNING_VERTEX,
-      fragmentShader: LIGHTNING_FRAGMENT.replace(/uPulseHead/g, 'uCrackGrowth').replace(/uCrackGlow/g, 'uCrackWeb').replace(/uSpark/g, 'uCrackSpark'),
-      transparent: true, depthWrite: false, side: DoubleSide, toneMapped: false })
-    const edge = new ShaderMaterial({ uniforms, vertexShader: planeVertex,
+    const cracks = new ShaderMaterial({
+      uniforms,
+      vertexShader: WAVE_GLSL + LIGHTNING_VERTEX,
+      fragmentShader: LIGHTNING_FRAGMENT.replace(/uPulseHead/g, 'uCrackGrowth')
+        .replace(/uCrackGlow/g, 'uCrackWeb')
+        .replace(/uSpark/g, 'uCrackSpark'),
+      transparent: true,
+      depthWrite: false,
+      side: DoubleSide,
+      toneMapped: false,
+    })
+    const edge = new ShaderMaterial({
+      uniforms,
+      vertexShader: planeVertex,
       fragmentShader: `uniform float uLampPower; varying vec2 vPlane; ${PORTAL_PROFILE_GLSL}
         void main(){ gl_FragColor=vec4(vec3(0.012,0.006,0.003)*(0.3+uLampPower)
           + vec3(0.21,0.45,0.76)*portalRim(vPlane)*uPortalLight*0.18,1.0); }`,
-      side: DoubleSide, toneMapped: false })
-    const fragments = baked.fracture.fragments.map(f => new ShaderMaterial({ uniforms: { ...uniforms,
-      uFragmentCenter: { value: f.center }, uFragment: { value: 1 } },
-      vertexShader: planeVertex, fragmentShader: paperFragment, side: DoubleSide, toneMapped: false }))
+      side: DoubleSide,
+      toneMapped: false,
+    })
+    const fragments = baked.fracture.fragments.map(
+      (f) =>
+        new ShaderMaterial({
+          uniforms: { ...uniforms, uFragmentCenter: { value: f.center }, uFragment: { value: 1 } },
+          vertexShader: planeVertex,
+          fragmentShader: paperFragment,
+          side: DoubleSide,
+          toneMapped: false,
+        }),
+    )
     return { paper, desk, pulse, cracks, edge, fragments }
   }, [uniforms, grain])
 
@@ -375,18 +395,28 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     pulse.frustumCulled = false
     pulse.renderOrder = 4
     const edge = new Mesh(baked.fracture.edge, materials.edge)
-    edge.renderOrder = 2; edge.frustumCulled = false; edge.name = 'charred-profile-edge'
+    edge.renderOrder = 2
+    edge.frustumCulled = false
+    edge.name = 'charred-profile-edge'
     const cracks = new Mesh(baked.fracture.cracks, materials.cracks)
-    cracks.renderOrder = 4; cracks.frustumCulled = false; cracks.name = 'pressure-crack-web'
+    cracks.renderOrder = 4
+    cracks.frustumCulled = false
+    cracks.name = 'pressure-crack-web'
     const fragments = baked.fracture.fragments.map((f, i) => {
       const mesh = new Mesh(f.geometry, materials.fragments[i])
-      mesh.position.set(f.center.x, f.center.y, 0); mesh.renderOrder = 1
-      mesh.frustumCulled = false; mesh.name = `paper-fragment-${i}`
+      mesh.position.set(f.center.x, f.center.y, 0)
+      mesh.renderOrder = 1
+      mesh.frustumCulled = false
+      mesh.name = `paper-fragment-${i}`
       return mesh
     })
     const initialModelBottom = data.bounds.clone().applyMatrix4(layout.primaryRotation).min.z + extraction.initialZ
-    const portal = makePortal(baked.fracture.outline, initialModelBottom,
-      new Vector2(layout.primaryCenter.x, layout.primaryCenter.y), uniforms.uPortalLight as { value: number })
+    const portal = makePortal(
+      baked.fracture.outline,
+      initialModelBottom,
+      new Vector2(layout.primaryCenter.x, layout.primaryCenter.y),
+      uniforms.uPortalLight as { value: number },
+    )
     // Proof-only: the primary elevation's filled silhouette, flattened onto the sheet.
     const primary = layout.views[0]
     const mask = new Mesh(
@@ -394,7 +424,10 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
       new MeshBasicMaterial({ color: 0xffffff, toneMapped: false, depthWrite: false }),
     )
     mask.matrixAutoUpdate = false
-    mask.matrix.makeTranslation(0, 0, 0.0005).multiply(new Matrix4().makeScale(1, 1, 0)).multiply(primary.transform)
+    mask.matrix
+      .makeTranslation(0, 0, 0.0005)
+      .multiply(new Matrix4().makeScale(1, 1, 0))
+      .multiply(primary.transform)
     mask.renderOrder = 5
     mask.visible = false
     mask.frustumCulled = false
@@ -409,7 +442,9 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
       materials.paper.dispose()
       materials.desk.dispose()
       materials.pulse.dispose()
-      materials.cracks.dispose(); materials.edge.dispose(); materials.fragments.forEach(m => m.dispose())
+      materials.cracks.dispose()
+      materials.edge.dispose()
+      materials.fragments.forEach((m) => m.dispose())
       meshes.portal.dispose()
     },
     [meshes, materials],
@@ -481,18 +516,34 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
       capturePulseRegistration: () => baked.pulseRegistration(),
       captureTextBounds: () => text.captureBounds(),
       captureTitleBounds: () => text.captureBounds(GROUP.titleBlock),
-      capturePortalPixels: () => capturePortalPixels({ gl, camera, sheet: group.current!,
-        outline: baked.fracture.outline, portal: meshes.portal, desk: meshes.desk,
-        paper: meshes.paper, fragments: meshes.fragments, edge: meshes.edge }),
+      capturePortalPixels: () =>
+        capturePortalPixels({
+          gl,
+          camera,
+          sheet: group.current!,
+          outline: baked.fracture.outline,
+          portal: meshes.portal,
+          desk: meshes.desk,
+          paper: meshes.paper,
+          fragments: meshes.fragments,
+          edge: meshes.edge,
+        }),
       capturePortal: () => ({
         active: meshes.portal.group.visible && !!group.current?.visible,
-        capZ: meshes.portal.capZ, mouthZ: meshes.portal.mouthZ, deskZ: meshes.desk.position.z,
+        capZ: meshes.portal.capZ,
+        mouthZ: meshes.portal.mouthZ,
+        deskZ: meshes.desk.position.z,
         initialModelBottom: meshes.portal.initialModelBottom,
         capBehindInitialModel: meshes.portal.capZ < meshes.portal.initialModelBottom,
-        deskProfileDiscard: true, broadBacklight: false,
-        depthTest: meshes.portal.cap.material.depthTest, depthWrite: meshes.portal.cap.material.depthWrite,
-        opacity: 1, profile: baked.fracture.outline, profilePoints: meshes.portal.profilePoints,
-        wallLevels: meshes.portal.wallLevels, light: uniforms.uPortalLight.value,
+        deskProfileDiscard: true,
+        broadBacklight: false,
+        depthTest: meshes.portal.cap.material.depthTest,
+        depthWrite: meshes.portal.cap.material.depthWrite,
+        opacity: 1,
+        profile: baked.fracture.outline,
+        profilePoints: meshes.portal.profilePoints,
+        wallLevels: meshes.portal.wallLevels,
+        light: uniforms.uPortalLight.value,
         sheetMatrix: group.current?.matrixWorld.toArray(),
       }),
       /** Offscreen normal/null trace pixel comparison, isolated from post effects. */
@@ -513,17 +564,36 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
           meshes.pulse.visible = false
           gl.render(root, camera)
           gl.readRenderTargetPixels(target, 0, 0, 512, 288, nullTrace)
-          let changedBrightPixels = 0, contourPixels = 0
+          let changedBrightPixels = 0,
+            contourPixels = 0
           for (let i = 0; i < normal.length; i += 4) {
             const peak = Math.max(normal[i], normal[i + 1], normal[i + 2])
-            const delta = Math.max(normal[i] - nullTrace[i], normal[i + 1] - nullTrace[i + 1], normal[i + 2] - nullTrace[i + 2])
-            if (delta > 8) { contourPixels++; if (peak > 80) changedBrightPixels++ }
+            const delta = Math.max(
+              normal[i] - nullTrace[i],
+              normal[i + 1] - nullTrace[i + 1],
+              normal[i + 2] - nullTrace[i + 2],
+            )
+            if (delta > 8) {
+              contourPixels++
+              if (peak > 80) changedBrightPixels++
+            }
           }
-          const linked = gl.info.programs?.every(p => {
-            const program = p as typeof p & { diagnostics?: { runnable: boolean } }
-            return program.diagnostics?.runnable !== false
-          }) ?? false
-          return { meshName: meshes.pulse.name, meshVisible: priorVisibility, fixedCamera: matrix.equals(camera.matrixWorld), shaderValid: linked, consoleErrors: 0, changedBrightPixels, contourPixels, width: 512, height: 288 }
+          const linked =
+            gl.info.programs?.every((p) => {
+              const program = p as typeof p & { diagnostics?: { runnable: boolean } }
+              return program.diagnostics?.runnable !== false
+            }) ?? false
+          return {
+            meshName: meshes.pulse.name,
+            meshVisible: priorVisibility,
+            fixedCamera: matrix.equals(camera.matrixWorld),
+            shaderValid: linked,
+            consoleErrors: 0,
+            changedBrightPixels,
+            contourPixels,
+            width: 512,
+            height: 288,
+          }
         } finally {
           meshes.pulse.visible = priorVisibility
           gl.setRenderTarget(priorTarget)
@@ -566,51 +636,94 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
         travel: extraction.travel,
         exactContact: lowestVertex(
           data,
-          relativePose(extraction.crossing, layout, extraction.travel, extraction.initialZ, new Matrix4(), extraction.clearanceTravel, extraction.pressureTravel),
+          relativePose(
+            extraction.crossing,
+            layout,
+            extraction.travel,
+            extraction.initialZ,
+            new Matrix4(),
+            extraction.clearanceTravel,
+            extraction.pressureTravel,
+          ),
         ).toArray(),
       }),
       captureContact: (t: number) => ({
         t,
         point: lowestVertex(
           data,
-          relativePose(t, layout, extraction.travel, extraction.initialZ, new Matrix4(), extraction.clearanceTravel, extraction.pressureTravel),
+          relativePose(
+            t,
+            layout,
+            extraction.travel,
+            extraction.initialZ,
+            new Matrix4(),
+            extraction.clearanceTravel,
+            extraction.pressureTravel,
+          ),
         ).toArray(),
         rippleOrigin: extraction.contact.toArray(),
       }),
       captureBreakthrough: () => {
         // Exact transformed-vertex barrier checks are deliberately off the frame loop.
         const relative = new Matrix4().copy(drawingRuntime.sheetMatrix).invert().multiply(drawingRuntime.modelMatrix)
-        const vertices = data.geometry.getAttribute('position'), q = new Vector3()
-        let minZ = Infinity, maxZ = -Infinity, crossingVertices = 0, outsideOpening = 0
+        const vertices = data.geometry.getAttribute('position'),
+          q = new Vector3()
+        let minZ = Infinity,
+          maxZ = -Infinity,
+          crossingVertices = 0,
+          outsideOpening = 0
         const contour = baked.fracture.outline
-        const buckets: number[][] = Array.from({length:256},()=>[])
-        const row = (y:number) => Math.max(0,Math.min(255,Math.floor((y / SHEET_HEIGHT + 0.5) * 256)))
-        for (let i=0,j=contour.length-1;i<contour.length;j=i++) {
-          const a=contour[j],b=contour[i]
-          for(let k=row(Math.min(a[1],b[1]));k<=row(Math.max(a[1],b[1]));k++) buckets[k].push(i)
+        const buckets: number[][] = Array.from({ length: 256 }, () => [])
+        const row = (y: number) => Math.max(0, Math.min(255, Math.floor((y / SHEET_HEIGHT + 0.5) * 256)))
+        for (let i = 0, j = contour.length - 1; i < contour.length; j = i++) {
+          const a = contour[j],
+            b = contour[i]
+          for (let k = row(Math.min(a[1], b[1])); k <= row(Math.max(a[1], b[1])); k++) buckets[k].push(i)
         }
         const inside = (x: number, y: number) => {
           let hit = false
           for (const i of buckets[row(y)]) {
-            const a = contour[(i + contour.length - 1) % contour.length], b = contour[i]
-            if ((a[1] > y) !== (b[1] > y) && x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0]) hit = !hit
+            const a = contour[(i + contour.length - 1) % contour.length],
+              b = contour[i]
+            if (a[1] > y !== b[1] > y && x < ((b[0] - a[0]) * (y - a[1])) / (b[1] - a[1]) + a[0]) hit = !hit
           }
           return hit
         }
         for (let i = 0; i < vertices.count; i++) {
           q.fromBufferAttribute(vertices, i).applyMatrix4(relative)
-          minZ = Math.min(minZ, q.z); maxZ = Math.max(maxZ, q.z)
-          if (Math.abs(q.z) < 0.001) { crossingVertices++; if (!inside(q.x, q.y)) outsideOpening++ }
+          minZ = Math.min(minZ, q.z)
+          maxZ = Math.max(maxZ, q.z)
+          if (Math.abs(q.z) < 0.001) {
+            crossingVertices++
+            if (!inside(q.x, q.y)) outsideOpening++
+          }
         }
         const current = drawingIntroState(getScrollState().progress, extraction.crossing)
-        return { minZ, maxZ, crossingVertices, outsideOpening, modelMoving: current.poseT > 0.4,
-          openingClear: current.openingClear, opacity: uniforms.uOpacity.value,
-          area: baked.fracture.area, fragmentArea: baked.fracture.fragmentArea,
-          fragments: meshes.fragments.map(m => ({ name: m.name, position: m.position.toArray(), rotation: m.rotation.toArray().slice(0,3), visible: m.visible })),
-          profile: baked.fracture.outline, thickness: baked.fracture.thickness,
+        return {
+          minZ,
+          maxZ,
+          crossingVertices,
+          outsideOpening,
+          modelMoving: current.poseT > 0.4,
+          openingClear: current.openingClear,
+          opacity: uniforms.uOpacity.value,
+          area: baked.fracture.area,
+          fragmentArea: baked.fracture.fragmentArea,
+          fragments: meshes.fragments.map((m) => ({
+            name: m.name,
+            position: m.position.toArray(),
+            rotation: m.rotation.toArray().slice(0, 3),
+            visible: m.visible,
+          })),
+          profile: baked.fracture.outline,
+          thickness: baked.fracture.thickness,
           maxBoundaryDeviation: baked.fracture.maxBoundaryDeviation,
-          geometries: { paperTriangles: baked.fracture.paper.getIndex() ? baked.fracture.paper.getIndex()!.count / 3 : baked.fracture.paper.getAttribute('position').count / 3,
-            edgeVertices: baked.fracture.edge.getAttribute('position').count },
+          geometries: {
+            paperTriangles: baked.fracture.paper.getIndex()
+              ? baked.fracture.paper.getIndex()!.count / 3
+              : baked.fracture.paper.getAttribute('position').count / 3,
+            edgeVertices: baked.fracture.edge.getAttribute('position').count,
+          },
         }
       },
     }
@@ -638,13 +751,7 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     const mode = ((window as unknown as Record<string, unknown>).__drawingProofMode as string | undefined) ?? 'normal'
     const proof = mode !== 'normal'
     const poseT = proof ? 0 : intro.poseT
-    const minZ = applyExtraction(
-      poseT,
-      layout,
-      extraction,
-      drawingRuntime.modelMatrix,
-      drawingRuntime.sheetMatrix,
-    )
+    const minZ = applyExtraction(poseT, layout, extraction, drawingRuntime.modelMatrix, drawingRuntime.sheetMatrix)
     if (group.current) {
       group.current.matrixAutoUpdate = false
       group.current.matrix.copy(drawingRuntime.sheetMatrix)
@@ -678,15 +785,31 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     meshes.portal.group.visible = !proof
     // Before pressure starts there is no aperture; avoid shading the covered deep shaft.
     meshes.portal.cap.visible = meshes.portal.walls.visible = !proof && intro.t >= INTRO_PHASES.bulgeStart
-    const portalStrength = proof || reducedMotion ? 0 : Math.max(intro.crackGlow, intro.pressure * 0.75, intro.fracture * 0.68)
+    const portalStrength =
+      proof || reducedMotion ? 0 : Math.max(intro.crackGlow, intro.pressure * 0.75, intro.fracture * 0.68)
     const portalPulse = meshes.portal.update(intro.t, portalStrength, tier === 'lite', reducedMotion)
     for (let i = 0; i < meshes.fragments.length; i++) {
-      const f = baked.fracture.fragments[i], mesh = meshes.fragments[i]
-      const event = proof || reducedMotion ? 0 : Math.max(0, Math.min(1, ((intro.t - INTRO_PHASES.fractureStart) /
-        (INTRO_PHASES.fractureEnd - INTRO_PHASES.fractureStart) - f.delay) / (1 - f.delay)))
+      const f = baked.fracture.fragments[i],
+        mesh = meshes.fragments[i]
+      const event =
+        proof || reducedMotion
+          ? 0
+          : Math.max(
+              0,
+              Math.min(
+                1,
+                ((intro.t - INTRO_PHASES.fractureStart) / (INTRO_PHASES.fractureEnd - INTRO_PHASES.fractureStart) -
+                  f.delay) /
+                  (1 - f.delay),
+              ),
+            )
       // Ballistic displacement with a fast initial impulse, deterministic in scroll.
       const flight = Math.pow(event, 0.72)
-      mesh.position.set(f.center.x + f.velocity.x * flight, f.center.y + f.velocity.y * flight - 0.12 * flight * flight, 0.00002 + f.velocity.z * flight)
+      mesh.position.set(
+        f.center.x + f.velocity.x * flight,
+        f.center.y + f.velocity.y * flight - 0.12 * flight * flight,
+        0.00002 + f.velocity.z * flight,
+      )
       mesh.rotation.set(f.spin.x * flight, f.spin.y * flight, f.spin.z * flight)
       mesh.visible = !modelProof && mode !== 'drawing-mask'
     }
@@ -715,11 +838,23 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     uniforms.uFracture.value = proof || reducedMotion ? 0 : intro.fracture
     uniforms.uWaveTime.value = intro.waveTime
     uniforms.uWaveEnabled.value = 0
-    uniforms.uFlexAmplitude.value = paperFlexAmplitude(intro.t, poseT, extraction.crossing, tier, proof || reducedMotion)
+    uniforms.uFlexAmplitude.value = paperFlexAmplitude(
+      intro.t,
+      poseT,
+      extraction.crossing,
+      tier,
+      proof || reducedMotion,
+    )
     baked.stats.flexAmplitude = uniforms.uFlexAmplitude.value
     baked.stats.flexPeakDisplacement = uniforms.uFlexAmplitude.value * baked.stats.flexFieldPeak
     baked.stats.flexEnabled = uniforms.uFlexAmplitude.value > 0 ? 1 : 0
-    const [contactStrength, contactRadius] = paperContactShadow(poseT, extraction.crossing, intro.pbr, tier, proof || reducedMotion)
+    const [contactStrength, contactRadius] = paperContactShadow(
+      poseT,
+      extraction.crossing,
+      intro.pbr,
+      tier,
+      proof || reducedMotion,
+    )
     ;(uniforms.uContact.value as Vector2).set(contactStrength, contactRadius)
     // Legacy probe remains zero: no translucency participates in the breakthrough.
     uniforms.uVellum.value = paperVellum(poseT, extraction.crossing, intro.pbr, tier, proof || reducedMotion)
@@ -808,7 +943,9 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
       <primitive object={meshes.desk} />
       <primitive object={meshes.paper} />
       <primitive object={meshes.portal.group} />
-      {meshes.fragments.map(mesh => <primitive key={mesh.name} object={mesh} />)}
+      {meshes.fragments.map((mesh) => (
+        <primitive key={mesh.name} object={mesh} />
+      ))}
       <primitive object={meshes.edge} />
       <primitive object={meshes.cracks} />
       <primitive object={lines} />

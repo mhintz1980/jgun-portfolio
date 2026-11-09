@@ -31,7 +31,10 @@ describe('countCanvases', () => {
 
 describe('checkPosterPath', () => {
   it('passes a poster path: no canvas, only raster requests', () => {
-    const report = checkPosterPath({ markup: '<main><figure><img src="/x.png"></figure></main>', requestedUrls: RASTER_URLS })
+    const report = checkPosterPath({
+      markup: '<main><figure><img src="/x.png"></figure></main>',
+      requestedUrls: RASTER_URLS,
+    })
     expect(report).toMatchObject({ ok: true, canvases: 0, cadRequests: [], problems: [] })
   })
 
@@ -68,7 +71,12 @@ describe('checkPosterPath', () => {
       requestedUrls: ['/a/b.mesh', '/models/Default.glb', '/models/role-map.json', '/draco/draco_decoder.wasm'],
       extraCadPatterns: [/\.mesh$/],
     })
-    expect(report.cadRequests).toEqual(['/a/b.mesh', '/models/Default.glb', '/models/role-map.json', '/draco/draco_decoder.wasm'])
+    expect(report.cadRequests).toEqual([
+      '/a/b.mesh',
+      '/models/Default.glb',
+      '/models/role-map.json',
+      '/draco/draco_decoder.wasm',
+    ])
   })
 
   it('a caller pattern with the g flag does not change the verdict on a repeated URL', () => {
@@ -101,7 +109,12 @@ describe('checkPosterPath', () => {
     const without = checkPosterPath({ canvasCount: 0, requestedUrls: [], requireMountObservation: true })
     expect(without.ok).toBe(false)
     expect(without.problems.join(' ')).toMatch(/no mount observation/)
-    const withIt = checkPosterPath({ canvasCount: 0, canvasMounts: 0, requestedUrls: [], requireMountObservation: true })
+    const withIt = checkPosterPath({
+      canvasCount: 0,
+      canvasMounts: 0,
+      requestedUrls: [],
+      requireMountObservation: true,
+    })
     expect(withIt.ok).toBe(true)
   })
 })
@@ -116,11 +129,17 @@ function runObserver() {
     createElement: (tag: string): Node => ({ nodeName: tag.toUpperCase() }),
   }
   class MutationObserver {
-    constructor(cb: (records: Records) => void) { callback = cb }
+    constructor(cb: (records: Records) => void) {
+      callback = cb
+    }
     observe() {}
   }
   const window: { __posterCanvasMounts?: number } = {}
-  new Function('window', 'document', 'MutationObserver', CANVAS_MOUNT_OBSERVER_SOURCE)(window, document, MutationObserver)
+  new Function('window', 'document', 'MutationObserver', CANVAS_MOUNT_OBSERVER_SOURCE)(
+    window,
+    document,
+    MutationObserver,
+  )
   return {
     document,
     deliver: (records: Records) => callback(records),

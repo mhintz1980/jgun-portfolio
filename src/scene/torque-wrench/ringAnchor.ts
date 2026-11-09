@@ -18,12 +18,19 @@ export function captureCanonicalRingAnchor(
 ): Matrix4 {
   const source = rig.clutch.ringSwitch
   if (!source) throw new Error('Private ring source unavailable')
-  const canonical = sampleMechanism(RING_ANCHOR_PROGRESS,
-    { shift: 0, explode: 0, gearAngle: 0, idle: 0, ghostOpacity: 1 })
+  const canonical = sampleMechanism(RING_ANCHOR_PROGRESS, {
+    shift: 0,
+    explode: 0,
+    gearAngle: 0,
+    idle: 0,
+    ghostOpacity: 1,
+  })
   try {
     applyWrenchMechanics(rig, canonical)
     source.updateWorldMatrix(true, true)
-    return out.copy(source.matrixWorld).multiply(new Matrix4().makeTranslation(localCenter.x, localCenter.y, localCenter.z))
+    return out
+      .copy(source.matrixWorld)
+      .multiply(new Matrix4().makeTranslation(localCenter.x, localCenter.y, localCenter.z))
   } finally {
     applyWrenchMechanics(rig, liveFrame)
     source.updateWorldMatrix(true, true)

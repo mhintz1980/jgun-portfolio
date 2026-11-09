@@ -39,10 +39,13 @@ describe('electrical burst/hold score (JG-035 O1)', () => {
   })
 
   it('pauses shorten and speed grows: later bursts cover more distance in less time', () => {
-    const holds: number[] = [], rates: number[] = [], spans: number[] = []
+    const holds: number[] = [],
+      rates: number[] = [],
+      spans: number[] = []
     for (let i = 0; i < BURST_KEYS.length; i += 1) {
       const k = BURST_KEYS[i]
-      rates.push((k.to - k.from) / (k.t1 - k.t0)); spans.push(k.to - k.from)
+      rates.push((k.to - k.from) / (k.t1 - k.t0))
+      spans.push(k.to - k.from)
       if (i > 0) holds.push(k.t0 - BURST_KEYS[i - 1].t1)
     }
     for (let i = 1; i < holds.length; i += 1) expect(holds[i]).toBeLessThan(holds[i - 1])
@@ -51,11 +54,13 @@ describe('electrical burst/hold score (JG-035 O1)', () => {
   })
 
   it('is monotone non-decreasing with continuous slope (no snaps at burst edges)', () => {
-    let previous = 0, maxStep = 0
+    let previous = 0,
+      maxStep = 0
     for (let i = 0; i <= 12500; i += 1) {
       const v = burstProgress(i / 10000)
       expect(v).toBeGreaterThanOrEqual(previous)
-      maxStep = Math.max(maxStep, v - previous); previous = v
+      maxStep = Math.max(maxStep, v - previous)
+      previous = v
     }
     // Largest per-sample step is the steepest smoothstep midpoint (1.5x average slope); no jump.
     expect(maxStep).toBeLessThan(0.002)
@@ -69,10 +74,11 @@ describe('electrical burst/hold score (JG-035 O1)', () => {
     expect(electricalElapsed(0.79)).toBeCloseTo(1.25, 9)
     expect(ELECTRICAL_END_T).toBeCloseTo(0.79, 9)
     for (const t of [0.7, 0.765, 0.7692, 0.78, 0.79, 0.82, 0.9]) {
-      const viaRealMap = CALIBRATION_SWEEP_SECONDS * (rawScrollFor(t * DRAWING_INTRO_WINDOW.releaseEnd) - OUTLINE_START_RAW)
+      const viaRealMap =
+        CALIBRATION_SWEEP_SECONDS * (rawScrollFor(t * DRAWING_INTRO_WINDOW.releaseEnd) - OUTLINE_START_RAW)
       expect(electricalElapsed(t)).toBeCloseTo(viaRealMap, 7)
     }
-    expect(electricalTimeAt(0.2)).toBeCloseTo(0.7690, 9)
+    expect(electricalTimeAt(0.2)).toBeCloseTo(0.769, 9)
   })
 
   it('begins interior branching at 85% outline completion and runs the same pattern for 1.25 s', () => {
@@ -104,8 +110,11 @@ describe('electrical burst/hold score (JG-035 O1)', () => {
 
   it('drawingIntroState exposes the score and is reversible: same t, same state', () => {
     const ts = [0.6, 0.7, 0.766, 0.769, 0.771, 0.78, 0.7882, 0.79, 0.8, 0.8132, 0.84, 0.9, 1]
-    const fwd = ts.map(t => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd, 0.6))
-    const rev = [...ts].reverse().map(t => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd, 0.6)).reverse()
+    const fwd = ts.map((t) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd, 0.6))
+    const rev = [...ts]
+      .reverse()
+      .map((t) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd, 0.6))
+      .reverse()
     expect(rev).toStrictEqual(fwd)
     const at = (t: number) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd, 0.6)
     expect(at(electricalTimeAt(0.2)).pulseHead).toBeCloseTo(0.1, 9)

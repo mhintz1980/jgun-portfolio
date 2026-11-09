@@ -17,14 +17,17 @@ function check(name, condition, message) {
 }
 
 async function seek(page, u) {
-  const frame = await page.evaluate(u => {
+  const frame = await page.evaluate((u) => {
     const q = window.__quietMachine
     const previous = q.frame
     q.seek(u)
     return previous
   }, u)
-  await page.waitForFunction(frame => window.__quietMachine?.frame > frame, frame)
-  await page.waitForFunction(u => Number(document.querySelector('input[type=range]')?.value) === Math.round(u * 1000), u)
+  await page.waitForFunction((frame) => window.__quietMachine?.frame > frame, frame)
+  await page.waitForFunction(
+    (u) => Number(document.querySelector('input[type=range]')?.value) === Math.round(u * 1000),
+    u,
+  )
 }
 
 async function readRibbons(page) {
@@ -34,39 +37,46 @@ async function readRibbons(page) {
     const result = { render: typeof ribbons.render === 'function' }
     for (const bundle of ['main', 'lower', 'merged', 'sound']) {
       const entry = ribbons[bundle]
-      result[bundle] = entry ? {
-        clipping: entry.clipping,
-        clippingPlanes: entry.clippingPlanes.map(plane => plane.constant),
-        uuid: entry.uuid,
-      } : null
+      result[bundle] = entry
+        ? {
+            clipping: entry.clipping,
+            clippingPlanes: entry.clippingPlanes.map((plane) => plane.constant),
+            uuid: entry.uuid,
+          }
+        : null
     }
     return result
   })
 }
 
 async function mutateAndWait(page, bundles, constants) {
-  const frame = await page.evaluate(({ bundles, constants }) => {
-    const q = window.__quietMachine
-    const previous = q.frame
-    for (const bundle of bundles) {
-      const planes = q.ribbons?.[bundle]?.clippingPlanes || []
-      planes.forEach((plane, index) => { plane.constant = constants[bundle][index] })
-    }
-    q.ribbons?.render?.()
-    return previous
-  }, { bundles, constants })
-  await page.waitForFunction(frame => window.__quietMachine?.frame > frame, frame)
+  const frame = await page.evaluate(
+    ({ bundles, constants }) => {
+      const q = window.__quietMachine
+      const previous = q.frame
+      for (const bundle of bundles) {
+        const planes = q.ribbons?.[bundle]?.clippingPlanes || []
+        planes.forEach((plane, index) => {
+          plane.constant = constants[bundle][index]
+        })
+      }
+      q.ribbons?.render?.()
+      return previous
+    },
+    { bundles, constants },
+  )
+  await page.waitForFunction((frame) => window.__quietMachine?.frame > frame, frame)
 }
 
 async function setClipOverrideAndWait(page, constant) {
-  const frame = await page.evaluate(constant => {
+  const frame = await page.evaluate((constant) => {
     const q = window.__quietMachine
     const previous = q.frame
     q.ribbons?.setClipOverride?.(constant)
     q.ribbons?.render?.()
     return previous
   }, constant)
-  await page.waitForFunction(frame => window.__quietMachine?.frame > frame, frame)
+  await page.waitForFunction((frame) => window.__quietMachine?.frame > frame, frame)
 }
 
 async function clearClipOverrideAndWait(page) {
@@ -77,7 +87,7 @@ async function clearClipOverrideAndWait(page) {
     q.ribbons?.render?.()
     return previous
   })
-  await page.waitForFunction(frame => window.__quietMachine?.frame > frame, frame)
+  await page.waitForFunction((frame) => window.__quietMachine?.frame > frame, frame)
 }
 
 let browser
@@ -101,7 +111,7 @@ try {
   await page.goto(`${base}/quiet-machine/`, { waitUntil: 'domcontentloaded', timeout: 60000 })
   await page.waitForFunction(() => window.__quietMachine?.ready, { timeout: 60000 })
   await page.waitForFunction(() => window.__quietMachine?.ribbons, { timeout: 60000 })
-  await seek(page, .70)
+  await seek(page, 0.7)
 
   const initial = await readRibbons(page)
   assert(initial, 'ribbon telemetry is present')
@@ -124,14 +134,25 @@ try {
   const measurement = 'shared main+merged plane override via setClipOverride/clearClipOverride'
   report.main = { ...exclusion, measurement }
   report.merged = { ...exclusion, measurement }
-  check('main exclusion changes pixels', exclusion.changed >= 200, `shared exclusion changed ${exclusion.changed} pixels`)
-  check('merged exclusion changes pixels', exclusion.changed >= 200, `shared exclusion changed ${exclusion.changed} pixels`)
+  check(
+    'main exclusion changes pixels',
+    exclusion.changed >= 200,
+    `shared exclusion changed ${exclusion.changed} pixels`,
+  )
+  check(
+    'merged exclusion changes pixels',
+    exclusion.changed >= 200,
+    `shared exclusion changed ${exclusion.changed} pixels`,
+  )
 
   await clearClipOverrideAndWait(page)
   const restored = compare(baseline, await canvas.screenshot())
   report.restore = restored
-  check('restore matches baseline', restored.changed === 0 || restored.fraction < .0001,
-    `restore changed ${restored.changed} pixels (${restored.fraction})`)
+  check(
+    'restore matches baseline',
+    restored.changed === 0 || restored.fraction < 0.0001,
+    `restore changed ${restored.changed} pixels (${restored.fraction})`,
+  )
 
   const lowerBefore = await readRibbons(page)
   let lowerDiff
@@ -142,17 +163,30 @@ try {
     const lowerConstants = lowerBefore.lower.clippingPlanes
     await mutateAndWait(page, ['lower'], { lower: lowerConstants })
     lowerRestored = compare(baseline, await canvas.screenshot())
-    check('lower mutation is inert', lowerDiff.changed === 0 || lowerDiff.fraction < .0001,
-      `lower mutation changed ${lowerDiff.changed} pixels (${lowerDiff.fraction})`)
-    check('lower restore is inert', lowerRestored.changed === 0 || lowerRestored.fraction < .0001,
-      `lower restore changed ${lowerRestored.changed} pixels (${lowerRestored.fraction})`)
+    check(
+      'lower mutation is inert',
+      lowerDiff.changed === 0 || lowerDiff.fraction < 0.0001,
+      `lower mutation changed ${lowerDiff.changed} pixels (${lowerDiff.fraction})`,
+    )
+    check(
+      'lower restore is inert',
+      lowerRestored.changed === 0 || lowerRestored.fraction < 0.0001,
+      `lower restore changed ${lowerRestored.changed} pixels (${lowerRestored.fraction})`,
+    )
   } else {
     await mutateAndWait(page, [], {})
     lowerDiff = compare(baseline, await canvas.screenshot())
-    check('lower no-plane invalidate is inert', lowerDiff.changed === 0 || lowerDiff.fraction < .0001,
-      `lower no-plane invalidate changed ${lowerDiff.changed} pixels (${lowerDiff.fraction})`)
+    check(
+      'lower no-plane invalidate is inert',
+      lowerDiff.changed === 0 || lowerDiff.fraction < 0.0001,
+      `lower no-plane invalidate changed ${lowerDiff.changed} pixels (${lowerDiff.fraction})`,
+    )
   }
-  report.lower = { ...lowerDiff, planes: lowerBefore.lower.clippingPlanes.length, ...(lowerRestored ? { restored: lowerRestored } : {}) }
+  report.lower = {
+    ...lowerDiff,
+    planes: lowerBefore.lower.clippingPlanes.length,
+    ...(lowerRestored ? { restored: lowerRestored } : {}),
+  }
 } catch (error) {
   report.execution = String(error)
   failures.push('execution')

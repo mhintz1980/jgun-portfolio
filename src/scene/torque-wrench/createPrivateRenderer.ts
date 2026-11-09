@@ -11,14 +11,22 @@ export function createPrivateRenderer(onFailure: (error: unknown) => void, getTi
   return async (defaults: RendererDefaults): Promise<WebGLRenderer> => {
     if (cancelled) return cancelled
     try {
-      const renderer = new WebGLRenderer({ ...defaults, antialias: true, alpha: true, powerPreference: 'high-performance' } as WebGLRendererParameters)
+      const renderer = new WebGLRenderer({
+        ...defaults,
+        antialias: true,
+        alpha: true,
+        powerPreference: 'high-performance',
+      } as WebGLRendererParameters)
       if (getTier) {
         const originalSetSize = renderer.setSize.bind(renderer)
         // Own this newly created renderer's size policy before R3F first sizes it.
         // setDrawingBufferSize updates logical size AND DPR atomically, avoiding
         // a transient oversized buffer during a resize or DPR change.
         renderer.setSize = (width, height, updateStyle = true) => {
-          if (!(width > 0 && height > 0)) { originalSetSize(width, height, updateStyle); return }
+          if (!(width > 0 && height > 0)) {
+            originalSetSize(width, height, updateStyle)
+            return
+          }
           const budget = computeRenderBudget(width, height, window.devicePixelRatio, getTier())
           renderer.setDrawingBufferSize(width, height, budget.dpr)
           if (updateStyle) {

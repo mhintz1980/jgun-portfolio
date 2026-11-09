@@ -2,7 +2,22 @@ import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { ContactShadows, PerformanceMonitor } from '@react-three/drei'
 import type { PerformanceMonitorApi } from '@react-three/drei'
-import { CanvasTexture, Color, DirectionalLight, DoubleSide, Float32BufferAttribute, Mesh, MeshBasicMaterial, PlaneGeometry, PMREMGenerator, PointLight, Scene, SpotLight, WebGLRenderTarget, Vector4 } from 'three'
+import {
+  CanvasTexture,
+  Color,
+  DirectionalLight,
+  DoubleSide,
+  Float32BufferAttribute,
+  Mesh,
+  MeshBasicMaterial,
+  PlaneGeometry,
+  PMREMGenerator,
+  PointLight,
+  Scene,
+  SpotLight,
+  WebGLRenderTarget,
+  Vector4,
+} from 'three'
 import { CameraRig } from './CameraRig'
 import { InspectionScene } from './inspection/InspectionScene'
 import { StationDriver } from './stations/StationDriver'
@@ -32,9 +47,7 @@ const MAX_DPR = Math.min(1.5, typeof window !== 'undefined' ? window.devicePixel
  * When the staircase is exhausted and frames still drop, we escalate to the
  * next quality tier instead (lite: dissolve shader off; poster: no canvas).
  */
-const DPR_STEPS = [MAX_DPR, 1.25, 1].filter(
-  (value, index, all) => value <= MAX_DPR && all.indexOf(value) === index,
-)
+const DPR_STEPS = [MAX_DPR, 1.25, 1].filter((value, index, all) => value <= MAX_DPR && all.indexOf(value) === index)
 
 /** Apply the shared pixel ceiling to the actual Canvas CSS size, including resize. */
 function RootRenderBudget({ requestedDpr, tier }: { requestedDpr: number; tier: 'full' | 'lite' }) {
@@ -100,12 +113,7 @@ const QUALITY_DIAGNOSTICS_ENABLED =
 /** Mirror of the component's stepRef so module-level pushes can stamp it. */
 let qualityEventStep = 0
 
-function pushQualityEvent(draft: {
-  type: QualityEventType
-  fps?: number
-  flipped?: number
-  index?: number
-}): void {
+function pushQualityEvent(draft: { type: QualityEventType; fps?: number; flipped?: number; index?: number }): void {
   if (!QUALITY_DIAGNOSTICS_ENABLED) return
   if (qualityEvents.length >= QUALITY_EVENT_CAP) qualityEvents.shift()
   qualityEvents.push({
@@ -131,7 +139,13 @@ function createStudioEnvironment() {
   studio.name = 'ProceduralStudioEnvironment'
   studio.background = new Color(0.025, 0.03, 0.04)
 
-  const addSoftbox = (width: number, height: number, position: [number, number, number], tint: string, gain: number) => {
+  const addSoftbox = (
+    width: number,
+    height: number,
+    position: [number, number, number],
+    tint: string,
+    gain: number,
+  ) => {
     const geometry = new PlaneGeometry(width, height, 32, 32)
     const positions = geometry.getAttribute('position')
     const colors = new Float32Array(positions.count * 3)
@@ -160,8 +174,14 @@ function createStudioEnvironment() {
   addSoftbox(14, 10, [0, -6.5, 7.5], '#f5f7f9', 1.2)
 
   // Unlit black flags create negative fill and long dark breaks in cylindrical reflections.
-  for (const position of [[-5, 0, -4], [5, -2, 0]] as const) {
-    const flag = new Mesh(new PlaneGeometry(4, 10), new MeshBasicMaterial({ color: 0x000000, side: DoubleSide, toneMapped: false }))
+  for (const position of [
+    [-5, 0, -4],
+    [5, -2, 0],
+  ] as const) {
+    const flag = new Mesh(
+      new PlaneGeometry(4, 10),
+      new MeshBasicMaterial({ color: 0x000000, side: DoubleSide, toneMapped: false }),
+    )
     flag.position.set(position[0], position[1], position[2])
     flag.lookAt(0, 0, 0)
     studio.add(flag)
@@ -184,7 +204,7 @@ function StudioEnvironmentIbl() {
     try {
       target = pmrem.fromScene(studio, 0.04, 0.1, 100, { size: 256 })
     } finally {
-      studio.traverse(object => {
+      studio.traverse((object) => {
         if (object instanceof Mesh) {
           object.geometry.dispose()
           const materials = Array.isArray(object.material) ? object.material : [object.material]
@@ -280,8 +300,17 @@ const smoothstep01 = (x: number) => {
 // turns from black housings to the exposed steel/LCD and the enclosure. Interpolate
 // calibrated shot values rather than globally overexposing the LCD dwell.
 const STUDIO_IBL_SHOTS: readonly (readonly [number, number])[] = [
-  [0, 1], [0.12, 1], [0.15, 16], [0.22, 8], [0.35, 6],
-  [0.47, 1.5], [0.525, 1.5], [0.565, 4], [0.72, 4], [0.76, 1], [1, 1],
+  [0, 1],
+  [0.12, 1],
+  [0.15, 16],
+  [0.22, 8],
+  [0.35, 6],
+  [0.47, 1.5],
+  [0.525, 1.5],
+  [0.565, 4],
+  [0.72, 4],
+  [0.76, 1],
+  [1, 1],
 ]
 
 function studioIblGain(progress: number): number {
@@ -303,16 +332,21 @@ function StudioRig() {
   const scene = useThree((state) => state.scene)
 
   useFrame(() => {
-    telemetry.performance.tier=getQuality().tier
+    telemetry.performance.tier = getQuality().tier
     if (renderOwnership.blocked) return
     const { progress } = getScrollState()
     // wrenchOut [0.525, 0.565] is when the hero sinks and the enclosure
     // rises; enclosureOut [0.72, 0.76] is when the enclosure exits.
-    const down = smoothstep01((progress - STAGE_TRANSITIONS.wrenchOut[0]) / (STAGE_TRANSITIONS.wrenchOut[1] - STAGE_TRANSITIONS.wrenchOut[0]))
-    const up = smoothstep01((progress - STAGE_TRANSITIONS.enclosureOut[0]) / (STAGE_TRANSITIONS.enclosureOut[1] - STAGE_TRANSITIONS.enclosureOut[0]))
+    const down = smoothstep01(
+      (progress - STAGE_TRANSITIONS.wrenchOut[0]) / (STAGE_TRANSITIONS.wrenchOut[1] - STAGE_TRANSITIONS.wrenchOut[0]),
+    )
+    const up = smoothstep01(
+      (progress - STAGE_TRANSITIONS.enclosureOut[0]) /
+        (STAGE_TRANSITIONS.enclosureOut[1] - STAGE_TRANSITIONS.enclosureOut[0]),
+    )
     const intro = drawingIntroState(progress, drawingRuntime.extraction?.crossing)
     const activation = getQuality().reducedMotion ? 0 : intro.illumination
-    const k = activation*(1 - (1 - STUDIO_STATION2_SCALE) * down * (1 - up))
+    const k = activation * (1 - (1 - STUDIO_STATION2_SCALE) * down * (1 - up))
     const sweep = getQuality().reducedMotion ? 0 : intro.lightSweep
     if (keyRef.current) keyRef.current.intensity = STUDIO_KEY_INTENSITY * k
     if (sweepRef.current) {
@@ -329,7 +363,8 @@ function StudioRig() {
       spotRef.current.intensity = (STUDIO_SPOT_INTENSITY + nudge.intensity) * k
       spotRef.current.position.y = 1.2 + nudge.y
     }
-    scene.environmentIntensity = activation * studioIblGain(progress) * (1 - (1 - STUDIO_ENV_STATION2) * down * (1 - up))
+    scene.environmentIntensity =
+      activation * studioIblGain(progress) * (1 - (1 - STUDIO_ENV_STATION2) * down * (1 - up))
   })
 
   return (
@@ -356,42 +391,96 @@ function StudioRig() {
  *  - Frustum culling stays enabled on every mesh (asserted in buildWrenchRig).
  */
 function WarmStationPrograms() {
-  const {gl,scene,camera}=useThree()
-  useEffect(()=>{
-    let cancelled=false
+  const { gl, scene, camera } = useThree()
+  useEffect(() => {
+    let cancelled = false
     pushQualityEvent({ type: 'warmstart' })
-    const stations=['station-1-jgun','station-2-enclosure','station-3-m249'].map(name=>scene.getObjectByName(name))
-    if(stations.some(station=>!station)){pushQualityEvent({ type: 'warmcancel' });return}
-    const warm=async()=>{
-      const target=new WebGLRenderTarget(1,1)
-      try{
-      for(const [renderIndex,combination] of [[true,false,false],[true,true,false],[false,true,false],[false,true,true],[false,false,true]].entries()){
-        if(cancelled || renderOwnership.blocked){pushQualityEvent({ type: 'warmcancel' });return}
-        const previous=stations.map(station=>station!.visible)
-        let pending:Promise<boolean>
-        // compileAsync collects lights synchronously; restore visibility before yielding.
-        try{stations.forEach((station,i)=>{station!.visible=combination[i]});pending=compileWithLease(gl,scene,camera,()=>cancelled)}
-        finally{stations.forEach((station,i)=>{station!.visible=previous[i]})}
-        if(!(await pending)){pushQualityEvent({ type: 'warmcancel' });return}
-        if(cancelled || renderOwnership.blocked){pushQualityEvent({ type: 'warmcancel' });return}
-        // compileAsync does not upload vertex buffers or texture images. A 1px
-        // offscreen render prepares those too, including frustum-culled stations.
-        const flags:{object:typeof scene;visible:boolean;frustumCulled:boolean}[]=[]
-        scene.traverse(object=>{flags.push({object:object as typeof scene,visible:object.visible,frustumCulled:object.frustumCulled});object.visible=true;object.frustumCulled=false})
-        stations.forEach((station,i)=>{station!.visible=combination[i]})
-        const previousTarget=gl.getRenderTarget(),viewport=gl.getViewport(new Vector4())
-        pushQualityEvent({ type: 'cullrenderstart', index: renderIndex })
-        try{gl.setRenderTarget(target);gl.setViewport(0,0,1,1);gl.render(scene,camera)}
-        finally{gl.setRenderTarget(previousTarget);gl.setViewport(viewport);flags.forEach(({object,visible,frustumCulled})=>{object.visible=visible;object.frustumCulled=frustumCulled})}
-        pushQualityEvent({ type: 'cullrenderend', index: renderIndex })
-      }
-      if(!cancelled){telemetry.performance.warmReady=true;pushQualityEvent({ type: 'warmfinish' })}
-      else pushQualityEvent({ type: 'warmcancel' })
-      }finally{target.dispose()}
+    const stations = ['station-1-jgun', 'station-2-enclosure', 'station-3-m249'].map((name) =>
+      scene.getObjectByName(name),
+    )
+    if (stations.some((station) => !station)) {
+      pushQualityEvent({ type: 'warmcancel' })
+      return
     }
-    void warm().catch(error=>{pushQualityEvent({ type: 'warmcancel' });console.error('Station shader preparation failed',error)})
-    return()=>{cancelled=true}
-  },[gl,scene,camera])
+    const warm = async () => {
+      const target = new WebGLRenderTarget(1, 1)
+      try {
+        for (const [renderIndex, combination] of [
+          [true, false, false],
+          [true, true, false],
+          [false, true, false],
+          [false, true, true],
+          [false, false, true],
+        ].entries()) {
+          if (cancelled || renderOwnership.blocked) {
+            pushQualityEvent({ type: 'warmcancel' })
+            return
+          }
+          const previous = stations.map((station) => station!.visible)
+          let pending: Promise<boolean>
+          // compileAsync collects lights synchronously; restore visibility before yielding.
+          try {
+            stations.forEach((station, i) => {
+              station!.visible = combination[i]
+            })
+            pending = compileWithLease(gl, scene, camera, () => cancelled)
+          } finally {
+            stations.forEach((station, i) => {
+              station!.visible = previous[i]
+            })
+          }
+          if (!(await pending)) {
+            pushQualityEvent({ type: 'warmcancel' })
+            return
+          }
+          if (cancelled || renderOwnership.blocked) {
+            pushQualityEvent({ type: 'warmcancel' })
+            return
+          }
+          // compileAsync does not upload vertex buffers or texture images. A 1px
+          // offscreen render prepares those too, including frustum-culled stations.
+          const flags: { object: typeof scene; visible: boolean; frustumCulled: boolean }[] = []
+          scene.traverse((object) => {
+            flags.push({ object: object as typeof scene, visible: object.visible, frustumCulled: object.frustumCulled })
+            object.visible = true
+            object.frustumCulled = false
+          })
+          stations.forEach((station, i) => {
+            station!.visible = combination[i]
+          })
+          const previousTarget = gl.getRenderTarget(),
+            viewport = gl.getViewport(new Vector4())
+          pushQualityEvent({ type: 'cullrenderstart', index: renderIndex })
+          try {
+            gl.setRenderTarget(target)
+            gl.setViewport(0, 0, 1, 1)
+            gl.render(scene, camera)
+          } finally {
+            gl.setRenderTarget(previousTarget)
+            gl.setViewport(viewport)
+            flags.forEach(({ object, visible, frustumCulled }) => {
+              object.visible = visible
+              object.frustumCulled = frustumCulled
+            })
+          }
+          pushQualityEvent({ type: 'cullrenderend', index: renderIndex })
+        }
+        if (!cancelled) {
+          telemetry.performance.warmReady = true
+          pushQualityEvent({ type: 'warmfinish' })
+        } else pushQualityEvent({ type: 'warmcancel' })
+      } finally {
+        target.dispose()
+      }
+    }
+    void warm().catch((error) => {
+      pushQualityEvent({ type: 'warmcancel' })
+      console.error('Station shader preparation failed', error)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [gl, scene, camera])
   return null
 }
 
@@ -409,21 +498,11 @@ function LcdMicroRimLight() {
     if (!lightRef.current) return
     if (renderOwnership.blocked) return
     const { progress } = getScrollState()
-    lightRef.current.intensity = lcdMicroRimIntensity(progress, [
-      LCD_REVEAL_WINDOW.start,
-      LCD_REVEAL_WINDOW.end,
-    ])
+    lightRef.current.intensity = lcdMicroRimIntensity(progress, [LCD_REVEAL_WINDOW.start, LCD_REVEAL_WINDOW.end])
   })
 
   return (
-    <pointLight
-      ref={lightRef}
-      position={[-0.3, 0.12, 0.5]}
-      color="#c8e6ff"
-      intensity={0}
-      distance={0.5}
-      decay={2}
-    />
+    <pointLight ref={lightRef} position={[-0.3, 0.12, 0.5]} color="#c8e6ff" intensity={0} distance={0.5} decay={2} />
   )
 }
 
@@ -539,7 +618,10 @@ export function SceneCanvas() {
             }
           }}
           onIncline={(api: PerformanceMonitorApi) => {
-            if (!telemetry.performance.warmReady) { api.flipped = 0; return }
+            if (!telemetry.performance.warmReady) {
+              api.flipped = 0
+              return
+            }
             pushQualityEvent({ type: 'onincline', fps: api.fps })
             if (stepRef.current > 0) setDprStep(stepRef.current - 1)
           }}

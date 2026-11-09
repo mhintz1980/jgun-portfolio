@@ -42,10 +42,7 @@ function historicalPaced(offsetVh: number): number {
   if (raw <= HISTORICAL_INTRO_SCROLL_SHARE) {
     return (releaseEnd / HISTORICAL_INTRO_SCROLL_SHARE) * raw
   }
-  return (
-    releaseEnd +
-    ((1 - releaseEnd) / (1 - HISTORICAL_INTRO_SCROLL_SHARE)) * (raw - HISTORICAL_INTRO_SCROLL_SHARE)
-  )
+  return releaseEnd + ((1 - releaseEnd) / (1 - HISTORICAL_INTRO_SCROLL_SHARE)) * (raw - HISTORICAL_INTRO_SCROLL_SHARE)
 }
 
 /** The hero transit's `top bottom` / `bottom top` anchors as the 0.30-share layout placed them. */
@@ -117,13 +114,9 @@ describe('deriveScrollTracks (JG-026 pacing integration)', () => {
 
   it('compresses the post-intro band by trackScaleFactor while the total holds', () => {
     const historicalMain =
-      HISTORICAL_TRACK_VH.chapters.reduce((sum, height) => sum + height, 0) +
-      HISTORICAL_TRACK_VH.footer -
-      VIEWPORT_VH
+      HISTORICAL_TRACK_VH.chapters.reduce((sum, height) => sum + height, 0) + HISTORICAL_TRACK_VH.footer - VIEWPORT_VH
     const derivedMain =
-      SCROLL_TRACK_VH.chapters.reduce((sum, height) => sum + height, 0) +
-      SCROLL_TRACK_VH.footer -
-      VIEWPORT_VH
+      SCROLL_TRACK_VH.chapters.reduce((sum, height) => sum + height, 0) + SCROLL_TRACK_VH.footer - VIEWPORT_VH
     expect(historicalMain).toBeCloseTo(SCROLL_DISTANCE_VH - HISTORICAL_TRACK_VH.intro, 9)
     expect(derivedMain).toBeCloseTo(SCROLL_DISTANCE_VH - SCROLL_TRACK_VH.intro, 9)
     expect(derivedMain / historicalMain).toBeCloseTo(trackScaleFactor(), 12)
@@ -190,4 +183,3 @@ describe('hero transit ([data-chapter="1"], start top-bottom / end bottom-top)',
     expect(stale.end).toBeCloseTo(0.241801, 6)
   })
 })
-

@@ -165,8 +165,8 @@ export function DrawingProofRenderer({
       const near = camera.position.y - drawingRuntime.modelMatrix.elements[13] - 2 + 0.01
       const far = near + 3.99
       const w = projection[15]
-      projection[10] = ((-2 / (far - near)) * w)
-      projection[14] = ((-(far + near) / (far - near)) * w)
+      projection[10] = (-2 / (far - near)) * w
+      projection[14] = (-(far + near) / (far - near)) * w
       proofCamera.projectionMatrixInverse.copy(proofCamera.projectionMatrix).invert()
       gl.autoClear = true
       gl.setRenderTarget(pass.source)

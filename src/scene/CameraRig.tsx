@@ -98,12 +98,12 @@ const HOTSPOT_INSPECT_FRAMES: Record<string, InspectFraming> = {
   },
   'composite-panels': {
     position: [31.2, 2.0, -2.8],
-    target: [28.66, 1.20, -5.74],
+    target: [28.66, 1.2, -5.74],
     fov: 30,
   },
   'pump-housing': {
     position: [30.4, 1.8, -3.4],
-    target: [28.02, 0.89, -6.00],
+    target: [28.02, 0.89, -6.0],
     fov: 28,
   },
   'acoustic-baffles': {
@@ -113,17 +113,17 @@ const HOTSPOT_INSPECT_FRAMES: Record<string, InspectFraming> = {
   },
   'isolation-mounts': {
     position: [29.6, 0.6, -4.0],
-    target: [28.00, 0.05, -6.00],
+    target: [28.0, 0.05, -6.0],
     fov: 26,
   },
   'duct-intake': {
     position: [29.8, 1.6, -2.8],
-    target: [28.00, 1.11, -5.05],
+    target: [28.0, 1.11, -5.05],
     fov: 28,
   },
   'duct-exhaust': {
     position: [29.6, 1.8, -9.2],
-    target: [27.90, 1.23, -7.17],
+    target: [27.9, 1.23, -7.17],
     fov: 28,
   },
 
@@ -182,71 +182,147 @@ export function CameraRig() {
   const introOrtho = useRef(0)
   const restOrbit = useRef(0)
   const inspectionCamera = useRef({
-    saved: false, observe: false, position: new Vector3(), quaternion: new Quaternion(), up: new Vector3(), scale: new Vector3(),
-    currentPos: new Vector3(), currentTarget: new Vector3(), projection: new Matrix4(), inverseProjection: new Matrix4(),
-    macroRotation: new Quaternion(), matrix: new Matrix4(),
-    fov: 42, near: 0.005, far: 150, zoom: 1, aspect: 1, focus: 10, filmGauge: 35, filmOffset: 0,
-    view: null as PerspectiveCamera['view'], viewValue: null as PerspectiveCamera['view'], introOrtho: 0, restOrbit: 0,
+    saved: false,
+    observe: false,
+    position: new Vector3(),
+    quaternion: new Quaternion(),
+    up: new Vector3(),
+    scale: new Vector3(),
+    currentPos: new Vector3(),
+    currentTarget: new Vector3(),
+    projection: new Matrix4(),
+    inverseProjection: new Matrix4(),
+    macroRotation: new Quaternion(),
+    matrix: new Matrix4(),
+    fov: 42,
+    near: 0.005,
+    far: 150,
+    zoom: 1,
+    aspect: 1,
+    focus: 10,
+    filmGauge: 35,
+    filmOffset: 0,
+    view: null as PerspectiveCamera['view'],
+    viewValue: null as PerspectiveCamera['view'],
+    introOrtho: 0,
+    restOrbit: 0,
   })
 
   useFrame((state, delta) => {
     const shot = inspectionCamera.current
     if (inspection.active && !inspection.static) {
       if (!shot.saved) {
-        shot.saved = true; shot.observe = false
-        shot.position.copy(camera.position); shot.quaternion.copy(camera.quaternion)
-        shot.up.copy(camera.up); shot.scale.copy(camera.scale); shot.projection.copy(camera.projectionMatrix); shot.inverseProjection.copy(camera.projectionMatrixInverse)
-        shot.currentPos.copy(currentPos.current); shot.currentTarget.copy(currentTarget.current)
-        shot.introOrtho = introOrtho.current; shot.restOrbit = restOrbit.current
+        shot.saved = true
+        shot.observe = false
+        shot.position.copy(camera.position)
+        shot.quaternion.copy(camera.quaternion)
+        shot.up.copy(camera.up)
+        shot.scale.copy(camera.scale)
+        shot.projection.copy(camera.projectionMatrix)
+        shot.inverseProjection.copy(camera.projectionMatrixInverse)
+        shot.currentPos.copy(currentPos.current)
+        shot.currentTarget.copy(currentTarget.current)
+        shot.introOrtho = introOrtho.current
+        shot.restOrbit = restOrbit.current
         if (camera instanceof PerspectiveCamera) {
-          shot.fov = camera.fov; shot.near = camera.near; shot.far = camera.far; shot.zoom = camera.zoom; shot.aspect = camera.aspect
-          shot.focus = camera.focus; shot.filmGauge = camera.filmGauge; shot.filmOffset = camera.filmOffset
-          shot.view = camera.view; shot.viewValue = camera.view ? { ...camera.view } : null
+          shot.fov = camera.fov
+          shot.near = camera.near
+          shot.far = camera.far
+          shot.zoom = camera.zoom
+          shot.aspect = camera.aspect
+          shot.focus = camera.focus
+          shot.filmGauge = camera.filmGauge
+          shot.filmOffset = camera.filmOffset
+          shot.view = camera.view
+          shot.viewValue = camera.view ? { ...camera.view } : null
         }
       }
       const runtime = inspection.runtime
       if (!runtime?.camera.valid) return
       const sample = runtime.camera
-      const enter = ease(inspection.entryElapsed / 1.2), blend = enter * (1 - runtime.frame.returnBlend)
+      const enter = ease(inspection.entryElapsed / 1.2),
+        blend = enter * (1 - runtime.frame.returnBlend)
       shot.matrix.lookAt(sample.position, sample.target, sample.up)
       shot.macroRotation.setFromRotationMatrix(shot.matrix)
       camera.position.lerpVectors(shot.position, sample.position, blend)
       camera.quaternion.slerpQuaternions(shot.quaternion, shot.macroRotation, blend)
       camera.up.lerpVectors(shot.up, sample.up, blend).normalize()
-      if (camera instanceof PerspectiveCamera) { camera.fov = shot.fov + (sample.fov - shot.fov) * blend; camera.updateProjectionMatrix() }
-      if (blend === 0) { camera.projectionMatrix.copy(shot.projection); camera.projectionMatrixInverse.copy(shot.inverseProjection) }
+      if (camera instanceof PerspectiveCamera) {
+        camera.fov = shot.fov + (sample.fov - shot.fov) * blend
+        camera.updateProjectionMatrix()
+      }
+      if (blend === 0) {
+        camera.projectionMatrix.copy(shot.projection)
+        camera.projectionMatrixInverse.copy(shot.inverseProjection)
+      }
       camera.updateMatrixWorld()
-      telemetry.camera.x = camera.position.x; telemetry.camera.y = camera.position.y; telemetry.camera.z = camera.position.z
+      telemetry.camera.x = camera.position.x
+      telemetry.camera.y = camera.position.y
+      telemetry.camera.z = camera.position.z
       telemetry.camera.fov = camera instanceof PerspectiveCamera ? camera.fov : shot.fov
       inspectionTelemetry.cameraOwner = 'CameraRig'
       const probe = inspectionTelemetry as unknown as Record<string, unknown>
-      probe.cameraSampleTime = runtime.frame.time; probe.cameraSampleStamp = state.clock.elapsedTime
+      probe.cameraSampleTime = runtime.frame.time
+      probe.cameraSampleStamp = state.clock.elapsedTime
       return
     }
     if (shot.observe) {
       // Observe the previously rendered restore frame BEFORE any narrative camera write.
       shot.observe = false
-      inspectionTelemetry.restoredPoseError = camera.position.distanceTo(shot.position) + camera.quaternion.angleTo(shot.quaternion) + camera.up.distanceTo(shot.up) + camera.scale.distanceTo(shot.scale)
+      inspectionTelemetry.restoredPoseError =
+        camera.position.distanceTo(shot.position) +
+        camera.quaternion.angleTo(shot.quaternion) +
+        camera.up.distanceTo(shot.up) +
+        camera.scale.distanceTo(shot.scale)
       let projectionError = 0
-      for (let i = 0; i < 16; i++) projectionError = Math.max(projectionError, Math.abs(camera.projectionMatrix.elements[i] - shot.projection.elements[i]), Math.abs(camera.projectionMatrixInverse.elements[i] - shot.inverseProjection.elements[i]))
+      for (let i = 0; i < 16; i++)
+        projectionError = Math.max(
+          projectionError,
+          Math.abs(camera.projectionMatrix.elements[i] - shot.projection.elements[i]),
+          Math.abs(camera.projectionMatrixInverse.elements[i] - shot.inverseProjection.elements[i]),
+        )
       const probe = inspectionTelemetry as unknown as Record<string, unknown>
       probe.restoreProjectionError = projectionError
-      probe.restoreStateError = camera instanceof PerspectiveCamera ? Math.abs(camera.fov - shot.fov) + Math.abs(camera.near - shot.near) + Math.abs(camera.far - shot.far) + Math.abs(camera.zoom - shot.zoom) + Math.abs(camera.aspect - shot.aspect) + Math.abs(camera.focus - shot.focus) + Math.abs(camera.filmGauge - shot.filmGauge) + Math.abs(camera.filmOffset - shot.filmOffset) : 0
+      probe.restoreStateError =
+        camera instanceof PerspectiveCamera
+          ? Math.abs(camera.fov - shot.fov) +
+            Math.abs(camera.near - shot.near) +
+            Math.abs(camera.far - shot.far) +
+            Math.abs(camera.zoom - shot.zoom) +
+            Math.abs(camera.aspect - shot.aspect) +
+            Math.abs(camera.focus - shot.focus) +
+            Math.abs(camera.filmGauge - shot.filmGauge) +
+            Math.abs(camera.filmOffset - shot.filmOffset)
+          : 0
       probe.restoreObserved = true
       renderOwnership.restoreObserved = true
       return
     }
     if (shot.saved) {
-      shot.saved = false; shot.observe = true
-      camera.position.copy(shot.position); camera.quaternion.copy(shot.quaternion); camera.up.copy(shot.up); camera.scale.copy(shot.scale)
+      shot.saved = false
+      shot.observe = true
+      camera.position.copy(shot.position)
+      camera.quaternion.copy(shot.quaternion)
+      camera.up.copy(shot.up)
+      camera.scale.copy(shot.scale)
       if (camera instanceof PerspectiveCamera) {
-        camera.fov = shot.fov; camera.near = shot.near; camera.far = shot.far; camera.zoom = shot.zoom; camera.aspect = shot.aspect
-        camera.focus = shot.focus; camera.filmGauge = shot.filmGauge; camera.filmOffset = shot.filmOffset
-        camera.view = shot.view; if (shot.view && shot.viewValue) Object.assign(shot.view, shot.viewValue)
+        camera.fov = shot.fov
+        camera.near = shot.near
+        camera.far = shot.far
+        camera.zoom = shot.zoom
+        camera.aspect = shot.aspect
+        camera.focus = shot.focus
+        camera.filmGauge = shot.filmGauge
+        camera.filmOffset = shot.filmOffset
+        camera.view = shot.view
+        if (shot.view && shot.viewValue) Object.assign(shot.view, shot.viewValue)
       }
-      camera.projectionMatrix.copy(shot.projection); camera.projectionMatrixInverse.copy(shot.inverseProjection)
-      currentPos.current.copy(shot.currentPos); currentTarget.current.copy(shot.currentTarget)
-      introOrtho.current = shot.introOrtho; restOrbit.current = shot.restOrbit
+      camera.projectionMatrix.copy(shot.projection)
+      camera.projectionMatrixInverse.copy(shot.inverseProjection)
+      currentPos.current.copy(shot.currentPos)
+      currentTarget.current.copy(shot.currentTarget)
+      introOrtho.current = shot.introOrtho
+      restOrbit.current = shot.restOrbit
       camera.updateMatrixWorld()
       return
     }
@@ -284,9 +360,20 @@ export function CameraRig() {
     let goalFov = base.fov
 
     // ---- 2. CR-3: Shift groove reveal & handle orbit sub-sequence (progress 0.035 → 0.18) ----
-    const shiftW = bellWeight(progress, remapHeroProgress(0.035), remapHeroProgress(0.055), remapHeroProgress(0.115), 0.18)
+    const shiftW = bellWeight(
+      progress,
+      remapHeroProgress(0.035),
+      remapHeroProgress(0.055),
+      remapHeroProgress(0.115),
+      0.18,
+    )
     if (shiftW > 0.001) {
-      const orbitT = smoothstep(Math.min(Math.max((progress - remapHeroProgress(0.05)) / (remapHeroProgress(0.10)-remapHeroProgress(0.05)), 0), 1))
+      const orbitT = smoothstep(
+        Math.min(
+          Math.max((progress - remapHeroProgress(0.05)) / (remapHeroProgress(0.1) - remapHeroProgress(0.05)), 0),
+          1,
+        ),
+      )
       const grPos: [number, number, number] = [
         lerpN(0.16, 0.12, orbitT),
         lerpN(0.06, 0.05, orbitT),
@@ -334,7 +421,11 @@ export function CameraRig() {
       const blend = (from: number, to: number, lo: number, hi: number): number =>
         lerpN(from, to, smoothstep(Math.min(Math.max((progress - lo) / (hi - lo), 0), 1)))
       const seg = <T extends readonly number[]>(from: T, to: T, lo: number, hi: number) =>
-        [blend(from[0], to[0], lo, hi), blend(from[1], to[1], lo, hi), blend(from[2], to[2], lo, hi)] as [number, number, number]
+        [blend(from[0], to[0], lo, hi), blend(from[1], to[1], lo, hi), blend(from[2], to[2], lo, hi)] as [
+          number,
+          number,
+          number,
+        ]
       let rearPos: [number, number, number]
       let rearTarget: [number, number, number]
       let rearFov: number
@@ -368,11 +459,7 @@ export function CameraRig() {
     // screen.
     if (progress >= 0.76) {
       const t4 = smoothstep(Math.min((progress - 0.76) / 0.18, 1))
-      const m249Pos: [number, number, number] = [
-        lerpN(56.43, 56.6, t4),
-        lerpN(0.65, 0.9, t4),
-        lerpN(-9.62, -8.67, t4),
-      ]
+      const m249Pos: [number, number, number] = [lerpN(56.43, 56.6, t4), lerpN(0.65, 0.9, t4), lerpN(-9.62, -8.67, t4)]
       const m249Tgt: [number, number, number] = [56, 0, -12]
       const m249Fov = lerpN(35, 38, t4)
       goalPos.current.set(m249Pos[0], m249Pos[1], m249Pos[2])
@@ -381,12 +468,8 @@ export function CameraRig() {
     }
 
     // ---- 6. Click-to-Inspect Subassembly Focus ----
-    const inLcdWindow =
-      progress >= LCD_REVEAL_WINDOW.start && progress <= LCD_REVEAL_WINDOW.end
-    const inspectFrame =
-      hotspotId && !(hotspotId === 'lcd' && inLcdWindow)
-        ? HOTSPOT_INSPECT_FRAMES[hotspotId]
-        : null
+    const inLcdWindow = progress >= LCD_REVEAL_WINDOW.start && progress <= LCD_REVEAL_WINDOW.end
+    const inspectFrame = hotspotId && !(hotspotId === 'lcd' && inLcdWindow) ? HOTSPOT_INSPECT_FRAMES[hotspotId] : null
     if (inspectFrame) {
       const explode = telemetry.rig.explodeFactor
       const isStation1Handle =
@@ -398,16 +481,8 @@ export function CameraRig() {
         hotspotId === 'lipo'
       const offsetZ = isStation1Handle ? EXPLODE_OFFSETS.handle * explode : 0
 
-      goalPos.current.set(
-        inspectFrame.position[0],
-        inspectFrame.position[1],
-        inspectFrame.position[2] + offsetZ,
-      )
-      goalTarget.current.set(
-        inspectFrame.target[0],
-        inspectFrame.target[1],
-        inspectFrame.target[2] + offsetZ,
-      )
+      goalPos.current.set(inspectFrame.position[0], inspectFrame.position[1], inspectFrame.position[2] + offsetZ)
+      goalTarget.current.set(inspectFrame.target[0], inspectFrame.target[1], inspectFrame.target[2] + offsetZ)
       goalFov = inspectFrame.fov
     }
 
@@ -467,11 +542,7 @@ export function CameraRig() {
         if (biasX > 0.0001) {
           scratchFwd.current.multiplyScalar(1 / dist)
           // Camera-LEFT = up × fwd = (fwd.z, 0, -fwd.x) normalized.
-          scratchRight.current.set(
-            scratchFwd.current.z,
-            0,
-            -scratchFwd.current.x,
-          )
+          scratchRight.current.set(scratchFwd.current.z, 0, -scratchFwd.current.x)
           const leftLen = scratchRight.current.length()
           if (leftLen > 0.0001) {
             scratchRight.current.multiplyScalar(1 / leftLen)
@@ -506,11 +577,7 @@ export function CameraRig() {
       goalFov = pose.fov + (goalFov - pose.fov) * introBlend
       introOrtho.current = pose.ortho * (1 - introBlend)
       camera.up
-        .set(
-          pose.up.x * (1 - introBlend),
-          pose.up.y * (1 - introBlend) + introBlend,
-          pose.up.z * (1 - introBlend),
-        )
+        .set(pose.up.x * (1 - introBlend), pose.up.y * (1 - introBlend) + introBlend, pose.up.z * (1 - introBlend))
         .normalize()
     } else {
       introOrtho.current = 0
@@ -529,11 +596,7 @@ export function CameraRig() {
 
     // B2 garnish #17: at scroll rest only, orbit the settled JGun view at
     // 0.3°/s. This stays outside the drawing handoff and reduced-motion path.
-    if (
-      Math.abs(velocity) < 0.001 &&
-      progress > DRAWING_INTRO_WINDOW.releaseEnd &&
-      progress < 0.545
-    ) {
+    if (Math.abs(velocity) < 0.001 && progress > DRAWING_INTRO_WINDOW.releaseEnd && progress < 0.545) {
       restOrbit.current += delta * ((0.3 * Math.PI) / 180)
       goalPos.current.x += Math.sin(restOrbit.current) * 0.003
       goalPos.current.z += (Math.cos(restOrbit.current) - 1) * 0.003
@@ -559,18 +622,10 @@ export function CameraRig() {
       if (introActive && layout && ortho > 1e-4) {
         const distance = currentPos.current.distanceTo(currentTarget.current)
         const half = distance * Math.tan((camera.fov * Math.PI) / 360)
-        orthographic.current.makeOrthographic(
-          -half * aspect,
-          half * aspect,
-          half,
-          -half,
-          camera.near,
-          camera.far,
-        )
+        orthographic.current.makeOrthographic(-half * aspect, half * aspect, half, -half, camera.near, camera.far)
         for (let i = 0; i < 16; i += 1) {
           camera.projectionMatrix.elements[i] =
-            orthographic.current.elements[i] * distance * ortho +
-            camera.projectionMatrix.elements[i] * (1 - ortho)
+            orthographic.current.elements[i] * distance * ortho + camera.projectionMatrix.elements[i] * (1 - ortho)
         }
         camera.projectionMatrixInverse.copy(camera.projectionMatrix).invert()
       }
@@ -597,4 +652,3 @@ export function CameraRig() {
 
   return null
 }
-

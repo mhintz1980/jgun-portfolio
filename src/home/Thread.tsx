@@ -37,7 +37,9 @@ export default function Thread() {
     const update = () => {
       frame = 0
       if (!samples) return
-      const length = reduced.matches ? samples.total : drawnLength(samples, window.scrollY, viewportHeight, homeTop, maxScroll)
+      const length = reduced.matches
+        ? samples.total
+        : drawnLength(samples, window.scrollY, viewportHeight, homeTop, maxScroll)
       if (Math.abs(length - lastLength) < 0.25) return
       lastLength = length
       path.style.strokeDashoffset = String(samples.total - length)
@@ -66,7 +68,13 @@ export default function Thread() {
         const kind = el.dataset.thread as AnchorKind
         if (!KINDS.includes(kind)) continue
         const r = el.getBoundingClientRect()
-        anchors.push({ kind, left: r.left - homeRect.left, top: r.top - homeRect.top, width: r.width, height: r.height })
+        anchors.push({
+          kind,
+          left: r.left - homeRect.left,
+          top: r.top - homeRect.top,
+          width: r.width,
+          height: r.height,
+        })
       }
 
       svg.style.height = `${height}px`
@@ -108,7 +116,11 @@ export default function Thread() {
 
     let buildFrame = 0
     const scheduleBuild = () => {
-      if (!buildFrame) buildFrame = requestAnimationFrame(() => { buildFrame = 0; build() })
+      if (!buildFrame)
+        buildFrame = requestAnimationFrame(() => {
+          buildFrame = 0
+          build()
+        })
     }
 
     build()
@@ -117,7 +129,10 @@ export default function Thread() {
     document.fonts?.ready.then(scheduleBuild, () => {})
     window.addEventListener('scroll', schedule, { passive: true })
     window.addEventListener('resize', scheduleBuild)
-    const onMotion = () => { lastLength = -1; schedule() }
+    const onMotion = () => {
+      lastLength = -1
+      schedule()
+    }
     reduced.addEventListener('change', onMotion)
 
     return () => {

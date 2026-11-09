@@ -15,5 +15,12 @@ createRoot(container).render(
 )
 
 let fontsReady = !document.fonts
-document.fonts?.ready.then(() => { fontsReady = true }, () => { fontsReady = true })
+document.fonts?.ready.then(
+  () => {
+    fontsReady = true
+  },
+  () => {
+    fontsReady = true
+  },
+)
 releaseFadeWhen(() => fontsReady)

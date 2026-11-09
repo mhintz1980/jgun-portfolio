@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest'
 import { MeshPhysicalMaterial, MeshStandardMaterial, RepeatWrapping } from 'three'
-import { createDiamondKnurlNormalMap, materialRoleFor, roleMaterial, RING_SWITCH_OD_RADIUS, RING_SWITCH_OD_MASK_START, RING_SWITCH_OD_MASK_FULL } from './materials'
+import {
+  createDiamondKnurlNormalMap,
+  materialRoleFor,
+  roleMaterial,
+  RING_SWITCH_OD_RADIUS,
+  RING_SWITCH_OD_MASK_START,
+  RING_SWITCH_OD_MASK_FULL,
+} from './materials'
 
 describe('P003068 heavy knurled black anodize', () => {
   it('matches the handle finish while retaining the OD normal map', () => {
@@ -18,9 +25,12 @@ describe('P003068 heavy knurled black anodize', () => {
     expect(map.wrapS).toBe(RepeatWrapping)
     expect(map.wrapT).toBe(RepeatWrapping)
     const pixels = map.image.data as Uint8Array
-    let worst = 0, slopes = 0
+    let worst = 0,
+      slopes = 0
     for (let i = 0; i < pixels.length; i += 4) {
-      const x = pixels[i] / 255 * 2 - 1, y = pixels[i + 1] / 255 * 2 - 1, z = pixels[i + 2] / 255 * 2 - 1
+      const x = (pixels[i] / 255) * 2 - 1,
+        y = (pixels[i + 1] / 255) * 2 - 1,
+        z = (pixels[i + 2] / 255) * 2 - 1
       worst = Math.max(worst, Math.abs(Math.hypot(x, y, z) - 1))
       if (Math.hypot(x, y) > 0.2) slopes++
     }
@@ -44,13 +54,13 @@ describe('P003068 heavy knurled black anodize', () => {
     expect(Number(radii[2])).toBeCloseTo(RING_SWITCH_OD_MASK_FULL, 10)
     const mask = (radius: number, outward: number, axial: number) => {
       const u = Math.max(0, Math.min(1, (radius - Number(radii[1])) / (Number(radii[2]) - Number(radii[1]))))
-      return u * u * (3 - 2 * u) * Number(outward >= .5) * Number(Math.abs(axial) < .20)
+      return u * u * (3 - 2 * u) * Number(outward >= 0.5) * Number(Math.abs(axial) < 0.2)
     }
     expect(mask(RING_SWITCH_OD_RADIUS, 1, 0)).toBe(1)
-    expect(mask(.03175, -1, 0)).toBe(0)
+    expect(mask(0.03175, -1, 0)).toBe(0)
     expect(mask(RING_SWITCH_OD_RADIUS, -1, 0)).toBe(0)
     expect(mask(RING_SWITCH_OD_RADIUS, 0, 1)).toBe(0)
-    expect(mask(RING_SWITCH_OD_RADIUS, 1, .2)).toBe(0)
+    expect(mask(RING_SWITCH_OD_RADIUS, 1, 0.2)).toBe(0)
     expect(shader.fragmentShader).toContain('ringSwitchOutward * ringSwitchOuterRadius * ringSwitchSide')
     expect(shader.fragmentShader).toContain('max(length(ringSwitchRadialPos) * length(ringSwitchRadialNormal), 1e-8)')
     expect(shader.fragmentShader).toContain('1.0 - step(0.20, abs(normalize(vRingSwitchObjectNormal).z))')
@@ -79,7 +89,14 @@ describe('smooth black-oxide housings (P000245 gearbox, P000420 clutch)', () => 
   })
 
   it('retains the lathe detail on exposed bright machined steels', () => {
-    for (const role of ['toolSteel', 'cageSteel', 'planetSteel', 'clutchSteel', 'rotorSteel', 'stainlessSteel'] as const) {
+    for (const role of [
+      'toolSteel',
+      'cageSteel',
+      'planetSteel',
+      'clutchSteel',
+      'rotorSteel',
+      'stainlessSteel',
+    ] as const) {
       const turned = roleMaterial(role) as MeshStandardMaterial
       const shader = compileShader()
       turned.onBeforeCompile(shader as never, {} as never)

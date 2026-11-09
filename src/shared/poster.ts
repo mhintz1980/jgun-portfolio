@@ -45,7 +45,8 @@ function fileProblems(label: string, file: PosterFile | undefined): string[] {
   if (!file.src.startsWith('/')) problems.push(`${label}: src must be root-relative`)
   if (!RASTER.test(file.src)) problems.push(`${label}: src must be a raster image`)
   if (isCadUrl(file.src)) problems.push(`${label}: src is a CAD asset`)
-  if (!isDimension(file.width) || !isDimension(file.height)) problems.push(`${label}: width and height must be positive integers`)
+  if (!isDimension(file.width) || !isDimension(file.height))
+    problems.push(`${label}: width and height must be positive integers`)
   return problems
 }
 

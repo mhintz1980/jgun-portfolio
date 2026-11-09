@@ -55,7 +55,14 @@ import { fileURLToPath } from 'node:url'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.resolve(HERE, '..')
-const RUNTIME_DIR = path.join(ROOT, 'project', 'work', 'evidence', 'torque-wrench-rebuild', '08-stage4-opening-recovery')
+const RUNTIME_DIR = path.join(
+  ROOT,
+  'project',
+  'work',
+  'evidence',
+  'torque-wrench-rebuild',
+  '08-stage4-opening-recovery',
+)
 const COPIED_SOURCE_SHA256 = '794cb9a92590ed9c99c2374999f05a74fa5e2ffc61eb17dc30a1d5ccf76a6e1d'
 const SCRATCH_ROOT = path.resolve(ROOT, '.scratch')
 
@@ -68,8 +75,24 @@ const FADE_BLOCK_SHA256 = 'e30f6045d8cfdb71a93e4c8a3af806e9699fa7f13da28720a3f50
 
 // Contract 18 approved primary viewports (H/L supplemental are out of this harness scope).
 const VIEWPORTS = {
-  D: { key: 'D', width: 1440, height: 900, deviceScaleFactor: 1, isMobile: false, hasTouch: false, label: 'D 1440x900 DPR1 desktop' },
-  N: { key: 'N', width: 390, height: 844, deviceScaleFactor: 3, isMobile: true, hasTouch: true, label: 'N 390x844 DPR3 touch/mobile' },
+  D: {
+    key: 'D',
+    width: 1440,
+    height: 900,
+    deviceScaleFactor: 1,
+    isMobile: false,
+    hasTouch: false,
+    label: 'D 1440x900 DPR1 desktop',
+  },
+  N: {
+    key: 'N',
+    width: 390,
+    height: 844,
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true,
+    label: 'N 390x844 DPR3 touch/mobile',
+  },
 }
 
 const CHAPTER_ORDER = ['drafting', 'breakthrough', 'mechanism', 'inspection', 'close']
@@ -81,7 +104,8 @@ const SCENE_SOURCE_KEY_RE = /^src\/scene\/torque-wrench\/Scene\.[tj]sx?$/
 // Narrative bytes only. A shared DRACOLoader *code chunk* is not a CAD/decoder asset;
 // Vite's dynamic-import helper can start that code request before an intercepted Scene
 // request fails, especially under route-held module graphs.
-const CAD_REQUEST_RE = /(\.glb($|\?)|\.gltf($|\?)|\.bin($|\?)|\/draco\/(?:draco_decoder(?:_geometry)?\.wasm|draco_wasm_wrapper\.js)|ktx2|basis|\/models\/)/i
+const CAD_REQUEST_RE =
+  /(\.glb($|\?)|\.gltf($|\?)|\.bin($|\?)|\/draco\/(?:draco_decoder(?:_geometry)?\.wasm|draco_wasm_wrapper\.js)|ktx2|basis|\/models\/)/i
 
 const EXIT = { PASS: 0, FAIL: 1, USAGE: 2, PREFLIGHT: 10, BLOCKED: 11, INTERNAL: 12 }
 const NAV_TIMEOUT_MS = 30000
@@ -94,7 +118,15 @@ const CASE_WATCHDOG_MS = 180000
 const SEAL_WINDOW_MS = 750
 
 const KNOWN_FLAGS = new Set(['help', 'preflight', 'url', 'out', 'only', 'viewport', 'build-dir'])
-const KNOWN_CASE_SUFFIXES = ['static-full', 'lite', 'poster-explicit', 'reduced-motion', 'scene-import-abort', 'scene-render-throw', 'scene-mql-downgrade']
+const KNOWN_CASE_SUFFIXES = [
+  'static-full',
+  'lite',
+  'poster-explicit',
+  'reduced-motion',
+  'scene-import-abort',
+  'scene-render-throw',
+  'scene-mql-downgrade',
+]
 
 // Harness-served controlled ESM for the render-failure case. Not a production hook.
 const RENDER_THROW_MARKER = 'TORQUE_STATIC_RENDER_FAILURE_INJECTION'
@@ -217,7 +249,11 @@ export function runPreflight() {
   }
 
   if (!existsSync(TORQUE_HTML)) {
-    add('torque-wrench/index.html exists (activation applied)', false, 'BLOCKED: activation is owner-coordinated and not applied in this worktree yet')
+    add(
+      'torque-wrench/index.html exists (activation applied)',
+      false,
+      'BLOCKED: activation is owner-coordinated and not applied in this worktree yet',
+    )
     return { ok: false, blockedActivation: true, checks, playwrightVersion }
   }
   add('torque-wrench/index.html exists (activation applied)', true)
@@ -235,15 +271,25 @@ export function runPreflight() {
   }
   add('real head robots noindex meta (comments stripped)', hasNoindex(html))
   const entryVerdict = entrySrcVerdict(html, MODULE_SRC)
-  add('module entry is exactly ' + MODULE_SRC + ' (attr-order tolerant, dev client excluded)', entryVerdict.ok, 'candidates=' + entryVerdict.candidates.join(','))
+  add(
+    'module entry is exactly ' + MODULE_SRC + ' (attr-order tolerant, dev client excluded)',
+    entryVerdict.ok,
+    'candidates=' + entryVerdict.candidates.join(','),
+  )
   add('private module file exists', existsSync(MODULE_FILE), MODULE_FILE)
-  add('no legacy redirect block (root index.html only)', between(html, '<!-- shell:redirect:begin -->', '<!-- shell:redirect:end -->') === null)
+  add(
+    'no legacy redirect block (root index.html only)',
+    between(html, '<!-- shell:redirect:begin -->', '<!-- shell:redirect:end -->') === null,
+  )
 
   const row = registryTorqueRow()
   add('registry row torque-wrench found', row !== null)
   if (row) {
     add("registry row active: href '/torque-wrench/'", /href:\s*'\/torque-wrench\/'/.test(row))
-    add("registry row active: htmlEntry 'torque-wrench/index.html'", /htmlEntry:\s*'torque-wrench\/index\.html'/.test(row))
+    add(
+      "registry row active: htmlEntry 'torque-wrench/index.html'",
+      /htmlEntry:\s*'torque-wrench\/index\.html'/.test(row),
+    )
     add('registry row active: reserved false', /reserved:\s*false/.test(row))
     add('registry row keeps private true (never in public nav)', /private:\s*true/.test(row))
     add('registry row keeps fadeIn true', /fadeIn:\s*true/.test(row))
@@ -252,9 +298,17 @@ export function runPreflight() {
   // Post-activation pins per shell-activation-packet.md; they change WITH the registry row via
   // the shell owner. A mismatch fails closed naming the exact expectation.
   const pagesTest = readFileSync(path.join(ROOT, 'src', 'shared', 'pages.test.ts'), 'utf8')
-  add('pages.test.ts torque pin updated to the active row', pagesTest.includes("htmlEntry: 'torque-wrench/index.html'") && pagesTest.includes("href: '/torque-wrench/'") && !pagesTest.includes('private and inactive'))
+  add(
+    'pages.test.ts torque pin updated to the active row',
+    pagesTest.includes("htmlEntry: 'torque-wrench/index.html'") &&
+      pagesTest.includes("href: '/torque-wrench/'") &&
+      !pagesTest.includes('private and inactive'),
+  )
   const topologyTest = readFileSync(path.join(ROOT, 'src', 'shared', 'pageTopology.test.ts'), 'utf8')
-  add("pageTopology.test.ts entries pin includes 'torque-wrench/index.html'", topologyTest.includes("'torque-wrench/index.html'"))
+  add(
+    "pageTopology.test.ts entries pin includes 'torque-wrench/index.html'",
+    topologyTest.includes("'torque-wrench/index.html'"),
+  )
 
   return { ok: checks.every((c) => c.pass), blockedActivation: false, checks, playwrightVersion }
 }
@@ -271,7 +325,8 @@ function validateStrictUrl(raw) {
   const loopback = new Set(['localhost', '127.0.0.1', '::1'])
   if (!/^https?:$/.test(u.protocol)) usage('--url must be http(s) on a loopback host')
   if (!loopback.has(u.hostname)) usage('--url host must be loopback (localhost, 127.0.0.1, or ::1); got ' + u.hostname)
-  if (u.pathname !== '/torque-wrench' && u.pathname !== '/torque-wrench/') usage('--url path must be exactly /torque-wrench (no extra segments)')
+  if (u.pathname !== '/torque-wrench' && u.pathname !== '/torque-wrench/')
+    usage('--url path must be exactly /torque-wrench (no extra segments)')
   if (u.search || u.hash) usage('--url must not carry a query or hash; modes add quality via the URL API')
   return new URL(u.origin + '/torque-wrench/')
 }
@@ -279,7 +334,8 @@ function validateStrictUrl(raw) {
 function validateOut(outArg) {
   const resolved = path.resolve(outArg)
   const parent = path.dirname(resolved)
-  if (!existsSync(parent)) usage('--out parent directory does not exist (no directories are created for explicit --out): ' + parent)
+  if (!existsSync(parent))
+    usage('--out parent directory does not exist (no directories are created for explicit --out): ' + parent)
   let realParent
   try {
     realParent = realpathSync(parent)
@@ -292,13 +348,15 @@ function validateOut(outArg) {
   } catch {
     usage('owned runtime directory is missing: ' + RUNTIME_DIR)
   }
-  if (realParent !== realRuntime && !realParent.startsWith(realRuntime + path.sep)) usage('--out must stay inside the owned runtime dir: ' + RUNTIME_DIR)
+  if (realParent !== realRuntime && !realParent.startsWith(realRuntime + path.sep))
+    usage('--out must stay inside the owned runtime dir: ' + RUNTIME_DIR)
   if (existsSync(resolved)) usage('--out already exists; preserve evidence and choose a NEW file: ' + resolved)
   if (existsSync(resolved)) {
     const st = lstatSync(resolved)
     if (st.isDirectory()) usage('--out must be a file path, not a directory: ' + resolved)
     const realTarget = realpathSync(resolved)
-    if (realTarget !== realRuntime && !realTarget.startsWith(realRuntime + path.sep)) usage('--out resolves through a symlink outside the owned runtime dir: ' + realTarget)
+    if (realTarget !== realRuntime && !realTarget.startsWith(realRuntime + path.sep))
+      usage('--out resolves through a symlink outside the owned runtime dir: ' + realTarget)
     if (!st.isFile() && !st.isSymbolicLink()) usage('--out target is not a regular file: ' + resolved)
   }
   return resolved
@@ -311,7 +369,10 @@ function validateViewport(raw) {
 }
 
 function validateOnly(raw) {
-  const ids = String(raw).split(',').map((s) => s.trim()).filter(Boolean)
+  const ids = String(raw)
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
   if (ids.length === 0) usage('--only listed no case ids')
   for (const id of ids) {
     const parts = id.split('-')
@@ -324,7 +385,8 @@ function validateOnly(raw) {
 
 function validateBuildDir(raw) {
   const resolved = path.resolve(raw)
-  if (resolved !== SCRATCH_ROOT && !resolved.startsWith(SCRATCH_ROOT + path.sep)) usage('--build-dir must resolve inside this worktree .scratch: ' + SCRATCH_ROOT)
+  if (resolved !== SCRATCH_ROOT && !resolved.startsWith(SCRATCH_ROOT + path.sep))
+    usage('--build-dir must resolve inside this worktree .scratch: ' + SCRATCH_ROOT)
   if (existsSync(resolved)) {
     let real
     try {
@@ -332,7 +394,8 @@ function validateBuildDir(raw) {
     } catch (e) {
       usage('--build-dir cannot be resolved: ' + e.message)
     }
-    if (real !== resolved && real !== SCRATCH_ROOT && !real.startsWith(SCRATCH_ROOT + path.sep)) usage('--build-dir resolves through a symlink outside .scratch: ' + real)
+    if (real !== resolved && real !== SCRATCH_ROOT && !real.startsWith(SCRATCH_ROOT + path.sep))
+      usage('--build-dir resolves through a symlink outside .scratch: ' + real)
   }
   return resolved
 }
@@ -340,7 +403,8 @@ function validateBuildDir(raw) {
 // Built-mode graph identity from the Vite manifest (read-only; no build subprocess here).
 function loadBuildGraph(buildDir) {
   const manifestPath = path.join(buildDir, '.vite', 'manifest.json')
-  if (!existsSync(manifestPath)) return { error: 'BLOCKED: manifest missing (run the scratch production build first): ' + manifestPath }
+  if (!existsSync(manifestPath))
+    return { error: 'BLOCKED: manifest missing (run the scratch production build first): ' + manifestPath }
   let manifest
   try {
     manifest = JSON.parse(readFileSync(manifestPath, 'utf8'))
@@ -348,11 +412,15 @@ function loadBuildGraph(buildDir) {
     return { error: 'BLOCKED: manifest is not valid JSON: ' + e.message }
   }
   const entry = manifest['torque-wrench/index.html']
-  if (!entry || entry.isEntry !== true || !entry.file) return { error: 'BLOCKED: manifest has no torque-wrench/index.html entry chunk' }
+  if (!entry || entry.isEntry !== true || !entry.file)
+    return { error: 'BLOCKED: manifest has no torque-wrench/index.html entry chunk' }
   const sceneKey = Object.keys(manifest).find((k) => SCENE_SOURCE_KEY_RE.test(k))
   if (!sceneKey) return { error: 'BLOCKED: manifest has no src/scene/torque-wrench/Scene.* dynamic chunk' }
   if (!Array.isArray(entry.dynamicImports) || !entry.dynamicImports.includes(sceneKey)) {
-    return { error: 'BLOCKED: torque entry dynamicImports does not include the Scene chunk (graph identity mismatch): ' + sceneKey }
+    return {
+      error:
+        'BLOCKED: torque entry dynamicImports does not include the Scene chunk (graph identity mismatch): ' + sceneKey,
+    }
   }
   return {
     mode: 'built',
@@ -433,7 +501,12 @@ const PROBE_INIT = () => {
   const probe = { canvasMounts: [], canvasRemovals: 0, offscreenCanvasConstructions: 0 }
   Object.defineProperty(window, '__torqueProbe', { value: probe, configurable: false })
   const isCanvas = (node) => Boolean(node && node.nodeName === 'CANVAS')
-  const record = (node) => probe.canvasMounts.push({ t: Math.round(performance.now()), id: node.id || null, cls: (node.getAttribute && node.getAttribute('class')) || null })
+  const record = (node) =>
+    probe.canvasMounts.push({
+      t: Math.round(performance.now()),
+      id: node.id || null,
+      cls: (node.getAttribute && node.getAttribute('class')) || null,
+    })
   const scan = (root) => {
     if (root && root.querySelectorAll) {
       const found = root.querySelectorAll('canvas')
@@ -469,10 +542,14 @@ const PROBE_INIT = () => {
 // (bounded) before any probe assertion reads counts.
 async function flushProbe(page) {
   await Promise.race([
-    page.evaluate(() => new Promise((resolve) => {
-      if (typeof requestAnimationFrame === 'function') requestAnimationFrame(() => requestAnimationFrame(() => resolve(true)))
-      else setTimeout(() => resolve(true), 50)
-    })),
+    page.evaluate(
+      () =>
+        new Promise((resolve) => {
+          if (typeof requestAnimationFrame === 'function')
+            requestAnimationFrame(() => requestAnimationFrame(() => resolve(true)))
+          else setTimeout(() => resolve(true), 50)
+        }),
+    ),
     new Promise((resolve) => setTimeout(() => resolve(false), FLUSH_TIMEOUT_MS)),
   ])
 }
@@ -499,14 +576,20 @@ const stageIs = (page, value) =>
   )
 
 const chaptersReady = (page) =>
-  page.waitForFunction(() => document.querySelectorAll('.torque-chapter').length === 5, undefined, { timeout: NAV_TIMEOUT_MS, polling: 100 })
+  page.waitForFunction(() => document.querySelectorAll('.torque-chapter').length === 5, undefined, {
+    timeout: NAV_TIMEOUT_MS,
+    polling: 100,
+  })
 
 // Real keyboard only: no helper focus() evaluation anywhere in this harness.
 async function keyboardFocus(page, selector, maxTabs) {
   const cap = maxTabs || 14
   for (let presses = 1; presses <= cap; presses++) {
     await page.keyboard.press('Tab')
-    const focused = await page.evaluate((sel) => Boolean(document.activeElement && document.activeElement.matches(sel)), selector)
+    const focused = await page.evaluate(
+      (sel) => Boolean(document.activeElement && document.activeElement.matches(sel)),
+      selector,
+    )
     if (focused) return presses
   }
   return -1
@@ -536,7 +619,13 @@ async function storyStatePreserved(page) {
   return page.evaluate(() => {
     const d = window.__torqueIdentity
     const q = (s) => document.querySelector(s)
-    if (!d || !d.story) return { preserved: false, reason: 'identity was not captured before the transition', disclosureStillOpen: false, focusedStillToggle: false }
+    if (!d || !d.story)
+      return {
+        preserved: false,
+        reason: 'identity was not captured before the transition',
+        disclosureStillOpen: false,
+        focusedStillToggle: false,
+      }
     const chaptersNow = Array.prototype.slice.call(document.querySelectorAll('.torque-chapter'))
     const preserved =
       d.story === document.getElementById('torque-story') &&
@@ -549,7 +638,9 @@ async function storyStatePreserved(page) {
     return {
       preserved,
       reason: preserved ? '' : 'retained Element refs no longer match the live DOM (Story remounted)',
-      disclosureStillOpen: Boolean(q('.torque-inspection__toggle')) && q('.torque-inspection__toggle').getAttribute('aria-expanded') === 'true',
+      disclosureStillOpen:
+        Boolean(q('.torque-inspection__toggle')) &&
+        q('.torque-inspection__toggle').getAttribute('aria-expanded') === 'true',
       focusedStillToggle: document.activeElement === q('.torque-inspection__toggle'),
     }
   })
@@ -562,13 +653,23 @@ async function assertSharedStructure(page, c) {
       return m ? m[1] : ''
     }),
   )
-  c('chapter order drafting,breakthrough,mechanism,inspection,close', order.join(',') === CHAPTER_ORDER.join(','), order.join(','))
+  c(
+    'chapter order drafting,breakthrough,mechanism,inspection,close',
+    order.join(',') === CHAPTER_ORDER.join(','),
+    order.join(','),
+  )
   const nav = await page.evaluate(() => ({
     torqueLinks: document.querySelectorAll('a[href^="/torque-wrench"]').length,
     headerNav: Boolean(document.querySelector('header .shell-nav')),
-    m249Reserved: Array.prototype.some.call(document.querySelectorAll('.shell-nav .shell-nav-reserved'), (el) => /m249/i.test(el.textContent || '')),
+    m249Reserved: Array.prototype.some.call(document.querySelectorAll('.shell-nav .shell-nav-reserved'), (el) =>
+      /m249/i.test(el.textContent || ''),
+    ),
   }))
-  c('private page excluded from public nav (no torque anchors)', nav.torqueLinks === 0 && nav.headerNav, 'torqueLinks=' + nav.torqueLinks)
+  c(
+    'private page excluded from public nav (no torque anchors)',
+    nav.torqueLinks === 0 && nav.headerNav,
+    'torqueLinks=' + nav.torqueLinks,
+  )
   c('m249 still rendered as reserved text', nav.m249Reserved)
   const footer = await page.evaluate(() => {
     const f = document.querySelector('.torque-footer')
@@ -582,7 +683,11 @@ async function assertSharedStructure(page, c) {
       colophon: Boolean(f.querySelector('.torque-colophon')),
     }
   })
-  c('footer reachable (in flow, enters viewport on scroll)', footer.present && footer.inViewport && footer.anchors >= 1, JSON.stringify(footer))
+  c(
+    'footer reachable (in flow, enters viewport on scroll)',
+    footer.present && footer.inViewport && footer.anchors >= 1,
+    JSON.stringify(footer),
+  )
   c('footer colophon present', footer.present && footer.colophon)
 }
 
@@ -592,25 +697,59 @@ async function assertCanvasActivity(page, c, state, { live = false, removedLive 
   c('canvas probe installed from init', Boolean(probe))
   if (probe) {
     if (live) {
-      c('one live document canvas mounted and none removed', probe.canvasMounts.length === 1 && probe.canvasRemovals === 0, JSON.stringify(probe.canvasMounts))
+      c(
+        'one live document canvas mounted and none removed',
+        probe.canvasMounts.length === 1 && probe.canvasRemovals === 0,
+        JSON.stringify(probe.canvasMounts),
+      )
     } else if (removedLive) {
-      c('the live document canvas is removed after downgrade', probe.canvasMounts.length === 1 && probe.canvasRemovals === 1, JSON.stringify(probe.canvasMounts))
+      c(
+        'the live document canvas is removed after downgrade',
+        probe.canvasMounts.length === 1 && probe.canvasRemovals === 1,
+        JSON.stringify(probe.canvasMounts),
+      )
     } else {
-      c('zero document canvas mounts incl. removed', probe.canvasMounts.length === 0 && probe.canvasRemovals === 0, JSON.stringify(probe.canvasMounts))
+      c(
+        'zero document canvas mounts incl. removed',
+        probe.canvasMounts.length === 0 && probe.canvasRemovals === 0,
+        JSON.stringify(probe.canvasMounts),
+      )
     }
-    c('at most one auxiliary OffscreenCanvas construction', probe.offscreenCanvasConstructions <= 1, String(probe.offscreenCanvasConstructions))
+    c(
+      'at most one auxiliary OffscreenCanvas construction',
+      probe.offscreenCanvasConstructions <= 1,
+      String(probe.offscreenCanvasConstructions),
+    )
   }
   if (live) {
-    c('live narrative CAD asset initialized (request observed or browser-cached world ready)', state.worldReady === true, 'worldReady=' + String(state.worldReady) + ' requests=' + state.cadRequests.join(', '))
+    c(
+      'live narrative CAD asset initialized (request observed or browser-cached world ready)',
+      state.worldReady === true,
+      'worldReady=' + String(state.worldReady) + ' requests=' + state.cadRequests.join(', '),
+    )
   } else if (removedLive) {
-    c('downgrade started from a ready live world', state.worldReady === true, JSON.stringify(state.mqlTransition?.liveBeforeDowngrade || null))
-    c('zero NEW narrative CAD/decoder requests after downgrade/restoration',
+    c(
+      'downgrade started from a ready live world',
+      state.worldReady === true,
+      JSON.stringify(state.mqlTransition?.liveBeforeDowngrade || null),
+    )
+    c(
+      'zero NEW narrative CAD/decoder requests after downgrade/restoration',
       Boolean(state.mqlTransition) && state.mqlTransition.afterRestore.newCadRequests.length === 0,
-      JSON.stringify(state.mqlTransition?.afterRestore || null))
+      JSON.stringify(state.mqlTransition?.afterRestore || null),
+    )
   } else {
-    c('zero narrative CAD/decoder byte requests from initialization', state.cadRequests.length === 0, state.cadRequests.join(', '))
+    c(
+      'zero narrative CAD/decoder byte requests from initialization',
+      state.cadRequests.length === 0,
+      state.cadRequests.join(', '),
+    )
   }
-  c('no Scene-shaped request outside the exact derived identity', state.sceneShaped.length === 0, JSON.stringify(state.sceneShaped))
+  c(
+    'no Scene-shaped request outside the exact derived identity',
+    state.sceneShaped.length === 0,
+    JSON.stringify(state.sceneShaped),
+  )
 }
 
 async function assertCleanSignals(c, state) {
@@ -621,18 +760,38 @@ async function assertCleanSignals(c, state) {
 
 async function assertFailureSignals(c, state, scenePath) {
   c('zero unrelated HTTP error responses (>=400)', state.httpErrors.length === 0, JSON.stringify(state.httpErrors))
-  const correlated = (entry) => entry.text.indexOf(RENDER_THROW_MARKER) !== -1 || entry.text.indexOf(scenePath) !== -1 || (entry.url || '').endsWith(scenePath)
-  c('console errors all correlate to the exact Scene failure', state.consoleErrors.every(correlated), JSON.stringify(state.consoleErrors))
-  c('zero uncaught page errors (SceneBoundary must catch render throws)', state.pageErrors.length === 0, state.pageErrors.join(' | '))
+  const correlated = (entry) =>
+    entry.text.indexOf(RENDER_THROW_MARKER) !== -1 ||
+    entry.text.indexOf(scenePath) !== -1 ||
+    (entry.url || '').endsWith(scenePath)
+  c(
+    'console errors all correlate to the exact Scene failure',
+    state.consoleErrors.every(correlated),
+    JSON.stringify(state.consoleErrors),
+  )
+  c(
+    'zero uncaught page errors (SceneBoundary must catch render throws)',
+    state.pageErrors.length === 0,
+    state.pageErrors.join(' | '),
+  )
 }
 
 async function assertPosterSlots(page, c) {
   const slots = await page.evaluate(() => ({
-    ids: Array.prototype.map.call(document.querySelectorAll('[data-torque-poster]'), (el) => el.getAttribute('data-torque-poster')),
-    allPending: Array.prototype.every.call(document.querySelectorAll('[data-torque-poster]'), (el) => el.getAttribute('data-torque-poster-pending') === 'stage-6'),
+    ids: Array.prototype.map.call(document.querySelectorAll('[data-torque-poster]'), (el) =>
+      el.getAttribute('data-torque-poster'),
+    ),
+    allPending: Array.prototype.every.call(
+      document.querySelectorAll('[data-torque-poster]'),
+      (el) => el.getAttribute('data-torque-poster-pending') === 'stage-6',
+    ),
     canvas: document.querySelectorAll('canvas').length,
   }))
-  c('five explicit poster slots in chapter order', JSON.stringify(slots.ids) === JSON.stringify(CHAPTER_ORDER), JSON.stringify(slots.ids))
+  c(
+    'five explicit poster slots in chapter order',
+    JSON.stringify(slots.ids) === JSON.stringify(CHAPTER_ORDER),
+    JSON.stringify(slots.ids),
+  )
   c('poster slots are explicit Stage 6 placeholders', slots.allPending)
   c('poster layer has zero live canvas elements', slots.canvas === 0, String(slots.canvas))
 }
@@ -654,9 +813,16 @@ async function assertSkipLink(page, c) {
   const tabs = await keyboardFocus(page, '.torque-skip', 2)
   c('skip link is the first Tab stop', tabs === 1, 'tabs=' + tabs)
   await page.keyboard.press('Enter')
-  await page.waitForFunction(() => window.location.hash === '#torque-story', undefined, { timeout: UI_TIMEOUT_MS, polling: 50 })
+  await page.waitForFunction(() => window.location.hash === '#torque-story', undefined, {
+    timeout: UI_TIMEOUT_MS,
+    polling: 50,
+  })
   const focusTarget = await page.evaluate(() => (document.activeElement ? document.activeElement.id : ''))
-  c('activating skip link moves focus to the story container', focusTarget === 'torque-story', 'activeElement=' + focusTarget)
+  c(
+    'activating skip link moves focus to the story container',
+    focusTarget === 'torque-story',
+    'activeElement=' + focusTarget,
+  )
 }
 
 async function assertDisclosureKeyboard(page, c) {
@@ -664,13 +830,26 @@ async function assertDisclosureKeyboard(page, c) {
   c('inspection toggle reachable by Tab order', tabs >= 0, 'tabs=' + tabs)
   if (tabs < 0) return
   c('disclosure initially closed', (await page.getAttribute('.torque-inspection__toggle', 'aria-expanded')) === 'false')
-  c('panel initially hidden', await page.evaluate(() => Boolean(document.getElementById('torque-inspection-detail')) && document.getElementById('torque-inspection-detail').hidden === true))
+  c(
+    'panel initially hidden',
+    await page.evaluate(
+      () =>
+        Boolean(document.getElementById('torque-inspection-detail')) &&
+        document.getElementById('torque-inspection-detail').hidden === true,
+    ),
+  )
   await page.keyboard.press('Enter')
   await expandedWaits(page, 'true')
-  c('Enter opens disclosure', await page.evaluate(() => document.getElementById('torque-inspection-detail').hidden === false))
+  c(
+    'Enter opens disclosure',
+    await page.evaluate(() => document.getElementById('torque-inspection-detail').hidden === false),
+  )
   await page.keyboard.press('Space')
   await expandedWaits(page, 'false')
-  c('Space closes disclosure', await page.evaluate(() => document.getElementById('torque-inspection-detail').hidden === true))
+  c(
+    'Space closes disclosure',
+    await page.evaluate(() => document.getElementById('torque-inspection-detail').hidden === true),
+  )
   await page.keyboard.press('Space')
   await expandedWaits(page, 'true')
   c('Space reopens disclosure', true)
@@ -687,7 +866,13 @@ async function assertDisclosureKeyboard(page, c) {
   const restored = await page.evaluate(() => {
     const t = document.querySelector('.torque-inspection__toggle')
     const panel = document.getElementById('torque-inspection-detail')
-    return Boolean(t) && document.activeElement === t && t.getAttribute('aria-expanded') === 'false' && Boolean(panel) && panel.hidden === true
+    return (
+      Boolean(t) &&
+      document.activeElement === t &&
+      t.getAttribute('aria-expanded') === 'false' &&
+      Boolean(panel) &&
+      panel.hidden === true
+    )
   })
   c('Escape restores trigger focus and closed panel state (expanded false, hidden true)', restored)
 }
@@ -699,7 +884,10 @@ async function stepCleanScene(page, state, c) {
   await stageIs(page, 'scene')
   let worldReady = false
   try {
-    await page.waitForFunction(() => window.__torqueWorld?.snapshot?.().ready === true, undefined, { timeout: STAGE_TIMEOUT_MS, polling: 50 })
+    await page.waitForFunction(() => window.__torqueWorld?.snapshot?.().ready === true, undefined, {
+      timeout: STAGE_TIMEOUT_MS,
+      polling: 50,
+    })
     worldReady = true
     state.worldReady = true
   } catch {
@@ -707,11 +895,19 @@ async function stepCleanScene(page, state, c) {
   }
   const scene = await page.evaluate(() => ({
     placeholder: Boolean(document.querySelector('[data-torque-scene="placeholder"]')),
-    stage: document.querySelector('.torque-stage') ? document.querySelector('.torque-stage').getAttribute('data-torque-stage') : null,
+    stage: document.querySelector('.torque-stage')
+      ? document.querySelector('.torque-stage').getAttribute('data-torque-stage')
+      : null,
   }))
-  const liveScene = await page.evaluate(() => document.querySelector('[data-torque-scene]')?.getAttribute('data-torque-scene') === 'live')
+  const liveScene = await page.evaluate(
+    () => document.querySelector('[data-torque-scene]')?.getAttribute('data-torque-scene') === 'live',
+  )
   c('tier resolves to the ready live renderer scene', liveScene && scene.stage === 'scene', JSON.stringify(scene))
-  c('lazy Scene module requested exactly once (lazy-load evidence)', state.sceneModule.requests.length === 1, JSON.stringify(state.sceneModule.requests))
+  c(
+    'lazy Scene module requested exactly once (lazy-load evidence)',
+    state.sceneModule.requests.length === 1,
+    JSON.stringify(state.sceneModule.requests),
+  )
   c('no poster layer in scene mode', (await page.locator('[data-torque-poster]').count()) === 0)
   await assertSkipLink(page, c)
   await assertDisclosureKeyboard(page, c)
@@ -724,7 +920,11 @@ async function stepPoster(page, state, c) {
   await chaptersReady(page)
   await stageIs(page, 'poster')
   await assertPosterSlots(page, c)
-  c('poster tier never requests the lazy Scene module', state.sceneModule.requests.length === 0, JSON.stringify(state.sceneModule.requests))
+  c(
+    'poster tier never requests the lazy Scene module',
+    state.sceneModule.requests.length === 0,
+    JSON.stringify(state.sceneModule.requests),
+  )
   await assertSkipLink(page, c)
   await assertDisclosureKeyboard(page, c)
   await assertSharedStructure(page, c)
@@ -738,7 +938,11 @@ async function openDisclosureAndCapture(page, c) {
   await page.keyboard.press('Enter')
   await expandedWaits(page, 'true')
   const pre = await captureStoryState(page)
-  c('DOM identity + disclosure + focus captured pre-transition', pre.captured && pre.expanded === 'true' && pre.focusedIsToggle, JSON.stringify(pre))
+  c(
+    'DOM identity + disclosure + focus captured pre-transition',
+    pre.captured && pre.expanded === 'true' && pre.focusedIsToggle,
+    JSON.stringify(pre),
+  )
   return pre
 }
 
@@ -746,8 +950,16 @@ async function stepInjectedFailure(page, state, c, kind, hold, build, sceneReque
   await chaptersReady(page)
   await stageIs(page, 'pending')
   const seen = sceneRequestSeen ? await sceneRequestSeen : null
-  c('exact Scene module request observed before assertions', Boolean(seen), seen ? seen.url() : 'never observed (timeout)')
-  c('Scene module intercepted exactly once and held pending', state.sceneModule.requests.length === 1, JSON.stringify(state.sceneModule.requests))
+  c(
+    'exact Scene module request observed before assertions',
+    Boolean(seen),
+    seen ? seen.url() : 'never observed (timeout)',
+  )
+  c(
+    'Scene module intercepted exactly once and held pending',
+    state.sceneModule.requests.length === 1,
+    JSON.stringify(state.sceneModule.requests),
+  )
   await openDisclosureAndCapture(page, c)
   hold.resolve()
   await stageIs(page, 'poster')
@@ -757,19 +969,42 @@ async function stepInjectedFailure(page, state, c, kind, hold, build, sceneReque
   c('focused control preserved through failure', post.focusedStillToggle)
   await assertPosterSlots(page, c)
   if (kind === 'abort') {
-    c('import rejection: exactly one Scene request, no response', state.sceneModule.requests.length === 1 && state.sceneModule.responses.length === 0, JSON.stringify(state.sceneModule.responses))
-    c('import rejection observed as requestfailed', state.sceneModule.requestFailed.length === 1 && /ERR_FAILED|net::/.test(state.sceneModule.requestFailed[0].error), JSON.stringify(state.sceneModule.requestFailed))
+    c(
+      'import rejection: exactly one Scene request, no response',
+      state.sceneModule.requests.length === 1 && state.sceneModule.responses.length === 0,
+      JSON.stringify(state.sceneModule.responses),
+    )
+    c(
+      'import rejection observed as requestfailed',
+      state.sceneModule.requestFailed.length === 1 && /ERR_FAILED|net::/.test(state.sceneModule.requestFailed[0].error),
+      JSON.stringify(state.sceneModule.requestFailed),
+    )
   } else {
     await waitForCondition(() => state.sceneModule.bodies.length > 0, UI_TIMEOUT_MS * 2)
     const res = state.sceneModule.responses[0]
-    c('render-throw injection served with HTTP 200 + JS content type', Boolean(res) && res.status === 200 && /text\/javascript|application\/javascript/.test(res.contentType), JSON.stringify(res || null))
-    c('injection body is the controlled throwing ESM (non-vacuous)', state.sceneModule.bodies.some((b) => b.indexOf(RENDER_THROW_MARKER) !== -1))
+    c(
+      'render-throw injection served with HTTP 200 + JS content type',
+      Boolean(res) && res.status === 200 && /text\/javascript|application\/javascript/.test(res.contentType),
+      JSON.stringify(res || null),
+    )
+    c(
+      'injection body is the controlled throwing ESM (non-vacuous)',
+      state.sceneModule.bodies.some((b) => b.indexOf(RENDER_THROW_MARKER) !== -1),
+    )
   }
-  c('exactly one Scene request total after failure (cadGate seal)', state.sceneModule.requests.length === 1, JSON.stringify(state.sceneModule.requests))
+  c(
+    'exactly one Scene request total after failure (cadGate seal)',
+    state.sceneModule.requests.length === 1,
+    JSON.stringify(state.sceneModule.requests),
+  )
   await assertCanvasActivity(page, c, state)
   await assertFailureSignals(c, state, build.scenePath)
   await page.waitForTimeout(SEAL_WINDOW_MS)
-  c('no further Scene/CAD requests in the bounded post-failure window', state.sceneModule.requests.length === 1 && state.cadRequests.length === 0, 'scene=' + state.sceneModule.requests.length + ' cad=' + state.cadRequests.length)
+  c(
+    'no further Scene/CAD requests in the bounded post-failure window',
+    state.sceneModule.requests.length === 1 && state.cadRequests.length === 0,
+    'scene=' + state.sceneModule.requests.length + ' cad=' + state.cadRequests.length,
+  )
 }
 
 async function stepMqlDowngrade(page, state, c) {
@@ -779,24 +1014,38 @@ async function stepMqlDowngrade(page, state, c) {
   const readinessStarted = Date.now()
   let readyDrawWitness = null
   try {
-  const readinessHandle = await page.waitForFunction(() => {
-    const world = window.__torqueWorld?.snapshot?.()
-    const ready = world?.ready === true && world.sheet?.baked === true
-      && Number.isFinite(world.frames) && world.frames > 0
-      && Number.isFinite(world.renderer?.calls) && world.renderer.calls > 0
-      && document.querySelector('[data-torque-scene="live"] canvas')
-    return ready ? { frames: world.frames, calls: world.renderer.calls, observedAt: performance.now() } : false
-  }, undefined, { timeout: 90000, polling: 50 })
-  readyDrawWitness = await readinessHandle.jsonValue()
-  await readinessHandle.dispose()
+    const readinessHandle = await page.waitForFunction(
+      () => {
+        const world = window.__torqueWorld?.snapshot?.()
+        const ready =
+          world?.ready === true &&
+          world.sheet?.baked === true &&
+          Number.isFinite(world.frames) &&
+          world.frames > 0 &&
+          Number.isFinite(world.renderer?.calls) &&
+          world.renderer.calls > 0 &&
+          document.querySelector('[data-torque-scene="live"] canvas')
+        return ready ? { frames: world.frames, calls: world.renderer.calls, observedAt: performance.now() } : false
+      },
+      undefined,
+      { timeout: 90000, polling: 50 },
+    )
+    readyDrawWitness = await readinessHandle.jsonValue()
+    await readinessHandle.dispose()
   } catch (error) {
-    state.mqlReadiness = await page.evaluate(() => {
-      const world = window.__torqueWorld?.snapshot?.()
-      return { ready: world?.ready ?? null, sheetBaked: world?.sheet?.baked ?? null,
-        frames: world?.frames ?? null, calls: world?.renderer?.calls ?? null,
-        stage: document.querySelector('.torque-stage')?.getAttribute('data-torque-stage') ?? null,
-        canvas: Boolean(document.querySelector('[data-torque-scene="live"] canvas')) }
-    }).catch(() => ({ probeUnavailable: true }))
+    state.mqlReadiness = await page
+      .evaluate(() => {
+        const world = window.__torqueWorld?.snapshot?.()
+        return {
+          ready: world?.ready ?? null,
+          sheetBaked: world?.sheet?.baked ?? null,
+          frames: world?.frames ?? null,
+          calls: world?.renderer?.calls ?? null,
+          stage: document.querySelector('.torque-stage')?.getAttribute('data-torque-stage') ?? null,
+          canvas: Boolean(document.querySelector('[data-torque-scene="live"] canvas')),
+        }
+      })
+      .catch(() => ({ probeUnavailable: true }))
     state.mqlReadiness.elapsedMs = Date.now() - readinessStarted
     c('MQL live readiness completed before transition', false, JSON.stringify(state.mqlReadiness))
     throw error
@@ -807,29 +1056,47 @@ async function stepMqlDowngrade(page, state, c) {
   const liveBeforeDowngrade = await page.evaluate(() => {
     const world = window.__torqueWorld?.snapshot?.()
     return {
-      ready: world?.ready === true, sheetBaked: world?.sheet?.baked === true,
-      frames: world?.frames ?? null, calls: world?.renderer?.calls ?? null,
+      ready: world?.ready === true,
+      sheetBaked: world?.sheet?.baked === true,
+      frames: world?.frames ?? null,
+      calls: world?.renderer?.calls ?? null,
       live: Boolean(document.querySelector('[data-torque-scene="live"] canvas')),
       stage: document.querySelector('.torque-stage')?.getAttribute('data-torque-stage') ?? null,
     }
   })
-  state.worldReady = liveBeforeDowngrade.ready && liveBeforeDowngrade.sheetBaked
-    && Number.isFinite(liveBeforeDowngrade.frames) && liveBeforeDowngrade.frames > 0
-    && Number.isFinite(liveBeforeDowngrade.calls) && liveBeforeDowngrade.calls >= 0
-    && Number.isFinite(readyDrawWitness?.calls) && readyDrawWitness.calls > 0
-    && liveBeforeDowngrade.frames >= readyDrawWitness.frames
-    && liveBeforeDowngrade.live && liveBeforeDowngrade.stage === 'scene'
-  c('MQL downgrade requires actual ready live world before transition', state.worldReady, JSON.stringify(liveBeforeDowngrade))
+  state.worldReady =
+    liveBeforeDowngrade.ready &&
+    liveBeforeDowngrade.sheetBaked &&
+    Number.isFinite(liveBeforeDowngrade.frames) &&
+    liveBeforeDowngrade.frames > 0 &&
+    Number.isFinite(liveBeforeDowngrade.calls) &&
+    liveBeforeDowngrade.calls >= 0 &&
+    Number.isFinite(readyDrawWitness?.calls) &&
+    readyDrawWitness.calls > 0 &&
+    liveBeforeDowngrade.frames >= readyDrawWitness.frames &&
+    liveBeforeDowngrade.live &&
+    liveBeforeDowngrade.stage === 'scene'
+  c(
+    'MQL downgrade requires actual ready live world before transition',
+    state.worldReady,
+    JSON.stringify(liveBeforeDowngrade),
+  )
   if (!state.worldReady) throw new Error('MQL live-world prerequisite failed; downgrade not attempted')
   // The boundary is immediately BEFORE the action, so requests during the downgrade
   // itself cannot be mistaken for initialization traffic. Request events (not response
   // completion) assign each Scene/CAD/decoder request to its side of the boundary.
-  const boundary = { scene: state.sceneModule.requests.length, cad: state.cadRequests.length,
-    unidentifiedScene: state.sceneShaped.length }
+  const boundary = {
+    scene: state.sceneModule.requests.length,
+    cad: state.cadRequests.length,
+    unidentifiedScene: state.sceneShaped.length,
+  }
   state.mqlTransition = {
-    liveBeforeDowngrade, sealWindowMs: SEAL_WINDOW_MS, transitionStartedAt: new Date().toISOString(),
+    liveBeforeDowngrade,
+    sealWindowMs: SEAL_WINDOW_MS,
+    transitionStartedAt: new Date().toISOString(),
     beforeTransition: {
-      sceneRequests: state.sceneModule.requests.slice(), cadRequests: state.cadRequests.slice(),
+      sceneRequests: state.sceneModule.requests.slice(),
+      cadRequests: state.cadRequests.slice(),
       unidentifiedSceneRequests: state.sceneShaped.slice(),
     },
   }
@@ -838,8 +1105,8 @@ async function stepMqlDowngrade(page, state, c) {
     newCadRequests: state.cadRequests.slice(boundary.cad),
     newUnidentifiedSceneRequests: state.sceneShaped.slice(boundary.unidentifiedScene),
   })
-  const noNewRequests = r => r.newSceneRequests.length === 0 && r.newCadRequests.length === 0
-    && r.newUnidentifiedSceneRequests.length === 0
+  const noNewRequests = (r) =>
+    r.newSceneRequests.length === 0 && r.newCadRequests.length === 0 && r.newUnidentifiedSceneRequests.length === 0
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await stageIs(page, 'poster')
   const post = await storyStatePreserved(page)
@@ -850,10 +1117,16 @@ async function stepMqlDowngrade(page, state, c) {
   await page.waitForTimeout(SEAL_WINDOW_MS)
   const afterDowngrade = windowRequests()
   state.mqlTransition.afterDowngrade = afterDowngrade
-  c('no NEW Scene/CAD/decoder requests through downgrade and bounded poster window',
-    noNewRequests(afterDowngrade), JSON.stringify(afterDowngrade))
-  c('exactly one initialization Scene request and no additional Scene requests after downgrade',
-    state.sceneModule.requests.length === 1, JSON.stringify(state.sceneModule.requests))
+  c(
+    'no NEW Scene/CAD/decoder requests through downgrade and bounded poster window',
+    noNewRequests(afterDowngrade),
+    JSON.stringify(afterDowngrade),
+  )
+  c(
+    'exactly one initialization Scene request and no additional Scene requests after downgrade',
+    state.sceneModule.requests.length === 1,
+    JSON.stringify(state.sceneModule.requests),
+  )
   // One-way floor: restoring motion must not fetch any new Scene/CAD/decoder bytes.
   state.mqlTransition.restoreStartedAt = new Date().toISOString()
   await page.emulateMedia({ reducedMotion: 'no-preference' })
@@ -866,14 +1139,16 @@ async function stepMqlDowngrade(page, state, c) {
   c('one-way floor: restoring motion preference never re-enters the scene tier', stillPoster)
   state.mqlTransition.afterRestore = windowRequests()
   state.mqlTransition.windowEndedAt = new Date().toISOString()
-  c('no NEW Scene/CAD/decoder requests through bounded restore-motion window',
-    noNewRequests(state.mqlTransition.afterRestore), JSON.stringify(state.mqlTransition.afterRestore))
+  c(
+    'no NEW Scene/CAD/decoder requests through bounded restore-motion window',
+    noNewRequests(state.mqlTransition.afterRestore),
+    JSON.stringify(state.mqlTransition.afterRestore),
+  )
   await assertCanvasActivity(page, c, state, { removedLive: true })
   await assertCleanSignals(c, state)
 }
 
 // ---- Runner ----
-
 
 function deferred() {
   let resolve
@@ -917,29 +1192,56 @@ async function runCaseOnContext(context, page, plan, baseUrl, build, state, c, h
   await page.addInitScript(PROBE_INIT)
   let sceneRequestSeen = null
   if (plan.kind === 'abort' || plan.kind === 'throw') {
-    await context.route((url) => url.pathname === build.scenePath, async (route) => {
-      await hold.promise
-      if (plan.kind === 'abort') await route.abort()
-      else await route.fulfill({ status: 200, contentType: 'text/javascript; charset=utf-8', body: RENDER_THROW_MODULE })
-    })
+    await context.route(
+      (url) => url.pathname === build.scenePath,
+      async (route) => {
+        await hold.promise
+        if (plan.kind === 'abort') await route.abort()
+        else
+          await route.fulfill({ status: 200, contentType: 'text/javascript; charset=utf-8', body: RENDER_THROW_MODULE })
+      },
+    )
     // Register the exact-Scene request waiter BEFORE goto so observing it is not a post-hoc
     // race; the route holds the response, so observation also proves the hold engaged.
-    sceneRequestSeen = page.waitForRequest((r) => {
-      try {
-        return new URL(r.url()).pathname === build.scenePath
-      } catch {
-        return false
-      }
-    }, { timeout: STAGE_TIMEOUT_MS }).catch(() => null)
+    sceneRequestSeen = page
+      .waitForRequest(
+        (r) => {
+          try {
+            return new URL(r.url()).pathname === build.scenePath
+          } catch {
+            return false
+          }
+        },
+        { timeout: STAGE_TIMEOUT_MS },
+      )
+      .catch(() => null)
   }
-  const response = await page.goto(caseUrl(plan, baseUrl).toString(), { waitUntil: 'domcontentloaded', timeout: NAV_TIMEOUT_MS })
-  c('document responds 200', Boolean(response) && response.status() === 200, 'status=' + (response ? response.status() : 'none'))
+  const response = await page.goto(caseUrl(plan, baseUrl).toString(), {
+    waitUntil: 'domcontentloaded',
+    timeout: NAV_TIMEOUT_MS,
+  })
+  c(
+    'document responds 200',
+    Boolean(response) && response.status() === 200,
+    'status=' + (response ? response.status() : 'none'),
+  )
   const finalUrl = new URL(page.url())
-  c('document is the private /torque-wrench page', finalUrl.pathname === '/torque-wrench' || finalUrl.pathname === '/torque-wrench/', page.url())
+  c(
+    'document is the private /torque-wrench page',
+    finalUrl.pathname === '/torque-wrench' || finalUrl.pathname === '/torque-wrench/',
+    page.url(),
+  )
   const served = await page.content()
   const verdict = entrySrcVerdict(served, build.expectedModuleSrc)
-  c('served module entry is the exact expected identity (dev client ignored)', verdict.ok, 'candidates=' + verdict.candidates.join(','))
-  c('served HTML carries fade markers + noindex', served.indexOf('shell:fade:begin') !== -1 && served.indexOf('noindex') !== -1)
+  c(
+    'served module entry is the exact expected identity (dev client ignored)',
+    verdict.ok,
+    'candidates=' + verdict.candidates.join(','),
+  )
+  c(
+    'served HTML carries fade markers + noindex',
+    served.indexOf('shell:fade:begin') !== -1 && served.indexOf('noindex') !== -1,
+  )
   if (plan.kind === 'clean') await stepCleanScene(page, state, c)
   else if (plan.kind === 'poster') await stepPoster(page, state, c)
   else if (plan.kind === 'mql') await stepMqlDowngrade(page, state, c)
@@ -1010,7 +1312,13 @@ async function runCaseGuarded(browser, plan, baseUrl, build) {
       url: caseUrl(plan, baseUrl).toString(),
       status: 'FAIL',
       durationMs: CASE_WATCHDOG_MS,
-      assertions: [{ name: 'case watchdog', pass: false, detail: 'exceeded ' + CASE_WATCHDOG_MS + 'ms; hold released and context closed by watchdog' }],
+      assertions: [
+        {
+          name: 'case watchdog',
+          pass: false,
+          detail: 'exceeded ' + CASE_WATCHDOG_MS + 'ms; hold released and context closed by watchdog',
+        },
+      ],
       observations: { note: 'watchdog; partial collectors discarded' },
     }
   }
@@ -1061,7 +1369,14 @@ async function servedPreflight(playwright, baseUrl, expectedModuleSrc) {
     const final = new URL(res.url())
     const verdict = entrySrcVerdict(text, expectedModuleSrc)
     const pathOk = final.pathname === '/torque-wrench' || final.pathname === '/torque-wrench/'
-    const ok = status === 200 && pathOk && !final.search && !final.hash && verdict.ok && text.indexOf('shell:fade:begin') !== -1 && hasNoindex(text)
+    const ok =
+      status === 200 &&
+      pathOk &&
+      !final.search &&
+      !final.hash &&
+      verdict.ok &&
+      text.indexOf('shell:fade:begin') !== -1 &&
+      hasNoindex(text)
     return { ok, status, finalUrl: res.url(), candidates: verdict.candidates }
   } finally {
     await api.dispose().catch(() => {})
@@ -1093,24 +1408,35 @@ function localAssetSha(build, assetPath) {
   } catch (e) {
     return { error: 'asset cannot be resolved inside the build dir (' + assetPath + '): ' + e.message }
   }
-  if (realFile !== realBuild && !realFile.startsWith(realBuild + path.sep)) return { error: 'asset resolves outside the build dir: ' + realFile }
+  if (realFile !== realBuild && !realFile.startsWith(realBuild + path.sep))
+    return { error: 'asset resolves outside the build dir: ' + realFile }
   return { filePath, sha256: sha256(readFileSync(filePath)) }
 }
 
 async function verifyBuiltAssets(playwright, baseUrl, build) {
   const origin = new URL(baseUrl).origin
   const identity = {}
-  const assets = [['entryAsset', build.expectedModuleSrc], ['sceneAsset', build.scenePath]]
+  const assets = [
+    ['entryAsset', build.expectedModuleSrc],
+    ['sceneAsset', build.scenePath],
+  ]
   for (const pair of assets) {
     const name = pair[0]
     const assetPath = pair[1]
     const local = localAssetSha(build, assetPath)
     if (local.error) return { error: 'BLOCKED: ' + local.error }
     const remote = await fetchSha256(playwright, origin + assetPath)
-    if (remote.status !== 200) return { error: 'BLOCKED: served ' + name + ' returned status ' + remote.status + ' at ' + assetPath }
+    if (remote.status !== 200)
+      return { error: 'BLOCKED: served ' + name + ' returned status ' + remote.status + ' at ' + assetPath }
     const verified = remote.sha256 === local.sha256
-    identity[name] = { url: origin + assetPath, localSha256: local.sha256, servedSha256: remote.sha256, servedShaVerified: verified }
-    if (!verified) return { error: 'BLOCKED: served ' + name + ' bytes do not match the manifest build output (' + assetPath + ')' }
+    identity[name] = {
+      url: origin + assetPath,
+      localSha256: local.sha256,
+      servedSha256: remote.sha256,
+      servedShaVerified: verified,
+    }
+    if (!verified)
+      return { error: 'BLOCKED: served ' + name + ' bytes do not match the manifest build output (' + assetPath + ')' }
   }
   return { identity }
 }
@@ -1147,11 +1473,13 @@ async function main() {
   const buildDir = buildDirArg ? validateBuildDir(buildDirArg) : null
   const baseUrl = urlArg ? validateStrictUrl(urlArg) : null
   // A filtered roster that selects nothing is a usage error, never an empty passing run.
-  if (!args.preflight && buildPlans(viewportKeys, only).length === 0) usage('--viewport/--only combination selects no case')
+  if (!args.preflight && buildPlans(viewportKeys, only).length === 0)
+    usage('--viewport/--only combination selects no case')
 
   if (args.preflight) {
     const pre = runPreflight()
-    for (const c of pre.checks) console.log((c.pass ? 'PASS' : 'FAIL') + '  ' + c.name + (c.detail ? ' - ' + c.detail : ''))
+    for (const c of pre.checks)
+      console.log((c.pass ? 'PASS' : 'FAIL') + '  ' + c.name + (c.detail ? ' - ' + c.detail : ''))
     if (pre.ok) {
       console.log('PREFLIGHT: PASS')
       process.exit(EXIT.PASS)
@@ -1163,10 +1491,20 @@ async function main() {
 
   const pre = runPreflight()
   if (!pre.ok) {
-    for (const c of pre.checks) if (!c.pass) console.error('PREFLIGHT ' + (pre.blockedActivation ? 'BLOCKED' : 'FAIL') + '  ' + c.name + (c.detail ? ' - ' + c.detail : ''))
-    console.error(pre.blockedActivation
-      ? 'PREFLIGHT: BLOCKED - activation is not applied; refusing to run cases (fail-closed, exit 10).'
-      : 'PREFLIGHT: FAIL - activation state mismatch; refusing to run cases (fail-closed, exit 10).')
+    for (const c of pre.checks)
+      if (!c.pass)
+        console.error(
+          'PREFLIGHT ' +
+            (pre.blockedActivation ? 'BLOCKED' : 'FAIL') +
+            '  ' +
+            c.name +
+            (c.detail ? ' - ' + c.detail : ''),
+        )
+    console.error(
+      pre.blockedActivation
+        ? 'PREFLIGHT: BLOCKED - activation is not applied; refusing to run cases (fail-closed, exit 10).'
+        : 'PREFLIGHT: FAIL - activation state mismatch; refusing to run cases (fail-closed, exit 10).',
+    )
     process.exit(EXIT.PREFLIGHT)
   }
 
@@ -1183,7 +1521,9 @@ async function main() {
     process.exit(EXIT.BLOCKED)
   }
 
-  const build = buildDir ? loadBuildGraph(buildDir) : { mode: 'dev', expectedModuleSrc: MODULE_SRC, scenePath: DEV_SCENE_PATH, entryAsset: null }
+  const build = buildDir
+    ? loadBuildGraph(buildDir)
+    : { mode: 'dev', expectedModuleSrc: MODULE_SRC, scenePath: DEV_SCENE_PATH, entryAsset: null }
   if (build.error) {
     console.error(build.error)
     process.exit(EXIT.BLOCKED)
@@ -1211,7 +1551,17 @@ async function main() {
   try {
     const served = await servedPreflight(playwright, baseUrl.toString(), build.expectedModuleSrc)
     if (!served.ok) {
-      console.error('BLOCKED: served document is not the coordinated private torque page (status ' + served.status + ', url ' + served.finalUrl + ', module candidates ' + served.candidates.join(',') + ', expected ' + build.expectedModuleSrc + ').')
+      console.error(
+        'BLOCKED: served document is not the coordinated private torque page (status ' +
+          served.status +
+          ', url ' +
+          served.finalUrl +
+          ', module candidates ' +
+          served.candidates.join(',') +
+          ', expected ' +
+          build.expectedModuleSrc +
+          ').',
+      )
       process.exit(EXIT.BLOCKED)
     }
   } catch (error) {
@@ -1225,9 +1575,13 @@ async function main() {
     harness: 'verify-torque-static-functional',
     reportFamily: 'JG-038-static-functional',
     harnessSha256: sha256(readFileSync(fileURLToPath(import.meta.url))),
-    copiedSource: { path: 'scripts/verify-torque-static.mjs', sha256AtCopy: COPIED_SOURCE_SHA256,
-      currentSha256AtRun: sha256(readFileSync(path.join(ROOT, 'scripts/verify-torque-static.mjs'))) },
-    correction: 'MQL ready-live prerequisite; initialization requests retained; zero NEW Scene/CAD/decoder requests through downgrade and bounded restoration windows. Static poster zero-from-init gate retained.',
+    copiedSource: {
+      path: 'scripts/verify-torque-static.mjs',
+      sha256AtCopy: COPIED_SOURCE_SHA256,
+      currentSha256AtRun: sha256(readFileSync(path.join(ROOT, 'scripts/verify-torque-static.mjs'))),
+    },
+    correction:
+      'MQL ready-live prerequisite; initialization requests retained; zero NEW Scene/CAD/decoder requests through downgrade and bounded restoration windows. Static poster zero-from-init gate retained.',
     capturedAt: new Date().toISOString(),
     url: baseUrl.toString(),
     mode: build.mode,
@@ -1273,7 +1627,9 @@ async function main() {
   const finalOutPath = outPath || defaultReportPath()
   await writeReport(report, finalOutPath)
   console.log('report: ' + finalOutPath)
-  console.log('RESULT: ' + report.result + ' (' + (report.cases.length - failed.length) + '/' + report.cases.length + ' cases)')
+  console.log(
+    'RESULT: ' + report.result + ' (' + (report.cases.length - failed.length) + '/' + report.cases.length + ' cases)',
+  )
   process.exit(failed.length === 0 ? EXIT.PASS : EXIT.FAIL)
 }
 

@@ -38,8 +38,7 @@ export function BumperOverlayHUD({
         style={{
           position: 'absolute',
           inset: 0,
-          background:
-            'radial-gradient(ellipse at 50% 48%, rgba(6,8,14,0) 54%, rgba(4,6,12,0.58) 100%)',
+          background: 'radial-gradient(ellipse at 50% 48%, rgba(6,8,14,0) 54%, rgba(4,6,12,0.58) 100%)',
         }}
       />
 
@@ -240,4 +239,3 @@ export function BumperOverlayHUD({
     </div>
   )
 }
-

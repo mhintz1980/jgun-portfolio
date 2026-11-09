@@ -10,4 +10,3 @@ createRoot(container).render(
     <StudioMarkLogoExperience />
   </StrictMode>,
 )
-

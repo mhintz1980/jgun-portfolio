@@ -3,7 +3,8 @@ import { mkdir, writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { chromium } from 'playwright'
 
-const option = (name, fallback) => process.argv.find((arg) => arg.startsWith(`--${name}=`))?.slice(name.length + 3) ?? fallback
+const option = (name, fallback) =>
+  process.argv.find((arg) => arg.startsWith(`--${name}=`))?.slice(name.length + 3) ?? fallback
 const url = option('url', 'http://127.0.0.1:4187/home/')
 const out = resolve(option('out', 'output/playwright/home-header'))
 await mkdir(out, { recursive: true })
@@ -15,12 +16,23 @@ const phone = { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch:
 const headerState = () => {
   const h = document.querySelector('.home-header')
   const rect = (selector) => h.querySelector(selector).getBoundingClientRect().toJSON()
-  const name = rect('.home-name'), nav = rect('.home-nav-toggle'), theme = rect('.home-theme-toggle')
+  const name = rect('.home-name'),
+    nav = rect('.home-nav-toggle'),
+    theme = rect('.home-theme-toggle')
   const near = (a, b) => Math.abs(a - b) < 1
   return {
-    y: scrollY, compact: h.hasAttribute('data-compact'), name, nav, theme,
-    corners: near(name.left, 8) && near(name.top, 8) && near(nav.top, 8) &&
-      near(nav.right, document.documentElement.clientWidth - 96) && near(theme.top, 8) && near(theme.right, document.documentElement.clientWidth - 8),
+    y: scrollY,
+    compact: h.hasAttribute('data-compact'),
+    name,
+    nav,
+    theme,
+    corners:
+      near(name.left, 8) &&
+      near(name.top, 8) &&
+      near(nav.top, 8) &&
+      near(nav.right, document.documentElement.clientWidth - 96) &&
+      near(theme.top, 8) &&
+      near(theme.right, document.documentElement.clientWidth - 8),
     hero: document.querySelector('.home-hero').getBoundingClientRect().top + scrollY,
   }
 }
@@ -33,7 +45,10 @@ const ready = async (page, href = url) => {
 const settled = async (page) => {
   await page.waitForFunction(() => {
     const h = document.querySelector('.home-header')
-    return h.hasAttribute('data-compact') && !h.getAnimations({ subtree: true }).some((a) => a instanceof CSSTransition && a.playState === 'running')
+    return (
+      h.hasAttribute('data-compact') &&
+      !h.getAnimations({ subtree: true }).some((a) => a instanceof CSSTransition && a.playState === 'running')
+    )
   })
   await page.waitForTimeout(60)
 }
@@ -44,7 +59,11 @@ const compact = async (page) => {
 }
 const menu = (page) => page.getByRole('button', { name: 'Sections menu' })
 const expectMenu = async (page, expanded) => {
-  await page.waitForFunction((value) => document.querySelector('.home-nav-toggle')?.getAttribute('aria-expanded') === String(value), expanded, { timeout: 3000 })
+  await page.waitForFunction(
+    (value) => document.querySelector('.home-nav-toggle')?.getAttribute('aria-expanded') === String(value),
+    expanded,
+    { timeout: 3000 },
+  )
 }
 const test = async (name, options, run) => {
   const context = await browser.newContext(options)
@@ -58,7 +77,9 @@ const test = async (name, options, run) => {
     results.push({ name, status: 'FAIL', error: error.message, stack: error.stack })
     await page.screenshot({ path: resolve(out, `${name.replace(/\W+/g, '-')}-FAIL.png`) }).catch(() => {})
     console.log(`FAIL ${name}: ${error.message}`)
-  } finally { await context.close() }
+  } finally {
+    await context.close()
+  }
 }
 
 try {
@@ -74,7 +95,14 @@ try {
       assert(box, `${name} must have a pointer target`)
       await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2, { steps: 20 })
       assert.equal(await menu(page).getAttribute('aria-expanded'), 'true', `menu closed travelling to ${name}`)
-      assert(await link.evaluate((el) => { const r = el.getBoundingClientRect(); const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return hit === el || el.contains(hit) }), `${name} must receive pointer input`)
+      assert(
+        await link.evaluate((el) => {
+          const r = el.getBoundingClientRect()
+          const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)
+          return hit === el || el.contains(hit)
+        }),
+        `${name} must receive pointer input`,
+      )
     }
     await page.mouse.move(20, 200, { steps: 20 })
     await expectMenu(page, false)
@@ -93,7 +121,10 @@ try {
     await expectMenu(page, true)
     const work = page.getByRole('link', { name: 'Work', exact: true })
     await work.evaluate((el) => new Promise((resolve) => requestAnimationFrame(resolve)))
-    assert(await work.evaluate((el) => el === document.activeElement && !el.closest('[inert]')), 'keyboard opening must focus the first link')
+    assert(
+      await work.evaluate((el) => el === document.activeElement && !el.closest('[inert]')),
+      'keyboard opening must focus the first link',
+    )
     await page.keyboard.press('Escape')
     await expectMenu(page, false)
     assert(await menu(page).evaluate((el) => el === document.activeElement), 'Escape must restore focus to WCS')
@@ -118,7 +149,8 @@ try {
   })
 
   for (const [label, options, reduced] of [
-    ['desktop', desktop, false], ['mobile', phone, false],
+    ['desktop', desktop, false],
+    ['mobile', phone, false],
     ['desktop-reduced', { ...desktop, reducedMotion: 'reduce' }, true],
     ['mobile-reduced', { ...phone, reducedMotion: 'reduce' }, true],
   ]) {
@@ -126,8 +158,10 @@ try {
       await ready(page)
       const images = page.locator('img[src*="/home/stacks/torque-wrench/"]')
       assert.equal(await images.count(), 4, 'all four torque images must be present')
-      assert.deepEqual((await images.evaluateAll((els) => els.map((el) => new URL(el.currentSrc || el.src).pathname))).sort(),
-        ['03.webp', '04.webp', '05.webp', '06.webp'].map((name) => `/home/stacks/torque-wrench/${name}`))
+      assert.deepEqual(
+        (await images.evaluateAll((els) => els.map((el) => new URL(el.currentSrc || el.src).pathname))).sort(),
+        ['03.webp', '04.webp', '05.webp', '06.webp'].map((name) => `/home/stacks/torque-wrench/${name}`),
+      )
       const measurements = []
       const problems = []
       for (let i = 0; i < 4; i++) {
@@ -139,27 +173,42 @@ try {
             const section = el.closest('.home-stack')
             const top = section.getBoundingClientRect().top + scrollY
             window.scrollTo(0, top + (section.offsetHeight - innerHeight) * progress)
-          }, [0.04, 0.34, 0.62, 0.90][i])
+          }, [0.04, 0.34, 0.62, 0.9][i])
         }
         await page.waitForTimeout(350)
         await image.evaluate((el) => el.decode())
         const measure = await image.evaluate((el) => {
           const card = el.closest('.home-stack-card, .home-stack-frame')
-          const style = getComputedStyle(el), rect = el.getBoundingClientRect(), frame = card.getBoundingClientRect()
+          const style = getComputedStyle(el),
+            rect = el.getBoundingClientRect(),
+            frame = card.getBoundingClientRect()
           const caption = card.querySelector('.home-stack-caption')
           const hit = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height * 0.35)
-          const width = el.clientWidth, height = el.clientHeight
-          const scale = style.objectFit === 'cover' ? Math.max(width / el.naturalWidth, height / el.naturalHeight)
-            : style.objectFit === 'contain' ? Math.min(width / el.naturalWidth, height / el.naturalHeight) : 0
+          const width = el.clientWidth,
+            height = el.clientHeight
+          const scale =
+            style.objectFit === 'cover'
+              ? Math.max(width / el.naturalWidth, height / el.naturalHeight)
+              : style.objectFit === 'contain'
+                ? Math.min(width / el.naturalWidth, height / el.naturalHeight)
+                : 0
           const position = style.objectPosition.split(' ').map(parseFloat)
-          const drawnWidth = el.naturalWidth * scale * rect.width / width, drawnHeight = el.naturalHeight * scale * rect.height / height
+          const drawnWidth = (el.naturalWidth * scale * rect.width) / width,
+            drawnHeight = (el.naturalHeight * scale * rect.height) / height
           const left = rect.left + (rect.width - drawnWidth) * (position[0] / 100)
           const top = rect.top + (rect.height - drawnHeight) * ((position[1] ?? position[0]) / 100)
-          return { src: el.currentSrc, fit: style.objectFit, padding: [style.paddingTop, style.paddingRight, style.paddingBottom, style.paddingLeft],
-            image: rect.toJSON(), frame: frame.toJSON(), natural: [el.naturalWidth, el.naturalHeight],
+          return {
+            src: el.currentSrc,
+            fit: style.objectFit,
+            padding: [style.paddingTop, style.paddingRight, style.paddingBottom, style.paddingLeft],
+            image: rect.toJSON(),
+            frame: frame.toJSON(),
+            natural: [el.naturalWidth, el.naturalHeight],
             drawn: { left, top, right: left + drawnWidth, bottom: top + drawnHeight },
             visible: getComputedStyle(card).visibility === 'visible' && Number(getComputedStyle(card).opacity) > 0.9,
-            front: !!hit && card.contains(hit), caption: !!caption && getComputedStyle(caption).visibility === 'visible' }
+            front: !!hit && card.contains(hit),
+            caption: !!caption && getComputedStyle(caption).visibility === 'visible',
+          }
         })
         measurements.push(measure)
         await page.screenshot({ path: resolve(out, `torque-${label}-${i + 1}.png`) })
@@ -168,12 +217,25 @@ try {
         if (!measure.natural.every((n) => n > 0)) problems.push(`image ${i + 1} did not load`)
         if (!measure.padding.every((n) => parseFloat(n) === 0)) problems.push(`image ${i + 1} has padding`)
         const tolerance = 2
-        if (!(measure.drawn.left <= measure.frame.left + tolerance && measure.drawn.top <= measure.frame.top + tolerance &&
-          measure.drawn.right >= measure.frame.right - tolerance && measure.drawn.bottom >= measure.frame.bottom - tolerance)) problems.push(`image ${i + 1} does not cover its frame`)
+        if (
+          !(
+            measure.drawn.left <= measure.frame.left + tolerance &&
+            measure.drawn.top <= measure.frame.top + tolerance &&
+            measure.drawn.right >= measure.frame.right - tolerance &&
+            measure.drawn.bottom >= measure.frame.bottom - tolerance
+          )
+        )
+          problems.push(`image ${i + 1} does not cover its frame`)
       }
-      await writeFile(resolve(out, `torque-${label}-measurements.json`), JSON.stringify({ measurements, problems }, null, 2))
+      await writeFile(
+        resolve(out, `torque-${label}-measurements.json`),
+        JSON.stringify({ measurements, problems }, null, 2),
+      )
       assert.equal(problems.length, 0, problems.join('; '))
-      return { measurements, note: 'Screenshots require visual inspection for margins embedded in source images and caption legibility.' }
+      return {
+        measurements,
+        note: 'Screenshots require visual inspection for margins embedded in source images and caption legibility.',
+      }
     })
   }
 
@@ -208,7 +270,12 @@ try {
       const original = document.querySelector('.home-name-svg > text')
       const bounds = original.getBBox()
       const view = document.querySelector('.home-name-svg').viewBox.baseVal
-      return { hash: location.hash, target: document.querySelector('#contact').getBoundingClientRect().top, width: bounds.width, viewWidth: view.width }
+      return {
+        hash: location.hash,
+        target: document.querySelector('#contact').getBoundingClientRect().top,
+        width: bounds.width,
+        viewWidth: view.width,
+      }
     })
     assert.equal(state.hash, '#contact')
     assert(state.target >= 0 && state.target < 900, 'late restoration overrode the newer Contact navigation')
@@ -229,26 +296,50 @@ try {
       }
       tick()
     }, headerState.toString())
-    for (let i = 0; i < 16; i++) { await page.mouse.wheel(0, 24); await page.waitForTimeout(45) }
-    const frames = await page.evaluate(() => { window.headerRecording = false; return window.headerFrames })
+    for (let i = 0; i < 16; i++) {
+      await page.mouse.wheel(0, 24)
+      await page.waitForTimeout(45)
+    }
+    const frames = await page.evaluate(() => {
+      window.headerRecording = false
+      return window.headerFrames
+    })
     const firstCompact = frames.find((f) => f.compact)
     const firstScroll = frames.find((f) => f.y > 1)
     assert(firstCompact && firstScroll, 'wheel must collapse then scroll')
     assert(firstScroll.time - firstCompact.time >= 400, 'page moved before the 450ms sequence completed')
     assert(firstScroll.time - firstCompact.time < 1000, 'collapse should finish promptly')
-    assert(frames.filter((f) => f.y > 1).every((f) => f.corners), 'scroll released before all three controls reached corners')
-    assert(frames.every((f) => Math.abs(f.hero - hero) < 1), 'header collapse changed page layout')
+    assert(
+      frames.filter((f) => f.y > 1).every((f) => f.corners),
+      'scroll released before all three controls reached corners',
+    )
+    assert(
+      frames.every((f) => Math.abs(f.hero - hero) < 1),
+      'header collapse changed page layout',
+    )
     const veil = await page.evaluate(() => {
-      const h = document.querySelector('.home'), veil = getComputedStyle(h, '::after'), blocker = getComputedStyle(h, '::before')
-      return { clearance: parseFloat(getComputedStyle(h).getPropertyValue('--header-clearance')), height: parseFloat(veil.height), background: veil.backgroundImage, blocker: blocker.pointerEvents }
+      const h = document.querySelector('.home'),
+        veil = getComputedStyle(h, '::after'),
+        blocker = getComputedStyle(h, '::before')
+      return {
+        clearance: parseFloat(getComputedStyle(h).getPropertyValue('--header-clearance')),
+        height: parseFloat(veil.height),
+        background: veil.backgroundImage,
+        blocker: blocker.pointerEvents,
+      }
     })
     const end = await page.evaluate(headerState)
-    assert(veil.clearance > Math.max(end.name.bottom, end.nav.bottom, end.theme.bottom), 'opaque fade must clear the icons')
+    assert(
+      veil.clearance > Math.max(end.name.bottom, end.nav.bottom, end.theme.bottom),
+      'opaque fade must clear the icons',
+    )
     assert(veil.height > veil.clearance && veil.background.includes('gradient') && veil.blocker === 'auto')
     await writeFile(resolve(out, 'wheel-frames.json'), JSON.stringify(frames))
     await page.screenshot({ path: resolve(out, 'desktop-compact.png') })
     await page.keyboard.press('Home')
-    await page.waitForFunction(() => scrollY === 0 && !document.querySelector('.home-header').hasAttribute('data-compact'))
+    await page.waitForFunction(
+      () => scrollY === 0 && !document.querySelector('.home-header').hasAttribute('data-compact'),
+    )
     await page.waitForTimeout(500)
     await page.mouse.wheel(100, 0)
     assert.equal((await page.evaluate(headerState)).compact, false, 'horizontal gestures must not close the header')
@@ -264,13 +355,18 @@ try {
     await page.waitForFunction(() => !document.querySelector('.home-header').hasAttribute('data-compact'))
     await page.waitForTimeout(500)
     assert.equal(await page.evaluate(() => scrollY), 0)
-    assert.equal(await page.evaluate(() => document.activeElement.getAttribute('aria-label')), 'Mark Hintz, back to top')
+    assert.equal(
+      await page.evaluate(() => document.activeElement.getAttribute('aria-label')),
+      'Mark Hintz, back to top',
+    )
     await page.getByRole('link', { name: 'Work', exact: true }).focus()
     await page.keyboard.press('PageDown')
     await settled(page)
     assert.equal(await page.locator('.home-nav-toggle').evaluate((el) => el === document.activeElement), true)
     await page.setViewportSize({ width: 390, height: 844 })
-    await page.waitForFunction(() => Math.abs(document.querySelector('.home-theme-toggle').getBoundingClientRect().top - 8) < 1)
+    await page.waitForFunction(
+      () => Math.abs(document.querySelector('.home-theme-toggle').getBoundingClientRect().top - 8) < 1,
+    )
     await settled(page)
     assert((await page.evaluate(headerState)).corners, 'compact controls must survive resize')
     await page.getByRole('button', { name: 'Sections menu' }).press('Enter')
@@ -286,14 +382,22 @@ try {
     assert.equal(await page.getByRole('button', { name: 'Sections menu' }).getAttribute('aria-expanded'), 'false')
     assert.equal(await page.evaluate(() => !!document.activeElement.closest('[inert]')), false)
     await page.getByRole('link', { name: 'Mark Hintz, back to top' }).click()
-    await page.waitForFunction(() => scrollY === 0 && !document.querySelector('.home-header').hasAttribute('data-compact'))
+    await page.waitForFunction(
+      () => scrollY === 0 && !document.querySelector('.home-header').hasAttribute('data-compact'),
+    )
     await page.waitForTimeout(500)
     const reverseTarget = await page.evaluate(() => {
       const work = document.querySelector('.home-nav a').getBoundingClientRect()
       const icon = document.querySelector('.home-nav-toggle').getBoundingClientRect()
-      return { dx: Math.abs(work.left + work.width / 2 - icon.left - icon.width / 2), dy: Math.abs(work.top + work.height / 2 - icon.top - icon.height / 2) }
+      return {
+        dx: Math.abs(work.left + work.width / 2 - icon.left - icon.width / 2),
+        dy: Math.abs(work.top + work.height / 2 - icon.top - icon.height / 2),
+      }
     })
-    assert(reverseTarget.dx < 1 && reverseTarget.dy < 1, 'WCS reverse must return to the current Work location after resize')
+    assert(
+      reverseTarget.dx < 1 && reverseTarget.dy < 1,
+      'WCS reverse must return to the current Work location after resize',
+    )
     await page.screenshot({ path: resolve(out, 'mobile-expanded-dark.png') })
   })
 
@@ -307,14 +411,17 @@ try {
       await page.keyboard.press(key)
       await page.waitForFunction(() => scrollY > 1)
       await page.keyboard.press('Home')
-      await page.waitForFunction(() => scrollY === 0 && !document.querySelector('.home-header').hasAttribute('data-compact'))
+      await page.waitForFunction(
+        () => scrollY === 0 && !document.querySelector('.home-header').hasAttribute('data-compact'),
+      )
     })
   }
 
   await test('mobile continuous touch and next native swipe', phone, async (page, context) => {
     await ready(page)
     const cdp = await context.newCDPSession(page)
-    const touch = (type, y) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: y === undefined ? [] : [{ x: 200, y }] })
+    const touch = (type, y) =>
+      cdp.send('Input.dispatchTouchEvent', { type, touchPoints: y === undefined ? [] : [{ x: 200, y }] })
     await touch('touchStart', 650)
     await touch('touchMove', 600)
     await page.waitForTimeout(180)
@@ -336,11 +443,17 @@ try {
   for (const hash of ['#work', '#contact']) {
     await test(`direct entry ${hash}`, phone, async (page) => {
       await ready(page, `${url.split('#')[0]}${hash}`)
-      await page.waitForFunction(() => scrollY > 1 && document.querySelector('.home-header').hasAttribute('data-compact'))
+      await page.waitForFunction(
+        () => scrollY > 1 && document.querySelector('.home-header').hasAttribute('data-compact'),
+      )
       await page.reload()
-      await page.waitForFunction(() => scrollY > 1 && document.querySelector('.home-header').hasAttribute('data-compact'))
+      await page.waitForFunction(
+        () => scrollY > 1 && document.querySelector('.home-header').hasAttribute('data-compact'),
+      )
       await page.getByRole('link', { name: 'Mark Hintz, back to top' }).click()
-      await page.waitForFunction(() => scrollY === 0 && !document.querySelector('.home-header').hasAttribute('data-compact'))
+      await page.waitForFunction(
+        () => scrollY === 0 && !document.querySelector('.home-header').hasAttribute('data-compact'),
+      )
     })
   }
 
@@ -371,11 +484,19 @@ try {
     await page.goto(`${url}?history=1`)
     await page.goBack()
     await page.waitForFunction(() => scrollY > 100)
-    assert(Math.abs(await page.evaluate(() => scrollY) - before) < 3)
+    assert(Math.abs((await page.evaluate(() => scrollY)) - before) < 3)
   })
-} finally { await browser.close() }
+} finally {
+  await browser.close()
+}
 
-const summary = { url, results, browserErrors: errors, passed: results.filter((r) => r.status === 'PASS').length, failed: results.filter((r) => r.status === 'FAIL').length }
+const summary = {
+  url,
+  results,
+  browserErrors: errors,
+  passed: results.filter((r) => r.status === 'PASS').length,
+  failed: results.filter((r) => r.status === 'FAIL').length,
+}
 await writeFile(resolve(out, 'summary.json'), JSON.stringify(summary, null, 2))
 console.log(`${summary.passed}/${results.length} PASS; ${errors.length} page errors; ${out}`)
 if (summary.failed || errors.length) process.exitCode = 1

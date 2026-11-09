@@ -11,17 +11,17 @@
 
 /* Reserve the live track while the lazy scene loads so native reload restoration sees
    the same document range. Terminal static modes retain compact native flow. */
-.torque-page:not([data-torque-mode='static']) .torque-main {
+.torque-page:not([data-torque-mode="static"]) .torque-main {
   position: relative;
   min-height: calc(var(--torque-scroll-viewports, 44.1) * 100vh + var(--torque-pacing-extra, 0px));
 }
 
-.torque-page:not([data-torque-mode='static']) .torque-stage {
+.torque-page:not([data-torque-mode="static"]) .torque-stage {
   position: sticky;
   top: 0;
 }
 
-.torque-page:not([data-torque-mode='static']) .torque-story {
+.torque-page:not([data-torque-mode="static"]) .torque-story {
   min-height: calc(var(--torque-scroll-viewports, 44.1) * 100vh + var(--torque-pacing-extra, 0px));
   align-content: space-between;
 }
@@ -85,7 +85,7 @@
   color: #e8ecf1;
 }
 
-.torque-page .shell-nav a[aria-current='page'] {
+.torque-page .shell-nav a[aria-current="page"] {
   color: #38e8ff;
 }
 
@@ -127,7 +127,7 @@
   box-sizing: border-box;
 }
 
-.torque-stage[data-torque-stage='pending'] {
+.torque-stage[data-torque-stage="pending"] {
   min-height: 8rem;
   border: 1px dashed #223140;
   border-radius: 0.5rem;
@@ -143,16 +143,16 @@
   text-transform: uppercase;
 }
 
-.torque-page[data-torque-mode='live'] .torque-scene {
+.torque-page[data-torque-mode="live"] .torque-scene {
   position: fixed;
   inset: 0;
   height: 100vh;
   pointer-events: none;
 }
 
-.torque-page[data-torque-mode='live'] .torque-header,
-.torque-page[data-torque-mode='live'] .torque-story,
-.torque-page[data-torque-mode='live'] .torque-footer {
+.torque-page[data-torque-mode="live"] .torque-header,
+.torque-page[data-torque-mode="live"] .torque-story,
+.torque-page[data-torque-mode="live"] .torque-footer {
   position: relative;
   z-index: 1;
 }
@@ -245,11 +245,11 @@
 
 /* JG-040: in live mode the fixed TorqueHUD is the story's visible equivalent. The flowing
    article keeps its grid tracks (they pace the document) but goes visually hidden and inert. */
-.torque-page[data-torque-mode='live'] .torque-story {
+.torque-page[data-torque-mode="live"] .torque-story {
   visibility: hidden;
 }
 
-.torque-page[data-torque-mode='live'] .torque-inspection__panel {
+.torque-page[data-torque-mode="live"] .torque-inspection__panel {
   max-height: 30vh;
   overflow-y: auto;
 }
@@ -300,18 +300,18 @@
 }
 
 .torque-freelook-toggle:hover,
-.torque-freelook-toggle[aria-pressed='true'] {
+.torque-freelook-toggle[aria-pressed="true"] {
   border-color: #38e8ff;
   color: #38e8ff;
   box-shadow: 0 0 18px rgba(56, 232, 255, 0.28);
 }
 
-.torque-page[data-torque-freelook='true'] {
+.torque-page[data-torque-freelook="true"] {
   cursor: grab;
   user-select: none;
 }
 
-.torque-page[data-torque-freelook-dragging='true'] {
+.torque-page[data-torque-freelook-dragging="true"] {
   cursor: grabbing;
 }
 

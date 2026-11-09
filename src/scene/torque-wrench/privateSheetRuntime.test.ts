@@ -1,6 +1,15 @@
 import { describe, expect, it, vi, type MockInstance } from 'vitest'
 import {
-  BufferGeometry, Color, Group, Matrix4, Mesh, PointLight, ShaderMaterial, Texture, Vector2, Vector3,
+  BufferGeometry,
+  Color,
+  Group,
+  Matrix4,
+  Mesh,
+  PointLight,
+  ShaderMaterial,
+  Texture,
+  Vector2,
+  Vector3,
 } from 'three'
 import { DRAWING_INTRO_WINDOW, drawingIntroState, INTRO_PHASES } from '../drawing/introTimeline'
 import * as introSource from '../drawing/introTimeline'
@@ -15,8 +24,12 @@ import { paperFlexAmplitude } from '../drawing/sheet/paperFlex'
 import type { SheetBakeResult } from '../drawing/sheet/sheetBake'
 import type { ExtractionContext } from '../drawing/poseCore'
 import {
-  createPrivateSheetRuntime, PRIVATE_GLOW_ORDER, PRIVATE_INK_ORDER, PRIVATE_INTACT_STOCK_ORDER,
-  type DrawingFrameInput, type PrivateSheetFactories,
+  createPrivateSheetRuntime,
+  PRIVATE_GLOW_ORDER,
+  PRIVATE_INK_ORDER,
+  PRIVATE_INTACT_STOCK_ORDER,
+  type DrawingFrameInput,
+  type PrivateSheetFactories,
 } from './privateSheetRuntime'
 
 /** CPU resource fixtures; no canvas, rasterization, GPU or framing claims. */
@@ -24,7 +37,9 @@ function fixture(failAt?: string) {
   const owned: Array<{ resource: { dispose(): void }; disposed: MockInstance }> = []
   const borrowed: MockInstance[] = []
   const constructionError = new Error('construction boundary ' + failAt)
-  const check = (stage: string) => { if (failAt === stage) throw constructionError }
+  const check = (stage: string) => {
+    if (failAt === stage) throw constructionError
+  }
   const track = <T extends { dispose(): void }>(resource: T): T => {
     const disposable = resource as { dispose(): void }
     owned.push({ resource, disposed: vi.spyOn(disposable, 'dispose') as MockInstance })
@@ -41,16 +56,34 @@ function fixture(failAt?: string) {
   const lines = new Mesh(borrow(new BufferGeometry()), borrow(new ShaderMaterial({ uniforms })))
   const fills = new Mesh(borrow(new BufferGeometry()), borrow(new ShaderMaterial({ uniforms })))
   const textReady = { resolve: () => {}, reject: (_error: unknown) => {} }
-  const ready = new Promise<void>((resolve, reject) => { textReady.resolve = resolve; textReady.reject = reject })
+  const ready = new Promise<void>((resolve, reject) => {
+    textReady.resolve = resolve
+    textReady.reject = reject
+  })
   const text = { object: new Group(), ready, update: vi.fn(), dispose: vi.fn() }
   const fracture = {
-    paper: borrow(new BufferGeometry()), edge: borrow(new BufferGeometry()), cracks: borrow(new BufferGeometry()),
-    fragments: [{
-      geometry: borrow(new BufferGeometry()), center: new Vector2(0.02, -0.03),
-      velocity: new Vector3(0.05, 0.12, 0.08), spin: new Vector3(0.4, -0.5, 0.6), delay: 0.2,
-    }],
-    outline: [[-0.1, -0.1], [0.1, -0.1], [0.1, 0.1], [-0.1, 0.1]],
-    thickness: 0.00045, area: 0.04, fragmentArea: 0.04, maxBoundaryDeviation: 0.0002,
+    paper: borrow(new BufferGeometry()),
+    edge: borrow(new BufferGeometry()),
+    cracks: borrow(new BufferGeometry()),
+    fragments: [
+      {
+        geometry: borrow(new BufferGeometry()),
+        center: new Vector2(0.02, -0.03),
+        velocity: new Vector3(0.05, 0.12, 0.08),
+        spin: new Vector3(0.4, -0.5, 0.6),
+        delay: 0.2,
+      },
+    ],
+    outline: [
+      [-0.1, -0.1],
+      [0.1, -0.1],
+      [0.1, 0.1],
+      [-0.1, 0.1],
+    ],
+    thickness: 0.00045,
+    area: 0.04,
+    fragmentArea: 0.04,
+    maxBoundaryDeviation: 0.0002,
     dispose: vi.fn(),
   }
   // Geometry/bake production belongs to the external lane. This fixture supplies
@@ -58,18 +91,34 @@ function fixture(failAt?: string) {
   const baked = {
     layout: { primaryCenter: new Vector3(0.01, 0.02, 0) },
     extraction: { crossing: 0.9, clearanceTravel: 0.08 },
-    uniforms, lines, fills, text, fracture,
+    uniforms,
+    lines,
+    fills,
+    text,
+    fracture,
     rendered: { profilePoints: fracture.outline, dispose: vi.fn() },
     flex: { peak: 0.75, texture: borrow(new Texture()) },
-    barrierMask: uniforms.uBarrierMask.value, fragmentPrint: borrow(new Texture()), crackMask: borrow(new Texture()),
-    stats: { flexFieldPeak: 0.75 }, dispose: vi.fn(),
+    barrierMask: uniforms.uBarrierMask.value,
+    fragmentPrint: borrow(new Texture()),
+    crackMask: borrow(new Texture()),
+    stats: { flexFieldPeak: 0.75 },
+    dispose: vi.fn(),
   } as unknown as SheetBakeResult
   let materialCount = 0
   const factories: PrivateSheetFactories = {
-    grain: () => { check('grain'); return track(new Texture()) },
-    desk: () => { check('desk'); return track(new BufferGeometry()) },
-    ribbon: () => { check('ribbon'); return track(new BufferGeometry()) },
-    material: parameters => {
+    grain: () => {
+      check('grain')
+      return track(new Texture())
+    },
+    desk: () => {
+      check('desk')
+      return track(new BufferGeometry())
+    },
+    ribbon: () => {
+      check('ribbon')
+      return track(new BufferGeometry())
+    },
+    material: (parameters) => {
       check('material-' + ++materialCount)
       return track(new ShaderMaterial(parameters))
     },
@@ -81,8 +130,15 @@ function fixture(failAt?: string) {
       const light = track(new PointLight())
       group.add(cap, walls, light)
       return {
-        group, cap, walls, light, initialModelBottom, capZ: -3.2, mouthZ: -0.0005,
-        profilePoints: 4, wallLevels: 8,
+        group,
+        cap,
+        walls,
+        light,
+        initialModelBottom,
+        capZ: -3.2,
+        mouthZ: -0.0005,
+        profilePoints: 4,
+        wallLevels: 8,
         update: vi.fn((_time: number, strength: number, _lite: boolean, _reduced: boolean) => {
           sharedLight.value = strength
           return 1
@@ -101,36 +157,52 @@ function fixture(failAt?: string) {
 function frame(t: number, overrides: Partial<DrawingFrameInput> = {}): DrawingFrameInput {
   return {
     intro: drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd),
-    tier: 'full', reducedMotion: false, proofMode: 'normal', retirement: 0,
-    cameraLookTargetWorld: null, cameraSheetDistance: 0.4, delta: 0,
+    tier: 'full',
+    reducedMotion: false,
+    proofMode: 'normal',
+    retirement: 0,
+    cameraLookTargetWorld: null,
+    cameraSheetDistance: 0.4,
+    delta: 0,
     ...overrides,
   }
 }
 const viewport = new Vector2(1440, 900)
 
 it('reconstructs actual installed shatter matrices from bake inputs and rejects motion or clock tampering', () => {
-  const f = fixture(), runtime = createPrivateSheetRuntime(f.baked, vi.fn(), f.factories)
+  const f = fixture(),
+    runtime = createPrivateSheetRuntime(f.baked, vi.fn(), f.factories)
   const sources = { opening: openingSource, dome: domeSource, intro: introSource, geometry: geometrySource }
   const shot = BULLET_TIME_SHOT_SPECS.shatter
-  const samples = [.43, .43008, .434, .44, .446, .452].map(progress => {
+  const samples = [0.43, 0.43008, 0.434, 0.44, 0.446, 0.452].map((progress) => {
     const state = openingSource.sampleOpening(progress)
-    const release = state.poseT <= .5 ? introSource.smooth01((state.poseT - .7) / .3)
-      : state.poseT >= 1 ? 1 : Math.pow((state.poseT - .5) / .5, 1.4)
-    f.context.sheetMatrix.copy(geometrySource.SHEET_ROTATION).multiply(new Matrix4().makeTranslation(
-      -.01 * release, -.02 * release, -.18 * release))
+    const release =
+      state.poseT <= 0.5
+        ? introSource.smooth01((state.poseT - 0.7) / 0.3)
+        : state.poseT >= 1
+          ? 1
+          : Math.pow((state.poseT - 0.5) / 0.5, 1.4)
+    f.context.sheetMatrix
+      .copy(geometrySource.SHEET_ROTATION)
+      .multiply(new Matrix4().makeTranslation(-0.01 * release, -0.02 * release, -0.18 * release))
     runtime.apply(frame(state.t, { intro: state }), f.context, viewport)
     runtime.group.updateMatrixWorld(true)
     const shard = runtime.group.getObjectByName('paper-fragment-0')!
-    return { snapshot: { opening: { extraction: { initialZ: -.04, travel: .22 }, crossing: .9 } },
-      telemetry: { progress, shatter: { ...runtime.shatterInputs(), frame: runtime.group.matrixWorld.toArray(), subjectTime: state.t },
-      subjects: [{ name: 'shatter/id/paper-fragment-0', matrixWorld: shard.matrixWorld.toArray() }] } }
+    return {
+      snapshot: { opening: { extraction: { initialZ: -0.04, travel: 0.22 }, crossing: 0.9 } },
+      telemetry: {
+        progress,
+        shatter: { ...runtime.shatterInputs(), frame: runtime.group.matrixWorld.toArray(), subjectTime: state.t },
+        subjects: [{ name: 'shatter/id/paper-fragment-0', matrixWorld: shard.matrixWorld.toArray() }],
+      },
+    }
   })
   expect(shatterPhysicalGates(samples, shot, sources).every((g: { status: string }) => g.status === 'PASS')).toBe(true)
   const tampered = structuredClone(samples)
-  tampered[2].telemetry.subjects[0].matrixWorld[12] += .001
+  tampered[2].telemetry.subjects[0].matrixWorld[12] += 0.001
   expect(shatterPhysicalGates(tampered, shot, sources).some((g: { status: string }) => g.status === 'FAIL')).toBe(true)
   const badClock = structuredClone(samples)
-  badClock[3].telemetry.shatter.subjectTime += .001
+  badClock[3].telemetry.shatter.subjectTime += 0.001
   expect(shatterPhysicalGates(badClock, shot, sources).some((g: { status: string }) => g.status === 'FAIL')).toBe(true)
   const missing = structuredClone(samples)
   missing[2].telemetry.subjects = []
@@ -172,11 +244,18 @@ describe('private sheet explicit frame application', () => {
       runtime.apply(input, f.context, viewport)
       snapshots.set(t, fragmentSnapshot(runtime.group))
       const fragment = f.baked.fracture.fragments[0]
-      const event = Math.max(0, Math.min(1, ((input.intro.t - INTRO_PHASES.fractureStart)
-        / (INTRO_PHASES.fractureEnd - INTRO_PHASES.fractureStart) - fragment.delay) / (1 - fragment.delay)))
+      const event = Math.max(
+        0,
+        Math.min(
+          1,
+          ((input.intro.t - INTRO_PHASES.fractureStart) / (INTRO_PHASES.fractureEnd - INTRO_PHASES.fractureStart) -
+            fragment.delay) /
+            (1 - fragment.delay),
+        ),
+      )
       expect(snapshots.get(t)!.position.every(Number.isFinite)).toBe(true)
-      if (event === 0) expect(snapshots.get(t)!.position).toEqual([fragment.center.x, fragment.center.y, .00002])
-      if (event === 1) expect(snapshots.get(t)!.position[2]).toBeLessThan(-.12)
+      if (event === 0) expect(snapshots.get(t)!.position).toEqual([fragment.center.x, fragment.center.y, 0.00002])
+      if (event === 1) expect(snapshots.get(t)!.position[2]).toBeLessThan(-0.12)
     }
     for (const t of [...checkpoints].reverse().concat([0.865, 0.7, 0.9, 0.851])) {
       runtime.apply(frame(t), f.context, viewport)
@@ -213,9 +292,9 @@ describe('private sheet explicit frame application', () => {
     expect(runtime.group.getObjectByName('paper-fragment-0')!.visible).toBe(false)
     expect(runtime.stats.pitRetained).toBe(0)
     expect(runtime.stats.stockRetired).toBe(1)
-    runtime.apply(frame(.9, { retirement: .5 }), f.context, viewport)
+    runtime.apply(frame(0.9, { retirement: 0.5 }), f.context, viewport)
     expect(runtime.stats.pitRetained).toBe(1)
-    runtime.apply(frame(.9, { retirement: 0 }), f.context, viewport)
+    runtime.apply(frame(0.9, { retirement: 0 }), f.context, viewport)
     expect(runtime.stats.pitRetained).toBe(1)
     runtime.dispose()
   })
@@ -226,8 +305,9 @@ describe('private sheet explicit frame application', () => {
     for (const tier of ['full', 'lite'] as const) {
       const input = frame(0.82, { tier })
       runtime.apply(input, f.context, viewport)
-      expect(f.baked.uniforms.uFlexAmplitude.value).toBe(paperFlexAmplitude(
-        input.intro.t, input.intro.poseT, 0.9, tier, false))
+      expect(f.baked.uniforms.uFlexAmplitude.value).toBe(
+        paperFlexAmplitude(input.intro.t, input.intro.poseT, 0.9, tier, false),
+      )
       expect(runtime.stats.flexPeakDisplacement).toBe(f.baked.uniforms.uFlexAmplitude.value * 0.75)
       expect(f.baked.uniforms.uWaveEnabled.value).toBe(0)
       expect(runtime.stats.paperOpacity).toBe(1)
@@ -252,21 +332,23 @@ describe('private sheet explicit frame application', () => {
     const expected = f.baked.uniforms.uInk.value.toArray()
     for (let i = 0; i < 30; i++) runtime.apply(input, f.context, viewport)
     expect(f.baked.uniforms.uInk.value.toArray()).toEqual(expected)
-    expect(f.baked.text.update).toHaveBeenLastCalledWith(f.baked.uniforms.uReveal.value,
-      input.intro.drawingOpacity * (0.88 + 0.12 * input.intro.lampPower))
+    expect(f.baked.text.update).toHaveBeenLastCalledWith(
+      f.baked.uniforms.uReveal.value,
+      input.intro.drawingOpacity * (0.88 + 0.12 * input.intro.lampPower),
+    )
     runtime.dispose()
   })
 
   it('gives separated glass measurable thickness while retaining intact and reduced-motion stock', () => {
     const f = fixture()
     const runtime = createPrivateSheetRuntime(f.baked, vi.fn(), f.factories)
-    runtime.apply(frame(.86), f.context, viewport)
+    runtime.apply(frame(0.86), f.context, viewport)
     expect(runtime.stats.glassThickness).toBeGreaterThan(f.baked.fracture.thickness)
     const shard = runtime.group.getObjectByName('paper-fragment-0') as Mesh<BufferGeometry, ShaderMaterial>
-    expect(shard.position.z).toBeGreaterThan(.04) // above intact stock during the suspended beat
+    expect(shard.position.z).toBeGreaterThan(0.04) // above intact stock during the suspended beat
     expect(shard.material.vertexShader).toContain('smoothstep(0.0, .15, uFracture) * 4.0')
     expect(shard.material.fragmentShader).toContain('reflect(-view, n)')
-    runtime.apply(frame(.86, { reducedMotion: true }), f.context, viewport)
+    runtime.apply(frame(0.86, { reducedMotion: true }), f.context, viewport)
     expect(shard.material.uniforms.uFracture.value).toBe(0)
     runtime.dispose()
   })
@@ -303,7 +385,7 @@ describe('private sheet explicit frame application', () => {
     expect(shard.material.fragmentShader).not.toMatch(/smoothstep\(\.98, 1\.0, uFragmentInk\)/)
     expect(shard.material.uniforms.uFragmentInk).toBeDefined()
     // From fracture on, the ink is cut from the opening and depth-tests normally again.
-    runtime.apply(frame(.86), f.context, viewport)
+    runtime.apply(frame(0.86), f.context, viewport)
     expect(f.baked.uniforms.uFracture.value).toBeGreaterThan(0)
     expect(lineMaterial.depthTest).toBe(true)
     expect(fillMaterial.depthTest).toBe(true)
@@ -325,19 +407,28 @@ describe('private sheet explicit frame application', () => {
     expect(f.baked.uniforms.uLamp.value.z).toBeCloseTo(0.4 * 0.55, 12)
     const target = new Vector3(0.5, 0.6, 0.3)
     runtime.apply(frame(0.4, { cameraLookTargetWorld: target, delta: 0 }), f.context, viewport)
-    expect(runtime.renderState().lamp[0]).toBeCloseTo(.4, 12)
-    expect(runtime.renderState().lamp[1]).toBeCloseTo(.4, 12)
-    for (const [distance, radius] of [[.01, .09], [.4, .22], [2, .32], [0, .22]]) {
+    expect(runtime.renderState().lamp[0]).toBeCloseTo(0.4, 12)
+    expect(runtime.renderState().lamp[1]).toBeCloseTo(0.4, 12)
+    for (const [distance, radius] of [
+      [0.01, 0.09],
+      [0.4, 0.22],
+      [2, 0.32],
+      [0, 0.22],
+    ]) {
       for (const delta of [0, 1 / 60, 100]) {
-        runtime.apply(frame(.4, { cameraLookTargetWorld: target, cameraSheetDistance: distance, delta }), f.context, viewport)
+        runtime.apply(
+          frame(0.4, { cameraLookTargetWorld: target, cameraSheetDistance: distance, delta }),
+          f.context,
+          viewport,
+        )
         expect(runtime.renderState().lamp[2]).toBeCloseTo(radius, 12)
         expect(f.baked.uniforms.uLamp.value.toArray()).toEqual(runtime.renderState().lamp)
       }
     }
-    expect(target.toArray()).toEqual([.5, .6, .3])
+    expect(target.toArray()).toEqual([0.5, 0.6, 0.3])
     const snapshot = runtime.renderState()
     snapshot.lamp[0] = 999
-    expect(runtime.renderState().lamp[0]).toBeCloseTo(.4, 12)
+    expect(runtime.renderState().lamp[0]).toBeCloseTo(0.4, 12)
     expect([runtime.stats.lampX, runtime.stats.lampY, runtime.stats.lampRadius]).toEqual(runtime.renderState().lamp)
     runtime.dispose()
   })
@@ -345,70 +436,90 @@ describe('private sheet explicit frame application', () => {
   it('resets a null lamp target to the same centered pool on fresh, held and revisited frames', () => {
     const f = fixture()
     const runtime = createPrivateSheetRuntime(f.baked, vi.fn(), f.factories)
-    runtime.apply(frame(.4), f.context, viewport)
+    runtime.apply(frame(0.4), f.context, viewport)
     const original = runtime.renderState()
-    expect(original.lamp).toEqual([0, 0, .2])
-    runtime.apply(frame(.8, { cameraLookTargetWorld: new Vector3(2, -3, 1), cameraSheetDistance: 2, delta: .1 }), f.context, viewport)
-    for (const delta of [0, .1, 100]) {
-      runtime.apply(frame(.4, { cameraLookTargetWorld: null, delta }), f.context, viewport)
+    expect(original.lamp).toEqual([0, 0, 0.2])
+    runtime.apply(
+      frame(0.8, { cameraLookTargetWorld: new Vector3(2, -3, 1), cameraSheetDistance: 2, delta: 0.1 }),
+      f.context,
+      viewport,
+    )
+    for (const delta of [0, 0.1, 100]) {
+      runtime.apply(frame(0.4, { cameraLookTargetWorld: null, delta }), f.context, viewport)
       expect(runtime.renderState()).toEqual(original)
     }
     runtime.dispose()
   })
 
-  it.each(['normal', 'drawing-edges', 'reduced-motion'])('replays lamp and installed uniforms exactly forward/reverse/prime-stride in %s', mode => {
-    const f = fixture()
-    // A rotated, translated sheet catches accidental world-space targeting.
-    f.context.sheetMatrix.makeRotationX(.3).multiply(new Matrix4().makeRotationY(-.4)).setPosition(.1, .2, .3)
-    const runtime = createPrivateSheetRuntime(f.baked, vi.fn(), f.factories)
-    const capture = () => {
-      const uniforms: unknown[] = []
-      runtime.group.traverse(object => {
-        if (!(object instanceof Mesh)) return
-        for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
-          if (!(material instanceof ShaderMaterial)) continue
-          uniforms.push(Object.fromEntries(Object.entries(material.uniforms).map(([key, { value }]) => {
-            // Three's generic toArray overloads cannot be called through this
-            // union; narrow each concrete type before copying its components.
-            if (value instanceof Vector2) return [key, value.toArray()]
-            if (value instanceof Vector3) return [key, value.toArray()]
-            if (value instanceof Color) return [key, value.toArray()]
-            if (value instanceof Matrix4) return [key, value.toArray()]
-            return [key, Array.isArray(value) ? [...value] : value instanceof Texture ? value.uuid : value]
-          })))
-        }
-      })
-      return { render: runtime.renderState(), uniforms }
-    }
-    // 19 checkpoints and the coprime 613 stride visit every target, including
-    // null, blackout and lamp return, with varying distances and frame deltas.
-    const sample = (i: number, delta: number) => {
-      const t = i / 18
-      const local = new Vector3(.15 * Math.sin(t * 7), .2 * Math.cos(t * 5), 0)
-      runtime.apply(frame(t, { cameraLookTargetWorld: i % 5 === 0 ? null : local.clone().applyMatrix4(f.context.sheetMatrix),
-        cameraSheetDistance: .1 + t, delta, proofMode: mode === 'drawing-edges' ? mode : 'normal',
-        reducedMotion: mode === 'reduced-motion' }), f.context, viewport)
-      const render = runtime.renderState()
-      if (i % 5 === 0) expect(render.lamp).toEqual([0, 0, .2])
-      else {
-        expect(render.lamp[0]).toBeCloseTo(local.x, 12)
-        expect(render.lamp[1]).toBeCloseTo(local.y, 12)
-        expect(render.lamp[2]).toBeCloseTo(Math.min(.32, Math.max(.09, (.1 + t) * .55)), 12)
+  it.each(['normal', 'drawing-edges', 'reduced-motion'])(
+    'replays lamp and installed uniforms exactly forward/reverse/prime-stride in %s',
+    (mode) => {
+      const f = fixture()
+      // A rotated, translated sheet catches accidental world-space targeting.
+      f.context.sheetMatrix.makeRotationX(0.3).multiply(new Matrix4().makeRotationY(-0.4)).setPosition(0.1, 0.2, 0.3)
+      const runtime = createPrivateSheetRuntime(f.baked, vi.fn(), f.factories)
+      const capture = () => {
+        const uniforms: unknown[] = []
+        runtime.group.traverse((object) => {
+          if (!(object instanceof Mesh)) return
+          for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
+            if (!(material instanceof ShaderMaterial)) continue
+            uniforms.push(
+              Object.fromEntries(
+                Object.entries(material.uniforms).map(([key, { value }]) => {
+                  // Three's generic toArray overloads cannot be called through this
+                  // union; narrow each concrete type before copying its components.
+                  if (value instanceof Vector2) return [key, value.toArray()]
+                  if (value instanceof Vector3) return [key, value.toArray()]
+                  if (value instanceof Color) return [key, value.toArray()]
+                  if (value instanceof Matrix4) return [key, value.toArray()]
+                  return [key, Array.isArray(value) ? [...value] : value instanceof Texture ? value.uuid : value]
+                }),
+              ),
+            )
+          }
+        })
+        return { render: runtime.renderState(), uniforms }
       }
-      expect(render.lampPower).toBe(f.baked.uniforms.uLampPower.value)
-      expect(render.readingPool).toBe(f.baked.uniforms.uReadingPool.value)
-      return capture()
-    }
-    const forward = Array.from({ length: 19 }, (_, i) => sample(i, 1 / 60))
-    expect(new Set(forward.map(x => JSON.stringify(x.render))).size).toBeGreaterThan(10)
-    for (const i of Array.from({ length: 19 }, (_, n) => 18 - n).concat(
-      Array.from({ length: 19 }, (_, n) => (n * 613) % 19))) {
-      expect(sample(i, .1)).toEqual(forward[i])
-      expect(sample(i, 0)).toEqual(forward[i])
-      expect(sample(i, 100)).toEqual(forward[i])
-    }
-    runtime.dispose()
-  })
+      // 19 checkpoints and the coprime 613 stride visit every target, including
+      // null, blackout and lamp return, with varying distances and frame deltas.
+      const sample = (i: number, delta: number) => {
+        const t = i / 18
+        const local = new Vector3(0.15 * Math.sin(t * 7), 0.2 * Math.cos(t * 5), 0)
+        runtime.apply(
+          frame(t, {
+            cameraLookTargetWorld: i % 5 === 0 ? null : local.clone().applyMatrix4(f.context.sheetMatrix),
+            cameraSheetDistance: 0.1 + t,
+            delta,
+            proofMode: mode === 'drawing-edges' ? mode : 'normal',
+            reducedMotion: mode === 'reduced-motion',
+          }),
+          f.context,
+          viewport,
+        )
+        const render = runtime.renderState()
+        if (i % 5 === 0) expect(render.lamp).toEqual([0, 0, 0.2])
+        else {
+          expect(render.lamp[0]).toBeCloseTo(local.x, 12)
+          expect(render.lamp[1]).toBeCloseTo(local.y, 12)
+          expect(render.lamp[2]).toBeCloseTo(Math.min(0.32, Math.max(0.09, (0.1 + t) * 0.55)), 12)
+        }
+        expect(render.lampPower).toBe(f.baked.uniforms.uLampPower.value)
+        expect(render.readingPool).toBe(f.baked.uniforms.uReadingPool.value)
+        return capture()
+      }
+      const forward = Array.from({ length: 19 }, (_, i) => sample(i, 1 / 60))
+      expect(new Set(forward.map((x) => JSON.stringify(x.render))).size).toBeGreaterThan(10)
+      for (const i of Array.from({ length: 19 }, (_, n) => 18 - n).concat(
+        Array.from({ length: 19 }, (_, n) => (n * 613) % 19),
+      )) {
+        expect(sample(i, 0.1)).toEqual(forward[i])
+        expect(sample(i, 0)).toEqual(forward[i])
+        expect(sample(i, 100)).toEqual(forward[i])
+      }
+      runtime.dispose()
+    },
+  )
 
   it('retires stock from explicit progress; drawing-edges and reduced motion retain stock', () => {
     const f = fixture()
@@ -420,14 +531,14 @@ describe('private sheet explicit frame application', () => {
     expect(runtime.group.visible).toBe(true)
     expect(runtime.group.matrix.equals(f.context.sheetMatrix)).toBe(true)
     expect(f.baked.uniforms.uReveal.value[GROUP.side]).toBe(1)
-    expect(f.baked.uniforms.uReveal.value.filter((_, i) => i !== GROUP.side).every(v => v === 0)).toBe(true)
+    expect(f.baked.uniforms.uReveal.value.filter((_, i) => i !== GROUP.side).every((v) => v === 0)).toBe(true)
     expect(f.baked.uniforms.uMode.value).toBe(1)
     expect(f.baked.lines.visible).toBe(true)
     expect(f.baked.fills.visible).toBe(false)
     expect(f.baked.text.object.visible).toBe(false)
     runtime.apply(frame(1, { retirement: 1, reducedMotion: true }), f.context, viewport)
     expect(runtime.group.visible).toBe(true)
-    expect(f.baked.uniforms.uReveal.value.every(v => v === 1)).toBe(true)
+    expect(f.baked.uniforms.uReveal.value.every((v) => v === 1)).toBe(true)
     runtime.apply(frame(0.2, { reducedMotion: true }), f.context, viewport)
     expect(f.baked.uniforms.uReveal.value[GROUP.printed]).toBe(1)
     expect(f.baked.uniforms.uReveal.value[GROUP.side]).toBe(0)
@@ -435,17 +546,20 @@ describe('private sheet explicit frame application', () => {
     runtime.dispose()
   })
 
-  it.each(['drawing-mask', 'model-mask', 'model-edges', 'unknown'])('rejects unsupported proof %s before mutation', proofMode => {
-    const f = fixture()
-    const runtime = createPrivateSheetRuntime(f.baked, vi.fn(), f.factories)
-    runtime.apply(frame(0.7), f.context, viewport)
-    const before = runtime.group.matrix.clone()
-    const ink = f.baked.uniforms.uInk.value.clone()
-    expect(() => runtime.apply(frame(1, { proofMode }), f.context, viewport)).toThrow(/Unsupported.*proofMode/)
-    expect(runtime.group.matrix.equals(before)).toBe(true)
-    expect(f.baked.uniforms.uInk.value.equals(ink)).toBe(true)
-    runtime.dispose()
-  })
+  it.each(['drawing-mask', 'model-mask', 'model-edges', 'unknown'])(
+    'rejects unsupported proof %s before mutation',
+    (proofMode) => {
+      const f = fixture()
+      const runtime = createPrivateSheetRuntime(f.baked, vi.fn(), f.factories)
+      runtime.apply(frame(0.7), f.context, viewport)
+      const before = runtime.group.matrix.clone()
+      const ink = f.baked.uniforms.uInk.value.clone()
+      expect(() => runtime.apply(frame(1, { proofMode }), f.context, viewport)).toThrow(/Unsupported.*proofMode/)
+      expect(runtime.group.matrix.equals(before)).toBe(true)
+      expect(f.baked.uniforms.uInk.value.equals(ink)).toBe(true)
+      runtime.dispose()
+    },
+  )
 })
 
 describe('private sheet presentation ownership', () => {
@@ -457,7 +571,8 @@ describe('private sheet presentation ownership', () => {
     f.baked.uniforms.uMode = priorMode
     const report = vi.fn()
     const runtime = createPrivateSheetRuntime(f.baked, report, f.factories)
-    runtime.dispose(); runtime.dispose()
+    runtime.dispose()
+    runtime.dispose()
     for (const entry of f.owned) expect(entry.disposed).toHaveBeenCalledTimes(1)
     for (const spy of f.borrowed) expect(spy).not.toHaveBeenCalled()
     expect(f.baked.dispose).not.toHaveBeenCalled()
@@ -475,11 +590,17 @@ describe('private sheet presentation ownership', () => {
 
   it('attempts every cleanup despite resource/report failures and protects later uniform owners', () => {
     const f = fixture()
-    const report = vi.fn((_errors: readonly unknown[]) => { throw new Error('report failure') })
+    const report = vi.fn((_errors: readonly unknown[]) => {
+      throw new Error('report failure')
+    })
     const runtime = createPrivateSheetRuntime(f.baked, report, f.factories)
     const errors = [new Error('grain disposal'), new Error('last portal resource disposal')]
-    f.owned[0].disposed.mockImplementation(() => { throw errors[0] })
-    f.owned[f.owned.length - 1].disposed.mockImplementation(() => { throw errors[1] })
+    f.owned[0].disposed.mockImplementation(() => {
+      throw errors[0]
+    })
+    f.owned[f.owned.length - 1].disposed.mockImplementation(() => {
+      throw errors[1]
+    })
     const laterGrain = { value: new Texture() }
     f.baked.uniforms.uGrain = laterGrain
     expect(() => runtime.dispose()).not.toThrow()
@@ -491,10 +612,22 @@ describe('private sheet presentation ownership', () => {
     expect(report).toHaveBeenCalledTimes(1)
   })
 
-  it.each(['grain', 'material-1', 'material-2', 'material-3', 'material-4', 'material-5',
-    'desk', 'ribbon', 'material-6', 'portal'])('rolls back partial construction at %s without replacing its error', failAt => {
+  it.each([
+    'grain',
+    'material-1',
+    'material-2',
+    'material-3',
+    'material-4',
+    'material-5',
+    'desk',
+    'ribbon',
+    'material-6',
+    'portal',
+  ])('rolls back partial construction at %s without replacing its error', (failAt) => {
     const f = fixture(failAt)
-    const report = vi.fn((_errors: readonly unknown[]) => { throw new Error('report failed') })
+    const report = vi.fn((_errors: readonly unknown[]) => {
+      throw new Error('report failed')
+    })
     expect(() => createPrivateSheetRuntime(f.baked, report, f.factories)).toThrow(f.constructionError)
     for (const entry of f.owned) expect(entry.disposed).toHaveBeenCalledTimes(1)
     for (const spy of f.borrowed) expect(spy).not.toHaveBeenCalled()

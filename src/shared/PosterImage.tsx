@@ -20,7 +20,14 @@ export function PosterImage({ entry, className = 'shell-poster', loading = 'lazy
         {narrow && (
           <source media={POSTER_NARROW_MEDIA} srcSet={narrow.src} width={narrow.width} height={narrow.height} />
         )}
-        <img src={desktop.src} alt={entry.alt} loading={loading} decoding="async" width={desktop.width} height={desktop.height} />
+        <img
+          src={desktop.src}
+          alt={entry.alt}
+          loading={loading}
+          decoding="async"
+          width={desktop.width}
+          height={desktop.height}
+        />
       </picture>
       {children}
     </figure>

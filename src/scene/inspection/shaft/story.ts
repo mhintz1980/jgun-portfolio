@@ -18,7 +18,11 @@ export type ShaftBeatId =
   | 'stage1-mesh'
   | 'cascade-finale'
 
-export interface ShaftBeat { readonly id: ShaftBeatId; readonly start: number; readonly end: number }
+export interface ShaftBeat {
+  readonly id: ShaftBeatId
+  readonly start: number
+  readonly end: number
+}
 
 const beat = (id: ShaftBeatId, start: number, end: number): ShaftBeat => Object.freeze({ id, start, end })
 
@@ -37,7 +41,7 @@ export const shaftBeats: readonly ShaftBeat[] = Object.freeze([
 ])
 
 export function shaftBeat(id: ShaftBeatId): ShaftBeat {
-  const found = shaftBeats.find(entry => entry.id === id)
+  const found = shaftBeats.find((entry) => entry.id === id)
   if (!found) throw new Error('Unknown shaft beat: ' + id)
   return found
 }
@@ -54,8 +58,22 @@ export const shaftStory: StoryMetadata = Object.freeze({
     Object.freeze({ id: 'stage1-cascade', label: 'Planetary mesh and driveline cascade', start: 35, end: 66.9 }),
   ]),
   assets: Object.freeze([
-    Object.freeze({ id: 'manufacturing-core', url: 'models/manufacturing-core-full.glb', tier: 'full', required: true, maxBytes: 2 * 1024 * 1024, sha256: null }),
-    Object.freeze({ id: 'manufacturing-core', url: 'models/manufacturing-core-lite.glb', tier: 'lite', required: false, maxBytes: 2 * 1024 * 1024, sha256: null }),
+    Object.freeze({
+      id: 'manufacturing-core',
+      url: 'models/manufacturing-core-full.glb',
+      tier: 'full',
+      required: true,
+      maxBytes: 2 * 1024 * 1024,
+      sha256: null,
+    }),
+    Object.freeze({
+      id: 'manufacturing-core',
+      url: 'models/manufacturing-core-lite.glb',
+      tier: 'lite',
+      required: false,
+      maxBytes: 2 * 1024 * 1024,
+      sha256: null,
+    }),
   ]),
   entryWindow: Object.freeze([0.12, 0.525] as const),
   staticAlt: 'shaft-study',

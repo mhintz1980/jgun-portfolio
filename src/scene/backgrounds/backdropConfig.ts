@@ -10,13 +10,16 @@ export const SCRUBBED_BACKGROUNDS = true
 export const BACKDROP_CHAPTER_FLAGS: readonly boolean[] = [true, true, true, true]
 
 export interface BackdropPaletteSet {
-  top: string; bottom: string; accent: string; accentAlpha: number
+  top: string
+  bottom: string
+  accent: string
+  accentAlpha: number
 }
 
 /** sRGB hex, authored dark under the bloom constraint (combined authored peak
  * linear luminance < 0.45 vs the 0.6 bloom threshold). Chapter-indexed. */
 export const BACKDROP_PALETTES: readonly BackdropPaletteSet[] = [
-  { top: '#0b0d12', bottom: '#1a1108', accent: '#ffb454', accentAlpha: 0.10 }, // CH.01 warm key pool
+  { top: '#0b0d12', bottom: '#1a1108', accent: '#ffb454', accentAlpha: 0.1 }, // CH.01 warm key pool
   { top: '#060a10', bottom: '#0a141d', accent: '#38e8ff', accentAlpha: 0.08 }, // CH.02 cyan blueprint wash
   { top: '#04100f', bottom: '#0a1a18', accent: '#2dd4bf', accentAlpha: 0.07 }, // CH.03 deep teal hush
   { top: '#05060c', bottom: '#100b16', accent: '#8b7cf6', accentAlpha: 0.06 }, // CH.04 point-dust nebula

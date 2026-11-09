@@ -65,9 +65,7 @@ function lerpPaletteInto(a: number, b: number, t: number): void {
   SCRATCH_TOP.lerpColors(PALETTE_TOP[a], PALETTE_TOP[b], t)
   SCRATCH_BOTTOM.lerpColors(PALETTE_BOTTOM[a], PALETTE_BOTTOM[b], t)
   SCRATCH_ACCENT.lerpColors(PALETTE_ACCENT[a], PALETTE_ACCENT[b], t)
-  SCRATCH_ACCENT.multiplyScalar(
-    PALETTE_ACCENT_ALPHA[a] + (PALETTE_ACCENT_ALPHA[b] - PALETTE_ACCENT_ALPHA[a]) * t,
-  )
+  SCRATCH_ACCENT.multiplyScalar(PALETTE_ACCENT_ALPHA[a] + (PALETTE_ACCENT_ALPHA[b] - PALETTE_ACCENT_ALPHA[a]) * t)
 }
 
 export function BackdropRig() {
@@ -87,15 +85,9 @@ export function BackdropRig() {
     if (!Number.isFinite(progress)) return
 
     // Blend-window t's: chapter 1→2 gap, then the two stage cross-fades.
-    const t12 = smoothstep01(
-      (progress - CHAPTER_BLEND_12[0]) / (CHAPTER_BLEND_12[1] - CHAPTER_BLEND_12[0]),
-    )
-    const t23 = smoothstep01(
-      (progress - CHAPTER_BLEND_23[0]) / (CHAPTER_BLEND_23[1] - CHAPTER_BLEND_23[0]),
-    )
-    const t34 = smoothstep01(
-      (progress - CHAPTER_BLEND_34[0]) / (CHAPTER_BLEND_34[1] - CHAPTER_BLEND_34[0]),
-    )
+    const t12 = smoothstep01((progress - CHAPTER_BLEND_12[0]) / (CHAPTER_BLEND_12[1] - CHAPTER_BLEND_12[0]))
+    const t23 = smoothstep01((progress - CHAPTER_BLEND_23[0]) / (CHAPTER_BLEND_23[1] - CHAPTER_BLEND_23[0]))
+    const t34 = smoothstep01((progress - CHAPTER_BLEND_34[0]) / (CHAPTER_BLEND_34[1] - CHAPTER_BLEND_34[0]))
 
     // Piecewise palette: the windows are disjoint, so at most one t is open;
     // each branch is continuous with its neighbors at the clamped boundaries.
@@ -121,8 +113,7 @@ export function BackdropRig() {
       progress >= DRAWING_INTRO_WINDOW.releaseEnd
         ? 1
         : INTRO_BACKDROP_LEVEL +
-          (1 - INTRO_BACKDROP_LEVEL) *
-            smoothstep01((progress - (DRAWING_INTRO_WINDOW.releaseEnd - 0.012)) / 0.012)
+          (1 - INTRO_BACKDROP_LEVEL) * smoothstep01((progress - (DRAWING_INTRO_WINDOW.releaseEnd - 0.012)) / 0.012)
     const backdropAlpha =
       introFactor *
       ((BACKDROP_CHAPTER_FLAGS[0] ? w0 : 0) +

@@ -41,11 +41,17 @@
 }
 
 @keyframes home-name-draw {
-  to { stroke-dashoffset: 0; }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes home-name-fill {
-  to { fill-opacity: 1; stroke: currentColor; stroke-width: 0; }
+  to {
+    fill-opacity: 1;
+    stroke: currentColor;
+    stroke-width: 0;
+  }
 }
 
 .home-name:focus-visible {

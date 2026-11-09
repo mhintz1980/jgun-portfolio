@@ -1,11 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { TorqueWrenchBeat } from '../scene/torque-wrench/beatTimeline'
 import type { TorqueBeatSample } from '../scene/torque-wrench/beatTimeline'
-import {
-  createTorqueWrenchStore,
-  recordTorqueConductorDiagnostics,
-  type TorqueBeatSampler,
-} from './torqueWrenchStore'
+import { createTorqueWrenchStore, recordTorqueConductorDiagnostics, type TorqueBeatSampler } from './torqueWrenchStore'
 
 const draftingBeat: TorqueWrenchBeat = Object.freeze({
   id: 'drafting',

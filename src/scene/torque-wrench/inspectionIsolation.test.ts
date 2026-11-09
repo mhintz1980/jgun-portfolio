@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { createJourneySample, sampleJourney } from './JourneyDirector'
-const sampleInspectionSurroundings=(p:number)=>sampleJourney(p,true,createJourneySample()).surroundingsOpacity
+const sampleInspectionSurroundings = (p: number) => sampleJourney(p, true, createJourneySample()).surroundingsOpacity
 import { createInspectionIsolationSample, sampleInspectionIsolation } from './inspectionIsolation'
 
 describe('shared effective inspection isolation', () => {
@@ -25,21 +25,24 @@ describe('shared effective inspection isolation', () => {
   it.each([
     { progress: 0.471, studyProgress: 0.932, opacity: 0 },
     { progress: 0.824, studyProgress: 0.928, opacity: 0 },
-  ])('uses manual opacity when both envelopes are nonzero at scroll $progress', ({ progress, studyProgress, opacity }) => {
-    const sample = createInspectionIsolationSample()
-    sampleInspectionIsolation(progress, false, studyProgress, sample)
-    const scrollOpacity = sample.surroundingsOpacity
-    expect(scrollOpacity).toBeGreaterThan(0)
-    expect(scrollOpacity).toBeLessThan(1)
+  ])(
+    'uses manual opacity when both envelopes are nonzero at scroll $progress',
+    ({ progress, studyProgress, opacity }) => {
+      const sample = createInspectionIsolationSample()
+      sampleInspectionIsolation(progress, false, studyProgress, sample)
+      const scrollOpacity = sample.surroundingsOpacity
+      expect(scrollOpacity).toBeGreaterThan(0)
+      expect(scrollOpacity).toBeLessThan(1)
 
-    sampleInspectionIsolation(progress, true, studyProgress, sample)
-    expect(sample.progress).toBe(studyProgress)
-    expect(sample.manual).toBe(true)
-    expect(sample.surroundingsOpacity).toBeCloseTo(opacity, 12)
-    expect(sample.surroundingsOpacity).not.toBeCloseTo(scrollOpacity, 6)
-  })
+      sampleInspectionIsolation(progress, true, studyProgress, sample)
+      expect(sample.progress).toBe(studyProgress)
+      expect(sample.manual).toBe(true)
+      expect(sample.surroundingsOpacity).toBeCloseTo(opacity, 12)
+      expect(sample.surroundingsOpacity).not.toBeCloseTo(scrollOpacity, 6)
+    },
+  )
 
-  it.each([0.471, 0.824])('restores scroll isolation after manual start and end at scroll %s', progress => {
+  it.each([0.471, 0.824])('restores scroll isolation after manual start and end at scroll %s', (progress) => {
     const sample = createInspectionIsolationSample()
     sampleInspectionIsolation(progress, true, 0.735, sample)
     expect(sample).toEqual({ progress: 0.735, surroundingsOpacity: 0, manual: true })

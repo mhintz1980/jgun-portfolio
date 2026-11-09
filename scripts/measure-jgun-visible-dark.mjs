@@ -25,10 +25,12 @@ import { chromium } from 'playwright'
 import { mkdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 
-const args = Object.fromEntries(process.argv.slice(2).map((arg) => {
-  const [key, ...value] = arg.replace(/^--/, '').split('=')
-  return [key, value.join('=')]
-}))
+const args = Object.fromEntries(
+  process.argv.slice(2).map((arg) => {
+    const [key, ...value] = arg.replace(/^--/, '').split('=')
+    return [key, value.join('=')]
+  }),
+)
 
 // The built preview is authoritative: the dev server HMR can tear the scene down mid-capture.
 const url = args.url || 'http://localhost:4173'
@@ -39,13 +41,18 @@ const radius = Math.max(1, Math.min(12, Number(args.radius || 4)))
 // ratchet is never overridden here: a mismatched tier is retried on a fresh page and, if it still
 // does not match, fails the run, so a lite frame can never be filed as full-tier proof.
 const requireTier = args['require-tier'] || ''
-const out = path.resolve(args.out || `project/work/evidence/JG-035-opening-drafting-table/storm-visible-dark-2026-09-30/${label}`)
+const out = path.resolve(
+  args.out || `project/work/evidence/JG-035-opening-drafting-table/storm-visible-dark-2026-09-30/${label}`,
+)
 
 const CASES = {
   desktop: { width: 1600, height: 900 },
   narrow: { width: 390, height: 844 },
 }
-const caseNames = (args.cases || 'desktop,narrow').split(',').map((s) => s.trim()).filter(Boolean)
+const caseNames = (args.cases || 'desktop,narrow')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean)
 for (const name of caseNames) {
   if (!CASES[name]) throw new Error(`Unknown case "${name}" (expected ${Object.keys(CASES).join(', ')})`)
 }
@@ -75,7 +82,10 @@ const LAMP_RETURN = { start: 0.79, end: 0.86 }
 const BEATS = { lit: 0.4, dark: 0.59, trace: 0.69, pressure: 0.82, lift: 0.94, resolved: 0.98 }
 
 const clamp01 = (x) => Math.max(0, Math.min(1, x))
-const smooth01 = (x) => { const t = clamp01(x); return t * t * (3 - 2 * t) }
+const smooth01 = (x) => {
+  const t = clamp01(x)
+  return t * t * (3 - 2 * t)
+}
 const introT = (u) => FLICKER.start + u * (FLICKER.end - FLICKER.start)
 const round = (v, n = 2) => (typeof v === 'number' && Number.isFinite(v) ? Number(v.toFixed(n)) : null)
 const sum = (values) => values.reduce((a, b) => a + b, 0)
@@ -92,10 +102,19 @@ function expectedPowerFor(t) {
     let i = 0
     while (i < FLICKER.u.length - 2 && u >= FLICKER.u[i + 1]) i += 1
     const local = (u - FLICKER.u[i]) / Math.max(1e-9, FLICKER.u[i + 1] - FLICKER.u[i])
-    return { value: FLICKER.power[i] + (FLICKER.power[i + 1] - FLICKER.power[i]) * smooth01(local), source: 'plan', hard: true }
+    return {
+      value: FLICKER.power[i] + (FLICKER.power[i + 1] - FLICKER.power[i]) * smooth01(local),
+      source: 'plan',
+      hard: true,
+    }
   }
   if (t < LAMP_RETURN.start) return { value: 0, source: 'plan', hard: true }
-  if (t < LAMP_RETURN.end) return { value: smooth01((t - LAMP_RETURN.start) / (LAMP_RETURN.end - LAMP_RETURN.start)), source: 'derived', hard: false }
+  if (t < LAMP_RETURN.end)
+    return {
+      value: smooth01((t - LAMP_RETURN.start) / (LAMP_RETURN.end - LAMP_RETURN.start)),
+      source: 'derived',
+      hard: false,
+    }
   return { value: 1, source: 'plan', hard: false }
 }
 
@@ -122,14 +141,36 @@ function checkpointName(t) {
   if (beat) return 'beat-' + beat[0]
   const index = FLICKER.u.findIndex((u) => Math.abs(introT(u) - t) < 1e-9)
   if (index >= 0) {
-    return 'flicker-k' + String(index).padStart(2, '0') + '-' + flickerKind(index)
-      + '-u' + sanitize(FLICKER.u[index].toFixed(3)) + '-p' + sanitize(FLICKER.power[index].toFixed(3))
+    return (
+      'flicker-k' +
+      String(index).padStart(2, '0') +
+      '-' +
+      flickerKind(index) +
+      '-u' +
+      sanitize(FLICKER.u[index].toFixed(3)) +
+      '-p' +
+      sanitize(FLICKER.power[index].toFixed(3))
+    )
   }
   return 't' + sanitize(t.toFixed(3))
 }
 
-const points = (args.points || [BEATS.lit, introT(0.28), introT(0.64), introT(0.72), FLICKER.end, BEATS.dark, BEATS.trace, BEATS.pressure, BEATS.resolved].join(','))
-  .split(',').map(Number)
+const points = (
+  args.points ||
+  [
+    BEATS.lit,
+    introT(0.28),
+    introT(0.64),
+    introT(0.72),
+    FLICKER.end,
+    BEATS.dark,
+    BEATS.trace,
+    BEATS.pressure,
+    BEATS.resolved,
+  ].join(',')
+)
+  .split(',')
+  .map(Number)
 if (points.some((p) => !Number.isFinite(p) || p < 0 || p > 1)) throw new Error('Expected finite intro times in [0,1]')
 
 /** Plan-driven evidence targets. None of these replace an existing gate; they are the new ones. */
@@ -159,7 +200,8 @@ const PAGE_HELPERS = () => {
     pickCanvas() {
       for (const canvas of Array.from(document.querySelectorAll('canvas'))) {
         const rect = canvas.getBoundingClientRect()
-        if (canvas.isConnected && canvas.width > 1 && canvas.height > 1 && rect.width > 1 && rect.height > 1) return canvas
+        if (canvas.isConnected && canvas.width > 1 && canvas.height > 1 && rect.width > 1 && rect.height > 1)
+          return canvas
       }
       return null
     },
@@ -237,7 +279,9 @@ const PROBE = () => {
       textBoxes.push(item.bounds)
       textItems.push({ group: item.group, bounds: item.bounds })
     }
-  } catch { /* the lettering layer has no ready layout yet */ }
+  } catch {
+    /* the lettering layer has no ready layout yet */
+  }
 
   // SHEET_ZONES.frame (drawingGeometry.ts) and the three printed blocks that live inside it.
   const FRAME = { x: -0.38, y: -0.23, w: 0.76, h: 0.46 }
@@ -246,7 +290,8 @@ const PROBE = () => {
     { x: 0.14, y: -0.145, w: 0.24, h: 0.036 },
     { x: 0.198, y: 0.118, w: 0.176, h: 0.106 },
   ]
-  const inside = (p, r, pad) => p[0] >= r.x - pad && p[0] <= r.x + r.w + pad && p[1] >= r.y - pad && p[1] <= r.y + r.h + pad
+  const inside = (p, r, pad) =>
+    p[0] >= r.x - pad && p[0] <= r.x + r.w + pad && p[1] >= r.y - pad && p[1] <= r.y + r.h + pad
 
   // Coarse ink occupancy: a candidate with no ink cell within two cells (16 mm) is at least
   // 10 mm of bare stock away from the nearest printed line.
@@ -258,11 +303,17 @@ const PROBE = () => {
     const steps = Math.max(1, Math.ceil(length / (CELL * 0.5)))
     for (let k = 0; k <= steps; k += 1) {
       const u = k / steps
-      occupied.add(cellKey(Math.floor((s.a[0] + (s.b[0] - s.a[0]) * u) / CELL), Math.floor((s.a[1] + (s.b[1] - s.a[1]) * u) / CELL)))
+      occupied.add(
+        cellKey(
+          Math.floor((s.a[0] + (s.b[0] - s.a[0]) * u) / CELL),
+          Math.floor((s.a[1] + (s.b[1] - s.a[1]) * u) / CELL),
+        ),
+      )
     }
   }
   const clearOfInk = (p) => {
-    const ix = Math.floor(p[0] / CELL), iy = Math.floor(p[1] / CELL)
+    const ix = Math.floor(p[0] / CELL),
+      iy = Math.floor(p[1] / CELL)
     for (let dx = -2; dx <= 2; dx += 1) {
       for (let dy = -2; dy <= 2; dy += 1) if (occupied.has(cellKey(ix + dx, iy + dy))) return false
     }
@@ -289,7 +340,10 @@ const PROBE = () => {
       for (const p of candidates) {
         let nearest = Infinity
         for (const c of chosen) nearest = Math.min(nearest, Math.hypot(p[0] - c[0], p[1] - c[1]))
-        if (nearest > bestDistance) { bestDistance = nearest; best = p }
+        if (nearest > bestDistance) {
+          bestDistance = nearest
+          best = p
+        }
       }
       if (!best) break
       chosen.push(best)
@@ -312,7 +366,8 @@ const PROBE = () => {
   // stock as text.
   const textBlocks = []
   for (const group of [14, 13, 2, 15]) {
-    for (const item of textItems.filter((entry) => entry.group === group)) textBlocks.push({ group, bounds: item.bounds })
+    for (const item of textItems.filter((entry) => entry.group === group))
+      textBlocks.push({ group, bounds: item.bounds })
   }
 
   // The electrical ribbon follows the measured profile; sample it along its own arc length.
@@ -326,7 +381,12 @@ const PROBE = () => {
     let next = 0
     for (let i = 0; i + 1 < positions.count; i += 2) {
       while (next < targets.length && arcs.getX(i) >= targets[next]) {
-        tracePatches.push([(positions.getX(i) + positions.getX(i + 1)) / 2, (positions.getY(i) + positions.getY(i + 1)) / 2, 0.00045, 0])
+        tracePatches.push([
+          (positions.getX(i) + positions.getX(i + 1)) / 2,
+          (positions.getY(i) + positions.getY(i + 1)) / 2,
+          0.00045,
+          0,
+        ])
         next += 1
       }
     }
@@ -353,20 +413,46 @@ const PROBE = () => {
   // Candidates that project outside the viewport are dropped: a close framing shows no background
   // at all, which is recorded rather than quietly sampled as paper.
   const surroundCandidates = [
-    [0, 0.30], [0, 0.36], [0, 0.44], [0, 0.56], [0, 0.72], [0, 0.92],
-    [0.3, 0.30], [-0.3, 0.30], [0.3, 0.44], [-0.3, 0.44],
-    [0.45, 0], [-0.45, 0], [0.45, 0.18], [-0.45, 0.18], [0.45, -0.18], [-0.45, -0.18],
-    [0.60, 0], [-0.60, 0], [0.78, 0.16], [-0.78, 0.16], [0.98, 0], [-0.98, 0],
+    [0, 0.3],
+    [0, 0.36],
+    [0, 0.44],
+    [0, 0.56],
+    [0, 0.72],
+    [0, 0.92],
+    [0.3, 0.3],
+    [-0.3, 0.3],
+    [0.3, 0.44],
+    [-0.3, 0.44],
+    [0.45, 0],
+    [-0.45, 0],
+    [0.45, 0.18],
+    [-0.45, 0.18],
+    [0.45, -0.18],
+    [-0.45, -0.18],
+    [0.6, 0],
+    [-0.6, 0],
+    [0.78, 0.16],
+    [-0.78, 0.16],
+    [0.98, 0],
+    [-0.98, 0],
   ]
   const surround = surroundCandidates
     .filter(([x, y]) => (Math.abs(x) > 0.42 || Math.abs(y) > 0.28) && Math.abs(x) <= 1.5 && Math.abs(y) <= 1.05)
     .map(([x, y]) => project([x, y, 0]))
-    .filter((p) => p.x >= rect.x + 6 && p.x <= rect.x + rect.width - 6 && p.y >= rect.y + 6 && p.y <= rect.y + rect.height - 6)
+    .filter(
+      (p) =>
+        p.x >= rect.x + 6 && p.x <= rect.x + rect.width - 6 && p.y >= rect.y + 6 && p.y <= rect.y + rect.height - 6,
+    )
 
   // Screen-space letter boxes from the sheet-space text bounds (four projected corners).
   const textRects = textBlocks.map(({ group, bounds }) => {
     const [x0, y0, x1, y1] = bounds
-    const corners = [[x0, y0], [x1, y0], [x1, y1], [x0, y1]].map(([x, y]) => project([x, y, 0.0004]))
+    const corners = [
+      [x0, y0],
+      [x1, y0],
+      [x1, y1],
+      [x0, y1],
+    ].map(([x, y]) => project([x, y, 0.0004]))
     const xs = corners.map((p) => p.x)
     const ys = corners.map((p) => p.y)
     return { group, sheet: bounds, rect: [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)] }
@@ -411,7 +497,9 @@ const PROBE = () => {
     const elements = frame.matrix.elements
     const telemetryMatrix = d.planeMatrix
     matrixConsistent = !!telemetryMatrix && elements.every((v, i) => Math.abs(v - telemetryMatrix[i]) < 1e-6)
-  } catch { matrixConsistent = null }
+  } catch {
+    matrixConsistent = null
+  }
 
   const trace = traceFallback ? inkPatches.map(([x, y]) => [x, y, 0.00045, 12]) : tracePatches
   return {
@@ -438,8 +526,13 @@ const PROBE = () => {
     tier: window.__telemetry?.performance?.tier,
     annotationsReady: d.annotationsReady,
     camera: {
-      x: c.x, y: c.y, z: c.z, fov: c.fov,
-      residual: c.goal ? Math.hypot(c.x - c.goal.position[0], c.y - c.goal.position[1], c.z - c.goal.position[2]) : null,
+      x: c.x,
+      y: c.y,
+      z: c.z,
+      fov: c.fov,
+      residual: c.goal
+        ? Math.hypot(c.x - c.goal.position[0], c.y - c.goal.position[1], c.z - c.goal.position[2])
+        : null,
     },
     stats: api.sheetStats ? api.sheetStats() : null,
     matrixConsistent,
@@ -448,7 +541,15 @@ const PROBE = () => {
     traceControlError,
     apiMissing,
     traceFallback,
-    counts: { paper: chosen.length, ink: inkPatches.length, text: textRects.length, trace: trace.length, surround: surround.length, segments: segs.length, textBoxes: textBoxes.length },
+    counts: {
+      paper: chosen.length,
+      ink: inkPatches.length,
+      text: textRects.length,
+      trace: trace.length,
+      surround: surround.length,
+      segments: segs.length,
+      textBoxes: textBoxes.length,
+    },
     frameRect: FRAME,
     image: { width: Math.round(rect.width), height: Math.round(rect.height) },
     patches: {
@@ -489,8 +590,15 @@ const SAMPLER = async ({ b64, patches, radius }) => {
     const sorted = [...lum].sort((a, b) => a - b)
     const at = (q) => sorted[Math.min(sorted.length - 1, Math.max(0, Math.round(q * (sorted.length - 1))))]
     return {
-      sheet: p.sheet, group: p.group, x, y, valid: true,
-      min: sorted[0], p05: at(0.05), median: at(0.5), max: sorted[sorted.length - 1],
+      sheet: p.sheet,
+      group: p.group,
+      x,
+      y,
+      valid: true,
+      min: sorted[0],
+      p05: at(0.05),
+      median: at(0.5),
+      max: sorted[sorted.length - 1],
       mean: lum.reduce((a, b) => a + b, 0) / lum.length,
       darkCount: lum.filter((v) => v < 64).length,
       brightCount: lum.filter((v) => v > 160).length,
@@ -508,7 +616,8 @@ const SAMPLER = async ({ b64, patches, radius }) => {
     const h = y1 - y0
     // A block projected behind the camera can yield non-finite corners, which would otherwise be
     // handed to getImageData as a NaN region.
-    if (![x0, y0, x1, y1].every(Number.isFinite)) return { sheet: r.sheet, group: r.group, rect: r.rect, valid: false, reason: 'NON_FINITE' }
+    if (![x0, y0, x1, y1].every(Number.isFinite))
+      return { sheet: r.sheet, group: r.group, rect: r.rect, valid: false, reason: 'NON_FINITE' }
     if (w < 2 || h < 2) return { sheet: r.sheet, group: r.group, rect: r.rect, valid: false, reason: 'TOO_SMALL' }
     const data = ctx.getImageData(x0, y0, w, h).data
     const lum = []
@@ -516,8 +625,16 @@ const SAMPLER = async ({ b64, patches, radius }) => {
     const sorted = [...lum].sort((a, b) => a - b)
     const at = (q) => sorted[Math.min(sorted.length - 1, Math.max(0, Math.round(q * (sorted.length - 1))))]
     return {
-      sheet: r.sheet, group: r.group, rect: r.rect, x: Math.round((x0 + x1) / 2), y: Math.round((y0 + y1) / 2), valid: true,
-      min: sorted[0], p05: at(0.05), median: at(0.5), max: sorted[sorted.length - 1],
+      sheet: r.sheet,
+      group: r.group,
+      rect: r.rect,
+      x: Math.round((x0 + x1) / 2),
+      y: Math.round((y0 + y1) / 2),
+      valid: true,
+      min: sorted[0],
+      p05: at(0.05),
+      median: at(0.5),
+      max: sorted[sorted.length - 1],
       mean: lum.reduce((a, b) => a + b, 0) / lum.length,
       darkCount: lum.filter((v) => v < 64).length,
       brightCount: lum.filter((v) => v > 160).length,
@@ -539,16 +656,29 @@ const SAMPLER = async ({ b64, patches, radius }) => {
 
 /** Wait until the pinned progress has rendered through a real frame and the camera has settled. */
 async function settle(page, t) {
-  await page.waitForFunction((expected) => {
-    const d = window.__telemetry?.drawing
-    return !!window.__captureHelpers?.pickCanvas?.() && !!d && Math.abs(d.phase - expected) < 1e-6
-  }, t, { timeout: 30000 })
-  await page.waitForFunction(() => {
-    const c = window.__telemetry?.camera
-    const g = c?.goal
-    if (!g) return false
-    return Math.hypot(c.x - g.position[0], c.y - g.position[1], c.z - g.position[2]) < 1e-4 && Math.abs(c.fov - g.fov) < 1e-4
-  }, null, { timeout: 15000 }).catch(() => false)
+  await page.waitForFunction(
+    (expected) => {
+      const d = window.__telemetry?.drawing
+      return !!window.__captureHelpers?.pickCanvas?.() && !!d && Math.abs(d.phase - expected) < 1e-6
+    },
+    t,
+    { timeout: 30000 },
+  )
+  await page
+    .waitForFunction(
+      () => {
+        const c = window.__telemetry?.camera
+        const g = c?.goal
+        if (!g) return false
+        return (
+          Math.hypot(c.x - g.position[0], c.y - g.position[1], c.z - g.position[2]) < 1e-4 &&
+          Math.abs(c.fov - g.fov) < 1e-4
+        )
+      },
+      null,
+      { timeout: 15000 },
+    )
+    .catch(() => false)
   // The reading pool trails the look-at point with a damped first-order lag; let it arrive.
   await page.waitForTimeout(450)
 }
@@ -625,7 +755,9 @@ function summarize(row) {
     shaderValid: row.traceControl?.shaderValid ?? null,
     // Only the projected patch groups are counted. `pixels.image` is capture metadata, not a
     // patch list, so it is preserved untouched and never filtered.
-    invalidPatches: Object.fromEntries(PATCH_KINDS.map((kind) => [kind, (Array.isArray(px[kind]) ? px[kind] : []).filter((p) => !p.valid).length])),
+    invalidPatches: Object.fromEntries(
+      PATCH_KINDS.map((kind) => [kind, (Array.isArray(px[kind]) ? px[kind] : []).filter((p) => !p.valid).length]),
+    ),
   }
 }
 
@@ -650,16 +782,29 @@ try {
       // A ratcheted tier is a fresh-page problem, so a required tier earns extra attempts.
       const maxAttempts = requireTier ? 4 : 2
       for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
-        const context = await browser.newContext({ viewport: { width, height }, reducedMotion: 'no-preference', deviceScaleFactor: 1, serviceWorkers: 'block' })
+        const context = await browser.newContext({
+          viewport: { width, height },
+          reducedMotion: 'no-preference',
+          deviceScaleFactor: 1,
+          serviceWorkers: 'block',
+        })
         await context.addInitScript(PAGE_HELPERS)
         const page = await context.newPage()
         const errors = []
         page.on('pageerror', (error) => errors.push(String(error.message)))
-        page.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()) })
+        page.on('console', (message) => {
+          if (message.type() === 'error') errors.push(message.text())
+        })
         try {
           await page.goto(url, { waitUntil: 'domcontentloaded' })
-          await page.waitForFunction(() => window.__drawingProof?.ready && window.__telemetry?.drawing?.annotationsReady, null, { timeout: 120000 })
-          await page.evaluate(() => { window.__scrollCommitDisabled = true })
+          await page.waitForFunction(
+            () => window.__drawingProof?.ready && window.__telemetry?.drawing?.annotationsReady,
+            null,
+            { timeout: 120000 },
+          )
+          await page.evaluate(() => {
+            window.__scrollCommitDisabled = true
+          })
           await page.evaluate((progress) => window.__drawingProof.setProgress(progress), t * INTRO_SHARE)
           await settle(page, t)
           if (requireTier) {
@@ -680,13 +825,29 @@ try {
       }
       rows.push(record)
       const row = summarize(record)
-      console.log(JSON.stringify({
-        case: caseName, t: row.t, name: row.name, ok: row.ok, phase: row.phase, power: row.lampPower, expected: row.expectedPower,
-        paper: row.paper?.median ?? null, inkStock: row.inkOverStock, surround: row.surround?.median ?? null,
-        traceBright: row.trace?.brightPixels ?? null, control: { contour: row.traceControl?.contourPixels, bright: row.traceControl?.changedBrightPixels },
-        control: { status: row.traceControlStatus, contour: row.traceControl?.contourPixels ?? null, bright: row.traceControl?.changedBrightPixels ?? null },
-        tier: row.tier, error: row.error ?? row.errors[0] ?? null,
-      }))
+      console.log(
+        JSON.stringify({
+          case: caseName,
+          t: row.t,
+          name: row.name,
+          ok: row.ok,
+          phase: row.phase,
+          power: row.lampPower,
+          expected: row.expectedPower,
+          paper: row.paper?.median ?? null,
+          inkStock: row.inkOverStock,
+          surround: row.surround?.median ?? null,
+          traceBright: row.trace?.brightPixels ?? null,
+          control: { contour: row.traceControl?.contourPixels, bright: row.traceControl?.changedBrightPixels },
+          control: {
+            status: row.traceControlStatus,
+            contour: row.traceControl?.contourPixels ?? null,
+            bright: row.traceControl?.changedBrightPixels ?? null,
+          },
+          tier: row.tier,
+          error: row.error ?? row.errors[0] ?? null,
+        }),
+      )
     }
   }
 } finally {
@@ -706,85 +867,133 @@ for (const caseName of caseNames) {
   const failedStills = caseRows.filter((row) => !row.ok).map((row) => row.name)
   const caseChecks = [
     {
-      id: 'tier-required', source: requireTier ? 'harness' : 'info', case: caseName,
+      id: 'tier-required',
+      source: requireTier ? 'harness' : 'info',
+      case: caseName,
       observed: { required: requireTier || null, tiers: [...new Set(caseRows.map((row) => row.tier))] },
       pass: requireTier ? caseRows.every((row) => row.tier === requireTier) : null,
       note: 'With --require-tier set, every still must have run on that tier; a lite frame is not full-tier finish evidence.',
     },
     {
-      id: 'stills-captured', source: 'harness', case: caseName,
+      id: 'stills-captured',
+      source: 'harness',
+      case: caseName,
       observed: { failedStills, consoleErrors },
       pass: failedStills.length === 0 && consoleErrors === 0,
       note: 'Every still rendered a live canvas with a clean console.',
     },
     {
-      id: 'dark-paper-in-band', source: 'plan', case: caseName,
+      id: 'dark-paper-in-band',
+      source: 'plan',
+      case: caseName,
       observed: dark?.paper?.median ?? null,
-      pass: dark?.paper?.median !== null && dark?.paper?.median !== undefined && dark.paper.median >= TARGETS.darkPaperLuminance[0] && dark.paper.median <= TARGETS.darkPaperLuminance[1],
+      pass:
+        dark?.paper?.median !== null &&
+        dark?.paper?.median !== undefined &&
+        dark.paper.median >= TARGETS.darkPaperLuminance[0] &&
+        dark.paper.median <= TARGETS.darkPaperLuminance[1],
       note: `Unoccluded stock at the dark beat, apparent luminance ${TARGETS.darkPaperLuminance[0]}-${TARGETS.darkPaperLuminance[1]}/255 (plan).`,
     },
     {
-      id: 'ink-darker-than-stock', source: 'plan', case: caseName,
+      id: 'ink-darker-than-stock',
+      source: 'plan',
+      case: caseName,
       observed: dark?.inkOverStock ?? null,
       pass: typeof dark?.inkOverStock === 'number' && dark.inkOverStock >= TARGETS.inkOverStock,
       note: `Line ink must stay at least ${TARGETS.inkOverStock}/255 below the stock in the SAME window at the dark beat.`,
     },
     {
-      id: 'text-darker-than-stock', source: 'plan', case: caseName,
+      id: 'text-darker-than-stock',
+      source: 'plan',
+      case: caseName,
       observed: { samples: dark?.text?.count ?? 0, contrast: dark?.textOverStock ?? null },
-      pass: typeof dark?.textOverStock === 'number' && dark.textOverStock >= TARGETS.textOverStock
-        && (dark?.text?.count ?? 0) >= TARGETS.minTextSamples,
+      pass:
+        typeof dark?.textOverStock === 'number' &&
+        dark.textOverStock >= TARGETS.textOverStock &&
+        (dark?.text?.count ?? 0) >= TARGETS.minTextSamples,
       note: 'Printed lettering, measured as the darkest pixel inside each font rect against that rect own adjacent stock, must stay below it across enough boxes.',
     },
     {
-      id: 'surround-subordinate', case: caseName,
+      id: 'surround-subordinate',
+      case: caseName,
       // Asserted only when the framing actually shows desk/backdrop. At the registered settle the
       // stock fills the viewport, so "no off-sheet pixel in frame" is reported, never a silent pass.
       source: (dark?.surround?.count ?? 0) > 0 ? 'plan' : 'info',
-      observed: { samples: dark?.surround?.count ?? 0, paper: dark?.paper?.median ?? null, surround: dark?.surround?.median ?? null },
+      observed: {
+        samples: dark?.surround?.count ?? 0,
+        paper: dark?.paper?.median ?? null,
+        surround: dark?.surround?.median ?? null,
+      },
       // A count of zero means the registered framing shows no page edge at all (framing absence),
       // which is non-applicable rather than a failed background.
       reason: (dark?.surround?.count ?? 0) > 0 ? null : 'NOT_IN_FRAME',
-      pass: (dark?.surround?.count ?? 0) > 0
-        ? (typeof dark?.paper?.median === 'number' && typeof dark?.surround?.median === 'number' && dark.surround.median <= dark.paper.median)
-        : null,
+      pass:
+        (dark?.surround?.count ?? 0) > 0
+          ? typeof dark?.paper?.median === 'number' &&
+            typeof dark?.surround?.median === 'number' &&
+            dark.surround.median <= dark.paper.median
+          : null,
       note: 'Desk/backdrop support sampled OFF the stock trim must not out-luminance the sheet. Zero visible support is reported as not-in-frame, not asserted.',
     },
     {
-      id: 'trace-bright-on-screen', source: 'plan', case: caseName,
+      id: 'trace-bright-on-screen',
+      source: 'plan',
+      case: caseName,
       observed: { trace: trace?.trace?.brightPixels ?? null, dark: dark?.trace?.brightPixels ?? null },
-      pass: typeof trace?.trace?.brightPixels === 'number' && trace.trace.brightPixels >= TARGETS.traceBrightPixels
-        && typeof dark?.trace?.brightPixels === 'number' && trace.trace.brightPixels > dark.trace.brightPixels + 4,
+      pass:
+        typeof trace?.trace?.brightPixels === 'number' &&
+        trace.trace.brightPixels >= TARGETS.traceBrightPixels &&
+        typeof dark?.trace?.brightPixels === 'number' &&
+        trace.trace.brightPixels > dark.trace.brightPixels + 4,
       note: 'The electrical trace contributes bright pixels at its own beat and none at the dark beat, same registered camera.',
     },
     {
-      id: 'trace-null-control-trace', source: 'plan', case: caseName,
-      observed: { status: trace?.traceControlStatus ?? 'unavailable', reading: trace?.traceControl ?? null, error: trace?.traceControlError ?? null },
-      pass: trace?.traceControlStatus === 'observed'
-        && trace.traceControl.contourPixels >= TARGETS.traceContourPixels
-        && trace.traceControl.changedBrightPixels >= TARGETS.traceContourPixels,
+      id: 'trace-null-control-trace',
+      source: 'plan',
+      case: caseName,
+      observed: {
+        status: trace?.traceControlStatus ?? 'unavailable',
+        reading: trace?.traceControl ?? null,
+        error: trace?.traceControlError ?? null,
+      },
+      pass:
+        trace?.traceControlStatus === 'observed' &&
+        trace.traceControl.contourPixels >= TARGETS.traceContourPixels &&
+        trace.traceControl.changedBrightPixels >= TARGETS.traceContourPixels,
       note: 'Offscreen normal-vs-null (ribbon hidden) delta at the trace beat. Unknown, errored or missing helper fails this requirement.',
     },
     {
-      id: 'trace-null-control-dark', source: 'plan', case: caseName,
-      observed: { status: dark?.traceControlStatus ?? 'unavailable', reading: dark?.traceControl ?? null, error: dark?.traceControlError ?? null },
+      id: 'trace-null-control-dark',
+      source: 'plan',
+      case: caseName,
+      observed: {
+        status: dark?.traceControlStatus ?? 'unavailable',
+        reading: dark?.traceControl ?? null,
+        error: dark?.traceControlError ?? null,
+      },
       pass: dark?.traceControlStatus === 'observed' && dark.traceControl.contourPixels === 0,
       note: 'The dark hold must OBSERVE zero contour pixels from the same registered camera. Unavailable is unknown, not zero, so it fails here.',
     },
     {
-      id: 'probe-api-present', source: 'harness', case: caseName,
+      id: 'probe-api-present',
+      source: 'harness',
+      case: caseName,
       observed: { missing: [...new Set(caseRows.flatMap((row) => row.apiMissing ?? []))] },
       pass: caseRows.every((row) => (row.apiMissing ?? []).length === 0),
       note: 'Every required __drawingProof helper must exist; a missing helper is a harness failure, never a silent unknown.',
     },
     {
-      id: 'lit-hold-bright', source: 'info', case: caseName,
+      id: 'lit-hold-bright',
+      source: 'info',
+      case: caseName,
       observed: lit?.paper?.median ?? null,
       pass: null,
       note: 'Reference only: the lit hold is the bright end of the same measurement chain.',
     },
     {
-      id: 'tier-and-gpu', source: 'info', case: caseName,
+      id: 'tier-and-gpu',
+      source: 'info',
+      case: caseName,
       observed: { tier: dark?.tier ?? null, matrixConsistent: dark?.matrixConsistent ?? null },
       pass: null,
       note: 'Full-tier finish needs headed Chrome on D3D11; a downgraded tier or a stale sheet matrix invalidates the finish reading, not the numbers.',
@@ -813,21 +1022,38 @@ const summary = {
   targets: TARGETS,
   points,
   invariants: {
-    'all-errors': summaries.filter((row) => row.errors.length).map((row) => ({ t: row.t, name: row.name, case: row.case, errors: row.errors })),
-    'unclean-stills': summaries.filter((row) => !row.ok).map((row) => ({ t: row.t, name: row.name, case: row.case, error: row.error })),
-    'camera-not-settled': summaries.filter((row) => row.cameraResidual !== null && row.cameraResidual > 1e-3).map((row) => ({ t: row.t, case: row.case, residual: row.cameraResidual })),
-    'sheet-matrix-stale': summaries.filter((row) => row.matrixConsistent === false).map((row) => ({ t: row.t, case: row.case })),
+    'all-errors': summaries
+      .filter((row) => row.errors.length)
+      .map((row) => ({ t: row.t, name: row.name, case: row.case, errors: row.errors })),
+    'unclean-stills': summaries
+      .filter((row) => !row.ok)
+      .map((row) => ({ t: row.t, name: row.name, case: row.case, error: row.error })),
+    'camera-not-settled': summaries
+      .filter((row) => row.cameraResidual !== null && row.cameraResidual > 1e-3)
+      .map((row) => ({ t: row.t, case: row.case, residual: row.cameraResidual })),
+    'sheet-matrix-stale': summaries
+      .filter((row) => row.matrixConsistent === false)
+      .map((row) => ({ t: row.t, case: row.case })),
     'trace-fallback': summaries.filter((row) => row.traceFallback).map((row) => ({ t: row.t, case: row.case })),
-    'trace-control-not-observed': summaries.filter((row) => row.traceControlStatus !== 'observed')
+    'trace-control-not-observed': summaries
+      .filter((row) => row.traceControlStatus !== 'observed')
       .map((row) => ({ t: row.t, case: row.case, status: row.traceControlStatus, error: row.traceControlError })),
     // Reported, not asserted: at the registered settle the stock fills the viewport, so no
     // off-sheet pixel exists to compare and the subordinate requirement cannot be evaluated.
-    'surround-not-in-frame': summaries.filter((row) => (row.surround?.count ?? 0) === 0).map((row) => ({ t: row.t, case: row.case })),
-    'probe-api-missing': summaries.filter((row) => (row.apiMissing ?? []).length).map((row) => ({ t: row.t, case: row.case, missing: row.apiMissing })),
-    'canvas-not-live': summaries.filter((row) => row.liveness && (!row.liveness.canvasConnected || row.liveness.contextLost))
+    'surround-not-in-frame': summaries
+      .filter((row) => (row.surround?.count ?? 0) === 0)
+      .map((row) => ({ t: row.t, case: row.case })),
+    'probe-api-missing': summaries
+      .filter((row) => (row.apiMissing ?? []).length)
+      .map((row) => ({ t: row.t, case: row.case, missing: row.apiMissing })),
+    'canvas-not-live': summaries
+      .filter((row) => row.liveness && (!row.liveness.canvasConnected || row.liveness.contextLost))
       .map((row) => ({ t: row.t, case: row.case, liveness: row.liveness })),
-    'gpu-unavailable': summaries.filter((row) => row.gpu && row.gpu.available !== true).map((row) => ({ t: row.t, case: row.case, gpu: row.gpu })),
-    'power-off-plan-hard': summaries.filter((row) => row.powerHard && typeof row.powerDelta === 'number' && row.powerDelta > 0.06)
+    'gpu-unavailable': summaries
+      .filter((row) => row.gpu && row.gpu.available !== true)
+      .map((row) => ({ t: row.t, case: row.case, gpu: row.gpu })),
+    'power-off-plan-hard': summaries
+      .filter((row) => row.powerHard && typeof row.powerDelta === 'number' && row.powerDelta > 0.06)
       .map((row) => ({ t: row.t, case: row.case, observed: row.lampPower, expected: row.expectedPower })),
   },
   cases,

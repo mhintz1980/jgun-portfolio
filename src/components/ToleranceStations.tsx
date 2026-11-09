@@ -74,9 +74,24 @@ function Cell({ cell }: { cell: FcfCell }) {
 
 function Frame({ cells, name }: { cells: FcfCell[]; name: string }) {
   return (
-    <div data-frame={name} className="relative inline-flex items-stretch h-[36px] font-mono text-[15px] tracking-[0.04em]">
+    <div
+      data-frame={name}
+      className="relative inline-flex items-stretch h-[36px] font-mono text-[15px] tracking-[0.04em]"
+    >
       <svg className="pointer-events-none absolute inset-0 h-full w-full overflow-visible" aria-hidden="true">
-        <rect data-outline x="0" y="0" width="100%" height="100%" pathLength={1} fill="none" stroke={CREAM} strokeWidth={1.5} strokeDasharray="1 1" strokeDashoffset={1} />
+        <rect
+          data-outline
+          x="0"
+          y="0"
+          width="100%"
+          height="100%"
+          pathLength={1}
+          fill="none"
+          stroke={CREAM}
+          strokeWidth={1.5}
+          strokeDasharray="1 1"
+          strokeDashoffset={1}
+        />
       </svg>
       {cells.map((cell, i) => (
         <div
@@ -112,15 +127,27 @@ function StationCard({ station }: { station: Station }) {
       {station.fcf && <Frame cells={station.fcf} name="a" />}
       {station.datumFlag && (
         <div data-frame="flag" className="inline-flex items-center font-mono text-[15px]">
-          <div data-cell className="opacity-0 flex h-[36px] w-[36px] items-center justify-center" style={{ border: `1.5px solid ${CREAM}` }}>
+          <div
+            data-cell
+            className="opacity-0 flex h-[36px] w-[36px] items-center justify-center"
+            style={{ border: `1.5px solid ${CREAM}` }}
+          >
             <span className="station-datum">{station.datumFlag}</span>
           </div>
         </div>
       )}
       {station.fcf2 && <Frame cells={station.fcf2} name="b" />}
       <div data-type-src={station.part} className="station-name mt-2" />
-      <div data-type-src={station.partNo} className="font-mono text-[11px] tracking-[0.28em]" style={{ color: AMBER }} />
-      <div data-type-src={station.note} className="font-mono text-[12.5px] leading-relaxed tracking-[0.03em] max-w-[23rem]" style={{ color: 'rgba(239,230,208,0.78)' }} />
+      <div
+        data-type-src={station.partNo}
+        className="font-mono text-[11px] tracking-[0.28em]"
+        style={{ color: AMBER }}
+      />
+      <div
+        data-type-src={station.note}
+        className="font-mono text-[12.5px] leading-relaxed tracking-[0.03em] max-w-[23rem]"
+        style={{ color: 'rgba(239,230,208,0.78)' }}
+      />
     </div>
   )
 }
@@ -155,10 +182,20 @@ export function ToleranceStations() {
     const apply = (f: StationFrame) => {
       const el = root.current
       if (!el) return
-      if (inspection.active) { hideOverlay(el); return }
-      if (!Number.isFinite(f.width) || !Number.isFinite(f.height) ||
-          !f.model.every(Number.isFinite) || !f.anchor.every(Number.isFinite) || !f.secondary.every(Number.isFinite)) {
-        hideOverlay(el); layout.current.fresh = true; return
+      if (inspection.active) {
+        hideOverlay(el)
+        return
+      }
+      if (
+        !Number.isFinite(f.width) ||
+        !Number.isFinite(f.height) ||
+        !f.model.every(Number.isFinite) ||
+        !f.anchor.every(Number.isFinite) ||
+        !f.secondary.every(Number.isFinite)
+      ) {
+        hideOverlay(el)
+        layout.current.fresh = true
+        return
       }
       if (!Number.isFinite(layout.current.x) || !Number.isFinite(layout.current.y)) layout.current.fresh = true
       if (f.index !== layout.current.index) {
@@ -233,9 +270,10 @@ export function ToleranceStations() {
       }
       if (c) {
         // Left-lane cards hang off their right edge via a relative translate — no layout read.
-        c.style.transform = lay.side > 0
-          ? `translate3d(${lay.x.toFixed(1)}px, ${(lay.y - 18).toFixed(1)}px, 0)`
-          : `translate3d(calc(${lay.x.toFixed(1)}px - 100%), ${(lay.y - 18).toFixed(1)}px, 0)`
+        c.style.transform =
+          lay.side > 0
+            ? `translate3d(${lay.x.toFixed(1)}px, ${(lay.y - 18).toFixed(1)}px, 0)`
+            : `translate3d(calc(${lay.x.toFixed(1)}px - 100%), ${(lay.y - 18).toFixed(1)}px, 0)`
         c.style.textAlign = lay.side > 0 ? 'left' : 'right'
         c.style.alignItems = lay.side > 0 ? 'flex-start' : 'flex-end'
       }
@@ -245,7 +283,10 @@ export function ToleranceStations() {
       // A datum feature gets the Y14.5 filled triangle on the feature instead of a reticle.
       if (datum.current) {
         datum.current.style.visibility = aOn && station.datumFlag ? 'visible' : 'hidden'
-        datum.current.setAttribute('transform', `translate(${ax.toFixed(1)} ${ay.toFixed(1)}) scale(${reticleIn.toFixed(3)})`)
+        datum.current.setAttribute(
+          'transform',
+          `translate(${ax.toFixed(1)} ${ay.toFixed(1)}) scale(${reticleIn.toFixed(3)})`,
+        )
       }
       if (reticle.current) {
         reticle.current.style.visibility = aOn && !station.card && !station.datumFlag ? 'visible' : 'hidden'
@@ -327,20 +368,65 @@ export function ToleranceStations() {
   const station = index >= 0 ? STATIONS[index] : null
 
   return (
-    <div ref={root} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[12] select-none" style={{ visibility: 'hidden', color: CREAM }}>
+    <div
+      ref={root}
+      aria-hidden="true"
+      className="pointer-events-none fixed inset-0 z-[12] select-none"
+      style={{ visibility: 'hidden', color: CREAM }}
+    >
       <svg className="absolute inset-0 h-full w-full overflow-visible">
-        <line ref={axis} stroke={CREAM} strokeWidth={1.25} strokeDasharray="34 6 6 6 6 6" strokeLinecap="round" opacity={0.85} />
+        <line
+          ref={axis}
+          stroke={CREAM}
+          strokeWidth={1.25}
+          strokeDasharray="34 6 6 6 6 6"
+          strokeLinecap="round"
+          opacity={0.85}
+        />
         <circle ref={glint} r={4} fill={AMBER} style={{ filter: 'drop-shadow(0 0 8px #f2a24a)' }} />
-        <polyline ref={secondary} fill="none" stroke={CREAM} strokeWidth={1.25} pathLength={1} strokeDasharray="1 1" strokeDashoffset={1} opacity={0.7} />
-        <polyline ref={leader} fill="none" stroke={CREAM} strokeWidth={1.5} strokeLinejoin="round" pathLength={1} strokeDasharray="1 1" strokeDashoffset={1} />
+        <polyline
+          ref={secondary}
+          fill="none"
+          stroke={CREAM}
+          strokeWidth={1.25}
+          pathLength={1}
+          strokeDasharray="1 1"
+          strokeDashoffset={1}
+          opacity={0.7}
+        />
+        <polyline
+          ref={leader}
+          fill="none"
+          stroke={CREAM}
+          strokeWidth={1.5}
+          strokeLinejoin="round"
+          pathLength={1}
+          strokeDasharray="1 1"
+          strokeDashoffset={1}
+        />
         <g ref={datum}>
           <path d="M-9 0 H9 L0 -13 Z" fill={AMBER} stroke={AMBER} strokeWidth={1.25} strokeLinejoin="round" />
           <path d="M-18 0 H18" stroke={CREAM} strokeWidth={1.5} strokeLinecap="round" />
         </g>
         <g ref={reticle}>
           <circle ref={ping} r={9} fill="none" stroke={AMBER} strokeWidth={1.25} opacity={0} />
-          <circle ref={ring} r={9} fill="none" stroke={AMBER} strokeWidth={1.5} pathLength={1} strokeDasharray="1 1" strokeDashoffset={1} transform="rotate(-90)" />
-          <path d="M-15 0 H-11 M11 0 H15 M0 -15 V-11 M0 11 V15" stroke={AMBER} strokeWidth={1.25} strokeLinecap="round" />
+          <circle
+            ref={ring}
+            r={9}
+            fill="none"
+            stroke={AMBER}
+            strokeWidth={1.5}
+            pathLength={1}
+            strokeDasharray="1 1"
+            strokeDashoffset={1}
+            transform="rotate(-90)"
+          />
+          <path
+            d="M-15 0 H-11 M11 0 H15 M0 -15 V-11 M0 11 V15"
+            stroke={AMBER}
+            strokeWidth={1.25}
+            strokeLinecap="round"
+          />
           <circle ref={core} r={0} fill={AMBER} />
         </g>
       </svg>

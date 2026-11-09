@@ -1,9 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import {
-  CHASSIS_RECOLOR,
-  PANEL_RECOLOR,
-  recolorSpecFor,
-} from './recolorAllowList'
+import { CHASSIS_RECOLOR, PANEL_RECOLOR, recolorSpecFor } from './recolorAllowList'
 
 /**
  * JG-032 — Recolor allow-list predicate tests.
@@ -34,9 +30,7 @@ describe('JG-032 recolor allow-list — positive cases', () => {
     expect(spec?.metalness).toBeCloseTo(0.4, 6)
     expect(spec?.envMapIntensity).toBeCloseTo(0.7, 6)
     // GLTFLoader-sanitized LBA child ('/' dropped from the GLB name)
-    expect(
-      recolorSpecFor('G2RL200-LBA-SAF-2000-3G2RL200-SAF-1049-2', 'MSP_BLACK_CHASSIS'),
-    ).toBe(PANEL_RECOLOR)
+    expect(recolorSpecFor('G2RL200-LBA-SAF-2000-3G2RL200-SAF-1049-2', 'MSP_BLACK_CHASSIS')).toBe(PANEL_RECOLOR)
     expect(recolorSpecFor('V2RL300-SAF-1066-4', 'MSP_BLACK_CHASSIS')).toBe(PANEL_RECOLOR)
     expect(recolorSpecFor('V2RL300-SAF-1047-1', 'MSP_BLACK_CHASSIS')).toBe(PANEL_RECOLOR)
   })
@@ -87,9 +81,7 @@ describe('JG-032 recolor allow-list — negative cases (JG-021 failure-band guar
     expect(recolorSpecFor('HWR-NUT-H8Z-075-1', 'MSP_STAINLESS')).toBeNull()
     expect(recolorSpecFor('V2HWR-BLT-HZ-050-150-1003', 'MSP_PLASTIC')).toBeNull()
     // Allegis latch hardware is baked black but NOT allow-listed
-    expect(
-      recolorSpecFor('2751-10282-S1-Allegis-100020185-2-1', 'MSP_BLACK_CHASSIS'),
-    ).toBeNull()
+    expect(recolorSpecFor('2751-10282-S1-Allegis-100020185-2-1', 'MSP_BLACK_CHASSIS')).toBeNull()
   })
 
   it('rejects unknown part numbers even on the recolorable material', () => {

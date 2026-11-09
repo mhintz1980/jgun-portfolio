@@ -3,9 +3,23 @@
  * presentation resources. Shader/fragment laws copied from DrawingPrint.
  */
 import {
-  AdditiveBlending, Color, DoubleSide, Group, Matrix4, Mesh, PlaneGeometry, ShaderMaterial, WebGLRenderTarget,
-  Vector2, Vector3, Vector4,
-  type BufferGeometry, type ShaderMaterialParameters, type Texture, type WebGLRenderer, type Camera,
+  AdditiveBlending,
+  Color,
+  DoubleSide,
+  Group,
+  Matrix4,
+  Mesh,
+  PlaneGeometry,
+  ShaderMaterial,
+  WebGLRenderTarget,
+  Vector2,
+  Vector3,
+  Vector4,
+  type BufferGeometry,
+  type ShaderMaterialParameters,
+  type Texture,
+  type WebGLRenderer,
+  type Camera,
 } from 'three'
 import { INK, PAPER, SHEET_HEIGHT, SHEET_WIDTH, SHEET_ZONES, makePaperGrainTexture } from '../drawing/drawingGeometry'
 import { INTRO_PHASES, type IntroState } from '../drawing/introTimeline'
@@ -101,17 +115,21 @@ void main() {
   float w2 = fract(sin(dot(floor(vWebPlane * 1240.0), vec2(269.5, 183.3))) * 43758.5453) - .5;
   float wander = .12 * w1 + .06 * w2;
   float d = abs(vAcross - wander);
-  ${halo ? `
+  ${
+    halo
+      ? `
   float spill = exp(-d * d * 1.9) + .35 * exp(-d * d * .42);
   float haloFade = vLevel < .5 ? .05 : fade;
   float a = clamp(spill * energy * uCrackWeb * retire * haloFade * hierarchy * .36, 0.0, 1.0);
-  gl_FragColor = vec4(vec3(.02, .26, .98), a);` : `
+  gl_FragColor = vec4(vec3(.02, .26, .98), a);`
+      : `
   float aa = max(fwidth(vAcross), .018);
   float w = vLevel < .5 ? .055 : mix(.125, .060, (vLevel - 1.0) / 2.0);
   float core = 1.0 - smoothstep(w * .42, w + aa * 1.15, d);
   float innerHalo = exp(-d * d * 6.8) * .38;
   float a = clamp((core + innerHalo) * energy * uCrackWeb * retire * fade * 1.35, 0.0, 1.0);
-  gl_FragColor = vec4(mix(vec3(.04, .34, 1.0), vec3(.45, .82, 1.0), core * core), min(1.0, a * hierarchy * 1.25));`}
+  gl_FragColor = vec4(mix(vec3(.04, .34, 1.0), vec3(.45, .82, 1.0), core * core), min(1.0, a * hierarchy * 1.25));`
+  }
 }`
 
 const NOISE_GLSL = /* glsl */ `
@@ -323,10 +341,13 @@ export interface PrivateSheetRuntime {
   /** Page-local presentation probes, published into the host-owned bake stats. */
   readonly stats: Record<string, number>
   /** Immutable bake inputs for independent installed-shard verification. */
-  shatterInputs(): { primaryCenter: { x: number; y: number }; fragments: Array<{ center: number[]; velocity: number[]; spin: number[]; delay: number }> }
+  shatterInputs(): {
+    primaryCenter: { x: number; y: number }
+    fragments: Array<{ center: number[]; velocity: number[]; spin: number[]; delay: number }>
+  }
   /** Applied reading-lamp uniforms, copied for host settling and beauty-replay probes. */
   renderState(): { lamp: [number, number, number]; lampPower: number; readingPool: number }
-  drawingDetailPoints(groups:readonly number[]):number[][]
+  drawingDetailPoints(groups: readonly number[]): number[][]
   pitInputs(): { outline: number[][]; ringDepthsM: readonly number[]; positions: number[]; indices: number[] }
   captureEffects(gl: WebGLRenderer, camera: Camera): ReturnType<typeof capturePortalPixels>
   captureElectricity(gl: WebGLRenderer, camera: Camera): unknown
@@ -348,9 +369,13 @@ const DEFAULT_FACTORIES: PrivateSheetFactories = {
   grain: makePaperGrainTexture,
   desk: () => new PlaneGeometry(3.4, 2.4, 1, 1),
   ribbon: makeLightningRibbon,
-  material: parameters => new ShaderMaterial(parameters),
-  portal: (outline, bottom, center, light) => makePortal(outline, bottom, center, light, makePrivatePitGeometry,
-    { fissureEnergy: { value: 0 }, fissureGrowth: { value: 0 }, rocky: true }),
+  material: (parameters) => new ShaderMaterial(parameters),
+  portal: (outline, bottom, center, light) =>
+    makePortal(outline, bottom, center, light, makePrivatePitGeometry, {
+      fissureEnergy: { value: 0 },
+      fissureGrowth: { value: 0 },
+      rocky: true,
+    }),
 }
 
 export function createPrivateSheetRuntime(
@@ -379,11 +404,19 @@ export function createPrivateSheetRuntime(
     group.visible = false
     const errors: unknown[] = []
     for (let i = cleanups.length - 1; i >= 0; i--) {
-      try { cleanups[i]() } catch (error) { errors.push(error) }
+      try {
+        cleanups[i]()
+      } catch (error) {
+        errors.push(error)
+      }
     }
     cleanups.length = 0
     owned.clear()
-    try { onCleanupFailure(Object.freeze(errors)) } catch { /* Keep the primary error. */ }
+    try {
+      onCleanupFailure(Object.freeze(errors))
+    } catch {
+      /* Keep the primary error. */
+    }
   }
   cleanups.push(() => group.clear())
   // Detach, never dispose, borrowed meshes/text. Restore their previous parent.
@@ -402,8 +435,8 @@ export function createPrivateSheetRuntime(
   // the perimeter and a clipped Detail C (owner items 1-3, 2026-10-24). Borrowed state is
   // restored on dispose, like the parents above.
   const inkMaterials = [lines.material, fills.material].flat()
-  const borrowedOrder = [lines, fills, text.object].map(object => [object, object.renderOrder] as const)
-  const borrowedDepth = inkMaterials.map(material => [material, material.depthTest] as const)
+  const borrowedOrder = [lines, fills, text.object].map((object) => [object, object.renderOrder] as const)
+  const borrowedDepth = inkMaterials.map((material) => [material, material.depthTest] as const)
   cleanups.push(() => {
     for (const [object, order] of borrowedOrder) object.renderOrder = order
     for (const [material, depthTest] of borrowedDepth) material.depthTest = depthTest
@@ -432,77 +465,134 @@ export function createPrivateSheetRuntime(
     decorate('uSheetHalf', new Vector2(SHEET_WIDTH / 2, SHEET_HEIGHT / 2))
     decorate('uKey', new Vector3(-0.16, 0.2, 0.62))
     for (const [key, value] of Object.entries({
-      uContrast: 1, uMode: 0, uDisplace: 1, uPulseHead: 0, uPulse: 0,
-      uLampPower: 1, uReadingPool: 1, uFragment: 0, uCrackGlow: 0,
-      uCrackWeb: 0, uCrackGrowth: 0, uSpark: 0,
-      uElectricalEnergy: 0, uFragmentInk: 0,
-    })) decorate(key, value)
+      uContrast: 1,
+      uMode: 0,
+      uDisplace: 1,
+      uPulseHead: 0,
+      uPulse: 0,
+      uLampPower: 1,
+      uReadingPool: 1,
+      uFragment: 0,
+      uCrackGlow: 0,
+      uCrackWeb: 0,
+      uCrackGrowth: 0,
+      uSpark: 0,
+      uElectricalEnergy: 0,
+      uFragmentInk: 0,
+    }))
+      decorate(key, value)
     decorate('uFragmentCenter', new Vector2())
     decorate('uFragmentPrint', baked.fragmentPrint)
     decorate('uCrackMask', baked.crackMask)
 
     const material = (parameters: ShaderMaterialParameters) => own(factories.material(parameters))
     const paperMaterial = material({
-      uniforms: u, vertexShader: planeVertex, fragmentShader: paperFragment,
-      side: DoubleSide, depthWrite: true, transparent: false, toneMapped: false,
+      uniforms: u,
+      vertexShader: planeVertex,
+      fragmentShader: paperFragment,
+      side: DoubleSide,
+      depthWrite: true,
+      transparent: false,
+      toneMapped: false,
     })
     const deskMaterial = material({
-      uniforms: u, vertexShader: planeVertex.replace('p.z += paperDisplacement(vPlane) * uDisplace;', ''),
-      fragmentShader: deskFragment, transparent: true, depthWrite: false, toneMapped: false,
+      uniforms: u,
+      vertexShader: planeVertex.replace('p.z += paperDisplacement(vPlane) * uDisplace;', ''),
+      fragmentShader: deskFragment,
+      transparent: true,
+      depthWrite: false,
+      toneMapped: false,
     })
     const pulseMaterial = material({
-      uniforms: u, vertexShader: WAVE_GLSL + PRIVATE_LIGHTNING_VERTEX, fragmentShader: PRIVATE_LIGHTNING_FRAGMENT,
-      transparent: true, depthWrite: false, side: DoubleSide, toneMapped: false,
+      uniforms: u,
+      vertexShader: WAVE_GLSL + PRIVATE_LIGHTNING_VERTEX,
+      fragmentShader: PRIVATE_LIGHTNING_FRAGMENT,
+      transparent: true,
+      depthWrite: false,
+      side: DoubleSide,
+      toneMapped: false,
     })
     const cracksMaterial = material({
-      uniforms: { ...u, uHaloScale: { value: 1 } }, vertexShader: WAVE_GLSL + PRIVATE_WEB_VERTEX,
+      uniforms: { ...u, uHaloScale: { value: 1 } },
+      vertexShader: WAVE_GLSL + PRIVATE_WEB_VERTEX,
       fragmentShader: privateWebFragment(false),
-      transparent: true, depthWrite: false, side: DoubleSide, toneMapped: false,
+      transparent: true,
+      depthWrite: false,
+      side: DoubleSide,
+      toneMapped: false,
     })
     const crackHaloMaterial = material({
-      uniforms: { ...u, uHaloScale: { value: 4.5 } }, vertexShader: WAVE_GLSL + PRIVATE_WEB_VERTEX,
+      uniforms: { ...u, uHaloScale: { value: 4.5 } },
+      vertexShader: WAVE_GLSL + PRIVATE_WEB_VERTEX,
       fragmentShader: privateWebFragment(true),
-      transparent: true, depthWrite: false, side: DoubleSide, toneMapped: false,
+      transparent: true,
+      depthWrite: false,
+      side: DoubleSide,
+      toneMapped: false,
       blending: AdditiveBlending,
     })
     const edgeMaterial = material({
-      uniforms: u, vertexShader: planeVertex,
-      fragmentShader: 'uniform float uLampPower; varying vec2 vPlane; ' + PORTAL_PROFILE_GLSL
-        + 'void main(){ gl_FragColor=vec4(vec3(0.76,0.66,0.48)*(0.48+0.52*uLampPower)'
-        + '+vec3(0.28,0.68,0.98)*uPortalLight*0.38,1.0); }',
-      side: DoubleSide, toneMapped: false,
+      uniforms: u,
+      vertexShader: planeVertex,
+      fragmentShader:
+        'uniform float uLampPower; varying vec2 vPlane; ' +
+        PORTAL_PROFILE_GLSL +
+        'void main(){ gl_FragColor=vec4(vec3(0.76,0.66,0.48)*(0.48+0.52*uLampPower)' +
+        '+vec3(0.28,0.68,0.98)*uPortalLight*0.38,1.0); }',
+      side: DoubleSide,
+      toneMapped: false,
     })
     const paper = new Mesh(baked.fracture.paper, paperMaterial)
-    paper.name = 'engineering-drawing-Z0'; paper.renderOrder = 1
+    paper.name = 'engineering-drawing-Z0'
+    paper.renderOrder = 1
     const desk = new Mesh(own(factories.desk()), deskMaterial)
-    desk.name = 'drafting-desk'; desk.position.z = PORTAL_DESK_Z
-    desk.renderOrder = -1; desk.frustumCulled = false
+    desk.name = 'drafting-desk'
+    desk.position.z = PORTAL_DESK_Z
+    desk.renderOrder = -1
+    desk.frustumCulled = false
     const pulse = new Mesh(own(factories.ribbon(baked.rendered.profilePoints)), pulseMaterial)
-    pulse.name = 'lightning'; pulse.renderOrder = PRIVATE_GLOW_ORDER; pulse.frustumCulled = false
+    pulse.name = 'lightning'
+    pulse.renderOrder = PRIVATE_GLOW_ORDER
+    pulse.frustumCulled = false
     const edge = new Mesh(baked.fracture.edge, edgeMaterial)
-    edge.name = 'charred-profile-edge'; edge.renderOrder = 2; edge.frustumCulled = false
+    edge.name = 'charred-profile-edge'
+    edge.renderOrder = 2
+    edge.frustumCulled = false
     // Seam geometry still defines the physical hairline apertures and shard partition;
     // the denser web only carries light. Empty CPU fixtures fall back to the seams.
     const seams = own(makePrivateCrackGeometry(baked.fracture.cracks, baked.fracture.outline))
     const hasSeams = !!(seams.getAttribute('position') && seams.getAttribute('arcLength'))
-    const webGeometry = hasSeams ? own(makePrivateFractureWebGeometry(baked.fracture.cracks, baked.fracture.outline)) : seams
+    const webGeometry = hasSeams
+      ? own(makePrivateFractureWebGeometry(baked.fracture.cracks, baked.fracture.outline))
+      : seams
     const cracks = new Mesh(webGeometry, cracksMaterial)
     const crackHalo = new Mesh(webGeometry, crackHaloMaterial)
-    crackHalo.name = 'pressure-crack-halo'; crackHalo.renderOrder = PRIVATE_GLOW_ORDER; crackHalo.frustumCulled = false
+    crackHalo.name = 'pressure-crack-halo'
+    crackHalo.renderOrder = PRIVATE_GLOW_ORDER
+    crackHalo.frustumCulled = false
     cracks.add(crackHalo)
     // Match the physical hairline apertures to the private connected growth map.
     // Empty CPU fixtures have no ribbon attributes and retain their borrowed mask.
     if (hasSeams) {
       decorate('uCrackMask', own(makeCrackMask(baked.rendered.profilePoints, seams, SHEET_WIDTH, SHEET_HEIGHT)))
     }
-    cracks.name = 'pressure-crack-web'; cracks.renderOrder = PRIVATE_GLOW_ORDER; cracks.frustumCulled = false
+    cracks.name = 'pressure-crack-web'
+    cracks.renderOrder = PRIVATE_GLOW_ORDER
+    cracks.frustumCulled = false
     const fragments = baked.fracture.fragments.map((fragment, i) => {
-      const mesh = new Mesh(fragment.geometry, material({
-        uniforms: { ...u, uFragmentCenter: { value: fragment.center }, uFragment: { value: 1 } },
-        vertexShader: planeVertex, fragmentShader: paperFragment,
-        side: DoubleSide, toneMapped: false,
-      }))
-      mesh.name = 'paper-fragment-' + i; mesh.renderOrder = 1; mesh.frustumCulled = false
+      const mesh = new Mesh(
+        fragment.geometry,
+        material({
+          uniforms: { ...u, uFragmentCenter: { value: fragment.center }, uFragment: { value: 1 } },
+          vertexShader: planeVertex,
+          fragmentShader: paperFragment,
+          side: DoubleSide,
+          toneMapped: false,
+        }),
+      )
+      mesh.name = 'paper-fragment-' + i
+      mesh.renderOrder = 1
+      mesh.frustumCulled = false
       mesh.position.set(fragment.center.x, fragment.center.y, 0)
       return mesh
     })
@@ -510,22 +600,43 @@ export function createPrivateSheetRuntime(
     // solveExtraction: clearanceTravel = -(side.min.z + initialZ) + 0.0006.
     // Recover the same bound as DrawingPrint without borrowing the CAD snapshot.
     const initialModelBottom = 0.0006 - extraction.clearanceTravel
-    const portal = factories.portal(baked.fracture.outline, initialModelBottom,
-      new Vector2(layout.primaryCenter.x, layout.primaryCenter.y), u.uPortalLight as { value: number })
+    const portal = factories.portal(
+      baked.fracture.outline,
+      initialModelBottom,
+      new Vector2(layout.primaryCenter.x, layout.primaryCenter.y),
+      u.uPortalLight as { value: number },
+    )
     // Private faceted rock and fissures; shared portal shaders stay unchanged.
     for (const mesh of [portal.walls, portal.cap]) {
       configurePrivatePitMaterial(mesh.material as ShaderMaterial)
     }
     const rockWall = portal.walls.material as ShaderMaterial
-    const rocks = new Mesh(own(makePrivatePitRockGeometry(baked.fracture.outline)), material({
-      uniforms: rockWall.uniforms, vertexShader: rockWall.vertexShader, fragmentShader: rockWall.fragmentShader,
-      side: DoubleSide, transparent: true, depthWrite: true, toneMapped: false,
-    }))
-    rocks.name = 'private-projecting-rock-masses'; rocks.frustumCulled = false; rocks.renderOrder = 2
+    const rocks = new Mesh(
+      own(makePrivatePitRockGeometry(baked.fracture.outline)),
+      material({
+        uniforms: rockWall.uniforms,
+        vertexShader: rockWall.vertexShader,
+        fragmentShader: rockWall.fragmentShader,
+        side: DoubleSide,
+        transparent: true,
+        depthWrite: true,
+        toneMapped: false,
+      }),
+    )
+    rocks.name = 'private-projecting-rock-masses'
+    rocks.frustumCulled = false
+    rocks.renderOrder = 2
     portal.walls.add(rocks)
-    const lip = new Mesh(own(makePrivatePitLipGeometry(baked.fracture.outline)), material({
-      uniforms: u, side: DoubleSide, toneMapped: false, transparent: true,
-      vertexShader: WAVE_GLSL + `
+    const lip = new Mesh(
+      own(makePrivatePitLipGeometry(baked.fracture.outline)),
+      material({
+        uniforms: u,
+        side: DoubleSide,
+        toneMapped: false,
+        transparent: true,
+        vertexShader:
+          WAVE_GLSL +
+          `
         attribute vec2 aLipRoot; attribute vec2 aLipProfile;
         uniform float uFracture; varying vec3 vLip; varying vec3 vLipNormal;
         varying vec2 vLipProfile;
@@ -537,7 +648,7 @@ export function createPrivateSheetRuntime(
           p.z = position.z * open + 0.00045 * open * sin(aLipProfile.x * 3.14159265) * (0.45 + 0.55 * aLipProfile.y);
           p.z += paperDisplacement(p.xy);
           gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0); }`,
-      fragmentShader: `uniform float uLipOpacity; uniform float uFracture; uniform float uLampPower; uniform float uPortalLight; uniform vec3 uPaper;
+        fragmentShader: `uniform float uLipOpacity; uniform float uFracture; uniform float uLampPower; uniform float uPortalLight; uniform vec3 uPaper;
         varying vec3 vLip; varying vec3 vLipNormal; varying vec2 vLipProfile;
         void main() {
           float open = smoothstep(0.02, 0.22, uFracture);
@@ -559,12 +670,16 @@ export function createPrivateSheetRuntime(
           c += vec3(0.38, 0.25, 0.12) * (1.0 - smoothstep(0.0, 0.58, across)) * uPortalLight * 0.68;
           c += vec3(0.22, 0.64, 0.96) * uPortalLight * exp(-across * 6.5) * 0.62;
           gl_FragColor = vec4(c, uLipOpacity * feather * smoothstep(0.02, 0.06, uFracture)); }`,
-    }))
-    lip.name = 'private-torn-paper-lip'; lip.renderOrder = 2; lip.frustumCulled = false
+      }),
+    )
+    lip.name = 'private-torn-paper-lip'
+    lip.renderOrder = 2
+    lip.frustumCulled = false
     portal.group.add(lip)
     // Register each returned portal resource separately: a throwing dispose listener
     // must not prevent cleanup of its other geometry/material/light resources.
-    own(portal.walls.geometry); own(portal.cap.geometry)
+    own(portal.walls.geometry)
+    own(portal.cap.geometry)
     for (const mesh of [portal.walls, portal.cap]) {
       for (const m of Array.isArray(mesh.material) ? mesh.material : [mesh.material]) own(m)
     }
@@ -588,72 +703,128 @@ export function createPrivateSheetRuntime(
     stats.annotationsFailed = 0
     let readinessError: unknown
     let readinessFailed = false
-    void text.ready.then(() => {
-      if (!disposed) stats.annotationsReady = 1
-    }, error => {
-      if (disposed) return
-      readinessFailed = true; readinessError = error
-      stats.annotationsFailed = 1
-    })
+    void text.ready.then(
+      () => {
+        if (!disposed) stats.annotationsReady = 1
+      },
+      (error) => {
+        if (disposed) return
+        readinessFailed = true
+        readinessError = error
+        stats.annotationsFailed = 1
+      },
+    )
 
     return {
-      group, stats, dispose,
-      renderState: () => ({ lamp: [u.uLamp.value.x, u.uLamp.value.y, u.uLamp.value.z],
-        lampPower: u.uLampPower.value as number, readingPool: u.uReadingPool.value as number }),
-      drawingDetailPoints: groups => {
-        const points:number[][]=[], seg=baked.lines.geometry.getAttribute('aSeg'), style=baked.lines.geometry.getAttribute('aStyle')
-        if(seg && style)for(let i=0;i<seg.count;i++)if(groups.includes(Math.round(style.getY(i)))) {
-          points.push([seg.getX(i),seg.getY(i),.0003],[seg.getZ(i),seg.getW(i),.0003])
-        }
-        if(typeof baked.text.captureBounds==='function')for(const id of groups)for(const item of baked.text.captureBounds(id).items) {
-          if(!item.bounds)continue
-          const [x0,y0,x1,y1]=item.bounds
-          points.push([x0,y0,.0003],[x0,y1,.0003],[x1,y0,.0003],[x1,y1,.0003])
-        }
+      group,
+      stats,
+      dispose,
+      renderState: () => ({
+        lamp: [u.uLamp.value.x, u.uLamp.value.y, u.uLamp.value.z],
+        lampPower: u.uLampPower.value as number,
+        readingPool: u.uReadingPool.value as number,
+      }),
+      drawingDetailPoints: (groups) => {
+        const points: number[][] = [],
+          seg = baked.lines.geometry.getAttribute('aSeg'),
+          style = baked.lines.geometry.getAttribute('aStyle')
+        if (seg && style)
+          for (let i = 0; i < seg.count; i++)
+            if (groups.includes(Math.round(style.getY(i)))) {
+              points.push([seg.getX(i), seg.getY(i), 0.0003], [seg.getZ(i), seg.getW(i), 0.0003])
+            }
+        if (typeof baked.text.captureBounds === 'function')
+          for (const id of groups)
+            for (const item of baked.text.captureBounds(id).items) {
+              if (!item.bounds) continue
+              const [x0, y0, x1, y1] = item.bounds
+              points.push([x0, y0, 0.0003], [x0, y1, 0.0003], [x1, y0, 0.0003], [x1, y1, 0.0003])
+            }
         return points
       },
-      shatterInputs: () => ({ primaryCenter: { x: layout.primaryCenter.x, y: layout.primaryCenter.y },
-        fragments: baked.fracture.fragments.map(f => ({ center: [f.center.x, f.center.y],
-          velocity: f.velocity.toArray(), spin: f.spin.toArray(), delay: f.delay })) }),
-      pitInputs: () => ({ outline: baked.fracture.outline, ringDepthsM: portal.ringDepthsM,
+      shatterInputs: () => ({
+        primaryCenter: { x: layout.primaryCenter.x, y: layout.primaryCenter.y },
+        fragments: baked.fracture.fragments.map((f) => ({
+          center: [f.center.x, f.center.y],
+          velocity: f.velocity.toArray(),
+          spin: f.spin.toArray(),
+          delay: f.delay,
+        })),
+      }),
+      pitInputs: () => ({
+        outline: baked.fracture.outline,
+        ringDepthsM: portal.ringDepthsM,
         positions: Array.from(portal.walls.geometry.getAttribute('position').array),
-        indices: Array.from(portal.walls.geometry.index!.array) }),
-      captureEffects: (gl, camera) => capturePortalPixels({ gl, camera, sheet: group,
-        outline: baked.fracture.outline, portal, desk, paper, fragments, edge, modelRootName: 'private-wrench-world' }),
+        indices: Array.from(portal.walls.geometry.index!.array),
+      }),
+      captureEffects: (gl, camera) =>
+        capturePortalPixels({
+          gl,
+          camera,
+          sheet: group,
+          outline: baked.fracture.outline,
+          portal,
+          desk,
+          paper,
+          fragments,
+          edge,
+          modelRootName: 'private-wrench-world',
+        }),
       captureElectricity(gl, camera) {
-        const priorTarget = gl.getRenderTarget(), priorCamera = camera.matrixWorld.clone()
-        const profileVisible = pulse.visible, interiorVisible = cracks.visible
+        const priorTarget = gl.getRenderTarget(),
+          priorCamera = camera.matrixWorld.clone()
+        const profileVisible = pulse.visible,
+          interiorVisible = cracks.visible
         const fissure = (portal.walls.material as ShaderMaterial).uniforms.uPortalFissureEnergy
         const energy = fissure.value
-        const width = 640, height = Math.max(1, Math.round(width * gl.domElement.height / gl.domElement.width))
+        const width = 640,
+          height = Math.max(1, Math.round((width * gl.domElement.height) / gl.domElement.width))
         const target = new WebGLRenderTarget(width, height)
         let root = group
         while (root.parent) root = root.parent as Group
         const read = () => {
           const pixels = new Uint8Array(width * height * 4)
-          gl.setRenderTarget(target); gl.render(root, camera)
+          gl.setRenderTarget(target)
+          gl.render(root, camera)
           gl.readRenderTargetPixels(target, 0, 0, width, height, pixels)
           return pixels
         }
         const difference = (a: Uint8Array, b: Uint8Array) => {
           let count = 0
-          for (let i = 0; i < a.length; i += 4) if ([0, 1, 2].some(c => Math.abs(a[i + c] - b[i + c]) > 2)) count++
+          for (let i = 0; i < a.length; i += 4) if ([0, 1, 2].some((c) => Math.abs(a[i + c] - b[i + c]) > 2)) count++
           return count
         }
         try {
           root.updateMatrixWorld(true)
-          const normal = read(), control = read()
-          pulse.visible = false; const noProfile = read(); pulse.visible = profileVisible
-          cracks.visible = false; const noInterior = read(); cracks.visible = interiorVisible
-          fissure.value = 0; const noFissure = read(); fissure.value = energy
+          const normal = read(),
+            control = read()
+          pulse.visible = false
+          const noProfile = read()
+          pulse.visible = profileVisible
+          cracks.visible = false
+          const noInterior = read()
+          cracks.visible = interiorVisible
+          fissure.value = 0
+          const noFissure = read()
+          fissure.value = energy
           const restored = read()
-          return { width, height, profileChangedPixels: difference(normal, noProfile),
-            interiorChangedPixels: difference(normal, noInterior), pitFissureChangedPixels: difference(normal, noFissure),
-            controlChangedPixels: difference(normal, control), restoredChangedPixels: difference(normal, restored),
-            fixedCamera: priorCamera.equals(camera.matrixWorld), threshold8Bit: 2 }
+          return {
+            width,
+            height,
+            profileChangedPixels: difference(normal, noProfile),
+            interiorChangedPixels: difference(normal, noInterior),
+            pitFissureChangedPixels: difference(normal, noFissure),
+            controlChangedPixels: difference(normal, control),
+            restoredChangedPixels: difference(normal, restored),
+            fixedCamera: priorCamera.equals(camera.matrixWorld),
+            threshold8Bit: 2,
+          }
         } finally {
-          pulse.visible = profileVisible; cracks.visible = interiorVisible; fissure.value = energy
-          gl.setRenderTarget(priorTarget); target.dispose()
+          pulse.visible = profileVisible
+          cracks.visible = interiorVisible
+          fissure.value = energy
+          gl.setRenderTarget(priorTarget)
+          target.dispose()
         }
       },
       pitGeometryAb(gl, camera, candidate) {
@@ -664,40 +835,68 @@ export function createPrivateSheetRuntime(
         const original = Float32Array.from(attribute.array)
         const priorTarget = gl.getRenderTarget()
         const priorCamera = camera.matrixWorld.clone()
-        const width = 640, height = Math.max(1, Math.round(width * gl.domElement.height / gl.domElement.width))
+        const width = 640,
+          height = Math.max(1, Math.round((width * gl.domElement.height) / gl.domElement.width))
         const target = new WebGLRenderTarget(width, height)
         let root = group
         while (root.parent) root = root.parent as Group
         const read = () => {
           const pixels = new Uint8Array(width * height * 4)
-          gl.setRenderTarget(target); gl.render(root, camera)
+          gl.setRenderTarget(target)
+          gl.render(root, camera)
           gl.readRenderTargetPixels(target, 0, 0, width, height, pixels)
           return pixels
         }
         try {
           root.updateMatrixWorld(true)
-          const controlA = read(), controlB = read()
-          attribute.array.set(candidate); attribute.needsUpdate = true
+          const controlA = read(),
+            controlB = read()
+          attribute.array.set(candidate)
+          attribute.needsUpdate = true
           const recovered = read()
-          attribute.array.set(original); attribute.needsUpdate = true
+          attribute.array.set(original)
+          attribute.needsUpdate = true
           const restored = read()
-          let changedPixels = 0, controlChangedPixels = 0, restoredChangedPixels = 0, maxChannelDelta = 0, maxVertexDeltaM = 0
-          for (let i = 0; i < original.length; i += 3) maxVertexDeltaM = Math.max(maxVertexDeltaM,
-            Math.hypot(original[i] - candidate[i], original[i + 1] - candidate[i + 1], original[i + 2] - candidate[i + 2]))
+          let changedPixels = 0,
+            controlChangedPixels = 0,
+            restoredChangedPixels = 0,
+            maxChannelDelta = 0,
+            maxVertexDeltaM = 0
+          for (let i = 0; i < original.length; i += 3)
+            maxVertexDeltaM = Math.max(
+              maxVertexDeltaM,
+              Math.hypot(
+                original[i] - candidate[i],
+                original[i + 1] - candidate[i + 1],
+                original[i + 2] - candidate[i + 2],
+              ),
+            )
           for (let i = 0; i < controlA.length; i += 4) {
-            const delta = Math.max(...[0, 1, 2].map(c => Math.abs(controlA[i + c] - recovered[i + c])))
-            const noise = Math.max(...[0, 1, 2].map(c => Math.abs(controlA[i + c] - controlB[i + c])))
+            const delta = Math.max(...[0, 1, 2].map((c) => Math.abs(controlA[i + c] - recovered[i + c])))
+            const noise = Math.max(...[0, 1, 2].map((c) => Math.abs(controlA[i + c] - controlB[i + c])))
             if (delta > 2) changedPixels++
             if (noise > 2) controlChangedPixels++
-            if ([0, 1, 2].some(c => Math.abs(controlA[i + c] - restored[i + c]) > 2)) restoredChangedPixels++
+            if ([0, 1, 2].some((c) => Math.abs(controlA[i + c] - restored[i + c]) > 2)) restoredChangedPixels++
             maxChannelDelta = Math.max(maxChannelDelta, delta)
           }
-          return { width, height, changedPixels, controlChangedPixels, restoredChangedPixels, maxChannelDelta, maxVertexDeltaM,
-            cameraUnchanged: priorCamera.equals(camera.matrixWorld), wallVisible: portal.walls.visible && portal.group.visible && group.visible,
-            isolatedVariable: 'wall-position-attribute-only', threshold8Bit: 2 }
+          return {
+            width,
+            height,
+            changedPixels,
+            controlChangedPixels,
+            restoredChangedPixels,
+            maxChannelDelta,
+            maxVertexDeltaM,
+            cameraUnchanged: priorCamera.equals(camera.matrixWorld),
+            wallVisible: portal.walls.visible && portal.group.visible && group.visible,
+            isolatedVariable: 'wall-position-attribute-only',
+            threshold8Bit: 2,
+          }
         } finally {
-          attribute.array.set(original); attribute.needsUpdate = true
-          gl.setRenderTarget(priorTarget); target.dispose()
+          attribute.array.set(original)
+          attribute.needsUpdate = true
+          gl.setRenderTarget(priorTarget)
+          target.dispose()
         }
       },
       apply(frame, context, viewport) {
@@ -706,8 +905,12 @@ export function createPrivateSheetRuntime(
           throw new RangeError('Unsupported private sheet proofMode: ' + frame.proofMode)
         }
         if (readinessFailed) throw readinessError
-        if (!Number.isFinite(frame.delta) || !Number.isFinite(frame.retirement)
-          || !Number.isFinite(frame.cameraSheetDistance)) throw new RangeError('Private sheet frame inputs must be finite')
+        if (
+          !Number.isFinite(frame.delta) ||
+          !Number.isFinite(frame.retirement) ||
+          !Number.isFinite(frame.cameraSheetDistance)
+        )
+          throw new RangeError('Private sheet frame inputs must be finite')
         const { intro, tier, reducedMotion } = frame
         const pit = samplePit(intro.t, intro.fracture)
         const electricity = samplePrivateElectrical(intro.t, intro.fracture)
@@ -734,48 +937,66 @@ export function createPrivateSheetRuntime(
         stats.drivenInkReveal = drivenReveal
         stats.sideInkReveal = reveal[GROUP.side]
         u.uFragmentInk.value = proof ? 1 : reveal[GROUP.side]
-        if (proof) { reveal.fill(0); reveal[GROUP.side] = 1 }
+        if (proof) {
+          reveal.fill(0)
+          reveal[GROUP.side] = 1
+        }
         u.uInk.value.copy(proof ? white : navy)
         const stockVisible = retirement < 1 || proof || reducedMotion
-        paper.visible = stockVisible; desk.visible = !proof && stockVisible
-        lines.visible = stockVisible; fills.visible = !proof && stockVisible; text.object.visible = !proof && stockVisible
+        paper.visible = stockVisible
+        desk.visible = !proof && stockVisible
+        lines.visible = stockVisible
+        fills.visible = !proof && stockVisible
+        text.object.visible = !proof && stockVisible
         edge.visible = !proof && intro.fracture > 0 && stockVisible
         cracks.visible = !proof && !reducedMotion && intro.crackWeb > 0 && stockVisible
         portal.group.visible = !proof
         portal.cap.visible = portal.walls.visible = !proof && pit.visible
-        const visibleEnergy = Math.max(electricity.energy, electricity.afterglow, intro.pulseHead > 0 ? .26 : 0)
-        const pitEnergy = Math.max(electricity.pitEnergy, .46 * pit.reveal)
+        const visibleEnergy = Math.max(electricity.energy, electricity.afterglow, intro.pulseHead > 0 ? 0.26 : 0)
+        const pitEnergy = Math.max(electricity.pitEnergy, 0.46 * pit.reveal)
         const portalStrength = proof || reducedMotion ? 0 : Math.max(visibleEnergy, pitEnergy)
         const portalPulse = portal.update(intro.t, portalStrength, tier === 'lite', reducedMotion)
         const wallUniforms = (portal.walls.material as ShaderMaterial).uniforms
-        const surroundings = Math.max(0, Math.min(1, frame.surroundingsOpacity ?? 1)) * (1-retirement)
+        const surroundings = Math.max(0, Math.min(1, frame.surroundingsOpacity ?? 1)) * (1 - retirement)
         portal.group.visible = !proof && pit.visible && surroundings > 0
-        const fractureOpen = Math.max(0, Math.min(1, (intro.fracture - .02) / .06))
-        portal.group.position.z = -.018 * (1 - fractureOpen)
+        const fractureOpen = Math.max(0, Math.min(1, (intro.fracture - 0.02) / 0.06))
+        portal.group.position.z = -0.018 * (1 - fractureOpen)
         u.uLipOpacity.value = surroundings
         lip.material.depthWrite = surroundings === 1
-        lip.visible = !reducedMotion && intro.fracture > .02 && stockVisible
-        rocks.visible = !proof && pit.visible && surroundings > 0 && intro.fracture > .02
+        lip.visible = !reducedMotion && intro.fracture > 0.02 && stockVisible
+        rocks.visible = !proof && pit.visible && surroundings > 0 && intro.fracture > 0.02
         rocks.material.depthWrite = surroundings === 1
         for (const mesh of [portal.walls, portal.cap]) {
           const shader = mesh.material as ShaderMaterial
           shader.uniforms.uPrivateSurroundings.value = surroundings
-          if (shader.transparent !== (surroundings < 1)) {
-            shader.transparent = surroundings < 1; shader.needsUpdate = true
+          if (shader.transparent !== surroundings < 1) {
+            shader.transparent = surroundings < 1
+            shader.needsUpdate = true
           }
           shader.depthWrite = surroundings === 1
           mesh.visible = !proof && pit.visible && surroundings > 0
         }
         // Ambient cliff light remains after the transient electrical score ends.
         // A narrow mouth spill gives relief without revealing the remote cap.
-        if (wallUniforms.uPortalRockAlive) wallUniforms.uPortalRockAlive.value = .5
-        if (wallUniforms.uPortalFissureEnergy) wallUniforms.uPortalFissureEnergy.value = proof || reducedMotion ? 0 : pitEnergy
+        if (wallUniforms.uPortalRockAlive) wallUniforms.uPortalRockAlive.value = 0.5
+        if (wallUniforms.uPortalFissureEnergy)
+          wallUniforms.uPortalFissureEnergy.value = proof || reducedMotion ? 0 : pitEnergy
         if (wallUniforms.uPortalFissureGrowth) wallUniforms.uPortalFissureGrowth.value = electricity.pitGrowth
         for (let i = 0; i < fragments.length; i++) {
-          const f = baked.fracture.fragments[i], mesh = fragments[i]
-          const event = proof || reducedMotion ? 0 : Math.max(0, Math.min(1,
-            ((intro.t - INTRO_PHASES.fractureStart) / (INTRO_PHASES.fractureEnd - INTRO_PHASES.fractureStart)
-              - f.delay) / (1 - f.delay)))
+          const f = baked.fracture.fragments[i],
+            mesh = fragments[i]
+          const event =
+            proof || reducedMotion
+              ? 0
+              : Math.max(
+                  0,
+                  Math.min(
+                    1,
+                    ((intro.t - INTRO_PHASES.fractureStart) / (INTRO_PHASES.fractureEnd - INTRO_PHASES.fractureStart) -
+                      f.delay) /
+                      (1 - f.delay),
+                  ),
+                )
           // Pressure lifts each shard before gravity takes it into the opening.
           // A smooth launch has no infinite derivative at the crack boundary.
           const flight = event * event * (3 - 2 * event)
@@ -783,27 +1004,31 @@ export function createPrivateSheetRuntime(
           // apex and lateral throw come from its distance to the profile centre (see shardDome.ts).
           const dome = shardDome[i]
           const lift = dome.apex * Math.sin(Math.PI * event)
-          const fallU = Math.max(0, Math.min(1, (event - .76) / .24))
+          const fallU = Math.max(0, Math.min(1, (event - 0.76) / 0.24))
           const fall = fallU * fallU * (3 - 2 * fallU)
-          mesh.position.set(f.center.x + dome.vx * flight * .95,
-            f.center.y + dome.vy * flight * .95 - .055 * event * event,
-            .00002 + lift - .035 * event * event - .18 * fall)
+          mesh.position.set(
+            f.center.x + dome.vx * flight * 0.95,
+            f.center.y + dome.vy * flight * 0.95 - 0.055 * event * event,
+            0.00002 + lift - 0.035 * event * event - 0.18 * fall,
+          )
           mesh.rotation.set(f.spin.x * flight, f.spin.y * flight, f.spin.z * flight)
           mesh.visible = stockVisible
           // Intact stock is an opaque barrier even where the coarse CAD envelope crosses
           // its flex mesh. Once a piece separates it resumes ordinary 3D depth testing.
-          mesh.material.depthTest = event > .035
+          mesh.material.depthTest = event > 0.035
           // Depth testing disabled also disables depth-buffer writes in WebGL. Draw
           // intact stock after the model's transparent pass to preserve the printed lid.
-          mesh.material.transparent = event <= .035
-          mesh.renderOrder = event > .035 ? 1 : PRIVATE_INTACT_STOCK_ORDER
+          mesh.material.transparent = event <= 0.035
+          mesh.renderOrder = event > 0.035 ? 1 : PRIVATE_INTACT_STOCK_ORDER
         }
         u.uMode.value = proof ? 1 : 0
         const contrast = proof ? 1 : intro.contrast
         const opacity = proof ? 1 : intro.drawingOpacity
         const lampPower = proof || reducedMotion ? 1 : intro.lampPower
-        u.uContrast.value = contrast; u.uOpacity.value = opacity
-        u.uLampPower.value = lampPower; u.uReadingPool.value = proof ? 0 : intro.readingPool
+        u.uContrast.value = contrast
+        u.uOpacity.value = opacity
+        u.uLampPower.value = lampPower
+        u.uReadingPool.value = proof ? 0 : intro.readingPool
         const inkLight = proof ? 1 : 0.32 + 0.68 * lampPower
         u.uInk.value.multiplyScalar(inkLight)
         ;(u.uInkRed.value as Color).set(INK_RED).multiplyScalar(inkLight)
@@ -824,9 +1049,16 @@ export function createPrivateSheetRuntime(
         // (cutPrintedStock) and resumes ordinary depth testing against departing shards.
         const inkDepthTest = (u.uFracture.value as number) > 0
         for (const material of inkMaterials) material.depthTest = inkDepthTest
-        u.uWaveTime.value = intro.waveTime; u.uWaveEnabled.value = 0
+        u.uWaveTime.value = intro.waveTime
+        u.uWaveEnabled.value = 0
         u.uFlexAmplitude.value = paperFlexAmplitude(intro.t, poseT, extraction.crossing, tier, proof || reducedMotion)
-        const [contactStrength, contactRadius] = paperContactShadow(poseT, extraction.crossing, intro.pbr, tier, proof || reducedMotion)
+        const [contactStrength, contactRadius] = paperContactShadow(
+          poseT,
+          extraction.crossing,
+          intro.pbr,
+          tier,
+          proof || reducedMotion,
+        )
         ;(u.uContact.value as Vector2).set(contactStrength, contactRadius)
         u.uVellum.value = paperVellum(poseT, extraction.crossing, intro.pbr, tier, proof || reducedMotion)
         pulse.visible = (u.uCrackGlow.value as number) > 0 && stockVisible
@@ -843,42 +1075,61 @@ export function createPrivateSheetRuntime(
           lamp.set(look.x, look.y, reach)
         } else lamp.set(0, 0, 0.2)
         u.uLamp.value.copy(lamp)
-        stats.lampX = u.uLamp.value.x; stats.lampY = u.uLamp.value.y; stats.lampRadius = u.uLamp.value.z
+        stats.lampX = u.uLamp.value.x
+        stats.lampY = u.uLamp.value.y
+        stats.lampRadius = u.uLamp.value.z
         stats.flexAmplitude = u.uFlexAmplitude.value
         stats.flexPeakDisplacement = u.uFlexAmplitude.value * baked.flex.peak
         stats.flexEnabled = u.uFlexAmplitude.value > 0 ? 1 : 0
         stats.vellum = u.uVellum.value as number
-        stats.contactShadow = contactStrength; stats.contactRadius = contactRadius
+        stats.contactShadow = contactStrength
+        stats.contactRadius = contactRadius
         const matrix = context.sheetMatrix.elements
-        stats.flexNormalX = matrix[8]; stats.flexNormalY = matrix[9]; stats.flexNormalZ = matrix[10]
-        stats.fracture = intro.fracture; stats.openingClear = intro.openingClear
-        stats.fragmentCount = fragments.length; stats.fragmentThickness = baked.fracture.thickness
-        const glassU = proof || reducedMotion ? 0 : Math.max(0, Math.min(1, intro.fracture / .15))
+        stats.flexNormalX = matrix[8]
+        stats.flexNormalY = matrix[9]
+        stats.flexNormalZ = matrix[10]
+        stats.fracture = intro.fracture
+        stats.openingClear = intro.openingClear
+        stats.fragmentCount = fragments.length
+        stats.fragmentThickness = baked.fracture.thickness
+        const glassU = proof || reducedMotion ? 0 : Math.max(0, Math.min(1, intro.fracture / 0.15))
         stats.glassThickness = baked.fracture.thickness * (1 + 4 * glassU * glassU * (3 - 2 * glassU))
-        stats.fragmentArea = baked.fracture.fragmentArea; stats.holeArea = baked.fracture.area
+        stats.fragmentArea = baked.fracture.fragmentArea
+        stats.holeArea = baked.fracture.area
         stats.maxBoundaryDeviation = baked.fracture.maxBoundaryDeviation
-        stats.crackGlow = intro.crackGlow; stats.crackWeb = intro.crackWeb; stats.paperOpacity = 1
-        stats.pitReveal = pit.reveal; stats.pitFissureEnergy = proof || reducedMotion ? 0 : pitEnergy
-        stats.electricalEnergy = proof || reducedMotion ? 0 : visibleEnergy; stats.electricalOutline = electricity.outline
-        stats.electricalBranch = electricity.branch; stats.pitFissureGrowth = electricity.pitGrowth
+        stats.crackGlow = intro.crackGlow
+        stats.crackWeb = intro.crackWeb
+        stats.paperOpacity = 1
+        stats.pitReveal = pit.reveal
+        stats.pitFissureEnergy = proof || reducedMotion ? 0 : pitEnergy
+        stats.electricalEnergy = proof || reducedMotion ? 0 : visibleEnergy
+        stats.electricalOutline = electricity.outline
+        stats.electricalBranch = electricity.branch
+        stats.pitFissureGrowth = electricity.pitGrowth
         stats.pitMaxRingDeviationM = portal.maxRingDeviationM
         stats.modelBarrierSafe = intro.openingClear || intro.poseT <= 0.4 ? 1 : 0
         stats.portalActive = portal.group.visible && group.visible ? 1 : 0
         stats.stockRetired = stockVisible ? 0 : 1
         stats.pitRetained = portal.group.visible && group.visible && portal.walls.visible ? 1 : 0
         stats.surroundingsOpacity = surroundings
-        stats.portalCapZ = portal.capZ; stats.portalMouthZ = portal.mouthZ
+        stats.portalCapZ = portal.capZ
+        stats.portalMouthZ = portal.mouthZ
         stats.portalDeskZ = desk.position.z
         stats.portalCapBehindModel = portal.capZ < portal.initialModelBottom ? 1 : 0
         stats.portalInitialModelBottom = portal.initialModelBottom
-        stats.portalProfilePoints = portal.profilePoints; stats.portalWallLevels = portal.wallLevels
+        stats.portalProfilePoints = portal.profilePoints
+        stats.portalWallLevels = portal.wallLevels
         stats.portalDepthWrite = (portal.walls.material as ShaderMaterial).depthWrite ? 1 : 0
         stats.portalCapDepthWrite = (portal.cap.material as ShaderMaterial).depthWrite ? 1 : 0
         stats.portalDeskDiscard = 1
-        stats.portalPulse = portalPulse; stats.portalLight = u.uPortalLight.value as number
-        stats.phase = intro.t; stats.poseT = poseT; stats.lineOpacity = opacity
+        stats.portalPulse = portalPulse
+        stats.portalLight = u.uPortalLight.value as number
+        stats.phase = intro.t
+        stats.poseT = poseT
+        stats.lineOpacity = opacity
         stats.focus = proof || reducedMotion ? 1 : intro.focus
-        stats.lampPower = lampPower; stats.blackout = lampPower <= 0.03 ? 1 : 0
+        stats.lampPower = lampPower
+        stats.blackout = lampPower <= 0.03 ? 1 : 0
         stats.readingPool = u.uReadingPool.value as number
         inverseSheet.copy(context.sheetMatrix).invert().multiply(context.modelMatrix)
         stats.localZ = inverseSheet.elements[14]

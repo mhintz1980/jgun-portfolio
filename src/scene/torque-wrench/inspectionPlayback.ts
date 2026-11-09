@@ -11,17 +11,34 @@ export interface InspectionPlayback {
 }
 
 export function createInspectionPlayback(): InspectionPlayback {
-  let open = false, playing = false, progress = 0
+  let open = false,
+    playing = false,
+    progress = 0
   return {
     snapshot: () => ({ open, playing, progress }),
     isOpen: () => open,
-    open() { open = true; playing = false; progress = 0 },
-    close() { open = false; playing = false },
-    play() { if (open) { if (progress === 1) progress = 0; playing = true } },
-    pause() { playing = false },
+    open() {
+      open = true
+      playing = false
+      progress = 0
+    },
+    close() {
+      open = false
+      playing = false
+    },
+    play() {
+      if (open) {
+        if (progress === 1) progress = 0
+        playing = true
+      }
+    },
+    pause() {
+      playing = false
+    },
     seek(value) {
       if (!Number.isFinite(value)) throw new RangeError('Inspection seek must be finite')
-      progress = Math.max(0, Math.min(1, value)); playing = false
+      progress = Math.max(0, Math.min(1, value))
+      playing = false
     },
     advance(delta, visible) {
       if (open && playing && visible && Number.isFinite(delta) && delta > 0) {

@@ -25,7 +25,18 @@ const COMPACT = '(max-width: 720px)'
 // Peel-through image stack (from Mark's earlier site): the stage pins for a few viewports while
 // each card lifts away in turn. Scroll drives it; a mouse can also drag the stack to scrub.
 // Reduced motion: a plain grid of the same images.
-export default function ProjectStack({ number, title, reviewLine, reviewQuote, reviewTags, images, href, linkLabel, hint, onActive }: ProjectStackProps) {
+export default function ProjectStack({
+  number,
+  title,
+  reviewLine,
+  reviewQuote,
+  reviewTags,
+  images,
+  href,
+  linkLabel,
+  hint,
+  onActive,
+}: ProjectStackProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const cardRefs = useRef<(HTMLElement | null)[]>([])
   const countRef = useRef<HTMLSpanElement>(null)
@@ -57,7 +68,8 @@ export default function ProjectStack({ number, title, reviewLine, reviewQuote, r
         card.style.transform = cardTransform(state, compact)
         card.style.opacity = String(state.opacity)
       })
-      if (countRef.current) countRef.current.textContent = `${String(Math.min(front + 1, images.length)).padStart(2, '0')} / ${String(images.length).padStart(2, '0')}`
+      if (countRef.current)
+        countRef.current.textContent = `${String(Math.min(front + 1, images.length)).padStart(2, '0')} / ${String(images.length).padStart(2, '0')}`
     }
     const schedule = () => {
       if (inView && !frame) frame = requestAnimationFrame(paint)
@@ -67,7 +79,9 @@ export default function ProjectStack({ number, title, reviewLine, reviewQuote, r
       schedule()
     })
     io.observe(section)
-    const centre = new IntersectionObserver(([entry]) => onActive?.(entry.isIntersecting), { rootMargin: '-50% 0px -50% 0px' })
+    const centre = new IntersectionObserver(([entry]) => onActive?.(entry.isIntersecting), {
+      rootMargin: '-50% 0px -50% 0px',
+    })
     centre.observe(section)
     window.addEventListener('scroll', schedule, { passive: true })
     window.addEventListener('resize', schedule)
@@ -126,7 +140,13 @@ export default function ProjectStack({ number, title, reviewLine, reviewQuote, r
         <ul className="home-stack-grid">
           {images.map((image) => (
             <li key={image.src} className={`home-stack-frame is-${image.kind}`}>
-              <img src={image.src} width={image.width} height={image.height} alt={`${title}: ${image.label}`} loading="lazy" />
+              <img
+                src={image.src}
+                width={image.width}
+                height={image.height}
+                alt={`${title}: ${image.label}`}
+                loading="lazy"
+              />
               <span className="home-stack-caption">{image.label}</span>
             </li>
           ))}
@@ -140,42 +160,42 @@ export default function ProjectStack({ number, title, reviewLine, reviewQuote, r
       <div className="home-stack-stage">
         {description}
         <div className="home-stack-visual">
-        <span className="home-stack-count" ref={countRef} aria-hidden="true">
-          01 / {String(images.length).padStart(2, '0')}
-        </span>
-        <div
-          className="home-stack-cards"
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={endDrag}
-          onPointerCancel={endDrag}
-        >
-          {images.map((image, i) => (
-            <figure
-              key={image.src}
-              ref={(node) => {
-                cardRefs.current[i] = node
-              }}
-              className={`home-stack-card is-${image.kind}`}
-              style={{ zIndex: images.length - i }}
-            >
-              <img
-                src={image.src}
-                width={image.width}
-                height={image.height}
-                alt={`${title}: ${image.label}`}
-                loading={i < 2 ? 'eager' : 'lazy'}
-                draggable={false}
-              />
-              <figcaption className="home-stack-caption">
-                <span>
-                  {String(i + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}
-                </span>
-                {image.label}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+          <span className="home-stack-count" ref={countRef} aria-hidden="true">
+            01 / {String(images.length).padStart(2, '0')}
+          </span>
+          <div
+            className="home-stack-cards"
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={endDrag}
+            onPointerCancel={endDrag}
+          >
+            {images.map((image, i) => (
+              <figure
+                key={image.src}
+                ref={(node) => {
+                  cardRefs.current[i] = node
+                }}
+                className={`home-stack-card is-${image.kind}`}
+                style={{ zIndex: images.length - i }}
+              >
+                <img
+                  src={image.src}
+                  width={image.width}
+                  height={image.height}
+                  alt={`${title}: ${image.label}`}
+                  loading={i < 2 ? 'eager' : 'lazy'}
+                  draggable={false}
+                />
+                <figcaption className="home-stack-caption">
+                  <span>
+                    {String(i + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}
+                  </span>
+                  {image.label}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
       </div>
     </div>

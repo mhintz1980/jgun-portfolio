@@ -47,10 +47,18 @@ export function createSecondOrderDynamics(f = 1.35, z = 0.5, r = 1.25, x0 = 0, y
     f,
     z,
     r,
-    get x() { return px },
-    get y() { return py },
-    get vx() { return vx },
-    get vy() { return vy },
+    get x() {
+      return px
+    },
+    get y() {
+      return py
+    },
+    get vx() {
+      return vx
+    },
+    get vy() {
+      return vy
+    },
     update(dt: number, targetX: number, targetY: number) {
       if (!Number.isFinite(dt) || dt <= 0) return { x: px, y: py, vx, vy }
       const step = Math.min(Math.max(dt, 1e-4), 0.1)
@@ -66,7 +74,12 @@ export function createSecondOrderDynamics(f = 1.35, z = 0.5, r = 1.25, x0 = 0, y
       return { x: px, y: py, vx, vy }
     },
     reset(x = 0, y = 0) {
-      xp = x; yp = y; px = x; py = y; vx = 0; vy = 0
+      xp = x
+      yp = y
+      px = x
+      py = y
+      vx = 0
+      vy = 0
     },
   }
 }
@@ -93,7 +106,12 @@ export interface StopAndAppreciateController {
   nudgeOrbit(deltaYawRad: number, deltaPitchRad: number): void
   onWheelDelta(deltaY: number): boolean
   toggleFreeLook(force?: boolean, currentProgress?: number): boolean
-  applyCamera(dt: number, progress: number, pose: CameraHandoffPose, outTelemetry?: StopAndAppreciateTelemetry): CameraHandoffPose
+  applyCamera(
+    dt: number,
+    progress: number,
+    pose: CameraHandoffPose,
+    outTelemetry?: StopAndAppreciateTelemetry,
+  ): CameraHandoffPose
   snapshot(): StopAndAppreciateTelemetry
 }
 
@@ -275,7 +293,7 @@ export function createStopAndAppreciateController(): StopAndAppreciateController
         whipBackElapsed = 0
         frozenProgress = currentProgress ?? lastProgress ?? 0
         // Give a subtle initial 12-degree inspection nudge on entry if stationary at 0 so pressing F has immediate visual feedback
-        const currentYaw = (dynamics.x * PASSIVE_LOOK_MAX_RAD * passiveWeight) * -1
+        const currentYaw = dynamics.x * PASSIVE_LOOK_MAX_RAD * passiveWeight * -1
         const currentPitch = dynamics.y * PASSIVE_LOOK_MAX_RAD * passiveWeight
         orbitYaw = Math.abs(currentYaw) > 0.02 ? currentYaw : -0.21
         orbitPitch = Math.abs(currentPitch) > 0.02 ? currentPitch : 0.12
@@ -289,7 +307,12 @@ export function createStopAndAppreciateController(): StopAndAppreciateController
       telemetry.frozenProgress = frozenProgress
       return freeLookActive
     },
-    applyCamera(dt: number, progress: number, pose: CameraHandoffPose, outTelemetry?: StopAndAppreciateTelemetry): CameraHandoffPose {
+    applyCamera(
+      dt: number,
+      progress: number,
+      pose: CameraHandoffPose,
+      outTelemetry?: StopAndAppreciateTelemetry,
+    ): CameraHandoffPose {
       const step = Number.isFinite(dt) && dt > 0 ? Math.min(dt, 0.1) : 0
       const scrolling = lastProgress !== null && Math.abs(progress - lastProgress) > 1e-6
       lastProgress = progress
@@ -301,7 +324,11 @@ export function createStopAndAppreciateController(): StopAndAppreciateController
         // Mode B: Active Free Look around the current subject target (both pointer hover look and click-drag 360 orbit).
         const dyn = dynamics.update(step, pointerMoved ? pointerX : 0, pointerMoved ? pointerY : 0)
         yaw = orbitYaw - dyn.x * PASSIVE_LOOK_MAX_RAD * 1.4
-        pitch = clamp(orbitPitch + dyn.y * PASSIVE_LOOK_MAX_RAD * 1.1, -FREE_LOOK_MAX_PITCH_RAD, FREE_LOOK_MAX_PITCH_RAD)
+        pitch = clamp(
+          orbitPitch + dyn.y * PASSIVE_LOOK_MAX_RAD * 1.1,
+          -FREE_LOOK_MAX_PITCH_RAD,
+          FREE_LOOK_MAX_PITCH_RAD,
+        )
         deflectCameraAroundTarget(pose, yaw, pitch, qYaw, qPitch, offset, forward, right, orthoUp)
         telemetry.mode = 'free-look'
         telemetry.whipBackProgress = 0

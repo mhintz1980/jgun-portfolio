@@ -11,12 +11,12 @@ export const smooth = (a: number, b: number, x: number) => {
 /** Measured world bounds of `public/models/msp-enclosure.glb` (POSITION accessor extrema
  *  through the node transforms): x ±0.800, y 0 → 2.107, z ±1.683. Every camera endpoint
  *  below is authored against these, not against eyeballed numbers. */
-export const MODEL_BOUNDS = { min: [-.8, 0, -1.683], max: [.8, 2.107, 1.683] } as const
+export const MODEL_BOUNDS = { min: [-0.8, 0, -1.683], max: [0.8, 2.107, 1.683] } as const
 
 /** Clip keeps `x ≤ plane.constant`. `+0.85` clears the model entirely (closed exterior);
  *  `-0.15` is the deepest the sequence ever cuts, past the centreline. */
-export const CLOSED_CUT = .85
-export const DEEPEST_CUT = -.15
+export const CLOSED_CUT = 0.85
+export const DEEPEST_CUT = -0.15
 
 /** The authored shots, one per beat record in `beats.ts`. `from`/`to` are RL300-local progress;
  *  the titles and notes are the editorial overlay's source of truth, so the copy cannot drift
@@ -50,7 +50,8 @@ export function evaluateShot(progress: number, portrait: boolean) {
   const u = clamp01(progress)
   let i = KEYS.length - 2
   while (i > 0 && u < KEYS[i].at) i--
-  const a = KEYS[i], b = KEYS[i + 1]
+  const a = KEYS[i],
+    b = KEYS[i + 1]
   const t = smooth(a.at, b.at, u)
   const position = [0, 0, 0] as Vec3
   const target = [0, 0, 0] as Vec3
@@ -68,8 +69,13 @@ export function evaluateShot(progress: number, portrait: boolean) {
   }
   const cut = cutAt(u)
   return {
-    u, cut, underside: undersideAt(u),
+    u,
+    cut,
+    underside: undersideAt(u),
     plane: CLOSED_CUT + (DEEPEST_CUT - CLOSED_CUT) * cut,
-    position, target, fov, beat: shotIndexAt(u),
+    position,
+    target,
+    fov,
+    beat: shotIndexAt(u),
   }
 }

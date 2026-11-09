@@ -28,15 +28,15 @@ export const PORTAL_MOUTH_Z = -0.00048
 /** Approved fissure/trace blue: sRGB #79CFFF, written as display-referred shader components. */
 export const PORTAL_FISSURE_HEX = 0x79cfff
 export const PORTAL_FISSURE_CSS = '#79cfff'
-export const PORTAL_FISSURE_RGB: readonly [number, number, number] =
-  [0x79 / 255, 0xcf / 255, 1]
+export const PORTAL_FISSURE_RGB: readonly [number, number, number] = [0x79 / 255, 0xcf / 255, 1]
 
 /**
  * Ring depths below the lip, in metres. Dense at the lip where parallax resolves rock, then
  * roughly doubling so a fixed vertex budget reaches an unknowable distance below.
  */
-export const PORTAL_RING_DEPTHS: readonly number[] =
-  Object.freeze([0, 0.012, 0.032, 0.07, 0.14, 0.28, 0.55, 1.05, 1.75, 2.4, 3.2])
+export const PORTAL_RING_DEPTHS: readonly number[] = Object.freeze([
+  0, 0.012, 0.032, 0.07, 0.14, 0.28, 0.55, 1.05, 1.75, 2.4, 3.2,
+])
 
 /** Deepest ring — the far closure plane, 3.2 m below the lip. */
 export const PORTAL_SHAFT_DEPTH_M = PORTAL_RING_DEPTHS[PORTAL_RING_DEPTHS.length - 1]
@@ -172,23 +172,36 @@ export function portalClearanceM(depthM: number): number {
 export function portalReliefM(x: number, y: number, depthM: number): [number, number] {
   const amplitude = PORTAL_RELIEF_M * smoothstep01(Math.max(0, depthM) / PORTAL_RELIEF_RAMP_M)
   if (amplitude === 0) return [0, 0]
-  const p = strataPhase(depthM), q = strataPhase(depthM + 0.5)
-  const dx = amplitude * (0.55 * tri(x / RELIEF_LAMBDA_X + p) + 0.3 * tri(x / RELIEF_LAMBDA_X_FINE + 1.7 * q + 0.3) + 0.65 * tri(y / RELIEF_LAMBDA_Y + 0.37 + q))
-  const dy = amplitude * (0.55 * tri(y / RELIEF_LAMBDA_Y_FINE + p + 0.61) + 0.3 * tri(y / RELIEF_LAMBDA_Y + 1.3 * p + 0.15) + 0.65 * tri(x / RELIEF_LAMBDA_X + 0.83 + q))
+  const p = strataPhase(depthM),
+    q = strataPhase(depthM + 0.5)
+  const dx =
+    amplitude *
+    (0.55 * tri(x / RELIEF_LAMBDA_X + p) +
+      0.3 * tri(x / RELIEF_LAMBDA_X_FINE + 1.7 * q + 0.3) +
+      0.65 * tri(y / RELIEF_LAMBDA_Y + 0.37 + q))
+  const dy =
+    amplitude *
+    (0.55 * tri(y / RELIEF_LAMBDA_Y_FINE + p + 0.61) +
+      0.3 * tri(y / RELIEF_LAMBDA_Y + 1.3 * p + 0.15) +
+      0.65 * tri(x / RELIEF_LAMBDA_X + 0.83 + q))
   return [dx, dy]
 }
 
 /** One shaft vertex: exact contour point + relief + outward clearance, at its metric depth. */
-export function portalRingPoint(
-  profile: PortalShaftProfile, index: number, depthM: number,
-): [number, number, number] {
+export function portalRingPoint(profile: PortalShaftProfile, index: number, depthM: number): [number, number, number] {
   const p = profile.outline[index]
   const [dx, dy] = portalReliefM(p[0], p[1], depthM)
   const clearance = portalClearanceM(depthM)
   let ox = p[0] - profile.centroid[0]
   let oy = p[1] - profile.centroid[1]
   const len = Math.hypot(ox, oy)
-  if (len > 1e-9 && clearance > 0) { ox /= len; oy /= len } else { ox = 0; oy = 0 }
+  if (len > 1e-9 && clearance > 0) {
+    ox /= len
+    oy /= len
+  } else {
+    ox = 0
+    oy = 0
+  }
   return [p[0] + dx + ox * clearance, p[1] + dy + oy * clearance, PORTAL_MOUTH_Z - depthM]
 }
 
@@ -261,8 +274,12 @@ export function makePortalShaftGeometry(
   closureGeometry.setAttribute('position', new Float32BufferAttribute(floor, 3))
   closureGeometry.setIndex(ShapeUtils.triangulateShape(closureContour, []).flat())
   return {
-    wallGeometry, closureGeometry, profile,
-    ringCount: rings, ringDepthsM: depths, maxRingDeviationM,
+    wallGeometry,
+    closureGeometry,
+    profile,
+    ringCount: rings,
+    ringDepthsM: depths,
+    maxRingDeviationM,
   }
 }
 
@@ -284,7 +301,8 @@ export interface PortalOcclusionGuarantee {
 
 /** Can any sight line through the torn aperture reach the far closure? */
 export function portalOcclusionGuarantee(
-  extentM: number, offNormalDeg: number = PORTAL_SIGHTLINE_FLOOR_DEG,
+  extentM: number,
+  offNormalDeg: number = PORTAL_SIGHTLINE_FLOOR_DEG,
 ): PortalOcclusionGuarantee {
   const requiredDepthM = portalSightlineDepthM(extentM, offNormalDeg)
   return {

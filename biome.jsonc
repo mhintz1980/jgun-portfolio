@@ -1,0 +1,116 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.6.6/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": false,
+    // Same scope as tsconfig (src/tests/build + root configs) plus scripts/, which tsc
+    // does not typecheck. Page-root dirs (armament/, home/, quiet-machine/,
+    // torque-wrench/) and the separate remotion/ workspace are excluded for now.
+    "includes": [
+      "src/**",
+      "tests/**",
+      "scripts/**",
+      "build/**",
+      "vite.config.ts",
+      "playwright.config.ts",
+      "!src/data/glb-manifests.json",
+      "!src/index.css"
+    ]
+  },
+  // glb-manifests.json: 300 KB generated dump (tests/e2e/dump-glb-manifests.spec.ts) — never format.
+  // index.css: Tailwind v4 `source()` / `@source` syntax; Biome 2.6's CSS parser rejects it.
+  // Revisit both on Biome upgrades.
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 120,
+    "lineEnding": "lf"
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "jsxQuoteStyle": "double",
+      "semicolons": "asNeeded",
+      "trailingCommas": "all",
+      "arrowParentheses": "always"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      // Tuned 2026-11-09 to bootstrap the gate green at baseline (origin/main f5fa563f).
+      // Everything NOT listed here that reports errors = clean at baseline and enforced.
+      // Strategy: errors block (`npm run lint` / pre-push), warnings are visible nudges —
+      // tighten these down over time; do not add new "off" entries without a TODO entry.
+      "correctness": {
+        // 125 sites: R3F mutable-ref/camera idiom; re-tighten file-by-file.
+        "useExhaustiveDependencies": "warn",
+        // 2 sites: deliberate "cleanup must not replace the render error" pattern (commented in code).
+        "noUnsafeFinally": "warn",
+        // Test mock classes returning objects from constructors.
+        "noConstructorReturn": "warn",
+        // Offline-source exporter + geometry factories call hook factories deliberately.
+        "noComponentHookFactories": "warn",
+        // probe-jgun-vellum.mjs defines a local `describe` helper; rule assumes Playwright API.
+        "usePlaywrightValidDescribeCallback": "warn"
+      },
+      "suspicious": {
+        // 54 sites in verify-* probes and runtime code; needs per-site judgment.
+        "useIterableCallbackReturn": "warn",
+        // Static geometry/part lists; index keys are stable by construction.
+        "noArrayIndexKey": "warn",
+        // HUD/brand copy deliberately renders "//" as a design motif (3 JSX sites).
+        "noCommentText": "warn",
+        // Parser idiom `while ((x = next()))` in sheet geometry code.
+        "noAssignInExpressions": "warn",
+        "noShadowRestrictedNames": "warn",
+        // Measured CAD constants everywhere; the rule's 3.14/2.718 heuristics don't fit.
+        "noApproximativeNumericConstant": "off",
+        // stack.css uses the intentional `height: 100vh; height: 100svh;` fallback pattern.
+        "noDuplicateProperties": "warn"
+      },
+      "security": {
+        // Verify-* probe scripts inject snapshot code with indirect eval on purpose.
+        "noGlobalEval": "warn"
+      },
+      "a11y": {
+        // Batch a11y hygiene pass owed; findings visible as warnings until then.
+        "useButtonType": "warn",
+        "noLabelWithoutControl": "warn",
+        "noSvgWithoutTitle": "warn",
+        "useAriaPropsSupportedByRole": "warn",
+        "noStaticElementInteractions": "warn",
+        "noAriaHiddenOnFocusable": "warn",
+        "useSemanticElements": "warn",
+        "useAnchorContent": "warn",
+        "useKeyWithClickEvents": "warn"
+      },
+      "complexity": {
+        // `&&` chains are house style (105 sites).
+        "useOptionalChain": "off"
+      },
+      "style": {
+        // String concat is house style (899 sites).
+        "useTemplate": "off",
+        // `!` assertions are house style (320 sites).
+        "noNonNullAssertion": "off"
+      }
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        // Off: house import order is deliberate (fs/path/assert by use, then packages, then
+        // relative) and re-sorting would churn ~every file and conflict with in-flight branches.
+        "organizeImports": "off"
+      }
+    }
+  }
+}

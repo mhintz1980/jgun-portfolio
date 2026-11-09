@@ -33,9 +33,30 @@ export interface SpatialStation {
 }
 
 export const SPATIAL_STATIONS: readonly SpatialStation[] = [
-  { id: 'jgun', index: 0, label: 'STATION 01', name: 'PTG-HP-1000 TORQUE WRENCH', position: [0, 0, 0], scrollProgress: 0.0 },
-  { id: 'enclosure', index: 1, label: 'STATION 02', name: 'RL-300 ACOUSTIC SAFE ENCLOSURE', position: [28, 0, -6], scrollProgress: 0.60 },
-  { id: 'm249', index: 2, label: 'STATION 03', name: 'M249 / MK46 PLATFORM', position: [56, 0, -12], scrollProgress: 0.85 },
+  {
+    id: 'jgun',
+    index: 0,
+    label: 'STATION 01',
+    name: 'PTG-HP-1000 TORQUE WRENCH',
+    position: [0, 0, 0],
+    scrollProgress: 0.0,
+  },
+  {
+    id: 'enclosure',
+    index: 1,
+    label: 'STATION 02',
+    name: 'RL-300 ACOUSTIC SAFE ENCLOSURE',
+    position: [28, 0, -6],
+    scrollProgress: 0.6,
+  },
+  {
+    id: 'm249',
+    index: 2,
+    label: 'STATION 03',
+    name: 'M249 / MK46 PLATFORM',
+    position: [56, 0, -12],
+    scrollProgress: 0.85,
+  },
 ] as const
 
 /**
@@ -75,12 +96,12 @@ function initialScrollProgress(): number {
   const params = new URLSearchParams(window.location.search)
   const station = params.get('station')
   if (station === '1' || station === 'jgun') return 0.0
-  if (station === '2' || station === 'enclosure' || station === 'safe-enclosure') return 0.60
+  if (station === '2' || station === 'enclosure' || station === 'safe-enclosure') return 0.6
   if (station === '3' || station === 'm249') return 0.85
   const chapter = params.get('chapter')
   if (chapter === '0') return 0.0
   if (chapter === '1') return 0.35
-  if (chapter === '2') return 0.60
+  if (chapter === '2') return 0.6
   if (chapter === '3') return 0.85
   // ?dwell=<key> deep-links to a dwell window midpoint. Like every value above, it is
   // PACED progress — ScrollRig converts it to raw scroll via rawScrollFor() on mount —
@@ -147,9 +168,7 @@ export function setScrollState(patch: Partial<ScrollState>): void {
   // Headless proof probes pin progress so a captured frame is a pure function of the value
   // asked for. Real sessions never set this flag.
   const proofProgress =
-    typeof window !== 'undefined'
-      ? (window as unknown as Record<string, unknown>).__drawingProofProgress
-      : undefined
+    typeof window !== 'undefined' ? (window as unknown as Record<string, unknown>).__drawingProofProgress : undefined
   if (typeof proofProgress === 'number') patch = { ...patch, progress: proofProgress, velocity: 0 }
   let changed = false
   for (const key of Object.keys(patch) as (keyof ScrollState)[]) {

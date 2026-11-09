@@ -41,7 +41,7 @@
   top: 1.35rem;
   left: clamp(1rem, 3vw, 2.6rem);
   margin: 0;
-  font: 0.62rem/1 monospace;
+  font: 0.62rem / 1 monospace;
   letter-spacing: 0.13em;
   text-transform: uppercase;
   color: #d2c4a3;
@@ -53,7 +53,7 @@
   top: 1.35rem;
   right: clamp(1rem, 3vw, 2.6rem);
   margin: 0;
-  font: 0.62rem/1 monospace;
+  font: 0.62rem / 1 monospace;
   letter-spacing: 0.13em;
   text-transform: uppercase;
   color: #c8cdca;
@@ -74,14 +74,14 @@
   border-radius: 2px;
 }
 
-.torque-hud[data-torque-hud-chapter='drafting'] .torque-hud__caption,
-.torque-hud[data-torque-hud-chapter='breakthrough'] .torque-hud__caption {
+.torque-hud[data-torque-hud-chapter="drafting"] .torque-hud__caption,
+.torque-hud[data-torque-hud-chapter="breakthrough"] .torque-hud__caption {
   top: clamp(4.5rem, 9vh, 6.5rem);
   bottom: auto;
 }
 
-.torque-hud[data-torque-hud-chapter='drafting'] .torque-hud__caption,
-.torque-hud[data-torque-hud-chapter='close'] .torque-hud__caption {
+.torque-hud[data-torque-hud-chapter="drafting"] .torque-hud__caption,
+.torque-hud[data-torque-hud-chapter="close"] .torque-hud__caption {
   background: linear-gradient(180deg, rgba(5, 8, 10, 0.28), rgba(5, 8, 10, 0.55));
 }
 
@@ -92,8 +92,14 @@
 }
 
 @keyframes torque-hud-caption-in {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -121,7 +127,7 @@
 
 .torque-hud__step {
   margin: 0.75rem 0 0;
-  font: 0.66rem/1.3 monospace;
+  font: 0.66rem / 1.3 monospace;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: pre;
@@ -130,7 +136,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .torque-hud__step { animation: none; }
+  .torque-hud__step {
+    animation: none;
+  }
 }
 
 /* Mode pills (audit #2): fill follows the ring's own shift, 0 Rundown → 1 High Torque.
@@ -145,7 +153,7 @@
 .torque-hud__mode {
   padding: 0.28rem 0.6rem;
   border-radius: 999px;
-  font: 0.6rem/1 monospace;
+  font: 0.6rem / 1 monospace;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #e9ece8;
@@ -165,7 +173,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .torque-hud__mode { transition: none; }
+  .torque-hud__mode {
+    transition: none;
+  }
 }
 
 /* Torque-path tracker (audit #3): stages in physical driveline order. A dot lights, and the
@@ -176,7 +186,7 @@
   align-items: center;
   gap: 0.3rem;
   margin: 0.55rem 0 0;
-  font: 0.6rem/1 monospace;
+  font: 0.6rem / 1 monospace;
   letter-spacing: 0.08em;
   white-space: nowrap;
   color: #9aa3a3;
@@ -184,7 +194,9 @@
   transition: opacity 240ms linear;
 }
 
-.torque-hud__path[data-lit="0"] { opacity: 0; }
+.torque-hud__path[data-lit="0"] {
+  opacity: 0;
+}
 
 .torque-hud__path-dot {
   display: inline-flex;
@@ -194,16 +206,20 @@
 }
 
 .torque-hud__path-dot::before {
-  content: '';
+  content: "";
   width: 0.4rem;
   height: 0.4rem;
   border-radius: 50%;
   border: 1px solid currentColor;
   box-sizing: border-box;
-  transition: background-color 200ms linear, box-shadow 200ms linear;
+  transition:
+    background-color 200ms linear,
+    box-shadow 200ms linear;
 }
 
-.torque-hud__path-dot[data-on="true"] { color: #d2c4a3; }
+.torque-hud__path-dot[data-on="true"] {
+  color: #d2c4a3;
+}
 
 .torque-hud__path-dot[data-on="true"]::before {
   background: #d2c4a3;
@@ -219,7 +235,7 @@
 }
 
 .torque-hud__path-link::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: #d2c4a3;
@@ -228,13 +244,17 @@
   transition: transform 280ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-.torque-hud__path-link[data-on="true"]::after { transform: scaleX(1); }
+.torque-hud__path-link[data-on="true"]::after {
+  transform: scaleX(1);
+}
 
 @media (prefers-reduced-motion: reduce) {
   .torque-hud__path,
   .torque-hud__path-dot,
   .torque-hud__path-dot::before,
-  .torque-hud__path-link::after { transition: none; }
+  .torque-hud__path-link::after {
+    transition: none;
+  }
 }
 
 .torque-hud abbr[title] {
@@ -266,7 +286,7 @@
   padding-top: 0.6rem;
   max-width: 19rem;
   border-top: 1px solid rgba(210, 189, 138, 0.35);
-  font: 0.64rem/1.8 monospace;
+  font: 0.64rem / 1.8 monospace;
   letter-spacing: 0.07em;
   color: #d3c49d;
   white-space: normal;
@@ -367,7 +387,16 @@
   height: 0.9rem;
   border-radius: 2px;
   /* Same semantic ramp as the shared FOS presentation (low red → high blue). */
-  background: linear-gradient(90deg, #b8422c 0%, #cf7a33 20%, #d9b13f 33%, #b7c46b 50%, #6f9f8f 66%, #4c7fae 82%, #3a63a0 100%);
+  background: linear-gradient(
+    90deg,
+    #b8422c 0%,
+    #cf7a33 20%,
+    #d9b13f 33%,
+    #b7c46b 50%,
+    #6f9f8f 66%,
+    #4c7fae 82%,
+    #3a63a0 100%
+  );
 }
 
 .torque-hud__fos-marker {
@@ -443,7 +472,9 @@
   text-align: left;
   cursor: pointer;
   white-space: nowrap;
-  text-shadow: 0 1px 3px #000, 0 0 10px rgba(0, 0, 0, 0.9);
+  text-shadow:
+    0 1px 3px #000,
+    0 0 10px rgba(0, 0, 0, 0.9);
 }
 
 .torque-hud__rail-index {
@@ -455,7 +486,7 @@
   color: #e8eae5;
 }
 
-.torque-hud__rail-button[aria-current='step'] .torque-hud__rail-name {
+.torque-hud__rail-button[aria-current="step"] .torque-hud__rail-name {
   color: #fff;
 }
 
@@ -483,19 +514,25 @@
 
   /* Owner review 2026-11-05: with the step line + tracker rows, the kicker rose under the
      evidence panel. Tighter narrow-only spacing (~1.1rem total) keeps it clear. */
-  .torque-hud__step { margin-top: 0.5rem; }
+  .torque-hud__step {
+    margin-top: 0.5rem;
+  }
   .torque-hud__path,
-  .torque-hud__modes { margin-top: 0.4rem; }
-  .torque-hud__cue { margin-top: 0.6rem; }
+  .torque-hud__modes {
+    margin-top: 0.4rem;
+  }
+  .torque-hud__cue {
+    margin-top: 0.6rem;
+  }
 
   .torque-hud__lede {
     max-width: 15rem;
   }
 
   /* The opening sheet and the closing assembly are busy at this width: keep the wash on. */
-  .torque-hud[data-torque-hud-chapter='drafting'] .torque-hud__caption,
-  .torque-hud[data-torque-hud-chapter='breakthrough'] .torque-hud__caption,
-  .torque-hud[data-torque-hud-chapter='close'] .torque-hud__caption {
+  .torque-hud[data-torque-hud-chapter="drafting"] .torque-hud__caption,
+  .torque-hud[data-torque-hud-chapter="breakthrough"] .torque-hud__caption,
+  .torque-hud[data-torque-hud-chapter="close"] .torque-hud__caption {
     top: auto;
     bottom: 10.5rem;
     background: linear-gradient(180deg, rgba(5, 8, 10, 0.3), rgba(5, 8, 10, 0.58));
@@ -533,7 +570,7 @@
     cursor: pointer;
   }
 
-  .torque-hud__chapters-toggle[aria-expanded='true'] {
+  .torque-hud__chapters-toggle[aria-expanded="true"] {
     border-color: #9a855a;
   }
 
@@ -572,11 +609,11 @@
   }
 
   /* Stable active marker: gold bar + brightened index, no row shift. */
-  .torque-hud__rail-button[aria-current='step'] {
+  .torque-hud__rail-button[aria-current="step"] {
     border-left-color: #d2bd8b;
   }
 
-  .torque-hud__rail-button[aria-current='step'] .torque-hud__rail-index {
+  .torque-hud__rail-button[aria-current="step"] .torque-hud__rail-index {
     color: #efd48b;
   }
 }

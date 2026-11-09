@@ -138,6 +138,12 @@ export interface LegacyRedirect {
 
 export const LEGACY_REDIRECTS: readonly LegacyRedirect[] = [
   { param: 'study', values: ['rl300'], to: 'quiet-machine', keepParams: true, status: 'active' },
-  { param: 'station', values: ['2', 'enclosure', 'safe-enclosure'], to: 'quiet-machine', keepParams: false, status: 'cutover' },
+  {
+    param: 'station',
+    values: ['2', 'enclosure', 'safe-enclosure'],
+    to: 'quiet-machine',
+    keepParams: false,
+    status: 'cutover',
+  },
   { param: 'chapter', values: ['2'], to: 'quiet-machine', keepParams: false, status: 'cutover' },
 ]
