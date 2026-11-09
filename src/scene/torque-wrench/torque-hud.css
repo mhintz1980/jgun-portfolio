@@ -3,12 +3,40 @@
    packet (warm gold accents). The flowing story stays in the DOM for pacing and static
    modes; live mode hides it (torque-wrench.css) and this chrome is its visible equivalent. */
 
+@font-face {
+  font-family: 'Archivo';
+  src: url('/fonts/home/Archivo.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('/fonts/home/SpaceGrotesk.woff2') format('woff2');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/home/JetBrainsMono.woff2') format('woff2');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 .torque-hud {
+  --hud-display: 'Archivo', system-ui, -apple-system, sans-serif;
+  --hud-body: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --hud-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   position: fixed;
   inset: 0;
   z-index: 11;
   pointer-events: none;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--hud-body);
+  font-variant-numeric: tabular-nums;
 }
 
 .torque-hud__scrim-top,
@@ -19,19 +47,18 @@
 
 .torque-hud__scrim-top {
   inset: 0 0 auto 0;
-  height: 22vh;
-  max-height: 200px;
-  background: linear-gradient(180deg, rgba(5, 8, 10, 0.55), rgba(5, 8, 10, 0));
+  height: 18vh;
+  max-height: 170px;
+  background: linear-gradient(180deg, rgba(16, 17, 19, 0.38), rgba(16, 17, 19, 0));
 }
 
 .torque-hud__scrim-edge {
   inset: 0 0 0 auto;
-  /* Owner correction 2026-11-04: at the C300 study frame the polished shaft fills the
-     right edge and the old 0.5 → 0 scrim left the rail names and indices washed out.
-     Wider, darker edge pool; the rail itself also gained a local text shadow below. */
-  width: 240px;
-  max-width: 18vw;
-  background: linear-gradient(270deg, rgba(5, 8, 10, 0.68), rgba(5, 8, 10, 0.22) 55%, rgba(5, 8, 10, 0));
+  /* Owner correction 2026-11-04 + studio background 2026-11-07: keep a localized right-edge
+     readability feather without crushing the warm-graphite studio perimeter to pitch black. */
+  width: 140px;
+  max-width: 12vw;
+  background: linear-gradient(270deg, rgba(16, 17, 19, 0.28), rgba(16, 17, 19, 0));
 }
 
 /* Fixed brand mast (owner ruling 2026-11-03): quiet mono caps in the concept gold,
@@ -41,8 +68,8 @@
   top: 1.35rem;
   left: clamp(1rem, 3vw, 2.6rem);
   margin: 0;
-  font: 0.62rem/1 monospace;
-  letter-spacing: 0.13em;
+  font: 500 0.62rem/1 var(--hud-mono);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #d2c4a3;
   text-shadow: 0 1px 8px #000;
@@ -53,8 +80,8 @@
   top: 1.35rem;
   right: clamp(1rem, 3vw, 2.6rem);
   margin: 0;
-  font: 0.62rem/1 monospace;
-  letter-spacing: 0.13em;
+  font: 500 0.62rem/1 var(--hud-mono);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #c8cdca;
   text-shadow: 0 1px 8px #000;
@@ -66,9 +93,9 @@
   position: absolute;
   left: clamp(1rem, 3vw, 2.6rem);
   bottom: clamp(5.5rem, 12vh, 7.5rem);
-  width: min(23rem, 38vw);
+  width: min(23.5rem, 38vw);
   pointer-events: auto;
-  text-shadow: 0 2px 15px #000;
+  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.85);
   padding: 1.1rem 1.25rem 1.25rem;
   margin: -1.1rem -1.25rem -1.25rem;
   border-radius: 2px;
@@ -82,24 +109,56 @@
 
 .torque-hud[data-torque-hud-chapter='drafting'] .torque-hud__caption,
 .torque-hud[data-torque-hud-chapter='close'] .torque-hud__caption {
-  background: linear-gradient(180deg, rgba(5, 8, 10, 0.28), rgba(5, 8, 10, 0.55));
+  background: linear-gradient(180deg, rgba(18, 18, 20, 0.34), rgba(14, 14, 16, 0.62));
 }
 
-/* Stage 2 motion review: chapter copy swaps with a quiet fade/rise (keyed remount in
-   TorqueHUD). Reduced motion gets the plain swap — no animation. */
+/* Stage 2 motion review + 2026-11-07 staggered choreography: chapter copy rows enter in a
+   50ms vertical cadence with a left-to-right gold rule draw (keyed remount in TorqueHUD).
+   Reduced motion gets the plain swap — no animation. */
 .torque-hud__caption-copy {
-  animation: torque-hud-caption-in 360ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation: torque-hud-caption-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.torque-hud__kicker {
+  animation: torque-hud-caption-in 340ms cubic-bezier(0.16, 1, 0.3, 1) 0ms both;
+}
+
+.torque-hud__title {
+  animation: torque-hud-caption-in 400ms cubic-bezier(0.16, 1, 0.3, 1) 55ms both;
+}
+
+.torque-hud__lede {
+  animation: torque-hud-caption-in 420ms cubic-bezier(0.16, 1, 0.3, 1) 105ms both;
+}
+
+.torque-hud__cue,
+.torque-hud__details {
+  animation: torque-hud-caption-in 420ms cubic-bezier(0.16, 1, 0.3, 1) 150ms both;
 }
 
 @keyframes torque-hud-caption-in {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: none; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .torque-hud__caption-copy {
-    animation: none;
+@keyframes torque-hud-rule-draw {
+  from {
+    transform: scaleX(0);
   }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes torque-hud-rule-draw {
+  from { opacity: 0.25; transform: scaleX(0); }
+  to { opacity: 1; transform: scaleX(1); }
+}
+
+@keyframes torque-hud-step-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
 }
 
 .torque-hud__kicker {
@@ -107,30 +166,29 @@
   align-items: center;
   gap: 0.6rem;
   margin: 0;
-  font: 0.62rem monospace;
-  letter-spacing: 0.1em;
+  font: 500 0.62rem/1 var(--hud-mono);
+  letter-spacing: 0.11em;
   text-transform: uppercase;
-  color: #d2c4a3;
+  color: #d6c8a8;
+  animation: torque-hud-caption-in 320ms cubic-bezier(0.22, 1, 0.36, 1) 0ms both;
 }
 
 .torque-hud__rule {
-  width: 2.1rem;
+  width: 2.2rem;
   height: 1px;
   background: #d6c39a;
+  transform-origin: left center;
+  animation: torque-hud-rule-draw 440ms cubic-bezier(0.16, 1, 0.3, 1) 40ms both;
 }
 
 .torque-hud__step {
   margin: 0.75rem 0 0;
-  font: 0.66rem/1.3 monospace;
+  font: 500 0.65rem/1.35 var(--hud-mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: pre;
   color: #d2c4a3;
-  animation: torque-hud-caption-in 360ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .torque-hud__step { animation: none; }
+  animation: torque-hud-step-in 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* Mode pills (audit #2): fill follows the ring's own shift, 0 Rundown → 1 High Torque.
@@ -145,7 +203,7 @@
 .torque-hud__mode {
   padding: 0.28rem 0.6rem;
   border-radius: 999px;
-  font: 0.6rem/1 monospace;
+  font: 500 0.6rem/1 var(--hud-mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #e9ece8;
@@ -165,7 +223,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .torque-hud__mode { transition: none; }
+  .torque-hud__mode {
+    transition: none;
+  }
 }
 
 /* Torque-path tracker (audit #3): stages in physical driveline order. A dot lights, and the
@@ -176,7 +236,7 @@
   align-items: center;
   gap: 0.3rem;
   margin: 0.55rem 0 0;
-  font: 0.6rem/1 monospace;
+  font: 500 0.6rem/1 var(--hud-mono);
   letter-spacing: 0.08em;
   white-space: nowrap;
   color: #9aa3a3;
@@ -184,7 +244,9 @@
   transition: opacity 240ms linear;
 }
 
-.torque-hud__path[data-lit="0"] { opacity: 0; }
+.torque-hud__path[data-lit="0"] {
+  opacity: 0;
+}
 
 .torque-hud__path-dot {
   display: inline-flex;
@@ -203,7 +265,9 @@
   transition: background-color 200ms linear, box-shadow 200ms linear;
 }
 
-.torque-hud__path-dot[data-on="true"] { color: #d2c4a3; }
+.torque-hud__path-dot[data-on="true"] {
+  color: #d2c4a3;
+}
 
 .torque-hud__path-dot[data-on="true"]::before {
   background: #d2c4a3;
@@ -228,13 +292,18 @@
   transition: transform 280ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-.torque-hud__path-link[data-on="true"]::after { transform: scaleX(1); }
+.torque-hud__path-link[data-on="true"]::after {
+  transform: scaleX(1);
+}
 
 @media (prefers-reduced-motion: reduce) {
+
   .torque-hud__path,
   .torque-hud__path-dot,
   .torque-hud__path-dot::before,
-  .torque-hud__path-link::after { transition: none; }
+  .torque-hud__path-link::after {
+    transition: none;
+  }
 }
 
 .torque-hud abbr[title] {
@@ -244,37 +313,44 @@
 }
 
 .torque-hud__title {
-  margin: 0.9rem 0 0.5rem;
-  font-size: clamp(1.9rem, 3.2vw, 3rem);
-  font-weight: 400;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-  color: #f1f1eb;
+  margin: 0.85rem 0 0.55rem;
+  font-family: var(--hud-display);
+  font-size: clamp(1.85rem, 2.85vw, 2.65rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.04;
+  color: #f4f2ec;
+  animation: torque-hud-caption-in 380ms cubic-bezier(0.22, 1, 0.36, 1) 55ms both;
 }
 
 .torque-hud__lede {
   margin: 0;
-  max-width: 17rem;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: #d1d5d1;
+  max-width: 20.5rem;
+  font-family: var(--hud-body);
+  font-size: 0.86rem;
+  font-weight: 400;
+  line-height: 1.54;
+  color: #d6d9d5;
   text-wrap: balance;
+  animation: torque-hud-caption-in 420ms cubic-bezier(0.22, 1, 0.36, 1) 105ms both;
 }
 
 .torque-hud__cue {
-  margin: 0.9rem 0 0;
+  margin: 0.85rem 0 0;
   padding-top: 0.6rem;
-  max-width: 19rem;
+  max-width: 20.5rem;
   border-top: 1px solid rgba(210, 189, 138, 0.35);
-  font: 0.64rem/1.8 monospace;
-  letter-spacing: 0.07em;
+  font: 500 0.62rem/1.75 var(--hud-mono);
+  letter-spacing: 0.06em;
   color: #d3c49d;
   white-space: normal;
+  animation: torque-hud-caption-in 420ms cubic-bezier(0.22, 1, 0.36, 1) 150ms both;
 }
 
 .torque-hud__details {
   margin-top: 1.1rem;
   font-size: 0.72rem;
+  animation: torque-hud-caption-in 420ms cubic-bezier(0.22, 1, 0.36, 1) 150ms both;
 }
 
 .torque-hud__details summary {
@@ -308,20 +384,21 @@
   position: absolute;
   right: clamp(1rem, 3vw, 2.6rem);
   bottom: 5.6rem;
-  width: 19rem;
-  padding: 0.95rem 1.05rem 1.05rem;
+  width: 19.5rem;
+  padding: 1rem 1.1rem 1.1rem;
   box-sizing: border-box;
-  background: rgba(10, 15, 18, 0.72);
-  border: 1px solid #2e4356;
+  background: rgba(16, 18, 21, 0.78);
+  border: 1px solid rgba(132, 145, 156, 0.32);
   border-radius: 0.375rem;
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(8px);
   pointer-events: auto;
   text-shadow: none;
+  animation: torque-hud-caption-in 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .torque-hud__tech-head {
   margin: 0 0 0.6rem;
-  font: 0.6rem monospace;
+  font: 500 0.6rem var(--hud-mono);
   letter-spacing: 0.1em;
   color: #d2c4a3;
 }
@@ -330,9 +407,9 @@
   list-style: none;
   margin: 0 0 0.75rem;
   padding: 0;
-  font: 0.66rem monospace;
+  font: 500 0.65rem var(--hud-mono);
   letter-spacing: 0.04em;
-  color: #d6dad6;
+  color: #dcded9;
 }
 
 .torque-hud__tech-attempts li {
@@ -341,11 +418,17 @@
   gap: 0.6rem;
   padding: 0.3rem 0;
   border-bottom: 1px solid rgba(120, 132, 126, 0.25);
+  animation: torque-hud-caption-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+
+.torque-hud__tech-attempts li:nth-child(1) { animation-delay: 40ms; }
+.torque-hud__tech-attempts li:nth-child(2) { animation-delay: 90ms; }
+.torque-hud__tech-attempts li:nth-child(3) { animation-delay: 140ms; }
 
 .torque-hud__tech-fail {
   color: #d98a68;
   letter-spacing: 0.12em;
+  animation: torque-hud-caption-in 280ms cubic-bezier(0.22, 1, 0.36, 1) 180ms both;
 }
 
 .torque-hud__fos {
@@ -356,7 +439,7 @@
 }
 
 .torque-hud__fos-title {
-  font: 0.62rem monospace;
+  font: 500 0.62rem var(--hud-mono);
   letter-spacing: 0.1em;
   color: #d2c4a3;
 }
@@ -397,15 +480,35 @@
   grid-column: 2;
   display: flex;
   justify-content: space-between;
-  font: 0.56rem monospace;
+  font: 500 0.56rem var(--hud-mono);
   color: #a7b1ab;
 }
 
 .torque-hud__tech-note {
   margin: 0.7rem 0 0;
-  font-size: 0.66rem;
-  line-height: 1.6;
+  font-family: var(--hud-body);
+  font-size: 0.68rem;
+  line-height: 1.55;
   color: #c3cbc5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .torque-hud__caption-copy,
+  .torque-hud__kicker,
+  .torque-hud__rule,
+  .torque-hud__step,
+  .torque-hud__title,
+  .torque-hud__lede,
+  .torque-hud__cue,
+  .torque-hud__details,
+  .torque-hud__tech,
+  .torque-hud__tech-attempts li,
+  .torque-hud__tech-fail {
+    animation: none;
+  }
+  .torque-hud__fos-marker {
+    transition: none;
+  }
 }
 
 /* Owner ruling 2026-11-04: bottom desktop rail clears the caption, tech panel and Free Look.
@@ -438,7 +541,7 @@
   background: none;
   border: 0;
   color: #b9c2bc;
-  font: 0.64rem monospace;
+  font: 500 0.64rem var(--hud-mono);
   letter-spacing: 0.05em;
   text-align: left;
   cursor: pointer;
@@ -483,10 +586,18 @@
 
   /* Owner review 2026-11-05: with the step line + tracker rows, the kicker rose under the
      evidence panel. Tighter narrow-only spacing (~1.1rem total) keeps it clear. */
-  .torque-hud__step { margin-top: 0.5rem; }
+  .torque-hud__step {
+    margin-top: 0.5rem;
+  }
+
   .torque-hud__path,
-  .torque-hud__modes { margin-top: 0.4rem; }
-  .torque-hud__cue { margin-top: 0.6rem; }
+  .torque-hud__modes {
+    margin-top: 0.4rem;
+  }
+
+  .torque-hud__cue {
+    margin-top: 0.6rem;
+  }
 
   .torque-hud__lede {
     max-width: 15rem;
@@ -498,7 +609,7 @@
   .torque-hud[data-torque-hud-chapter='close'] .torque-hud__caption {
     top: auto;
     bottom: 10.5rem;
-    background: linear-gradient(180deg, rgba(5, 8, 10, 0.3), rgba(5, 8, 10, 0.58));
+    background: linear-gradient(180deg, rgba(18, 18, 20, 0.34), rgba(14, 14, 16, 0.62));
   }
 
   .torque-hud__tech {
@@ -527,7 +638,7 @@
     border: 1px solid #2e4356;
     border-radius: 0.375rem;
     color: #e8eae5;
-    font: 0.7rem monospace;
+    font: 500 0.7rem var(--hud-mono);
     letter-spacing: 0.06em;
     text-align: left;
     cursor: pointer;

@@ -27,15 +27,21 @@ uniform float uLayer;
 uniform float uSurroundings;
 void main(){
   vec2 p=vUv-.5; p.x*=uResolution.x/max(1.0,uResolution.y);
-  // Broad, unequal pools reveal separate depths instead of three coincident glows.
-  vec2 center=uLayer<.5?vec2(-.18,.10):(uLayer<1.5?vec2(.28,.12):vec2(-.24,-.18));
-  vec2 q=(p-center)*vec2(.75,1.25)*uScale;
-  float radial=exp(-dot(q,q)*3.0);
-  float strata=.82+.18*sin(p.y*9.0+p.x*3.0+uScale*8.0);
-  radial*=strata;
-  vec3 base=vec3(.009,.011,.016);
+  // Broad, studio-centered warm-graphite pools with delicate horizon rim separation.
+  vec2 center=uLayer<.5?vec2(-.04,.02):(uLayer<1.5?vec2(.16,.05):vec2(-.10,-.08));
+  vec2 q=(p-center)*vec2(.55,1.08)*uScale;
+  float radial=exp(-dot(q,q)*1.85);
+  // Delicate horizontal studio cyclorama rim band behind the tool axis
+  float rimBand=exp(-pow((vUv.y-.52)*3.4,2.0))*(1.0-smoothstep(.35,.95,abs(p.x)));
+  float strata=.96+.04*sin(p.y*5.5+p.x*1.8+uScale*4.0);
+  radial=clamp((radial*.82+rimBand*.26)*strata,0.0,1.0);
+  // Charcoal-black studio perimeter (#1b1c1e sRGB) lifting subtly toward the studio floor
+  float floorLift=smoothstep(-.65,.45,-p.y)*.32;
+  vec3 base=mix(vec3(.0115,.0118,.0124),vec3(.0175,.0170,.0165),floorLift);
   vec3 color=mix(base,uColor,radial);
-  gl_FragColor=vec4(color*uSurroundings,uBase>.5?1.0:radial*uOpacity*uSurroundings);
+  // Keep charcoal-graphite studio room presence during isolated shaft study instead of #000 void.
+  float studioKeep=uBase>.5?mix(.82,1.0,uSurroundings):mix(.60,1.0,uSurroundings);
+  gl_FragColor=vec4(color*studioKeep,uBase>.5?1.0:radial*uOpacity*studioKeep);
 }`
 const gradeFragment = `
 uniform sampler2D tDiffuse;

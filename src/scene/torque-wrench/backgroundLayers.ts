@@ -42,9 +42,9 @@ const STOPS = Object.freeze([0, 0.32, 0.46, 0.69, 0.835, 0.94, 1])
 // The ordered planes rise from dark graphite into a warm near atmosphere. Their peaks remain
 // below the parent-owned pit highlight in linear luminance. Pixel visibility is a runtime gate.
 const LAYER_OPACITY = Object.freeze([
-  Object.freeze([0.9, 0.92, 1, 0.96, 0.92, 0.9, 0.88]),
-  Object.freeze([0.56, 0.6, 0.68, 0.6, 0.54, 0.48, 0.44]),
-  Object.freeze([0.42, 0.45, 0.52, 0.45, 0.39, 0.33, 0.28]),
+  Object.freeze([0.92, 0.94, 1, 0.96, 0.94, 0.92, 0.90]),
+  Object.freeze([0.52, 0.56, 0.62, 0.56, 0.52, 0.48, 0.45]),
+  Object.freeze([0.28, 0.30, 0.34, 0.31, 0.28, 0.25, 0.22]),
 ])
 
 const LAYER_SCALE = Object.freeze([
@@ -55,31 +55,31 @@ const LAYER_SCALE = Object.freeze([
 
 const LAYER_COLOR = Object.freeze([
   Object.freeze([
-    linearColor(0.09, 0.10, 0.13),
-    linearColor(0.095, 0.11, 0.14),
-    linearColor(0.09, 0.10, 0.13),
-    linearColor(0.085, 0.095, 0.12),
-    linearColor(0.09, 0.10, 0.13),
-    linearColor(0.085, 0.095, 0.12),
-    linearColor(0.08, 0.09, 0.115),
+    linearColor(0.126, 0.124, 0.121),
+    linearColor(0.132, 0.130, 0.127),
+    linearColor(0.130, 0.128, 0.125),
+    linearColor(0.126, 0.124, 0.121),
+    linearColor(0.128, 0.126, 0.123),
+    linearColor(0.125, 0.123, 0.120),
+    linearColor(0.122, 0.120, 0.117),
   ]),
   Object.freeze([
-    linearColor(0.22, 0.21, 0.20),
-    linearColor(0.23, 0.22, 0.21),
-    linearColor(0.22, 0.21, 0.20),
-    linearColor(0.21, 0.20, 0.19),
-    linearColor(0.22, 0.21, 0.20),
-    linearColor(0.22, 0.21, 0.20),
-    linearColor(0.225, 0.215, 0.205),
+    linearColor(0.228, 0.222, 0.214),
+    linearColor(0.236, 0.230, 0.222),
+    linearColor(0.232, 0.226, 0.218),
+    linearColor(0.226, 0.220, 0.212),
+    linearColor(0.228, 0.222, 0.214),
+    linearColor(0.225, 0.219, 0.211),
+    linearColor(0.222, 0.216, 0.208),
   ]),
   Object.freeze([
-    linearColor(0.45, 0.42, 0.38),
-    linearColor(0.46, 0.43, 0.39),
-    linearColor(0.45, 0.42, 0.38),
-    linearColor(0.44, 0.415, 0.375),
-    linearColor(0.43, 0.405, 0.37),
-    linearColor(0.425, 0.40, 0.365),
-    linearColor(0.42, 0.395, 0.36),
+    linearColor(0.362, 0.348, 0.332),
+    linearColor(0.372, 0.358, 0.340),
+    linearColor(0.366, 0.352, 0.335),
+    linearColor(0.358, 0.344, 0.328),
+    linearColor(0.356, 0.342, 0.326),
+    linearColor(0.352, 0.338, 0.322),
+    linearColor(0.348, 0.334, 0.318),
   ]),
 ])
 

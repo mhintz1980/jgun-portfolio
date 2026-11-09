@@ -1446,9 +1446,11 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
   }, -2)
 
   return <>
-    <ambientLight intensity={0.25} />
-    <directionalLight position={[1.5, 2, 1]} intensity={1.7} />
-    <directionalLight position={[-2, 1, -1.5]} intensity={0.6} color="#7dd3fc" />
+    <ambientLight intensity={0.38} color="#e8e5df" />
+    <directionalLight position={[1.5, 2, 1]} intensity={1.65} color="#fffcf7" />
+    <directionalLight position={[-1.4, 2.8, -2.2]} intensity={1.35} color="#f5f1ea" />
+    <directionalLight position={[0.6, -2.6, -1.9]} intensity={0.88} color="#e2ded6" />
+    <directionalLight position={[-2.6, 0.3, -1.2]} intensity={0.65} color="#eae6de" />
     <group ref={group} name="private-wrench-world" dispose={null}>
       <group ref={centered} position={center}><primitive object={model} dispose={null} /></group>
     </group>

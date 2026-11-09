@@ -8,28 +8,28 @@ import type { InspectionPlayback } from './inspectionPlayback'
 /** Shared with TorqueHUD (JG-040): one source of truth for chapter display copy. */
 export const CHAPTER_COPY: Record<TorquePosterChapterId, { title: string; lede: string; body: string }> = {
   drafting: {
-    title: 'Drafting',
-    lede: 'Design starts at the interfaces.',
-    body: 'Mark Hintz’s layout of the industrial grade pneumatic torque wrench: input shaft, five-stage planetary drivetrain and two-speed clutch. The handwritten notes mark the manufacturing decisions behind the geometry.',
+    title: 'Paper Before Steel',
+    lede: 'Every datum and fit is settled on the print before a blank reaches the spindle.',
+    body: 'Mark Hintz’s third-angle layout of the industrial-grade pneumatic torque wrench: input shaft, five-stage planetary drivetrain and two-speed clutch. The red-ink notes record the shop-floor revisions behind the geometry.',
   },
   breakthrough: {
-    title: 'Breakthrough',
-    lede: 'From drawing to hardware.',
-    body: 'Light traces the side elevation, the sheet fractures, and the wrench rises through its own profile: housing, controls and drivetrain in three dimensions.',
+    title: 'Off the Vellum',
+    lede: 'The 1:1 side elevation becomes the three-dimensional assembly it describes.',
+    body: 'Light traces the side elevation, the sheet fractures, and the wrench rises through its own 1:1 profile: housing, controls and five-stage drivetrain in three dimensions.',
   },
   mechanism: {
-    title: 'Mechanism',
-    lede: 'Two speeds, one ring.',
-    body: 'The ring switch (P003068) is diamond-knurled, then black-anodized for grip. A 120° turn selects Rundown or High Torque; detent grooves hold each mode. The OSHA Blue stripe marks Rundown and the OSHA Red stripe marks High Torque.',
+    title: 'Two Speeds, One Collar',
+    lede: 'A 120° throw shifts the planetary carrier between fast rundown and final torque.',
+    body: 'The ring switch (P003068) is diamond-knurled on the OD, then Type III black-anodized for grip. A 120° turn selects Rundown or High Torque; detent grooves hold each mode. OSHA Blue marks Rundown; OSHA Red marks High Torque.',
   },
   inspection: {
-    title: 'Inspection',
-    lede: 'A stronger shaft starts with a different cut.',
-    body: 'Shaping the P001835 sun gear needed a cutter relief groove, and at that groove every steel tried (4140, 4340, C300) fell below FOS 1.0. Rotary hobbing needs no groove: a smooth 4340 blank, teeth held under .001″ TIR. Stage 1 then meshes and torque runs through all five stages.',
+    title: 'The Relief-Groove Failure',
+    lede: 'Changing alloys couldn’t save a bad stress riser. Changing the cutter did.',
+    body: 'Shaping the P001835 sun gear needed a cutter relief groove, and at that groove every steel tried (4140, 4340, C300) fell below FOS 1.0. Rotary hobbing needs no groove: a smooth 4340 blank, teeth held under .001″ TIR across the .250″ face.',
   },
   close: {
-    title: 'Assembly',
-    lede: 'Every stage, in order.',
+    title: 'Five Stages in Line',
+    lede: 'Five planetary reductions stack along one datum axis to multiply input to 1,100 ft-lb.',
     body: 'The gearbox separates along its axis: carriers, planets, bearing and clutch in assembly order. Every gear was cut in house to ISO 1328 Grade A6 with under .001″ TIR. The clutch housing fit, ⌀2.525″ H7/k6, is finished after heat treat.',
   },
 }
