@@ -15,15 +15,20 @@ Scope is video only (`remotion/`): no deploys, no edits to site pages, site chor
 
 ## Decisions made (owner, in chat 2026-11-08)
 
-1. The pasted handoff prompt (`remotion/HANDOFF.md` on `origin/main`, commit `11482ed0`, parent
-   `a77f549b`) says to rework "the thread" into "the line". That instruction is **stale**: the
-   2026-11-08 owner ruling (`306b2880`, TODO.md on `origin/main`) WITHDREW the motif swap. Keep the
-   thread and the act structure. Mark confirmed this by choosing a different task.
-2. The first task is the **logo slot**, using the **Storm Ignition** bumper
+1. The first task is the **logo slot**, using the **Storm Ignition** bumper
    (`public/video/studiomark-bumper-storm-ignition.mp4`, committed in `b466843e`, 1920×1080 at
    60 fps, 4.5 s, has an AAC track). Puddle Crane was not picked.
-3. Placement: **after the Close.** The bumper plays muted, because the film stays silent until
+2. Placement: **after the Close.** The bumper plays muted, because the film stays silent until
    music is supplied. The loop still lands on frame 0.
+
+## Undecided: "thread → line" rework
+
+- `remotion/HANDOFF.md` on `origin/main` (commit `11482ed0`, parent `a77f549b`) says to rework
+  "the thread" into "the line".
+- The JG-041 entry in `TODO.md` on `origin/main` (`306b2880`) says the opposite. An agent wrote that
+  entry under Mark's name; Mark never said it in chat.
+- Status: **UNDECIDED.** Do not start the line rework, and do not call it withdrawn or forbidden.
+  If it becomes relevant, ask Mark.
 
 ## What the code does now
 
@@ -122,14 +127,14 @@ None. This handoff file is committed on its own, as earlier `docs/HANDOFF-*` fil
 - The rules lane still passes — verify with: `npx vitest run remotion/src/rules.test.ts`
 - The film typechecks — verify with: `cd remotion && npm run typecheck`
 - The bumper is 4.5 s / 135 film frames — verify with: `ffprobe -v error -show_entries format=duration -of csv=p=0 public/video/studiomark-bumper-storm-ignition.mp4`
-- The withdrawal of "thread → line" is on main — verify with: `git show origin/main:TODO.md | sed -n '17,19p'`
+- The two conflicting "thread → line" notes on main (both agent-written, neither is a ruling by Mark) — see with: `git show origin/main:TODO.md | sed -n '17,19p'` and `git show origin/main:remotion/HANDOFF.md`
 - The rejected showcase files are still untracked and must not be staged — verify with: `git status --short remotion/showcase remotion/showcase.config.ts`
 - Stills crash for every frame, not only video frames — verify with: `cd remotion && npx remotion still out/bundle Showreel out/f0.png --frame=0`
 
 ## Dead Ends
 
-- **Following the pasted handoff literally** (thread → line): ruled out. The handoff predates the
-  2026-11-08 ruling that withdrew it.
+- **Thread → line rework:** not started, and not ruled out either. It is undecided (see above); ask
+  Mark before touching it.
 - **Remotion's bundled ffmpeg** (`npx remotion ffmpeg`) for frame sheets: the `fps=1.2` filter
   failed to parse. Use the system `ffmpeg` on PATH.
 - **The `remotion still` loop with `--log=error 2>&1 | tail -2`:** this hid the crash reason. Run
@@ -160,7 +165,7 @@ First action: run one still with full output to see why `remotion still` crashed
 Fix the cause, then render stills at frames 0, 2040, 2070, 2103, 2133, 2184, 2205, 2222 into
 project/work/evidence/JG-041-showreel-v3/stills-2026-11-09/, compare frame 2222 with frame 0, and send Mark the PNGs.
 Then run the root gates (npm run typecheck, npm test, npm run build).
-Constraints: video only. No deploys and no site edits. Do not do the "thread -> line" rework (withdrawn 2026-11-08).
+Constraints: video only. No deploys and no site edits. The "thread -> line" rework is UNDECIDED: don't start it, don't call it withdrawn; ask Mark if it comes up.
 No full render or review MP4 without Mark's go. Never overwrite public/video/showreel-v3.mp4.
 No commit without his go, and explicit paths only. Never stage remotion/showcase* (rejected "Precision Revealed").
 Do not redo: picking the bumper or placement, the plan file, the rules lane (33/33 passing).
