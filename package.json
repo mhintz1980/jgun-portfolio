@@ -11,6 +11,10 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "check:station2": "node scripts/check-station2-contract.mjs",
+    "lint": "biome check --diagnostic-level=error",
+    "lint:report": "biome lint --reporter=summary",
+    "format": "biome format --write",
+    "check": "npm run lint && npm run typecheck && npm test && npm run check:station2",
     "sync-assets": "powershell -ExecutionPolicy Bypass -File scripts/sync-assets.ps1"
   },
   "dependencies": {

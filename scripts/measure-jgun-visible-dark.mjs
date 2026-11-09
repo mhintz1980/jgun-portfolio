@@ -838,7 +838,6 @@ try {
           inkStock: row.inkOverStock,
           surround: row.surround?.median ?? null,
           traceBright: row.trace?.brightPixels ?? null,
-          control: { contour: row.traceControl?.contourPixels, bright: row.traceControl?.changedBrightPixels },
           control: {
             status: row.traceControlStatus,
             contour: row.traceControl?.contourPixels ?? null,
