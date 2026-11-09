@@ -5,6 +5,8 @@ Output: `public/video/showreel-v3.mp4` (1920×1080, 30 fps, H.264, silent). The 
 is the accepted ~69 s cut; the source now runs ~74 s with the StudioMark ident (JG-041
 iteration 1, awaiting owner review — render it to a separately named review MP4 first).
 
+> Editing the film? Start with [HANDOFF.md](HANDOFF.md): tools, lessons, file map, how to add a chapter or change copy.
+
 ## The idea
 
 The homepage already has a signature: a Revision-Orange thread that laces the page together
