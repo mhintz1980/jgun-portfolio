@@ -6,13 +6,21 @@ import { MACHINE } from '../copy'
 import { EASE, mix, ramp } from '../ease'
 import { C, F } from '../theme'
 import { CameraRig } from '../three/CameraRig'
+import { DRAFT, DraftFronts, FRONT_ALL, FRONT_NONE } from '../three/Draft'
 import { PostFX } from '../three/PostFX'
 import { QuietMachine } from '../three/QuietMachine'
 import { StudioEnvironment } from '../three/studioEnv'
+import { mixHex } from '../three/track'
 import { GridLayer } from '../ui/Backdrop'
+import { WIPE } from '../ui/LineWipe'
+import { PenHead } from '../ui/Line'
 import { Eyebrow, Rise, RuleTag } from '../ui/Type'
+import { AXIS_Y } from './Opening'
 
-export const MACHINE_FRAMES = 540
+/** Plotter pre-roll: the cut line that wiped the act in turns plotter pen and draws the sealed
+ *  shell's feature edges, then the fill front turns the drawing into the machine. */
+export const MACHINE_PRE = 90
+export const MACHINE_FRAMES = 540 + MACHINE_PRE
 
 /** Film frames → the site's own RL300 study progress `u` (beats.ts). The "second breath"
  *  underside pass is skipped with a cut; the proposed lower intake is captioned as a concept. */
@@ -36,21 +44,36 @@ function segmentAt(f: number) {
 
 export function MachineAct() {
   const f = useCurrentFrame()
-  const { u, beat, local, len } = segmentAt(f)
+  // `g` is the section study's own clock; it starts once the drawing has become the machine.
+  const g = f - MACHINE_PRE
+  const { u, beat, local, len } = segmentAt(Math.max(0, g))
   const shot = evaluateShot(u, false)
   // A slow extra push on top of the site's camera keeps the film moving between keys.
-  const push = 1.12 - 0.06 * ramp(local, 0, len, EASE.inOut)
+  const push = g < 0 ? mix(1.17, 1.12, ramp(f, 0, MACHINE_PRE, EASE.inOut)) : 1.12 - 0.06 * ramp(local, 0, len, EASE.inOut)
+
+  // Plotter pre-roll, in screen space (the fronts are planes through the eye, so they are exact
+  // vertical lines on screen at any camera angle).
+  const plotT = ramp(f, WIPE, 66, EASE.inOut)
+  const plotX = plotT >= 1 ? FRONT_ALL : mix(-30, 1830, plotT)
+  const fillT = ramp(f, 56, 88, EASE.inOut)
+  const fillX = fillT <= 0 ? FRONT_NONE : fillT >= 1 ? FRONT_ALL : mix(-60, 1980, fillT)
+  const lineOpacity = 0.9 * (1 - ramp(f, 82, 108))
+  // Cream while it is a drawing; it inks orange as the fill front arrives.
+  const lineColor = mixHex(C.cream, C.orangeLit, ramp(f, 60, 84))
+  const hidden = 1 - ramp(f, 50, 76)
+  const penX = mix(-30, 1830, plotT)
+  const fillPx = mix(-60, 1980, fillT)
   const pos: [number, number, number] = [
     shot.target[0] + (shot.position[0] - shot.target[0]) * push,
     shot.target[1] + (shot.position[1] - shot.target[1]) * push,
     shot.target[2] + (shot.position[2] - shot.target[2]) * push,
   ]
   const titleIn = ramp(f, 14, 40)
-  const titleOut = ramp(f, 150, 170, EASE.in)
-  const captionIn = ramp(local, 6, 24) * (1 - ramp(local, len - 16, len - 2, EASE.in))
+  const titleOut = ramp(g, 150, 170, EASE.in)
+  const captionIn = g < 0 ? 0 : ramp(local, 6, 24) * (1 - ramp(local, len - 16, len - 2, EASE.in))
   const b = MACHINE.beats[beat]
   // Cut flash: the line cuts across the frame at the jump between beats.
-  const slash = ramp(f, MACHINE_CUT - 5, MACHINE_CUT + 5, EASE.inOut)
+  const slash = ramp(g, MACHINE_CUT - 5, MACHINE_CUT + 5, EASE.inOut)
 
   return (
     <AbsoluteFill style={{ background: '#101b24' }}>
@@ -63,6 +86,7 @@ export function MachineAct() {
         <fog attach="fog" args={['#101b24', 12, 30]} />
         <PostFX stencil bloom={0.14} bloomThreshold={0.95} bloomRadius={0.4} />
         <CameraRig position={pos} target={shot.target} fov={shot.fov} near={0.02} far={60} shiftX={250} />
+        <DraftFronts plotX={plotX} fillX={fillX} />
         <StudioEnvironment kind="room" intensity={0.38} />
         <hemisphereLight args={['#c8e3ef', '#26303c', 0.35]} />
         <directionalLight position={[4, 6, 3]} intensity={1.7} color="#e6f1ff" castShadow shadow-mapSize={[1024, 1024]}
@@ -71,17 +95,18 @@ export function MachineAct() {
         <directionalLight position={[-4, 1.2, 3]} intensity={0.55} color="#ff8a4c" />
         <pointLight position={[0.35, 1, -0.35]} intensity={1.2} distance={2.5} decay={2} color="#ffbd7b" />
         <pointLight position={[0.6, 0.02, 0.7]} intensity={0.65} distance={1.8} decay={2} color="#b7eaff" />
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.22, 0]} receiveShadow>
+        {/* Floor first, so the linework's depth-only twins never punch holes in it. */}
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.22, 0]} receiveShadow renderOrder={-2}>
           <planeGeometry args={[100, 100]} />
           <meshStandardMaterial color="#0a141c" roughness={0.8} metalness={0.1} />
         </mesh>
         {[-0.53, 0.53].flatMap((x) => [-1.355051, -0.055051, 1.244949].map((z) => (
           <mesh key={`${x}/${z}`} position={[x, -0.11, z]} castShadow>
             <cylinderGeometry args={[0.075, 0.09, 0.22, 16]} />
-            <meshStandardMaterial color="#15212b" metalness={0.5} roughness={0.5} />
+            <meshStandardMaterial color="#15212b" metalness={0.5} roughness={0.5} clippingPlanes={[DRAFT.fill]} clipShadows />
           </mesh>
         )))}
-        <QuietMachine u={u} />
+        <QuietMachine u={u} draft={{ lineOpacity, lineColor, hidden }} />
       </ThreeCanvas>
 
       <GridLayer tone="dark" style={{ opacity: 0.5 }} />
@@ -116,9 +141,23 @@ export function MachineAct() {
       </div>
 
       {/* Tags on the way out */}
-      <div style={{ position: 'absolute', right: 96, top: 96, opacity: ramp(f, 470, 492) }}>
+      <div style={{ position: 'absolute', right: 96, top: 96, opacity: ramp(g, 470, 492) }}>
         <Eyebrow color={C.creamMuted}>{MACHINE.tags}</Eyebrow>
       </div>
+
+      {/* Plotter pen (the wipe's cut line, carried on) and the fill front behind it. */}
+      {plotT > 0 && plotT < 1 && (
+        <svg width={1920} height={1080} style={{ position: 'absolute', inset: 0 }}>
+          <line x1={penX} y1={0} x2={penX} y2={1080} stroke={C.orangeLit} strokeWidth={1.5} opacity={0.55} />
+          <PenHead x={penX} y={AXIS_Y} reach={18} />
+        </svg>
+      )}
+      {fillT > 0 && fillT < 1 && (
+        <svg width={1920} height={1080} style={{ position: 'absolute', inset: 0 }}>
+          <line x1={fillPx} y1={0} x2={fillPx} y2={1080} stroke={C.orange} strokeWidth={10} opacity={0.18} />
+          <line x1={fillPx} y1={0} x2={fillPx} y2={1080} stroke={C.orange} strokeWidth={2.5} />
+        </svg>
+      )}
 
       {slash > 0 && slash < 1 && (
         <svg width={1920} height={1080} style={{ position: 'absolute', inset: 0 }}>

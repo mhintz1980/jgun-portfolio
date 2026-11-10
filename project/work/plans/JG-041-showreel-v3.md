@@ -34,6 +34,17 @@ machine (feature edges plotted before the solid enclosure, done in `remotion/src
 appending a fill plane to the section plane rather than replacing it) and a plotted outline of
 the armament x-ray before the scan (derived at render time from the existing image, no new asset).
 
+Slice 2 was built on 2026-11-09 after the owner's go ("start with slice 2"). Its stills are in
+`evidence/JG-041-showreel-v3/stills-2026-11-09-line-slice2/`, and owner review is pending.
+
+| Item | Change |
+|---|---|
+| `src/three/Draft.tsx` (new) | `DRAFT` plot and fill clip planes. `DraftFronts` builds each one through the camera eye, so it is an exact vertical line on screen in the 3/4 view, lens shift included. |
+| `src/three/QuietMachine.tsx` | Builds, once with the model, feature edges of the shell roots only (`EdgesGeometry(28°)`, depth-only twins, faint `GreaterDepth` pass). Appends the fill plane to every model material and to the lower intake's (`clipShadows`). The section plane is untouched. |
+| `src/scenes/MachineAct.tsx` | 90-frame pre-roll (`MACHINE_PRE`). The wipe's cut line becomes the pen, and lines go from cream to orange as the fill front passes. The section study runs on `g = f - 90`. The feet are fill-clipped, and the floor renders first. |
+| `src/scenes/ArmamentAct.tsx` | 60-frame pre-roll (`ARMAMENT_PRE`). An SVG morphological edge filter traces `ar-20` on the unlit table. The light comes on, and the scan clips the outline from the left. Shots run on `g = f - 60`. |
+| `scripts/review-stills.mjs`, `README.md` | Times and act table shifted: Machine content +3 s, Armament and later +5 s. Film is 2373 frames, about 79.1 s. |
+
 ## Iteration 1 — logo ident after the Close
 
 | Item | Change |

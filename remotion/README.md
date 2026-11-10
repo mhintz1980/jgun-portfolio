@@ -2,7 +2,7 @@
 
 The hero video for studiomark.dev, built in [Remotion](https://remotion.dev) 4.0.540.
 Output: `public/video/showreel-v3.mp4` (1920×1080, 30 fps, H.264, silent). The committed MP4
-is the accepted ~69 s cut; the source now runs ~74 s with the StudioMark ident (JG-041
+is the accepted ~69 s cut; the source now runs ~79 s with the StudioMark ident (JG-041
 iteration 1, owner-approved 2026-11-09) and "The Line" motif (JG-041 iteration 2, in review).
 
 > Editing the film? Start with [HANDOFF.md](HANDOFF.md): tools, lessons, file map, how to add a chapter or change copy.
@@ -16,10 +16,10 @@ thin in ink, inked in orange by a plotter pen, and everything is drawn along it:
 |---|---|---|
 | Opening | 0–195 | A line is ruled across the drafting sheet through three registration marks and inked orange while the name is drawn the way the site draws it (orange outline → ink fill). Then the line slides up, like a T-square, onto the drive axis. |
 | 01 Torque wrench | 195–735 | That line becomes the drive axis. The wrench is plotted along it as a hidden-line CAD drawing, then one front sweeps the sheet — paper turns to studio, linework turns to metal. Two-speed shift, then the real rear-extraction explosion with the gear train turning. |
-| 02 Quiet machine | 711–1251 | A vertical cut line wipes into the enclosure; the site's own section study plays: incision, supply air, two feeds, noise control. |
-| 03 Armament | 1227–1707 | Back on paper: the line becomes a scan line across x-ray renders, then dark plates and labelled reference cards. |
-| Close | 1707–2082 | The line is ruled and inked through three marks; each project label rises as the ink reaches it. The name is drawn again, and the line slides down to underline the address ("Follow the line"). |
-| StudioMark ident | 2058–2223 | The orange cut line wipes in the owner-approved "Storm Ignition" logo bumper (muted). Its lockup holds while the cut line wipes the blank sheet back in. The last frame is the first frame, so the hero can loop. |
+| 02 Quiet machine | 711–1341 | A vertical cut line wipes into the dark studio and carries on as the plotter pen: it draws the sealed shell's feature edges, then a fill front turns the drawing into the enclosure. Then the site's own section study plays: incision, supply air, two feeds, noise control. |
+| 03 Armament | 1317–1857 | Back on paper: the pen outlines the x-ray on the unlit table (the outline is traced from the render itself), the light comes on, and the line becomes a scan line that eats the drawing as it reveals the render. Then dark plates and labelled reference cards. |
+| Close | 1857–2232 | The line is ruled and inked through three marks; each project label rises as the ink reaches it. The name is drawn again, and the line slides down to underline the address ("Follow the line"). |
+| StudioMark ident | 2208–2373 | The orange cut line wipes in the owner-approved "Storm Ignition" logo bumper (muted). Its lockup holds while the cut line wipes the blank sheet back in. The last frame is the first frame, so the hero can loop. |
 
 ## Nothing is faked
 
