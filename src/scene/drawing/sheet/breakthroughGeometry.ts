@@ -90,8 +90,8 @@ export const BREAKTHROUGH_PAPER_SUBDIVISION = 0.004
 /** Cell pitch: the quad diagonal of a square cell is the longest edge, so it sets the pitch. */
 const PAPER_CELL = BREAKTHROUGH_PAPER_SUBDIVISION / Math.SQRT2
 /** Fragment count band the fracture choreography expects. */
-export const BREAKTHROUGH_FRAGMENT_MIN = 25
-export const BREAKTHROUGH_FRAGMENT_MAX = 128
+export const BREAKTHROUGH_FRAGMENT_MIN = 110
+export const BREAKTHROUGH_FRAGMENT_MAX = 320
 /** Crack ribbon half-width and height above the sheet, matching the lightning ribbon look. */
 export const BREAKTHROUGH_CRACK_HALF_WIDTH = 0.0018
 export const BREAKTHROUGH_CRACK_Z = 0.0001
@@ -102,13 +102,13 @@ export const BREAKTHROUGH_RIM_FRONT_Z = 0.00002
 export const BREAKTHROUGH_RIM_TOLERANCE = 0.00002
 /** Launch letter per unit of normalised scroll: horizontal spread and lift, in metres. */
 export const BREAKTHROUGH_FRAGMENT_RADIAL_MIN = 0.45
-export const BREAKTHROUGH_FRAGMENT_RADIAL_MAX = 0.8
+export const BREAKTHROUGH_FRAGMENT_RADIAL_MAX = 1.15
 export const BREAKTHROUGH_FRAGMENT_LIFT_MIN = 0.7
-export const BREAKTHROUGH_FRAGMENT_LIFT_MAX = 1.0
+export const BREAKTHROUGH_FRAGMENT_LIFT_MAX = 1.35
 /** Spin per axis, signed, in radians per unit of normalised scroll. */
-export const BREAKTHROUGH_FRAGMENT_SPIN_MAX = 6
+export const BREAKTHROUGH_FRAGMENT_SPIN_MAX = 12
 /** Fragments start peeling within this window, in normalised scroll units. */
-export const BREAKTHROUGH_FRAGMENT_DELAY_MAX = 0.1
+export const BREAKTHROUGH_FRAGMENT_DELAY_MAX = 0.08
 
 export interface BreakthroughFragment {
   /** Local geometry: front face on z = 0, centred on the cell's area centroid. */
@@ -150,9 +150,9 @@ export interface BreakthroughGeometry {
 }
 
 /** Seed placement targets the main pieces; disconnected perimeter chips are retained too. */
-const FRAGMENT_TARGET = 32
+const FRAGMENT_TARGET = 156
 /** Seeds closer than this to the torn edge are dropped, in metres. */
-const SEED_INSET = 0.0006
+const SEED_INSET = 0.00035
 /** Raster pitch the torn hole is derived on, in metres. */
 const RASTER_PITCH = 0.0001
 /** Raster dilation in pixels: reserves clearance beyond the quantized profile. */
@@ -644,7 +644,9 @@ function placeSeeds(minX: number, minY: number, maxX: number, maxY: number, inde
     }
     if (!best.length || Math.abs(seeds.length - target) < Math.abs(best.length - target)) best = seeds
     if (best.length >= target - 2 && best.length <= target + 3) break
-    span = Math.max(2, Math.ceil(span * Math.sqrt(target / Math.max(1, best.length))))
+    if (seeds.length === 0) break
+    const nextSpan = Math.max(2, Math.ceil(span * Math.sqrt(target / seeds.length)))
+    span = nextSpan <= span ? span + 1 : Math.min(nextSpan, span * 2)
   }
   return best
 }

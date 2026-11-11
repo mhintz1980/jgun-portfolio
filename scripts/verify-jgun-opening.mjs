@@ -484,7 +484,7 @@ try {
       fail(Number.isFinite(stats.maxBoundaryDeviation) && stats.maxBoundaryDeviation <= 0.0006, `${name}: torn boundary deviation ${stats.maxBoundaryDeviation} m exceeds 0.0006 m`)
       fail(Number.isFinite(area) && area > 0, `${name}: hole area must be positive, got ${area}`)
       fail(Number.isFinite(area) && Number.isFinite(fragments) && Math.abs(area - fragments) <= 1e-6 * area, `${name}: hole/fragment area conservation off by ${Math.abs(area - fragments)} m^2`)
-      fail(Number.isInteger(stats.fragmentCount) && stats.fragmentCount >= 25 && stats.fragmentCount <= 128, `${name}: fragment count ${stats.fragmentCount} outside the piece/chip budget`)
+      fail(Number.isInteger(stats.fragmentCount) && stats.fragmentCount >= 110 && stats.fragmentCount <= 320, `${name}: fragment count ${stats.fragmentCount} outside the piece/chip budget`)
       // The old modelBarrierSafe flag encoded openingClear-before-motion. The exact
       // transformed-vertex probe below now establishes pressure/barrier safety instead.
       if (drawing.phase >= 0.84) {

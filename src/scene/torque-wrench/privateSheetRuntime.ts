@@ -62,6 +62,53 @@ void main() {
   gl_FragColor = vec4(mix(vec3(.04, .34, 1.0), vec3(.45, .82, 1.0), core * core), alpha);
 }`
 
+/**
+ * Breakthrough Shockwave Blast Wave:
+ * Erupts out of the torn breakthrough contour at fractureStart (t = .84 / p = .42),
+ * is caught mid-expansion at the start of the 360° bullet-time orbit (p = .43, uFracture ~ .49),
+ * hangs suspended with the debris field while the camera orbits 360°, and accelerates
+ * rapidly outward past the camera as bullet-time ends (p = .452 -> .46).
+ */
+const SHOCKWAVE_GLSL = /* glsl */ `
+uniform vec2 uShockCenter;
+float shockwaveProgress(float fracture, float waveTime) {
+  float post = smoothstep(0.0, 0.42, waveTime);
+  return clamp(fracture + post * 0.95, 0.0, 1.95);
+}
+vec3 evaluateSurfaceShockwave(vec2 p, float fracture, float waveTime, out float rippleZ) {
+  rippleZ = 0.0;
+  if (fracture <= 0.001) return vec3(0.0);
+  float prog = shockwaveProgress(fracture, waveTime);
+  vec2 d = (p - uShockCenter) * vec2(1.0, 1.28);
+  float r = length(d);
+  float angle = atan(d.y, d.x);
+  float azMod = 1.0 + 0.045 * sin(angle * 3.0 - 0.6) + 0.025 * cos(angle * 5.0 + 1.1);
+  float rEff = r * azMod;
+  // Primary blast front: at fracture = 0.49 (orbit start), radius is ~0.34 m (caught right outside the hole);
+  // across the 360° bullet-time orbit (fracture 0.49 -> 0.81), creeps from 0.34 m to 0.48 m;
+  // after bullet-time ends, blasts out past 1.15 m!
+  float rFront1 = 0.13 + 0.43 * prog + 0.28 * prog * prog;
+  float rFront2 = 0.08 + 0.29 * prog + 0.18 * prog * prog;
+  float rFront3 = 0.04 + 0.18 * prog + 0.11 * prog * prog;
+  float w1 = 0.024 + 0.016 * prog;
+  float w2 = 0.016 + 0.012 * prog;
+  float w3 = 0.012 + 0.009 * prog;
+  float d1 = (rEff - rFront1) / w1;
+  float d2 = (rEff - rFront2) / w2;
+  float d3 = (rEff - rFront3) / w3;
+  float ring1 = exp(-d1 * d1);
+  float ring2 = exp(-d2 * d2) * 0.72;
+  float ring3 = exp(-d3 * d3) * 0.45;
+  float wake = exp(-max(0.0, rFront1 - rEff) * 6.0) * step(rEff, rFront1) * 0.34;
+  float env = smoothstep(0.0, 0.06, fracture) * (1.0 - smoothstep(1.35, 1.92, prog));
+  // Physical pressure wave vertical ripple on the vellum stock:
+  rippleZ = (ring1 * sin(d1 * 2.4) * 0.0095 + ring2 * cos(d2 * 2.1) * 0.005) * env;
+  float core = pow(ring1, 2.0) + 0.65 * pow(ring2, 2.2) + 0.4 * pow(ring3, 2.4);
+  vec3 col = mix(vec3(0.08, 0.48, 1.0), vec3(0.76, 0.96, 1.0), clamp(core, 0.0, 1.0));
+  return col * (ring1 * 1.45 + ring2 * 0.92 + ring3 * 0.55 + wake) * env;
+}
+`
+
 // Crystal-thin fissures develop under the electrical front, then extinguish as
 // separated stock begins to fall. Existing crack masks retain exact shard seams.
 const PRIVATE_WEB_VERTEX = /* glsl */ `
@@ -128,8 +175,9 @@ float fbm(vec2 p) {
 
 const planeVertex = /* glsl */ `
 ${WAVE_GLSL}
+${SHOCKWAVE_GLSL}
 uniform float uDisplace;
-uniform float uFragment; uniform float uFracture;
+uniform float uFragment; uniform float uFracture; uniform float uWaveTime;
 uniform vec2 uFragmentCenter;
 varying vec2 vPlane;
 varying float vFront;
@@ -141,7 +189,9 @@ void main() {
   vec3 p = position;
   // Departing pieces develop a bevel-thick edge; intact drafting stays flat.
   p.z *= 1.0 + uFragment * smoothstep(0.0, .15, uFracture) * 4.0;
-  p.z += paperDisplacement(vPlane) * uDisplace;
+  float rippleZ = 0.0;
+  evaluateSurfaceShockwave(vPlane, uFracture, uWaveTime, rippleZ);
+  p.z += (paperDisplacement(vPlane) + rippleZ * (1.0 - uFragment)) * uDisplace;
   vFacetNormal = normalize(normalMatrix * normal);
   vViewDirection = -(modelViewMatrix * vec4(p, 1.0)).xyz;
   gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
@@ -154,12 +204,13 @@ void main() {
  */
 const paperFragment = /* glsl */ `
 ${WAVE_GLSL}
+${SHOCKWAVE_GLSL}
 ${NOISE_GLSL}
 ${CRACK_APERTURE_GLSL}
 ${PORTAL_PROFILE_GLSL}
 uniform sampler2D uGrain;
 uniform sampler2D uFragmentPrint;
-uniform float uFragment; uniform float uFracture; uniform float uFragmentInk;
+uniform float uFragment; uniform float uFracture; uniform float uFragmentInk; uniform float uWaveTime;
 uniform vec3 uPaper; uniform vec3 uGrid;
 uniform vec4 uFrame; uniform vec2 uSheetHalf;
 uniform vec3 uKey; uniform vec3 uLamp;
@@ -255,6 +306,10 @@ void main() {
   // Restrict blue spill to the torn lip; never backlight the entire profile.
   float underlight = portalRim(p) * uPortalLight;
   c += vec3(0.475, 0.812, 1.0) * underlight * (vFront < -0.5 ? 0.06 : 0.018);
+  // Breakthrough shockwave pressure ring across the vellum stock & grazing shard edges:
+  float shockRipple = 0.0;
+  vec3 shockGlow = evaluateSurfaceShockwave(p, uFracture, uWaveTime, shockRipple);
+  c += shockGlow * (uFragment > 0.5 ? 0.42 : 0.95);
   gl_FragColor = vec4(c * uContrast, 1.0);
 }`
 
@@ -265,10 +320,12 @@ void main() {
  */
 const deskFragment = /* glsl */ `
 ${WAVE_GLSL}
+${SHOCKWAVE_GLSL}
 ${NOISE_GLSL}
 ${PORTAL_PROFILE_GLSL}
 uniform vec3 uKey; uniform vec2 uSheetHalf;
 uniform float uContrast; uniform float uOpacity; uniform float uMode; uniform float uVellum; uniform float uLampPower;
+uniform float uFracture; uniform float uWaveTime;
 varying vec2 vPlane;
 void main() {
   if (uMode > 0.5) discard;
@@ -299,6 +356,9 @@ void main() {
   vec2 q = abs(p - o) - uSheetHalf;
   float sd = length(max(q, 0.0)) + min(max(q.x, q.y), 0.0);
   c *= 1.0 - 0.72 * (1.0 - smoothstep(-0.002, 0.03, sd));
+  float deskRipple = 0.0;
+  vec3 deskShock = evaluateSurfaceShockwave(p, uFracture, uWaveTime, deskRipple);
+  c += deskShock * 0.55;
   float r = length(p * vec2(0.62, 0.95));
   float fade = 1.0 - smoothstep(0.42, 1.05, r);
   gl_FragColor = vec4(c * uContrast, fade);
@@ -438,6 +498,7 @@ export function createPrivateSheetRuntime(
       uElectricalEnergy: 0, uFragmentInk: 0,
     })) decorate(key, value)
     decorate('uFragmentCenter', new Vector2())
+    decorate('uShockCenter', new Vector2(layout.primaryCenter.x, layout.primaryCenter.y))
     decorate('uFragmentPrint', baked.fragmentPrint)
     decorate('uCrackMask', baked.crackMask)
 
@@ -447,7 +508,7 @@ export function createPrivateSheetRuntime(
       side: DoubleSide, depthWrite: true, transparent: false, toneMapped: false,
     })
     const deskMaterial = material({
-      uniforms: u, vertexShader: planeVertex.replace('p.z += paperDisplacement(vPlane) * uDisplace;', ''),
+      uniforms: u, vertexShader: planeVertex.replace('p.z += (paperDisplacement(vPlane) + rippleZ * (1.0 - uFragment)) * uDisplace;', ''),
       fragmentShader: deskFragment, transparent: true, depthWrite: false, toneMapped: false,
     })
     const pulseMaterial = material({
@@ -776,19 +837,23 @@ export function createPrivateSheetRuntime(
           const event = proof || reducedMotion ? 0 : Math.max(0, Math.min(1,
             ((intro.t - INTRO_PHASES.fractureStart) / (INTRO_PHASES.fractureEnd - INTRO_PHASES.fractureStart)
               - f.delay) / (1 - f.delay)))
-          // Pressure lifts each shard before gravity takes it into the opening.
-          // A smooth launch has no infinite derivative at the crack boundary.
-          const flight = event * event * (3 - 2 * event)
-          // Keep the tear suspended through the full orbit. Owner 2026-10-22: a dome, not a flat sheet — each shard's
-          // apex and lateral throw come from its distance to the profile centre (see shardDome.ts).
+          // Shockwave blast impulse: fast initial detachment with zero slope at event = 0,
+          // then post-bullet-time surge as the subject clock accelerates to normal speed.
+          const smooth = event * event * (3 - 2 * event)
+          const shock = 1 - Math.pow(1 - smooth, 2.2)
+          const surgeU = Math.max(0, Math.min(1, (event - .48) / .52))
+          const surge = surgeU * surgeU * (3 - 2 * surgeU)
+          const postU = proof || reducedMotion ? 0 : Math.max(0, Math.min(1,
+            (intro.t - INTRO_PHASES.fractureEnd) / (1 - INTRO_PHASES.fractureEnd)))
+          const post = postU * postU * (3 - 2 * postU)
+          const radialDrive = shock + 1.35 * surge + 1.15 * post
           const dome = shardDome[i]
-          const lift = dome.apex * Math.sin(Math.PI * event)
-          const fallU = Math.max(0, Math.min(1, (event - .76) / .24))
-          const fall = fallU * fallU * (3 - 2 * fallU)
-          mesh.position.set(f.center.x + dome.vx * flight * .95,
-            f.center.y + dome.vy * flight * .95 - .055 * event * event,
-            .00002 + lift - .035 * event * event - .18 * fall)
-          mesh.rotation.set(f.spin.x * flight, f.spin.y * flight, f.spin.z * flight)
+          const lift = dome.apex * (shock + 0.95 * surge + 0.85 * post)
+          mesh.position.set(f.center.x + dome.vx * radialDrive,
+            f.center.y + dome.vy * radialDrive,
+            .00002 + lift)
+          const spinDrive = shock + 0.85 * surge + 0.65 * post
+          mesh.rotation.set(f.spin.x * spinDrive, f.spin.y * spinDrive, f.spin.z * spinDrive)
           mesh.visible = stockVisible
           // Intact stock is an opaque barrier even where the coarse CAD envelope crosses
           // its flex mesh. Once a piece separates it resumes ordinary 3D depth testing.

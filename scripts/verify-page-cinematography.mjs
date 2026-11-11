@@ -704,10 +704,17 @@ export function shatterPhysicalGates(samples, shot, sources) {
     const f = fragments[i], d = domes[i], t = opening.breakthroughSubjectTimeAt(p)
     const e = Math.max(0, Math.min(1, ((t - intro.INTRO_PHASES.fractureStart)
       / (intro.INTRO_PHASES.fractureEnd - intro.INTRO_PHASES.fractureStart) - f.delay) / (1 - f.delay)))
-    const u = e * e * (3 - 2 * e), fallU = Math.max(0, Math.min(1, (e - .76) / .24))
-    const position = new Vector3(f.center[0] + d.vx * u * .95, f.center[1] + d.vy * u * .95 - .055 * e * e,
-      .00002 + d.apex * Math.sin(Math.PI * e) - .035 * e * e - .18 * fallU * fallU * (3 - 2 * fallU))
-    const q = new Quaternion().setFromEuler(new Euler(...f.spin.map(x => x * u), 'XYZ'))
+    const smooth = e * e * (3 - 2 * e)
+    const shock = 1 - Math.pow(1 - smooth, 2.2)
+    const surgeU = Math.max(0, Math.min(1, (e - .48) / .52))
+    const surge = surgeU * surgeU * (3 - 2 * surgeU)
+    const postU = Math.max(0, Math.min(1, (t - intro.INTRO_PHASES.fractureEnd) / (1 - intro.INTRO_PHASES.fractureEnd)))
+    const post = postU * postU * (3 - 2 * postU)
+    const radialDrive = shock + 1.35 * surge + 1.15 * post
+    const lift = d.apex * (shock + 0.95 * surge + 0.85 * post)
+    const position = new Vector3(f.center[0] + d.vx * radialDrive, f.center[1] + d.vy * radialDrive, .00002 + lift)
+    const spinDrive = shock + 0.85 * surge + 0.65 * post
+    const q = new Quaternion().setFromEuler(new Euler(...f.spin.map(x => x * spinDrive), 'XYZ'))
     return frame.multiply(new Matrix4().compose(position, q, new Vector3(1, 1, 1))).toArray()
   }
   for (let j = 0; j < samples.length; j++) {

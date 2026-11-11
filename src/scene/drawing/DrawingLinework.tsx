@@ -684,10 +684,12 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
       const f = baked.fracture.fragments[i], mesh = meshes.fragments[i]
       const event = proof || reducedMotion ? 0 : Math.max(0, Math.min(1, ((intro.t - INTRO_PHASES.fractureStart) /
         (INTRO_PHASES.fractureEnd - INTRO_PHASES.fractureStart) - f.delay) / (1 - f.delay)))
-      // Ballistic displacement with a fast initial impulse, deterministic in scroll.
+      // Ballistic shockwave displacement with a fast initial impulse, deterministic in scroll and never falling back onto the sheet.
       const flight = Math.pow(event, 0.72)
-      mesh.position.set(f.center.x + f.velocity.x * flight, f.center.y + f.velocity.y * flight - 0.12 * flight * flight, 0.00002 + f.velocity.z * flight)
-      mesh.rotation.set(f.spin.x * flight, f.spin.y * flight, f.spin.z * flight)
+      const post = proof || reducedMotion ? 0 : Math.max(0, Math.min(1, (intro.t - INTRO_PHASES.fractureEnd) / (1 - INTRO_PHASES.fractureEnd)))
+      const drive = flight + 0.85 * post * post * (3 - 2 * post)
+      mesh.position.set(f.center.x + f.velocity.x * drive, f.center.y + f.velocity.y * drive, 0.00002 + f.velocity.z * drive)
+      mesh.rotation.set(f.spin.x * drive, f.spin.y * drive, f.spin.z * drive)
       mesh.visible = !modelProof && mode !== 'drawing-mask'
     }
     uniforms.uMode.value = drawingProof ? 1 : 0

@@ -176,7 +176,7 @@ describe('private sheet explicit frame application', () => {
         / (INTRO_PHASES.fractureEnd - INTRO_PHASES.fractureStart) - fragment.delay) / (1 - fragment.delay)))
       expect(snapshots.get(t)!.position.every(Number.isFinite)).toBe(true)
       if (event === 0) expect(snapshots.get(t)!.position).toEqual([fragment.center.x, fragment.center.y, .00002])
-      if (event === 1) expect(snapshots.get(t)!.position[2]).toBeLessThan(-.12)
+      if (event === 1) expect(snapshots.get(t)!.position[2]).toBeGreaterThan(.35)
     }
     for (const t of [...checkpoints].reverse().concat([0.865, 0.7, 0.9, 0.851])) {
       runtime.apply(frame(t), f.context, viewport)
