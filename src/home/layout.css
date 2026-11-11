@@ -117,33 +117,18 @@ body {
   clip-path: inset(0 0 0 0);
   transition: transform 200ms ease;
 }
-.home-letter {
-  transition:
-    transform var(--duration, 350ms) linear var(--reverse-delay, 0ms),
-    opacity 1ms linear var(--reverse-delay, 0ms);
-}
-.home-header[data-compact] .home-letter {
-  transform: translateX(var(--letter-travel, 0px));
-  opacity: 0;
-  transition:
-    transform var(--duration) linear,
-    opacity 1ms linear var(--duration);
-}
-.home-header[data-compact] .home-letter-h {
-  opacity: 1;
-}
+.home-letter { transition: transform var(--duration, 350ms) linear var(--reverse-delay, 0ms), opacity 1ms linear var(--reverse-delay, 0ms); }
+.home-header[data-compact] .home-letter { transform: translateX(var(--letter-travel, 0px)); opacity: 0; transition: transform var(--duration) linear, opacity 1ms linear var(--duration); }
+.home-header[data-compact] .home-letter-h { opacity: 1; }
 .home-identity .home-eyebrow {
-  transition:
-    transform 325ms ease,
-    opacity 225ms ease;
+  transition: transform 325ms ease, opacity 225ms ease;
   transform-origin: left top;
 }
 .home-header[data-compact] .home-name {
-  transform: translate(calc(8px - var(--gutter)), calc(8px - var(--header-top))) scale(0.67);
+  transform: translate(calc(8px - var(--gutter)), calc(8px - var(--header-top))) scale(.67);
   clip-path: inset(0 calc(100% - var(--monogram-end, 30%)) 0 0);
-  transition:
-    transform 125ms ease 325ms,
-    clip-path 0s 450ms;
+  background: var(--surface);
+  transition: transform 125ms ease 325ms, clip-path 0s 450ms;
 }
 /* First scroll can interrupt the introductory drawing; compact MH must be visible.
    Keep the ink filled on expansion instead of restarting the page-load drawing. */
@@ -153,12 +138,8 @@ body {
   stroke-width: 0;
   stroke-dashoffset: 0;
 }
-.home-header .home-name:focus-visible {
-  outline-offset: -2px;
-}
-.home-header[data-compact] .home-name:focus-visible {
-  outline: none;
-}
+.home-header .home-name:focus-visible { outline-offset: -2px; }
+.home-header[data-compact] .home-name:focus-visible { outline: none; }
 .home-header[data-compact] .home-name:focus-visible::after {
   content: "";
   position: absolute;
@@ -168,7 +149,7 @@ body {
 }
 .home-header[data-compact] .home-eyebrow {
   opacity: 0;
-  transform: translate(0, -35px) scale(0.25);
+  transform: translate(0, -35px) scale(.25);
 }
 
 .home-header[data-compact] .home-theme-toggle {
@@ -192,15 +173,12 @@ body {
   position: relative;
   color: var(--muted);
   text-decoration: none;
-  transition:
-    color 200ms ease,
-    transform 550ms ease,
-    opacity 350ms ease,
-    visibility 0s 550ms;
+  transition: color 200ms ease, transform 550ms ease, opacity 350ms ease, visibility 0s 550ms;
 }
 
 .home-nav-toggle {
   position: fixed;
+  box-sizing: border-box;
   right: 96px;
   top: 8px;
   width: 48px;
@@ -212,124 +190,73 @@ body {
   color: var(--ink);
   opacity: 0;
   visibility: hidden;
-  cursor: pointer;
-  transform: translateX(var(--wcs-start-x, -190px)) scale(0.65);
+  cursor: default;
+  transform: translateX(var(--wcs-start-x, -190px)) scale(.65);
   translate: 0 var(--wcs-start-y, 28px);
-  transition:
-    transform 450ms
-    linear(
-      0,
-      var(--wcs-plus-progress, 0.3) 25%,
-      var(--wcs-plus-progress, 0.3) 35%,
-      var(--wcs-contact-progress, 0.7) 60%,
-      var(--wcs-contact-progress, 0.7) 70%,
-      1
-    ),
-    translate 135ms ease,
-    opacity 70ms 380ms,
-    visibility 0s 450ms;
+  transition: transform 450ms linear(0, var(--wcs-plus-progress, .3) 25%, var(--wcs-plus-progress, .3) 35%, var(--wcs-contact-progress, .7) 60%, var(--wcs-contact-progress, .7) 70%, 1), translate 135ms ease, opacity 70ms 380ms, visibility 0s 450ms;
 }
-.home-nav-toggle svg {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-.home-nav-toggle path {
-  fill: none;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.home-wcs-y {
-  stroke: #7acb8b;
-}
-.home-wcs-x {
-  stroke: #f0703a;
-}
-.home-wcs-z {
-  stroke: #80baf4;
-}
-.home-nav-toggle text {
-  fill: currentColor;
-  stroke: none;
-  font: bold 7px var(--mono);
-}
-.home-header[data-compact] .home-nav-toggle {
+.home-nav-toggle svg { width: 100%; height: 100%; overflow: visible; }
+.home-nav-toggle path { fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.home-wcs-y { stroke: #7acb8b; }
+.home-wcs-x { stroke: #f0703a; }
+.home-wcs-z { stroke: #80baf4; }
+.home-nav-toggle text { fill: currentColor; stroke: none; font: bold 7px var(--mono); }
+.home-header[data-compact]:not([data-menu-open]) .home-nav-toggle {
   opacity: 1;
   visibility: visible;
   transform: translateX(0) scale(1);
   translate: 0 0;
-  transition:
-    transform 450ms
-    linear(
-      0,
-      var(--wcs-plus-progress, 0.3) 25%,
-      var(--wcs-plus-progress, 0.3) 35%,
-      var(--wcs-contact-progress, 0.7) 60%,
-      var(--wcs-contact-progress, 0.7) 70%,
-      1
-    ),
-    translate 135ms ease 315ms,
-    opacity 70ms,
-    visibility 0s;
+  transition: transform 450ms linear(0, var(--wcs-plus-progress, .3) 25%, var(--wcs-plus-progress, .3) 35%, var(--wcs-contact-progress, .7) 60%, var(--wcs-contact-progress, .7) 70%, 1), translate 135ms ease 315ms, opacity 70ms, visibility 0s;
 }
-.home-wcs-spin {
-  transform: perspective(120px) rotateY(-720deg);
-  transform-origin: 24px 30px;
-  transition: transform 450ms linear;
-}
-.home-header[data-compact] .home-wcs-spin {
-  transform: perspective(120px) rotateY(0);
-}
-.home-header[data-compact] .home-nav:not(:has(+ .home-nav-toggle[aria-expanded="true"])) a {
+.home-wcs-spin { transform: perspective(120px) rotateY(-720deg); transform-origin: 24px 30px; transition: transform 450ms linear; }
+.home-header[data-compact]:not([data-menu-open]) .home-wcs-spin { transform: perspective(120px) rotateY(0); }
+.home-header[data-compact]:not([data-menu-open]) .home-nav a {
   opacity: 0;
   visibility: hidden;
-  transform: scale(0.4);
+  transform: scale(.4);
 }
-.home-nav a {
-  transition:
-    color 200ms,
-    transform 45ms,
-    opacity 45ms,
-    visibility 0s;
-}
-.home-header[data-compact] .home-nav a:nth-child(1) {
-  transition-delay: 0ms, 0ms, 0ms, 45ms;
-}
-.home-header[data-compact] .home-nav a:nth-child(2) {
-  transition-delay: 0ms, 113ms, 113ms, 158ms;
-}
-.home-header[data-compact] .home-nav a:nth-child(3) {
-  transition-delay: 0ms, 270ms, 270ms, 315ms;
-}
-.home-header:not([data-compact]) .home-nav a:nth-child(1) {
-  transition-delay: 0ms, 405ms, 405ms, 0ms;
-}
-.home-header:not([data-compact]) .home-nav a:nth-child(2) {
-  transition-delay: 0ms, 293ms, 293ms, 0ms;
-}
-.home-header:not([data-compact]) .home-nav a:nth-child(3) {
-  transition-delay: 0ms, 135ms, 135ms, 0ms;
-}
-.home-header[data-compact] .home-nav:has(+ .home-nav-toggle[aria-expanded="true"]) {
-  position: absolute;
+.home-nav a { transition: color 200ms, transform 45ms, opacity 45ms, visibility 0s; }
+.home-header[data-compact]:not([data-menu-open]) .home-nav a:nth-child(1) { transition-delay: 0ms, 0ms, 0ms, 45ms; }
+.home-header[data-compact]:not([data-menu-open]) .home-nav a:nth-child(2) { transition-delay: 0ms, 113ms, 113ms, 158ms; }
+.home-header[data-compact]:not([data-menu-open]) .home-nav a:nth-child(3) { transition-delay: 0ms, 270ms, 270ms, 315ms; }
+.home-header:not([data-compact]) .home-nav a:nth-child(1),
+.home-header[data-menu-open] .home-nav a:nth-child(1) { transition-delay: 0ms, 405ms, 405ms, 0ms; }
+.home-header:not([data-compact]) .home-nav a:nth-child(2),
+.home-header[data-menu-open] .home-nav a:nth-child(2) { transition-delay: 0ms, 293ms, 293ms, 0ms; }
+.home-header:not([data-compact]) .home-nav a:nth-child(3),
+.home-header[data-menu-open] .home-nav a:nth-child(3) { transition-delay: 0ms, 135ms, 135ms, 0ms; }
+.home-header[data-menu-instant] .home-nav a { transition: none; }
+
+/* The WCS is a hover illustration. Touch and keyboard have a separate control. */
+.home-menu-trigger {
+  display: none;
+  position: fixed;
+  top: 56px;
   right: 8px;
-  top: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 0;
-  width: min(220px, calc(100vw - 2 * var(--gutter)));
-  padding: 8px 16px;
-  background: var(--surface);
-  border: 1px solid var(--rule);
+  min-width: 80px;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 0;
   border-radius: 8px;
-  box-shadow: 0 12px 30px #0004;
+  background: var(--surface);
+  color: var(--ink);
+  font: 500 14px var(--body);
+  cursor: pointer;
 }
-.home-header[data-compact] .home-nav:has(+ .home-nav-toggle[aria-expanded="true"]) a {
-  padding: 10px 0;
-  transition: none;
+.home-header[data-compact] .home-menu-trigger { display: block; opacity: 0; pointer-events: none; }
+.home-header[data-compact] .home-menu-trigger:focus-visible { opacity: 1; pointer-events: auto; }
+@media (hover: none), (pointer: coarse) {
+  .home-header[data-compact] .home-menu-trigger { opacity: 1; pointer-events: auto; }
 }
+
+/* Only the visible controls receive input over scrolling page content. */
+.home-header[data-compact],
+.home-header[data-compact] .home-nav { pointer-events: none; }
+.home-header[data-compact] .home-name,
+.home-header[data-compact] .home-theme-toggle,
+.home-header[data-compact] .home-nav-toggle,
+.home-header[data-compact][data-menu-open] .home-nav a { pointer-events: auto; }
+.home-header[data-compact][data-menu-open] .home-nav-toggle { pointer-events: none; }
 
 .home-nav a::after {
   content: "";
@@ -354,29 +281,7 @@ body {
 
 .home-header .home-theme-toggle {
   margin-left: 32px;
-  transition:
-    transform 250ms ease,
-    border-color 200ms ease,
-    background-color 300ms ease;
-}
-
-/* A fixed background veil fades the scrolling page before it reaches the compact controls. */
-.home:has(.home-header[data-compact])::before,
-.home:has(.home-header[data-compact])::after {
-  content: "";
-  position: fixed;
-  z-index: 25;
-  inset: 0 0 auto;
-  height: calc(var(--header-clearance, 100px) + 80px);
-  background: linear-gradient(to bottom, var(--bg) 0 var(--header-clearance, 100px), transparent 100%);
-  pointer-events: none;
-}
-/* Fully veiled links cannot receive invisible pointer clicks. Keyboard focus is
-   scrolled below the veil by the header's focus handler. */
-.home:has(.home-header[data-compact])::before {
-  height: var(--header-clearance, 100px);
-  background: none;
-  pointer-events: auto;
+  transition: transform 250ms ease, border-color 200ms ease, background-color 300ms ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -384,18 +289,9 @@ body {
   .home-nav a::after {
     transition: none;
   }
-  .home-identity .home-name,
-  .home-identity .home-eyebrow,
-  .home-monogram,
-  .home-letter,
-  .home-nav-toggle,
-  .home-nav a,
-  .home-header .home-theme-toggle {
-    transition: none !important;
-  }
-  .home-wcs-spin {
-    transition: none;
-  }
+  .home-identity .home-name, .home-identity .home-eyebrow, .home-monogram,
+  .home-letter, .home-nav-toggle, .home-nav a, .home-header .home-theme-toggle { transition: none !important; }
+  .home-wcs-spin { transition: none; }
 }
 
 /* Phones: name and toggle on the first row, the nav under them. */
@@ -428,9 +324,7 @@ body {
   padding: clamp(20px, 5vh, 64px) var(--gutter) clamp(72px, 14vh, 160px);
 }
 
-.home main section[id] {
-  scroll-margin-top: 140px;
-}
+.home main section[id] { scroll-margin-top: 140px; }
 
 .home-eyebrow,
 .home-label,
@@ -480,14 +374,8 @@ body {
 }
 
 @keyframes home-roll-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -600,9 +488,7 @@ body {
   background: var(--surface);
   border: 1px solid var(--rule);
   text-decoration: none;
-  transition:
-    border-color 200ms ease,
-    transform 200ms ease;
+  transition: border-color 200ms ease, transform 200ms ease;
 }
 
 a.home-row:hover,
