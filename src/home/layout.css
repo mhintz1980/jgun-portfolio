@@ -127,6 +127,7 @@ body {
 .home-header[data-compact] .home-name {
   transform: translate(calc(8px - var(--gutter)), calc(8px - var(--header-top))) scale(.67);
   clip-path: inset(0 calc(100% - var(--monogram-end, 30%)) 0 0);
+  background: var(--surface);
   transition: transform 125ms ease 325ms, clip-path 0s 450ms;
 }
 /* First scroll can interrupt the introductory drawing; compact MH must be visible.
@@ -177,6 +178,7 @@ body {
 
 .home-nav-toggle {
   position: fixed;
+  box-sizing: border-box;
   right: 96px;
   top: 8px;
   width: 48px;
@@ -188,7 +190,7 @@ body {
   color: var(--ink);
   opacity: 0;
   visibility: hidden;
-  cursor: pointer;
+  cursor: default;
   transform: translateX(var(--wcs-start-x, -190px)) scale(.65);
   translate: 0 var(--wcs-start-y, 28px);
   transition: transform 450ms linear(0, var(--wcs-plus-progress, .3) 25%, var(--wcs-plus-progress, .3) 35%, var(--wcs-contact-progress, .7) 60%, var(--wcs-contact-progress, .7) 70%, 1), translate 135ms ease, opacity 70ms 380ms, visibility 0s 450ms;
@@ -199,7 +201,7 @@ body {
 .home-wcs-x { stroke: #f0703a; }
 .home-wcs-z { stroke: #80baf4; }
 .home-nav-toggle text { fill: currentColor; stroke: none; font: bold 7px var(--mono); }
-.home-header[data-compact] .home-nav-toggle {
+.home-header[data-compact]:not([data-menu-open]) .home-nav-toggle {
   opacity: 1;
   visibility: visible;
   transform: translateX(0) scale(1);
@@ -207,35 +209,54 @@ body {
   transition: transform 450ms linear(0, var(--wcs-plus-progress, .3) 25%, var(--wcs-plus-progress, .3) 35%, var(--wcs-contact-progress, .7) 60%, var(--wcs-contact-progress, .7) 70%, 1), translate 135ms ease 315ms, opacity 70ms, visibility 0s;
 }
 .home-wcs-spin { transform: perspective(120px) rotateY(-720deg); transform-origin: 24px 30px; transition: transform 450ms linear; }
-.home-header[data-compact] .home-wcs-spin { transform: perspective(120px) rotateY(0); }
-.home-header[data-compact] .home-nav:not(:has(+ .home-nav-toggle[aria-expanded="true"])) a {
+.home-header[data-compact]:not([data-menu-open]) .home-wcs-spin { transform: perspective(120px) rotateY(0); }
+.home-header[data-compact]:not([data-menu-open]) .home-nav a {
   opacity: 0;
   visibility: hidden;
   transform: scale(.4);
 }
 .home-nav a { transition: color 200ms, transform 45ms, opacity 45ms, visibility 0s; }
-.home-header[data-compact] .home-nav a:nth-child(1) { transition-delay: 0ms, 0ms, 0ms, 45ms; }
-.home-header[data-compact] .home-nav a:nth-child(2) { transition-delay: 0ms, 113ms, 113ms, 158ms; }
-.home-header[data-compact] .home-nav a:nth-child(3) { transition-delay: 0ms, 270ms, 270ms, 315ms; }
-.home-header:not([data-compact]) .home-nav a:nth-child(1) { transition-delay: 0ms, 405ms, 405ms, 0ms; }
-.home-header:not([data-compact]) .home-nav a:nth-child(2) { transition-delay: 0ms, 293ms, 293ms, 0ms; }
-.home-header:not([data-compact]) .home-nav a:nth-child(3) { transition-delay: 0ms, 135ms, 135ms, 0ms; }
-.home-header[data-compact] .home-nav:has(+ .home-nav-toggle[aria-expanded="true"]) {
-  position: absolute;
+.home-header[data-compact]:not([data-menu-open]) .home-nav a:nth-child(1) { transition-delay: 0ms, 0ms, 0ms, 45ms; }
+.home-header[data-compact]:not([data-menu-open]) .home-nav a:nth-child(2) { transition-delay: 0ms, 113ms, 113ms, 158ms; }
+.home-header[data-compact]:not([data-menu-open]) .home-nav a:nth-child(3) { transition-delay: 0ms, 270ms, 270ms, 315ms; }
+.home-header:not([data-compact]) .home-nav a:nth-child(1),
+.home-header[data-menu-open] .home-nav a:nth-child(1) { transition-delay: 0ms, 405ms, 405ms, 0ms; }
+.home-header:not([data-compact]) .home-nav a:nth-child(2),
+.home-header[data-menu-open] .home-nav a:nth-child(2) { transition-delay: 0ms, 293ms, 293ms, 0ms; }
+.home-header:not([data-compact]) .home-nav a:nth-child(3),
+.home-header[data-menu-open] .home-nav a:nth-child(3) { transition-delay: 0ms, 135ms, 135ms, 0ms; }
+.home-header[data-menu-instant] .home-nav a { transition: none; }
+
+/* The WCS is a hover illustration. Touch and keyboard have a separate control. */
+.home-menu-trigger {
+  display: none;
+  position: fixed;
+  top: 56px;
   right: 8px;
-  top: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 0;
-  width: min(220px, calc(100vw - 2 * var(--gutter)));
-  padding: 8px 16px;
-  background: var(--surface);
-  border: 1px solid var(--rule);
+  min-width: 80px;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 0;
   border-radius: 8px;
-  box-shadow: 0 12px 30px #0004;
+  background: var(--surface);
+  color: var(--ink);
+  font: 500 14px var(--body);
+  cursor: pointer;
 }
-.home-header[data-compact] .home-nav:has(+ .home-nav-toggle[aria-expanded="true"]) a { padding: 10px 0; transition: none; }
+.home-header[data-compact] .home-menu-trigger { display: block; opacity: 0; pointer-events: none; }
+.home-header[data-compact] .home-menu-trigger:focus-visible { opacity: 1; pointer-events: auto; }
+@media (hover: none), (pointer: coarse) {
+  .home-header[data-compact] .home-menu-trigger { opacity: 1; pointer-events: auto; }
+}
+
+/* Only the visible controls receive input over scrolling page content. */
+.home-header[data-compact],
+.home-header[data-compact] .home-nav { pointer-events: none; }
+.home-header[data-compact] .home-name,
+.home-header[data-compact] .home-theme-toggle,
+.home-header[data-compact] .home-nav-toggle,
+.home-header[data-compact][data-menu-open] .home-nav a { pointer-events: auto; }
+.home-header[data-compact][data-menu-open] .home-nav-toggle { pointer-events: none; }
 
 .home-nav a::after {
   content: "";
@@ -261,25 +282,6 @@ body {
 .home-header .home-theme-toggle {
   margin-left: 32px;
   transition: transform 250ms ease, border-color 200ms ease, background-color 300ms ease;
-}
-
-/* A fixed background veil fades the scrolling page before it reaches the compact controls. */
-.home:has(.home-header[data-compact])::before,
-.home:has(.home-header[data-compact])::after {
-  content: "";
-  position: fixed;
-  z-index: 25;
-  inset: 0 0 auto;
-  height: calc(var(--header-clearance, 100px) + 80px);
-  background: linear-gradient(to bottom, var(--bg) 0 var(--header-clearance, 100px), transparent 100%);
-  pointer-events: none;
-}
-/* Fully veiled links cannot receive invisible pointer clicks. Keyboard focus is
-   scrolled below the veil by the header's focus handler. */
-.home:has(.home-header[data-compact])::before {
-  height: var(--header-clearance, 100px);
-  background: none;
-  pointer-events: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {

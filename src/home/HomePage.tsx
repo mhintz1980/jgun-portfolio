@@ -17,7 +17,10 @@ export default function HomePage() {
   const [focus, setFocus] = useState<ProjectId | null>(null)
   const [compactHeader, setCompactHeader] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [menuInstant, setMenuInstant] = useState(false)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const wcsRef = useRef<HTMLSpanElement>(null)
+  const headerRef = useRef<HTMLElement>(null)
   const navRef = useRef<HTMLElement>(null)
   const menuLeaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const restoreNavFocusRef = useRef(false)
@@ -60,7 +63,7 @@ export default function HomePage() {
       header.style.setProperty('--theme-corner-y', `${8 - box.top + transform.m42}px`)
       // Closed compact links retain the expanded flex layout; scale(.4) leaves
       // their centers unchanged. Keep the reverse destinations current as well.
-      if (menuButtonRef.current?.getAttribute('aria-expanded') !== 'true') {
+      if (!header.hasAttribute('data-menu-open')) {
         const rect = work.getBoundingClientRect()
         const startX = rect.left + rect.width / 2
         const endX = document.documentElement.clientWidth - 96 - 24
@@ -75,12 +78,6 @@ export default function HomePage() {
           }
         }
       }
-    }
-    const clearance = () => {
-      const name = header?.querySelector('.home-name')
-      if (!header || !name || !theme || !menuButtonRef.current) return
-      const bottom = Math.max(name.getBoundingClientRect().bottom, theme.getBoundingClientRect().bottom, menuButtonRef.current.getBoundingClientRect().bottom)
-      header.closest<HTMLElement>('.home')?.style.setProperty('--header-clearance', `${Math.ceil(bottom + 16)}px`)
     }
     const cancelGate = () => {
       gateVersion++
@@ -117,7 +114,7 @@ export default function HomePage() {
                   target.matches('.home-name, .home-letter, .home-nav-toggle, .home-wcs-spin, .home-theme-toggle')
               })
               if (moving) gateFrame = requestAnimationFrame(settle)
-              else { phase = 'compact'; clearance() }
+              else { phase = 'compact' }
             }
             settle()
           })
@@ -189,16 +186,24 @@ export default function HomePage() {
       } else if (wasScrolled) { wasScrolled = false; expand() }
     }
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update) }
-    const resize = () => { measure(); schedule(); if (phase === 'compact') clearance() }
+    const resize = () => { measure(); schedule() }
     const focusIn = (event: FocusEvent) => {
       restorePending = false
       const target = event.target
-      if (phase !== 'expanded' && target instanceof HTMLElement && target.closest('main') && target.getBoundingClientRect().top < 180) {
-        target.scrollIntoView({ block: 'center', behavior: 'instant' })
+      if (phase !== 'expanded' && target instanceof HTMLElement && target.closest('main')) {
+        const rect = target.getBoundingClientRect()
+        const name = header?.querySelector<HTMLElement>('.home-name')
+        const nameRect = name?.getBoundingClientRect()
+        const monogramWidth = name ? parseFloat(getComputedStyle(name).getPropertyValue('--monogram-end')) / 100 : 0
+        const controls: Array<Pick<DOMRect, 'left' | 'right' | 'top' | 'bottom'> | undefined> = [theme?.getBoundingClientRect(), wcsRef.current?.getBoundingClientRect()]
+        if (menuButtonRef.current && Number(getComputedStyle(menuButtonRef.current).opacity) > 0) controls.push(menuButtonRef.current.getBoundingClientRect())
+        if (nameRect) controls.push({ left: nameRect.left, right: nameRect.left + nameRect.width * (monogramWidth || 0.3), top: nameRect.top, bottom: nameRect.bottom })
+        if (controls.some((box) => box && rect.left < box.right && rect.right > box.left && rect.top < box.bottom && rect.bottom > box.top)) {
+          target.scrollIntoView({ block: 'center', behavior: 'instant' })
+        }
       }
     }
-    const motionChange = () => { if (phase === 'collapsing' && reducedMotion.matches) { cancelGate(); phase = 'compact'; clearance() } }
-    const transitionEnd = () => { if (phase === 'compact') clearance() }
+    const motionChange = () => { if (phase === 'collapsing' && reducedMotion.matches) { cancelGate(); phase = 'compact' } }
     const savePosition = () => {
       // Native restoration can run before React has created the tall page.
       // Store this entry's position, preserving any existing history metadata.
@@ -214,7 +219,6 @@ export default function HomePage() {
     window.addEventListener('keydown', keydown)
     document.addEventListener('focusin', focusIn)
     reducedMotion.addEventListener('change', motionChange)
-    header?.addEventListener('transitionend', transitionEnd)
     window.addEventListener('pagehide', savePosition)
     const observer = new ResizeObserver(resize)
     if (header) observer.observe(header)
@@ -250,7 +254,6 @@ export default function HomePage() {
       window.removeEventListener('keydown', keydown)
       document.removeEventListener('focusin', focusIn)
       reducedMotion.removeEventListener('change', motionChange)
-      header?.removeEventListener('transitionend', transitionEnd)
       window.removeEventListener('pagehide', savePosition)
       observer.disconnect()
       cancelGate()
@@ -264,13 +267,13 @@ export default function HomePage() {
       restoreNavFocusRef.current = false
       menuButtonRef.current?.focus({ preventScroll: true })
     }
-    if (!compactHeader) setMenuOpen(false)
+    if (!compactHeader) { setMenuOpen(false); setMenuInstant(false) }
   }, [compactHeader])
 
   useEffect(() => {
     const dismissOutside = (event: PointerEvent) => {
       const target = event.target as Node
-      if (!menuButtonRef.current?.contains(target) && !navRef.current?.contains(target)) setMenuOpen(false)
+      if (!headerRef.current?.contains(target)) setMenuOpen(false)
     }
     document.addEventListener('pointerdown', dismissOutside)
     return () => {
@@ -279,6 +282,40 @@ export default function HomePage() {
     }
   }, [])
 
+  useEffect(() => {
+    if (!compactHeader || !menuOpen) return
+    const trackPointer = (event: PointerEvent) => {
+      if (event.pointerType === 'touch') return
+      const nav = navRef.current?.getBoundingClientRect()
+      if (!nav) return
+      // Keep the reverse animation open while the pointer travels between the
+      // corner and the links, without placing an invisible layer over the page.
+      const inside = event.clientX >= Math.min(nav.left, window.innerWidth - 144) - 12 &&
+        event.clientX <= Math.max(nav.right, window.innerWidth - 96) + 12 &&
+        event.clientY >= 0 && event.clientY <= Math.max(nav.bottom, 56) + 12
+      if (inside) {
+        if (menuLeaveTimer.current) clearTimeout(menuLeaveTimer.current)
+        menuLeaveTimer.current = null
+      } else if (!menuLeaveTimer.current) {
+        menuLeaveTimer.current = setTimeout(() => {
+          menuLeaveTimer.current = null
+          if (!navRef.current?.contains(document.activeElement) && document.activeElement !== menuButtonRef.current) setMenuOpen(false)
+        }, 160)
+      }
+    }
+    const leaveDocument = (event: PointerEvent) => {
+      if (event.pointerType !== 'touch' && !navRef.current?.contains(document.activeElement) && document.activeElement !== menuButtonRef.current) setMenuOpen(false)
+    }
+    document.addEventListener('pointermove', trackPointer, { passive: true })
+    document.addEventListener('pointerleave', leaveDocument)
+    return () => {
+      document.removeEventListener('pointermove', trackPointer)
+      document.removeEventListener('pointerleave', leaveDocument)
+      if (menuLeaveTimer.current) clearTimeout(menuLeaveTimer.current)
+      menuLeaveTimer.current = null
+    }
+  }, [compactHeader, menuOpen])
+
   const cancelMenuLeave = () => {
     if (menuLeaveTimer.current) clearTimeout(menuLeaveTimer.current)
     menuLeaveTimer.current = null
@@ -286,16 +323,9 @@ export default function HomePage() {
   const enterMenu = (event: React.PointerEvent) => {
     if (!compactHeader || event.pointerType === 'touch') return
     cancelMenuLeave()
+    setMenuInstant(false)
     setMenuOpen(true)
   }
-  const leaveMenu = (event: React.PointerEvent) => {
-    if (!compactHeader || event.pointerType === 'touch') return
-    cancelMenuLeave()
-    menuLeaveTimer.current = setTimeout(() => {
-      if (!navRef.current?.contains(document.activeElement)) setMenuOpen(false)
-    }, 160)
-  }
-
   // A pinned project stack brings that project's drawings forward in the vault (all devices).
   const activeHandlers = useMemo(() => {
     const handlers = {} as Record<ProjectId, (active: boolean) => void>
@@ -334,12 +364,12 @@ export default function HomePage() {
       <Vault focus={focus} />
       <Thread />
 
-      <header className="home-header" data-compact={compactHeader ? '' : undefined} onKeyDown={(event) => { if (event.key === 'Escape' && menuOpen) { setMenuOpen(false); menuButtonRef.current?.focus() } }}>
+      <header ref={headerRef} className="home-header" data-compact={compactHeader ? '' : undefined} data-menu-open={menuOpen ? '' : undefined} data-menu-instant={menuInstant ? '' : undefined} onKeyDown={(event) => { if (event.key === 'Escape' && menuOpen) { setMenuOpen(false); menuButtonRef.current?.focus() } }}>
         <div className="home-identity">
           <DrawnName href="#top" label="Mark Hintz, back to top" />
           <p className="home-eyebrow">{HERO.eyebrow}</p>
         </div>
-        <nav ref={navRef} id="home-navigation" className="home-nav" aria-label="Sections" inert={compactHeader && !menuOpen} onPointerEnter={enterMenu} onPointerLeave={leaveMenu} onBlur={(event) => { if (compactHeader && !event.currentTarget.contains(event.relatedTarget) && event.relatedTarget !== menuButtonRef.current) setMenuOpen(false) }} onClick={() => { if (compactHeader) menuButtonRef.current?.focus({ preventScroll: true }); setMenuOpen(false) }}>
+        <nav ref={navRef} id="home-navigation" className="home-nav" aria-label="Sections" inert={compactHeader && !menuOpen} onPointerEnter={cancelMenuLeave} onBlur={(event) => { if (compactHeader && !event.currentTarget.contains(event.relatedTarget) && event.relatedTarget !== menuButtonRef.current) setMenuOpen(false) }} onClick={() => { if (compactHeader) menuButtonRef.current?.focus({ preventScroll: true }); setMenuOpen(false) }}>
           <a href="#work">Work</a>
           <a href="#plus">
             <span className="home-accent" aria-hidden="true">
@@ -349,7 +379,7 @@ export default function HomePage() {
           </a>
           <a href="#contact">Contact</a>
         </nav>
-        <button ref={menuButtonRef} className="home-nav-toggle" type="button" aria-label="Sections menu" aria-expanded={menuOpen} aria-controls="home-navigation" tabIndex={compactHeader ? 0 : -1} onPointerEnter={enterMenu} onPointerLeave={leaveMenu} onBlur={(event) => { if (compactHeader && !navRef.current?.contains(event.relatedTarget)) setMenuOpen(false) }} onClick={(event) => { cancelMenuLeave(); const opening = !menuOpen; setMenuOpen(opening); if (opening && event.detail === 0) requestAnimationFrame(() => navRef.current?.querySelector<HTMLElement>('a')?.focus()) }}>
+        <span ref={wcsRef} className="home-nav-toggle" aria-hidden="true" onPointerEnter={enterMenu}>
           <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
             <g className="home-wcs-spin">
               <path className="home-wcs-y" d="M24 30V5m-4 5 4-5 4 5" />
@@ -359,7 +389,8 @@ export default function HomePage() {
               <text x="26" y="8">Y</text><text x="40" y="32">X</text><text x="3" y="34">Z</text>
             </g>
           </svg>
-        </button>
+        </span>
+        <button ref={menuButtonRef} className="home-menu-trigger" type="button" aria-label="Sections menu" aria-expanded={menuOpen} aria-controls="home-navigation" tabIndex={compactHeader ? 0 : -1} onBlur={(event) => { if (compactHeader && !navRef.current?.contains(event.relatedTarget)) setMenuOpen(false) }} onClick={(event) => { cancelMenuLeave(); const opening = !menuOpen; setMenuInstant(event.detail === 0); setMenuOpen(opening); if (opening && event.detail === 0) requestAnimationFrame(() => navRef.current?.querySelector<HTMLElement>('a')?.focus()) }}>Menu</button>
         <ThemeToggle />
       </header>
 

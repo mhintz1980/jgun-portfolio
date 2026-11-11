@@ -44,9 +44,11 @@ const compact = async (page) => {
 }
 const menu = (page) => page.getByRole('button', { name: 'Sections menu' })
 const expectMenu = async (page, expanded) => {
-  await page.waitForFunction((value) => document.querySelector('.home-nav-toggle')?.getAttribute('aria-expanded') === String(value), expanded, { timeout: 3000 })
+  await page.waitForFunction((value) => document.querySelector('.home-menu-trigger')?.getAttribute('aria-expanded') === String(value), expanded, { timeout: 3000 })
 }
+const only = option('only', '')
 const test = async (name, options, run) => {
+  if (only && !name.includes(only)) return
   const context = await browser.newContext(options)
   const page = await context.newPage()
   page.on('pageerror', (error) => errors.push(`${name}: ${error.message}`))
@@ -63,9 +65,19 @@ const test = async (name, options, run) => {
 
 try {
   await test('WCS hover travel exit and reentry', desktop, async (page) => {
-    await compact(page)
+    await ready(page)
+    const expanded = await page.locator('.home-nav a').evaluateAll((links) => links.map((link) => link.getBoundingClientRect().toJSON()))
+    await page.keyboard.press('PageDown')
+    await settled(page)
     await page.mouse.move(20, 200)
-    await menu(page).hover()
+    const icon = page.locator('.home-nav-toggle')
+    assert.deepEqual(await icon.evaluate((el) => ({ tag: el.tagName, hidden: el.getAttribute('aria-hidden'), tabIndex: el.tabIndex })), { tag: 'SPAN', hidden: 'true', tabIndex: -1 })
+    await icon.hover()
+    await expectMenu(page, true)
+    await page.waitForTimeout(500)
+    const reversed = await page.locator('.home-nav a').evaluateAll((links) => links.map((link) => link.getBoundingClientRect().toJSON()))
+    assert(reversed.every((box, index) => Math.abs(box.left - expanded[index].left) < 1 && Math.abs(box.top - expanded[index].top) < 1), 'hover must reverse the WCS into the original navigation positions')
+    await icon.dispatchEvent('click')
     await expectMenu(page, true)
     for (const name of ['Work', 'Plus', 'Contact']) {
       const link = page.getByRole('link', { name, exact: name !== 'Plus' })
@@ -78,8 +90,9 @@ try {
     }
     await page.mouse.move(20, 200, { steps: 20 })
     await expectMenu(page, false)
-    await menu(page).hover()
+    await icon.hover()
     await expectMenu(page, true)
+    await page.waitForTimeout(500)
     await page.getByRole('link', { name: 'Contact', exact: true }).click()
     await page.waitForFunction(() => location.hash === '#contact')
     await expectMenu(page, false)
@@ -96,26 +109,79 @@ try {
     assert(await work.evaluate((el) => el === document.activeElement && !el.closest('[inert]')), 'keyboard opening must focus the first link')
     await page.keyboard.press('Escape')
     await expectMenu(page, false)
-    assert(await menu(page).evaluate((el) => el === document.activeElement), 'Escape must restore focus to WCS')
+    assert(await menu(page).evaluate((el) => el === document.activeElement), 'Escape must restore focus to the menu control')
     await page.keyboard.press('Space')
     await expectMenu(page, true)
     await page.keyboard.press('Escape')
     await expectMenu(page, false)
   })
 
-  await test('WCS touch toggle dismissal and navigation', phone, async (page) => {
-    await compact(page)
-    await menu(page).tap()
-    await expectMenu(page, true)
-    await menu(page).tap()
-    await expectMenu(page, false)
-    await menu(page).tap()
-    await expectMenu(page, true)
-    await page.getByRole('link', { name: 'Work', exact: true }).tap()
-    await page.waitForFunction(() => location.hash === '#work')
-    await expectMenu(page, false)
-    assert.equal(await page.evaluate(() => !!document.activeElement?.closest('[inert]')), false)
-  })
+  for (const [label, options] of [['phone', phone], ['small phone', { ...phone, viewport: { width: 320, height: 700 } }]]) {
+    await test(`WCS touch toggle dismissal and navigation ${label}`, options, async (page) => {
+      await compact(page)
+      await menu(page).tap()
+      await expectMenu(page, true)
+      await menu(page).tap()
+      await expectMenu(page, false)
+      for (const [name, hash] of [['Work', '#work'], ['Plus', '#plus'], ['Contact', '#contact']]) {
+        await menu(page).tap()
+        await expectMenu(page, true)
+        await page.getByRole('link', { name, exact: name !== 'Plus' }).tap()
+        await page.waitForFunction((target) => location.hash === target, hash)
+        await expectMenu(page, false)
+        assert.equal(await page.evaluate(() => !!document.activeElement?.closest('[inert]')), false)
+      }
+    })
+  }
+
+  for (const [label, options] of [
+    ['desktop', desktop], ['phone', phone],
+    ['small-phone', { ...phone, viewport: { width: 320, height: 700 } }],
+  ]) {
+    for (const reducedMotion of ['no-preference', 'reduce']) {
+      await test(`screen edge content ${label} ${reducedMotion}`, { ...options, reducedMotion }, async (page) => {
+        await compact(page)
+        if (reducedMotion === 'reduce') await page.getByRole('button', { name: 'Dark theme' }).click()
+        const top = await page.evaluate(() => {
+          const probe = document.createElement('div')
+          probe.id = 'header-edge-probe'
+          Object.assign(probe.style, { position: 'absolute', top: '1200px', left: 'calc(50% - 20px)', width: '40px', height: '64px', background: 'rgb(251, 21, 179)', zIndex: '3' })
+          document.querySelector('.home').append(probe)
+          return probe.getBoundingClientRect().top + scrollY
+        })
+        const sample = async (probeY) => {
+          await page.evaluate(({ top, probeY }) => window.scrollTo({ top: top - probeY, behavior: 'instant' }), { top, probeY })
+          await page.waitForTimeout(80)
+          const y = Math.max(0, probeY) + 5
+          const screenshot = await page.screenshot({ animations: 'disabled' })
+          return page.evaluate(async ({ image, y }) => {
+            const bitmap = new Image()
+            bitmap.src = `data:image/png;base64,${image}`
+            await bitmap.decode()
+            const canvas = document.createElement('canvas')
+            canvas.width = canvas.height = 1
+            const context = canvas.getContext('2d')
+            const x = Math.floor(innerWidth / 2)
+            context.drawImage(bitmap, x, y, 1, 1, 0, 0, 1, 1)
+            return { rgb: [...context.getImageData(0, 0, 1, 1).data].slice(0, 3), hit: document.elementFromPoint(x, y)?.id }
+          }, { image: screenshot.toString('base64'), y })
+        }
+        for (const y of [80, 25, -20]) {
+          const actual = await sample(y)
+          assert.deepEqual(actual.rgb, [251, 21, 179], `content at y=${y} must remain visible until the viewport edge`)
+          assert.equal(actual.hit, 'header-edge-probe', `content at y=${y} must receive pointer input`)
+        }
+        const outside = await sample(-70)
+        assert.notDeepEqual(outside.rgb, [251, 21, 179], 'content must leave at the viewport edge')
+        await menu(page).focus()
+        await page.keyboard.press('Enter')
+        await expectMenu(page, true)
+        const open = await sample(25)
+        assert.deepEqual(open.rgb, [251, 21, 179], 'opening navigation must not cover the center')
+        assert.equal(open.hit, 'header-edge-probe', 'opening navigation must not block the center')
+      })
+    }
+  }
 
   for (const [label, options, reduced] of [
     ['desktop', desktop, false], ['mobile', phone, false],
@@ -215,7 +281,7 @@ try {
     assert(Math.abs(state.width - state.viewWidth) < 0.11, 'actual font must replace fallback SVG metrics')
   })
 
-  await test('desktop continuous wheel and fade', desktop, async (page) => {
+  await test('desktop continuous wheel and screen edge', desktop, async (page) => {
     await ready(page)
     const hero = (await page.evaluate(headerState)).hero
     await page.evaluate((state) => {
@@ -238,13 +304,11 @@ try {
     assert(firstScroll.time - firstCompact.time < 1000, 'collapse should finish promptly')
     assert(frames.filter((f) => f.y > 1).every((f) => f.corners), 'scroll released before all three controls reached corners')
     assert(frames.every((f) => Math.abs(f.hero - hero) < 1), 'header collapse changed page layout')
-    const veil = await page.evaluate(() => {
-      const h = document.querySelector('.home'), veil = getComputedStyle(h, '::after'), blocker = getComputedStyle(h, '::before')
-      return { clearance: parseFloat(getComputedStyle(h).getPropertyValue('--header-clearance')), height: parseFloat(veil.height), background: veil.backgroundImage, blocker: blocker.pointerEvents }
+    const overlay = await page.evaluate(() => {
+      const home = document.querySelector('.home')
+      return { before: getComputedStyle(home, '::before').content, after: getComputedStyle(home, '::after').content }
     })
-    const end = await page.evaluate(headerState)
-    assert(veil.clearance > Math.max(end.name.bottom, end.nav.bottom, end.theme.bottom), 'opaque fade must clear the icons')
-    assert(veil.height > veil.clearance && veil.background.includes('gradient') && veil.blocker === 'auto')
+    assert(['none', 'normal'].includes(overlay.before) && ['none', 'normal'].includes(overlay.after), 'the header must not add a full-width veil or click blocker')
     await writeFile(resolve(out, 'wheel-frames.json'), JSON.stringify(frames))
     await page.screenshot({ path: resolve(out, 'desktop-compact.png') })
     await page.keyboard.press('Home')
@@ -252,7 +316,7 @@ try {
     await page.waitForTimeout(500)
     await page.mouse.wheel(100, 0)
     assert.equal((await page.evaluate(headerState)).compact, false, 'horizontal gestures must not close the header')
-    return { releaseMs: Math.round(firstScroll.time - firstCompact.time), frameCount: frames.length, veil }
+    return { releaseMs: Math.round(firstScroll.time - firstCompact.time), frameCount: frames.length, overlay }
   })
 
   await test('reverse resize navigation and focus', desktop, async (page) => {
@@ -268,7 +332,7 @@ try {
     await page.getByRole('link', { name: 'Work', exact: true }).focus()
     await page.keyboard.press('PageDown')
     await settled(page)
-    assert.equal(await page.locator('.home-nav-toggle').evaluate((el) => el === document.activeElement), true)
+    assert.equal(await menu(page).evaluate((el) => el === document.activeElement), true)
     await page.setViewportSize({ width: 390, height: 844 })
     await page.waitForFunction(() => Math.abs(document.querySelector('.home-theme-toggle').getBoundingClientRect().top - 8) < 1)
     await settled(page)
@@ -277,7 +341,7 @@ try {
     await page.getByRole('link', { name: 'Plus', exact: false }).focus()
     await page.keyboard.press('Escape')
     assert.equal(await page.getByRole('button', { name: 'Sections menu' }).getAttribute('aria-expanded'), 'false')
-    assert(await page.locator('.home-nav-toggle').evaluate((el) => el === document.activeElement))
+    assert(await menu(page).evaluate((el) => el === document.activeElement))
     await page.getByRole('button', { name: 'Dark theme' }).press('Space')
     assert.equal(await page.getByRole('button', { name: 'Dark theme' }).getAttribute('aria-pressed'), 'true')
     await page.getByRole('button', { name: 'Sections menu' }).press('Enter')
@@ -293,7 +357,7 @@ try {
       const icon = document.querySelector('.home-nav-toggle').getBoundingClientRect()
       return { dx: Math.abs(work.left + work.width / 2 - icon.left - icon.width / 2), dy: Math.abs(work.top + work.height / 2 - icon.top - icon.height / 2) }
     })
-    assert(reverseTarget.dx < 1 && reverseTarget.dy < 1, 'WCS reverse must return to the current Work location after resize')
+    assert(reverseTarget.dx < 1 && reverseTarget.dy < 1, `WCS reverse must return to the current Work location after resize: ${JSON.stringify(reverseTarget)}`)
     await page.screenshot({ path: resolve(out, 'mobile-expanded-dark.png') })
   })
 
@@ -366,7 +430,7 @@ try {
     await page.waitForFunction(() => scrollY > 100)
     await settled(page)
     const focused = await page.evaluate(() => document.activeElement.getBoundingClientRect().toJSON())
-    assert(focused.top >= 180 && focused.bottom <= 900, 'keyboard focus must remain visible below the veil')
+    assert(focused.top >= 0 && focused.bottom <= 900, 'keyboard focus must remain visible in the viewport')
     const before = await page.evaluate(() => scrollY)
     await page.goto(`${url}?history=1`)
     await page.goBack()
