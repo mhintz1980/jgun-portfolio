@@ -109,7 +109,7 @@ These were not checked for logos, because Mark only asked for logo removal on th
 
 - Context at handoff: 303231 tokens (303.2k) of a 1M window
 - Auto-handoff threshold: 700000 (700k), from 70% of the 1M window
-- Automatic handoffs in a row with no user message: 0
+- Automatic handoffs in a row with no user message: 1
 
 ## Files Modified
 
