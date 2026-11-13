@@ -1,11 +1,12 @@
 # Showreel v3 — "The Thread"
 
-> **CANONICAL FILM (owner ruling 2026-11-08).** This composition is the homepage film
-> (`src/home/ShowreelSection.tsx` plays `public/video/showreel-v3.mp4`) and the basis for all
-> future showreel work — iterate here; do not start a replacement film. Next improvement: the
-> armament act with real 3D models. Review new cuts first; replace the homepage MP4 only after
-> Mark accepts. The separate StudioMark showcase "Precision Revealed" was **rejected** — do not
-> use it. Directive status: `TODO.md` JG-041.
+> **SUPERSEDED DIRECTION (owner ruling 2026-11-13).** The go-forward showreel is the "The Line"
+> rework — slices owner-approved 2026-11-09 — on branch `torque-wrench/rebuild` (see that
+> branch's `remotion/README.md`; approvals in its `docs/HANDOFF-showreel-v3-2026-11-09b.md`/
+> `-09c.md`). "The Thread" (this composition) is NOT the direction. The description below
+> documents the Thread-era source preserved on this branch; the homepage MP4 is replaced only
+> after Mark accepts a "The Line" cut. The "Precision Revealed" rejection still stands.
+> Directive status: `TODO.md` JG-041.
 
 The hero video for studiomark.dev, built in [Remotion](https://remotion.dev) 4.0.540.
 Output: `public/video/showreel-v3.mp4` (1920×1080, 30 fps, ~69 s, H.264, silent).
