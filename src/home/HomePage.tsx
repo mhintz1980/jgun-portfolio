@@ -190,7 +190,8 @@ export default function HomePage() {
     const focusIn = (event: FocusEvent) => {
       restorePending = false
       const target = event.target
-      if (phase !== 'expanded' && target instanceof HTMLElement && target.closest('main')) {
+      // Carousel cards manage their own roving focus as they move around the arc.
+      if (phase !== 'expanded' && target instanceof HTMLElement && target.closest('main') && !target.closest('.home-arc-card')) {
         const rect = target.getBoundingClientRect()
         const name = header?.querySelector<HTMLElement>('.home-name')
         const nameRect = name?.getBoundingClientRect()

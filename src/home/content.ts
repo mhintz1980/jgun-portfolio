@@ -116,12 +116,19 @@ export const CORE_PROJECTS: readonly CoreProject[] = [
 
 /** Image stacks per project (public/home/stacks/): company names, logos, title blocks and BOMs
  * removed; AI-generated images left out. */
+// 2026-11-07 additions staged from owner-cleared shipped sets: armament-showcase entries marked
+// "mine" in its manifest, the quiet-machine study posters, the shaft-story stills, and
+// review stills from the showreel. Renderings/06 is from the committed showreel-v3.mp4
+// at 00:12 (1280 x 720), replacing the rejected StudioMark showcase frame on 2026-11-12.
 export const STACKS: Partial<Record<ProjectId, readonly StackImage[]>> = {
   'torque-wrench': [
     { src: "/home/stacks/torque-wrench/03.webp", width: 528, height: 1152, label: "Exploded gearbox and section", kind: "drawing" },
     { src: "/home/stacks/torque-wrench/04.webp", width: 1600, height: 1209, label: "Splined housing detail drawing", kind: "drawing" },
     { src: "/home/stacks/torque-wrench/05.webp", width: 1600, height: 1209, label: "Gear housing detail drawing", kind: "drawing" },
     { src: "/home/stacks/torque-wrench/06.webp", width: 1600, height: 1034, label: "Output drive detail drawing", kind: "drawing" },
+    { src: "/home/stacks/torque-wrench/07.webp", width: 960, height: 600, label: "Hobbed shaft, formed gear teeth", kind: "render" },
+    { src: "/home/stacks/torque-wrench/08.webp", width: 720, height: 450, label: "Sun-to-planet mesh, macro view", kind: "render" },
+    { src: "/home/stacks/torque-wrench/09.webp", width: 712, height: 445, label: "Stage 1 planets seated on the sun gear", kind: "render" },
   ],
   'armament': [
     { src: "/home/stacks/armament/01.webp", width: 871, height: 775, label: "Billet lower receiver, CAD render", kind: "render" },
@@ -130,12 +137,18 @@ export const STACKS: Partial<Record<ProjectId, readonly StackImage[]>> = {
     { src: "/home/stacks/armament/04.webp", width: 1600, height: 1002, label: "Accessory rail mount", kind: "render" },
     { src: "/home/stacks/armament/05.webp", width: 775, height: 638, label: "Billet upper and lower, CAD render", kind: "render" },
     { src: "/home/stacks/armament/06.webp", width: 1600, height: 1008, label: "Barrel nut detail drawing", kind: "drawing" },
+    { src: "/home/stacks/armament/07.webp", width: 1600, height: 808, label: "AR-pattern rifle, grayscale render", kind: "render" },
+    { src: "/home/stacks/armament/08.webp", width: 1328, height: 752, label: "Armament component, grayscale render", kind: "render" },
+    { src: "/home/stacks/armament/09.webp", width: 800, height: 600, label: "Armament component, color study render", kind: "render" },
   ],
   'renderings': [
     { src: "/home/stacks/renderings/02.webp", width: 1024, height: 768, label: "Hydraulic square-drive wrench", kind: "render" },
     { src: "/home/stacks/renderings/03.webp", width: 1000, height: 1000, label: "Gearbox drive, low-key lighting", kind: "render" },
     { src: "/home/stacks/renderings/04.webp", width: 1024, height: 768, label: "Angle-head tool study", kind: "render" },
     { src: "/home/stacks/renderings/05.webp", width: 800, height: 600, label: "Free-float handguard", kind: "render" },
+    { src: "/home/stacks/renderings/06.webp", width: 1280, height: 720, label: "Showreel frame, industrial torque wrench", kind: "render" },
+    { src: "/home/stacks/renderings/07.webp", width: 1280, height: 720, label: "Showreel frame, wrench hero render", kind: "render" },
+    { src: "/home/stacks/renderings/08.webp", width: 1280, height: 720, label: "Showreel frame, main intake", kind: "render" },
   ],
   'quiet-machine': [
     { src: "/home/stacks/quiet-machine/01.webp", width: 1600, height: 900, label: "Cutaway: pump, drive and engine", kind: "render" },
@@ -144,6 +157,9 @@ export const STACKS: Partial<Record<ProjectId, readonly StackImage[]>> = {
     { src: "/home/stacks/quiet-machine/04.webp", width: 1600, height: 900, label: "Enclosure framing and baffles", kind: "render" },
     { src: "/home/stacks/quiet-machine/05.webp", width: 1600, height: 900, label: "Engine bay and intake side", kind: "render" },
     { src: "/home/stacks/quiet-machine/06.webp", width: 1600, height: 900, label: "Skid base, under-floor detail", kind: "render" },
+    { src: "/home/stacks/quiet-machine/07.webp", width: 1920, height: 1080, label: "Pump package study render", kind: "render" },
+    { src: "/home/stacks/quiet-machine/08.webp", width: 1920, height: 1080, label: "Enclosure study render", kind: "render" },
+    { src: "/home/stacks/quiet-machine/09.webp", width: 1920, height: 1080, label: "Underside pass, study render", kind: "render" },
   ],
 }
 
