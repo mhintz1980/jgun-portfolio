@@ -357,3 +357,45 @@ pinion: increase backlash by an additional .005″ for smoother, more consistent
 (3) on the Output Shaft detail view, a note at the radius: failure point, add .025″ to the
 radius on all 4 faces, "Run FEA" (the red note moves from the 2nd handwriting note to this
 3rd note). Owner supplied an output-shaft FEA image in the project thread.
+
+## Owner ruling - 2026-11-08: showreel v3 "The Thread" is the canonical film; "Precision Revealed" rejected
+
+Mark reviewed the delivered films and ruled:
+
+- **Showreel v3 "The Thread"** (`public/video/showreel-v3.mp4`, 69 s, Remotion source in
+  `remotion/`) is the film he wants **on the homepage** and the **basis for all future showreel
+  work**. He identified it as the "follow the line" concept he wants and called it much better;
+  what it still needs is **the armament content** (real 3D models in the armament act).
+- This supersedes the 2026-11-05 ruling that v3 was "NOT accepted as-is": the motif swap
+  (thread → line) is withdrawn; the armament act is the priority; the other 2026-11-05 directives
+  (logo, identity act, rendering-tool act) were not re-addressed and stay open backlog to confirm
+  with Mark before building. Detail and status per directive: `TODO.md` JG-041.
+- **The StudioMark showcase "Precision Revealed"** (32 s, rendered 2026-11-06, never committed) is
+  **rejected**: not for the homepage, not a basis for future work, and its files and frames must not be
+  committed, published or reused. It stays in the build exclusion list
+  (`build/excludePublicAssets.ts`).
+- Implementation the same day: the homepage gained a lazy showreel section under the hero
+  (`src/home/ShowreelSection.tsx`) — poster only on first load, muted autoplay when half in view,
+  viewer pause respected, no autoplay under reduced motion. New cuts replace
+  `public/video/showreel-v3.mp4` only after Mark accepts them.
+
+## Owner ruling - 2026-11-13: "The Line" is the showreel direction; "The Thread" is not
+
+Mark confirmed the go-forward direction in session on 2026-11-13 (verbatim: "this is the
+direction we are going right now: rebuild: The Line slices owner-approved 11-09) We are NOT
+going with the 'The Thread'"), resolving the divergence between the 2026-11-08 and
+2026-11-09 records:
+
+- **Direction: the "The Line" rework** on `torque-wrench/rebuild` — the slices owner-approved
+  2026-11-09: StudioMark logo ident `0de294ef`, "The Line" slice 1 `e3c05882`, slice 2
+  `f2b5ae44` (approvals recorded on that branch in
+  `docs/HANDOFF-showreel-v3-2026-11-09b.md`/`-09c.md`). Iteration continues on "The Line";
+  the armament act with the real 3D models remains the top requested improvement.
+- This supersedes the 2026-11-08 ruling's acceptance of "The Thread" as the canonical film and
+  its "do not start a replacement film / keep the thread motif" instruction.
+- Unchanged: the "Precision Revealed" rejection (2026-11-08) stands.
+- Undeployed-code note: `main` carries a homepage film section from the superseded direction
+  (`src/home/ShowreelSection.tsx`, committed 2026-11-08, plays `public/video/showreel-v3.mp4`
+  = "The Thread"). It is not deployed (the deployed line has no film section) and will be
+  replaced by the accepted "The Line" cut. The homepage MP4 swap rule is unchanged: replace
+  the file only after Mark accepts the cut.
