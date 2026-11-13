@@ -1,0 +1,49 @@
+{
+  "schema": "armament-clips/1",
+  "note": "Models stay local (never in the repo). Only finished render frames are committed. Labels are enforced by rules tests when wired into the film. Local file paths live in local-paths.json (gitignored).",
+  "owner_rulings": {
+    "2026-11-13": "Full firearm assemblies are stand-ins (representative) except the AR-15, ACR and M249 models, which are Mark's own. Stand-ins are used only because Mark's own full-assembly models are not available to him."
+  },
+  "models": {
+    "ar15-pattern-carbine-a": {
+      "provenance": "representative",
+      "label_required": true,
+      "edits": [
+        "Sight optics removed (36 objects)"
+      ],
+      "notes": "Source file name carries a designation; never use it on screen or in committed filenames.",
+      "local_ref": "ar15-pattern-carbine-a"
+    },
+    "precision-rifle-a": {
+      "provenance": "representative",
+      "label_required": true,
+      "edits": [
+        "Manufacturer lettering on the cheek rest recoloured to match the body"
+      ],
+      "notes": "99.7 MB, 3.6M tris; needs a Volume on Modal. Not rendered yet.",
+      "local_ref": "precision-rifle-a"
+    },
+    "ar15": {
+      "provenance": "mine",
+      "label_required": false,
+      "edits": [],
+      "notes": "416 MB, 13.7M tris, long axis Z. Needs rotation and decimation before any render.",
+      "local_ref": "ar15"
+    },
+    "acr": {
+      "provenance": "mine",
+      "label_required": false,
+      "edits": [],
+      "notes": "CAD placeholder colours; line and clay passes ignore materials, so usable as is.",
+      "local_ref": "acr"
+    },
+    "m249": {
+      "provenance": "mine",
+      "label_required": false,
+      "edits": [],
+      "notes": "Receiver plus stock only. M249 geometry may appear only as a tweaked display shell per the 2026-11-04 armament rulings.",
+      "local_ref": "m249"
+    }
+  },
+  "clips": {}
+}
