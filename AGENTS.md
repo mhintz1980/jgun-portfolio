@@ -50,6 +50,12 @@ Whenever Mark requests a handoff, provide both the saved handoff document and an
 - `0a2a0888` was a format-only commit: in-flight branches resolve its conflicts by running
   `npm run format` on the merged result. Blame past it with
   `git blame --ignore-revs-file .git-blame-ignore-revs <path>`.
+- Fresh Windows worktrees (`core.autocrlf=true`) check out CRLF and fail Biome's
+  `lineEnding: lf` on ~500 files. Before pushing from a new worktree: LF-normalize
+  `biome.jsonc`, `vite.config.ts`, `playwright.config.ts` and the `src/ tests/ scripts/
+  build/` trees (a byte-level CRLF→LF rewrite; `git checkout -f` will not fix it), and
+  junction or install `node_modules` so `@biomejs/biome` is present (the shared checkout
+  needed one `npm install` after 2026-11-09).
 
 ## Hard rules
 

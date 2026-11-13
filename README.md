@@ -15,6 +15,11 @@ navigation and full-bleed torque-wrench cards are owner-approved; deployment
 [homepage record](docs/homepage-header-scroll-2026-11-03.md) and
 [release evidence](project/work/evidence/JG-039-homepage/release-2026-11-03.md).
 
+Site pages (registry: [`src/shared/pages.ts`](src/shared/pages.ts)): public — `/home/`
+(landing), `/torque-wrench/`, `/quiet-machine/`; private direct-link only (`noindex`,
+never in navigation) — `/armament/` (JG-039 under-construction page); `/` forwards to
+`/home/`.
+
 > **Historical 2026-10-26 owner corrections 56 (superseded by 59):** Adjustable 100:1 shaft cascade with a measured 158 RPM cap at authored 1× / 60 Hz; only Stage 2 requires one full visible orbit. The gearbox housing stays opaque during explosion and return. [Plan 56](docs/torque-wrench-rebuild/56-ratio-cap-solid-housing-plan-2026-10-26.md) · [evidence 57](docs/torque-wrench-rebuild/57-ratio-cap-solid-housing-evidence-2026-10-26.md). Source/build and headed playback pass; the final 158 RPM browser roster passes four cases × 23 checks. Gemini-4-Argon reviewed the implementation before the final 2 RPM calibration reduction; see evidence for that boundary. Owner acceptance OPEN; no commit/push/deployment.
 
 > **JG-035 handwriting update, 2026-10-08:** The rejected synthetic hand is replaced by a custom font traced from the owner's `ac-fast.png` reference, rendered as individual graphite glyphs with deterministic reveal. Mark clarified that close resemblance is enough and said the font looks good. [Current handwriting plan](docs/jgun-handwriting-reference-plan-2026-10-08.md) and [evidence/handoff](project/work/evidence/JG-035-opening-drafting-table/handwriting-reference-2026-10-08/README.md) supersede the handwriting status in the historical banners below. Full animation acceptance and inherited G6 remain separate.

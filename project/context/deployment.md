@@ -35,8 +35,10 @@ Use production build/asset/route checks and focused desktop/narrow runtime smoke
 checks; do not repeat the full cinematic roster merely to publish a small update.
 Keep failed/deferred design assertions and unfinished reviews recorded honestly.
 
-The current script builds `/home/`, `/torque-wrench/` and `/quiet-machine/`; `/`
-redirects to `/home/`. It uploads the entire `dist/`, including all public pages, to
+The current script builds `/home/`, `/torque-wrench/`, `/quiet-machine/` and the private
+`/armament/` page (direct-link only, `noindex`, never in public navigation — registry:
+`src/shared/pages.ts`); `/` redirects to `/home/`. It uploads the entire `dist/`, including
+all public pages, to
 Cloudflare Pages project `jgun-portfolio` with production branch `main`, regardless
 of the local Git branch. Verify the account/project and intended page versions
 before upload. A Git push is distinct from this deployment. Confirmed through
@@ -148,7 +150,7 @@ Run against `https://studiomark.dev` (and once against
    and cross-page navigation, with no fatal browser errors or required-asset 404s.
    Verify the existing reduced-motion poster fallback. Use current route telemetry
    for runtime claims, not the legacy main-page LCD coordinates. Confirm `/`
-   reaches the intended torque-wrench page and record the deployment identity.
+   forwards to `/home/` and record the deployment identity.
 
 The reusable focused browser check is:
 

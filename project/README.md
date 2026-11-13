@@ -120,6 +120,10 @@ If you add, move, or delete a module below, update this map in the same commit.
 | Path | Role |
 |---|---|
 | `App.tsx` / `main.tsx` | Root: chapter DOM, canvas lazy-mount, `?study=rl300` review route |
+| `shared/pages.ts` + page roots (`home-main.tsx`, `armament-main.tsx`) | Page registry and per-page HTML entries. Public: `/home/`, `/torque-wrench/`, `/quiet-machine/`; private direct-link (`noindex`, never in navigation): `/armament/`; `/` forwards to `/home/` |
+| `home/` | JG-039 homepage: hero, WCS hover navigation, drawn name, rope, project stack, vault, contact |
+| `scene/torque-wrench/` | The `/torque-wrench/` page rebuild lane: journey/inspection directors, bullet-time, HUD, private drafting sheet, shard dome, scroll pacing |
+| `scene/studiomark-logo/` | StudioMark logo/bumper render harness (Storm Ignition ident); no public route — renders via `scripts/render-studiomark-bumpers.mjs` |
 | `components/` | DOM-layer UI: `Chapters`, `TechnicalHUD`, `BootSequence`, `StaticPoster`, `IntroTitles`, `ToleranceStations` (DOM half of the stations), `GdtSymbols` (Y14.5 vector glyphs) |
 | `scene/SceneCanvas.tsx` | R3F root: mounts CameraRig, SpatialRig/SpatialWorld, DrawingLinework, StationDriver, composer |
 | `scene/CameraRig.tsx` | Scroll camera incl. the JG-035 intro pose (dolly → square-on ortho) |
@@ -145,6 +149,8 @@ If you add, move, or delete a module below, update this map in the same commit.
 ### Verification + tooling (`scripts/`)
 
 Live gates named in TODO.md (`verify-jg0xx-*.mjs`, `check-station2-contract.mjs`, `check-b1b2-contract.mjs`, `lib/preview-pixels.mjs`), the lite-GLB pipeline (`build-jg033-lite.py` + `verify-jg033-lite-asset.mjs`), capture harnesses (`capture-*.mjs`, incl. `capture-owner-revisions.mjs` and `diag-shaft-artifacts.mjs` for the owner-revision evidence), the shared browser launcher `lib/browser-launch.mjs` (Windows path unchanged; bundled Chromium + SwiftShader software GL elsewhere), `deploy-studiomark.ps1`, `sync-assets.ps1`, `og-image-source.html`. `export-sheet-template.mjs` is documented LEGACY (JG-026 layout JSON) — retire once the owner confirms the JG-035 sheet.
+
+**QA gate (added 2026-11-09):** `npm run check` = Biome lint/format errors → `tsc --noEmit` → vitest → station2, run before declaring work done; `.githooks/pre-push` runs it on every push (activate per clone: `git config core.hooksPath .githooks`). `npm run format` fixes drift; `0a2a0888` was format-only (blame past it with `--ignore-revs-file .git-blame-ignore-revs`). `knip.json` pins the unused-file baseline (JG-041 B2). Windows/`autocrlf` note: fresh worktrees check out CRLF and fail Biome's `lineEnding: lf` — LF-normalize `biome.jsonc`, `vite.config.ts`, `playwright.config.ts` and the `src/ tests/ scripts/ build/` trees before pushing from a new checkout, and run one `npm install` so `@biomejs/biome` is present. Full commands and rationale: [`../AGENTS.md`](../AGENTS.md) → "QA gate".
 
 ### Assets + owner documents
 
