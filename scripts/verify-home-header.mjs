@@ -183,63 +183,161 @@ try {
     }
   }
 
+  // Arc carousel: every real torque card is brought to the equator in turn and measured. Filler
+  // copies (inert, empty alt) keep the arc full and are excluded from the counts.
+  const expectedTorque = ['03.webp', '04.webp', '05.webp', '06.webp', '07.webp', '08.webp', '09.webp']
+  const realTorque = '.home-arc-card:not([inert]) img[src*="/home/stacks/torque-wrench/"]'
   for (const [label, options, reduced] of [
     ['desktop', desktop, false], ['mobile', phone, false],
     ['desktop-reduced', { ...desktop, reducedMotion: 'reduce' }, true],
     ['mobile-reduced', { ...phone, reducedMotion: 'reduce' }, true],
   ]) {
-    await test(`torque image coverage ${label}`, options, async (page) => {
+    await test('torque image coverage ' + label, options, async (page) => {
       await ready(page)
-      const images = page.locator('img[src*="/home/stacks/torque-wrench/"]')
-      assert.equal(await images.count(), 4, 'all four torque images must be present')
+      const images = page.locator(realTorque)
+      assert.equal(await images.count(), expectedTorque.length, 'all ' + expectedTorque.length + ' torque images must be present')
       assert.deepEqual((await images.evaluateAll((els) => els.map((el) => new URL(el.currentSrc || el.src).pathname))).sort(),
-        ['03.webp', '04.webp', '05.webp', '06.webp'].map((name) => `/home/stacks/torque-wrench/${name}`))
+        expectedTorque.map((name) => '/home/stacks/torque-wrench/' + name))
+      const count = expectedTorque.length
       const measurements = []
       const problems = []
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < count; i++) {
         const image = images.nth(i)
-        if (reduced) {
-          await image.scrollIntoViewIfNeeded()
-        } else {
-          await image.evaluate((el, progress) => {
-            const section = el.closest('.home-stack')
-            const top = section.getBoundingClientRect().top + scrollY
-            window.scrollTo(0, top + (section.offsetHeight - innerHeight) * progress)
-          }, [0.04, 0.34, 0.62, 0.90][i])
-        }
-        await page.waitForTimeout(350)
+        const index = await image.evaluate((el) => Number(el.closest('.home-arc-card').getAttribute('aria-label').match(/(\d+) of \d+$/)[1]) - 1)
+        await image.evaluate((el, progress) => {
+          const track = el.closest('.home-arc')
+          const top = track.getBoundingClientRect().top + scrollY
+          window.scrollTo({ top: top + (track.offsetHeight - innerHeight) * progress, behavior: 'instant' })
+        }, index / (count - 1))
+        await page.waitForFunction((n) => document.querySelector('.home-arc-num')?.textContent.startsWith(String(n).padStart(2, '0')), index + 1)
+        await page.waitForTimeout(reduced ? 150 : 600)
         await image.evaluate((el) => el.decode())
         const measure = await image.evaluate((el) => {
-          const card = el.closest('.home-stack-card, .home-stack-frame')
+          const card = el.closest('.home-arc-card')
           const style = getComputedStyle(el), rect = el.getBoundingClientRect(), frame = card.getBoundingClientRect()
-          const caption = card.querySelector('.home-stack-caption')
-          const hit = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height * 0.35)
-          const width = el.clientWidth, height = el.clientHeight
-          const scale = style.objectFit === 'cover' ? Math.max(width / el.naturalWidth, height / el.naturalHeight)
-            : style.objectFit === 'contain' ? Math.min(width / el.naturalWidth, height / el.naturalHeight) : 0
+          const matrix = new DOMMatrixReadOnly(getComputedStyle(card).transform)
+          const rotation = Math.atan2(matrix.b, matrix.a) * 180 / Math.PI
+          const caption = document.querySelector('.home-arc-caption')
+          const title = caption?.querySelector('.home-arc-title')?.textContent ?? ''
+          const hit = document.elementFromPoint(frame.left + frame.width / 2, frame.top + frame.height * 0.35)
+          const px = (name) => parseFloat(style[name]) || 0
+          const k = rect.width / el.offsetWidth
+          const contentW = el.clientWidth - px('paddingLeft') - px('paddingRight')
+          const contentH = el.clientHeight - px('paddingTop') - px('paddingBottom')
+          const fit = style.objectFit
+          const s = fit === 'cover' ? Math.max(contentW / el.naturalWidth, contentH / el.naturalHeight) : Math.min(contentW / el.naturalWidth, contentH / el.naturalHeight)
+          const drawnWidth = el.naturalWidth * s * k, drawnHeight = el.naturalHeight * s * k
           const position = style.objectPosition.split(' ').map(parseFloat)
-          const drawnWidth = el.naturalWidth * scale * rect.width / width, drawnHeight = el.naturalHeight * scale * rect.height / height
-          const left = rect.left + (rect.width - drawnWidth) * (position[0] / 100)
-          const top = rect.top + (rect.height - drawnHeight) * ((position[1] ?? position[0]) / 100)
-          return { src: el.currentSrc, fit: style.objectFit, padding: [style.paddingTop, style.paddingRight, style.paddingBottom, style.paddingLeft],
-            image: rect.toJSON(), frame: frame.toJSON(), natural: [el.naturalWidth, el.naturalHeight],
+          const left = rect.left + px('paddingLeft') * k + (contentW * k - drawnWidth) * (position[0] / 100)
+          const top = rect.top + px('paddingTop') * k + (contentH * k - drawnHeight) * ((position[1] ?? position[0]) / 100)
+          const capBox = caption.getBoundingClientRect()
+          return { src: el.currentSrc, fit, padding: [style.paddingTop, style.paddingRight, style.paddingBottom, style.paddingLeft],
+            classes: [...card.classList], label: card.getAttribute('aria-label'), title,
+            frame: frame.toJSON(), natural: [el.naturalWidth, el.naturalHeight], rotation,
             drawn: { left, top, right: left + drawnWidth, bottom: top + drawnHeight },
+            inViewport: frame.left >= -1 && frame.right <= innerWidth + 1 && frame.top >= -1 && frame.bottom <= innerHeight + 1,
             visible: getComputedStyle(card).visibility === 'visible' && Number(getComputedStyle(card).opacity) > 0.9,
-            front: !!hit && card.contains(hit), caption: !!caption && getComputedStyle(caption).visibility === 'visible' }
+            front: !!hit && card.contains(hit), tabbable: card.tabIndex === 0,
+            caption: getComputedStyle(caption).visibility === 'visible' && capBox.width > 0 && Number(getComputedStyle(caption.querySelector('.home-arc-title')).opacity) > 0.9,
+            narrow: caption.hasAttribute('data-narrow'), captionBox: capBox.toJSON() }
         })
         measurements.push(measure)
-        await page.screenshot({ path: resolve(out, `torque-${label}-${i + 1}.png`) })
-        if (!measure.visible || !measure.front) problems.push(`image ${i + 1} is not visibly in front`)
-        if (!measure.caption) problems.push(`image ${i + 1} caption is not visible`)
-        if (!measure.natural.every((n) => n > 0)) problems.push(`image ${i + 1} did not load`)
-        if (!measure.padding.every((n) => parseFloat(n) === 0)) problems.push(`image ${i + 1} has padding`)
+        await page.screenshot({ path: resolve(out, 'torque-' + label + '-' + (i + 1) + '.png') })
+        const name = 'image ' + (index + 1)
+        if (!measure.visible || !measure.front) problems.push(name + ' is not visibly in front')
+        if (Math.abs(measure.rotation) > 0.6) problems.push(name + ' is not flat on the equator (' + measure.rotation.toFixed(2) + 'deg)')
+        if (!measure.inViewport) problems.push(name + ' is clipped by the viewport')
+        if (!measure.caption) problems.push(name + ' caption is not visible')
+        if (!measure.label.startsWith(measure.title + ',')) problems.push(name + ' caption "' + measure.title + '" does not match its card')
+        if (!measure.tabbable) problems.push(name + ' is the current card but is not in the tab order')
+        if (!measure.natural.every((n) => n > 0)) problems.push(name + ' did not load')
+        if (!measure.narrow && measure.captionBox.left < measure.frame.right) problems.push(name + ' caption overlaps its card')
         const tolerance = 2
-        if (!(measure.drawn.left <= measure.frame.left + tolerance && measure.drawn.top <= measure.frame.top + tolerance &&
-          measure.drawn.right >= measure.frame.right - tolerance && measure.drawn.bottom >= measure.frame.bottom - tolerance)) problems.push(`image ${i + 1} does not cover its frame`)
+        const covers = measure.drawn.left <= measure.frame.left + tolerance && measure.drawn.top <= measure.frame.top + tolerance &&
+          measure.drawn.right >= measure.frame.right - tolerance && measure.drawn.bottom >= measure.frame.bottom - tolerance
+        const whole = measure.drawn.left >= measure.frame.left - tolerance && measure.drawn.top >= measure.frame.top - tolerance &&
+          measure.drawn.right <= measure.frame.right + tolerance && measure.drawn.bottom <= measure.frame.bottom + tolerance
+        if (measure.fit === 'contain') {
+          if (!whole) problems.push(name + ' drawing is cropped by its frame')
+        } else {
+          if (!measure.padding.every((n) => parseFloat(n) === 0)) problems.push(name + ' has padding')
+          if (!covers) problems.push(name + ' does not cover its frame')
+        }
       }
-      await writeFile(resolve(out, `torque-${label}-measurements.json`), JSON.stringify({ measurements, problems }, null, 2))
+      await writeFile(resolve(out, 'torque-' + label + '-measurements.json'), JSON.stringify({ measurements, problems }, null, 2))
       assert.equal(problems.length, 0, problems.join('; '))
       return { measurements, note: 'Screenshots require visual inspection for margins embedded in source images and caption legibility.' }
+    })
+  }
+
+  for (const [label, options] of [['desktop', desktop], ['mobile', phone], ['desktop-reduced', { ...desktop, reducedMotion: 'reduce' }]]) {
+    await test('arc carousel controls ' + label, options, async (page) => {
+      await ready(page)
+      const track = page.locator('.home-arc').first()
+      const total = expectedTorque.length
+      const state = () => page.evaluate(() => {
+        const t = document.querySelector('.home-arc')
+        const cards = [...t.querySelectorAll('.home-arc-card')]
+        const real = cards.filter((c) => !c.inert)
+        return {
+          num: t.querySelector('.home-arc-num')?.textContent, scrollY: Math.round(scrollY),
+          cards: cards.length, real: real.length,
+          tabbable: real.filter((c) => c.tabIndex === 0).length,
+          fillersOut: cards.filter((c) => c.inert).every((c) => c.tabIndex === -1 && c.getAttribute('aria-label') === null && c.querySelector('img').alt === ''),
+          prev: t.querySelector('[aria-label="Previous image"]').getAttribute('aria-disabled'),
+          next: t.querySelector('[aria-label="Next image"]').getAttribute('aria-disabled'),
+          live: t.querySelector('[aria-live="polite"]')?.textContent,
+          region: t.getAttribute('aria-roledescription'), overflow: document.documentElement.scrollWidth > innerWidth,
+        }
+      })
+      await track.evaluate((el) => window.scrollTo({ top: el.getBoundingClientRect().top + scrollY + 2, behavior: 'instant' }))
+      await page.waitForTimeout(500)
+      const first = await state()
+      assert.equal(first.region, 'carousel')
+      assert.equal(first.real, total)
+      assert(first.cards > total, 'the arc needs filler copies for a short set')
+      assert.equal(first.tabbable, 1, 'exactly one real card is in the tab order')
+      assert(first.fillersOut, 'filler copies must be inert, unnamed and without alt text')
+      assert.equal(first.prev, 'true', 'previous is disabled on the first card')
+      assert.equal(first.next, 'false')
+      assert(first.num.startsWith('01 / 0' + total))
+      assert(!first.overflow, 'carousel must not cause horizontal scroll')
+      const next = track.getByRole('button', { name: 'Next image' })
+      await next.focus()
+      await page.keyboard.press('Enter')
+      await page.waitForFunction(() => document.querySelector('.home-arc-num').textContent.startsWith('02'))
+      assert.equal(await next.evaluate((el) => el === document.activeElement), true, 'focus must stay on the control after activation')
+      const second = await state()
+      assert(second.scrollY > first.scrollY, 'Next must scroll the page forward')
+      assert.equal(second.prev, 'false')
+      assert((second.live || '').startsWith('Image 2 of ' + total))
+      await page.keyboard.press('Space')
+      await page.waitForFunction(() => document.querySelector('.home-arc-num').textContent.startsWith('03'))
+      await track.getByRole('button', { name: 'Previous image' }).focus()
+      await page.keyboard.press('Enter')
+      await page.waitForFunction(() => document.querySelector('.home-arc-num').textContent.startsWith('02'))
+      // Arrow keys on a focused card, then the last card disables Next without dropping focus.
+      await track.locator('.home-arc-card:not([inert])').nth(1).focus()
+      for (let i = 0; i < total; i++) await page.keyboard.press('ArrowDown')
+      await page.waitForFunction((n) => document.querySelector('.home-arc-num').textContent.startsWith('0' + n), total)
+      const last = await state()
+      assert.equal(last.next, 'true', 'next is disabled on the last card')
+      assert.equal(last.tabbable, 1)
+      await page.waitForTimeout(500)
+      assert(await track.locator('.home-arc-card:not([inert])').evaluateAll((cards) => cards.includes(document.activeElement)), 'focus must remain on a real card after it turns out of view')
+      await page.keyboard.press('ArrowUp')
+      await page.waitForFunction((n) => document.querySelector('.home-arc-num').textContent.startsWith('0' + (n - 1)), total)
+      // Idle must not pull the page back: no snapping after the wheel stops.
+      await page.mouse.wheel(0, 120)
+      await page.waitForTimeout(500)
+      const y1 = await page.evaluate(() => scrollY)
+      await page.waitForTimeout(900)
+      assert.equal(await page.evaluate(() => scrollY), y1, 'page scroll must be stable once idle')
+      // Reduced motion: caption text must not animate.
+      if (options.reducedMotion === 'reduce') {
+        assert.equal(await page.locator('.home-arc-text').first().evaluate((el) => el.getAnimations({ subtree: true }).length), 0, 'reduced motion must not animate the caption')
+        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false)
+      }
     })
   }
 
@@ -349,7 +447,8 @@ try {
     await page.waitForFunction(() => location.hash === '#contact' && scrollY > 100)
     assert.equal(await page.getByRole('button', { name: 'Sections menu' }).getAttribute('aria-expanded'), 'false')
     assert.equal(await page.evaluate(() => !!document.activeElement.closest('[inert]')), false)
-    await page.getByRole('link', { name: 'Mark Hintz, back to top' }).click()
+    // The compact link is clipped to the visible MH; its full layout box extends beyond it.
+    await page.getByRole('link', { name: 'Mark Hintz, back to top' }).click({ position: { x: 10, y: 10 } })
     await page.waitForFunction(() => scrollY === 0 && !document.querySelector('.home-header').hasAttribute('data-compact'))
     await page.waitForTimeout(500)
     const reverseTarget = await page.evaluate(() => {
