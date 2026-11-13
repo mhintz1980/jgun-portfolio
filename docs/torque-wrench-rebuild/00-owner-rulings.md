@@ -248,6 +248,26 @@ The owner viewed the Astra-retry build: improved, not accepted. Gemini-4-Argon i
 ## Owner correction - 2026-10-18 (later): lightning timing
 The burst-pause-burst pattern around the profile view remains the goal, but the scroll from the lamp's last flicker (lights off) to the start of cracking (reference R10, the spark at the base of the air fitting) is far too long: measured .034 of the document (~2,140 px, 2.4 viewports) before the first burst. Reduce it (target <= .008) and use 3-4 crack sequences (not six) to complete the profile trace, then begin the internal web. Direction: earthquake cracks forming / ice on a thin lake cracking under weight. Measured baseline, targets and implementation constraints: [29-argon-fix-handoff-2026-10-18.md](29-argon-fix-handoff-2026-10-18.md) section 5 (Fix E). Skills guidance for Argon and reviewers: same handoff section 10 (essentially none; webgl-telemetry-verifier once for verification).
 
+## Owner ruling - 2026-11-02: "Torque Gun" and "JGUN" never displayed
+
+Mark's rule, verbatim (2026-11-02): "Definitely remove the torque gun anywhere it appears as
+well as the company names."
+
+- **"Torque Gun" and "JGUN" must not be displayed anywhere on the public site.** Public copy
+  says "torque wrench" / "Industrial Torque Wrench"; the long page name is
+  "Pneumatic Torque Wrench" (`src/shared/pages.ts`). This covers page titles, meta/OG tags,
+  HUD copy and the drawing title block.
+- Supersedes the 2026-09-05 public-name rule (PTG-HP-1000 / "High-Precision Industrial
+  Torque Gun"): `PTG-HP-1000` survives only as an internal station identifier
+  (`src/state/scrollStore.ts`), never as display copy.
+- Internal identifiers keep their names (GLB file names, `PageId 'jgun'`, node names,
+  `jgunVisualGates`, comments) — the rule governs displayed copy only.
+- Open verification item from the implementing handoffs: whether textures inside the GLB
+  models, poster frames or videos show "Torque Gun" branding.
+- Recorded 2026-11-13 from the implementing session handoffs
+  (`docs/HANDOFF-homepage-path-a-2026-11-01.md`,
+  `docs/HANDOFF-local-sync-after-PR5.md`); the rule itself dates from 2026-11-02.
+
 ## Owner ruling - 2026-11-03: HUD direction = concept D (A+ museum caption) with inline technical content
 
 From the owner's message in the v2 review session ("Lets go with D and Inline"), reviewing

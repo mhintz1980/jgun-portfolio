@@ -120,6 +120,10 @@ If you add, move, or delete a module below, update this map in the same commit.
 | Path | Role |
 |---|---|
 | `App.tsx` / `main.tsx` | Root: chapter DOM, canvas lazy-mount, `?study=rl300` review route |
+| `shared/pages.ts` + page roots (`home-main.tsx`, `armament-main.tsx`) | Page registry and per-page HTML entries. Public: `/home/`, `/torque-wrench/`, `/quiet-machine/`; private direct-link (`noindex`, never in navigation): `/armament/`; `/` forwards to `/home/` |
+| `home/` | JG-039 homepage: hero, WCS hover navigation, drawn name, rope, project stack, vault, contact |
+| `scene/torque-wrench/` | The `/torque-wrench/` page rebuild lane: journey/inspection directors, bullet-time, HUD, private drafting sheet, shard dome, scroll pacing |
+| `scene/studiomark-logo/` | StudioMark logo/bumper render harness (Storm Ignition ident); no public route — renders via `scripts/render-studiomark-bumpers.mjs` |
 | `components/` | DOM-layer UI: `Chapters`, `TechnicalHUD`, `BootSequence`, `StaticPoster`, `IntroTitles`, `ToleranceStations` (DOM half of the stations), `GdtSymbols` (Y14.5 vector glyphs) |
 | `scene/SceneCanvas.tsx` | R3F root: mounts CameraRig, SpatialRig/SpatialWorld, DrawingLinework, StationDriver, composer |
 | `scene/CameraRig.tsx` | Scroll camera incl. the JG-035 intro pose (dolly → square-on ortho) |
