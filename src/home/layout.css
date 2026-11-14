@@ -487,6 +487,21 @@ body {
   letter-spacing: -0.03em;
 }
 
+/* Work heading, from the Claude Design canvas: Archivo black label, Michroma display. */
+.home-work > .home-label {
+  font-family: var(--display);
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 0.75em;
+}
+
+.home-work > .home-h2 {
+  font-family: var(--hero);
+  font-weight: 400;
+  font-size: clamp(27.5px, 5.94vw, 72.6px);
+  letter-spacing: -0.05em;
+}
+
 .home-sub {
   margin: -16px 0 32px;
   color: var(--muted);
