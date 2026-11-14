@@ -1,5 +1,17 @@
 # Deployment — studiomark.dev Runbook (JG-019)
 
+> **Current production, 2026-11-13:** the owner-authorized saved Claude Design
+> homepage port is live as **`98c50e06-40c6-48ab-8fde-c100d3c81a80`**, from clean
+> source **`4113aac5631f6eba23ec5e9d2f14608ab2ebd974`**, pushed on
+> `torque-wrench/rebuild`. Pages direct upload still uses production metadata branch
+> `main`. Isolated typecheck/build/asset gate, 84 homepage tests, 42 Node checks,
+> 30/30 local browser cases, five viewport layout checks, 49 public HTTP/file
+> identity checks and 3/3 live homepage browser smoke cases PASS; independent
+> GLM-5.3 review ACCEPT. Rollback is `b9337cb0`.
+> [Source, limitations and live publication evidence](../work/evidence/JG-043-homepage-arc-carousel/canvas-release-2026-11-13.md).
+> Final owner visual acceptance remains separate. Older production banners below
+> are historical release records.
+
 > **Current production, verified 2026-11-07:** Mark approved the exact JG-042 WIP
 > candidate and authorized deployment. Production **`00413abd-482f-4a8b-8365-6ab2da8fbe5a`**
 > serves clean source **`8d8f045b2a87ca42c431c3dcf6b2bac8368edb1a`** from
