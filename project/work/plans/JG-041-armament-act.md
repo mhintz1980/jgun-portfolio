@@ -24,7 +24,7 @@ Side project (separate): Agent Software Factory, documented in the Second Brain 
 ## Cost
 Smoke test $0.0022. Full run (180 angles x 2 passes, 1920, 6 shards x 4 cores): **$0.48 measured** (rate-derived, rates from the msp pipeline, unverified against Modal's pricing), 24 min wall. Shards took 710-1410 s against a 1500 s timeout.
 2026-11-13/14 session: hero stills $0.0062 (contour-only $0.0026, full line $0.0036); Cycles tests v1 $0.0006, v2 $0.0008; 12-angle Cycles sweep $0.0014. Total about $0.49 of the $30 free tier.
-Projected, NOT measured: the shade-only Cycles re-render (180 frames, 1920, 24 samples) is about $0.10-0.12 on one shard (extrapolated from one 1920 frame at 8.9-11 s container time).
+Shade-only Cycles re-render (180 frames, 1920, 24 samples, 3 shards): **$0.0493 measured** (the $0.10-0.12 projection and the $0.145 launcher estimate were both high). Session total about $0.54.
 
 ## Done and verified (2026-11-13)
 - Blender 5.2.2 LTS on Modal CPU runs Workbench + Freestyle. Smoke frame vs local: line pass pixel-identical, shade pass mean abs diff 0.148. Blender 5.3 is out (installed locally); staying on 5.2.2 LTS for parity; test 5.3 on a copy later.
@@ -51,11 +51,13 @@ Projected, NOT measured: the shade-only Cycles re-render (180 frames, 1920, 24 s
 - **Recipe is two runs, never `--pass both --engine cycles`:** (1) `--pass line` (Workbench default); (2) `--pass shade --engine cycles --samples 24`. `setup_line_pass` would otherwise switch Freestyle to Cycles, which was never validated; the validated line pass is Workbench. The camera code is unchanged, so the existing 180 line frames stay valid and the re-render is **shade frames only**.
 - Not yet checked: the approved slices' shade tone on `torque-wrench/rebuild` (the "match the approved clay-and-ink look" claim is an assumption); temporal shimmer from per-frame denoise (30 deg sweep cannot show it).
 - Gates for the shade re-render (add to the existing set: 180/180 files, 1920x1080, corner alpha 0, consecutive-frame diff, loop wrap): a **temporal flicker check** (consecutive-frame difference after removing the expected motion, flagged against the Workbench set's 0.73-3.1 range) and a luminance sweep at all angles against 142-175.
+- **Shade re-render done 2026-11-14 (v2-cycles):** 180 Cycles v2 shade frames, 1920x1080, 3 shards, 5.2 min wall, **$0.0493 measured** (rate-derived; projection was $0.10-0.12, launcher estimate $0.145). Scratch: `C:/Projects/CAD/Armament/renders/ar15-pattern-carbine-a-v2-cycles-shade/` (PNG) and `...-v2-cycles-webp/{line,shade}/f0000..f0179.webp` (lossless; shade 24.8 MB; line = the v1 line frames, unchanged). Also on Modal Volume `armament-frames`. sha256 over the sorted files: shade WebP `ba9f35399e07e05ca2a8282149d89c20d6ef1cb143869f29f92a74f5993ee2af`, line WebP `bded5dd6f52c0e4f9f4ac2af299dedf610ab64f7654104eec6097ecb14cd3051`.
+- **Gates (all pass):** 180/180 files; 1920x1080; corner alpha 0; mean luminance 142-176 at all 180 angles (darkest 246 deg); consecutive-frame diff mean 1.80, max 2.46, wrap 179->0 = 0.74; flicker residual (frame vs mean of neighbours) mean 1.60, max 2.25, i.e. 0.89 of the frame diff, same ratio as the Workbench set (0.88), so no extra denoise shimmer. (The Workbench shade set measured diff mean 6.00, max 21.57 with the same script; it is a rougher set.) Visual check: line x shade contact sheet at six angles, reviewed.
 - The look is still Mark's call and Astra's ruling after the film review.
 
 ## Remaining steps (A = needs Mark's go)
 1. Done 2026-11-14: hero stills (`...-hero-contour-v1`, `...-hero-fullline-v1`), Modal Volume backup `armament-frames` (WebP frames and hero stills; PNG originals not backed up, rebuildable from WebP; models still local only, Google Drive folder proposed by Mark, not done), look decision (above).
-2. Shade-only Cycles re-render, 180 frames, about $0.10-0.12 (projected). A. Then the gates above, then a line-over-shade check against the Workbench set.
+2. Done 2026-11-14: shade-only Cycles re-render, gates passed (see Look decision).
 3. Check the approved slices' shade tone on `torque-wrench/rebuild` (read-only).
 4. Film branch `torque-wrench/rebuild` (the active "The Line" lane; check its `project/work/plans/JG-041-showreel-v3.md` and `remotion/README.md` first): wire a clip into `ArmamentAct.tsx` (plot -> hold -> fast spin with frame blending -> settle), manifest-driven rules-test block, `/mk\s*-?18/i` scan, delivery route for frames. Review stills + a separately named review MP4; no change to `public/video/showreel-v3.mp4`. A.
 5. Mark reviews; Astra's ruling (visual effect); only then commit the finished frames (near-lossless WebP, one commit) and, on his accept, replace the homepage MP4. A.

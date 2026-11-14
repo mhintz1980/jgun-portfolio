@@ -1,6 +1,6 @@
 # HANDOFF: JG-041 armament render lane (2026-11-13)
 
-Cost so far: Modal $0.0022 (smoke) + $0.48 (full render) + about $0.009 on 2026-11-14 (hero stills, Cycles tests and sweep) = about $0.49 of the $30 free tier.
+Cost so far: Modal $0.0022 (smoke) + $0.48 (full render) + about $0.058 on 2026-11-14 (hero stills, Cycles tests and sweep $0.009, shade re-render $0.049) = about $0.54 of the $30 free tier.
 
 ## State
 - **Direction (owner ruling 2026-11-13, on `main`):** the showreel is "The Line" (slices owner-approved 2026-11-09 on `torque-wrench/rebuild`: ident `0de294ef`, slice 1 `e3c05882`, slice 2 `f2b5ae44`). "The Thread" is not the direction. Next improvement: the armament act with the real 3D models.
@@ -30,8 +30,8 @@ Opus 5.5 (high) on the two open questions: commit NO frames until the film revie
 - `.gitattributes` added on `main` (`6bc0f668`): LF everywhere. Git for Windows' `core.autocrlf=true` had made Biome flag about 500 files in any checkout.
 
 ## Next steps
-1. Shade-only Cycles re-render, 180 frames, about $0.10-0.12 (projected, not measured). Needs Mark's go. Two-run recipe: line already exists; shade = `--pass shade --engine cycles --samples 24`. Never `--pass both --engine cycles`.
-2. Gates on the new shade set: files, size, alpha, loop wrap, consecutive-frame diff, a temporal flicker check (denoise is on), luminance sweep against 142-175.
+1. Done 2026-11-14: shade-only Cycles re-render ($0.0493 measured), gates passed, set backed up on the Modal Volume (`ar15-pattern-carbine-a-v2-cycles-webp`). Details in plan v5. Recipe stays two runs: line = Workbench (existing 180 frames); shade = `--pass shade --engine cycles --samples 24`. Never `--pass both --engine cycles`.
+2. Mark reviews the v2 look (contact sheet); Astra's ruling later.
 3. Check the approved slices' shade tone on `torque-wrench/rebuild` (read-only).
 4. Film wiring on `torque-wrench/rebuild`: read its `remotion/README.md` and `project/work/plans/JG-041-showreel-v3.md` first. Wire plot -> hold -> fast spin (frame blending) -> settle; solve frame delivery (Remotion `staticFile` reads only `../public`, which ships with the site; `build/excludePublicAssets.ts` takes exact paths); add the manifest-driven rules test and an `/mk\s*-?18/i` scan; review stills plus a separately named review MP4.
 5. Mark reviews; Astra's ruling (visual effect); only then commit the frames and, on his accept, replace the homepage MP4.
