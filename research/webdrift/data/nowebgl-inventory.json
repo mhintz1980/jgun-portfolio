@@ -1,0 +1,288 @@
+{
+  "url": "https://www.webdrift.be/en",
+  "title": "Webdrift | Custom web design and development in Antwerp",
+  "timing": {
+    "responseStart": 4801,
+    "domInteractive": 5485,
+    "dcl": 5485,
+    "loadEnd": 6922,
+    "transferTotal": 44439
+  },
+  "paint": [
+    {
+      "name": "first-paint",
+      "t": 5332
+    },
+    {
+      "name": "first-contentful-paint",
+      "t": 5616
+    }
+  ],
+  "fcpOrLcp": null,
+  "resourceCount": 22,
+  "resourceBytes": 510418,
+  "resources": [
+    {
+      "name": "https://www.webdrift.be/_next/static/immutable/media/geist_mono_latin_wght_normal-s.p.29txv0wq9-da0.woff2",
+      "type": "link",
+      "transfer": 23428,
+      "encoded": 23128,
+      "decoded": 23128,
+      "start": 4928,
+      "dur": 389
+    },
+    {
+      "name": "https://www.webdrift.be/_next/static/immutable/media/host_grotesk_latin_wght_normal-s.p.330og4cehcy0k.woff2",
+      "type": "link",
+      "transfer": 20596,
+      "encoded": 20296,
+      "decoded": 20296,
+      "start": 4929,
+      "dur": 663
+    },
+    {
+      "name": "https://www.webdrift.be/_next/static/immutable/media/pixelify_sans_latin_wght_normal-s.p.02my7lkoib81t.woff2",
+      "type": "link",
+      "transfer": 12316,
+      "encoded": 12016,
+      "decoded": 12016,
+      "start": 4929,
+      "dur": 713
+    },
+    {
+      "name": "https://www.webdrift.be/_next/static/immutable/chunks/3ny2ry3_imjve.js",
+      "type": "link",
+      "transfer": 1202,
+      "encoded": 902,
+      "decoded": 1913,
+      "start": 5092,
+      "dur": 885
+    },
+    {
+      "name": "https://www.webdrift.be/_next/static/immutable/chunks/0vn_c-qtmgve7.js",
+      "type": "script",
+      "transfer": 9030,
+      "encoded": 8730,
+      "decoded": 31423,
+      "start": 5092,
+      "dur": 552
+    },
+    {
+      "name": "https://www.webdrift.be/_next/static/immutable/chunks/0eg_l5hfh7q5s.js",
+      "type": "script",
+      "transfer": 45392,
+      "encoded": 45092,
+      "decoded": 163304,
+      "start": 5092,
+      "dur": 648
+    },
+    {
+      "name": "https://www.webdrift.be/_next/static/immutable/chunks/07v142o5owpy6.js",
+      "type": "script",
+      "transfer": 66241,
+      "encoded": 65941,
+      "decoded": 204607,
+      "start": 5092,
+      "dur": 841
+    },
+    {
+      "name": "https://www.webdrift.be/_next/static/immutable/chunks/turbopack-2tldop0mkzdkx.js",
+      "type": "script",
+      "transfer": 4356,
+      "encoded": 4056,
+      "decoded": 9805,
+      "start": 5092,
+      "dur": 1112
+    },
+    {
+      "name": "https://www.webdrift.be/_next/static/immutable/chunks/1g4gy1zly6msb.js",
+      "type": "script",
+      "transfer": 9587,
+      "encoded": 9287,
+      "decoded": 29308,
+      "start": 5092,
+      "dur": 1710
+    },
+    {
+      "name": "https://www.webdrift.be/_next/static/immutable/chunks/0x-9rc1bm-510.js",
+      "type": "script",
+      "transfer": 4137,
+      "encoded": 3837,
+      "decoded": 14434,
+      "start": 5092,
+      "dur": 768
+    },
+    {
+      "name": "https://www.webdrift.be/_next/static/immutable/chunks/2mb5-cwq_tp1g.js",
+      "type": "script",
+      "transfer": 1363,
+      "encoded": 1063,
+      "decoded": 2070,
+      "start": 5092,
+      "dur": 863
+    },
+    {
+      "name": "https://www.webdrift.be/_next/static/immutable/chunks/27kpv9l1459u2.js",
+      "type": "script",
+      "transfer": 1489,
+      "encoded": 1189,
+      "decoded": 2314,
+      "start": 5092,
+      "dur": 917
+    },
+    {
+      "name": "https://www.webdrift.be/_next/static/immutable/chunks/2t181o2t9buu2.js",
+      "type": "script",
+      "transfer": 12467,
+      "encoded": 12167,
+      "decoded": 36652,
+      "start": 5092,
+      "dur": 1269
+    },
+    {
+      "name": "https://www.webdrift.be/_next/static/immutable/chunks/21p8__i6ijoh8.js",
+      "type": "script",
+      "transfer": 1465,
+      "encoded": 1165,
+      "decoded": 2245,
+      "start": 5092,
+      "dur": 885
+    },
+    {
+      "name": "https://www.webdrift.be/_next/static/immutable/chunks/271d7upkv9vei.js",
+      "type": "script",
+      "transfer": 75083,
+      "encoded": 74783,
+      "decoded": 199566,
+      "start": 5092,
+      "dur": 1096
+    },
+    {
+      "name": "https://www.webdrift.be/_next/static/immutable/chunks/1fapnvdcpi2ec.js",
+      "type": "script",
+      "transfer": 30995,
+      "encoded": 30695,
+      "decoded": 94287,
+      "start": 5092,
+      "dur": 1380
+    },
+    {
+      "name": "https://cdn.sanity.io/images/05zanele/darkroom/06983e462c0ce63d30eadb5e06369357d19d5d3e-3653x5480.jpg?w=640&auto=format&q=80",
+      "type": "img",
+      "transfer": 0,
+      "encoded": 0,
+      "decoded": 0,
+      "start": 5484,
+      "dur": 278
+    },
+    {
+      "name": "https://cdn.sanity.io/images/05zanele/darkroom/763116e303e94da529ca1429a0cb603b4c2a0234-1536x1024.webp?w=1024&auto=format&q=80",
+      "type": "img",
+      "transfer": 0,
+      "encoded": 0,
+      "decoded": 0,
+      "start": 5484,
+      "dur": 293
+    },
+    {
+      "name": "https://www.webdrift.be/icon.svg?icon.271a93aoyrgz6.svg",
+      "type": "other",
+      "transfer": 920,
+      "encoded": 620,
+      "decoded": 1064,
+      "start": 6943,
+      "dur": 65
+    },
+    {
+      "name": "https://www.webdrift.be/_next/static/immutable/chunks/2tcte8fxmh-o3.js",
+      "type": "script",
+      "transfer": 190351,
+      "encoded": 190051,
+      "decoded": 737674,
+      "start": 7061,
+      "dur": 1232
+    },
+    {
+      "name": "https://sc.lfeeder.com/lftracker_v1_3P1w24d3Pkk7mY5n.js",
+      "type": "script",
+      "transfer": 0,
+      "encoded": 0,
+      "decoded": 0,
+      "start": 7510,
+      "dur": 259
+    },
+    {
+      "name": "https://tr.lfeeder.com/?sid=3P1w24d3Pkk7mY5n&data=eyJnYVRyYWNraW5nSWRzIjpbXSwiZ2FNZWFzdXJlbWVudElkcyI6W10sImdhQ2xpZW50SWRzIjpbXSwiY29udGV4dCI6eyJsaWJyYXJ5Ijp7Im5hbWUiOiJsZnRyYWNrZXIiLCJ2ZXJzaW9uIjoiMi43NS4wIn0sInBhZ2VVcmwiOiJodHRwczovL3d3dy53ZWJkcmlmdC5iZS9lbiIsInBhZ2VUaXRsZSI6IldlYmRyaWZ0IHwgQ3VzdG9tIHdlYiBkZXNpZ24gYW5kIGRldmVsb3BtZW50IGluIEFudHdlcnAiLCJyZWZlcnJlciI6IiJ9LCJldmVudCI6InRyYWNraW5nLWV2ZW50IiwiY2xpZW50RXZlbnRJZCI6ImNkZWQyODNjM2U0Y2QyMjkiLCJzY3JpcHRJZCI6IjNQMXcyNGQzUGtrN21ZNW4iLCJjb29raWVzRW5hYmxlZCI6dHJ1ZSwiY29uc2VudExldmVsIjoibm9uZSIsImFub255bWl6ZUlwIjpmYWxzZSwibGZDbGllbnRJZCI6IkxGMS4xLmIyZDY0ZDM0OGI1ODIxYWUuMTc5NDYyNDM0MzY0NyIsImZvcmVpZ25Db29raWVzIjpbXSwicHJvcGVydGllcyI6e30sImF1dG9UcmFja2luZ0VuYWJsZWQiOnRydWUsImF1dG9UcmFja2luZ01vZGUiOiJzcGEifQ==",
+      "type": "img",
+      "transfer": 0,
+      "encoded": 0,
+      "decoded": 0,
+      "start": 7925,
+      "dur": 520
+    }
+  ],
+  "canvases": [
+    {
+      "i": 0,
+      "w": 300,
+      "h": 150,
+      "cssW": 1409,
+      "cssH": 805,
+      "fixed": "static",
+      "visible": true,
+      "parentClass": "gl"
+    }
+  ],
+  "webglInfo": "no-webgl-context-obtainable",
+  "globals": {
+    "THREE": false,
+    "gsap": false,
+    "ScrollTrigger": false,
+    "ScrollSmoother": false,
+    "SplitText": false,
+    "Flip": false,
+    "Draggable": false,
+    "CustomEase": false,
+    "DrawSVGPlugin": false,
+    "MorphSVGPlugin": false,
+    "PixiPlugin": false,
+    "MotionPathPlugin": false,
+    "Lenis": false,
+    "__lenis": false,
+    "lenis": "object",
+    "LocomotiveScroll": false,
+    "Rive": false,
+    "rive": false,
+    "lottie": false,
+    "lottieWeb": false,
+    "Howl": false,
+    "Howler": false,
+    "Theatre": false,
+    "__NEXT_DATA__": false,
+    "__next_f": "object",
+    "Babylon": false,
+    "OGL": false,
+    "regl": false,
+    "__torqueWorld": false
+  },
+  "meta": {
+    "viewport": "width=device-width, initial-scale=1",
+    "theme-color": "#0C0B0B",
+    "description": "Webdrift is a design and development studio in Antwerp. We design and build custom, high-end websites and web apps, with design and development under one roof."
+  },
+  "internalLinks": [
+    "/en",
+    "/en/contact",
+    "/en/work",
+    "/en/approach",
+    "/en/studio",
+    "/",
+    "/en/work/megacharge",
+    "/en/work/hillside-hospitality",
+    "/en/work/xwift",
+    "/en/work/trendwolves",
+    "/en/privacy",
+    "/en/cookies"
+  ],
+  "textSample": "00\nIntro\nAntwerp 03:52\nBack to 1984\nStart a project\nStart a project\nMenu\nClose\nFig. 01 · Keypad\nx 0.70\ny 0.33\nPixels change.\nTaste stays.\n\nWebdrift is a design and development studio in Antwerp. We design and build custom websites and web apps.\n\nView our projects\nView our projects\nStart a project\nStart a project\nFig. 01 · Web design and development\nSince 2022\nStudio\n\nStudio\n\nSmall by choice, invol"
+}

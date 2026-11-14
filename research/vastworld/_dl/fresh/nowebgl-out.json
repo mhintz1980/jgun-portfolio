@@ -1,0 +1,77 @@
+{
+ "val": {
+  "title": "VAST-A global Leading AI Company",
+  "gl": false,
+  "canvases": [
+   {
+    "w": 80,
+    "h": 48,
+    "cssW": 0,
+    "visible": false
+   },
+   {
+    "w": 80,
+    "h": 48,
+    "cssW": 0,
+    "visible": false
+   },
+   {
+    "w": 80,
+    "h": 48,
+    "cssW": 0,
+    "visible": false
+   },
+   {
+    "w": 80,
+    "h": 48,
+    "cssW": 0,
+    "visible": false
+   },
+   {
+    "w": 80,
+    "h": 48,
+    "cssW": 0,
+    "visible": false
+   },
+   {
+    "w": 80,
+    "h": 48,
+    "cssW": 0,
+    "visible": false
+   },
+   {
+    "w": 300,
+    "h": 150,
+    "cssW": 300,
+    "visible": true
+   },
+   {
+    "w": 300,
+    "h": 150,
+    "cssW": 300,
+    "visible": true
+   },
+   {
+    "w": 300,
+    "h": 150,
+    "cssW": 742,
+    "visible": true
+   }
+  ],
+  "bodyTextLen": 3659,
+  "bodyTextSample": "Home Research Universe Product About Try Tripo Try Tripo Try Tripo B u i l d Y o u r W o r l d s V A S T - A G l o b a l L e a d i n g A I C o m p a n y Believing that 3D is the native form of the world, VAST turns ideas into immersive worlds with the backing of eminent scientists in AI and computer",
+  "scrollContainer": true
+ },
+ "console": [
+  "CONSOLE[error] \"THREE.WebGLRenderer: A WebGL context could not be created. Reason: \" \"disabled by enterprise policy or commandline switch\"",
+  "CONSOLE[error] \"THREE.WebGLRenderer: A WebGL context could not be created. Reason: \" \"disabled by enterprise policy or commandline switch\"",
+  "CONSOLE[error] \"THREE.WebGLRenderer: THREE.WebGLRenderer: Error creating WebGL context.\"",
+  "CONSOLE[warning] \"Footer world \\\"Night Camp\\\" failed to load\" Error: THREE.WebGLRenderer: Error creating WebGL context.\n    at new Du (https://vastworld.ai/_astro/layout.astro_astro_type_script_index_0_lang.D-sWMgNi.j",
+  "CONSOLE[error] \"THREE.WebGLRenderer: A WebGL context could not be created. Reason: \" \"disabled by enterprise policy or commandline switch\"",
+  "CONSOLE[error] \"THREE.WebGLRenderer: A WebGL context could not be created. Reason: \" \"disabled by enterprise policy or commandline switch\"",
+  "CONSOLE[error] \"THREE.WebGLRenderer: THREE.WebGLRenderer: Error creating WebGL context.\"",
+  "EXC \"Error: THREE.WebGLRenderer: Error creating WebGL context.\\n    at new Du (https://vastworld.ai/_astro/layout.astro_astro_type_script_index_0_lang.D-sWMgNi.js:4108:23848)\\n    at OB.createRenderer (ht",
+  "LOG[warning] The resource https://media.vastworld.ai/splats/spz/worlds/tribe.spz was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropri",
+  "LOG[warning] The resource https://media.vastworld.ai/splats/spz/warmup.spz was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `a"
+ ]
+}

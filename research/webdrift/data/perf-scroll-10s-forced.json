@@ -1,0 +1,23 @@
+{
+  "sampleMs": 10108,
+  "frames": 589,
+  "avgFps": 58.2,
+  "p50FrameMs": 17,
+  "worstFrameMs": 66,
+  "framesWithin25ms": 575,
+  "framesWithin50ms": 585,
+  "droppedFramePct": 0.5,
+  "longTasksOver50": 0,
+  "longTasksWorstMs": 0,
+  "longTaskBlockedMs": 0,
+  "longtaskObserverSupported": true,
+  "visibility": "visible",
+  "scrollY": 9085,
+  "scrollHeight": 13321,
+  "viewport": {
+    "w": 1424,
+    "h": 805,
+    "dpr": 1,
+    "sh": 13321
+  }
+}

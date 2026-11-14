@@ -1,0 +1,291 @@
+{
+ "structure": {
+  "media": [
+   {
+    "kind": "spline-el",
+    "tag": "SPLINE-VIEWER",
+    "url": "https://prod.spline.design/QzFYO-pwcQCbiF9t/scene.splinecode",
+    "attrs": "loading,url,data-fragment-spline-watch,data-fragment-spline-ready"
+   },
+   {
+    "kind": "canvas",
+    "tag": "canvas",
+    "inShadow": true,
+    "w": 1425,
+    "h": 900,
+    "vis": true
+   },
+   {
+    "kind": "video",
+    "src": "xJJ6Y0KSk5nShngUQpxECb67Rg.mp4",
+    "cls": ""
+   },
+   {
+    "kind": "video",
+    "src": "vX9nk7bsF3faXyQuakq2NkeM6W0.mp4",
+    "cls": ""
+   },
+   {
+    "kind": "iframe",
+    "src": "https://framer.com/edit?framerSiteId=62b8c3e2385219c41a02b9b84b58c8449e98ce4ab7359b669c88f4d8772b281",
+    "title": ""
+   }
+  ],
+  "links": [
+   {
+    "href": "./",
+    "text": ""
+   },
+   {
+    "href": "./",
+    "text": "HomeHome"
+   },
+   {
+    "href": "./work",
+    "text": "WorkWork"
+   },
+   {
+    "href": "./about",
+    "text": "AboutAbout"
+   },
+   {
+    "href": "./contact",
+    "text": "ContactContact"
+   },
+   {
+    "href": "./pl",
+    "text": "ENPL"
+   },
+   {
+    "href": "./contact",
+    "text": "Start a ProjectStart a Project"
+   },
+   {
+    "href": "./about",
+    "text": "Learn More →Learn More →"
+   },
+   {
+    "href": "./about",
+    "text": "Learn More →Learn More →"
+   },
+   {
+    "href": "./work/bsr",
+    "text": "Asset ManagementBold brand and"
+   },
+   {
+    "href": "./work/ewm",
+    "text": "Digital AgencyRebranding a dig"
+   },
+   {
+    "href": "./work/kadenco",
+    "text": "Real EstateGreater brand autho"
+   },
+   {
+    "href": "./work/gorilla",
+    "text": "Sport EventsSports identity ba"
+   },
+   {
+    "href": "./contact",
+    "text": "Start a ProjectStart a Project"
+   },
+   {
+    "href": "./",
+    "text": ""
+   },
+   {
+    "href": "./pp",
+    "text": "Privacy Policy"
+   }
+  ],
+  "nav": [
+   {
+    "href": "./",
+    "text": ""
+   },
+   {
+    "href": "./",
+    "text": "HomeHome"
+   },
+   {
+    "href": "./work",
+    "text": "WorkWork"
+   },
+   {
+    "href": "./about",
+    "text": "AboutAbout"
+   },
+   {
+    "href": "./contact",
+    "text": "ContactContact"
+   },
+   {
+    "href": "./pl",
+    "text": "ENPL"
+   }
+  ],
+  "sections": [
+   {
+    "n": "Small Desktop / Dark",
+    "tag": "NAV"
+   },
+   {
+    "n": "Desktop",
+    "tag": "DIV"
+   },
+   {
+    "n": "White",
+    "tag": "A"
+   },
+   {
+    "n": "White",
+    "tag": "DIV"
+   },
+   {
+    "n": "Logo Base",
+    "tag": "DIV"
+   },
+   {
+    "n": "Logo Bottom Path",
+    "tag": "DIV"
+   },
+   {
+    "n": "Logo Top Path",
+    "tag": "DIV"
+   },
+   {
+    "n": "Nav",
+    "tag": "DIV"
+   },
+   {
+    "n": "Links",
+    "tag": "DIV"
+   },
+   {
+    "n": "Link Light",
+    "tag": "A"
+   },
+   {
+    "n": "Link Text",
+    "tag": "DIV"
+   },
+   {
+    "n": "Link Text",
+    "tag": "DIV"
+   },
+   {
+    "n": "Link Light",
+    "tag": "A"
+   },
+   {
+    "n": "Link Text",
+    "tag": "DIV"
+   },
+   {
+    "n": "Link Text",
+    "tag": "DIV"
+   },
+   {
+    "n": "Link Light",
+    "tag": "A"
+   },
+   {
+    "n": "Link Text",
+    "tag": "DIV"
+   },
+   {
+    "n": "Link Text",
+    "tag": "DIV"
+   },
+   {
+    "n": "Link Light",
+    "tag": "A"
+   },
+   {
+    "n": "Link Text",
+    "tag": "DIV"
+   },
+   {
+    "n": "Link Text",
+    "tag": "DIV"
+   },
+   {
+    "n": "Light EN",
+    "tag": "A"
+   },
+   {
+    "n": "Pill",
+    "tag": "DIV"
+   },
+   {
+    "n": "Tab EN",
+    "tag": "DIV"
+   },
+   {
+    "n": "EN",
+    "tag": "DIV"
+   },
+   {
+    "n": "Tab PL",
+    "tag": "DIV"
+   },
+   {
+    "n": "PL",
+    "tag": "DIV"
+   },
+   {
+    "n": "Shadow",
+    "tag": "DIV"
+   },
+   {
+    "n": "3D",
+    "tag": "DIV"
+   },
+   {
+    "n": "Main",
+    "tag": "MAIN"
+   }
+  ],
+  "scrollH": 6384,
+  "canvasCount": 0
+ },
+ "timing": {
+  "start": 211.79999999701977,
+  "domContentLoaded": 335.8999999910593,
+  "load": 1096.0999999940395,
+  "splineViewerSeen": 1450.5,
+  "splineCanvas": 2142.5,
+  "splineCanvasSize": [
+   300,
+   150
+  ]
+ },
+ "navTiming": {
+  "start": 0,
+  "fcp": 864,
+  "dcl": 338,
+  "load": 1098
+ },
+ "routeTest": {
+  "transitionRequests": 0,
+  "target": null,
+  "canvasesBefore": 1
+ },
+ "perf": {
+  "frames": 147,
+  "avgDelta": 68.21,
+  "worstDelta": 733,
+  "avgFps": 14.7,
+  "worstFps": 1.4,
+  "framesOver30ms": 95,
+  "longTasks": [
+   55
+  ],
+  "longTaskCount": 1,
+  "ltObserverOk": true,
+  "scrollH": 6384
+ },
+ "errors": [
+  "This scene was created with a newer version of Spline (file format 134, this runtime reads 133). Update @splinetool/runtime to the latest version to l",
+  "This scene was created with a newer version of Spline (file format 134, this runtime reads 133). Update @splinetool/runtime to the latest version to l"
+ ]
+}

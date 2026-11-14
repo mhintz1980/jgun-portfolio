@@ -1,0 +1,194 @@
+{
+ "t0Iso": "2026-11-14T02:45:08.299Z",
+ "survey": {
+  "title": "The Extraordinary Lab",
+  "metaViewport": "width=device-width, initial-scale=1",
+  "bodyTextLength": 10,
+  "canvasCount": 1,
+  "canvases": [
+   {
+    "w": 390,
+    "h": 844,
+    "area": 329160,
+    "cls": "",
+    "id": null,
+    "dataAttrs": [
+     "data-v-824a61b9",
+     "data-engine"
+    ]
+   }
+  ],
+  "videoCount": 0,
+  "videos": [],
+  "iframeCount": 6,
+  "iframes": [
+   {
+    "src": "",
+    "w": 1,
+    "title": "3rd party ad content"
+   },
+   {
+    "src": "about:blank",
+    "w": 0,
+    "title": null
+   },
+   {
+    "src": "",
+    "w": 0,
+    "title": null
+   },
+   {
+    "src": "https://cdn.permutive.app/topics.html",
+    "w": 0,
+    "title": null
+   },
+   {
+    "src": "",
+    "w": 0,
+    "title": null
+   },
+   {
+    "src": "",
+    "w": 0,
+    "title": null
+   }
+  ],
+  "headings": [
+   {
+    "tag": "H2",
+    "text": "Audemars Piguet DNA"
+   }
+  ],
+  "embedHostFound": true,
+  "embedHostTag": "DIV.interactive-override-container interactive-override-containe",
+  "embedHostText": "BACK\nSOUND",
+  "scrollHeight": 844,
+  "reducedMotionMatches": false,
+  "docDriverScripts": [
+   "https://interactive.gq.com/audemars-piquet-gq-rd5/assets/BIhX5qj-.js"
+  ]
+ },
+ "consoleMsgs": [
+  {
+   "t": "warning",
+   "text": "ads.Invalid sizes: unable to define 'rail' on mobile..warn {definition: Object, slotName: rail}"
+  },
+  {
+   "t": "error",
+   "text": "Failed to load resource: the server responded with a status of 403 ()"
+  },
+  {
+   "t": "error",
+   "text": "[readmo] Readmo container does not exist!"
+  },
+  {
+   "t": "error",
+   "text": "Failed to load resource: net::ERR_NAME_NOT_RESOLVED"
+  },
+  {
+   "t": "error",
+   "text": "Failed to load resource: the server responded with a status of 404 ()"
+  },
+  {
+   "t": "warning",
+   "text": "[nuxt] Cannot load payload  /audemars-piquet-gq-rd5/_payload.json?cfd7dc7a-be2f-4c1e-9509-644441151ffe SyntaxError: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON\n    at Object.parse (<anonymous>)\n    at dV (htt"
+  },
+  {
+   "t": "error",
+   "text": "Failed to load resource: the server responded with a status of 404 ()"
+  },
+  {
+   "t": "warning",
+   "text": "[nuxt] Cannot load payload  /audemars-piquet-gq-rd5/_payload.json?cfd7dc7a-be2f-4c1e-9509-644441151ffe SyntaxError: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON\n    at Object.parse (<anonymous>)\n    at dV (htt"
+  },
+  {
+   "t": "error",
+   "text": "Failed to load resource: the server responded with a status of 404 ()"
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'useTexture' is not a property of THREE.ShaderMaterial."
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'map' is not a property of THREE.ShaderMaterial."
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'color' is not a property of THREE.ShaderMaterial."
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'glowMap' is not a property of THREE.ShaderMaterial."
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'gridColor' is not a property of THREE.ShaderMaterial."
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'useTexture' is not a property of THREE.ShaderMaterial."
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'map' is not a property of THREE.ShaderMaterial."
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'color' is not a property of THREE.ShaderMaterial."
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'glowMap' is not a property of THREE.ShaderMaterial."
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'gridColor' is not a property of THREE.ShaderMaterial."
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'useTexture' is not a property of THREE.ShaderMaterial."
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'map' is not a property of THREE.ShaderMaterial."
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'color' is not a property of THREE.ShaderMaterial."
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'useTexture' is not a property of THREE.ShaderMaterial."
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'map' is not a property of THREE.ShaderMaterial."
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'color' is not a property of THREE.ShaderMaterial."
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'glowMap' is not a property of THREE.ShaderMaterial."
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'gridColor' is not a property of THREE.ShaderMaterial."
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'tableId' is not a property of THREE.ShaderMaterial."
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'scale' is not a property of THREE.ShaderMaterial."
+  },
+  {
+   "t": "warning",
+   "text": "THREE.Material: 'tableId' is not a property of THREE.ShaderMaterial."
+  }
+ ],
+ "requests": []
+}

@@ -1,0 +1,148 @@
+{
+ "preloaderGoneByMs": "unknown (>4000)",
+ "route": {
+  "spaFlagStillSet": true,
+  "url": "https://www.fragment.im/about",
+  "requestsDuring": [
+   {
+    "dt": 411,
+    "u": "FUC/images/bgbVEEFIDq9X6nDAQYxY7ab5H90.png?width=80&height=80"
+   },
+   {
+    "dt": 444,
+    "u": "FUC/sites/1w0f0s83UjRlQ3a3DeRhZN/NdzsgAvBUwSZ3j6tnvI_dBBOc4WAnBSBBymf4IOLvYM.DKCvSi0"
+   },
+   {
+    "dt": 454,
+    "u": "https://events.framer.com/anonymous"
+   },
+   {
+    "dt": 459,
+    "u": "https://events.framer.com/anonymous"
+   },
+   {
+    "dt": 482,
+    "u": "FUC/sites/1w0f0s83UjRlQ3a3DeRhZN/portrait_parallax_v1.DgkqosuF.mjs"
+   },
+   {
+    "dt": 482,
+    "u": "FUC/sites/1w0f0s83UjRlQ3a3DeRhZN/M6ThHtvW3.C_AP9EFY.mjs"
+   },
+   {
+    "dt": 573,
+    "u": "FUC/images/3QYWdULZTZdocEcRS0E66esjj9g.png?width=2000&height=2000"
+   },
+   {
+    "dt": 929,
+    "u": "FUC/images/3QYWdULZTZdocEcRS0E66esjj9g.png?width=2000&height=2000"
+   },
+   {
+    "dt": 929,
+    "u": "FUC/assets/BCDLpqTDnuyKJfU4zbRBlRI7CKI.png"
+   },
+   {
+    "dt": 929,
+    "u": "PSD/r-GeM7GzPYPpPajD/scene.splinecode"
+   },
+   {
+    "dt": 929,
+    "u": "PSD/Fs5omoRpmtrXHxMB/scene.splinecode"
+   },
+   {
+    "dt": 929,
+    "u": "PSD/2byqvdPRUGrylKq9/scene.splinecode"
+   },
+   {
+    "dt": 929,
+    "u": "FUC/sites/1w0f0s83UjRlQ3a3DeRhZN/TbdGuIcgV0PK5FDSQZ_viZBz4gOde3sQTSJaPaw2RR4.YRbyRwx"
+   },
+   {
+    "dt": 955,
+    "u": "FUC/images/p1FP15nWl4LPFrB978NFoMKhMrE.png"
+   },
+   {
+    "dt": 1717,
+    "u": "https://events.framer.com/anonymous"
+   }
+  ],
+  "canvasesAfter": [
+   {
+    "tag": "CANVAS",
+    "mk": "NEW"
+   },
+   {
+    "tag": "SPLINE-VIEWER",
+    "mk": "NEW"
+   },
+   {
+    "tag": "CANVAS",
+    "mk": "NEW"
+   },
+   {
+    "tag": "SPLINE-VIEWER",
+    "mk": "NEW"
+   },
+   {
+    "tag": "CANVAS",
+    "mk": "NEW"
+   },
+   {
+    "tag": "SPLINE-VIEWER",
+    "mk": "NEW"
+   },
+   {
+    "tag": "CANVAS",
+    "mk": "NEW"
+   }
+  ],
+  "canvasesBefore": [
+   {
+    "tag": "SPLINE-VIEWER",
+    "mk": "SPLINE-VIEWER:avmu7"
+   },
+   {
+    "tag": "CANVAS",
+    "mk": "CANVAS:6flww"
+   }
+  ],
+  "settleMs": 4242
+ },
+ "backUrl": "https://www.fragment.im/",
+ "backSplineCount": 1,
+ "reducedMotion": {
+  "matches": true,
+  "anims": 0,
+  "splinePresent": true,
+  "splineReady": true,
+  "bodyClasses": "",
+  "htmlAttrs": "lang,data-redirect-timezone,class,style"
+ },
+ "noWebgl": {
+  "webglAvailable": false,
+  "splinePresent": true,
+  "splineCanvas": true,
+  "imgs": [
+   "P6Qr5fGB53SLU8XjuYOJzB06Y.svg?width=183&",
+   "hKcjKCI2Iuku2kIY4L9gHaoWivE.svg?width=18",
+   "aZovYhScKtZC7OziM3fR76pffCc.svg?width=18",
+   "N3s2PR6d4B1azASKSMCRTkMws4.png?width=256",
+   "eEMcE26nBsdgdeU66hY5Hhx3BZI.png?width=38",
+   "P6Qr5fGB53SLU8XjuYOJzB06Y.svg?width=183&",
+   "hKcjKCI2Iuku2kIY4L9gHaoWivE.svg?width=18",
+   "aZovYhScKtZC7OziM3fR76pffCc.svg?width=18"
+  ]
+ },
+ "noWebglConsole": [
+  "This scene was created with a newer version of Spline (file format 134, this runtime reads 133). Update @splinetool/runt"
+ ],
+ "gpuScrollPerf": {
+  "frames": 384,
+  "avgDelta": 26.04,
+  "p90": 33.7,
+  "worst": 333.6,
+  "avgFps": 38.4,
+  "framesOver30ms": 142,
+  "longTasks": [],
+  "longTaskCount": 0
+ }
+}

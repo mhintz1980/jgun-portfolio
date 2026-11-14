@@ -1,0 +1,84 @@
+=== lenis version ===
+TOKEN /lenisVersion/ count-total: 1 
+    "x=!1,allowNestedScroll:S=!1,__experimental__naiveDimensions:C=!1,naiveDimensions:w=C,stopInertiaOnNavigate:T=!1,respectReducedMotion:E=!0}={}){window.lenisVersion=JV,window.lenis||(window.lenis={}),window.lenis.version=JV,d===`horizontal`&&(window.lenis.horizontal=!0),i===!0&&(window.lenis.touch=!0),this.isIos=/(iPad|iPhone|iPod)/g.test(navigator.userAgent),(!e||e===document.documentElement)&&(e=window),typeof s==`number`&&typeof c!=`function`?c=sH:typeof c="
+=== lenis instantiation ===
+TOKEN /respectReducedMotion/ count-total: 3 
+    "lScroll:_,overscroll:v=!0,autoRaf:y=!1,anchors:b=!1,autoToggle:x=!1,allowNestedScroll:S=!1,__experimental__naiveDimensions:C=!1,naiveDimensions:w=C,stopInertiaOnNavigate:T=!1,respectReducedMotion:E=!0}={}){window.lenisVersion=JV,window.lenis||(window.lenis={}),window.lenis.version=JV,d===`horizontal`&&(window.lenis.horizontal=!0),i===!0&&(window.lenis.touch=!0),this.isIos=/(iPad|iPhone|iPod)/g.test(navigator.userAgent),(!e||e===document.documentElement)&&(e=window),typeof s==`number`&&typeof c!=`function`?c=sH:typeof c==`function`&&typeof "
+    "tiplier:p,wheelMultiplier:m,autoResize:h,prevent:g,virtualScroll:_,overscroll:v,autoRaf:y,anchors:b,autoToggle:x,allowNestedScroll:S,naiveDimensions:w,stopInertiaOnNavigate:T,respectReducedMotion:E},this.dimensions=new tH(e,t,{autoResize:h}),this.updateClassName(),this.targetScroll=this.animatedScroll=this.actualScroll,this.options.wrapper.addEventListener(`scroll`,this.onNativeScroll),this.options.wrapper.addEventListener(`scrollend`,this.onScrollEnd,{capture:!0}),(this.options.anchors||this.options.stopInertiaOnNavigate)&&this.options.wr"
+=== smoother ===
+TOKEN /Smoother|smoother/ count-total: 4 
+    "o:gt,mapLinear:_t,inverseLerp:vt,lerp:yt,damp:bt,pingpong:xt,smoothstep:St,smootherstep:Ct,randInt:wt,randFloat:Tt,randFloatSpread:Et,seededRandom:Dt,degToRad:Ot,radToDeg:kt,isPowerOfTwo:At,ceilPowerOfTwo:jt,floorPowerOfTwo:Mt,setQuaternionFr"
+    "l=function(e){if(oy.slice(0).forEach(function(e){return e.vars.id!==`ScrollSmoother`&&e.kill()}),e!==!0){var t=py.killAll||[];py={},t.forEach(function(e){return e()})}},e}();Jy.version=`3.15.0`,Jy.saveStyles=function(e){return e?E_(e).forEach"
+    "y.getAll=function(){return oy.filter(function(e){return e.vars.id!==`ScrollSmoother`})},Jy.isScrolling=function(){return!!tv},Jy.snapDirectional=Jv,Jy.addEventListener=function(e,t){var n=py[e]||(py[e]=[]);~n.indexOf(t)||n.push(t)},Jy.removeE"
+=== barba init/version ===
+TOKEN /barba\.init|barba\.version|data-barba/ count-total: 7 
+    "=`prefetch`,t.as=`fetch`,t.href=e,document.head.appendChild(t),vd.set(e,t)}document.querySelector(`[data-barba=\"container\"]`)?.getAttribute(`data-barba-namespace`)===`home`?bd():typeof window.requestIdleCallback==`function`?window.requestIdleCallback(()=>xd()):window.setTimeout(()=>xd(),1200);function Sd(e){if(e===void 0)throw Referenc"
+    "t.head.appendChild(t),vd.set(e,t)}document.querySelector(`[data-barba=\"container\"]`)?.getAttribute(`data-barba-namespace`)===`home`?bd():typeof window.requestIdleCallback==`function`?window.requestIdleCallback(()=>xd()):window.setTimeout(()=>xd(),1200);function Sd(e){if(e===void 0)throw ReferenceError(`this hasn't been initialised - su"
+    " e&&e.sensitive?``:`i`}var g={container:`container`,history:`history`,namespace:`namespace`,prefix:`data-barba`,prevent:`prevent`,wrapper:`wrapper`},_=new(function(){function e(){this.o=g,this.u=void 0,this.h={after:null,before:null,parent:null}}var t=e.prototype;return t.toString=function(e){return e.outerHTML},t.toDocument=function(e"
+    ">{this.destroyed||this.built||this.building||this.failed||this.build()};if(document.querySelector(`[data-barba=\"container\"]`)?.getAttribute(`data-barba-namespace`)===`home`){e();return}typeof window.requestIdleCallback==`function`?window.requestIdleCallback(e,{timeout:1800}):window.setTimeout(e,600)}observeContainer(){this.trigger=Jy.c"
+=== rive word-boundary ===
+TOKEN /\brive\b|Rive\b/ count-total: 0  (no match)
+=== lottie word-boundary ===
+TOKEN /\blottie\b|\bLottie\b/ count-total: 0  (no match)
+=== gsap plugins registered ===
+TOKEN /registerPlugin\(\w+/ count-total: 7 
+    "tion(e){wd.units[e]=`px`}),sh.registerPlugin(kg);var Ag=sh.registerPlugin(kg)||sh;Ag.core.Tween;function jg(e"
+    ".registerPlugin(kg);var Ag=sh.registerPlugin(kg)||sh;Ag.core.Tween;function jg(e,t){for(var n=0;n<t.length;n+"
+    "g)||console.warn(`Please gsap.registerPlugin(Observer)`),Vg||g_();var t=e.tolerance,n=e.dragMinimum,r=e.type,"
+    " t.vars.id===e})[0]},Kg()&&Ng.registerPlugin(v_);var X,y_,b_,x_,S_,C_,w_,T_,E_,D_,O_,k_,A_,j_,M_,N_,P_,F_,I_,"
+    "X)||console.warn(`Please gsap.registerPlugin(ScrollTrigger)`),G_(this),this.init(t,n)}var t=e.prototype;retur"
+    "nction(){return A_}}},dv()&&X.registerPlugin(Jy);var ib,ab,ob=typeof Symbol==`function`?Symbol():`_split`,sb,"
+=== reduced motion ===
+TOKEN /prefers-reduced-motion|prefersReducedMotion|reducedMotion/ count-total: 13 
+    "derer=void 0,this.built=!1}};function hI(){return!window.matchMedia(`(prefers-reduced-motion: reduce)`).matches&&!navigator.connection?.saveData}function gI(e){let t=String(e).replace(`#`,``),n=t.length===3?[...t].map(e=>parseInt(e+e,16)):[t.slice(0,2),t.slice(2,4),t"
+    "hed||=this.run(e),this.finished}async run(e){if(this.clearMark(),this.prefersReducedMotion())return e(),this.teardown();this.animation=this.screen.animate([{transform:`scaleY(1)`},{transform:`scaleY(0)`}],{duration:vI,easing:yI,fill:`forwards`}),e();try{await this.an"
+    "s.animation.finished}catch{}this.teardown()}destroy(){this.teardown()}prefersReducedMotion(){return window.matchMedia?.(`(prefers-reduced-motion: reduce)`).matches??!1}teardown(){this.animation?.cancel(),this.animation=null,this.curtain.remove()}},SI=class{steps=[];e"
+    "){this.teardown()}prefersReducedMotion(){return window.matchMedia?.(`(prefers-reduced-motion: reduce)`).matches??!1}teardown(){this.animation?.cancel(),this.animation=null,this.curtain.remove()}},SI=class{steps=[];exit(e){return new xI(e)}start(){}reset(){for(let{sig"
+    "async run(e){if(this.mount(),this.clearMark(),await this.cleared,this.prefersReducedMotion())return e(),this.teardown();this.animations=this.panels.map((e,t)=>e.animate(this.keyframes(this.edges[t]),{duration:HB,easing:UB,fill:`forwards`})),e();try{await Promise.all("
+=== scroll container ===
+TOKEN /scroll-container|data-scroll/ count-total: 5 
+    "this.onSamePageAnchor(e))return;let t=e.target?.closest?.(`[data-scroll-to]`),n=t?.getAttribute(`data-scroll-to`);if(!n)return;let r=parseFloat(t?.getAttribute(`data-scroll-to-duration`)||`1`);this.lenis?.scr"
+    "=e.target?.closest?.(`[data-scroll-to]`),n=t?.getAttribute(`data-scroll-to`);if(!n)return;let r=parseFloat(t?.getAttribute(`data-scroll-to-duration`)||`1`);this.lenis?.scrollTo(n,{duration:r,easing:lH})};onSa"
+    "-scroll-to`);if(!n)return;let r=parseFloat(t?.getAttribute(`data-scroll-to-duration`)||`1`);this.lenis?.scrollTo(n,{duration:r,easing:lH})};onSamePageAnchor(e){if(e.defaultPrevented||e.button!==0||e.metaKey||"
+    "rce:!0}),Jy.update())}init(){this.lenis=new cH({wrapper:Z(`#scroll-container`),content:Z(`#scroll-content`),autoResize:!1});for(let e of this.listeners)this.lenis.on(`scroll`,e);this.lenis.scrollTo(0,{immedia"
+    "ible=!0)}};Ag.registerPlugin(Jy,Db),Jy.defaults({scroller:`#scroll-container`});var fH=`[data-barba=\"container\"]`;window.pageContainer=document,new class{preloader;pagePreloader;page=new _I;scroll;perf;design"
+=== webgl fail fallback ===
+TOKEN /WebGL.*not.*support|webgl.*fallback|no-webgl|webglcontextlost/ count-total: 8 
+    "et m=n.texture.generateMipmaps;n.texture.generateMipmaps=!1;let h=!1;h=e.isWebGLRenderer===!0?e.state.buffers.depth.getReversed():e.reversedDepthBuffer,e.setRenderTarget(n,0,r),h&&e.autoClear===!1&&e.clearDepth(),e.render(t,i),e.setRenderTarget(n,1,r),h&&e.autoClear===!1&&e.clearDepth("
+    "p`:`lowp`}let l=n.precision===void 0?`highp`:n.precision,u=c(l);u!==l&&(U(`WebGLRenderer:`,l,`not supported, using`,u,`instead.`),l=u);let d=n.logarithmicDepthBuffer===!0,f=n.reversedDepthBuffer===!0&&t.has(`EXT_clip_control`);n.reversedDepthBuffer===!0&&f===!1&&U(`WebGLRenderer: Unabl"
+    "_render_shared_exponent`)},get:function(e){let t=n(e);return t===null&&ot(`WebGLRenderer: `+e+` extension not supported.`),t}}}function Ks(e,t,n,r){let i={},a=new WeakMap;function o(e){let s=e.target;s.index!==null&&t.remove(s.index);for(let e in s.attributes)t.remove(s.attributes[e]);"
+=== html data-barba ===
+  data-barba="wrapper"
+  data-barba="container"
+  data-barba-namespace="home"
+=== html nav/canvas/scroll attrs sample ===
+   data-navbar-link 6
+   data-webgl-foreground 1
+   data-webgl-background 1
+   data-world 0
+   data-scene 0
+   data-view 0
+=== spark versions/keys ===
+TOKEN /spark_worker|SparkWorker|sortWorker/ count-total: 7 
+    "      }\n    };\n    return {\n      __proto__: null,\n      \"./spark_worker_rs_bg.js\": import0\n    };\n  }\n  typeof FinalizationRegistry === \"undefined\" ? {} : new FinalizationRegistry((ptr) => wasm.__wbg_chunkdecoder_f"
+    "      }\n    };\n    return {\n      __proto__: null,\n      \"./spark_worker_rs_bg.js\": import0\n    };\n  }\n  const ChunkDecoderFinalization = typeof FinalizationRegistry === \"undefined\" ? { register: () => {\n  }, unregi"
+    ",this.sorting=!1,this.sortDirty=!1,this.lastSortTime=0,this.sortWorker=null,this.sortTimeoutId=-1,this.sortedCenter=new K().setScalar(-1/0),this.sortedDir=new K().setScalar(0),this.readback32=new Uint32Array,this.la"
+    "odInstances.clear();for(let e of t)e.texture.dispose();this.sortWorker&&=(this.sortWorker.dispose(),null),this.lodWorker&&=(this.lodWorker.dispose(),null),this.pager&&=(this.pager.dispose(),void 0)}setDirty(){var e;"
+=== source map check ===
+<anonymous_script>:1
+<!DOCTYPE html><html lang="en" translate="no" class="notranslate is-404"><head><meta charset="utf-8"><meta name="google" content="notranslate"><meta name="robots" content="noindex"><script>(function(){const worldCount = 11;
+^
+
+SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at Object.<anonymous> (C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_tools\fp2.cjs:49:20)
+    at Module._compile (node:internal/modules/cjs/loader:1706:14)
+    at Object..js (node:internal/modules/cjs/loader:1839:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49
+
+Node.js v22.19.0

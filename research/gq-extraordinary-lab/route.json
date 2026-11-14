@@ -1,0 +1,16 @@
+{
+ "link": null,
+ "before": {
+  "canvasCount": 1,
+  "url": "https://www.gq.com/sponsored/story/the-extraordinary-lab"
+ },
+ "after": {
+  "canvasCount": 1,
+  "url": "https://www.gq.com/sponsored/story/the-extraordinary-lab",
+  "title": "The Extraordinary Lab",
+  "bodyText": 10
+ },
+ "navMs": null,
+ "navEvents": [],
+ "requestsDuring": []
+}

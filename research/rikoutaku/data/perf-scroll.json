@@ -1,0 +1,14 @@
+{
+ "wallMs": 10030,
+ "frames": 455,
+ "avgFps": 45.4,
+ "avgFrameMs": 22.01,
+ "worstFrameMs": 467.2,
+ "longTasks": [
+  65
+ ],
+ "longTaskCount": 1,
+ "worstLongTaskMs": 65,
+ "scrollRangePx": 7400,
+ "scrollHeight": 8083
+}

@@ -1,0 +1,17 @@
+import fs from 'node:fs';
+const h = fs.readFileSync(new URL('./index.html', import.meta.url), 'utf8');
+const ids = [...h.matchAll(/id="([^"]+)"/g)].map(m => m[1]);
+console.log('IDS:', ids.join(', '));
+console.log('SECTIONS:', [...h.matchAll(/<section[^>]*class="([^"]+)"/g)].map(m => m[1]).join(' | '));
+console.log('snd button:', (h.match(/<button[^>]*id="snd"[^>]*>/) || ['(none)'])[0]);
+console.log('video tags:', (h.match(/<video/g) || []).length);
+console.log('svg tags:', (h.match(/<svg/g) || []).length);
+console.log('blueprint id present:', h.includes('id="blueprint"'));
+console.log('sticky/pin classes:', (h.match(/class="[^"]*(sticky|pin)[^"]*"/g) || []).slice(0, 10).join(' ; '));
+console.log('view-transition refs:', (h.match(/view-transition[a-z-]*/g) || []).slice(0, 5).join(','));
+console.log('prefetch/preload tags:', (h.match(/<(link)[^>]*(prefetch|preload|preconnect)[^>]*>/g) || []).slice(0, 12).join('\n  '));
+console.log('data-ink count:', (h.match(/data-ink/g) || []).length);
+console.log('reveal count:', (h.match(/class="[^"]*reveal[^"]*"/g) || []).length);
+console.log('crew section snippet:');
+const ci = h.indexOf('id="crew"');
+console.log(h.slice(Math.max(0, ci - 400), ci + 1200).replace(/\t/g, ' '));

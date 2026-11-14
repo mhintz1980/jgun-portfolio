@@ -1,0 +1,35 @@
+{
+ "viewport": {
+  "w": 1424,
+  "h": 805
+ },
+ "scrollHeight": 51040,
+ "maxScroll": 50235,
+ "frames": 480,
+ "elapsedMs": 10007,
+ "avgFps": 48,
+ "worstGapMs": 250.9,
+ "p95GapMs": 39.7,
+ "gapsOver50ms": 12,
+ "gapsOver100ms": 6,
+ "worstGaps": [
+  71.5,
+  94,
+  127.6,
+  137.2,
+  144.1,
+  166.9,
+  180.6,
+  250.9
+ ],
+ "longtasksDuringScroll": [],
+ "longtaskCount": 0,
+ "canvasPresent": 6,
+ "endedAtY": 2009,
+ "networkDuringScroll": [],
+ "extra": {
+  "dataEngine": "three.js r178 - modified by Lusion",
+  "preloaderStillInDom": true,
+  "scrollHeight": 51040
+ }
+}

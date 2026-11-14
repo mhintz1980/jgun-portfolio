@@ -1,0 +1,63 @@
+{
+ "htmlClass": "light",
+ "canvas": true,
+ "engine": null,
+ "heroText": "Rikoutaku（リコウタク）— RI.Studio | Interaction & UI/UX Designer Portfolio, Tokyo",
+ "sections": 0,
+ "bodyTextLen": 139,
+ "firstText": "●  PAGE PRELOADER\nSEQ 001 — EST.2026\nLOADING\n000%\nRikoutaku（リコウタク）— RI.Studio | Interaction & UI/UX Designer Portfolio, ",
+ "console": [
+  {
+   "type": "error",
+   "text": "THREE.WebGLRenderer: A WebGL context could not be created. Reason:  disabled by enterprise policy or commandline switch"
+  },
+  {
+   "type": "error",
+   "text": "THREE.WebGLRenderer: A WebGL context could not be created. Reason:  disabled by enterprise policy or commandline switch"
+  },
+  {
+   "type": "error",
+   "text": "THREE.WebGLRenderer: Error creating WebGL context."
+  },
+  {
+   "type": "warning",
+   "text": "3D experience failed to start; continuing with 2D UI. Error: Error creating WebGL context.\n    at new $0 (https://www.rikoutaku.work/assets/DRACOLoader-BhgqjXwv.js:3802:20041)\n    at I9.setRenderer (h"
+  },
+  {
+   "type": "warning",
+   "text": "The resource https://www.rikoutaku.work/models/2026-8-10-white.glb was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropria"
+  },
+  {
+   "type": "warning",
+   "text": "The resource https://www.rikoutaku.work/models/2026-8-10-white.glb was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropria"
+  },
+  {
+   "type": "warning",
+   "text": "The resource https://www.rikoutaku.work/models/2026-8-10-white.glb was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropria"
+  },
+  {
+   "type": "warning",
+   "text": "The resource https://www.rikoutaku.work/models/2026-8-10-white.glb was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropria"
+  },
+  {
+   "type": "error",
+   "text": "THREE.WebGLRenderer: A WebGL context could not be created. Reason:  disabled by enterprise policy or commandline switch"
+  },
+  {
+   "type": "error",
+   "text": "THREE.WebGLRenderer: A WebGL context could not be created. Reason:  disabled by enterprise policy or commandline switch"
+  },
+  {
+   "type": "error",
+   "text": "THREE.WebGLRenderer: Error creating WebGL context."
+  },
+  {
+   "type": "warning",
+   "text": "3D experience failed to start; continuing with 2D UI. Error: Error creating WebGL context.\n    at new $0 (https://www.rikoutaku.work/assets/DRACOLoader-BhgqjXwv.js:3802:20041)\n    at I9.setRenderer (h"
+  },
+  {
+   "type": "warning",
+   "text": "The resource https://www.rikoutaku.work/models/2026-8-10-white.glb was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropria"
+  }
+ ]
+}

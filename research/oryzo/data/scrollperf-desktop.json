@@ -1,0 +1,51 @@
+{
+ "viewport": {
+  "w": 1424,
+  "h": 805
+ },
+ "scrollHeight": 51040,
+ "maxScroll": 50235,
+ "frames": 38,
+ "elapsedMs": 10299.1,
+ "avgFps": 3.7,
+ "worstGapMs": 4895.7,
+ "p95GapMs": 1190.6,
+ "gapsOver50ms": 17,
+ "gapsOver100ms": 12,
+ "worstGaps": [
+  303,
+  398.3,
+  423.2,
+  440.7,
+  456.4,
+  753.3,
+  1190.6,
+  4895.7
+ ],
+ "longtasksDuringScroll": [
+  78,
+  396,
+  152,
+  1198,
+  4817,
+  443,
+  149,
+  67,
+  57
+ ],
+ "longtaskCount": 9,
+ "canvasPresent": 6,
+ "endedAtY": 50235,
+ "networkDuringScroll": [
+  {
+   "t": 3432,
+   "url": "/images/wearable-gallery/bite.mp4",
+   "type": "Media"
+  }
+ ],
+ "extra": {
+  "dataEngine": "three.js r178 - modified by Lusion",
+  "preloaderStillInDom": true,
+  "scrollHeight": 51040
+ }
+}

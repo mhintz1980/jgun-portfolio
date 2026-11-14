@@ -1,0 +1,159 @@
+records: 37
+REC 1 eid=ev_0823e7e5e6c start=https://www.webdrift.be/en vp=1440x900 rm=no-preference steps=2 end=https://www.webdrift.be/en completeness=incomplete
+   step 0 goto_start scenario_start t=1310 status=completed url=https://www.webdrift.be/en
+   step 1 wait_for_timeout wait-load t=6166 status=completed url=https://www.webdrift.be/en
+REC 5 eid=ev_27a5ebeba8c start=https://www.fragment.im/ vp=1440x900 rm=reduce steps=2 end=https://www.fragment.im/ completeness=incomplete
+   step 0 goto_start scenario_start t=13155 status=completed url=https://www.fragment.im/
+   step 1 wait_for_timeout wait-load t=15006 status=completed url=https://www.fragment.im/
+REC 7 eid=ev_2f3c6974f74 start=https://vastworld.ai/ vp=1440x900 rm=no-preference steps=16 end=https://vastworld.ai/ completeness=incomplete
+   step 0 goto_start scenario_start t=4245 status=completed url=https://vastworld.ai/
+   step 1 wait_for_timeout load t=7026 status=completed url=https://vastworld.ai/
+   step 2 press pg1 t=134 status=completed url=https://vastworld.ai/
+   step 3 wait_for_timeout w1 t=1006 status=completed url=https://vastworld.ai/
+   step 4 press pg2 t=67 status=completed url=https://vastworld.ai/
+   step 5 wait_for_timeout w2 t=1022 status=completed url=https://vastworld.ai/
+   step 6 press pg3 t=28 status=completed url=https://vastworld.ai/
+   step 7 wait_for_timeout w3 t=1012 status=completed url=https://vastworld.ai/
+   step 8 press pg4 t=31 status=completed url=https://vastworld.ai/
+   step 9 wait_for_timeout w4 t=1025 status=completed url=https://vastworld.ai/
+   step 10 press pg5 t=21 status=completed url=https://vastworld.ai/
+   step 11 wait_for_timeout w5 t=1002 status=completed url=https://vastworld.ai/
+   step 12 press end t=20 status=completed url=https://vastworld.ai/
+   step 13 wait_for_timeout w6 t=1512 status=completed url=https://vastworld.ai/
+   step 14 click nav-research t=178 status=failed url=https://vastworld.ai/
+   step 15 wait_for_timeout after-nav t=0 status=cancelled url=https://vastworld.ai/
+REC 9 eid=ev_45825ee18e8 start=https://www.webdrift.be/en vp=1440x900 rm=no-preference steps=2 end=https://www.webdrift.be/en completeness=incomplete
+   step 0 goto_start scenario_start t=2082 status=completed url=https://www.webdrift.be/en
+   step 1 wait_for_timeout wait-load t=6031 status=completed url=https://www.webdrift.be/en
+REC 10 eid=ev_45b5963175b start=https://vastworld.ai/ vp=1440x900 rm=reduce steps=3 end=https://vastworld.ai/ completeness=incomplete
+   step 0 goto_start scenario_start t=7109 status=completed url=https://vastworld.ai/
+   step 1 wait_for_timeout load-reduced t=10220 status=completed url=https://vastworld.ai/
+   step 2 wait_for_timeout settle t=2947 status=completed url=https://vastworld.ai/
+REC 13 eid=ev_55eff9f0f3c start=https://dennypratama.com/ vp=390x844 rm=no-preference steps=8 end=https://dennypratama.com/ completeness=incomplete
+   step 0 goto_start scenario_start t=3228 status=completed url=https://dennypratama.com/
+   step 1 wait_for_timeout initial-settle t=8010 status=completed url=https://dennypratama.com/
+   step 2 press scroll-1 t=331 status=completed url=https://dennypratama.com/
+   step 3 wait_for_timeout wait-1 t=2019 status=completed url=https://dennypratama.com/
+   step 4 press scroll-2 t=99 status=completed url=https://dennypratama.com/
+   step 5 wait_for_timeout wait-2 t=2034 status=completed url=https://dennypratama.com/
+   step 6 press scroll-3 t=118 status=completed url=https://dennypratama.com/
+   step 7 wait_for_timeout bottom-settle t=3954 status=completed url=https://dennypratama.com/
+REC 15 eid=ev_5e324031232 start=https://vastworld.ai/ vp=390x844 rm=no-preference steps=12 end=https://vastworld.ai/ completeness=complete
+   step 0 goto_start scenario_start t=5618 status=completed url=https://vastworld.ai/
+   step 1 wait_for_timeout load t=7027 status=completed url=https://vastworld.ai/
+   step 2 press pg1 t=116 status=completed url=https://vastworld.ai/
+   step 3 wait_for_timeout w1 t=1206 status=completed url=https://vastworld.ai/
+   step 4 press pg2 t=40 status=completed url=https://vastworld.ai/
+   step 5 wait_for_timeout w2 t=1202 status=completed url=https://vastworld.ai/
+   step 6 press pg3 t=63 status=completed url=https://vastworld.ai/
+   step 7 wait_for_timeout w3 t=1209 status=completed url=https://vastworld.ai/
+   step 8 press pg4 t=21 status=completed url=https://vastworld.ai/
+   step 9 wait_for_timeout w4 t=1209 status=completed url=https://vastworld.ai/
+   step 10 press end t=29 status=completed url=https://vastworld.ai/
+   step 11 wait_for_timeout w5 t=1700 status=completed url=https://vastworld.ai/
+REC 16 eid=ev_69e557db7a0 start=https://www.webdrift.be/en vp=1440x900 rm=no-preference steps=4 end=https://www.webdrift.be/en completeness=incomplete
+   step 0 goto_start scenario_start t=1760 status=completed url=https://www.webdrift.be/en
+   step 1 wait_for_timeout settle t=4357 status=completed url=https://www.webdrift.be/en
+   step 2 click click-work t=1055 status=completed url=https://www.webdrift.be/en
+   step 3 wait_for_timeout post-click t=4034 status=completed url=https://www.webdrift.be/en
+REC 18 eid=ev_6f43c85bb21 start=https://www.gq.com/sponsored/story/the-extraordinary-lab vp=1440x900 rm=no-preference steps=2 end=https://www.gq.com/sponsored/story/the-extraordinary-lab completeness=incomplete
+   step 0 goto_start scenario_start t=16154 status=completed url=https://www.gq.com/sponsored/story/the-extraordinary-lab
+   step 1 wait_for_timeout w-load t=6003 status=completed url=https://www.gq.com/sponsored/story/the-extraordinary-lab
+REC 19 eid=ev_700396d9b30 start=https://www.webdrift.be/en vp=1440x900 rm=no-preference steps=2 end=https://www.webdrift.be/en completeness=incomplete
+   step 0 goto_start scenario_start t=1087 status=completed url=https://www.webdrift.be/en
+   step 1 wait_for_timeout wait-load t=5077 status=completed url=https://www.webdrift.be/en
+REC 24 eid=ev_a03a2fbed8a start=https://oryzo.ai/ vp=1440x900 rm=no-preference steps=2 end=https://oryzo.ai/ completeness=incomplete
+   step 0 goto_start scenario_start t=4734 status=completed url=https://oryzo.ai/
+   step 1 wait_for_timeout settle t=4004 status=completed url=https://oryzo.ai/
+REC 26 eid=ev_b46d50f1145 start=https://www.webdrift.be/en vp=390x844 rm=no-preference steps=2 end=https://www.webdrift.be/en completeness=incomplete
+   step 0 goto_start scenario_start t=5337 status=completed url=https://www.webdrift.be/en
+   step 1 wait_for_timeout wait-load t=6018 status=completed url=https://www.webdrift.be/en
+REC 27 eid=ev_b8ca4449012 start=https://vastworld.ai/ vp=1440x900 rm=reduce steps=3 end=https://vastworld.ai/ completeness=complete
+   step 0 goto_start scenario_start t=6970 status=completed url=https://vastworld.ai/
+   step 1 wait_for_timeout load t=8004 status=completed url=https://vastworld.ai/
+   step 2 wait_for_timeout settle t=7322 status=completed url=https://vastworld.ai/
+REC 28 eid=ev_c01b0e6e3d5 start=https://vastworld.ai/ vp=1440x900 rm=no-preference steps=16 end=https://vastworld.ai/ completeness=incomplete
+   step 0 goto_start scenario_start t=2518 status=completed url=https://vastworld.ai/
+   step 1 wait_for_timeout load t=8013 status=completed url=https://vastworld.ai/
+   step 2 press pg1 t=75 status=completed url=https://vastworld.ai/
+   step 3 wait_for_timeout w1 t=1509 status=completed url=https://vastworld.ai/
+   step 4 press pg2 t=20 status=completed url=https://vastworld.ai/
+   step 5 wait_for_timeout w2 t=1516 status=completed url=https://vastworld.ai/
+   step 6 press pg3 t=30 status=completed url=https://vastworld.ai/
+   step 7 wait_for_timeout w3 t=1510 status=completed url=https://vastworld.ai/
+   step 8 press pg4 t=17 status=completed url=https://vastworld.ai/
+   step 9 wait_for_timeout w4 t=1507 status=completed url=https://vastworld.ai/
+   step 10 press pg5 t=19 status=completed url=https://vastworld.ai/
+   step 11 wait_for_timeout w5 t=1501 status=completed url=https://vastworld.ai/
+   step 12 press pg6 t=15 status=completed url=https://vastworld.ai/
+   step 13 wait_for_timeout w6 t=1502 status=completed url=https://vastworld.ai/
+   step 14 press end t=16 status=completed url=https://vastworld.ai/
+   step 15 wait_for_timeout w7 t=3009 status=completed url=https://vastworld.ai/
+REC 30 eid=ev_ca885a2ef00 start=https://www.gq.com/sponsored/story/the-extraordinary-lab vp=1440x900 rm=no-preference steps=14 end=https://www.gq.com/sponsored/story/the-extraordinary-lab completeness=incomplete
+   step 0 goto_start scenario_start t=15028 status=completed url=https://www.gq.com/sponsored/story/the-extraordinary-lab
+   step 1 wait_for_timeout w-load t=4007 status=completed url=https://www.gq.com/sponsored/story/the-extraordinary-lab
+   step 2 press pd-1 t=6280 status=completed url=https://www.gq.com/sponsored/story/the-extraordinary-lab
+   step 3 wait_for_timeout w-1 t=510 status=completed url=https://www.gq.com/sponsored/story/the-extraordinary-lab
+   step 4 press pd-2 t=18 status=completed url=https://www.gq.com/sponsored/story/the-extraordinary-lab
+   step 5 wait_for_timeout w-2 t=509 status=completed url=https://www.gq.com/sponsored/story/the-extraordinary-lab
+   step 6 press pd-3 t=20 status=completed url=https://www.gq.com/sponsored/story/the-extraordinary-lab
+   step 7 wait_for_timeout w-3 t=515 status=completed url=https://www.gq.com/sponsored/story/the-extraordinary-lab
+   step 8 press pd-4 t=40 status=completed url=https://www.gq.com/sponsored/story/the-extraordinary-lab
+   step 9 wait_for_timeout w-4 t=506 status=completed url=https://www.gq.com/sponsored/story/the-extraordinary-lab
+   step 10 press pd-5 t=43 status=completed url=https://www.gq.com/sponsored/story/the-extraordinary-lab
+   step 11 wait_for_timeout w-5 t=505 status=completed url=https://www.gq.com/sponsored/story/the-extraordinary-lab
+   step 12 press pd-6 t=23 status=completed url=https://www.gq.com/sponsored/story/the-extraordinary-lab
+   step 13 wait_for_timeout w-settle t=1007 status=completed url=https://www.gq.com/sponsored/story/the-extraordinary-lab
+REC 31 eid=ev_d5afde69848 start=https://vastworld.ai/ vp=1440x900 rm=no-preference steps=4 end=https://vastworld.ai/research completeness=incomplete
+   step 0 goto_start scenario_start t=3934 status=completed url=https://vastworld.ai/
+   step 1 wait_for_timeout load t=6010 status=completed url=https://vastworld.ai/
+   step 2 click nav-research t=10512 status=completed url=https://vastworld.ai/research
+   step 3 wait_for_timeout after-nav t=6170 status=completed url=https://vastworld.ai/research
+REC 32 eid=ev_d9050b643ba start=https://dennypratama.com/ vp=1440x900 rm=no-preference steps=5 end=https://dennypratama.com/work completeness=complete
+   step 0 goto_start scenario_start t=3552 status=completed url=https://dennypratama.com/
+   step 1 wait_for_timeout initial-settle t=6694 status=completed url=https://dennypratama.com/
+   step 2 click click-work t=1039 status=completed url=https://dennypratama.com/
+   step 3 wait_for_timeout transition-mid t=2071 status=completed url=https://dennypratama.com/work
+   step 4 wait_for_timeout transition-settle t=3990 status=completed url=https://dennypratama.com/work
+REC 33 eid=ev_deeaaa6e19e start=https://dennypratama.com/ vp=1440x900 rm=no-preference steps=8 end=https://dennypratama.com/ completeness=incomplete
+   step 0 goto_start scenario_start t=1783 status=completed url=https://dennypratama.com/
+   step 1 wait_for_timeout initial-settle t=12016 status=completed url=https://dennypratama.com/
+   step 2 press scroll-1 t=49 status=completed url=https://dennypratama.com/
+   step 3 wait_for_timeout wait-1 t=3004 status=completed url=https://dennypratama.com/
+   step 4 press scroll-2 t=17 status=completed url=https://dennypratama.com/
+   step 5 wait_for_timeout wait-2 t=3007 status=completed url=https://dennypratama.com/
+   step 6 press scroll-3 t=16 status=completed url=https://dennypratama.com/
+   step 7 wait_for_timeout bottom-settle t=6312 status=completed url=https://dennypratama.com/
+REC 34 eid=ev_e07481fa65d start=https://www.webdrift.be/en vp=1440x900 rm=no-preference steps=4 end=https://www.webdrift.be/en completeness=incomplete
+   step 0 goto_start scenario_start t=898 status=completed url=https://www.webdrift.be/en
+   step 1 wait_for_timeout settle t=5293 status=completed url=https://www.webdrift.be/en
+   step 2 click click-contact t=350 status=failed url=https://www.webdrift.be/en
+   step 3 wait_for_timeout post-click t=0 status=cancelled url=https://www.webdrift.be/en
+REC 35 eid=ev_e4291fff3b3 start=https://www.webdrift.be/en vp=1440x900 rm=no-preference steps=2 end=https://www.webdrift.be/en completeness=incomplete
+   step 0 goto_start scenario_start t=1539 status=completed url=https://www.webdrift.be/en
+   step 1 wait_for_timeout settle t=15005 status=completed url=https://www.webdrift.be/en
+WROTE C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\shot-ev_45b5963-1440-redu-scenario_start.png 949971 bytes
+WROTE C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\shot-ev_45b5963-1440-redu-load-reduced.png 952143 bytes
+WROTE C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\shot-ev_45b5963-1440-redu-settle.png 950706 bytes
+WROTE-DOM C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\dom-ev_45b5963-1440-redu-settle.html 207742 chars
+WROTE C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\shot-ev_55eff9f-390-no-p-bottom-settle.png 466464 bytes
+WROTE-DOM C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\dom-ev_55eff9f-390-no-p-bottom-settle.html 97086 chars
+WROTE C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\shot-ev_5e32403-390-no-p-w5.png 265169 bytes
+WROTE C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\shot-ev_69e557d-1440-no-p-scenario_start.png 62351 bytes
+WROTE C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\shot-ev_69e557d-1440-no-p-settle.png 205011 bytes
+WROTE C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\shot-ev_69e557d-1440-no-p-click-work.png 5247 bytes
+WROTE C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\shot-ev_69e557d-1440-no-p-post-click.png 915412 bytes
+WROTE-DOM C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\dom-ev_69e557d-1440-no-p-post-click.html 358688 chars
+WROTE C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\shot-ev_b8ca444-1440-redu-settle.png 340329 bytes
+WROTE C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\shot-ev_d5afde6-1440-no-p-after-nav.png 290597 bytes
+WROTE C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\shot-ev_d9050b6-1440-no-p-scenario_start.png 485313 bytes
+WROTE C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\shot-ev_d9050b6-1440-no-p-initial-settle.png 485307 bytes
+WROTE C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\shot-ev_d9050b6-1440-no-p-click-work.png 418921 bytes
+WROTE C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\shot-ev_d9050b6-1440-no-p-transition-mid.png 266159 bytes
+WROTE C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\shot-ev_d9050b6-1440-no-p-transition-settle.png 266159 bytes
+WROTE-DOM C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\dom-ev_d9050b6-1440-no-p-transition-settle.html 63824 chars
+WROTE C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\shot-ev_deeaaa6-1440-no-p-bottom-settle.png 517706 bytes
+WROTE-DOM C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\dom-ev_deeaaa6-1440-no-p-bottom-settle.html 97983 chars
+WROTE C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\shot-ev_e07481f-1440-no-p-scenario_start.png 46967 bytes
+WROTE C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\shot-ev_e07481f-1440-no-p-settle.png 205520 bytes
+WROTE C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\research\vastworld\_dl\fresh\shot-ev_e07481f-1440-no-p-click-contact.png 205155 bytes

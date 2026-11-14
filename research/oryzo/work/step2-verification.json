@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "capture": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\research\\oryzo\\capture.md",
+  "headingOrder": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "4b",
+    "4c",
+    "5",
+    "6",
+    "8",
+    "8b"
+  ],
+  "animationRows": 85,
+  "animationColumns": [
+    "Effect / evidence marker",
+    "Trigger",
+    "What moves",
+    "Property",
+    "From → to",
+    "Duration or scroll span",
+    "Easing, authored or default",
+    "Stagger",
+    "Source evidence"
+  ],
+  "shaderFamilies": 43,
+  "sourceRangesChecked": 312,
+  "originalBytesPreserved": true,
+  "originalByteCount": 16237,
+  "originalSha256": "9c693878444a2663acbd0dcb788e7571c5f79573ff2ff26795abcae661995e89",
+  "sourceEvidence": {
+    "J": {
+      "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\research\\oryzo\\data\\js\\hoisted.CRsATKbF.js",
+      "bytes": 1097812,
+      "utf16Chars": 1097784,
+      "sha256": "4ca8dcc1e714a468a0d5d02124bc0710d23d4705ef2a58b5cd8382c215672880"
+    },
+    "C": {
+      "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\research\\oryzo\\data\\js\\index.TL6TuoJb.css",
+      "bytes": 69220,
+      "utf16Chars": 69220,
+      "sha256": "fcb40167fa5399e551649ed5260c97db982cb8da650169f1884679a1163814d2"
+    },
+    "W": {
+      "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\research\\oryzo\\data\\js\\SplatsWorker-DSMxtdkh.js",
+      "bytes": 3271,
+      "utf16Chars": 3271,
+      "sha256": "a91fcfc466196b7e8ebcdf9d7e8de02b7f713151aea63579a7da9288e582b6b3"
+    }
+  },
+  "failures": []
+}
