@@ -58,7 +58,26 @@ After upload verify production identity, public routes, changed assets and brows
   and thread eyelet alignment if the owner wants the row offset applied to its anchor.
   Parent visually inspected the desktop row/thread and armament carousel plus the
   phone carousel; no additional polish was required for this bounded port.
-- Isolated commit proof and deployment results pending.
+- Source commit **`4113aac5631f6eba23ec5e9d2f14608ab2ebd974`** is pushed and
+  verified on `origin/torque-wrench/rebuild`. A second clean checkout at that exact
+  commit passed direct TypeScript, all 42 pure Node checks, production build and
+  launch gate. All 18 browser-tested homepage HTML/generated asset hashes matched
+  the isolated build. The upload contained 171 local artifact files and clean Git metadata.
+- Production deployment **`98c50e06-40c6-48ab-8fde-c100d3c81a80`** succeeded via
+  Wrangler direct upload to `jgun-portfolio`, production metadata branch `main`;
+  Cloudflare canonical-deployment metadata confirms source `4113aac` and
+  `commit_dirty: false`. [Deployment](https://98c50e06.jgun-portfolio.pages.dev/home/)
+  and [public homepage](https://www.studiomark.dev/home/).
+- **49/49 public HTTP/file-identity checks PASS**, across the custom domain,
+  Pages project domain and immutable deployment domain: all five HTML routes,
+  homepage entry assets, the two new font binaries and their license, favicon,
+  excluded M249/missing-route 404s, and apex redirect. Evidence:
+  `output/playwright/canvas-live/identity.json`. Full artifact/upload records:
+  original checkout `output/playwright/three-stage-release-20261112/canvas-20261113-*`.
+- **3/3 live homepage browser smoke checks PASS**: desktop, phone and reduced
+  motion, with loading, work-in-progress label, images, no homepage CAD requests,
+  and navigation to the torque-wrench page; zero browser/HTTP errors. Reports and
+  screenshots: `output/playwright/canvas-live/{desktop-home,narrow-home,reduced-home}/`.
 - Rollback before this update: Cloudflare deployment
   `b9337cb0-ce27-44de-a28f-738242d0f679`, source `f230df2a`.
 
