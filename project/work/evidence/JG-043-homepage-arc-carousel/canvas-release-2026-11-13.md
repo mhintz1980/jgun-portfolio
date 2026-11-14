@@ -1,5 +1,10 @@
 # JG-043 — Claude Design homepage port and publication
 
+> **Owner correction 2026-11-14:** this homepage interpretation was rejected.
+> Use the subsequently supplied HTML export as the visual authority. See
+> [export correction](export-correction-2026-11-14.md). Results below describe the
+> historical implementation and do not establish visual acceptance.
+
 Owner request, 2026-11-13: read `HANDOFF-homepage-claude-design-2026-11-10.md`,
 carry its design edits into the homepage, commit, push, and deploy to studiomark.dev.
 This explicitly authorizes publication. Final owner visual acceptance is separate.
