@@ -10,3 +10,10 @@ no third-party requests. All four families are licensed under the SIL Open Font 
 | Archivo.woff2       | Archivo, variable weight        | headings   |
 | SpaceGrotesk.woff2  | Space Grotesk, variable weight  | body       |
 | JetBrainsMono.woff2 | JetBrains Mono, variable weight | labels     |
+
+Claude Design port (2026-11-13): Michroma also supplies carousel captions, italic
+project-row titles and contact links; Archivo supplies tags. Roboto 400 supplies
+row copy/counters and Work Sans 400 supplies carousel metadata. The added Latin
+WOFF2 files are self-hosted from Google Fonts (Roboto v51, Work Sans v24; SIL OFL
+1.1), so the production page still makes no Google Fonts requests. Their copyright
+notices and full license ship in `public/fonts/home/OFL-Roboto-WorkSans.txt`.

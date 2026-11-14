@@ -20,6 +20,12 @@ Owner request, 2026-11-07: replace each landing-page project image stack with th
 
 ## Status
 
+2026-11-13: owner authorized porting the saved Claude Design homepage edits and
+committing, pushing and deploying them. The bounded responsive port, source
+identity, checks and publication record are in
+[canvas release evidence](../evidence/JG-043-homepage-arc-carousel/canvas-release-2026-11-13.md).
+This update does not imply final owner visual acceptance.
+
 Implemented locally and being integrated for the authorized release. The historical
 full homepage rerun finished 23/23 PASS on 2026-11-08; fresh isolated checks are
 required for this commit. Publication and owner visual acceptance are separate;

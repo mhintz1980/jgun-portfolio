@@ -21,6 +21,7 @@
 .home-vault-plane {
   position: absolute;
   inset: 0;
+  translate: 0 -10px;
 }
 
 .home-vault-drift {

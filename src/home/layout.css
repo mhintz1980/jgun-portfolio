@@ -29,6 +29,20 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Roboto";
+  src: url("/fonts/home/Roboto.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Work Sans";
+  src: url("/fonts/home/WorkSans.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
 html[data-theme="light"] {
   --bg: #f4f1ea;
   --surface: #fbf9f4;
@@ -95,14 +109,15 @@ body {
 
 /* Header: the drawn name, a gap about two of its letters wide, the nav, the toggle at the right. */
 .home-header {
-  --header-top: 28px;
+  --header-top: 10px;
+  --header-gutter: 20px;
   position: sticky;
   top: 0;
   z-index: 30;
   display: flex;
   align-items: center;
   margin: 0 auto;
-  padding: 28px var(--gutter) 20px;
+  padding: var(--header-top) var(--header-gutter) 10px;
 }
 
 .home-identity {
@@ -125,7 +140,7 @@ body {
   transform-origin: left top;
 }
 .home-header[data-compact] .home-name {
-  transform: translate(calc(8px - var(--gutter)), calc(8px - var(--header-top))) scale(.67);
+  transform: translate(calc(8px - var(--header-gutter)), calc(8px - var(--header-top))) scale(.67);
   clip-path: inset(0 calc(100% - var(--monogram-end, 30%)) 0 0);
   background: var(--surface);
   transition: transform 125ms ease 325ms, clip-path 0s 450ms;
@@ -158,6 +173,8 @@ body {
 
 .home-identity .home-eyebrow {
   margin: 4px 0 0;
+  font-family: "Roboto", var(--body);
+  letter-spacing: 0.5em;
 }
 
 .home-nav {
@@ -171,6 +188,7 @@ body {
 
 .home-nav a {
   position: relative;
+  white-space: nowrap;
   color: var(--muted);
   text-decoration: none;
   transition: color 200ms ease, transform 550ms ease, opacity 350ms ease, visibility 0s 550ms;
@@ -352,7 +370,8 @@ body {
 .home-rolling {
   max-width: 44rem;
   margin: 0 0 24px;
-  padding: 18px 22px;
+  padding: 25px 22px;
+  font-family: var(--display);
   border: 1px solid var(--rule);
   border-left: 3px solid var(--accent);
   background: var(--surface);
@@ -407,6 +426,9 @@ body {
   margin: 0 0 32px;
   font-size: clamp(16px, 1.6vw, 18px);
   color: var(--muted);
+  font-family: var(--hero);
+  margin-top: 15px;
+  padding-block: 10px;
 }
 
 .home-hero .home-hint {
@@ -481,10 +503,14 @@ body {
 
 .home-row {
   display: grid;
-  grid-template-columns: 56px 1fr auto 32px;
+  grid-template-columns: 56px minmax(0, 1fr) auto 32px;
   align-items: baseline;
   gap: 20px;
-  padding: 28px 24px;
+  padding: 20px;
+  position: relative;
+  left: clamp(0px, calc((100vw - 1200px) / 1.92), 125px);
+  font-family: "Roboto", var(--body);
+  letter-spacing: 0.12em;
   background: var(--surface);
   border: 1px solid var(--rule);
   text-decoration: none;
@@ -513,11 +539,13 @@ a.home-row:focus-visible,
 }
 
 .home-row-title {
-  font-family: var(--display);
-  font-weight: 800;
+  font-family: var(--hero);
+  font-weight: 900;
+  font-style: italic;
   font-size: clamp(24px, 2.6vw, 32px);
   line-height: 1.1;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.05em;
+  overflow-wrap: anywhere;
 }
 
 .home-row-line {
@@ -525,8 +553,9 @@ a.home-row:focus-visible,
 }
 
 .home-row-tags {
-  font-family: var(--mono);
+  font-family: var(--display);
   font-size: 12px;
+  letter-spacing: 0.2em;
   color: var(--muted);
 }
 
@@ -626,8 +655,20 @@ a.home-row:focus-visible,
   display: flex;
   flex-wrap: wrap;
   gap: 12px 28px;
-  font-family: var(--mono);
+  font-family: var(--hero);
   font-size: 14px;
+}
+
+.home-links a { overflow-wrap: anywhere; }
+
+.home-row-number,
+.home-row-status,
+.home-label { font-family: "Roboto", var(--body); }
+
+@media (max-width: 720px) {
+  .home-row { letter-spacing: 0.025em; }
+  .home-row-title { font-size: clamp(18px, 4.5vw, 28px); letter-spacing: 0.025em; }
+  .home-row-tags { letter-spacing: 0.1em; }
 }
 
 .home-footer {

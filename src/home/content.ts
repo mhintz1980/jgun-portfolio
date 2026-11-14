@@ -131,7 +131,7 @@ export const STACKS: Partial<Record<ProjectId, readonly StackImage[]>> = {
     { src: "/home/stacks/torque-wrench/09.webp", width: 712, height: 445, label: "Stage 1 planets seated on the sun gear", kind: "render" },
   ],
   'armament': [
-    { src: "/home/stacks/armament/01.webp", width: 871, height: 775, label: "Billet lower receiver, CAD render", kind: "render" },
+    { src: "/home/stacks/armament/01.webp", width: 871, height: 775, label: "Billet & forged Receiver Sets, Modular Handguards, BCGs, Complete firearms", kind: "render" },
     { src: "/home/stacks/armament/02.webp", width: 1600, height: 1145, label: "Lower receiver machining drawing", kind: "drawing" },
     { src: "/home/stacks/armament/03.webp", width: 1600, height: 1308, label: "Handguard, three views", kind: "render" },
     { src: "/home/stacks/armament/04.webp", width: 1600, height: 1002, label: "Accessory rail mount", kind: "render" },
