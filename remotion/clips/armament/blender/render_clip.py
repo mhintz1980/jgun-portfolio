@@ -112,11 +112,14 @@ def emission_override(color, strength=1.0):
     return m
 
 
+CLAY_CYCLES = (0.62, 0.60, 0.57, 1.0)  # darker albedo: path-traced light adds up, 0.80 blew out to near-white
+
+
 def clay_override():
     m = bpy.data.materials.new("clay")
     m.use_nodes = True
     b = m.node_tree.nodes["Principled BSDF"]
-    b.inputs["Base Color"].default_value = CLAY
+    b.inputs["Base Color"].default_value = CLAY_CYCLES if args.engine == "cycles" else CLAY
     b.inputs["Roughness"].default_value = 0.6
     b.inputs["Metallic"].default_value = 0.0
     return m
@@ -181,13 +184,13 @@ def setup_shade_pass():
         w.use_nodes = True
         bg = w.node_tree.nodes["Background"]
         bg.inputs[0].default_value = (0.95, 0.95, 0.97, 1)
-        bg.inputs[1].default_value = 0.55
+        bg.inputs[1].default_value = 0.40
         sc.world = w
         vl.material_override = clay_override()
         for o in [o for o in sc.objects if o.type == "LIGHT"]:
             bpy.data.objects.remove(o)
         sun = bpy.data.objects.new("sun", bpy.data.lights.new("sun", "SUN"))
-        sun.data.energy = 3.2
+        sun.data.energy = 2.4
         sun.data.angle = math.radians(12)
         sc.collection.objects.link(sun)
         sun.rotation_euler = (math.radians(50), math.radians(12), math.radians(-35))

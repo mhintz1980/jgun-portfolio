@@ -1,6 +1,6 @@
 # HANDOFF: JG-041 armament render lane (2026-11-13)
 
-Cost so far this session: Modal $0.0022 (smoke) + $0.48 (full render) = about $0.48 of the $30 free tier. Nothing else spent.
+Cost so far: Modal $0.0022 (smoke) + $0.48 (full render) + about $0.009 on 2026-11-14 (hero stills, Cycles tests and sweep) = about $0.49 of the $30 free tier.
 
 ## State
 - **Direction (owner ruling 2026-11-13, on `main`):** the showreel is "The Line" (slices owner-approved 2026-11-09 on `torque-wrench/rebuild`: ident `0de294ef`, slice 1 `e3c05882`, slice 2 `f2b5ae44`). "The Thread" is not the direction. Next improvement: the armament act with the real 3D models.
@@ -23,10 +23,16 @@ Cost so far this session: Modal $0.0022 (smoke) + $0.48 (full render) = about $0
 6. A structured repo home for all of it.
 Opus 5.5 (high) on the two open questions: commit NO frames until the film review approves the clip, then near-lossless WebP in `remotion/clips/armament/<clip-id>/` (not `public/`); commit code and docs now after scrubbing brand names and absolute paths (done).
 
+## Update 2026-11-14
+- Hero stills rendered: `C:/Projects/CAD/Armament/renders/ar15-pattern-carbine-a-hero-contour-v1/` and `...-hero-fullline-v1/` ($0.0062).
+- Frames backed up to the Modal Volume `armament-frames` (WebP frames and the hero stills; PNGs not backed up). Restore: `MSYS_NO_PATHCONV=1 py -m modal volume get armament-frames /<folder> <dest>`. Models are still local only; Mark suggested a project folder on his Google Drive (open, not done).
+- **Look decided: Cycles v2 shade pass, Workbench line pass** (plan v5, "Look decision"). Darkest Workbench angles are 60 and 240 deg; Cycles v2 is mean 142-175 at every swept angle. The look is still Mark's call and Astra's ruling after the film review. Slice-tone comparison on `torque-wrench/rebuild` not yet done.
+- `.gitattributes` added on `main` (`6bc0f668`): LF everywhere. Git for Windows' `core.autocrlf=true` had made Biome flag about 500 files in any checkout.
+
 ## Next steps
-1. Hero stills (small Modal run, about $0.01): contour-only line at 0 deg and full-line at 0 deg. Same launcher with `--contour-only --angles 0:2:2 --pass line`.
-2. Back up the frames (a cloud or Modal Volume copy). The models are never committed, so lost local models mean the frames cannot be rebuilt.
-3. Decide the look: accept the dark side at ~40-60 deg and ~300 deg (Workbench studio light is view-fixed), or add a Cycles shade pass (more cost).
+1. Shade-only Cycles re-render, 180 frames, about $0.10-0.12 (projected, not measured). Needs Mark's go. Two-run recipe: line already exists; shade = `--pass shade --engine cycles --samples 24`. Never `--pass both --engine cycles`.
+2. Gates on the new shade set: files, size, alpha, loop wrap, consecutive-frame diff, a temporal flicker check (denoise is on), luminance sweep against 142-175.
+3. Check the approved slices' shade tone on `torque-wrench/rebuild` (read-only).
 4. Film wiring on `torque-wrench/rebuild`: read its `remotion/README.md` and `project/work/plans/JG-041-showreel-v3.md` first. Wire plot -> hold -> fast spin (frame blending) -> settle; solve frame delivery (Remotion `staticFile` reads only `../public`, which ships with the site; `build/excludePublicAssets.ts` takes exact paths); add the manifest-driven rules test and an `/mk\s*-?18/i` scan; review stills plus a separately named review MP4.
 5. Mark reviews; Astra's ruling (visual effect); only then commit the frames and, on his accept, replace the homepage MP4.
 6. More clips (ACR, AR-15 after rotation and decimation, M249 shell, a second stand-in) on the same lane.
@@ -34,13 +40,14 @@ Opus 5.5 (high) on the two open questions: commit NO frames until the film revie
 ## How to run Modal from this machine
 ```bash
 cd remotion/clips/armament/modal
+export PYTHONUTF8=1 PYTHONIOENCODING=utf-8
 py launch.py --glb "<model.glb from local-paths.json>" --out "C:/Projects/CAD/Armament/renders/<run-id>" --angles 0:360:2 --pass both --width 1920 --shards 6 --timeout 1500 --est-s-per-frame 20 --max-usd 1.00
 ```
 That is a dry run. To spend, add `--execute` and run it with the proxy unset, in a shell that can reach Modal:
 ```bash
 env -u HTTPS_PROXY -u https_proxy -u HTTP_PROXY -u http_proxy PYTHONWARNINGS=ignore py launch.py <same args> --execute
 ```
-In an agent shell this also needed the sandbox override. Never print `~/.modal.toml`.
+In an agent shell this also needed the sandbox override. Never print `~/.modal.toml`. Set `--max-usd` at or above the dry-run ceiling or the launcher refuses. For `modal volume` calls under Git Bash, set `MSYS_NO_PATHCONV=1`.
 
 ## Key assumptions to verify
 - `origin/main` contains the lane commit: `git ls-remote origin refs/heads/main`.
