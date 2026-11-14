@@ -24,6 +24,7 @@ import { samplePrivateElectrical } from './ElectricalDirector'
 import { makePrivateCrackGeometry } from './privateElectricGeometry'
 import { makePrivateFractureWebGeometry } from './privateFractureWeb'
 import { createShardDome } from './shardDome'
+import { createPortalLightning } from './portalLightning'
 
 /** Transparent-pass layering of the private sheet. Ink > intact stock; glow > ink. */
 export const PRIVATE_INTACT_STOCK_ORDER = 3
@@ -314,57 +315,181 @@ void main() {
 }`
 
 /**
- * Walnut desk: dark figured grain running along the sheet's long axis, lit by the same lamp,
- * with the sheet's soft contact shadow. Fades to transparent well before its edge so it
- * dissolves into the scene's dark backdrop at every framing.
+ * Option A Metrology Lab Surface:
+ * 1) Inner slab (1.36 m x 0.90 m): Precision lapped black Starrett granite surface plate with
+ *    multi-scale crystalline quartz/feldspar/biotite flecks, engraved reference border & mm ticks,
+ *    and a 3D chamfered perimeter bevel.
+ * 2) Middle apron (3.8 m x 2.8 m): Heavy Blanchard-ground cast-iron metrology workbench with
+ *    milled T-slots, chamfered slot lips, and corner hold-down pads.
+ * 3) Outer surround (out to 4.6 m): Grounded architectural studio concrete floor with subtle
+ *    expansion joints and horizon falloff so low-angle 360-degree orbits never float in void.
  */
 const deskFragment = /* glsl */ `
 ${WAVE_GLSL}
 ${SHOCKWAVE_GLSL}
 ${NOISE_GLSL}
 ${PORTAL_PROFILE_GLSL}
-uniform vec3 uKey; uniform vec2 uSheetHalf;
-uniform float uContrast; uniform float uOpacity; uniform float uMode; uniform float uVellum; uniform float uLampPower;
+uniform vec3 uKey; uniform vec3 uLamp; uniform vec2 uSheetHalf;
+uniform float uContrast; uniform float uOpacity; uniform float uMode; uniform float uVellum; uniform float uLampPower; uniform float uReadingPool;
 uniform float uFracture; uniform float uWaveTime;
 varying vec2 vPlane;
+
+float sdRoundBox2D(vec2 p, vec2 b, float r) {
+  vec2 q = abs(p) - b + r;
+  return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r;
+}
+
+// Precision-safe wrapped hash & rotated multi-angle noise so high-frequency granite crystals never form axis grids
+float graniteHash(vec2 p) {
+  vec2 q = mod(p, 289.0);
+  return fract(sin(dot(q, vec2(127.1, 311.7))) * 43758.5453);
+}
+float graniteNoise(vec2 p) {
+  vec2 i = floor(p);
+  vec2 f = fract(p);
+  vec2 u = f * f * (3.0 - 2.0 * f);
+  return mix(
+    mix(graniteHash(i), graniteHash(i + vec2(1.0, 0.0)), u.x),
+    mix(graniteHash(i + vec2(0.0, 1.0)), graniteHash(i + vec2(1.0, 1.0)), u.x),
+    u.y
+  );
+}
+float graniteCrystalField(vec2 p, out float glint, out float darkMica) {
+  mat2 rot1 = mat2(0.80, 0.60, -0.60, 0.80);
+  mat2 rot2 = mat2(-0.55, 0.835, -0.835, -0.55);
+  mat2 rot3 = mat2(0.28, -0.96, 0.96, 0.28);
+  vec2 p1 = rot1 * p * 95.0;
+  vec2 p2 = rot2 * p * 215.0 + vec2(17.3, 41.9);
+  vec2 p3 = rot3 * p * 430.0 + vec2(63.1, 12.7);
+  float n1 = graniteNoise(p1);
+  float n2 = graniteNoise(p2);
+  float n3 = graniteNoise(p3);
+  glint = smoothstep(0.76, 0.95, n2 * 0.55 + n3 * 0.45);
+  darkMica = smoothstep(0.58, 0.86, graniteNoise(rot2 * p * 155.0 + vec2(9.2, 27.4)));
+  return n1 * 0.45 + n2 * 0.35 + n3 * 0.20;
+}
+
+float tSlotChannel(float coord, float spacing, float halfSpan, out float lipHighlight) {
+  float cell = floor(coord / spacing + 0.5);
+  float d = abs(coord - cell * spacing);
+  float inRange = step(abs(cell * spacing), halfSpan);
+  float throat = (1.0 - smoothstep(0.0065, 0.0082, d)) * inRange;
+  lipHighlight = exp(-pow((d - 0.0088) / 0.0022, 2.0)) * inRange;
+  return throat;
+}
+
 void main() {
   if (uMode > 0.5) discard;
   vec2 p = vPlane;
   // This opening exists before the first hairline and is never restored during the lift.
-  // Slight mask dilation prevents a raster texel of wood leaking along the torn contour.
   if (portalProfile(p) > 0.5 || portalRim(p) > 0.0) discard;
-  float warp = fbm(p * vec2(2.6, 9.0));
-  float figure = fbm(p * vec2(3.0, 38.0) + warp * 1.8);
-  float rings = 0.5 + 0.5 * sin(p.y * 150.0 + warp * 10.0 + figure * 5.0);
-  rings = pow(rings, 1.6);
-  // Open walnut pores: short dark dashes running with the grain.
-  float pores = smoothstep(0.62, 0.9, noise(vec2(p.x * 260.0, p.y * 2400.0)));
-  pores = 1.0 - pores * 0.6 + 0.25 * noise(vec2(p.x * 90.0, p.y * 900.0));
-  vec3 dark = vec3(0.020, 0.0105, 0.0055);
-  vec3 lite = vec3(0.078, 0.040, 0.019);
-  vec3 wood = mix(dark, lite, clamp(rings * 0.55 + (figure - 0.5) * 0.9 + 0.2, 0.0, 1.0));
-  wood *= 0.72 + 0.34 * pores;
-  float dk = length(p - uKey.xy) / (uKey.z * 1.35);
+
+  vec2 graniteHalf = vec2(0.68, 0.45);
+  float sdGranite = sdRoundBox2D(p, graniteHalf, 0.016);
+  vec2 tableHalf = vec2(1.92, 1.42);
+  float sdTable = sdRoundBox2D(p, tableHalf, 0.038);
+
+  vec2 toLamp = normalize(uKey.xy - p);
+  float dk = length(p - uKey.xy) / (uKey.z * 1.55);
   float key = exp(-dk * dk);
-  // Lacquer sheen: a broad soft highlight elongated along the grain.
-  vec2 s = (p - uKey.xy - vec2(0.18, -0.1)) * vec2(1.4, 3.2);
-  float sheen = exp(-dot(s, s) * 3.0) * (0.6 + 0.4 * pores);
-  vec3 c = (wood * (0.22 + 1.9 * key) + vec3(0.05, 0.032, 0.02) * sheen)
-    * mix(vec3(0.22, 0.25, 0.31), vec3(1.0), uLampPower);
-  // Contact shadow of the sheet, thrown away from the lamp.
+  float dl = length(p - uLamp.xy) / max(0.14, uLamp.z * 1.35);
+  float pool = exp(-dl * dl) * uReadingPool;
+
+  vec3 surface = vec3(0.0);
+
+  if (sdGranite <= 0.0) {
+    // --- ZONE 1: Precision Lapped Black Granite Surface Plate ---
+    float cloud = fbm(p * 4.2);
+    float quartzGlint = 0.0;
+    float biotiteDark = 0.0;
+    float crystal = graniteCrystalField(p, quartzGlint, biotiteDark);
+
+    vec3 matrixCol = mix(vec3(0.056, 0.061, 0.070), vec3(0.095, 0.103, 0.116), cloud * 0.55 + crystal * 0.45);
+    vec3 feldsparCol = vec3(0.155, 0.168, 0.186);
+    vec3 quartzCol = vec3(0.25, 0.27, 0.30);
+    vec3 granite = mix(matrixCol, feldsparCol, smoothstep(0.32, 0.78, crystal) * 0.62);
+    granite = mix(granite, vec3(0.025, 0.028, 0.034), biotiteDark * 0.54);
+    granite += quartzCol * quartzGlint * (0.50 + 0.90 * key);
+
+    // Subtle engraved metrology calibration border line near the granite perimeter
+    float borderGroove = exp(-pow((sdGranite + 0.022) / 0.0014, 2.0));
+    granite = mix(granite, vec3(0.17, 0.19, 0.22), borderGroove * 0.42);
+
+    // Lapped satin reflection pool across the honed stone
+    vec2 s = (p - uKey.xy * 0.55) * vec2(1.10, 1.48);
+    float lappedSheen = exp(-dot(s, s) * 1.65) * (0.78 + 0.22 * crystal);
+
+    // 14 mm chamfered granite perimeter bevel
+    float bevelBand = smoothstep(-0.015, -0.001, sdGranite);
+    vec2 bevelNormal = normalize(p / graniteHalf + vec2(1e-5));
+    float bevelLight = dot(bevelNormal, toLamp);
+    granite *= 1.0 + bevelBand * (0.45 * bevelLight - 0.20);
+
+    surface = granite * (0.64 + 1.38 * key + 0.38 * pool) + vec3(0.060, 0.068, 0.080) * lappedSheen;
+  } else if (sdTable <= 0.0) {
+    // --- ZONE 2: Machined Cast-Iron / Blanchard-Ground Steel T-Slot Workbench Apron ---
+    float arcA = sin(length(p - vec2(-0.35, 0.15)) * 220.0);
+    float arcB = sin(length(p - vec2(0.42, -0.22)) * 195.0);
+    float grind = 0.5 + 0.25 * arcA + 0.25 * arcB;
+    float metalGrain = graniteNoise(mat2(0.8, 0.6, -0.6, 0.8) * p * 140.0);
+    vec3 steel = mix(vec3(0.052, 0.058, 0.068), vec3(0.096, 0.106, 0.122), grind * 0.52 + metalGrain * 0.48);
+
+    // Milled longitudinal & cross T-slots outside the granite slab
+    float lipY = 0.0, lipX = 0.0;
+    float slotY = tSlotChannel(p.y, 0.16, 1.28, lipY);
+    float slotX = tSlotChannel(p.x, 0.24, 1.68, lipX) * step(0.50, abs(p.y));
+    float slotThroat = clamp(max(slotY, slotX), 0.0, 1.0);
+    float slotLip = clamp(lipY + lipX * step(0.50, abs(p.y)), 0.0, 1.0);
+
+    steel = mix(steel, vec3(0.014, 0.017, 0.022), slotThroat * 0.86);
+    steel += vec3(0.115, 0.130, 0.152) * slotLip * (0.55 + 0.85 * key);
+
+    // Cast-iron step shadow thrown by the thick raised granite surface plate
+    float slabStepShadow = exp(-sdGranite * 34.0) * 0.68;
+    steel *= 1.0 - slabStepShadow;
+
+    // Table perimeter chamfer
+    float tableBevel = smoothstep(-0.026, -0.002, sdTable);
+    vec2 tableNorm = normalize(p / tableHalf + vec2(1e-5));
+    steel *= 1.0 + tableBevel * (0.38 * dot(tableNorm, toLamp) - 0.22);
+
+    surface = steel * (0.58 + 1.20 * key + 0.28 * pool);
+  } else {
+    // --- ZONE 3: Grounded Studio / Metrology Lab Floor Out to the Horizon ---
+    float floorNoise = fbm(p * 2.2) * 0.55 + graniteNoise(p * 32.0) * 0.45;
+    vec2 tileDist = abs(fract(p / 0.60 - 0.5) - 0.5) * 0.60;
+    float expansionJoint = 1.0 - smoothstep(0.0018, 0.0050, min(tileDist.x, tileDist.y));
+    vec3 concrete = mix(vec3(0.028, 0.032, 0.039), vec3(0.048, 0.054, 0.065), floorNoise);
+    concrete *= 1.0 - 0.42 * expansionJoint;
+    concrete *= 1.0 - 0.58 * exp(-sdTable * 9.5);
+    surface = concrete * (0.56 + 0.78 * key);
+  }
+
+  // Daytime skylight + warm inspection lamp color balance
+  vec3 daylightFill = mix(vec3(0.42, 0.47, 0.56), vec3(1.03, 1.0, 0.96), uLampPower);
+  vec3 c = surface * daylightFill;
+
+  // Contact shadow of the vellum sheet on the granite surface plate, thrown away from the lamp.
   vec2 o = normalize(uKey.xy) * -0.007;
   vec2 q = abs(p - o) - uSheetHalf;
   float sd = length(max(q, 0.0)) + min(max(q.x, q.y), 0.0);
-  c *= 1.0 - 0.72 * (1.0 - smoothstep(-0.002, 0.03, sd));
+  c *= 1.0 - 0.74 * (1.0 - smoothstep(-0.002, 0.032, sd));
+
+  // Breakthrough shockwave pressure ring sweeping across the granite & metrology bench
   float deskRipple = 0.0;
   vec3 deskShock = evaluateSurfaceShockwave(p, uFracture, uWaveTime, deskRipple);
-  c += deskShock * 0.55;
-  float r = length(p * vec2(0.62, 0.95));
-  float fade = 1.0 - smoothstep(0.42, 1.05, r);
+  c += deskShock * 0.62;
+
+  // Far-horizon atmospheric fade at 4.5 m so the table and floor feel solid at every orbit angle
+  float r = length(p * vec2(0.58, 0.76));
+  float fade = 1.0 - smoothstep(1.85, 4.45, r);
   gl_FragColor = vec4(c * uContrast, fade);
 }`
 
 export interface DrawingFrameInput {
+  /** Narrative clock and actual CAD surface contacts, supplied by the model owner. */
+  progress?: number
+  modelContactPoints?: readonly Vector3[]
   intro: IntroState
   tier: SheetBakeTier
   reducedMotion: boolean
@@ -391,6 +516,7 @@ export interface PrivateSheetRuntime {
   captureEffects(gl: WebGLRenderer, camera: Camera): ReturnType<typeof capturePortalPixels>
   captureElectricity(gl: WebGLRenderer, camera: Camera): unknown
   pitGeometryAb(gl: WebGLRenderer, camera: Camera, candidate: number[]): unknown
+  lightningSnapshot(): ReturnType<ReturnType<typeof createPortalLightning>['snapshot']>
   apply(frame: DrawingFrameInput, context: ExtractionContext, viewport: Vector2): void
   dispose(): void
 }
@@ -406,7 +532,7 @@ export interface PrivateSheetFactories {
 
 const DEFAULT_FACTORIES: PrivateSheetFactories = {
   grain: makePaperGrainTexture,
-  desk: () => new PlaneGeometry(3.4, 2.4, 1, 1),
+  desk: () => new PlaneGeometry(9.6, 7.6, 1, 1),
   ribbon: makeLightningRibbon,
   material: parameters => new ShaderMaterial(parameters),
   portal: (outline, bottom, center, light) => makePortal(outline, bottom, center, light, makePrivatePitGeometry,
@@ -630,6 +756,9 @@ export function createPrivateSheetRuntime(
       for (const m of Array.isArray(mesh.material) ? mesh.material : [mesh.material]) own(m)
     }
     own(portal.light)
+    const jumpingArcs = createPortalLightning(baked.fracture.outline)
+    cleanups.push(() => jumpingArcs.dispose())
+    group.add(jumpingArcs.group)
     group.add(desk, paper, portal.group, ...fragments, edge, cracks, lines, fills, text.object, pulse)
 
     const inverseSheet = new Matrix4()
@@ -659,6 +788,7 @@ export function createPrivateSheetRuntime(
 
     return {
       group, stats, dispose,
+      lightningSnapshot: () => jumpingArcs.snapshot(),
       renderState: () => ({ lamp: [u.uLamp.value.x, u.uLamp.value.y, u.uLamp.value.z],
         lampPower: u.uLampPower.value as number, readingPool: u.uReadingPool.value as number }),
       drawingDetailPoints: groups => {
@@ -810,6 +940,12 @@ export function createPrivateSheetRuntime(
         const portalPulse = portal.update(intro.t, portalStrength, tier === 'lite', reducedMotion)
         const wallUniforms = (portal.walls.material as ShaderMaterial).uniforms
         const surroundings = Math.max(0, Math.min(1, frame.surroundingsOpacity ?? 1)) * (1-retirement)
+        jumpingArcs.update(frame.progress ?? 0, frame.modelContactPoints ?? [], context,
+          proof || reducedMotion ? 0 : surroundings)
+        stats.jumpingArcCount = jumpingArcs.stats.active
+        stats.jumpingArcBranches = jumpingArcs.stats.branches
+        stats.jumpingArcEnergy = jumpingArcs.stats.energy
+        stats.jumpingArcEndpointErrorM = jumpingArcs.stats.endpointErrorM
         portal.group.visible = !proof && pit.visible && surroundings > 0
         const fractureOpen = Math.max(0, Math.min(1, (intro.fracture - .02) / .06))
         portal.group.position.z = -.018 * (1 - fractureOpen)
