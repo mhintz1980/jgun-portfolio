@@ -1,0 +1,27 @@
+# Normalize text to LF in the repo and in working trees, regardless of the
+# machine's core.autocrlf (Git for Windows defaults it to true, which makes
+# Biome flag every file).
+* text=auto eol=lf
+
+# Binary assets: never touch line endings.
+*.glb binary
+*.gltf binary
+*.bin binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.avif binary
+*.gif binary
+*.ico binary
+*.mp4 binary
+*.webm binary
+*.mov binary
+*.woff binary
+*.woff2 binary
+*.blend binary
+*.pdf binary
+
+# Windows-only scripts that need CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf
