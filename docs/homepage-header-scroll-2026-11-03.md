@@ -1,5 +1,23 @@
 # Homepage header scroll refinement — 2026-11-03
 
+> **Local update, 2026-11-10:** hovering the compact WCS reverses its original
+> collapse into the horizontal navigation. The WCS itself is non-clickable;
+> a separate Menu control keeps touch and keyboard navigation available. The
+> full-width fade and click blocker are removed, leaving small backgrounds at
+> the corner controls. The changes were pushed to the rebuild branch and have
+> not been deployed to the public site.
+>
+> Verification: production build and 83 homepage unit tests pass. The initial
+> production browser run passed 28/29 cases; its resize alignment failure was
+> fixed and the affected cases rerun on the isolated commit build: 12/12 pass, including
+> pointer/keyboard/touch, resize, and rendered-pixel and hit tests at desktop,
+> 390px and 320px, with and without reduced motion. Zero page errors were
+> reported. Final preview: http://localhost:4173/home/.
+
+> **Local update, 2026-11-07:** the project image stacks have been replaced in the
+> working tree by arc carousels. This is not yet a public release or an owner
+> visual approval. See the [current local record](homepage-arc-carousel-2026-11-07.md).
+
 Current status: the corrected homepage is **public**. Mark approved the local
 result and requested release; deployment `2b33b2f4` serves `/home/` from clean
 commit `876f11fc`, with `https://studiomark.dev/` forwarding to it.

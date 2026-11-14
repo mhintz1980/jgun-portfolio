@@ -1,0 +1,180 @@
+/* Arc card carousel, adapted from kedhareswer/arc-card-carousel (21st.dev, MIT).
+   Cards ride the rim of a wheel whose hub sits off the left edge of the viewport. Cards animate
+   transform only; the pinned track gives each card step a stretch of page scroll. */
+.home-arc {
+  position: relative;
+  margin: 0 0 24px;
+}
+
+.home-arc-stage {
+  position: sticky;
+  top: 0;
+  /* Full-bleed: the wheel's hub sits past the left edge of the screen. */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  touch-action: pan-y;
+  isolation: isolate;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.home-arc-card {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 10px;
+  background: var(--rule);
+  color: inherit;
+  cursor: pointer;
+  will-change: transform;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38);
+}
+
+.home-arc-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.home-arc-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Drawings sit whole on paper; wide torque-wrench sheets have baked-in margins, so crop in. */
+.home-arc-card.is-drawing,
+.home-arc-card.is-portrait { background: #fbfaf6; }
+.home-arc-card.is-drawing img { object-fit: contain; padding: 2%; box-sizing: border-box; }
+.home-arc-card.is-portrait img { object-fit: contain; padding: 4%; box-sizing: border-box; }
+.home-arc-card.is-drawing.is-crop img { object-fit: cover; padding: 0; transform: scale(1.12); }
+
+.home-arc-caption {
+  position: absolute;
+  z-index: 1000;
+  width: min(46rem, 52vw);
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--ink);
+}
+
+.home-arc-num {
+  margin: 0 0 18px;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.home-arc-title {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(32px, 4.6vw, 72px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.home-arc-meta {
+  margin: 16px 0 0;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.home-arc-text > * { animation: home-arc-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.home-arc-text > :nth-child(2) { animation-delay: 0.05s; }
+.home-arc-text > :nth-child(3) { animation-delay: 0.1s; }
+
+@keyframes home-arc-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+.home-arc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 22px;
+  margin-top: 26px;
+}
+
+.home-arc-tags,
+.home-arc-hint {
+  margin: 14px 0 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.home-arc-tags { margin-top: 22px; }
+
+.home-arc-link {
+  pointer-events: auto;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 2px;
+}
+.home-arc-link span { color: var(--accent); }
+.home-arc-link:focus-visible,
+.home-arc-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.home-arc-controls { display: flex; gap: 8px; pointer-events: auto; }
+
+.home-arc-btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  background: var(--surface, transparent);
+  color: var(--ink);
+  cursor: pointer;
+}
+.home-arc-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.home-arc-btn:hover:not([aria-disabled="true"]) { border-color: var(--accent); color: var(--accent); }
+.home-arc-btn[aria-disabled="true"] { opacity: 0.35; cursor: default; }
+
+.home-arc-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Phones and narrow stages: the caption moves to a gradient strip along the bottom. */
+.home-arc-caption[data-narrow] {
+  left: 0 !important;
+  right: 0;
+  top: auto !important;
+  bottom: 0;
+  width: auto;
+  transform: none;
+  padding: 56px var(--gutter, 20px) 20px;
+  background: linear-gradient(to top, var(--bg) calc(100% - 56px), transparent);
+}
+.home-arc-caption[data-narrow] .home-arc-num { margin-bottom: 8px; }
+.home-arc-caption[data-narrow] .home-arc-title { font-size: 30px; }
+.home-arc-caption[data-narrow] .home-arc-meta { margin-top: 8px; font-size: 13px; }
+.home-arc-caption[data-narrow] .home-arc-actions { margin-top: 14px; }
+.home-arc-caption[data-narrow] .home-arc-tags,
+.home-arc-caption[data-narrow] .home-arc-hint { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .home-arc-text > * { animation: none; }
+}

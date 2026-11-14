@@ -9,7 +9,9 @@ HUD polish in favor of visual concept work, and requires showing perceptual
 readability issues before expensive fixes. It supersedes older delivery freezes
 below; historical test results remain accurate.
 
-Homepage `/home/` is the public landing page (2026-11-03). The corrected WCS hover
+Homepage `/home/` is the public landing page (2026-11-03). A local, not-yet-deployed
+arc carousel update is described in the [2026-11-07 homepage record](docs/homepage-arc-carousel-2026-11-07.md).
+The corrected WCS hover
 navigation and full-bleed torque-wrench cards are owner-approved; deployment
 `2b33b2f4` passes the clean build/asset gate and 9/9 live smoke cases. See the
 [homepage record](docs/homepage-header-scroll-2026-11-03.md) and

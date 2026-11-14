@@ -44,9 +44,11 @@ const compact = async (page) => {
 }
 const menu = (page) => page.getByRole('button', { name: 'Sections menu' })
 const expectMenu = async (page, expanded) => {
-  await page.waitForFunction((value) => document.querySelector('.home-nav-toggle')?.getAttribute('aria-expanded') === String(value), expanded, { timeout: 3000 })
+  await page.waitForFunction((value) => document.querySelector('.home-menu-trigger')?.getAttribute('aria-expanded') === String(value), expanded, { timeout: 3000 })
 }
+const only = option('only', '')
 const test = async (name, options, run) => {
+  if (only && !name.includes(only)) return
   const context = await browser.newContext(options)
   const page = await context.newPage()
   page.on('pageerror', (error) => errors.push(`${name}: ${error.message}`))
@@ -63,9 +65,19 @@ const test = async (name, options, run) => {
 
 try {
   await test('WCS hover travel exit and reentry', desktop, async (page) => {
-    await compact(page)
+    await ready(page)
+    const expanded = await page.locator('.home-nav a').evaluateAll((links) => links.map((link) => link.getBoundingClientRect().toJSON()))
+    await page.keyboard.press('PageDown')
+    await settled(page)
     await page.mouse.move(20, 200)
-    await menu(page).hover()
+    const icon = page.locator('.home-nav-toggle')
+    assert.deepEqual(await icon.evaluate((el) => ({ tag: el.tagName, hidden: el.getAttribute('aria-hidden'), tabIndex: el.tabIndex })), { tag: 'SPAN', hidden: 'true', tabIndex: -1 })
+    await icon.hover()
+    await expectMenu(page, true)
+    await page.waitForTimeout(500)
+    const reversed = await page.locator('.home-nav a').evaluateAll((links) => links.map((link) => link.getBoundingClientRect().toJSON()))
+    assert(reversed.every((box, index) => Math.abs(box.left - expanded[index].left) < 1 && Math.abs(box.top - expanded[index].top) < 1), 'hover must reverse the WCS into the original navigation positions')
+    await icon.dispatchEvent('click')
     await expectMenu(page, true)
     for (const name of ['Work', 'Plus', 'Contact']) {
       const link = page.getByRole('link', { name, exact: name !== 'Plus' })
@@ -78,8 +90,9 @@ try {
     }
     await page.mouse.move(20, 200, { steps: 20 })
     await expectMenu(page, false)
-    await menu(page).hover()
+    await icon.hover()
     await expectMenu(page, true)
+    await page.waitForTimeout(500)
     await page.getByRole('link', { name: 'Contact', exact: true }).click()
     await page.waitForFunction(() => location.hash === '#contact')
     await expectMenu(page, false)
@@ -96,84 +109,235 @@ try {
     assert(await work.evaluate((el) => el === document.activeElement && !el.closest('[inert]')), 'keyboard opening must focus the first link')
     await page.keyboard.press('Escape')
     await expectMenu(page, false)
-    assert(await menu(page).evaluate((el) => el === document.activeElement), 'Escape must restore focus to WCS')
+    assert(await menu(page).evaluate((el) => el === document.activeElement), 'Escape must restore focus to the menu control')
     await page.keyboard.press('Space')
     await expectMenu(page, true)
     await page.keyboard.press('Escape')
     await expectMenu(page, false)
   })
 
-  await test('WCS touch toggle dismissal and navigation', phone, async (page) => {
-    await compact(page)
-    await menu(page).tap()
-    await expectMenu(page, true)
-    await menu(page).tap()
-    await expectMenu(page, false)
-    await menu(page).tap()
-    await expectMenu(page, true)
-    await page.getByRole('link', { name: 'Work', exact: true }).tap()
-    await page.waitForFunction(() => location.hash === '#work')
-    await expectMenu(page, false)
-    assert.equal(await page.evaluate(() => !!document.activeElement?.closest('[inert]')), false)
-  })
+  for (const [label, options] of [['phone', phone], ['small phone', { ...phone, viewport: { width: 320, height: 700 } }]]) {
+    await test(`WCS touch toggle dismissal and navigation ${label}`, options, async (page) => {
+      await compact(page)
+      await menu(page).tap()
+      await expectMenu(page, true)
+      await menu(page).tap()
+      await expectMenu(page, false)
+      for (const [name, hash] of [['Work', '#work'], ['Plus', '#plus'], ['Contact', '#contact']]) {
+        await menu(page).tap()
+        await expectMenu(page, true)
+        await page.getByRole('link', { name, exact: name !== 'Plus' }).tap()
+        await page.waitForFunction((target) => location.hash === target, hash)
+        await expectMenu(page, false)
+        assert.equal(await page.evaluate(() => !!document.activeElement?.closest('[inert]')), false)
+      }
+    })
+  }
 
+  for (const [label, options] of [
+    ['desktop', desktop], ['phone', phone],
+    ['small-phone', { ...phone, viewport: { width: 320, height: 700 } }],
+  ]) {
+    for (const reducedMotion of ['no-preference', 'reduce']) {
+      await test(`screen edge content ${label} ${reducedMotion}`, { ...options, reducedMotion }, async (page) => {
+        await compact(page)
+        if (reducedMotion === 'reduce') await page.getByRole('button', { name: 'Dark theme' }).click()
+        const top = await page.evaluate(() => {
+          const probe = document.createElement('div')
+          probe.id = 'header-edge-probe'
+          Object.assign(probe.style, { position: 'absolute', top: '1200px', left: 'calc(50% - 20px)', width: '40px', height: '64px', background: 'rgb(251, 21, 179)', zIndex: '3' })
+          document.querySelector('.home').append(probe)
+          return probe.getBoundingClientRect().top + scrollY
+        })
+        const sample = async (probeY) => {
+          await page.evaluate(({ top, probeY }) => window.scrollTo({ top: top - probeY, behavior: 'instant' }), { top, probeY })
+          await page.waitForTimeout(80)
+          const y = Math.max(0, probeY) + 5
+          const screenshot = await page.screenshot({ animations: 'disabled' })
+          return page.evaluate(async ({ image, y }) => {
+            const bitmap = new Image()
+            bitmap.src = `data:image/png;base64,${image}`
+            await bitmap.decode()
+            const canvas = document.createElement('canvas')
+            canvas.width = canvas.height = 1
+            const context = canvas.getContext('2d')
+            const x = Math.floor(innerWidth / 2)
+            context.drawImage(bitmap, x, y, 1, 1, 0, 0, 1, 1)
+            return { rgb: [...context.getImageData(0, 0, 1, 1).data].slice(0, 3), hit: document.elementFromPoint(x, y)?.id }
+          }, { image: screenshot.toString('base64'), y })
+        }
+        for (const y of [80, 25, -20]) {
+          const actual = await sample(y)
+          assert.deepEqual(actual.rgb, [251, 21, 179], `content at y=${y} must remain visible until the viewport edge`)
+          assert.equal(actual.hit, 'header-edge-probe', `content at y=${y} must receive pointer input`)
+        }
+        const outside = await sample(-70)
+        assert.notDeepEqual(outside.rgb, [251, 21, 179], 'content must leave at the viewport edge')
+        await menu(page).focus()
+        await page.keyboard.press('Enter')
+        await expectMenu(page, true)
+        const open = await sample(25)
+        assert.deepEqual(open.rgb, [251, 21, 179], 'opening navigation must not cover the center')
+        assert.equal(open.hit, 'header-edge-probe', 'opening navigation must not block the center')
+      })
+    }
+  }
+
+  // Arc carousel: every real torque card is brought to the equator in turn and measured. Filler
+  // copies (inert, empty alt) keep the arc full and are excluded from the counts.
+  const expectedTorque = ['03.webp', '04.webp', '05.webp', '06.webp', '07.webp', '08.webp', '09.webp']
+  const realTorque = '.home-arc-card:not([inert]) img[src*="/home/stacks/torque-wrench/"]'
   for (const [label, options, reduced] of [
     ['desktop', desktop, false], ['mobile', phone, false],
     ['desktop-reduced', { ...desktop, reducedMotion: 'reduce' }, true],
     ['mobile-reduced', { ...phone, reducedMotion: 'reduce' }, true],
   ]) {
-    await test(`torque image coverage ${label}`, options, async (page) => {
+    await test('torque image coverage ' + label, options, async (page) => {
       await ready(page)
-      const images = page.locator('img[src*="/home/stacks/torque-wrench/"]')
-      assert.equal(await images.count(), 4, 'all four torque images must be present')
+      const images = page.locator(realTorque)
+      assert.equal(await images.count(), expectedTorque.length, 'all ' + expectedTorque.length + ' torque images must be present')
       assert.deepEqual((await images.evaluateAll((els) => els.map((el) => new URL(el.currentSrc || el.src).pathname))).sort(),
-        ['03.webp', '04.webp', '05.webp', '06.webp'].map((name) => `/home/stacks/torque-wrench/${name}`))
+        expectedTorque.map((name) => '/home/stacks/torque-wrench/' + name))
+      const count = expectedTorque.length
       const measurements = []
       const problems = []
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < count; i++) {
         const image = images.nth(i)
-        if (reduced) {
-          await image.scrollIntoViewIfNeeded()
-        } else {
-          await image.evaluate((el, progress) => {
-            const section = el.closest('.home-stack')
-            const top = section.getBoundingClientRect().top + scrollY
-            window.scrollTo(0, top + (section.offsetHeight - innerHeight) * progress)
-          }, [0.04, 0.34, 0.62, 0.90][i])
-        }
-        await page.waitForTimeout(350)
+        const index = await image.evaluate((el) => Number(el.closest('.home-arc-card').getAttribute('aria-label').match(/(\d+) of \d+$/)[1]) - 1)
+        await image.evaluate((el, progress) => {
+          const track = el.closest('.home-arc')
+          const top = track.getBoundingClientRect().top + scrollY
+          window.scrollTo({ top: top + (track.offsetHeight - innerHeight) * progress, behavior: 'instant' })
+        }, index / (count - 1))
+        await page.waitForFunction((n) => document.querySelector('.home-arc-num')?.textContent.startsWith(String(n).padStart(2, '0')), index + 1)
+        await page.waitForTimeout(reduced ? 150 : 600)
         await image.evaluate((el) => el.decode())
         const measure = await image.evaluate((el) => {
-          const card = el.closest('.home-stack-card, .home-stack-frame')
+          const card = el.closest('.home-arc-card')
           const style = getComputedStyle(el), rect = el.getBoundingClientRect(), frame = card.getBoundingClientRect()
-          const caption = card.querySelector('.home-stack-caption')
-          const hit = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height * 0.35)
-          const width = el.clientWidth, height = el.clientHeight
-          const scale = style.objectFit === 'cover' ? Math.max(width / el.naturalWidth, height / el.naturalHeight)
-            : style.objectFit === 'contain' ? Math.min(width / el.naturalWidth, height / el.naturalHeight) : 0
+          const matrix = new DOMMatrixReadOnly(getComputedStyle(card).transform)
+          const rotation = Math.atan2(matrix.b, matrix.a) * 180 / Math.PI
+          const caption = document.querySelector('.home-arc-caption')
+          const title = caption?.querySelector('.home-arc-title')?.textContent ?? ''
+          const hit = document.elementFromPoint(frame.left + frame.width / 2, frame.top + frame.height * 0.35)
+          const px = (name) => parseFloat(style[name]) || 0
+          const k = rect.width / el.offsetWidth
+          const contentW = el.clientWidth - px('paddingLeft') - px('paddingRight')
+          const contentH = el.clientHeight - px('paddingTop') - px('paddingBottom')
+          const fit = style.objectFit
+          const s = fit === 'cover' ? Math.max(contentW / el.naturalWidth, contentH / el.naturalHeight) : Math.min(contentW / el.naturalWidth, contentH / el.naturalHeight)
+          const drawnWidth = el.naturalWidth * s * k, drawnHeight = el.naturalHeight * s * k
           const position = style.objectPosition.split(' ').map(parseFloat)
-          const drawnWidth = el.naturalWidth * scale * rect.width / width, drawnHeight = el.naturalHeight * scale * rect.height / height
-          const left = rect.left + (rect.width - drawnWidth) * (position[0] / 100)
-          const top = rect.top + (rect.height - drawnHeight) * ((position[1] ?? position[0]) / 100)
-          return { src: el.currentSrc, fit: style.objectFit, padding: [style.paddingTop, style.paddingRight, style.paddingBottom, style.paddingLeft],
-            image: rect.toJSON(), frame: frame.toJSON(), natural: [el.naturalWidth, el.naturalHeight],
+          const left = rect.left + px('paddingLeft') * k + (contentW * k - drawnWidth) * (position[0] / 100)
+          const top = rect.top + px('paddingTop') * k + (contentH * k - drawnHeight) * ((position[1] ?? position[0]) / 100)
+          const capBox = caption.getBoundingClientRect()
+          return { src: el.currentSrc, fit, padding: [style.paddingTop, style.paddingRight, style.paddingBottom, style.paddingLeft],
+            classes: [...card.classList], label: card.getAttribute('aria-label'), title,
+            frame: frame.toJSON(), natural: [el.naturalWidth, el.naturalHeight], rotation,
             drawn: { left, top, right: left + drawnWidth, bottom: top + drawnHeight },
+            inViewport: frame.left >= -1 && frame.right <= innerWidth + 1 && frame.top >= -1 && frame.bottom <= innerHeight + 1,
             visible: getComputedStyle(card).visibility === 'visible' && Number(getComputedStyle(card).opacity) > 0.9,
-            front: !!hit && card.contains(hit), caption: !!caption && getComputedStyle(caption).visibility === 'visible' }
+            front: !!hit && card.contains(hit), tabbable: card.tabIndex === 0,
+            caption: getComputedStyle(caption).visibility === 'visible' && capBox.width > 0 && Number(getComputedStyle(caption.querySelector('.home-arc-title')).opacity) > 0.9,
+            narrow: caption.hasAttribute('data-narrow'), captionBox: capBox.toJSON() }
         })
         measurements.push(measure)
-        await page.screenshot({ path: resolve(out, `torque-${label}-${i + 1}.png`) })
-        if (!measure.visible || !measure.front) problems.push(`image ${i + 1} is not visibly in front`)
-        if (!measure.caption) problems.push(`image ${i + 1} caption is not visible`)
-        if (!measure.natural.every((n) => n > 0)) problems.push(`image ${i + 1} did not load`)
-        if (!measure.padding.every((n) => parseFloat(n) === 0)) problems.push(`image ${i + 1} has padding`)
+        await page.screenshot({ path: resolve(out, 'torque-' + label + '-' + (i + 1) + '.png') })
+        const name = 'image ' + (index + 1)
+        if (!measure.visible || !measure.front) problems.push(name + ' is not visibly in front')
+        if (Math.abs(measure.rotation) > 0.6) problems.push(name + ' is not flat on the equator (' + measure.rotation.toFixed(2) + 'deg)')
+        if (!measure.inViewport) problems.push(name + ' is clipped by the viewport')
+        if (!measure.caption) problems.push(name + ' caption is not visible')
+        if (!measure.label.startsWith(measure.title + ',')) problems.push(name + ' caption "' + measure.title + '" does not match its card')
+        if (!measure.tabbable) problems.push(name + ' is the current card but is not in the tab order')
+        if (!measure.natural.every((n) => n > 0)) problems.push(name + ' did not load')
+        if (!measure.narrow && measure.captionBox.left < measure.frame.right) problems.push(name + ' caption overlaps its card')
         const tolerance = 2
-        if (!(measure.drawn.left <= measure.frame.left + tolerance && measure.drawn.top <= measure.frame.top + tolerance &&
-          measure.drawn.right >= measure.frame.right - tolerance && measure.drawn.bottom >= measure.frame.bottom - tolerance)) problems.push(`image ${i + 1} does not cover its frame`)
+        const covers = measure.drawn.left <= measure.frame.left + tolerance && measure.drawn.top <= measure.frame.top + tolerance &&
+          measure.drawn.right >= measure.frame.right - tolerance && measure.drawn.bottom >= measure.frame.bottom - tolerance
+        const whole = measure.drawn.left >= measure.frame.left - tolerance && measure.drawn.top >= measure.frame.top - tolerance &&
+          measure.drawn.right <= measure.frame.right + tolerance && measure.drawn.bottom <= measure.frame.bottom + tolerance
+        if (measure.fit === 'contain') {
+          if (!whole) problems.push(name + ' drawing is cropped by its frame')
+        } else {
+          if (!measure.padding.every((n) => parseFloat(n) === 0)) problems.push(name + ' has padding')
+          if (!covers) problems.push(name + ' does not cover its frame')
+        }
       }
-      await writeFile(resolve(out, `torque-${label}-measurements.json`), JSON.stringify({ measurements, problems }, null, 2))
+      await writeFile(resolve(out, 'torque-' + label + '-measurements.json'), JSON.stringify({ measurements, problems }, null, 2))
       assert.equal(problems.length, 0, problems.join('; '))
       return { measurements, note: 'Screenshots require visual inspection for margins embedded in source images and caption legibility.' }
+    })
+  }
+
+  for (const [label, options] of [['desktop', desktop], ['mobile', phone], ['desktop-reduced', { ...desktop, reducedMotion: 'reduce' }]]) {
+    await test('arc carousel controls ' + label, options, async (page) => {
+      await ready(page)
+      const track = page.locator('.home-arc').first()
+      const total = expectedTorque.length
+      const state = () => page.evaluate(() => {
+        const t = document.querySelector('.home-arc')
+        const cards = [...t.querySelectorAll('.home-arc-card')]
+        const real = cards.filter((c) => !c.inert)
+        return {
+          num: t.querySelector('.home-arc-num')?.textContent, scrollY: Math.round(scrollY),
+          cards: cards.length, real: real.length,
+          tabbable: real.filter((c) => c.tabIndex === 0).length,
+          fillersOut: cards.filter((c) => c.inert).every((c) => c.tabIndex === -1 && c.getAttribute('aria-label') === null && c.querySelector('img').alt === ''),
+          prev: t.querySelector('[aria-label="Previous image"]').getAttribute('aria-disabled'),
+          next: t.querySelector('[aria-label="Next image"]').getAttribute('aria-disabled'),
+          live: t.querySelector('[aria-live="polite"]')?.textContent,
+          region: t.getAttribute('aria-roledescription'), overflow: document.documentElement.scrollWidth > innerWidth,
+        }
+      })
+      await track.evaluate((el) => window.scrollTo({ top: el.getBoundingClientRect().top + scrollY + 2, behavior: 'instant' }))
+      await page.waitForTimeout(500)
+      const first = await state()
+      assert.equal(first.region, 'carousel')
+      assert.equal(first.real, total)
+      assert(first.cards > total, 'the arc needs filler copies for a short set')
+      assert.equal(first.tabbable, 1, 'exactly one real card is in the tab order')
+      assert(first.fillersOut, 'filler copies must be inert, unnamed and without alt text')
+      assert.equal(first.prev, 'true', 'previous is disabled on the first card')
+      assert.equal(first.next, 'false')
+      assert(first.num.startsWith('01 / 0' + total))
+      assert(!first.overflow, 'carousel must not cause horizontal scroll')
+      const next = track.getByRole('button', { name: 'Next image' })
+      await next.focus()
+      await page.keyboard.press('Enter')
+      await page.waitForFunction(() => document.querySelector('.home-arc-num').textContent.startsWith('02'))
+      assert.equal(await next.evaluate((el) => el === document.activeElement), true, 'focus must stay on the control after activation')
+      const second = await state()
+      assert(second.scrollY > first.scrollY, 'Next must scroll the page forward')
+      assert.equal(second.prev, 'false')
+      assert((second.live || '').startsWith('Image 2 of ' + total))
+      await page.keyboard.press('Space')
+      await page.waitForFunction(() => document.querySelector('.home-arc-num').textContent.startsWith('03'))
+      await track.getByRole('button', { name: 'Previous image' }).focus()
+      await page.keyboard.press('Enter')
+      await page.waitForFunction(() => document.querySelector('.home-arc-num').textContent.startsWith('02'))
+      // Arrow keys on a focused card, then the last card disables Next without dropping focus.
+      await track.locator('.home-arc-card:not([inert])').nth(1).focus()
+      for (let i = 0; i < total; i++) await page.keyboard.press('ArrowDown')
+      await page.waitForFunction((n) => document.querySelector('.home-arc-num').textContent.startsWith('0' + n), total)
+      const last = await state()
+      assert.equal(last.next, 'true', 'next is disabled on the last card')
+      assert.equal(last.tabbable, 1)
+      await page.waitForTimeout(500)
+      assert(await track.locator('.home-arc-card:not([inert])').evaluateAll((cards) => cards.includes(document.activeElement)), 'focus must remain on a real card after it turns out of view')
+      await page.keyboard.press('ArrowUp')
+      await page.waitForFunction((n) => document.querySelector('.home-arc-num').textContent.startsWith('0' + (n - 1)), total)
+      // Idle must not pull the page back: no snapping after the wheel stops.
+      await page.mouse.wheel(0, 120)
+      await page.waitForTimeout(500)
+      const y1 = await page.evaluate(() => scrollY)
+      await page.waitForTimeout(900)
+      assert.equal(await page.evaluate(() => scrollY), y1, 'page scroll must be stable once idle')
+      // Reduced motion: caption text must not animate.
+      if (options.reducedMotion === 'reduce') {
+        assert.equal(await page.locator('.home-arc-text').first().evaluate((el) => el.getAnimations({ subtree: true }).length), 0, 'reduced motion must not animate the caption')
+        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false)
+      }
     })
   }
 
@@ -215,7 +379,7 @@ try {
     assert(Math.abs(state.width - state.viewWidth) < 0.11, 'actual font must replace fallback SVG metrics')
   })
 
-  await test('desktop continuous wheel and fade', desktop, async (page) => {
+  await test('desktop continuous wheel and screen edge', desktop, async (page) => {
     await ready(page)
     const hero = (await page.evaluate(headerState)).hero
     await page.evaluate((state) => {
@@ -238,13 +402,11 @@ try {
     assert(firstScroll.time - firstCompact.time < 1000, 'collapse should finish promptly')
     assert(frames.filter((f) => f.y > 1).every((f) => f.corners), 'scroll released before all three controls reached corners')
     assert(frames.every((f) => Math.abs(f.hero - hero) < 1), 'header collapse changed page layout')
-    const veil = await page.evaluate(() => {
-      const h = document.querySelector('.home'), veil = getComputedStyle(h, '::after'), blocker = getComputedStyle(h, '::before')
-      return { clearance: parseFloat(getComputedStyle(h).getPropertyValue('--header-clearance')), height: parseFloat(veil.height), background: veil.backgroundImage, blocker: blocker.pointerEvents }
+    const overlay = await page.evaluate(() => {
+      const home = document.querySelector('.home')
+      return { before: getComputedStyle(home, '::before').content, after: getComputedStyle(home, '::after').content }
     })
-    const end = await page.evaluate(headerState)
-    assert(veil.clearance > Math.max(end.name.bottom, end.nav.bottom, end.theme.bottom), 'opaque fade must clear the icons')
-    assert(veil.height > veil.clearance && veil.background.includes('gradient') && veil.blocker === 'auto')
+    assert(['none', 'normal'].includes(overlay.before) && ['none', 'normal'].includes(overlay.after), 'the header must not add a full-width veil or click blocker')
     await writeFile(resolve(out, 'wheel-frames.json'), JSON.stringify(frames))
     await page.screenshot({ path: resolve(out, 'desktop-compact.png') })
     await page.keyboard.press('Home')
@@ -252,7 +414,7 @@ try {
     await page.waitForTimeout(500)
     await page.mouse.wheel(100, 0)
     assert.equal((await page.evaluate(headerState)).compact, false, 'horizontal gestures must not close the header')
-    return { releaseMs: Math.round(firstScroll.time - firstCompact.time), frameCount: frames.length, veil }
+    return { releaseMs: Math.round(firstScroll.time - firstCompact.time), frameCount: frames.length, overlay }
   })
 
   await test('reverse resize navigation and focus', desktop, async (page) => {
@@ -268,7 +430,7 @@ try {
     await page.getByRole('link', { name: 'Work', exact: true }).focus()
     await page.keyboard.press('PageDown')
     await settled(page)
-    assert.equal(await page.locator('.home-nav-toggle').evaluate((el) => el === document.activeElement), true)
+    assert.equal(await menu(page).evaluate((el) => el === document.activeElement), true)
     await page.setViewportSize({ width: 390, height: 844 })
     await page.waitForFunction(() => Math.abs(document.querySelector('.home-theme-toggle').getBoundingClientRect().top - 8) < 1)
     await settled(page)
@@ -277,7 +439,7 @@ try {
     await page.getByRole('link', { name: 'Plus', exact: false }).focus()
     await page.keyboard.press('Escape')
     assert.equal(await page.getByRole('button', { name: 'Sections menu' }).getAttribute('aria-expanded'), 'false')
-    assert(await page.locator('.home-nav-toggle').evaluate((el) => el === document.activeElement))
+    assert(await menu(page).evaluate((el) => el === document.activeElement))
     await page.getByRole('button', { name: 'Dark theme' }).press('Space')
     assert.equal(await page.getByRole('button', { name: 'Dark theme' }).getAttribute('aria-pressed'), 'true')
     await page.getByRole('button', { name: 'Sections menu' }).press('Enter')
@@ -285,7 +447,8 @@ try {
     await page.waitForFunction(() => location.hash === '#contact' && scrollY > 100)
     assert.equal(await page.getByRole('button', { name: 'Sections menu' }).getAttribute('aria-expanded'), 'false')
     assert.equal(await page.evaluate(() => !!document.activeElement.closest('[inert]')), false)
-    await page.getByRole('link', { name: 'Mark Hintz, back to top' }).click()
+    // The compact link is clipped to the visible MH; its full layout box extends beyond it.
+    await page.getByRole('link', { name: 'Mark Hintz, back to top' }).click({ position: { x: 10, y: 10 } })
     await page.waitForFunction(() => scrollY === 0 && !document.querySelector('.home-header').hasAttribute('data-compact'))
     await page.waitForTimeout(500)
     const reverseTarget = await page.evaluate(() => {
@@ -293,7 +456,7 @@ try {
       const icon = document.querySelector('.home-nav-toggle').getBoundingClientRect()
       return { dx: Math.abs(work.left + work.width / 2 - icon.left - icon.width / 2), dy: Math.abs(work.top + work.height / 2 - icon.top - icon.height / 2) }
     })
-    assert(reverseTarget.dx < 1 && reverseTarget.dy < 1, 'WCS reverse must return to the current Work location after resize')
+    assert(reverseTarget.dx < 1 && reverseTarget.dy < 1, `WCS reverse must return to the current Work location after resize: ${JSON.stringify(reverseTarget)}`)
     await page.screenshot({ path: resolve(out, 'mobile-expanded-dark.png') })
   })
 
@@ -366,7 +529,7 @@ try {
     await page.waitForFunction(() => scrollY > 100)
     await settled(page)
     const focused = await page.evaluate(() => document.activeElement.getBoundingClientRect().toJSON())
-    assert(focused.top >= 180 && focused.bottom <= 900, 'keyboard focus must remain visible below the veil')
+    assert(focused.top >= 0 && focused.bottom <= 900, 'keyboard focus must remain visible in the viewport')
     const before = await page.evaluate(() => scrollY)
     await page.goto(`${url}?history=1`)
     await page.goBack()
