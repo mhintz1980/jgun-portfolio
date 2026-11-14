@@ -1,5 +1,15 @@
 # Deployment — studiomark.dev Runbook (JG-019)
 
+> **Current production, 2026-11-14:** the owner-supplied HTML homepage export is
+> live as **`31e75c81-5175-46ed-ae64-75e38b7a1b6d`**, from clean production source
+> **`d2a820dd81666e231488ac053601fbc8e5d9f97b`**. The same homepage correction is
+> on main as **`3e014a7f`**. Production was built from the previous published source
+> plus the homepage correction, preserving the other live project page sources.
+> Full main QA (1,567 tests), isolated production checks, 175 public file/route
+> checks and four live browser viewport cases PASS; independent review ACCEPT.
+> [Export source, correction and release evidence](../work/evidence/JG-043-homepage-arc-carousel/export-correction-2026-11-14.md).
+> Earlier banners below are historical; the 2026-11-13 interpretation was rejected.
+
 > **Current production, 2026-11-13:** the owner-authorized saved Claude Design
 > homepage port is live as **`98c50e06-40c6-48ab-8fde-c100d3c81a80`**, from clean
 > source **`4113aac5631f6eba23ec5e9d2f14608ab2ebd974`**, pushed on

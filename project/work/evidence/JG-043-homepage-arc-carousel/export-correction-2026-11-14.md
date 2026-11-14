@@ -49,6 +49,37 @@ Evidence: `output/playwright/home-export-final/report.json` and sibling screensh
 Final independent GLM-5.3 high-effort review: **ACCEPT** after the retired-frame
 static-output fix. TypeScript, lint, focused source/topology checks, all **42 pure
 Node tests**, production build and launch gate PASS (176 files, 53 required assets,
-zero M249). Full main push hook and live publication results remain to be recorded.
+zero M249).
+
+## Published result
+
+- Main correction **`3e014a7f615df8eafea84e69dade5847c47a0ff0`** is pushed to
+  `origin/main`. The enforced QA hook passed lint, TypeScript, **133 files / 1,567
+  tests**, and the Station 2 contract with `VITEST_MAX_WORKERS=2`.
+- Production source **`d2a820dd81666e231488ac053601fbc8e5d9f97b`** is on
+  `origin/codex/homepage-export-production-20261114`: published baseline `4113aac`
+  plus the same correction. Git comparison confirms no differences in the scene,
+  components, shared shell, torque-wrench, quiet-machine or model source paths.
+  The clean committed production checkout separately passed TypeScript, 145 focused
+  tests, all 42 Node checks, build, launch gate and the four browser viewport cases.
+- Cloudflare production **`31e75c81-5175-46ed-ae64-75e38b7a1b6d`** succeeded,
+  with `commit_hash=d2a820dd...` and `commit_dirty=false` verified in canonical
+  deployment metadata. The CLI refreshed its existing OAuth session before upload;
+  the earlier expired-token lookup did not perform a deployment.
+- **175/175 HTTP/file identity checks PASS** on the custom domain, Pages project
+  domain and immutable deployment URL: routes, homepage entry assets, imported
+  fonts/images/licenses, retired-frame/M249/missing-route 404s, and apex redirect.
+  Evidence: `output/playwright/home-export-live/identity.json`.
+- **4/4 live browser viewport cases PASS**, including all galleries, theme,
+  keyboard focus, reduced motion, contact action, and navigation from the homepage
+  to the torque-wrench page. No browser or HTTP errors. Evidence:
+  `output/playwright/home-export-live/report.json` and sibling captures.
+- Public: https://www.studiomark.dev/home/ ; immutable deployment:
+  https://31e75c81.jgun-portfolio.pages.dev/home/ . Previous deployment was
+  `98c50e06-40c6-48ab-8fde-c100d3c81a80` (the rejected interpretation).
+
+The native exported-page verifier replaces the old WCS/pinned-header verifier for
+this homepage. That previous verifier still describes the former implementation;
+its earlier passes are not used to claim this correction complete.
 
 This correction does not close JG-043's owner visual-acceptance requirement.

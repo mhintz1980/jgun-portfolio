@@ -21,12 +21,13 @@ for (const [name, width, height, reduced] of [
   })
   const page = await context.newPage()
   const errors = []
+  let onHomepage = true
   page.on('pageerror', (e) => errors.push(e.message))
   page.on('response', (r) => {
     if (r.status() >= 400) errors.push(`${r.status()} ${r.url()}`)
   })
   page.on('request', (r) => {
-    if (/fonts\.google|fonts\.gstatic|\.glb(?:\?|$)|cdn\.jsdelivr/.test(r.url()))
+    if (onHomepage && /fonts\.google|fonts\.gstatic|\.glb(?:\?|$)|cdn\.jsdelivr/.test(r.url()))
       errors.push('Unwanted request: ' + r.url())
   })
   const result = { name, width, height, reduced, errors, checks: [] }
@@ -91,6 +92,10 @@ for (const [name, width, height, reduced] of [
     const pull = page.getByRole('button', { name: 'Pull the thread', exact: true })
     await pull.click()
     assert.equal(await pull.getAttribute('aria-pressed'), 'true')
+    onHomepage = false
+    await page.locator('.design-gallery a[href="/torque-wrench/"]').first().click()
+    await page.waitForURL((url) => url.pathname === '/torque-wrench/')
+    result.checks.push({ navigation: 'PASS' })
     assert.equal(errors.length, 0, errors.join('\n'))
     result.result = 'PASS'
   } catch (e) {
