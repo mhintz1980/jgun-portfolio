@@ -3,7 +3,7 @@
 .home-name {
   display: block;
   flex: none;
-  width: 50vw;
+  width: min(532px, calc(100vw - 440px));
   color: var(--ink);
   text-decoration: none;
 }
@@ -63,7 +63,7 @@
 
 @media (max-width: 760px) {
   .home-name {
-    width: auto;
+    width: 100%;
     flex: 1 1 0;
     min-width: 0;
     max-width: 72vw;

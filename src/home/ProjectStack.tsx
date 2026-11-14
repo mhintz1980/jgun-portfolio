@@ -112,8 +112,10 @@ export default function ProjectStack({ number, title, reviewLine, reviewTags, im
     const caption = captionRef.current
     if (!stage || !caption) return
     const g = geom.current
-    caption.style.top = g.hubY + 'px'
-    caption.style.left = g.hubX + g.radius + g.cardW / 2 + Math.max(24, 0.06 * stage.clientHeight) + 'px'
+    const scale = g.cardW / 360
+    caption.style.top = Math.max(80, 190 * scale) + 'px'
+    caption.style.left = 550 * scale + 'px'
+    caption.style.setProperty('--caption-left', caption.style.left)
   }, [])
 
   // Geometry follows the stage size.
@@ -314,7 +316,7 @@ export default function ProjectStack({ number, title, reviewLine, reviewTags, im
           )
         })}
 
-        <div ref={captionRef} className="home-arc-caption" data-narrow={narrow ? '' : undefined}>
+        <div ref={captionRef} className="home-arc-caption" data-project-number={number} data-narrow={narrow ? '' : undefined}>
           <div className="home-arc-text" key={active}>
             <p className="home-arc-num" aria-hidden="true">
               {pad2(active + 1)} / {pad2(total)}

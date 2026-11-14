@@ -5,7 +5,7 @@
 // page scroll above and below the pinned section stays continuous.
 
 /** Degrees between neighbouring cards on the wheel. */
-export const ARC_STEP = 14
+export const ARC_STEP = 15
 /** Cards past this angle from the equator are well outside the stage and are not painted. */
 export const MAX_ARC_ANGLE = 80
 /** Pinned scroll length per card step, in stage heights. */
@@ -28,10 +28,12 @@ export interface ArcPlacement {
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
 
 export function arcGeometry(width: number, height: number): ArcGeometry {
-  const u = Math.min(height, width / 0.47)
-  const cardW = 0.3 * u
-  const radius = 0.71 * u
-  return { cardW, cardH: cardW / 1.65, radius, hubX: 0.284 * u - radius, hubY: 0.475 * height }
+  // Saved design sliders at a 900px stage: 360px cards, 1.3 aspect,
+  // 1140px radius and a 300px equator. Shrink the whole wheel on phones.
+  const scale = Math.min(height / 900, width / 495)
+  const cardW = 360 * scale
+  const radius = 1140 * scale
+  return { cardW, cardH: cardW / 1.3, radius, hubX: 300 * scale - radius, hubY: 0.475 * height }
 }
 
 /** Centre of a card whose position on the wheel is "offset" steps from the equator. */

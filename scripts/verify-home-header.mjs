@@ -365,6 +365,13 @@ try {
     })
     await page.goto(`${url.split('#')[0]}#work`, { waitUntil: 'domcontentloaded' })
     await page.locator('.home-header').waitFor()
+    // A native deep link can compact the header before the delayed font arrives.
+    // Open the real keyboard menu instead of trying to click an inert nav link.
+    if (await page.locator('.home-header').evaluate((el) => el.hasAttribute('data-compact'))) {
+      await menu(page).focus()
+      await page.keyboard.press('Enter')
+      await expectMenu(page, true)
+    }
     await page.getByRole('link', { name: 'Contact', exact: true }).click()
     await page.evaluate(() => document.fonts.ready)
     await page.waitForTimeout(650)
