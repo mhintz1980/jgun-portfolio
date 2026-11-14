@@ -1,0 +1,281 @@
+{
+  "source": "source.html",
+  "sha256": "11c2b9e77778fa947ad7a7af411c889d4fd1deb1802830926fe3ef63dc4c3a08",
+  "page": "https://claude.ai/artifact/XtVxa2BvgrCRsfq2y8H6mE#page-dcb81aee8d83",
+  "geometry": {
+    "width": 360,
+    "height": 277,
+    "radius": 1140,
+    "step": 15,
+    "equator": 300,
+    "corner": 11
+  },
+  "assets": {
+    "b1f5d0f2-bd90-4bb2-85fb-e0e85d4af4cf": {
+      "url": "/home/stacks/renderings/04.webp",
+      "sha256": "dcd179a292f5f9797eba464cce28da5016ca1bcf25eaa1df5a5fe897b189d6d6",
+      "bytes": 17948,
+      "mime": "image/webp"
+    },
+    "0ab46286-96c6-4d98-8b7b-8d50a837b3cc": {
+      "url": "/home/stacks/renderings/05.webp",
+      "sha256": "8ba821f958efa3ca58e80af72975b78de097363fff67581f539b33ce99596969",
+      "bytes": 16678,
+      "mime": "image/webp"
+    },
+    "0a329b79-4360-4b36-9091-dfa4c99f827a": {
+      "url": "/home/stacks/quiet-machine/04.webp",
+      "sha256": "3aa2feb2355a9d995d8e77b82b43f82c02c0c441f58a3ed908cf8f2f7f75a061",
+      "bytes": 53810,
+      "mime": "image/webp"
+    },
+    "e0263062-3ae4-45b0-a76d-36bf9c2205b6": {
+      "url": "/home/stacks/armament/09.webp",
+      "sha256": "6065599af95007c1513cfd69b84a127606873fe20a7aa796e92766221c39e15c",
+      "bytes": 11236,
+      "mime": "image/webp"
+    },
+    "2978f2f5-6ac7-49b8-8ec6-65b61e75ebb2": {
+      "url": "/home/stacks/armament/06.webp",
+      "sha256": "424b0b1e9d1285fa095e9bd1cb883307dcc217e2153c0f1bd2f5a699996243b3",
+      "bytes": 46904,
+      "mime": "image/webp"
+    },
+    "4d6d61b6-20e4-46b5-bbf8-cb973a81eb7b": {
+      "url": "/home/stacks/quiet-machine/07.webp",
+      "sha256": "3b5ca3d7c8bb0ea1eb4370c71213f0615f9c352db3493b9621b1ec858fc7d244",
+      "bytes": 62296,
+      "mime": "image/webp"
+    },
+    "e884d0f3-7ac4-4cd5-a432-583228e07cfe": {
+      "url": "/home/stacks/armament/07.webp",
+      "sha256": "470e80981fd82f8441e60adfe280dca1b7679fb47f0ca3905e13261a3398ddc9",
+      "bytes": 15842,
+      "mime": "image/webp"
+    },
+    "616ad22c-7378-4040-93dd-42edbc0b990a": {
+      "url": "/home/stacks/armament/01.webp",
+      "sha256": "32e96de3c23d377eb50d08e5a2364e773522e8f9cbd5a8cb287f375f4c0373e6",
+      "bytes": 43256,
+      "mime": "image/webp"
+    },
+    "cdc34982-4395-4679-bfbc-9e65352206c6": {
+      "url": "/home/stacks/armament/08.webp",
+      "sha256": "95dfa1967d827e839278da8faf1ac2bf3d6d9c45398ab590bf54d4e15e705cec",
+      "bytes": 22026,
+      "mime": "image/webp"
+    },
+    "bc426882-202f-4eeb-ba95-62729ca4b998": {
+      "url": "/home/stacks/quiet-machine/08.webp",
+      "sha256": "92f0181f33184a0009d8d0f07e662710ed6e4616a123cb957033b35e020d9615",
+      "bytes": 97524,
+      "mime": "image/webp"
+    },
+    "8453de27-f2e5-4890-9f9e-cf8f46bd704c": {
+      "url": "/home/stacks/renderings/08.webp",
+      "sha256": "9e5e1ebbf0e4a76070ec22939c6c42a80d4be9029e5edae948c740d1c35f4de3",
+      "bytes": 61762,
+      "mime": "image/webp"
+    },
+    "cb16f648-8f5b-4cd1-9433-e87fc859fce9": {
+      "url": "/home/stacks/torque-wrench/08.webp",
+      "sha256": "b35c8b7dd2847b16ac95b32bc9743034ad4670e7ef3960f095b5ea9cbfb77afc",
+      "bytes": 26246,
+      "mime": "image/webp"
+    },
+    "1baff385-0570-4eea-8dc9-c0ba11612ae9": {
+      "url": "/home/stacks/renderings/02.webp",
+      "sha256": "91e28600f0d951f606a8a90e77410a8731c3cc026aba5688e890e02c840d42c0",
+      "bytes": 17138,
+      "mime": "image/webp"
+    },
+    "5312807f-9e77-4d76-94c9-0e9468a490b8": {
+      "url": "/home/stacks/quiet-machine/03.webp",
+      "sha256": "601ad1febc69628d8155bcdfcbf10a12f95f2ecf6888532515a94e037e5cf850",
+      "bytes": 48374,
+      "mime": "image/webp"
+    },
+    "01e92490-30ba-406b-ac1c-a1936acab040": {
+      "url": "/home/stacks/quiet-machine/01.webp",
+      "sha256": "27a565a77f66c65e30d5a684b80a25064e631330542715302d9cce0d75c4ca7d",
+      "bytes": 56358,
+      "mime": "image/webp"
+    },
+    "b19a999e-b51a-4473-b4e1-d1efdd4bf793": {
+      "url": "/home/stacks/torque-wrench/07.webp",
+      "sha256": "a7164b75c986f9e581f0ad961a99aa7539ba223e4e8c9918be1a463efdb787a7",
+      "bytes": 23390,
+      "mime": "image/webp"
+    },
+    "6c28f90b-3eb4-4ae6-b2ed-d8a2a138a5ba": {
+      "url": "/home/stacks/renderings/03.webp",
+      "sha256": "6dab6df3592261243423cd9a67f6e16179c6f534e071f3e03b7eb866707fb07d",
+      "bytes": 20280,
+      "mime": "image/webp"
+    },
+    "f23bbbbe-77b3-4110-9190-d3137f283423": {
+      "url": "/home/stacks/renderings/07.webp",
+      "sha256": "9856aac3548de28ba78c091339d9a6717ccd70c2bb66d0bc3db0c49e5cc28db1",
+      "bytes": 29556,
+      "mime": "image/webp"
+    },
+    "386b6cbb-de93-46e8-b775-7c6e78efbe6a": {
+      "url": "/home/stacks/quiet-machine/02.webp",
+      "sha256": "6c106d7bc2f288abd6500f4a79d957cd0fd32e6d9c0094b879f2444a49229c75",
+      "bytes": 29756,
+      "mime": "image/webp"
+    },
+    "eb9504ee-f922-4bc4-96b5-fe4a9f0fef8e": {
+      "url": "/home/stacks/torque-wrench/09.webp",
+      "sha256": "c12f99048c23ffa3837480ec1442bf29834429de7321decff2b8a9a102fa7182",
+      "bytes": 26710,
+      "mime": "image/webp"
+    },
+    "5f720ab6-5b1a-4e76-a86b-908afe24d183": {
+      "url": "/home/stacks/renderings/06.webp",
+      "sha256": "571369be3b4ca6eb95371c0f6d42e8ff45a84fee36e26bd92114df71398805ed",
+      "originalSha256": "564f23fa3056f19cbf9ca30fafb5f644b6c6469834c55af3e2d5397d8e38387c",
+      "bytes": 29758,
+      "mime": "image/webp",
+      "substitution": "Owner-rejected showcase still replaced by approved industrial torque-wrench frame."
+    },
+    "ece65cc7-3197-4093-bc7e-587a4a99a804": {
+      "url": "/home/stacks/quiet-machine/09.webp",
+      "sha256": "bbae859de0bd3a1bd563cf6171f8cf56290f690951cd587f44d8fa6997bb6a94",
+      "bytes": 48354,
+      "mime": "image/webp"
+    },
+    "d4e1fcef-1669-4b05-812b-6ec24bf6d4aa": {
+      "url": "/home/stacks/torque-wrench/05.webp",
+      "sha256": "bd9ff6e6f3148385745458d3ecfa76e57ed43f8668bd1cddfbe0871e72cba637",
+      "bytes": 97864,
+      "mime": "image/webp"
+    },
+    "704fa327-8b24-417f-abab-91a6454a0e61": {
+      "url": "/home/stacks/torque-wrench/03.webp",
+      "sha256": "a1902d9c2595a39a0f0db08deeda392e69d56d08b620363c978e9018467f83e3",
+      "bytes": 59856,
+      "mime": "image/webp"
+    },
+    "5a5d8a3e-832e-49a7-b00c-e5352c554169": {
+      "url": "/home/stacks/quiet-machine/06.webp",
+      "sha256": "b3e138bfb9adeb038f2343abffda24bf833e3d47fd198ce847aec712f3431468",
+      "bytes": 23166,
+      "mime": "image/webp"
+    },
+    "8808f9ea-8b29-41e8-8804-59bbe02107ca": {
+      "url": "/home/stacks/torque-wrench/06.webp",
+      "sha256": "5c7dd341e56941e0e3faff62e5f35ba411dc072366676b7d76a69bbb88fc5d0a",
+      "bytes": 71480,
+      "mime": "image/webp"
+    },
+    "c17f71a6-87cd-490e-8801-6afb9bd586ae": {
+      "url": "/home/stacks/torque-wrench/04.webp",
+      "sha256": "c8859b162e8698a473e722c64e186bd87ef61d98f37e9c5a2d727bbd5e5897b5",
+      "bytes": 99820,
+      "mime": "image/webp"
+    },
+    "e16fb425-d4e8-41c0-96cd-ef60d5424a2e": {
+      "url": "/home/stacks/armament/02.webp",
+      "sha256": "8763b9b71deb00a5c0b281b6fddecec6c171effe3f149c4687d6e8a1166460d2",
+      "bytes": 153714,
+      "mime": "image/webp"
+    },
+    "86466e53-a3c6-4eda-82ad-ba0205f2c0be": {
+      "url": "/home/stacks/armament/04.webp",
+      "sha256": "7d68c9fc44df9312740402d7e93742c4aec064ed0b1f06ab85191314d0bd0048",
+      "bytes": 43936,
+      "mime": "image/webp"
+    },
+    "da071c97-74e0-4221-bd56-7943c3df74da": {
+      "url": "/home/stacks/armament/03.webp",
+      "sha256": "272bb0827ab466b28ee5ec30fc51ec1eca1487f7b8ce19daf2c2b4dec3f77858",
+      "bytes": 65660,
+      "mime": "image/webp"
+    },
+    "d855c548-9201-4f05-b90a-e8d2586fa781": {
+      "url": "/fonts/home/Archivo.woff2",
+      "sha256": "8f704806dbedeaaeca334b11ec348bc3ac3a439d6431544b3afb54f534ee4967",
+      "bytes": 34928,
+      "mime": "font/woff2"
+    },
+    "93b6e553-1ca4-42cd-a39e-f237c4705e77": {
+      "url": "/fonts/home/JetBrainsMono.woff2",
+      "sha256": "83c005d49d8a6a50474c73a5a36ac0468076e9c4a29da7bdb14995d80560a5be",
+      "bytes": 31432,
+      "mime": "font/woff2"
+    },
+    "978cfa1f-f681-4f8f-bf79-3175c631e933": {
+      "url": "/fonts/home/Michroma.woff2",
+      "sha256": "754fdb31c9906e82cf9c0ecb1d0b528073818fc2c418a39932c83a34cca027b6",
+      "bytes": 17908,
+      "mime": "font/woff2"
+    },
+    "060dbcfc-cfa1-4cb8-a48a-8b303af77644": {
+      "url": "/fonts/home/SpaceGrotesk.woff2",
+      "sha256": "0640890476fc1198ab4de571fb658de443c4d85b66466ec09534a8737ab1ce9d",
+      "bytes": 22288,
+      "mime": "font/woff2"
+    },
+    "7444f444-b5b6-4508-a172-0e9443ea2744": {
+      "url": "/home/design/1dd49afc07fb2231b2ff.woff2",
+      "sha256": "1dd49afc07fb2231b2ff686cbf007725fb2742271bb1f28ebd98f22a0d817343",
+      "bytes": 50316,
+      "mime": "font/woff2"
+    },
+    "6d60cf40-c59a-4b54-b9b9-1be726a65917": {
+      "url": "/home/design/7cb4281a0ccc84cc1861.woff2",
+      "sha256": "7cb4281a0ccc84cc18617842c639fc66541cbef94a9dd245c754700210b4fcec",
+      "bytes": 41348,
+      "mime": "font/woff2"
+    },
+    "0e385b5a-7bb3-46d7-b186-a5e613f97f20": {
+      "url": "/home/design/2addf2d86d7a5778653b.woff2",
+      "sha256": "2addf2d86d7a5778653b36d551e97a39da52855f82fac7461cfc1bd86d460aed",
+      "bytes": 20556,
+      "mime": "font/woff2"
+    },
+    "14fdbbef-fe32-48d3-a679-cc3a1c6cf005": {
+      "url": "/home/design/1404ca348bd75ef836f4.woff2",
+      "sha256": "1404ca348bd75ef836f4dd8b6f2cc719458642d1237c368296b2fc652dca47dc",
+      "bytes": 43136,
+      "mime": "font/woff2"
+    },
+    "245a3145-8018-4d7a-bde7-cef3c411e1ce": {
+      "url": "/home/drawings/gearbox-housing.webp",
+      "sha256": "eca79538fba4132251e2a18a0ab63571d50f30df367ba423fa65e984ec66f074",
+      "bytes": 60700,
+      "mime": "image/webp"
+    },
+    "2369409a-ec93-4048-9d26-8878f184ba20": {
+      "url": "/home/drawings/gearbox-sections.webp",
+      "sha256": "dec76b442d030f274b5e3e38da07b7d7c2b1b0f21e10a22c22447369ac86c540",
+      "bytes": 81222,
+      "mime": "image/webp"
+    },
+    "4ad9b700-ee88-47a0-8dbb-3de7aca0d873": {
+      "url": "/home/drawings/pump-assembly.webp",
+      "sha256": "6510d4ae493be10e9f8bc469c48989b35d4f6d155c4d2badd08519bf21a161c0",
+      "bytes": 52518,
+      "mime": "image/webp"
+    },
+    "a87b28e8-e51f-4af1-acd3-67ab68e8963e": {
+      "url": "/home/drawings/pump-door.webp",
+      "sha256": "17da7918a6a9186b0a1c6102d5215dbe60f8e330565fd5816e473feaedb94cef",
+      "bytes": 43090,
+      "mime": "image/webp"
+    },
+    "73e2e1ef-d045-4ec4-b0f5-8e212a869b41": {
+      "url": "/home/drawings/armament-receiver.webp",
+      "sha256": "347c5c4e53425b6d570ab90db026e4505c138a4ba5cf01f022800bc7167fedbd",
+      "bytes": 85248,
+      "mime": "image/webp"
+    },
+    "55fef09d-631b-459a-b074-e820fa9012e1": {
+      "url": "/home/drawings/armament-sections.webp",
+      "sha256": "60459f01c4f06fec57c6e919ba68e91368d21400483bba9cbf4ccb8f833ddb9e",
+      "bytes": 39288,
+      "mime": "image/webp"
+    }
+  }
+}
