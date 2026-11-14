@@ -82,3 +82,31 @@ After upload verify production identity, public routes, changed assets and brows
   `b9337cb0-ce27-44de-a28f-738242d0f679`, source `f230df2a`.
 
 This record does not mark JG-043 fully complete or claim final visual acceptance.
+
+## Main integration — owner request 2026-11-14
+
+The owner explicitly requested committing and pushing all this session's changes
+to `main`. Integration starts at `origin/main` `6bc0f668`; the existing homepage
+header fix (`98cb19db`) and carousel (`f230df2a`) are required dependencies for
+session commits `4113aac` and `e15a584`. Those four changes were cherry-picked
+without bringing unrelated rebuild, CAD, debris or Remotion work into main.
+
+Main's existing `ShowreelSection` import/render, component and stylesheet are
+preserved. Formatting conflicts were resolved against the reviewed homepage
+implementation and formatted with main's pinned Biome 2.6.6. Windows checkout
+line endings were normalized for the gate; no unrelated semantic edits result.
+Independent GLM-5.3 review: **ACCEPT**, all 35 integration paths accounted for,
+all 12 image files and both fonts identical to the reviewed release, and main's
+showreel/tooling/unrelated work preserved.
+
+`npm run check` PASS: lint, TypeScript, **132 test files / 1,564 tests**, and the
+Station 2 asset/runtime-source contract. This Git integration is separate from
+deployment: production remains the verified `4113aac` / `98c50e06` release above.
+The isolated integration checkout also passed all **42 pure Node checks**, the
+production build and launch gate (171 files, 53 required assets, zero M249).
+The first enforced pre-push rerun hit four test timeouts under default parallel
+load (log `.scratch-main-push.log`). The final push uses Vitest 4.1.11's supported
+`VITEST_MAX_WORKERS=1` setting to serialize the same full QA gate; no assertions,
+test timeouts or hook requirements are relaxed.
+Main advanced concurrently to `7b538797`; the five integration commits were
+rebased cleanly onto it, preserving its armament-lane changes before the final push.

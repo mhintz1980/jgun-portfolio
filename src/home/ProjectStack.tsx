@@ -60,7 +60,16 @@ function usePrefersReducedMotion() {
 // and card clicks move between cards; mouse drag scrubs. The wheel does not loop, so the page
 // continues once the last card is flat. Filler copies of the cards that keep the arc full are
 // inert. Reduced motion: no easing, no smooth scrolling and no caption animation.
-export default function ProjectStack({ number, title, reviewLine, reviewTags, images, href, linkLabel, onActive }: ProjectStackProps) {
+export default function ProjectStack({
+  number,
+  title,
+  reviewLine,
+  reviewTags,
+  images,
+  href,
+  linkLabel,
+  onActive,
+}: ProjectStackProps) {
   const total = images.length
   const ring = ringSize(total)
   const slots = useMemo(() => Array.from({ length: ring }, (_, slot) => slot), [ring])
@@ -100,7 +109,14 @@ export default function ProjectStack({ number, title, reviewLine, reviewTags, im
       const shown = arcVisible(p, g, h)
       card.style.visibility = shown ? 'visible' : 'hidden'
       if (!shown) continue
-      card.style.transform = 'translate3d(' + (p.x - g.cardW / 2).toFixed(2) + 'px,' + (p.y - g.cardH / 2).toFixed(2) + 'px,0) rotate(' + p.rot.toFixed(3) + 'deg)'
+      card.style.transform =
+        'translate3d(' +
+        (p.x - g.cardW / 2).toFixed(2) +
+        'px,' +
+        (p.y - g.cardH / 2).toFixed(2) +
+        'px,0) rotate(' +
+        p.rot.toFixed(3) +
+        'deg)'
       card.style.zIndex = String(Math.round((ring - offset) * 10))
     }
     setActive((prev) => (prev === next ? prev : next))
@@ -176,7 +192,9 @@ export default function ProjectStack({ number, title, reviewLine, reviewTags, im
       if (inView) retarget()
     })
     io.observe(track)
-    const centre = new IntersectionObserver(([entry]) => onActive?.(entry.isIntersecting), { rootMargin: '-50% 0px -50% 0px' })
+    const centre = new IntersectionObserver(([entry]) => onActive?.(entry.isIntersecting), {
+      rootMargin: '-50% 0px -50% 0px',
+    })
     centre.observe(track)
     window.addEventListener('scroll', retarget, { passive: true })
     window.addEventListener('resize', retarget)
@@ -206,7 +224,12 @@ export default function ProjectStack({ number, title, reviewLine, reviewTags, im
       if (!track || !stage) return
       pending.current = { index: Math.min(Math.max(index, 0), total - 1), at: performance.now() }
       const rect = track.getBoundingClientRect()
-      const top = scrollTopForIndex(index, total, rect.top + window.scrollY, Math.max(rect.height - stage.clientHeight, 0))
+      const top = scrollTopForIndex(
+        index,
+        total,
+        rect.top + window.scrollY,
+        Math.max(rect.height - stage.clientHeight, 0),
+      )
       window.scrollTo({ top, behavior: reduced ? 'auto' : 'smooth' })
     },
     [total, reduced],
@@ -316,7 +339,12 @@ export default function ProjectStack({ number, title, reviewLine, reviewTags, im
           )
         })}
 
-        <div ref={captionRef} className="home-arc-caption" data-project-number={number} data-narrow={narrow ? '' : undefined}>
+        <div
+          ref={captionRef}
+          className="home-arc-caption"
+          data-project-number={number}
+          data-narrow={narrow ? '' : undefined}
+        >
           <div className="home-arc-text" key={active}>
             <p className="home-arc-num" aria-hidden="true">
               {pad2(active + 1)} / {pad2(total)}
@@ -329,11 +357,27 @@ export default function ProjectStack({ number, title, reviewLine, reviewTags, im
           <div className="home-arc-actions">
             {total > 1 ? (
               <div className="home-arc-controls" role="group" aria-label={title + ' carousel controls'}>
-                <button type="button" className="home-arc-btn" aria-label="Previous image" aria-disabled={active <= 0} onClick={() => baseIndex(active) > 0 && goTo(baseIndex(active) - 1)}>
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6" /></svg>
+                <button
+                  type="button"
+                  className="home-arc-btn"
+                  aria-label="Previous image"
+                  aria-disabled={active <= 0}
+                  onClick={() => baseIndex(active) > 0 && goTo(baseIndex(active) - 1)}
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M6 15l6-6 6 6" />
+                  </svg>
                 </button>
-                <button type="button" className="home-arc-btn" aria-label="Next image" aria-disabled={active >= total - 1} onClick={() => baseIndex(active) < total - 1 && goTo(baseIndex(active) + 1)}>
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+                <button
+                  type="button"
+                  className="home-arc-btn"
+                  aria-label="Next image"
+                  aria-disabled={active >= total - 1}
+                  onClick={() => baseIndex(active) < total - 1 && goTo(baseIndex(active) + 1)}
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
                 </button>
               </div>
             ) : null}
