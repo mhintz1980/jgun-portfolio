@@ -1,3 +1,6 @@
 node_modules/
 out/
 *.mp4
+# armament clip frames: local-only until the film review approves; the frames commit deletes these two lines
+clips/armament/*/line/
+clips/armament/*/shade/

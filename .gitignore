@@ -48,3 +48,6 @@ docs/webgl-review-2026-10-16/evidence/**/*.png
 # Playwright output
 test-results/
 playwright-report/
+
+# per-machine CAD model paths for render clips (models never enter the repo)
+remotion/clips/**/local-paths.json
