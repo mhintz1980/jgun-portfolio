@@ -1,6 +1,8 @@
-# PLAN: JG-041 armament spin clip, wiring into "The Line" (2026-11-14)
+# PLAN: JG-041 armament spin clip, wiring into "The Line" (v2, 2026-11-15)
 
-Status: plan only, nothing built. Author: Opus 5.5 (planning seat). Inputs: `docs/HANDOFF-armament-lane-2026-11-13.md`, `project/work/plans/JG-041-armament-act.md` (v5), the issues log, `remotion/clips/README.md` and `manifest.json` (main); `remotion/{README,HANDOFF}.md`, `project/work/plans/JG-041-showreel-v3.md`, `remotion/src/{scenes/ArmamentAct.tsx,theme.ts,rules.test.ts,copy.ts,armament.ts,Showreel.tsx,Root.tsx}`, `remotion/{package.json,remotion.config.ts,scripts/review-stills.mjs}` and `build/excludePublicAssets.ts` on `origin/torque-wrench/rebuild` (`10bceb68`). Line numbers below are from the film branch.
+**v2 changes (2026-11-15), after Mark's answers and the tool survey.** (1) Length fixed at +6 s (`ARMAMENT_CARBINE = 180`); the +4 s variant is dropped. (2) Label: Mark's draft wording only, copy not finalized. (3) Blending uses the real `@remotion/motion-blur`, not a hand-written stack (section 3). It is **not installed** in either checkout (neither `package.json` lists it, nothing in either `node_modules`): Mark installs it, pinned to 4.0.540 (T0). (4) Section 2: Remotion 4.0.540's bundler already has a `.webp` asset rule, so no `overrideWebpackConfig` line. (5) T2 needs `scipy` (missing, Mark installs) and uses the system ffmpeg. (6) x-ray outline keep/drop is still Mark's call (plan assumes keep). (7) New standing rule: no workarounds; a missing standard tool is reported to Mark with its cost, never written around. STOP rule still in force: no branch, no film-branch edits, no installs until Mark says go.
+
+Status: plan only, nothing built. Author: Opus 5.5 (planning seat), revised by Sonnet 5.5. Inputs: `docs/HANDOFF-armament-lane-2026-11-13.md`, `project/work/plans/JG-041-armament-act.md` (v5), the issues log, `remotion/clips/README.md` and `manifest.json` (main); `remotion/{README,HANDOFF}.md`, `project/work/plans/JG-041-showreel-v3.md`, `remotion/src/{scenes/ArmamentAct.tsx,theme.ts,rules.test.ts,copy.ts,armament.ts,Showreel.tsx,Root.tsx}`, `remotion/{package.json,remotion.config.ts,scripts/review-stills.mjs}` and `build/excludePublicAssets.ts` on `origin/torque-wrench/rebuild` (`10bceb68`). Line numbers below are from the film branch.
 
 **Money: $0 for every step, except an optional 1 deg top-up render (about $0.30, cap $0.50), which only runs if test T2 shows it would help.** A = needs Mark's go.
 
@@ -30,7 +32,7 @@ Shot timeline, act-local frame `f`, 30 fps (`WIPE` = 24, so nothing starts befor
 
 **Constants:** `ARMAMENT_CARBINE = 180`. The act grows from 540 to 720 frames. The film grows from 2373 to 2553 frames (79.1 s to 85.1 s, **+6 s**).
 
-A lean variant at **+4 s** uses `ARMAMENT_CARBINE = 120`: plot 16-52, hold 52-64, resolve 56-80, spin 80-125, settle 125-135, hand-off 116-140. Which length to use is Mark's call (**A**). The Fable review proposed +4 s.
+Length is decided: **+6 s** (Mark, 2026-11-15). The +4 s lean variant is dropped.
 
 **Layout:** the clip is drawn at a scale of 0.8 (1536x864) at left 192, top 196, under the title block (L152-162, ends about y 260). The rifle is about 1260 px wide at profile and centred. The representative label sits bottom-left of the layer. Confirm both with a still.
 
@@ -49,16 +51,16 @@ A lean variant at **+4 s** uses `ARMAMENT_CARBINE = 120`: plot 16-52, hold 52-64
 - `remotion/src/ui/ClipSpin.tsx`: the **only** component that draws clip frames, mirroring `ShowcaseCard`'s structural rule. It takes `{ clip, angle, angularVelocity, shadeOpacity, lineOpacity, reveal }` and renders two isolated multiply groups (line, shade) plus the label. If `manifest.models[clip.model].label_required`, it always renders `ARMAMENT.representativeLabel` (Space Grotesk 19 px, `nowrap`, the same style as `ShowcaseCard`). If the frames are missing, it calls `cancelRender(new Error('armament clip frames missing: copy from scratch or the armament-frames Modal Volume'))`.
 - `remotion/src/Root.tsx`: no change needed. `Acts/ArmamentAct` already exists for cheap act-only stills and renders.
 
-**Copy:** the existing `representativeLabel` reads "Representative model — similar to the part I designed". That fits a part card, not a whole carbine. Add `ARMAMENT.representativeAssembly`, starting "Representative model" (for example "Representative model — AR-15-pattern carbine"). The wording is Mark's (**A**). No angle or "360°" text on screen: the `dimension` regex at `rules.test.ts:57` would fail it, and it is a wall anyway.
+**Copy:** the existing `representativeLabel` reads "Representative model — similar to the part I designed". That fits a part card, not a whole carbine. Add `ARMAMENT.representativeAssembly`, starting "Representative model" (for example "Representative model — AR-15-pattern carbine"). The wording is Mark's (**A**). Mark's draft for the disclaimer (not final; do not add to `src/copy.ts` without his go): a small label along the lines of "IP-Sanitized Case Study" or "Representative Assemblies", and before the projects are shown a note such as "Note: Geometry shown is an IP-safe recreation. Core mechanical systems, material selections, and fabrication workflows match the original production release." Run any final wording through the rules test (no brand names; "AR-15-pattern" only). No angle or "360°" text on screen: the `dimension` regex at `rules.test.ts:57` would fail it, and it is a wall anyway.
 
 ## 2. Frame delivery: recommended route, webpack import from the clip folder
 **Route:** the film imports the frames through webpack from `remotion/clips/armament/<clip-id>/{line,shade}/f####.webp`. That is the folder plan v5 already chose as the final committed home. Vite never sees it, so nothing ships with the site, and `build/excludePublicAssets.ts` and `scripts/public-asset-exclusions.node-test.mjs` stay untouched.
 - In `clipFrames.ts`: `const ctx = import.meta.webpackContext('../clips/armament', { recursive: true, regExp: /^\.\/[a-z0-9-]+\/(line|shade)\/f\d{4}\.webp$/ })`. This is webpack 5's ESM form of `require.context`. Keep only the `./`-prefixed keys, then sort.
   - Point the context at `clips/armament`, which always exists because `manifest.json` lives there, not at the clip folder. With no frames it should yield an empty list and no build error (verify this).
   - Typing: `remotion/tsconfig.json` has no `types` filter, so `@types/node` is visible, and `declare const require` would collide with it. Instead, add `src/webpack-env.d.ts` with an `interface ImportMeta { webpackContext(dir: string, opts: { recursive?: boolean; regExp?: RegExp }): { keys(): string[]; (k: string): string } }` augmentation. Root `tsc` doesn't include `remotion/`.
-- **Verify first** (5 min, docs only): Remotion 4.0.540's webpack config has an asset rule covering `.webp` (its docs list webp under importable assets). If it doesn't, add `{ test: /\.webp$/, type: 'asset/resource' }` in `overrideWebpackConfig` (`remotion.config.ts` L18-33).
+- **Verified (survey, 2026-11-15):** `@remotion/bundler` 4.0.540 (`dist/shared-bundler-config.js`, line 109) already matches `webp` with `type: 'asset/resource'`, so no `overrideWebpackConfig` change. `import.meta.webpackContext` is native webpack 5 (Remotion's default bundler; the config has no `setRspack`). If the project ever moves to Rspack, re-check. A context with zero matching files is fine; only a missing directory fails the bundle, and `remotion/clips/armament/` exists after the section 0 bring-over.
 - **Before approval:**
-  - Fill the folder locally from scratch: `C:/Projects/CAD/Armament/renders/ar15-pattern-carbine-a-v2-cycles-webp/{line,shade}`, or `modal volume get armament-frames /ar15-pattern-carbine-a-v2-cycles-webp` with `MSYS_NO_PATHCONV=1`.
+  - Fill the folder locally from scratch: the scratch render folder `ar15-pattern-carbine-a-v2-cycles-webp/{line,shade}` (path in the handoff), or `modal volume get armament-frames /ar15-pattern-carbine-a-v2-cycles-webp` with `MSYS_NO_PATHCONV=1`.
   - Two lines in `remotion/.gitignore` keep them out of git: `clips/armament/*/line/` and `clips/armament/*/shade/`, with a comment that the frames commit deletes them. Every worktree and `git add -A` is then safe.
   - Convert to the commit format **before** review (`cwebp -near_lossless 60`, measure the size first; check that `cwebp` exists, otherwise keep lossless). That way the pixels Mark reviews are the pixels that get committed. Keep the lossless originals in scratch.
 - **After approval:** one commit deletes the two ignore lines and adds the frames, `clip.json` and the `manifest.clips` entry.
@@ -68,19 +70,24 @@ A lean variant at **+4 s** uses `ARMAMENT_CARBINE = 120`: plot 16-52, hold 52-64
   - (c) `staticFile` with a symlink under `public/`: the same exposure as (b), and symlinks are fragile on Windows.
 
 ## 3. Blending, and the cheap test that settles 2 deg vs 1 deg
-**What Remotion offers:** `@remotion/motion-blur` (`<CameraMotionBlur shutterAngle samples>`, `<Trail>`). It re-renders the whole subtree at sub-frame times. It is **not** in `remotion/package.json`, and it averages whatever the subtree draws, including alpha.
+**Tool (v2): the real `@remotion/motion-blur`, not a hand-written blend.** Per Mark's no-workaround rule. **Status: NOT installed** in `jgun-torque-wrench/remotion` (film branch) or in this worktree; Mark installs it, pinned to the film's version: `4.0.540` (latest is 4.0.543; Remotion packages must match). Cost: $0. The package is MIT on npm; Remotion's licence covers "individuals and companies of up to 3 people" (remotion.dev license pages, checked in the 2026-11-15 survey), so Mark needs no paid licence.
 
-**Recommendation:** a manual average inside `ClipSpin`, with no new dependency.
-- **Taps.** For an output frame, take N sub-samples across a shutter `s` (in frames). Map each sample to a source index `round(angle/2) mod 180` and merge duplicates into weights. N is velocity-adaptive: `taps = clamp(round(|dIndex/dFrame| x s), 1, 8)`, so the settle and the hold stay crisp.
-- **Stacking.** Stack the unique frames as opaque tiles (a white div holding each `<Img>`; shade frames therefore sit over white, which multiply treats as identity). Tile j gets opacity `w_j / (w_1+...+w_j)`, which gives an exact weighted average. Put the stack in an `isolation: isolate` group with a white background, and set the group to `mix-blend-mode: multiply`. Multiply is linear, so averaging first and then multiplying is correct.
-- **Opacity.** The shade group carries `opacity: shadeOpacity`, which gives paper lerped toward paper x shade.
-- **Shutter per pass.** Use a separate shutter for each pass: line `sLine` (start 0.25) and shade `sShade` (start 0.75). The shade, a broad gradient, carries the smear; the line stays legible.
-- **Cost.** At most 8 decodes per pass per output frame, only during the 45 spin frames. 1920x1080 WebP decodes take about 10-20 ms against the paper act's ~0.3 s/frame. The act-only render stays at about 5-10 min.
+**What the package gives** (read from the 4.0.540 source in the survey):
+- `<CameraMotionBlur shutterAngle samples>` renders N `<Freeze>` copies of the subtree at sub-frame times and averages them with equal weights (`plus-lighter`, opacity 1/N). `<Trail>` is the echo variant. `<HtmlInCanvasMotionBlur>` does the same on a canvas; the docs now recommend it, but it is experimental, Chrome-only and unverified under `swangle`, so start with `CameraMotionBlur` and treat the canvas variant as an option to test.
+- It does **not** fix the discrete step: each sub-sample still lands on `round(angle/2)`, so it makes the same ghost copies a hand blend would. The 2 deg vs 1 deg question (T2) is unchanged.
+- No velocity-adaptive taps and no duplicate merging: N is fixed, so each frame in the wrapped span pays N decodes. Crisp holds come only from wrapping just the 45-frame spin span.
+
+**How `ClipSpin` uses it:**
+- Wrap the line stack and the shade stack, in separate `CameraMotionBlur` instances, so each pass gets its own shutter: line `sLine` (start 0.25) and shade `sShade` (start 0.75). The shade, a broad gradient, carries the smear; the line stays legible.
+- Multiply goes on a **wrapper outside** each blur group: `mix-blend-mode: multiply` on an `isolation: isolate`, white-backed wrapper. Inside the blur, each sample is its own stacking context, so a multiply inside would only blend within that sample. Inside use an opaque, white-backed `<Img>` stack.
+- The shade wrapper carries `opacity: shadeOpacity`, which gives paper lerped toward paper x shade.
+- Mount the blur only inside the spin `Sequence` (about f114-171) and use plain `<Img>` outside it. Never wrap the R3F canvas. Preview also pays N copies (the docs say so); render time scales with N.
+- **Equal-weight caveat (open, for T2/Mark):** my earlier hand blend had weighted, adaptive taps; the real package is equal-weight with fixed N. If the T2 strip shows that costs readability, say so to Mark plainly and decide with him whether the package is enough; do not silently write around it.
 
 **Why 1 deg may not help:** the ghosting comes from the gap between consecutive copies of a 1.3-2.6 px ink line. At the stock and handguard ends (radius about 600-800 px at full size), a 2 deg step moves the ink about 20-30 px on screen near the end-on angles (estimate). At 1 deg that is still about 10-15 px, which is still separate copies. So the 5-frame proxy result would not change much at double the frames. **This is the number to measure before any spend.**
 
 **T2, the cheap test: $0, local CPU while idle, about 30-40 min of agent time, before any Remotion work.**
-1. **Displacement measurement.** Python with scipy, numpy and Pillow, run with `py -I` from a script outside the frames folder. Check first that `py -c "import scipy"` works. For ffmpeg use `npx remotion ffmpeg` or a system ffmpeg, because `review-stills.mjs` falls back to a Linux path on Windows.
+1. **Displacement measurement.** Python with scipy, numpy and Pillow, run with `py -I` from a script outside the frames folder. **Blocked until Mark runs `pip install scipy`**: it is missing (numpy 2.4.6 and Pillow 12.2.0 are present; free). For ffmpeg use the system ffmpeg 8.1.1 (full build, installed; it has libwebp, `tmix`, `tblend`), not `npx remotion ffmpeg`, because `review-stills.mjs` falls back to a Linux path on Windows.
    - For all 180 consecutive pairs of line frames: ink mask = luminance < 128; take the EDT of the non-ink pixels of frame k, sampled at the ink pixels of frame k+1.
    - Report p50/p90/p99 shift per angle, overall and for two regions: the stock (left 25% of the f0000 rifle bbox, tracked approximately by angle) and the handguard (right 30%). Output: one CSV and one plot PNG.
 2. **Decision rule** (w = 2.6 px contour, d = worst p90 shift at 2 deg):
@@ -93,6 +100,9 @@ A lean variant at **+4 s** uses `ARMAMENT_CARBINE = 120`: plot 16-52, hold 52-64
    - (C) as A, plus a line opacity dip to 0.4 at peak speed, letting the shade carry the motion
    - (D) as A, plus a horizontal-only blur on the averaged line (`feGaussianBlur stdDeviation="σx 0"`, σx proportional to the velocity; the spin is about a vertical axis, so screen motion is mostly horizontal)
    - (E) no blend (strobe)
+   - (F, optional, $0) ffmpeg `minterpolate` optical-flow in-betweens. An alternative to the T3 re-render, not a replacement: optical flow tends to tear 1-3 px ink lines.
+
+   The strip simulates the package's model: equal-weight, fixed N (not the earlier adaptive weights), so what Mark sees is what `CameraMotionBlur` will produce.
    
    Output: a 2x3 PNG contact sheet of the peak-velocity frame, plus a 1.5 s MP4 per variant (loop it 3x). Send the PNG and the MP4s to Mark, not a description.
 4. **Outcome.** Mark picks a variant (**A**), and the picked parameters go into `ClipSpin`. In Remotion, (D) is an SVG filter on the line group, like `EdgeFilter` (L23-42).
@@ -150,11 +160,12 @@ Token figures are for the executing agent. Tasks run in order unless noted. T2 c
 
 | # | Task | A | Tokens | Time | Money |
 |---|---|---|---|---|---|
+| T0 | **Mark installs (free):** `@remotion/motion-blur@4.0.540` in the film checkout's `remotion/`, and `pip install scipy`. Optional, same cost: `@remotion/noise`, `@remotion/layout-utils`, `@remotion/transitions` (see the tool survey in the 2026-11-15 handoff session; none is required by this plan) | A | 0 | 5 min | $0 |
 | T1 | Sub-branch and worktree, bring over `remotion/clips` and the ignore line (section 0), add the frame-ignore lines | A | 15k | 10 min | $0 |
 | T2 | Displacement measurement, blend strip (5 variants), send the PNG and MP4s to Mark | A (pick variant) | 40k | 30-40 min | $0 |
 | T3 | Only if T2 says so: 1 deg odd-angle top-up on Modal (dry run, then execute) | A | 25k | 30 min wall | ~$0.30-0.45 (cap $0.50) |
 | T4 | Check for `cwebp`, measure near-lossless size, fill the clip folder (gitignored) | | 10k | 10 min | $0 |
-| T5 | Verify the webp asset rule and an empty `webpackContext`; write `clips.ts`, `clipFrames.ts`, `webpack-env.d.ts`, `ui/ClipSpin.tsx` and the ArmamentAct edits; add the copy key (wording from Mark) | A (label wording, +6 s or +4 s, keep x-ray outline) | 60k | 1-2 h | $0 |
+| T5 | Smoke-test an empty `webpackContext` (the `.webp` rule is already verified); write `clips.ts`, `clipFrames.ts`, `webpack-env.d.ts`, `ui/ClipSpin.tsx` and the ArmamentAct edits; add the copy key (wording from Mark) | A (label wording, keep or drop x-ray outline; needs T0 done) | 60k | 1-2 h | $0 |
 | T6 | Rules-test additions (section 4) | | 25k | 30 min | $0 |
 | T7 | Knock-ons: `scripts/review-stills.mjs` (shift every beat from 45.6 s on by +6.0 s, add 3 carbine beats), README act table, `remotion/HANDOFF.md`, `JG-041-showreel-v3.md` | | 15k | 20 min | $0 |
 | T8 | Code gates (section 5, step 1), commit code on the sub-branch (no frames) | | 10k | 15 min | $0 |
@@ -168,4 +179,6 @@ Total without T3: about 290k tokens, about 5-6 h of agent and CPU time, $0.
 
 **Riskiest assumption (unverified):** that any blend of discrete 2 deg angle steps reads as motion blur rather than stacked ghost copies of the ink, and that a 1 deg top-up would fix it if it doesn't. The 20-30 px per step figure is an estimate, not a measurement. T2's displacement test settles it at $0 before any spend.
 
-Second unverified assumption: that Remotion 4.0.540's webpack setup bundles `.webp` imports and tolerates an empty `import.meta.webpackContext` match. The fix is in T5 (an explicit asset rule) if not.
+Second assumption (mostly verified from source in the survey): Remotion 4.0.540 bundles `.webp` imports (rule exists) and tolerates an empty `import.meta.webpackContext` match. T5 smoke-tests the empty match.
+
+Third (new in v2): that `CameraMotionBlur`'s equal-weight, fixed-N average is readable on 2 deg ink steps. T2's strip simulates the package's model to settle it before any wiring.
