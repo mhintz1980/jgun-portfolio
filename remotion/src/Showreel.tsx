@@ -37,7 +37,7 @@ export function Showreel() {
           <MachineAct />
         </LineWipe>
       </Sequence>
-      <Sequence name="03 Armament — light table" from={T.d} durationInFrames={ARMAMENT_FRAMES} premountFor={30}>
+      <Sequence name="03 Armament — the carbine, light table" from={T.d} durationInFrames={ARMAMENT_FRAMES} premountFor={30}>
         <LineWipe>
           <ArmamentAct />
         </LineWipe>

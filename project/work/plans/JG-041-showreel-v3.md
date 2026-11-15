@@ -45,6 +45,12 @@ Slice 2 was built on 2026-11-09 after the owner's go ("start with slice 2"). Its
 | `src/scenes/ArmamentAct.tsx` | 60-frame pre-roll (`ARMAMENT_PRE`). An SVG morphological edge filter traces `ar-20` on the unlit table. The light comes on, and the scan clips the outline from the left. Shots run on `g = f - 60`. |
 | `scripts/review-stills.mjs`, `README.md` | Times and act table shifted: Machine content +3 s, Armament and later +5 s. Film is 2373 frames, about 79.1 s. |
 
+**Superseded for Armament (2026-11-15, `jg-041/armament-spin`, plan `JG-041-armament-wiring.md` v2):**
+the x-ray outline pre-roll is dropped (owner: "Drop the x-ray outline"). A 180-frame carbine shot
+(`ARMAMENT_CARBINE`) opens the act: plot, resolve to shade, spin with `CameraMotionBlur`, settle,
+hand-off to the lit light table. The act is 660 frames; the film is 2493 frames, about 83.1 s
+(+4 s net). Review stills shift +4.0 s from the x-ray scan on. Frames stay local until approved.
+
 ## Iteration 1 — logo ident after the Close
 
 | Item | Change |

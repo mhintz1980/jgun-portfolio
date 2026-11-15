@@ -105,13 +105,15 @@ remotion/
     copy.ts               EVERY on-screen word (edit copy here only)
     rules.test.ts         owner hard rules (runs in the root `npm test`)
     armament.ts           manifest lookup + FILM_ARMAMENT allow-list
+    clips.ts              FILM_CLIPS (data only; rules.test.ts imports it)
+    clipFrames.ts         webpack context over clips/armament/<id>/{line,shade}/f####.webp; only ui/ClipSpin imports it
     theme.ts              colors C, fonts F, loadFonts() (fonts read from public/fonts/home/)
     ease.ts               ramp(f, a, b, easing), mix, EASE: the animation vocabulary
     scenes/
       Opening.tsx   195 f   laced thread → DrawnName → taut axis line
       WrenchAct.tsx 540 f   hidden-line plot → paper/studio split → shift → explode/gears
       MachineAct.tsx 540 f  enclosure section study driven by the site's `u` (SEGMENTS table)
-      ArmamentAct.tsx 480 f x-ray scan line → plates → ShowcaseCards
+      ArmamentAct.tsx 660 f carbine plot → shade → spin (ClipSpin) → x-ray scan line → plates → ShowcaseCards
       Close.tsx     375 f   thread laces 3 eyelets → name → fades to blank paper (loop)
     three/
       Wrench.tsx          imports ../../../src/scene/rig (buildWrenchRig, applyWrenchMechanics)
