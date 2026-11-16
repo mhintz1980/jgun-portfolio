@@ -102,7 +102,7 @@ export function ClipSpin({
       {group('shade', opacity * shadeOpacity, blur.shadeShutter)}
       {group('line', opacity * lineDip, blur.lineShutter)}
       {clipLabelRequired(clip) && (
-        <div style={{ position: 'absolute', ...labelAt, opacity, fontFamily: F.body, fontWeight: 500, fontSize: 19, whiteSpace: 'nowrap', color: C.inkMuted }}>
+        <div style={{ position: 'absolute', ...labelAt, opacity, fontFamily: F.body, fontWeight: 500, fontSize: 19, whiteSpace: 'pre', lineHeight: 1.3, color: C.inkMuted }}>
           {ARMAMENT.representativeAssembly}
         </div>
       )}

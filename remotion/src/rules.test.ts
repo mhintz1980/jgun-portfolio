@@ -127,7 +127,7 @@ describe('armament clips (manifest-driven)', () => {
         expect(spin).toMatch(/ARMAMENT\.representativeAssembly/)
       }
     }
-    expect(copy.ARMAMENT.representativeAssembly).toMatch(/^Representative model/)
+    expect(copy.ARMAMENT.representativeAssembly).toMatch(/IP-Safe Representative Model/)
   })
   it('lets frames reach the screen only through ui/ClipSpin.tsx', () => {
     const allowed = ['clips.ts', 'clipFrames.ts', path.join('ui', 'ClipSpin.tsx')]

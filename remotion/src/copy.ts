@@ -49,9 +49,9 @@ export const ARMAMENT = {
   line: 'AR-15-pattern receivers and small-arms parts, drawn for the machine shop.',
   /** Required on every on-screen image the manifest tags "representative" (owner rule). */
   representativeLabel: 'Representative model — similar to the part I designed',
-  /** Label on the representative carbine spin clip (ui/ClipSpin). Placeholder: Mark's wording is
-   *  still a draft ("IP-Sanitized Case Study" / "Representative Assemblies"), not final. */
-  representativeAssembly: 'Representative model — AR-15-pattern carbine',
+  /** Label on the representative carbine spin clip (ui/ClipSpin). Two lines, owner wording
+   *  (2026-11-16). */
+  representativeAssembly: 'AR-15-pattern carbine\n(IP-Safe Representative Model)',
   tags: 'Receivers · Fit & function · Manufacturability',
 } as const
 
