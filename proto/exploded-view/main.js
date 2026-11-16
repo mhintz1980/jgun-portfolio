@@ -440,7 +440,7 @@ const sfx = {
     meter = AC.createAnalyser(); meter.fftSize = 1024; meterBuf = new Float32Array(1024); master.connect(meter); window.__meter = meter   // level probe only, not routed to the output
     const nb = AC.createBuffer(1, AC.sampleRate * 2, AC.sampleRate), d = nb.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1
     const noise = () => { const s = AC.createBufferSource(); s.buffer = nb; s.loop = true; s.start(); return s }
-    const lp = AC.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 900; const dg = AC.createGain(); dg.gain.value = .045
+    const lp = AC.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 900; const dg = AC.createGain(); dg.gain.value = .08
     // the bed sits at 110-330 Hz, not 55 Hz: laptop and phone speakers reproduce almost nothing below ~200 Hz
     ;[110, 110.7, 165.4, 330.2].forEach(f => { const o = AC.createOscillator(); o.type = 'sawtooth'; o.frequency.value = f; o.connect(lp); o.start() }); lp.connect(dg); dg.connect(master)
     const bp = AC.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 2100; bp.Q.value = 4
@@ -453,7 +453,8 @@ const sfx = {
   },
   toggle() {
     if (!AC) this.init()
-    soundOn = !soundOn; AC.resume(); master.gain.setTargetAtTime(soundOn ? .7 : 0, AC.currentTime, .12)
+    soundOn = !soundOn; AC.resume(); master.gain.setTargetAtTime(soundOn ? 1 : 0, AC.currentTime, .12)
+    if (soundOn) { this.tone(880, 1320, .12, .22, 'triangle'); setTimeout(() => this.tone(1320, 1760, .1, .16, 'triangle'), 110) }   // audible confirmation
     $('snd').setAttribute('aria-pressed', soundOn); $('snd').textContent = soundOn ? 'Sound on' : 'Enable sound'
   },
   frame(spin, w) {
