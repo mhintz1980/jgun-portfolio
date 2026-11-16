@@ -437,15 +437,16 @@ let AC = null, master = null, nodes = null, soundOn = false, meter = null, meter
 const sfx = {
   init() {
     AC = new (window.AudioContext || window.webkitAudioContext)(); master = AC.createGain(); master.gain.value = 0; master.connect(AC.destination)
-    meter = AC.createAnalyser(); meter.fftSize = 1024; meterBuf = new Float32Array(1024); master.connect(meter)   // level probe only, not routed to the output
+    meter = AC.createAnalyser(); meter.fftSize = 1024; meterBuf = new Float32Array(1024); master.connect(meter); window.__meter = meter   // level probe only, not routed to the output
     const nb = AC.createBuffer(1, AC.sampleRate * 2, AC.sampleRate), d = nb.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1
     const noise = () => { const s = AC.createBufferSource(); s.buffer = nb; s.loop = true; s.start(); return s }
-    const lp = AC.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 170; const dg = AC.createGain(); dg.gain.value = .07
-    ;[55, 55.5, 82.7].forEach(f => { const o = AC.createOscillator(); o.type = 'sawtooth'; o.frequency.value = f; o.connect(lp); o.start() }); lp.connect(dg); dg.connect(master)
+    const lp = AC.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 900; const dg = AC.createGain(); dg.gain.value = .045
+    // the bed sits at 110-330 Hz, not 55 Hz: laptop and phone speakers reproduce almost nothing below ~200 Hz
+    ;[110, 110.7, 165.4, 330.2].forEach(f => { const o = AC.createOscillator(); o.type = 'sawtooth'; o.frequency.value = f; o.connect(lp); o.start() }); lp.connect(dg); dg.connect(master)
     const bp = AC.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 2100; bp.Q.value = 4
     const chop = AC.createGain(); chop.gain.value = .5; const lfo = AC.createOscillator(); lfo.type = 'square'; lfo.frequency.value = 9
     const lg = AC.createGain(); lg.gain.value = .5; lfo.connect(lg); lg.connect(chop.gain); lfo.start()
-    const mg = AC.createGain(); mg.gain.value = .014; noise().connect(bp); bp.connect(chop); chop.connect(mg); mg.connect(master)
+    const mg = AC.createGain(); mg.gain.value = .05; noise().connect(bp); bp.connect(chop); chop.connect(mg); mg.connect(master)
     const wf = AC.createBiquadFilter(); wf.type = 'bandpass'; wf.frequency.value = 400; wf.Q.value = .7; const wg = AC.createGain(); wg.gain.value = 0
     noise().connect(wf); wf.connect(wg); wg.connect(master)
     nodes = { lfo, mg, wf, wg, lp }
@@ -460,8 +461,8 @@ const sfx = {
     meter.getFloatTimeDomainData(meterBuf); let sq = 0; for (let i = 0; i < 1024; i++) sq += meterBuf[i] * meterBuf[i]
     rms = Math.sqrt(sq / 1024); window.__s.rms = rms
     const t = AC.currentTime
-    nodes.lfo.frequency.setTargetAtTime(7 + spin * 9, t, .1); nodes.mg.gain.setTargetAtTime(.012 + spin * .006, t, .1)
-    nodes.wg.gain.setTargetAtTime(w * .55, t, .06); nodes.wf.frequency.setTargetAtTime(260 + w * 2400, t, .06); nodes.lp.frequency.setTargetAtTime(170 + w * 500, t, .1)
+    nodes.lfo.frequency.setTargetAtTime(7 + spin * 9, t, .1); nodes.mg.gain.setTargetAtTime(.045 + spin * .025, t, .1)
+    nodes.wg.gain.setTargetAtTime(w * .7, t, .06); nodes.wf.frequency.setTargetAtTime(500 + w * 2600, t, .06); nodes.lp.frequency.setTargetAtTime(900 + w * 1400, t, .1)
   },
   tone(f0, f1, dur, vol, type = 'sine') {
     if (!soundOn) return
@@ -469,9 +470,9 @@ const sfx = {
     o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f1, t + dur)
     g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0001, t + dur); o.connect(g); g.connect(master); o.start(t); o.stop(t + dur + .02)
   },
-  whoosh(up) { up ? this.tone(60, 220, 1.4, .25) : this.tone(180, 38, 2.6, .3) },
-  thunk() { this.tone(92, 34, .7, .5); this.tone(1400, 500, .09, .05, 'triangle') },
-  tick() { this.tone(2400, 1500, .05, .035, 'triangle') },
+  whoosh(up) { up ? this.tone(160, 640, 1.4, .22, 'triangle') : this.tone(620, 130, 2.6, .24, 'triangle') },
+  thunk() { this.tone(240, 70, .6, .45, 'triangle'); this.tone(1400, 500, .09, .16, 'triangle') },
+  tick() { this.tone(2400, 1500, .05, .1, 'triangle') },
 }
 $('snd').addEventListener('click', () => sfx.toggle())
 
