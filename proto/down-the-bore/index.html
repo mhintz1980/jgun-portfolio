@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Down the Bore — studiomark.dev concept 2 (slice)</title>
+<meta name="robots" content="noindex">
+<link rel="preload" href="/fonts/home/Archivo.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Archivo";src:url("/fonts/home/Archivo.woff2") format("woff2");font-weight:100 900;font-display:swap}
+@font-face{font-family:"Space Grotesk";src:url("/fonts/home/SpaceGrotesk.woff2") format("woff2");font-weight:300 700;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url("/fonts/home/JetBrainsMono.woff2") format("woff2");font-weight:100 800;font-display:swap}
+@font-face{font-family:"Michroma";src:url("/fonts/home/Michroma.woff2") format("woff2");font-weight:400;font-display:swap}
+:root{--paper:#f4f1ea;--ink:#14181d;--blue:#1d4e89;--rev:#c2410c;
+  --studio:#0b1622;--surface:#102133;--ink-d:#e8e4da;--muted-d:#a9b4c2;--ghost:#cfe0f2;--accent:#f0703a;--void:#05070a;
+  --reveal:cubic-bezier(.16,1,.3,1);--expo:cubic-bezier(.87,0,.13,1);--mono:"JetBrains Mono",ui-monospace,Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--void)}
+body{font-family:"Space Grotesk",system-ui,sans-serif;color:var(--ink-d);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.09em;font-variant-numeric:tabular-nums;font-size:11px;line-height:1.5}
+
+/* preloader: the reticle is the mouth of the bore; you fall through it */
+.pre{position:fixed;inset:0;z-index:100;background:var(--void);display:grid;place-items:center;transition:opacity .9s .25s,visibility 0s 1.2s}
+.loaded .pre{opacity:0;visibility:hidden;pointer-events:none}
+.reticle{width:min(46vmin,280px);aspect-ratio:1;position:relative;transition:transform 1.25s var(--expo)}
+.loaded .reticle{transform:scale(14) rotate(40deg)}
+.reticle svg{width:100%;height:100%;overflow:visible}
+.spin{transform-origin:100px 100px;animation:spin 9s linear infinite}.spin2{transform-origin:100px 100px;animation:spin 14s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pre-num{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-size:clamp(26px,6vmin,40px);font-variant-numeric:tabular-nums;transition:opacity .3s}
+.loaded .pre-num{opacity:0}
+.pre-meta{position:absolute;left:24px;bottom:22px;color:var(--muted-d)}.pre-meta b{color:var(--accent);font-weight:500}
+
+/* chrome */
+.top,.hud{position:fixed;left:0;right:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:0 clamp(16px,2.4vw,34px);pointer-events:none;color:var(--ink-d)}
+.top{top:0;height:58px}.top .sig{font-family:"Michroma",sans-serif;font-size:13px;letter-spacing:.22em}
+.hud{bottom:0;height:42px;background:linear-gradient(transparent,rgba(5,7,10,.8))}
+.hud b{font-weight:500;color:var(--accent)}
+.hud-bar{position:fixed;left:0;bottom:0;height:2px;width:100%;background:var(--accent);transform-origin:0 50%;transform:scaleX(0);z-index:41}
+.gauge{position:fixed;right:clamp(14px,2vw,30px);top:50%;transform:translateY(-50%);z-index:40;height:46vh;width:34px;pointer-events:none;color:var(--muted-d)}
+.gauge::before{content:"";position:absolute;right:0;top:0;bottom:0;width:8px;background:repeating-linear-gradient(to bottom,rgba(207,224,242,.5) 0 1px,transparent 1px 9px)}
+.gauge i{position:absolute;right:0;width:18px;height:2px;background:var(--accent);top:0;box-shadow:0 0 12px var(--accent)}
+.gauge span{position:absolute;right:26px;font-size:9px;white-space:nowrap;transform:translateY(-50%)}
+
+/* the bore */
+#run{height:900vh;position:relative}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;perspective:800px;background:radial-gradient(circle at 50% 50%,#12263b 0,#0b1622 34%,#05070a 78%)}
+.cam,.cam *{transform-style:preserve-3d}
+.cam{position:absolute;inset:0;will-change:transform}
+.it{position:absolute;left:50%;top:50%;will-change:transform,opacity;visibility:hidden;backface-visibility:hidden}
+canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 42%,rgba(5,7,10,.78) 100%)}
+.glow{width:260px;height:260px;margin:-130px;border-radius:50%;background:radial-gradient(circle,#fff 0,#ffd9c2 8%,rgba(240,112,58,.55) 26%,transparent 68%);pointer-events:none}
+
+.title{width:min(1000px,92vw);text-align:center;transform-style:flat}
+.title .k{color:var(--accent);margin-bottom:22px}
+h1{font-family:"Archivo",sans-serif;font-weight:800;letter-spacing:-.035em;line-height:.94;font-size:clamp(38px,6.6vw,104px)}
+.title p{margin:22px auto 0;max-width:56ch;color:var(--muted-d);font-size:clamp(14px,1.2vw,18px);line-height:1.5}
+.drop{margin-top:30px;display:inline-flex;flex-direction:column;align-items:center;gap:10px;color:var(--ghost)}
+.drop::after{content:"";width:1px;height:46px;background:linear-gradient(var(--accent),transparent);animation:fall 1.6s var(--reveal) infinite}
+@keyframes fall{0%{transform:scaleY(0);transform-origin:top}60%{transform:scaleY(1);transform-origin:top}100%{transform:scaleY(1);opacity:0}}
+
+.word{font-family:"Archivo",sans-serif;font-weight:900;font-size:clamp(150px,26vw,420px);letter-spacing:-.05em;line-height:.8;white-space:nowrap;color:transparent;-webkit-text-stroke:2px var(--ghost);pointer-events:none;text-align:center}
+.word small{display:block;font-family:var(--mono);font-size:14px;letter-spacing:.3em;-webkit-text-stroke:0;color:var(--accent);margin-bottom:26px;font-weight:400}
+
+.card{width:440px;border:1px solid rgba(207,224,242,.3);background:var(--surface);box-shadow:0 40px 80px -20px #000;pointer-events:none}
+.card img{display:block;width:100%}
+.card figcaption,.card .cap{padding:9px 12px;font-size:10px;color:var(--ghost);border-top:1px solid rgba(207,224,242,.2);display:flex;justify-content:space-between;gap:12px}
+.card .cap b{color:var(--accent);font-weight:500}
+.sheet{background:var(--paper)}.sheet img{mix-blend-mode:multiply;background:#fff}
+.sheet .cap{color:var(--ink);border-top-color:rgba(20,24,29,.3)}.sheet .cap b{color:var(--rev)}
+.ui{padding:0;font-family:var(--mono);font-size:12px;line-height:1.75;color:var(--ghost)}
+.ui .bar{display:flex;gap:6px;padding:9px 12px;border-bottom:1px solid rgba(207,224,242,.2)}.ui .bar i{width:8px;height:8px;border-radius:50%;background:rgba(207,224,242,.3)}
+.ui pre{padding:14px 16px;font:inherit;white-space:pre-wrap}.ui pre b{color:var(--accent);font-weight:500}.ui pre u{text-decoration:none;color:#7fd6a0}
+.kan{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:14px}
+.kan div{background:rgba(207,224,242,.06);padding:7px;display:grid;gap:6px;align-content:start;min-height:150px}
+.kan span{font-size:8px;letter-spacing:.1em;color:var(--muted-d)}.kan i{height:22px;background:rgba(207,224,242,.16);border-left:2px solid var(--accent)}.kan i:nth-child(odd){border-color:#5aa0e6}
+.grid{display:grid;grid-template-columns:1.4fr 1fr 1fr .7fr;font-size:10px}
+.grid span{padding:6px 10px;border:0 solid rgba(207,224,242,.14);border-width:0 1px 1px 0;white-space:nowrap;overflow:hidden}.grid .h{color:var(--muted-d)}.grid .ok{color:#7fd6a0}.grid .no{color:var(--accent)}
+
+/* doorway 01 */
+.door{width:min(900px,88vw)}
+.door .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px;gap:20px}
+.door h2{font-family:"Archivo",sans-serif;font-weight:800;letter-spacing:-.035em;font-size:clamp(28px,4vw,60px);line-height:1}
+.door .n{font-family:"Archivo",sans-serif;font-weight:800;font-size:clamp(46px,7vw,96px);line-height:.8;color:transparent;-webkit-text-stroke:1px var(--ghost)}
+.plate{position:relative;display:block;aspect-ratio:21/9;background:var(--surface);border:1px solid rgba(207,224,242,.3);overflow:hidden;cursor:pointer;box-shadow:0 0 120px -10px rgba(240,112,58,.35);outline-offset:6px;transform-style:flat}
+.bp{position:absolute;inset:0;background:var(--ghost);mix-blend-mode:screen;opacity:.5}
+.bp img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;background:#fff;filter:invert(1);mix-blend-mode:multiply;display:block}
+.solid{position:absolute;inset:0;background:#0d1826 url("/video/showreel-v3-poster.jpg") no-repeat;background-size:153.6% auto;background-position:37.3% 60.7%;clip-path:inset(0 100% 0 0)}
+.scan{position:absolute;top:0;bottom:0;left:0;width:2px;background:var(--accent);box-shadow:0 0 22px 3px rgba(240,112,58,.65)}
+.door .foot{display:flex;justify-content:space-between;align-items:center;margin-top:16px;gap:16px;flex-wrap:wrap}
+.door .foot p{color:var(--muted-d);max-width:44ch;font-size:15px;line-height:1.5}
+.cta{display:inline-flex;align-items:center;gap:14px;text-decoration:none;color:var(--void);background:var(--accent);padding:13px 18px;font-size:12px}
+.live{color:var(--accent)}
+.tease{width:min(900px,88vw);text-align:center}
+.tease .n{font-family:"Archivo",sans-serif;font-weight:800;font-size:clamp(90px,16vw,220px);line-height:.8;color:transparent;-webkit-text-stroke:1px var(--ghost)}
+.tease h2{font-family:"Archivo",sans-serif;font-weight:800;letter-spacing:-.035em;font-size:clamp(28px,4vw,60px);margin-top:18px}
+.tease p{color:var(--muted-d);margin-top:12px}
+
+.warp{position:fixed;inset:0;z-index:80;background:#0d1826 url("/video/showreel-v3-poster.jpg") no-repeat;background-size:153.6% auto;background-position:37.3% 60.7%;visibility:hidden;display:grid;place-items:center}
+.warp.go{visibility:visible;transition:clip-path .95s var(--reveal),background-size 1.4s var(--reveal);background-size:230% auto}
+.warp div{text-align:center;opacity:0;transition:opacity .5s .35s;background:rgba(5,7,10,.55);padding:14px 22px;border:1px solid var(--accent)}
+.warp.go div{opacity:1}
+@media (max-width:760px){.gauge,.top .loc{display:none}.card{width:300px}.ui{font-size:10px}}
+@media (prefers-reduced-motion:reduce){.spin,.spin2,.drop::after{animation:none}.loaded .reticle{transform:none}}
+</style>
+</head>
+<body>
+<div class="pre" role="status">
+  <div class="reticle">
+    <svg viewBox="0 0 200 200" fill="none" stroke="#cfe0f2" stroke-width=".6" aria-hidden="true">
+      <circle cx="100" cy="100" r="96" stroke-opacity=".4"/>
+      <circle class="spin" cx="100" cy="100" r="88" stroke-dasharray="1 5.9" stroke-width="5" stroke-opacity=".5"/>
+      <circle class="spin2" cx="100" cy="100" r="78" stroke-dasharray="46 14 4 14"/>
+      <path d="M100 0v62M100 138v62M0 100h62M138 100h62" stroke-opacity=".7"/>
+      <circle id="arc" cx="100" cy="100" r="62" stroke="#f0703a" stroke-width="2.2" stroke-dasharray="389.6" stroke-dashoffset="389.6" transform="rotate(-90 100 100)"/>
+    </svg>
+    <div class="pre-num" id="num">000</div>
+  </div>
+  <div class="pre-meta mono">Studiomark · bore sight<br>Loading <b id="what">fonts</b></div>
+</div>
+
+<header class="top"><span class="sig">STUDIOMARK</span><span class="mono loc">Mark Hintz · Mechanical Designer + Systems Builder</span></header>
+<div class="gauge mono" aria-hidden="true"><i id="gI"></i><span id="gT">000.0 M</span></div>
+<div class="hud mono"><span>Depth <b id="dep">000.0</b> m</span><span><b id="chapN">00</b> / 04 · <span id="chapT">Drop in</span></span><span>V <b id="vel">00.0</b> m/s</span></div>
+<div class="hud-bar" id="bar"></div>
+
+<main id="run">
+  <div class="stage" id="stage">
+    <canvas id="fx" aria-hidden="true"></canvas>
+    <div class="cam" id="cam"></div>
+    <div class="vig"></div>
+  </div>
+</main>
+<div class="warp" id="warp" aria-hidden="true"><div class="mono">01 · Opening the teardown<br>/torque-wrench/</div></div>
+
+<template id="tpl">
+  <div class="it title" data-z="0" data-near="1">
+    <div class="k mono">Mark Hintz · Jacksonville, FL · 20+ years</div>
+    <h1>I design the machines. Then I build what brings them to life.</h1>
+    <p>Mechanical designer and systems builder. Scroll, and fall down the axis of one of my gearboxes, past the drawings, the software and the renders.</p>
+    <div class="drop mono">Scroll to drop in</div>
+  </div>
+
+  <div class="it word" data-z="1900"><small>STAGE 1 · PRECISION TOOLING · ARMAMENT · PUMP PACKAGES</small>DRAWN</div>
+  <figure class="it card sheet" data-x="-470" data-y="-150" data-z="1650" data-ry="26"><img src="/home/drawings/gearbox-housing.webp" alt=""><div class="cap mono"><span>Gearbox housing</span><b>GD&amp;T</b></div></figure>
+  <figure class="it card sheet" data-x="480" data-y="170" data-z="1750" data-ry="-28"><img src="/home/drawings/pump-assembly.webp" alt=""><div class="cap mono"><span>Pump package</span><b>Assembly</b></div></figure>
+  <figure class="it card sheet" data-x="-480" data-y="200" data-z="2150" data-ry="24"><img src="/home/drawings/armament-receiver.webp" alt=""><div class="cap mono"><span>AR-15-pattern receiver</span><b>5-axis CNC</b></div></figure>
+  <figure class="it card sheet" data-x="470" data-y="-190" data-z="2450" data-ry="-26"><img src="/home/drawings/gearbox-sections.webp" alt=""><div class="cap mono"><span>Gearbox sections</span><b>DFM</b></div></figure>
+
+  <div class="it word" data-z="3100"><small>STAGE 2 · APPS · DATABASES · AUTOMATION</small>BUILT</div>
+  <div class="it card ui" data-x="-470" data-y="-150" data-z="2800" data-ry="26"><div class="bar"><i></i><i></i><i></i></div><pre>$ studiomark render rl300-safe --gpu cloud
+<u>✓</u> cad import       glb
+<u>✓</u> scene + materials
+<u>✓</u> camera gate      approved from phone
+<b>▸ cycles           ████████░░ 82%</b></pre><div class="cap mono"><span>StudioMark engine</span><b>Blender · Python · Cloud GPU</b></div></div>
+  <div class="it card ui" data-x="480" data-y="150" data-z="3350" data-ry="-28"><div class="kan"><div><span>QUEUE</span><i></i><i></i><i></i></div><div><span>FAB</span><i></i><i></i></div><div><span>ASSEMBLY</span><i></i><i></i><i></i><i></i></div><div><span>TEST</span><i></i></div></div><div class="cap mono"><span>PumpTracker · in production</span><b>React · TypeScript · Supabase</b></div></div>
+  <div class="it card ui" data-x="-480" data-y="190" data-z="3750" data-ry="24"><div class="grid"><span class="h">PART</span><span class="h">REV</span><span class="h">DXF</span><span class="h">CHK</span><span>HOUSING-A</span><span>C</span><span>cleaned</span><span class="ok">PASS</span><span>CARRIER-2</span><span>B</span><span>cleaned</span><span class="ok">PASS</span><span>DOOR-PNL</span><span>D</span><span>legacy</span><span class="no">HOLD</span><span>BAFFLE-3</span><span>A</span><span>cleaned</span><span class="ok">PASS</span></div><div class="cap mono"><span>CAD / PDM database</span><b>Python · SolidWorks PDM · Excel</b></div></div>
+
+  <div class="it word" data-z="4400"><small>STAGE 3 · CAD IN · PHOTOREAL OUT</small>RENDERED</div>
+  <figure class="it card" data-x="480" data-y="-170" data-z="4100" data-ry="-26"><img src="/home/stacks/quiet-machine/01.webp" alt=""><div class="cap mono"><span>Pump package, section</span><b>Cycles</b></div></figure>
+  <figure class="it card" data-x="-480" data-y="160" data-z="4700" data-ry="26"><img src="/home/stacks/renderings/02.webp" alt=""><div class="cap mono"><span>Hydraulic torque tool</span><b>Studio</b></div></figure>
+  <figure class="it card" data-x="470" data-y="170" data-z="5150" data-ry="-24"><img src="/video/showreel-v3-poster.jpg" alt=""><div class="cap mono"><span>The Line · showreel</span><b>Remotion</b></div></figure>
+
+  <div class="it door" data-z="6400" data-near="1" id="door">
+    <div class="head"><div><div class="mono live">Doorway 01 / 04 · live interactive 3D</div><h2>Industrial Torque Wrench</h2></div><div class="n">01</div></div>
+    <a class="plate" id="plate" href="/torque-wrench/" aria-label="Open the Industrial Torque Wrench 3D teardown">
+      <div class="bp"><img src="/home/drawings/gearbox-sections.webp" alt=""></div><div class="solid" id="solid"></div><div class="scan" id="scan"></div>
+    </a>
+    <div class="foot"><p>A pneumatic torque wrench and its planetary gearbox, taken apart in 3D as you scroll.</p><a class="cta mono" href="/torque-wrench/" id="cta">Open the 3D teardown →</a></div>
+  </div>
+  <div class="it tease" data-z="8600" data-near="1"><div class="n">02</div><h2>The Quiet Machine</h2><p class="mono">End of slice · next doorway in the full build</p></div>
+  <div class="it glow" data-z="12600" data-far="1"></div>
+</template>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id)
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v))
+  const smooth = t => t * t * (3 - 2 * t)
+  const k = (rate, dt) => 1 - Math.exp(-rate * dt)
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches
+  const cam = $('cam'), stage = $('stage'), fx = $('fx'), ctx = fx.getContext('2d')
+  const P0 = 800, FAR = 4600, DOOR = 6400, END = 8520
+
+  /* build world */
+  cam.appendChild($('tpl').content.cloneNode(true))
+  const gear = (n, tip, root, out) => {             // internal ring gear as a Path2D, built once
+    const g = new Path2D(), s = Math.PI * 2 / n
+    for (let i = 0; i < n; i++) {
+      const a = i * s, pt = (r, t) => [r * Math.cos(t), r * Math.sin(t)]
+      g[i ? 'lineTo' : 'moveTo'](...pt(root, a)); g.lineTo(...pt(root, a + s * .28)); g.lineTo(...pt(tip, a + s * .4)); g.lineTo(...pt(tip, a + s * .78)); g.lineTo(...pt(root, a + s * .9))
+    }
+    g.closePath(); g.moveTo(out, 0); g.arc(0, 0, out, 0, Math.PI * 2)
+    return g
+  }
+  const GEARS = [36, 48, 30, 42].map(n => gear(n, 540, 610, 985))
+  const rings = []
+  for (let i = 0, z = 420; z < 11400; i++, z += 520) rings.push({ z, g: GEARS[i % 4], hot: i % 4 === 2, dir: i % 2 ? -1 : 1, rate: .018 + (i % 3) * .009 })
+  rings.reverse()                                   // far to near
+  const items = [...cam.querySelectorAll('.it:not(.ring)')].map(el => ({ el, x: +el.dataset.x || 0, y: +el.dataset.y || 0, z: +el.dataset.z, ry: +el.dataset.ry || 0, near: !!el.dataset.near, far: !!el.dataset.far }))
+
+  let W = 1, H = 1, range = 1, sx = 1, dpr = 1
+  const layout = () => {
+    W = stage.clientWidth; H = stage.clientHeight; range = $('run').offsetHeight - H
+    sx = clamp(W / 1250, .34, 1); dpr = Math.min(devicePixelRatio || 1, 2)
+    fx.width = W * dpr; fx.height = H * dpr
+    items.forEach(o => { o.el.style.transform = `translate(-50%,-50%) translate3d(${o.x * sx}px,${o.y * (sx < .7 ? 1.25 : 1)}px,${-o.z}px) rotateY(${o.ry}deg)` })
+  }
+  addEventListener('resize', layout); layout()
+
+  /* scroll → depth: fall, brake at the doorway, creep, punch through */
+  const KF = [[0, 0], [.7, DOOR - 90], [.82, DOOR], [1, END]]
+  const depthAt = p => { for (let i = 1; i < KF.length; i++) if (p <= KF[i][0]) { const [a, za] = KF[i - 1], [b, zb] = KF[i]; return za + (zb - za) * smooth((p - a) / (b - a)) } return END }
+
+  /* preloader (real progress) */
+  const imgs = [...cam.querySelectorAll('img')]
+  const tasks = [['fonts', document.fonts.ready], ...imgs.map(i => ['plates', new Promise(r => { i.complete ? r() : (i.onload = i.onerror = r) })])]
+  tasks.forEach(t => t[1].then(() => { t.ok = true; const n = tasks.find(x => !x.ok); $('what').textContent = n ? n[0] : 'ready' }))
+  let shown = 0, loaded = false
+
+  /* pointer look */
+  let nx = 0, ny = 0, lx = 0, ly = 0, auto = true
+  addEventListener('pointermove', e => { if (e.pointerType === 'mouse') { auto = false; nx = e.clientX / innerWidth - .5; ny = e.clientY / innerHeight - .5 } })
+
+  /* doorway zoom */
+  const warp = $('warp'), plate = $('plate')
+  ;[plate, $('cta')].forEach(a => a.addEventListener('click', e => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || RM) return
+    e.preventDefault()
+    const r = plate.getBoundingClientRect()
+    warp.style.clipPath = `inset(${r.top}px ${innerWidth - r.right}px ${innerHeight - r.bottom}px ${r.left}px)`
+    warp.getBoundingClientRect(); warp.classList.add('go'); warp.style.clipPath = 'inset(0px 0px 0px 0px)'
+    setTimeout(() => { location.href = a.getAttribute('href') }, 1250)
+  }))
+  addEventListener('pageshow', e => { if (e.persisted) { warp.classList.remove('go'); warp.style.clipPath = '' } })
+
+  /* streak field */
+  const pts = Array.from({ length: 300 }, (_, i) => ({ a: Math.random() * 6.283, r: 230 + Math.random() * 900, z: Math.random() * 4000, hot: i % 9 === 0 }))
+
+  let camZ = 0, velS = 0, roll = 0, last = performance.now()
+  function frame(now) {
+    const dt = Math.min((now - last) / 1000, .05); last = now
+    if (!loaded) {
+      const real = tasks.filter(t => t.ok).length / tasks.length
+      shown += (real - shown) * k(7, dt); if (real === 1 && shown > .992) shown = 1
+      $('num').textContent = String(Math.round(shown * 100)).padStart(3, '0'); $('arc').style.strokeDashoffset = 389.6 * (1 - shown)
+      if (shown === 1) { loaded = true; document.body.classList.add('loaded') }
+    }
+
+    const p = clamp(scrollY / range), target = depthAt(p), prev = camZ
+    camZ += (target - camZ) * (RM ? 1 : k(4.2, dt))
+    velS += ((camZ - prev) / dt - velS) * k(8, dt)
+    const sp = Math.abs(velS)
+
+    if (auto && !RM) { nx = .22 * Math.sin(now * .00037); ny = .16 * Math.sin(now * .00053 + 1) }
+    lx += (nx - lx) * k(5, dt); ly += (ny - ly) * k(5, dt)
+    const rollT = RM ? 0 : lx * -9 + clamp(velS * .0035, -9, 9) + Math.sin(camZ * .0011) * 3.5   // the bore corkscrews as you fall
+    roll += (rollT - roll) * k(6, dt)
+    const P = RM ? P0 : P0 - clamp(sp * .075, 0, 330)                                            // speed stretches the lens
+    stage.style.perspective = P.toFixed(0) + 'px'
+    cam.style.transform = `rotateZ(${roll.toFixed(3)}deg) rotateX(${(-ly * 9).toFixed(3)}deg) rotateY(${(lx * 12).toFixed(3)}deg) translate3d(${(-lx * 70).toFixed(1)}px,${(-ly * 50).toFixed(1)}px,${camZ.toFixed(1)}px)`
+
+    for (const o of items) {
+      const d = o.z - camZ + P0, far = o.far ? 1e5 : 2600         // d = distance from the eye
+      if (d < 40 || d > far) { if (o.vis) { o.el.style.visibility = 'hidden'; o.vis = false } continue }
+      if (!o.vis) { o.el.style.visibility = 'visible'; o.vis = true }
+      const nearFade = o.near ? clamp((d - 120) / 420) : clamp((d - 40) / 220)
+      o.el.style.opacity = (clamp((far - d) / 1100) * nearFade).toFixed(3)
+    }
+
+    /* doorway: drawing renders as it comes at you */
+    const dd = DOOR - camZ + P0
+    if (dd > 0 && dd < FAR) {
+      const q = smooth(clamp((2700 - dd) / 1500))
+      $('solid').style.clipPath = `inset(0 ${((1 - q) * 100).toFixed(2)}% 0 0)`
+      $('scan').style.left = (q * 100).toFixed(2) + '%'; $('scan').style.opacity = q > .004 && q < .996 ? 1 : 0
+    }
+    $('door').style.pointerEvents = dd > 450 && dd < 1500 ? 'auto' : 'none'
+
+    /* canvas: ring gears + streaks, projected with the same camera as the DOM world */
+    const ry = lx * 12 * Math.PI / 180, rxx = -ly * 9 * Math.PI / 180, rz = roll * Math.PI / 180
+    const cy_ = Math.cos(ry), sy_ = Math.sin(ry), cx_ = Math.cos(rxx), sx_ = Math.sin(rxx), cz_ = Math.cos(rz), sz_ = Math.sin(rz)
+    const proj = (x, y, z) => {                       // z: CSS z relative to the screen plane (negative = away)
+      x -= lx * 70; y -= ly * 50
+      const x1 = x * cy_ + z * sy_, z1 = -x * sy_ + z * cy_, y2 = y * cx_ - z1 * sx_, z2 = y * sx_ + z1 * cx_
+      const s = P / Math.max(P - z2, 1)
+      return [(x1 * cz_ - y2 * sz_) * s, (x1 * sz_ + y2 * cz_) * s, s]
+    }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H)
+    for (const r of rings) {
+      const d = r.z - camZ + P0
+      if (d < 30 || d > FAR) continue
+      const [px, py, s] = proj(0, 0, camZ - r.z)
+      ctx.setTransform(dpr, 0, 0, dpr, (W / 2 + px) * dpr, (H / 2 + py) * dpr)
+      ctx.rotate(rz + (r.dir * camZ * r.rate + r.z * .05) * Math.PI / 180); ctx.scale(s, s)
+      ctx.globalAlpha = clamp((FAR - d) / 1700) * clamp((d - 30) / 160)
+      ctx.fillStyle = r.hot ? 'rgba(240,112,58,.09)' : 'rgba(16,33,51,.62)'; ctx.fill(r.g, 'evenodd')
+      ctx.strokeStyle = r.hot ? '#f0703a' : 'rgba(207,224,242,.55)'; ctx.lineWidth = 1.5 / s * clamp(s, 1, 3); ctx.stroke(r.g)
+    }
+    if (!RM) {
+      ctx.setTransform(dpr, 0, 0, dpr, W / 2 * dpr, H / 2 * dpr); ctx.lineCap = 'round'
+      const stretch = 14 + sp * .16
+      for (const s of pts) {
+        const d = (((s.z - camZ) % 4000) + 4000) % 4000 + 20
+        const c = Math.cos(s.a) * s.r, sn = Math.sin(s.a) * s.r, a = clamp(1 - d / 3600) * clamp(d / 200)
+        const A = proj(c, sn, P0 - d), B = proj(c, sn, P0 - d - stretch)
+        ctx.globalAlpha = a * (s.hot ? .9 : .5); ctx.strokeStyle = s.hot ? '#f0703a' : '#cfe0f2'; ctx.lineWidth = clamp(A[2] * 1.1, .4, 2.6)
+        ctx.beginPath(); ctx.moveTo(A[0], A[1]); ctx.lineTo(B[0], B[1]); ctx.stroke()
+      }
+    }
+
+    /* HUD */
+    const ch = camZ < 700 ? ['00', 'Drop in'] : camZ < 2500 ? ['00', 'Stage 1 · drawn'] : camZ < 3800 ? ['00', 'Stage 2 · built'] : camZ < 5200 ? ['00', 'Stage 3 · rendered'] : camZ < DOOR ? ['01', 'Industrial Torque Wrench'] : ['02', 'The Quiet Machine']
+    $('chapN').textContent = ch[0]; $('chapT').textContent = ch[1]
+    const m = (camZ / 100).toFixed(1).padStart(5, '0')
+    $('dep').textContent = m; $('gT').textContent = m + ' M'; $('vel').textContent = (sp / 100).toFixed(1).padStart(4, '0')
+    $('gI').style.top = $('gT').style.top = (clamp(camZ / END) * 100).toFixed(2) + '%'
+    $('bar').style.transform = `scaleX(${p.toFixed(4)})`
+    requestAnimationFrame(frame)
+  }
+  requestAnimationFrame(frame)
+  addEventListener('load', layout)
+})()
+</script>
+</body>
+</html>
