@@ -54,6 +54,37 @@ export function torqueHudStepText(beatId: string | undefined, displayed: TorqueP
   return `${String(CHAPTER_INDEX[step.chapter]).padStart(2, '0')}·${step.n}  ${step.label}`
 }
 
+export interface TorqueCaptionFadeSample {
+  readonly surroundingsOpacity?: number
+  readonly ringVisible?: boolean
+}
+
+/** Delayed caption gates from the owner browser review (2026-11-17). */
+export function torqueCaptionStartsHidden(
+  beatId: string | undefined,
+  displayed: TorquePosterChapterId,
+): boolean {
+  if (beatId === 'inspection-ring' || beatId === 'inspection-isolation') return true
+  return beatId === 'inspection-return' && displayed === 'mechanism'
+}
+
+export function torqueCaptionVisible(
+  beatId: string | undefined,
+  displayed: TorquePosterChapterId,
+  sample: TorqueCaptionFadeSample | null,
+): boolean {
+  if (beatId === 'inspection-ring') {
+    // The ring caption waits until the surrounding gearbox has fully faded.
+    return Boolean(sample?.ringVisible) && (sample?.surroundingsOpacity ?? 1) <= .01
+  }
+  if (beatId === 'inspection-isolation') {
+    // The isolation caption may appear once the gearbox fade has begun.
+    return (sample?.surroundingsOpacity ?? 1) < .999
+  }
+  if (beatId === 'inspection-return' && displayed === 'mechanism') return false
+  return true
+}
+
 export const TORQUE_RAIL_TOOLTIPS: Readonly<Record<TorquePosterChapterId, string>> = Object.freeze({
   drafting: 'The drawing and the notes behind it',
   breakthrough: 'The wrench breaks out of its drawing',

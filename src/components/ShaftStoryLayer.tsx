@@ -50,6 +50,8 @@ export interface ShaftStoryLayerProps {
    * Default keeps the panels for the main-site study and every other consumer.
    */
   readonly fosPanels?: boolean
+  /** Live /torque-wrench/ mode suppresses the visual study cards; its fixed HUD owns captioning. */
+  readonly visualStory?: boolean
 }
 
 /**
@@ -92,7 +94,7 @@ export function buildShaftAnnouncement(frame: ShaftScriptFrame): string {
  * attribution and captions from the closed-form sampler. Mounted by the private
  * torque-wrench overlay; this layer does not register or own narrative state.
  */
-export function ShaftStoryLayer({ time, reducedMotion, fosPanels = true }: ShaftStoryLayerProps) {
+export function ShaftStoryLayer({ time, reducedMotion, fosPanels = true, visualStory = true }: ShaftStoryLayerProps) {
   const frameRef = useRef<ShaftScriptFrame | null>(null)
   if (!frameRef.current) frameRef.current = createShaftScriptFrame()
   const frame = sampleShaftScript(time, reducedMotion, frameRef.current)
@@ -105,7 +107,7 @@ export function ShaftStoryLayer({ time, reducedMotion, fosPanels = true }: Shaft
     setStatus(previous => previous.text === text ? previous : { version: previous.version + 1, text })
   }, [frame.discrete])
   return <div className="shaft-story-layer" data-shaft-cascade={frame.caption !== 'none' ? '' : undefined}>
-    <div className="shaft-story-column">
+    {visualStory && <div className="shaft-story-column">
       {frame.card !== 'none' && <div className="shaft-card-slot" data-shaft-card="">
         <div className="shaft-card" style={{ opacity: frame.cardOpacity }} aria-hidden={frame.cardOpacity < 0.02}>
           <p className="shaft-card-text">{frame.cardText}</p>
@@ -115,8 +117,8 @@ export function ShaftStoryLayer({ time, reducedMotion, fosPanels = true }: Shaft
       {frame.attribution && <p className="shaft-attribution" data-shaft-attribution="">{SHAFT_ATTRIBUTION_TEXT}</p>}
       {frame.remainingTeeth && <p className="shaft-caption shaft-caption-recap" data-shaft-recap="">{SHAFT_RECAP_CAPTION_TEXT}</p>}
       {frame.caption !== 'none' && <p className="shaft-caption" data-shaft-caption={frame.caption}>{frame.captionText}</p>}
-    </div>
-    {fosPanels && <FosPanels frame={frame} fos={fos} />}
+    </div>}
+    {visualStory && fosPanels && <FosPanels frame={frame} fos={fos} />}
     <p role="status" aria-live="polite" aria-atomic="true" className="shaft-visually-hidden" data-shaft-status="" data-version={status.version}>{status.text}</p>
     <div className="shaft-visually-hidden" data-shaft-transcript="">
       <h2>P001835 Input Shaft manufacturing study transcript</h2>

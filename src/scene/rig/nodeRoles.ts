@@ -27,7 +27,7 @@ import { buildLcdCluster, type LcdClusterParts } from './lcdCluster'
  * stage, five in stage 4). A000881 is the two-speed clutch: static structure
  * (intermediate housing P000420, input shaft P001835), the sliding fork train
  * (shifter fork P000724, shifter cam P000297), and the ring switch assembly
- * (ring switch P003068, 3× pins P000464, 3× ball plungers K000156). The
+ * (ring switch P003068, 3× black-oxide pins P000464, 3× black-oxide ball plungers K000156). The
  * K000004 thrust bearing ring directly behind the A000606 cage is its own
  * unit too (pass 3, 2026-08-25 — it was the gearbox's last untagged part)
  * and extracts between A000606 and stage 2. The output

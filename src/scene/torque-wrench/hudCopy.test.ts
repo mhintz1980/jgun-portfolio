@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { TORQUE_BEATS } from './beats'
-import { TORQUE_HUD_STEPS, torqueHudStepText } from './hudCopy'
+import { TORQUE_HUD_STEPS, torqueCaptionStartsHidden, torqueCaptionVisible, torqueHudStepText } from './hudCopy'
 
 describe('HUD step copy', () => {
   it('labels every beat except the ending hand-off, with no unknown ids', () => {
@@ -17,5 +17,18 @@ describe('HUD step copy', () => {
   })
   it('never presents cinematic cascade ratios as specs', () => {
     for (const step of Object.values(TORQUE_HUD_STEPS)) expect(step.label).not.toMatch(/3250|rpm|:1/i)
+  })
+
+  it('delays mechanism captions on the measured gearbox fade', () => {
+    expect(torqueCaptionStartsHidden('inspection-ring', 'mechanism')).toBe(true)
+    expect(torqueCaptionVisible('inspection-ring', 'mechanism', { ringVisible: true, surroundingsOpacity: 1 })).toBe(false)
+    expect(torqueCaptionVisible('inspection-ring', 'mechanism', { ringVisible: true, surroundingsOpacity: .8 })).toBe(false)
+    expect(torqueCaptionVisible('inspection-ring', 'mechanism', { ringVisible: true, surroundingsOpacity: 0 })).toBe(true)
+
+    expect(torqueCaptionStartsHidden('inspection-isolation', 'mechanism')).toBe(true)
+    expect(torqueCaptionVisible('inspection-isolation', 'mechanism', { surroundingsOpacity: 1 })).toBe(false)
+    expect(torqueCaptionVisible('inspection-isolation', 'mechanism', { surroundingsOpacity: .99 })).toBe(true)
+    expect(torqueCaptionVisible('inspection-return', 'mechanism', { surroundingsOpacity: 1 })).toBe(false)
+    expect(torqueCaptionVisible('mechanism-switch', 'mechanism', null)).toBe(true)
   })
 })

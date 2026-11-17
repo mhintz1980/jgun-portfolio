@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs'
 import ts from 'typescript'
 import { CASCADE_RATIOS, SUN_TO_STAGE1_CARRIER_RATIO } from './cascadeConfig'
 import { CASCADE_REVEAL_EVENTS, CASCADE_TORQUE_PATH, CASCADE_UNIT_COUNT, FOS_PANEL_CUTOFF, fosPanelOpacity, IGNITION_NORMAL_RATE, axialSlideProgress, createShaftSchedule, sampleFinaleAngle, sampleFinaleDriveRate, sampleShaftSchedule, torquePathLitCount } from './schedule'
+import { TECH_PANEL_START, techPanelOpacity } from './schedule'
 import { BULLET_TIME_SHOT_SPECS } from '../../torque-wrench/bulletTime'
 import { shaftBeats, shaftStory } from './story'
 
@@ -347,5 +348,16 @@ describe('HUD torque-path tracker', () => {
     expect(fosPanelOpacity(FOS_PANEL_CUTOFF - .25)).toBeGreaterThan(0)
     expect(fosPanelOpacity(FOS_PANEL_CUTOFF)).toBe(0)
     expect(fosPanelOpacity(40)).toBe(0)
+  })
+
+  it('keeps inspection evidence hidden until the shaper recap is complete', () => {
+    expect(TECH_PANEL_START).toBe(15)
+    expect(techPanelOpacity(Number.NaN)).toBe(0)
+    expect(techPanelOpacity(2)).toBe(0)
+    expect(techPanelOpacity(14.999)).toBe(0)
+    expect(techPanelOpacity(15)).toBe(0)
+    expect(techPanelOpacity(15.2)).toBeGreaterThan(0)
+    expect(techPanelOpacity(15.4)).toBeCloseTo(1, 8)
+    expect(techPanelOpacity(34.5)).toBeCloseTo(1, 8)
   })
 })

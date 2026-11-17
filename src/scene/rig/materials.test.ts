@@ -69,6 +69,11 @@ describe('smooth black-oxide housings (P000245 gearbox, P000420 clutch)', () => 
     expect(materialRoleFor('housing', 'occurrence_of_P000245-1')).toBe('blackOxideSteel')
     expect(materialRoleFor('housing', 'GEARBOX_ASSY_SHELL')).toBe('blackOxideSteel')
     expect(materialRoleFor('clutch-static', 'occurrence_of_P000420-1')).toBe('blackOxideSteel')
+    // Owner browser review 2026-11-17: all three pins and all three plungers are black oxide.
+    expect(materialRoleFor('ring-switch', 'occurrence_of_P000464-1')).toBe('blackOxideSteel')
+    expect(materialRoleFor('ring-switch', 'occurrence_of_P000464-3')).toBe('blackOxideSteel')
+    expect(materialRoleFor('ring-switch', 'occurrence_of_K000156-1')).toBe('blackOxideSteel')
+    expect(materialRoleFor('ring-switch', 'occurrence_of_K000156-3')).toBe('blackOxideSteel')
     const housing = roleMaterial('blackOxideSteel') as MeshStandardMaterial
     const shader = compileShader()
     housing.onBeforeCompile(shader as never, {} as never)

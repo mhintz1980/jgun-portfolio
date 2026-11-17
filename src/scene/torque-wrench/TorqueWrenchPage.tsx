@@ -1,11 +1,10 @@
 // Page composition for the public /torque-wrench/ document. Story is mounted once and never
 // remounted; the scene/poster stage layers swap around it. The only narrative import path is
 // cadGate's dynamic import, triggered here for non-poster tiers; failure is terminal for the
-// document, keeps the DOM story, controls, and footer usable, and loads no further CAD.
+// document, keeps the DOM story and controls usable, and loads no further CAD.
 import { useCallback, useEffect, useMemo, useState, useSyncExternalStore, type ComponentType } from 'react'
 import { releaseFade } from '../../shared/pageFade'
 import { createTorqueWrenchStore } from '../../state/torqueWrenchStore'
-import { PrivatePageNav } from './PrivatePageNav'
 import Poster from './Poster'
 import { SceneBoundary } from './SceneBoundary'
 import { runSceneLifecycle } from './sceneLifecycle'
@@ -72,16 +71,6 @@ export function TorqueWrenchPage({ store }: TorqueWrenchPageProps) {
       <a className="torque-skip" href="#torque-story">
         Skip to story
       </a>
-      <header className="torque-header">
-        <PrivatePageNav tier={tier} variant="header" />
-        <div className="torque-hero">
-          <p className="torque-hero__eyebrow">Case study 01 · Work in progress</p>
-          <h1 className="torque-hero__title">Industrial Torque Wrench</h1>
-          <p className="torque-hero__intro">
-            Five chapters: drafting breaks through into mechanism, inspection, and close.
-          </p>
-        </div>
-      </header>
       <main className="torque-main">
         {!posterLayer && <TorquePreloader />}
         <div className="torque-stage" data-torque-stage={stage} aria-hidden="true">
@@ -95,13 +84,6 @@ export function TorqueWrenchPage({ store }: TorqueWrenchPageProps) {
         <Story playback={playback} live={stage === 'scene'} />
         {stage === 'scene' && <TorqueHUD store={store} playback={playback} />}
       </main>
-      <footer className="torque-footer">
-        <PrivatePageNav tier={tier} variant="endcard" />
-        <p className="torque-colophon">
-          Work in progress. Pneumatic Torque Wrench. The five-chapter story runs from drafting and
-          breakthrough into mechanism, inspection, and close.
-        </p>
-      </footer>
     </div>
   )
 }

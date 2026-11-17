@@ -15,23 +15,17 @@ function markupFor(store: ReturnType<typeof createTorqueWrenchStore>) {
 }
 
 describe('TorqueWrenchPage static foundation', () => {
-  it('renders public site navigation in both shells at every tier', () => {
+  it('omits the legacy page shell in every tier', () => {
     for (const tier of ['full', 'lite', 'poster'] as const) {
-      const suffix = tier === 'full' ? '' : `?quality=${tier}`
       const markup = markupFor(createTorqueWrenchStore({ tier }))
-      const current = anchors(markup).filter((tag) => tag.includes('aria-current="page"'))
-
-      expect(current, tier).toHaveLength(2)
-      for (const tag of current) expect(tag, tier).toContain(`href="/torque-wrench/${suffix}"`)
-      expect(count(markup, `href="/torque-wrench/${suffix}"`), tier).toBe(2)
-      expect(count(markup, `href="/quiet-machine/${suffix}"`), tier).toBe(2)
-      expect(count(markup, `href="/home/${suffix}"`), tier).toBe(2)
-      expect(markup, tier).not.toContain('href="/"')
-      expect(markup, tier).not.toContain('href="/?quality=')
-      expect(count(markup, 'aria-label="Pages"'), tier).toBe(1)
-      expect(count(markup, 'aria-label="More pages"'), tier).toBe(1)
+      expect(markup, tier).not.toContain('shell-nav')
+      expect(markup, tier).not.toContain('torque-header')
+      expect(markup, tier).not.toContain('torque-hero')
+      expect(markup, tier).not.toContain('torque-footer')
+      expect(markup, tier).not.toContain('torque-colophon')
+      expect(markup, tier).not.toContain('Industrial Torque Wrench')
       expect(markup, tier).not.toMatch(/m249/i)
-      expect(count(markup, '<a data-fade=""'), tier).toBe(6)
+      expect(anchors(markup), tier).toHaveLength(1)
     }
   })
 
@@ -48,15 +42,14 @@ describe('TorqueWrenchPage static foundation', () => {
     }
   })
 
-  it('keeps the story, controls, and footer mounted while the full-tier scene is pending', () => {
+  it('keeps the story and controls mounted while the full-tier scene is pending', () => {
     const markup = markupFor(createTorqueWrenchStore({ tier: 'full' }))
     expect(markup).toContain('data-torque-stage="pending"')
     expect(markup).not.toContain('data-torque-scene=')
     expect(markup).toContain('href="#torque-story"')
-    expect(markup).toContain('aria-label="Pages"')
     expect(markup).toContain('aria-controls="torque-inspection-detail"')
     expect(markup).toContain('role="region"')
-    expect(markup).toContain('torque-footer')
+    expect(markup).not.toContain('torque-footer')
   })
 
   it('poster tier shows pending poster slots, no scene, and the same story', () => {
@@ -68,7 +61,7 @@ describe('TorqueWrenchPage static foundation', () => {
     expect(markup).not.toContain('<img')
   })
 
-  it('a failed scene falls back to the poster layer with the story and footer intact', () => {
+  it('a failed scene falls back to the poster layer with the story intact', () => {
     const store = createTorqueWrenchStore({ tier: 'full' })
     store.setSceneStatus('failed')
     const markup = markupFor(store)
@@ -76,6 +69,6 @@ describe('TorqueWrenchPage static foundation', () => {
     expect(markup).not.toContain('data-torque-scene=')
     expect(count(markup, 'class="torque-chapter"')).toBe(5)
     expect(markup).toContain('aria-controls="torque-inspection-detail"')
-    expect(markup).toContain('torque-footer')
+    expect(markup).not.toContain('torque-footer')
   })
 })

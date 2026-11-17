@@ -76,8 +76,8 @@ const ROLE_OVERRIDES: readonly (readonly [RegExp, MaterialRole])[] = [
   [/P001924/i, 'anodizedAluminum'],
   // Ring switch (P003068) — anodized aluminum with knurled OD.
   [/P003068/i, 'ringSwitch'],
-  // Ring switch pins (P000464) & ball-nose plungers (K000156) — machined clutch steel.
-  [/(P000464|K000156)/i, 'clutchSteel'],
+  // Ring-switch pins and ball-nose plungers — black oxide (owner review 2026-11-17).
+  [/(P000464|K000156)/i, 'blackOxideSteel'],
   // Gearbox intermediate housing (P000420) + outer shell (P000245) —
   // high-temp black oxide steel, distinct from anodized aluminum.
   [/(P000420|P000245)/i, 'blackOxideSteel'],

@@ -59,11 +59,20 @@ export const CASCADE_TORQUE_PATH = Object.freeze([
 /** HUD FEA evidence panel cutoff (owner 2026-11-05): gone before any planet moves toward the
  * input shaft. Stage 1 carrier + planets start fading in and sliding at the stage1-mesh start. */
 export const FOS_PANEL_CUTOFF = MESH.start
+/** Owner review 2026-11-17: evidence copy waits until the shaper recap is complete. */
+export const TECH_PANEL_START = shaftBeat('materials').start
+export const TECH_PANEL_INTRO_FADE = 0.4
 export const FOS_PANEL_FADE = 0.5
 /** Panel opacity at subject time `time`: 1 until the fade, exactly 0 from the cutoff on. */
 export function fosPanelOpacity(time: number): number {
   if (!Number.isFinite(time)) return 1
   return 1 - shaftEase((time - (FOS_PANEL_CUTOFF - FOS_PANEL_FADE)) / FOS_PANEL_FADE)
+}
+
+/** Inspection evidence opacity: hidden until shaping/recap ends, then follows the FEA cutoff. */
+export function techPanelOpacity(time: number): number {
+  if (!Number.isFinite(time) || time < TECH_PANEL_START) return 0
+  return shaftEase((time - TECH_PANEL_START) / TECH_PANEL_INTRO_FADE) * fosPanelOpacity(time)
 }
 
 /** Number of torque-path dots lit at subject time `time` (0..CASCADE_TORQUE_PATH.length). */

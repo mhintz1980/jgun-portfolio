@@ -14,9 +14,15 @@ import { CHAPTER_COPY, InspectionControl } from './Story'
 import { readTorqueOverlaySample } from './hotspotData'
 import { torqueHudChapter, torqueHudSeekStart } from './hudChapter'
 import { sampleMechanism, type MechanismSample } from './MechanismDirector'
-import { TORQUE_RAIL_TOOLTIPS, TORQUE_TERM_TOOLTIPS, torqueHudStepText } from './hudCopy'
+import {
+  TORQUE_RAIL_TOOLTIPS,
+  TORQUE_TERM_TOOLTIPS,
+  torqueCaptionStartsHidden,
+  torqueCaptionVisible,
+  torqueHudStepText,
+} from './hudCopy'
 import { createShaftScriptFrame, sampleShaftScript } from '../inspection/shaft/script'
-import { CASCADE_TORQUE_PATH, FOS_PANEL_CUTOFF, FOS_PANEL_FADE, fosPanelOpacity, torquePathLitCount } from '../inspection/shaft/schedule'
+import { CASCADE_TORQUE_PATH, techPanelOpacity, torquePathLitCount } from '../inspection/shaft/schedule'
 import { FOS_MAX, FOS_MIN, newFosPresentation, sampleFosPresentation } from '../inspection/shaft/fosPresentation'
 import type { TorqueWrenchStore } from '../../state/torqueWrenchStore'
 import './torque-hud.css'
@@ -46,6 +52,7 @@ export function TorqueHUD({ store, playback }: { store: TorqueWrenchStore; playb
   const fosMarkerRef = useRef<HTMLSpanElement>(null)
   const fosValueRef = useRef<HTMLSpanElement>(null)
   const techRef = useRef<HTMLElement>(null)
+  const captionRef = useRef<HTMLElement>(null)
   const modesRef = useRef<HTMLDivElement>(null)
   const showModes = beatId === 'mechanism-switch' && chapter === 'mechanism'
   const pathRef = useRef<HTMLDivElement>(null)
@@ -125,14 +132,14 @@ export function TorqueHUD({ store, playback }: { store: TorqueWrenchStore; playb
       raf = 0
       const sample = document.hidden ? null : readTorqueOverlaySample()
       const active = Boolean(sample?.studyVisible && Number.isFinite(sample?.subjectTime))
-      if (!active) { lastTime = -1; reset(); writePanel(1) }
+      if (!active) { lastTime = -1; reset(); writePanel(0) }
       else {
         const time = Math.round(sample!.subjectTime * 15) / 15
         if (time !== lastTime) {
           lastTime = time
           writePanel(reduced?.matches
-            ? (time < FOS_PANEL_CUTOFF - FOS_PANEL_FADE ? 1 : 0)
-            : Math.round(fosPanelOpacity(time) * 100) / 100)
+            ? (techPanelOpacity(time) > .5 ? 1 : 0)
+            : Math.round(techPanelOpacity(time) * 100) / 100)
           sampleShaftScript(time, false, frame)
           sampleFosPresentation(time, frame.stress, frame.stressMix, fos)
           if (fos.kind === 'none') reset()
@@ -178,6 +185,23 @@ export function TorqueHUD({ store, playback }: { store: TorqueWrenchStore; playb
     return () => cancelAnimationFrame(raf)
   }, [store, railChapter])
 
+  // Owner review 2026-11-17: gate two mechanism captions on the actual gearbox fade.
+  // Visibility changes are direct DOM writes; scroll frames do not republish React state.
+  useEffect(() => {
+    let raf = 0
+    let currentVisible: boolean | null = null
+    const tick = () => {
+      const nextVisible = torqueCaptionVisible(beatId, chapter, document.hidden ? null : readTorqueOverlaySample())
+      if (nextVisible !== currentVisible && captionRef.current) {
+        currentVisible = nextVisible
+        captionRef.current.hidden = !nextVisible
+      }
+      raf = requestAnimationFrame(tick)
+    }
+    tick()
+    return () => cancelAnimationFrame(raf)
+  }, [beatId, chapter])
+
   const index = TORQUE_POSTER_CHAPTERS.findIndex(entry => entry.id === chapter)
   const copy = CHAPTER_COPY[chapter]
   const step = torqueHudStepText(beatId, chapter)
@@ -214,7 +238,13 @@ export function TorqueHUD({ store, playback }: { store: TorqueWrenchStore; playb
       <p className="torque-hud__mast">studiomark</p>
       <p className="torque-hud__wip">Work in progress</p>
 
-      <section className="torque-hud__caption" aria-live="polite" aria-label="Current chapter">
+      <section
+        className="torque-hud__caption"
+        ref={captionRef}
+        aria-live="polite"
+        aria-label="Current chapter"
+        hidden={torqueCaptionStartsHidden(beatId, chapter)}
+      >
         {/* Keyed by chapter: the copy remounts on chapter change and fades/rises in
             (motion review, JG-040 Stage 2) — a quiet swap, never a scroll-driven effect. */}
         <div className="torque-hud__caption-copy" key={chapter}>
@@ -256,7 +286,12 @@ export function TorqueHUD({ store, playback }: { store: TorqueWrenchStore; playb
       </section>
 
       {chapter === 'inspection' && (
-        <aside className="torque-hud__tech" ref={techRef} aria-label="Inspection evidence">
+        <aside
+          className="torque-hud__tech"
+          ref={techRef}
+          aria-label="Inspection evidence"
+          style={{ opacity: 0, visibility: 'hidden' }}
+        >
           <p className="torque-hud__tech-head">INSPECTION · INPUT SHAFT P001835</p>
           <ul className="torque-hud__tech-attempts">
             {TECH_ATTEMPTS.map(attempt => (
