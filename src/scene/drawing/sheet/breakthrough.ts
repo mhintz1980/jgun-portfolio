@@ -1,4 +1,12 @@
-import { BufferGeometry, CanvasTexture, DataTexture, LinearFilter, NearestFilter, RGBAFormat, UnsignedByteType } from 'three'
+import {
+  BufferGeometry,
+  CanvasTexture,
+  DataTexture,
+  LinearFilter,
+  NearestFilter,
+  RGBAFormat,
+  UnsignedByteType,
+} from 'three'
 import type { CleanupFailureSink } from '../drawingGeometry'
 
 interface OwnedDisposable {
@@ -41,14 +49,16 @@ export function makeBarrierMask(
   height: number,
   cleanupFailureSink?: CleanupFailureSink,
 ) {
-  const nx = 1536, ny = 960
+  const nx = 1536,
+    ny = 960
   const bytes = new Uint8Array(nx * ny * 4)
   for (let y = 0; y < ny; y++) {
     const py = ((y + 0.5) / ny - 0.5) * height
     const hits: number[] = []
     for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
-      const a = points[j], b = points[i]
-      if ((a[1] > py) !== (b[1] > py)) hits.push(a[0] + (py - a[1]) * (b[0] - a[0]) / (b[1] - a[1]))
+      const a = points[j],
+        b = points[i]
+      if (a[1] > py !== b[1] > py) hits.push(a[0] + ((py - a[1]) * (b[0] - a[0])) / (b[1] - a[1]))
     }
     hits.sort((a, b) => a - b)
     for (let i = 0; i + 1 < hits.length; i += 2) {
@@ -78,7 +88,8 @@ export function makeFragmentPrint(
   cleanupFailureSink?: CleanupFailureSink,
 ) {
   const canvas = document.createElement('canvas')
-  canvas.width = 2048; canvas.height = 1280
+  canvas.width = 2048
+  canvas.height = 1280
   const ctx = canvas.getContext('2d')!
   ctx.strokeStyle = 'white'
   const scale = canvas.width / width
@@ -92,12 +103,13 @@ export function makeFragmentPrint(
     ctx.stroke()
   }
   ctx.fillStyle = 'white'
-  for(let j=0;j<fills.length;j+=15) {
+  for (let j = 0; j < fills.length; j += 15) {
     ctx.beginPath()
-    ctx.moveTo((fills[j]+width/2)*scale,(height/2-fills[j+1])*scale)
-    ctx.lineTo((fills[j+5]+width/2)*scale,(height/2-fills[j+6])*scale)
-    ctx.lineTo((fills[j+10]+width/2)*scale,(height/2-fills[j+11])*scale)
-    ctx.closePath();ctx.fill()
+    ctx.moveTo((fills[j] + width / 2) * scale, (height / 2 - fills[j + 1]) * scale)
+    ctx.lineTo((fills[j + 5] + width / 2) * scale, (height / 2 - fills[j + 6]) * scale)
+    ctx.lineTo((fills[j + 10] + width / 2) * scale, (height / 2 - fills[j + 11]) * scale)
+    ctx.closePath()
+    ctx.fill()
   }
   const texture = new CanvasTexture(canvas)
   try {
@@ -129,28 +141,41 @@ export function makeCrackMask(
   cleanupFailureSink?: CleanupFailureSink,
 ) {
   const canvas = document.createElement('canvas')
-  canvas.width = 4096; canvas.height = 2560
-  const ctx = canvas.getContext('2d')!, scale = canvas.width / width
+  canvas.width = 4096
+  canvas.height = 2560
+  const ctx = canvas.getContext('2d')!,
+    scale = canvas.width / width
   ctx.lineWidth = 0.00018 * scale
   ctx.lineCap = 'round'
   const stroke = (ax: number, ay: number, bx: number, by: number, color: string) => {
-    ctx.strokeStyle = color; ctx.beginPath()
+    ctx.strokeStyle = color
+    ctx.beginPath()
     ctx.moveTo((ax + width / 2) * scale, (height / 2 - ay) * scale)
-    ctx.lineTo((bx + width / 2) * scale, (height / 2 - by) * scale); ctx.stroke()
+    ctx.lineTo((bx + width / 2) * scale, (height / 2 - by) * scale)
+    ctx.stroke()
   }
   for (let i = 1; i < points.length; i++) {
-    stroke(...points[i - 1] as [number, number], ...points[i] as [number, number], `rgb(${Math.max(1, Math.round(255 * i / points.length))},0,0)`)
+    stroke(
+      ...(points[i - 1] as [number, number]),
+      ...(points[i] as [number, number]),
+      `rgb(${Math.max(1, Math.round((255 * i) / points.length))},0,0)`,
+    )
   }
-  const p = cracks.getAttribute('position'), arc = cracks.getAttribute('arcLength')
+  const p = cracks.getAttribute('position'),
+    arc = cracks.getAttribute('arcLength')
   const ids = cracks.getAttribute('crackId')
   for (let i = 2; i < p.count; i += 2) {
-    const ax = (p.getX(i - 2) + p.getX(i - 1)) / 2, ay = (p.getY(i - 2) + p.getY(i - 1)) / 2
-    const bx = (p.getX(i) + p.getX(i + 1)) / 2, by = (p.getY(i) + p.getY(i + 1)) / 2
-    if ((!ids || ids.getX(i) === ids.getX(i-2)) && Math.hypot(bx - ax, by - ay) < 0.012) stroke(ax, ay, bx, by, `rgb(0,${Math.max(1, Math.round(255 * arc.getX(i)))},0)`)
+    const ax = (p.getX(i - 2) + p.getX(i - 1)) / 2,
+      ay = (p.getY(i - 2) + p.getY(i - 1)) / 2
+    const bx = (p.getX(i) + p.getX(i + 1)) / 2,
+      by = (p.getY(i) + p.getY(i + 1)) / 2
+    if ((!ids || ids.getX(i) === ids.getX(i - 2)) && Math.hypot(bx - ax, by - ay) < 0.012)
+      stroke(ax, ay, bx, by, `rgb(0,${Math.max(1, Math.round(255 * arc.getX(i)))},0)`)
   }
   const texture = new CanvasTexture(canvas)
   try {
-    texture.minFilter = texture.magFilter = NearestFilter; texture.generateMipmaps = false
+    texture.minFilter = texture.magFilter = NearestFilter
+    texture.generateMipmaps = false
     return texture
   } catch (error) {
     rollbackOwned([texture], cleanupFailureSink)

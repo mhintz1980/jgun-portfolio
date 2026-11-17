@@ -65,10 +65,42 @@ const DEFAULT_BUILD_DIR = '.scratch/jg038-stage5-20261015-c'
 const DEFAULT_TIMEOUT_MS = 120000
 
 const VIEWPORTS = {
-  D: { key: 'D', width: 1440, height: 900, deviceScaleFactor: 1, isMobile: false, hasTouch: false, label: 'D 1440x900 DPR1 desktop' },
-  N: { key: 'N', width: 390, height: 844, deviceScaleFactor: 3, isMobile: true, hasTouch: true, label: 'N 390x844 DPR3 touch emulation' },
-  H: { key: 'H', width: 2560, height: 1440, deviceScaleFactor: 2, isMobile: false, hasTouch: false, label: 'H 2560x1440 DPR2 desktop' },
-  L: { key: 'L', width: 844, height: 390, deviceScaleFactor: 3, isMobile: true, hasTouch: true, label: 'L 844x390 DPR3 landscape touch' },
+  D: {
+    key: 'D',
+    width: 1440,
+    height: 900,
+    deviceScaleFactor: 1,
+    isMobile: false,
+    hasTouch: false,
+    label: 'D 1440x900 DPR1 desktop',
+  },
+  N: {
+    key: 'N',
+    width: 390,
+    height: 844,
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true,
+    label: 'N 390x844 DPR3 touch emulation',
+  },
+  H: {
+    key: 'H',
+    width: 2560,
+    height: 1440,
+    deviceScaleFactor: 2,
+    isMobile: false,
+    hasTouch: false,
+    label: 'H 2560x1440 DPR2 desktop',
+  },
+  L: {
+    key: 'L',
+    width: 844,
+    height: 390,
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true,
+    label: 'L 844x390 DPR3 landscape touch',
+  },
 }
 
 const CASE_MATRIX = {
@@ -101,7 +133,8 @@ const DRAWING_BUFFER_PIXEL_BUDGET = 2560 * 1440
 const STATIC_LATE_REQUEST_WINDOW_MS = 1500
 // Narrative CAD/decoder bytes only (verify-torque-static convention). A shared
 // DRACOLoader code chunk is not a CAD asset.
-const CAD_REQUEST_RE = /(\.glb($|\?)|\.gltf($|\?)|\.bin($|\?)|\/draco\/(?:draco_decoder(?:_geometry)?\.wasm|draco_wasm_wrapper\.js)|ktx2|basis|\/models\/)/i
+const CAD_REQUEST_RE =
+  /(\.glb($|\?)|\.gltf($|\?)|\.bin($|\?)|\/draco\/(?:draco_decoder(?:_geometry)?\.wasm|draco_wasm_wrapper\.js)|ktx2|basis|\/models\/)/i
 
 const LIVE_CHECK_NAMES = [
   'page loads (HTTP 200)',
@@ -134,27 +167,47 @@ const STATIC_CHECK_NAMES = [
 class UsageError extends Error {}
 
 function usage() {
-  return 'usage: node scripts/verify-torque-stage5-runtime.mjs --case=<case|all|comma,list> --out=<report.json>'
-    + ' [--url=' + DEFAULT_URL + '] [--build-dir=' + DEFAULT_BUILD_DIR + '] [--timeout=' + DEFAULT_TIMEOUT_MS + ']'
+  return (
+    'usage: node scripts/verify-torque-stage5-runtime.mjs --case=<case|all|comma,list> --out=<report.json>' +
+    ' [--url=' +
+    DEFAULT_URL +
+    '] [--build-dir=' +
+    DEFAULT_BUILD_DIR +
+    '] [--timeout=' +
+    DEFAULT_TIMEOUT_MS +
+    ']'
+  )
 }
 
 function resolveCases(raw) {
-  const wanted = raw.trim().toLowerCase() === 'all'
-    ? [...CASE_ORDER]
-    : raw.split(',').map(item => item.trim().toLowerCase()).filter(Boolean)
+  const wanted =
+    raw.trim().toLowerCase() === 'all'
+      ? [...CASE_ORDER]
+      : raw
+          .split(',')
+          .map((item) => item.trim().toLowerCase())
+          .filter(Boolean)
   if (!wanted.length) throw new UsageError('--case listed no cases')
   const seen = new Set()
   const cases = []
   for (const id of wanted) {
-    if (!CASE_MATRIX[id]) throw new UsageError('unknown --case value: ' + id + ' (valid: ' + CASE_ORDER.join('|') + '|all)')
-    if (!seen.has(id)) { seen.add(id); cases.push(id) }
+    if (!CASE_MATRIX[id])
+      throw new UsageError('unknown --case value: ' + id + ' (valid: ' + CASE_ORDER.join('|') + '|all)')
+    if (!seen.has(id)) {
+      seen.add(id)
+      cases.push(id)
+    }
   }
   return cases
 }
 
 function normalizePageUrl(raw) {
   let parsed
-  try { parsed = new URL(raw) } catch { throw new UsageError('--url is not a valid URL: ' + raw) }
+  try {
+    parsed = new URL(raw)
+  } catch {
+    throw new UsageError('--url is not a valid URL: ' + raw)
+  }
   if (!/^https?:$/.test(parsed.protocol)) throw new UsageError('--url must be http(s): ' + raw)
   const requested = parsed.href
   if (parsed.pathname === '' || parsed.pathname === '/') parsed.pathname = '/torque-wrench/'
@@ -165,7 +218,14 @@ function normalizePageUrl(raw) {
 }
 
 function parseArgs(argv) {
-  const args = { url: DEFAULT_URL, buildDir: DEFAULT_BUILD_DIR, buildDirGiven: false, timeoutRaw: String(DEFAULT_TIMEOUT_MS), case: null, out: null }
+  const args = {
+    url: DEFAULT_URL,
+    buildDir: DEFAULT_BUILD_DIR,
+    buildDirGiven: false,
+    timeoutRaw: String(DEFAULT_TIMEOUT_MS),
+    case: null,
+    out: null,
+  }
   for (const raw of argv) {
     const match = /^--([a-z][a-z-]*)=(.*)$/i.exec(raw)
     if (!match) throw new UsageError('unexpected argument (expected --key=value): ' + raw)
@@ -175,8 +235,10 @@ function parseArgs(argv) {
     else if (key === 'case') args.case = value
     else if (key === 'out') args.out = value
     else if (key === 'timeout') args.timeoutRaw = value
-    else if (key === 'build-dir') { args.buildDir = value; args.buildDirGiven = true }
-    else throw new UsageError('unknown flag: --' + key)
+    else if (key === 'build-dir') {
+      args.buildDir = value
+      args.buildDirGiven = true
+    } else throw new UsageError('unknown flag: --' + key)
   }
   if (!args.case) throw new UsageError('--case is required (' + CASE_ORDER.join('|') + ' | all | comma-separated list)')
   if (!args.out) throw new UsageError('--out is required (report JSON path; exclusive create, must not already exist)')
@@ -192,7 +254,7 @@ function parseArgs(argv) {
   return args
 }
 
-const sha256 = bytes => createHash('sha256').update(bytes).digest('hex')
+const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex')
 
 function makeChecks() {
   const checks = []
@@ -215,12 +277,12 @@ function aggregateStatus(checks) {
     if (!passOk || !statusOk) shapeViolations.push(check?.name ?? '<unnamed>')
   }
   // Read ONLY the pass booleans. An empty check list is a FAIL, never a vacuous PASS.
-  const pass = checks.length > 0 && shapeViolations.length === 0 && checks.every(check => check.pass === true)
+  const pass = checks.length > 0 && shapeViolations.length === 0 && checks.every((check) => check.pass === true)
   return { pass, shapeViolations }
 }
 
 function fillMissingChecks(checks, expected, reason) {
-  const present = new Set(checks.map(check => check.name))
+  const present = new Set(checks.map((check) => check.name))
   for (const name of expected) {
     if (!present.has(name)) checks.push({ name, pass: false, status: 'FAIL', actual: 'UNVERIFIED: ' + reason })
   }
@@ -234,21 +296,23 @@ const safeQuatAngleDegrees = (a, b) => {
   if (!Array.isArray(a) || !Array.isArray(b) || a.length !== 4 || b.length !== 4) return null
   if (![...a, ...b].every(Number.isFinite)) return null
   const dot = Math.abs(a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3])
-  return 2 * Math.acos(Math.min(1, dot)) * 180 / Math.PI
+  return (2 * Math.acos(Math.min(1, dot)) * 180) / Math.PI
 }
 
 function rawResponse(url, timeoutMs) {
   return new Promise((resolve, reject) => {
     const client = new URL(url).protocol === 'https:' ? https : http
-    const request = client.get(url, { headers: { 'Accept-Encoding': 'identity' }, timeout: timeoutMs }, response => {
+    const request = client.get(url, { headers: { 'Accept-Encoding': 'identity' }, timeout: timeoutMs }, (response) => {
       const chunks = []
-      response.on('data', chunk => chunks.push(chunk))
-      response.on('end', () => resolve({
-        ok: response.statusCode === 200,
-        status: response.statusCode ?? null,
-        bytes: Buffer.concat(chunks),
-        contentEncoding: response.headers['content-encoding'] ?? null,
-      }))
+      response.on('data', (chunk) => chunks.push(chunk))
+      response.on('end', () =>
+        resolve({
+          ok: response.statusCode === 200,
+          status: response.statusCode ?? null,
+          bytes: Buffer.concat(chunks),
+          contentEncoding: response.headers['content-encoding'] ?? null,
+        }),
+      )
       response.on('error', reject)
     })
     request.on('timeout', () => request.destroy(new Error('response timeout after ' + timeoutMs + 'ms')))
@@ -266,18 +330,35 @@ function buildServedIdentity(pageUrl, buildDir, timeoutMs) {
     if (!entry || entry.isEntry !== true || typeof entry.file !== 'string') {
       throw new Error('build manifest has no torque-wrench/index.html entry: ' + manifestPath)
     }
-    const sceneKey = Object.keys(manifest).find(key => /^src\/scene\/torque-wrench\/Scene\.[tj]sx?$/.test(key))
+    const sceneKey = Object.keys(manifest).find((key) => /^src\/scene\/torque-wrench\/Scene\.[tj]sx?$/.test(key))
     const scene = sceneKey ? manifest[sceneKey] : null
-    if (!scene || typeof scene.file !== 'string') throw new Error('build manifest has no src/scene/torque-wrench/Scene chunk')
+    if (!scene || typeof scene.file !== 'string')
+      throw new Error('build manifest has no src/scene/torque-wrench/Scene chunk')
     if (!Array.isArray(entry.dynamicImports) || !entry.dynamicImports.includes(sceneKey)) {
       throw new Error('entry dynamicImports does not include the Scene chunk (' + sceneKey + ')')
     }
     const targets = [
       { name: 'page HTML', url: pageUrl.href, localPath: path.join(buildDir, 'torque-wrench', 'index.html') },
-      { name: 'entry script', url: originUrl(pageUrl, entry.file), localPath: path.join(buildDir, ...entry.file.split('/')) },
-      { name: 'Scene chunk', url: originUrl(pageUrl, scene.file), localPath: path.join(buildDir, ...scene.file.split('/')) },
-      { name: 'CAD Default.glb', url: originUrl(pageUrl, 'models/Default.glb'), localPath: path.join(buildDir, 'models', 'Default.glb') },
-      { name: 'draco decoder', url: originUrl(pageUrl, 'draco/draco_wasm_wrapper.js'), localPath: path.join(buildDir, 'draco', 'draco_wasm_wrapper.js') },
+      {
+        name: 'entry script',
+        url: originUrl(pageUrl, entry.file),
+        localPath: path.join(buildDir, ...entry.file.split('/')),
+      },
+      {
+        name: 'Scene chunk',
+        url: originUrl(pageUrl, scene.file),
+        localPath: path.join(buildDir, ...scene.file.split('/')),
+      },
+      {
+        name: 'CAD Default.glb',
+        url: originUrl(pageUrl, 'models/Default.glb'),
+        localPath: path.join(buildDir, 'models', 'Default.glb'),
+      },
+      {
+        name: 'draco decoder',
+        url: originUrl(pageUrl, 'draco/draco_wasm_wrapper.js'),
+        localPath: path.join(buildDir, 'draco', 'draco_wasm_wrapper.js'),
+      },
     ]
     const records = []
     for (const target of targets) {
@@ -307,10 +388,24 @@ function buildServedIdentity(pageUrl, buildDir, timeoutMs) {
         })
       }
     }
-    return { buildDir, entryFile: entry.file, sceneFile: scene.file, records, pass: records.every(record => record.matched === true), error: null }
+    return {
+      buildDir,
+      entryFile: entry.file,
+      sceneFile: scene.file,
+      records,
+      pass: records.every((record) => record.matched === true),
+      error: null,
+    }
   }
   // Degrade, never crash: an unreadable manifest or unreachable asset is a FAIL record.
-  return run().catch(error => ({ buildDir, entryFile: null, sceneFile: null, records: [], pass: false, error: String(error?.message ?? error) }))
+  return run().catch((error) => ({
+    buildDir,
+    entryFile: null,
+    sceneFile: null,
+    records: [],
+    pass: false,
+    error: String(error?.message ?? error),
+  }))
 }
 
 async function readObservation(page) {
@@ -333,17 +428,27 @@ async function readObservation(page) {
         background: typeof window.__torqueBackground,
         narrative: typeof window.__torqueNarrative,
       },
-      viewport: { innerWidth: window.innerWidth, innerHeight: window.innerHeight, devicePixelRatio: window.devicePixelRatio },
+      viewport: {
+        innerWidth: window.innerWidth,
+        innerHeight: window.innerHeight,
+        devicePixelRatio: window.devicePixelRatio,
+      },
     }
   })
 }
 
 async function attachCollectors(page, errors, collected) {
-  page.on('pageerror', error => errors.push({ kind: 'pageerror', message: String(error) }))
-  page.on('console', message => { if (message.type() === 'error') errors.push({ kind: 'console', message: message.text() }) })
-  page.on('requestfailed', request => errors.push({ kind: 'requestfailed', message: request.url() + ': ' + (request.failure()?.errorText ?? 'failed') }))
-  page.on('response', response => { if (response.status() >= 400) errors.push({ kind: 'http', message: response.status() + ' ' + response.url() }) })
-  page.on('request', request => {
+  page.on('pageerror', (error) => errors.push({ kind: 'pageerror', message: String(error) }))
+  page.on('console', (message) => {
+    if (message.type() === 'error') errors.push({ kind: 'console', message: message.text() })
+  })
+  page.on('requestfailed', (request) =>
+    errors.push({ kind: 'requestfailed', message: request.url() + ': ' + (request.failure()?.errorText ?? 'failed') }),
+  )
+  page.on('response', (response) => {
+    if (response.status() >= 400) errors.push({ kind: 'http', message: response.status() + ' ' + response.url() })
+  })
+  page.on('request', (request) => {
     collected.requestsObserved += 1
     if (CAD_REQUEST_RE.test(request.url())) collected.cadRequests.push(request.url())
   })
@@ -352,30 +457,54 @@ async function attachCollectors(page, errors, collected) {
 async function runLiveObservations(page, args, spec, record, collected) {
   const view = VIEWPORTS[spec.viewport]
   try {
-    await page.waitForFunction(() => {
-      const world = window.__torqueWorld
-      const background = window.__torqueBackground
-      return document.querySelector('.torque-page')?.dataset.torqueMode === 'live'
-        && typeof world?.snapshot === 'function' && world.snapshot().ready === true
-        && world.snapshot().sheet?.baked === true
-        && typeof background?.snapshot === 'function' && background.snapshot().frames > 1
-    }, null, { timeout: args.timeout, polling: 100 })
+    await page.waitForFunction(
+      () => {
+        const world = window.__torqueWorld
+        const background = window.__torqueBackground
+        return (
+          document.querySelector('.torque-page')?.dataset.torqueMode === 'live' &&
+          typeof world?.snapshot === 'function' &&
+          world.snapshot().ready === true &&
+          world.snapshot().sheet?.baked === true &&
+          typeof background?.snapshot === 'function' &&
+          background.snapshot().frames > 1
+        )
+      },
+      null,
+      { timeout: args.timeout, polling: 100 },
+    )
   } catch {
     // Boot never completed; the checks below record the observed state honestly.
   }
   const first = await readObservation(page)
   collected.renderer = first.world?.renderer ?? null
-  record('viewport observed matches case matrix',
-    first.viewport.innerWidth === view.width && first.viewport.innerHeight === view.height
-      && first.viewport.devicePixelRatio === view.deviceScaleFactor,
-    { requested: { width: view.width, height: view.height, deviceScaleFactor: view.deviceScaleFactor }, observed: first.viewport })
-  record('telemetry surfaces present',
-    Boolean(first.world && first.background && first.narrative),
-    { world: Boolean(first.world), background: Boolean(first.background), narrative: Boolean(first.narrative) })
-  record('live mode reached', first.mode === 'live',
-    { mode: first.mode, torqueStage: first.torqueStage, narrativeCanvasCount: first.narrativeCanvasCount, visibility: first.visibility })
+  record(
+    'viewport observed matches case matrix',
+    first.viewport.innerWidth === view.width &&
+      first.viewport.innerHeight === view.height &&
+      first.viewport.devicePixelRatio === view.deviceScaleFactor,
+    {
+      requested: { width: view.width, height: view.height, deviceScaleFactor: view.deviceScaleFactor },
+      observed: first.viewport,
+    },
+  )
+  record('telemetry surfaces present', Boolean(first.world && first.background && first.narrative), {
+    world: Boolean(first.world),
+    background: Boolean(first.background),
+    narrative: Boolean(first.narrative),
+  })
+  record('live mode reached', first.mode === 'live', {
+    mode: first.mode,
+    torqueStage: first.torqueStage,
+    narrativeCanvasCount: first.narrativeCanvasCount,
+    visibility: first.visibility,
+  })
   if (!first.world || !first.background) {
-    record('requested tier matches effective tier (store, sheet, background budget)', false, 'UNVERIFIED: telemetry surfaces missing')
+    record(
+      'requested tier matches effective tier (store, sheet, background budget)',
+      false,
+      'UNVERIFIED: telemetry surfaces missing',
+    )
     record('readiness: world ready, sheet baked, background rendering', false, 'UNVERIFIED: telemetry surfaces missing')
     return
   }
@@ -388,20 +517,35 @@ async function runLiveObservations(page, args, spec, record, collected) {
     rendererDrawingBuffer: first.world.renderer?.drawingBuffer ?? null,
     backgroundBudgetDpr: first.background.budget?.dpr ?? null,
   }
-  record('requested tier matches effective tier (store, sheet, background budget)',
-    tierActual.storeTier === spec.tier && tierActual.sheetTier === spec.tier && tierActual.backgroundBudgetTier === spec.tier,
-    tierActual)
+  record(
+    'requested tier matches effective tier (store, sheet, background budget)',
+    tierActual.storeTier === spec.tier &&
+      tierActual.sheetTier === spec.tier &&
+      tierActual.backgroundBudgetTier === spec.tier,
+    tierActual,
+  )
   let readiness = { ok: false, error: null }
   try {
-    await page.waitForFunction(() => {
-      const world = window.__torqueWorld?.snapshot?.()
-      const background = window.__torqueBackground?.snapshot?.()
-      return Boolean(world?.ready && world.sheet?.baked && background && background.frames > 1)
-    }, null, { timeout: args.timeout, polling: 100 })
+    await page.waitForFunction(
+      () => {
+        const world = window.__torqueWorld?.snapshot?.()
+        const background = window.__torqueBackground?.snapshot?.()
+        return Boolean(world?.ready && world.sheet?.baked && background && background.frames > 1)
+      },
+      null,
+      { timeout: args.timeout, polling: 100 },
+    )
     readiness.ok = true
-  } catch (error) { readiness.error = String(error?.message ?? error) }
-  record('readiness: world ready, sheet baked, background rendering', readiness.ok,
-    readiness.ok ? { worldReady: true, sheetBaked: true, backgroundFrames: first.background.frames } : { timeoutMs: args.timeout, error: readiness.error })
+  } catch (error) {
+    readiness.error = String(error?.message ?? error)
+  }
+  record(
+    'readiness: world ready, sheet baked, background rendering',
+    readiness.ok,
+    readiness.ok
+      ? { worldReady: true, sheetBaked: true, backgroundFrames: first.background.frames }
+      : { timeoutMs: args.timeout, error: readiness.error },
+  )
 
   const samples = []
   const seekTimeoutMs = Math.min(args.timeout, SEEK_WAIT_TIMEOUT_MS)
@@ -409,14 +553,18 @@ async function runLiveObservations(page, args, spec, record, collected) {
     try {
       // NATURAL motion only: a real scroll of the live document. No store writes, no
       // playback clock, no synthetic progress injection.
-      await page.evaluate(value => {
+      await page.evaluate((value) => {
         const fraction = window.__torqueNarrative?.scrollFraction?.(value) ?? value
         window.scrollTo(0, Math.round((document.documentElement.scrollHeight - window.innerHeight) * fraction))
       }, requested)
-      await page.waitForFunction(value => {
-        const snapshot = window.__torqueWorld?.snapshot?.()
-        return typeof snapshot?.progress === 'number' && Math.abs(snapshot.progress - value) < 0.001
-      }, requested, { timeout: seekTimeoutMs, polling: 50 })
+      await page.waitForFunction(
+        (value) => {
+          const snapshot = window.__torqueWorld?.snapshot?.()
+          return typeof snapshot?.progress === 'number' && Math.abs(snapshot.progress - value) < 0.001
+        },
+        requested,
+        { timeout: seekTimeoutMs, polling: 50 },
+      )
       await page.waitForTimeout(SEEK_SETTLE_MS)
       const observation = await readObservation(page)
       samples.push({
@@ -431,9 +579,11 @@ async function runLiveObservations(page, args, spec, record, collected) {
     }
   }
   collected.samples = samples
-  record('canonical seeks settle within 0.001',
-    samples.length === SEEK_POINTS.length && samples.every(sample => sample.achieved !== null),
-    samples.map(sample => ({ requested: sample.requested, achieved: sample.achieved, error: sample.error ?? null })))
+  record(
+    'canonical seeks settle within 0.001',
+    samples.length === SEEK_POINTS.length && samples.every((sample) => sample.achieved !== null),
+    samples.map((sample) => ({ requested: sample.requested, achieved: sample.achieved, error: sample.error ?? null })),
+  )
 
   let beforeHold = null
   let afterHold = null
@@ -442,14 +592,22 @@ async function runLiveObservations(page, args, spec, record, collected) {
     beforeHold = await readObservation(page)
     await page.waitForTimeout(HOLD_SPAN_MS)
     afterHold = await readObservation(page)
-  } catch (error) { holdError = String(error?.message ?? error) }
-  collected.hold = beforeHold && afterHold
-    ? { before: { world: beforeHold.world, background: beforeHold.background }, after: { world: afterHold.world, background: afterHold.background } }
-    : null
+  } catch (error) {
+    holdError = String(error?.message ?? error)
+  }
+  collected.hold =
+    beforeHold && afterHold
+      ? {
+          before: { world: beforeHold.world, background: beforeHold.background },
+          after: { world: afterHold.world, background: afterHold.background },
+        }
+      : null
   const positionDrift = safeDist3(beforeHold?.world?.camera?.position, afterHold?.world?.camera?.position)
   const quatDriftDeg = safeQuatAngleDegrees(beforeHold?.world?.camera?.quaternion, afterHold?.world?.camera?.quaternion)
-  const fovDriftDeg = Number.isFinite(beforeHold?.world?.camera?.fov) && Number.isFinite(afterHold?.world?.camera?.fov)
-    ? Math.abs(afterHold.world.camera.fov - beforeHold.world.camera.fov) : null
+  const fovDriftDeg =
+    Number.isFinite(beforeHold?.world?.camera?.fov) && Number.isFinite(afterHold?.world?.camera?.fov)
+      ? Math.abs(afterHold.world.camera.fov - beforeHold.world.camera.fov)
+      : null
   const backgroundProgressBefore = beforeHold?.background?.progress ?? null
   const backgroundProgressAfter = afterHold?.background?.progress ?? null
   const holdActual = {
@@ -462,80 +620,138 @@ async function runLiveObservations(page, args, spec, record, collected) {
     backgroundFrames: [beforeHold?.background?.frames ?? null, afterHold?.background?.frames ?? null],
     error: holdError,
   }
-  record('held state stable over five seconds',
-    holdError === null
-      && positionDrift !== null && positionDrift <= HOLD_POSITION_DRIFT_M
-      && quatDriftDeg !== null && quatDriftDeg <= HOLD_QUAT_DRIFT_DEG
-      && fovDriftDeg !== null && fovDriftDeg <= HOLD_FOV_DRIFT_DEG
-      && backgroundProgressBefore !== null && backgroundProgressAfter === backgroundProgressBefore,
-    holdActual)
-  record('world and background frames advance together',
-    holdError === null
-      && (afterHold?.world?.frames ?? -1) > (beforeHold?.world?.frames ?? Infinity)
-      && (afterHold?.background?.frames ?? -1) > (beforeHold?.background?.frames ?? Infinity),
-    { worldFrames: holdActual.worldFrames, backgroundFrames: holdActual.backgroundFrames })
+  record(
+    'held state stable over five seconds',
+    holdError === null &&
+      positionDrift !== null &&
+      positionDrift <= HOLD_POSITION_DRIFT_M &&
+      quatDriftDeg !== null &&
+      quatDriftDeg <= HOLD_QUAT_DRIFT_DEG &&
+      fovDriftDeg !== null &&
+      fovDriftDeg <= HOLD_FOV_DRIFT_DEG &&
+      backgroundProgressBefore !== null &&
+      backgroundProgressAfter === backgroundProgressBefore,
+    holdActual,
+  )
+  record(
+    'world and background frames advance together',
+    holdError === null &&
+      (afterHold?.world?.frames ?? -1) > (beforeHold?.world?.frames ?? Infinity) &&
+      (afterHold?.background?.frames ?? -1) > (beforeHold?.background?.frames ?? Infinity),
+    { worldFrames: holdActual.worldFrames, backgroundFrames: holdActual.backgroundFrames },
+  )
 
-  const finalBackground = afterHold?.background ?? [...samples].reverse().find(sample => sample.background)?.background ?? null
+  const finalBackground =
+    afterHold?.background ?? [...samples].reverse().find((sample) => sample.background)?.background ?? null
   const layers = finalBackground?.actualLayers ?? null
-  record('three live depth layers present, visible, finite',
-    Array.isArray(layers) && layers.length === 3 && layers.every(layer =>
-      layer?.visible === true && Array.isArray(layer.position) && layer.position.every(Number.isFinite)),
-    layers)
+  record(
+    'three live depth layers present, visible, finite',
+    Array.isArray(layers) &&
+      layers.length === 3 &&
+      layers.every(
+        (layer) => layer?.visible === true && Array.isArray(layer.position) && layer.position.every(Number.isFinite),
+      ),
+    layers,
+  )
   const gradeSamples = samples
-    .filter(sample => sample.requested <= IDENTITY_GRADE_MAX_PROGRESS && sample.achieved !== null)
-    .map(sample => ({
+    .filter((sample) => sample.requested <= IDENTITY_GRADE_MAX_PROGRESS && sample.achieved !== null)
+    .map((sample) => ({
       requested: sample.requested,
       achieved: sample.achieved,
       exposure: sample.background?.post?.exposure ?? null,
       saturation: sample.background?.post?.saturation ?? null,
       vignette: sample.background?.post?.vignette ?? null,
     }))
-  record('identity grade through 0.46',
-    gradeSamples.length === 3 && gradeSamples.every(sample =>
-      Math.abs(sample.exposure - 1) <= IDENTITY_GRADE_EPSILON
-      && Math.abs(sample.saturation - 1) <= IDENTITY_GRADE_EPSILON
-      && Math.abs(sample.vignette) <= IDENTITY_GRADE_EPSILON),
-    { samples: gradeSamples, epsilon: IDENTITY_GRADE_EPSILON })
+  record(
+    'identity grade through 0.46',
+    gradeSamples.length === 3 &&
+      gradeSamples.every(
+        (sample) =>
+          Math.abs(sample.exposure - 1) <= IDENTITY_GRADE_EPSILON &&
+          Math.abs(sample.saturation - 1) <= IDENTITY_GRADE_EPSILON &&
+          Math.abs(sample.vignette) <= IDENTITY_GRADE_EPSILON,
+      ),
+    { samples: gradeSamples, epsilon: IDENTITY_GRADE_EPSILON },
+  )
   const actualBuffer = finalBackground?.actualBuffer ?? null
-  record('drawing buffer exactly 2 finite dims within 2560x1440 budget',
-    Array.isArray(actualBuffer) && actualBuffer.length === 2 && actualBuffer.every(Number.isFinite)
-      && actualBuffer[0] * actualBuffer[1] <= DRAWING_BUFFER_PIXEL_BUDGET,
-    { actualBuffer, budget: finalBackground?.budget ?? null, pixelBudget: DRAWING_BUFFER_PIXEL_BUDGET })
+  record(
+    'drawing buffer exactly 2 finite dims within 2560x1440 budget',
+    Array.isArray(actualBuffer) &&
+      actualBuffer.length === 2 &&
+      actualBuffer.every(Number.isFinite) &&
+      actualBuffer[0] * actualBuffer[1] <= DRAWING_BUFFER_PIXEL_BUDGET,
+    { actualBuffer, budget: finalBackground?.budget ?? null, pixelBudget: DRAWING_BUFFER_PIXEL_BUDGET },
+  )
   const frameStats = samples
-    .filter(sample => sample.achieved !== null)
-    .map(sample => ({ requested: sample.requested, calls: sample.background?.calls ?? null, triangles: sample.background?.triangles ?? null }))
-  record('renderer frame stats captured (whole-frame calls and triangles)',
-    frameStats.length > 0 && frameStats.every(sample =>
-      Number.isFinite(sample.calls) && sample.calls > 0 && Number.isFinite(sample.triangles) && sample.triangles > 0),
-    { samples: frameStats, note: 'whole-frame renderer.info sum across composer passes (BackgroundWorld resets gl.info, renders the full chain, then reads); actual values only, no ceiling asserted' })
+    .filter((sample) => sample.achieved !== null)
+    .map((sample) => ({
+      requested: sample.requested,
+      calls: sample.background?.calls ?? null,
+      triangles: sample.background?.triangles ?? null,
+    }))
+  record(
+    'renderer frame stats captured (whole-frame calls and triangles)',
+    frameStats.length > 0 &&
+      frameStats.every(
+        (sample) =>
+          Number.isFinite(sample.calls) &&
+          sample.calls > 0 &&
+          Number.isFinite(sample.triangles) &&
+          sample.triangles > 0,
+      ),
+    {
+      samples: frameStats,
+      note: 'whole-frame renderer.info sum across composer passes (BackgroundWorld resets gl.info, renders the full chain, then reads); actual values only, no ceiling asserted',
+    },
+  )
 }
 
 async function runStaticObservations(page, args, spec, record, collected) {
   let modeWaitError = null
   try {
-    await page.waitForFunction(() => document.querySelector('.torque-page')?.dataset.torqueMode === 'static',
-      null, { timeout: args.timeout, polling: 100 })
-  } catch (error) { modeWaitError = String(error?.message ?? error) }
+    await page.waitForFunction(() => document.querySelector('.torque-page')?.dataset.torqueMode === 'static', null, {
+      timeout: args.timeout,
+      polling: 100,
+    })
+  } catch (error) {
+    modeWaitError = String(error?.message ?? error)
+  }
   // Bounded late-request window: proves no narrative CAD fetch trails the static flip.
   await page.waitForTimeout(STATIC_LATE_REQUEST_WINDOW_MS)
   const observation = await readObservation(page)
   const view = VIEWPORTS[spec.viewport]
-  record('viewport observed matches case matrix',
-    observation.viewport.innerWidth === view.width && observation.viewport.innerHeight === view.height
-      && observation.viewport.devicePixelRatio === view.deviceScaleFactor,
-    { requested: { width: view.width, height: view.height, deviceScaleFactor: view.deviceScaleFactor }, observed: observation.viewport })
-  record('static mode active (semantic static path present)',
-    modeWaitError === null && observation.mode === 'static',
-    { mode: observation.mode, torqueStage: observation.torqueStage, waitError: modeWaitError })
-  record('zero narrative WebGL canvases',
-    observation.narrativeCanvasCount === 0,
-    { narrativeCanvasCount: observation.narrativeCanvasCount, sceneRootCount: observation.sceneRootCount, canvasCount: observation.canvasCount })
-  record('zero narrative CAD requests',
-    collected.cadRequests.length === 0,
-    { cadRequests: collected.cadRequests, requestsObserved: collected.requestsObserved, observationWindowMs: STATIC_LATE_REQUEST_WINDOW_MS })
-  record('zero background allocation',
-    observation.allocation.world === 'undefined' && observation.allocation.background === 'undefined' && observation.allocation.narrative === 'undefined',
-    observation.allocation)
+  record(
+    'viewport observed matches case matrix',
+    observation.viewport.innerWidth === view.width &&
+      observation.viewport.innerHeight === view.height &&
+      observation.viewport.devicePixelRatio === view.deviceScaleFactor,
+    {
+      requested: { width: view.width, height: view.height, deviceScaleFactor: view.deviceScaleFactor },
+      observed: observation.viewport,
+    },
+  )
+  record('static mode active (semantic static path present)', modeWaitError === null && observation.mode === 'static', {
+    mode: observation.mode,
+    torqueStage: observation.torqueStage,
+    waitError: modeWaitError,
+  })
+  record('zero narrative WebGL canvases', observation.narrativeCanvasCount === 0, {
+    narrativeCanvasCount: observation.narrativeCanvasCount,
+    sceneRootCount: observation.sceneRootCount,
+    canvasCount: observation.canvasCount,
+  })
+  record('zero narrative CAD requests', collected.cadRequests.length === 0, {
+    cadRequests: collected.cadRequests,
+    requestsObserved: collected.requestsObserved,
+    observationWindowMs: STATIC_LATE_REQUEST_WINDOW_MS,
+  })
+  record(
+    'zero background allocation',
+    observation.allocation.world === 'undefined' &&
+      observation.allocation.background === 'undefined' &&
+      observation.allocation.narrative === 'undefined',
+    observation.allocation,
+  )
 }
 
 async function runCase(browser, caseId, spec, pageUrl, args, identity) {
@@ -570,8 +786,10 @@ async function runCase(browser, caseId, spec, pageUrl, args, identity) {
     await context?.close().catch(() => {})
   }
   record('zero page/console/network/HTTP errors', errors.length === 0, errors)
-  record('served identity byte-matches build dir', identity.pass === true,
-    { mismatches: (identity.records ?? []).filter(item => item.matched !== true).map(item => item.name), error: identity.error ?? null })
+  record('served identity byte-matches build dir', identity.pass === true, {
+    mismatches: (identity.records ?? []).filter((item) => item.matched !== true).map((item) => item.name),
+    error: identity.error ?? null,
+  })
   fillMissingChecks(checks, expected, 'case did not reach this check (earlier failure)')
   const verdict = aggregateStatus(checks)
   return {
@@ -586,8 +804,8 @@ async function runCase(browser, caseId, spec, pageUrl, args, identity) {
     status: verdict.pass ? 'PASS' : 'FAIL',
     summary: {
       total: checks.length,
-      passed: checks.filter(check => check.pass === true).length,
-      failed: checks.filter(check => check.pass !== true).length,
+      passed: checks.filter((check) => check.pass === true).length,
+      failed: checks.filter((check) => check.pass !== true).length,
       pass: verdict.pass,
     },
     errors,
@@ -651,32 +869,37 @@ async function main() {
     })
   } finally {
     report.finishedAt = new Date().toISOString()
-    const allChecks = report.cases.flatMap(entry => entry.checks ?? [])
+    const allChecks = report.cases.flatMap((entry) => entry.checks ?? [])
     const verdict = aggregateStatus(allChecks)
     report.status = verdict.pass ? 'PASS' : 'FAIL'
     report.shapeViolations = verdict.shapeViolations
     report.summary = {
       totalChecks: allChecks.length,
-      passedChecks: allChecks.filter(check => check.pass === true).length,
-      failedChecks: allChecks.filter(check => check.pass !== true).length,
+      passedChecks: allChecks.filter((check) => check.pass === true).length,
+      failedChecks: allChecks.filter((check) => check.pass !== true).length,
       pass: verdict.pass,
     }
-    report.failedChecks = report.cases
-      .flatMap(entry => (entry.checks ?? []).filter(check => check.pass !== true).map(check => entry.id + ':' + check.name))
+    report.failedChecks = report.cases.flatMap((entry) =>
+      (entry.checks ?? []).filter((check) => check.pass !== true).map((check) => entry.id + ':' + check.name),
+    )
     try {
       writeFileSync(args.out, JSON.stringify(report, null, 2) + '\n', { flag: 'wx' })
       console.log('report: ' + args.out)
-      console.log('RESULT: ' + report.status + ' (' + report.summary.passedChecks + '/' + report.summary.totalChecks + ' checks)')
+      console.log(
+        'RESULT: ' + report.status + ' (' + report.summary.passedChecks + '/' + report.summary.totalChecks + ' checks)',
+      )
       if (report.failedChecks.length) console.log('failed: ' + report.failedChecks.join(' | '))
       process.exitCode = report.status === 'PASS' ? 0 : 1
     } catch (error) {
-      console.error('cannot write report (exclusive create, --out must not exist): ' + args.out + ' - ' + (error?.message ?? error))
+      console.error(
+        'cannot write report (exclusive create, --out must not exist): ' + args.out + ' - ' + (error?.message ?? error),
+      )
       process.exitCode = 2
     }
   }
 }
 
-main().catch(error => {
+main().catch((error) => {
   console.error('fatal harness error: ' + (error?.stack ?? error))
   process.exitCode = 1
 })

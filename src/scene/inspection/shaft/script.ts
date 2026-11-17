@@ -9,7 +9,7 @@ export type ShaftCaptionId = 'none' | 'stage1-mesh' | 'bullet-time' | 'driveline
 export const SHAFT_CARD_TEXT = Object.freeze({
   '4140': 'AISI 4140 (40-45 HRC)',
   '4340': 'AISI 4340 (48-50 HRC)',
-  'c300': 'C300 (56-58 HRC)',
+  c300: 'C300 (56-58 HRC)',
   '4340-ht': 'AISI 4340 (H.T. 48-50 HRC)',
 } as const)
 export const SHAFT_STAMP_TEXT = 'FAILED'
@@ -19,9 +19,12 @@ export const SHAFT_RECAP_CAPTION_TEXT = 'Remaining teeth — time compressed'
 /** Stable narrative identities; continuous motion never changes the announcement text. */
 export const SHAFT_CAPTION_TEXT = Object.freeze({
   none: '',
-  'stage1-mesh': 'Stage 1 engagement: four P000247 planets slide onto the ten sun teeth for full .250″ face engagement.',
-  'bullet-time': 'Torque ignition, slowed down: the sun pushes the planets around the stationary ring gear, driving the carrier.',
-  'driveline-cascade': 'Driveline cascade: Stage 1 → 2 → 3 → 4 → 5 → output. Each stage turns slower; the input accelerates to its cap.',
+  'stage1-mesh':
+    'Stage 1 engagement: four P000247 planets slide onto the ten sun teeth for full .250″ face engagement.',
+  'bullet-time':
+    'Torque ignition, slowed down: the sun pushes the planets around the stationary ring gear, driving the carrier.',
+  'driveline-cascade':
+    'Driveline cascade: Stage 1 → 2 → 3 → 4 → 5 → output. Each stage turns slower; the input accelerates to its cap.',
 } as const)
 
 export const SHAFT_DURATION = 66.9
@@ -51,7 +54,11 @@ const STUDY_END = shaftBeat('runout-hold').end
 const ENGAGEMENT_END = shaftBeat('stage1-mesh').end
 const BULLET_TIME_END = 40.2
 
-export interface ShaftMaterialAttempt { readonly card: '4140' | '4340' | 'c300'; readonly start: number; readonly end: number }
+export interface ShaftMaterialAttempt {
+  readonly card: '4140' | '4340' | 'c300'
+  readonly start: number
+  readonly end: number
+}
 /** 2.8 + 2.5 + 2.3 = 7.6 s of attempts inside the materials beat (15..22.6). */
 export const SHAFT_MATERIAL_ATTEMPTS: readonly ShaftMaterialAttempt[] = Object.freeze([
   Object.freeze({ card: '4140', start: 15, end: 17.8 }),
@@ -62,7 +69,12 @@ export const SHAFT_MATERIAL_ATTEMPTS: readonly ShaftMaterialAttempt[] = Object.f
 const CARD_INDEX: Readonly<Record<ShaftCardId, number>> = { none: 0, '4140': 1, '4340': 2, c300: 3, '4340-ht': 4 }
 const STAMP_INDEX: Readonly<Record<ShaftStampState, number>> = { none: 0, in: 1, settled: 2 }
 const STRESS_INDEX: Readonly<Record<ShaftStressKind, number>> = { none: 0, warm: 1, cool: 2 }
-const CAPTION_INDEX: Readonly<Record<ShaftCaptionId, number>> = { none: 0, 'stage1-mesh': 1, 'bullet-time': 2, 'driveline-cascade': 3 }
+const CAPTION_INDEX: Readonly<Record<ShaftCaptionId, number>> = {
+  none: 0,
+  'stage1-mesh': 1,
+  'bullet-time': 2,
+  'driveline-cascade': 3,
+}
 
 export interface ShaftScriptFrame {
   card: ShaftCardId
@@ -84,14 +96,28 @@ export interface ShaftScriptFrame {
 
 export function createShaftScriptFrame(): ShaftScriptFrame {
   return {
-    card: 'none', cardText: '', cardOpacity: 0, stamp: 'none', stampScale: 1,
-    attribution: false, remainingTeeth: false, stressIllustrative: false,
-    stress: 'none', stressMix: 0, scanProgress: 0, caption: 'none', captionText: '', discrete: 0,
+    card: 'none',
+    cardText: '',
+    cardOpacity: 0,
+    stamp: 'none',
+    stampScale: 1,
+    attribution: false,
+    remainingTeeth: false,
+    stressIllustrative: false,
+    stress: 'none',
+    stressMix: 0,
+    scanProgress: 0,
+    caption: 'none',
+    captionText: '',
+    discrete: 0,
   }
 }
 
 const clamp01 = (x: number) => (x < 0 ? 0 : x > 1 ? 1 : x)
-const ease = (x: number) => { const t = clamp01(x); return t * t * (3 - 2 * t) }
+const ease = (x: number) => {
+  const t = clamp01(x)
+  return t * t * (3 - 2 * t)
+}
 
 /**
  * Closed-form sample of the authored card/stamp/caption/stress schedule.
@@ -111,18 +137,27 @@ export function sampleShaftScript(time: number, reducedMotion: boolean, out: Sha
     const stampIn = attempt.start + SHAFT_CARD_FADE + SHAFT_READABLE
     const settledAt = stampIn + SHAFT_IMPULSE
     const fadeOutStart = attempt.end - SHAFT_CARD_GAP - SHAFT_CARD_FADE
-    cardOpacity = t < attempt.start + SHAFT_CARD_FADE
-      ? ease((t - attempt.start) / SHAFT_CARD_FADE)
-      : t < fadeOutStart ? 1 : 1 - ease((t - fadeOutStart) / SHAFT_CARD_FADE)
+    cardOpacity =
+      t < attempt.start + SHAFT_CARD_FADE
+        ? ease((t - attempt.start) / SHAFT_CARD_FADE)
+        : t < fadeOutStart
+          ? 1
+          : 1 - ease((t - fadeOutStart) / SHAFT_CARD_FADE)
     stamp = t >= settledAt ? 'settled' : t >= stampIn ? 'in' : 'none'
-    stampScale = reducedMotion || stamp === 'none' || stamp === 'settled' ? 1 : 1 + STAMP_OVERSHOOT * (1 - ease((t - stampIn) / SHAFT_IMPULSE))
+    stampScale =
+      reducedMotion || stamp === 'none' || stamp === 'settled'
+        ? 1
+        : 1 + STAMP_OVERSHOOT * (1 - ease((t - stampIn) / SHAFT_IMPULSE))
     break
   }
   if (t >= FINAL_CARD_START && t < STUDY_END) {
     card = '4340-ht'
-    cardOpacity = t < FINAL_CARD_START + SHAFT_CARD_FADE
-      ? ease((t - FINAL_CARD_START) / SHAFT_CARD_FADE)
-      : t < STUDY_END - SHAFT_CARD_FADE ? 1 : 1 - ease((t - (STUDY_END - SHAFT_CARD_FADE)) / SHAFT_CARD_FADE)
+    cardOpacity =
+      t < FINAL_CARD_START + SHAFT_CARD_FADE
+        ? ease((t - FINAL_CARD_START) / SHAFT_CARD_FADE)
+        : t < STUDY_END - SHAFT_CARD_FADE
+          ? 1
+          : 1 - ease((t - (STUDY_END - SHAFT_CARD_FADE)) / SHAFT_CARD_FADE)
     stamp = 'none'
     stampScale = 1
   }
@@ -161,9 +196,24 @@ export function sampleShaftScript(time: number, reducedMotion: boolean, out: Sha
   out.stressMix = stressMix
   out.scanProgress = scanProgress
   out.stressIllustrative = stress !== 'none'
-  const caption: ShaftCaptionId = t < STUDY_END ? 'none' : t < ENGAGEMENT_END ? 'stage1-mesh' : t < BULLET_TIME_END ? 'bullet-time' : 'driveline-cascade'
+  const caption: ShaftCaptionId =
+    t < STUDY_END
+      ? 'none'
+      : t < ENGAGEMENT_END
+        ? 'stage1-mesh'
+        : t < BULLET_TIME_END
+          ? 'bullet-time'
+          : 'driveline-cascade'
   out.caption = caption
   out.captionText = SHAFT_CAPTION_TEXT[caption]
-  out.discrete = (((((CARD_INDEX[card] * 3 + STAMP_INDEX[stamp]) * 2 + (out.attribution ? 1 : 0)) * 2 + (out.remainingTeeth ? 1 : 0)) * 2 + (out.stressIllustrative ? 1 : 0)) * 3 + STRESS_INDEX[stress]) * 4 + CAPTION_INDEX[caption]
+  out.discrete =
+    (((((CARD_INDEX[card] * 3 + STAMP_INDEX[stamp]) * 2 + (out.attribution ? 1 : 0)) * 2 +
+      (out.remainingTeeth ? 1 : 0)) *
+      2 +
+      (out.stressIllustrative ? 1 : 0)) *
+      3 +
+      STRESS_INDEX[stress]) *
+      4 +
+    CAPTION_INDEX[caption]
   return out
 }

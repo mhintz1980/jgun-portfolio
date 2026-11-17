@@ -38,10 +38,7 @@ export function studioSpotNudge(progress: number): { intensity: number; y: numbe
  * Rear-LCD micro-rim point light (peak 0.8) — active only inside
  * LCD_REVEAL_WINDOW with the same 0.02 ease as LcdFillLight.
  */
-export function lcdMicroRimIntensity(
-  progress: number,
-  window: readonly [number, number],
-): number {
+export function lcdMicroRimIntensity(progress: number, window: readonly [number, number]): number {
   const fadeIn = Math.min(Math.max((progress - window[0]) / 0.02, 0), 1)
   const fadeOut = Math.min(Math.max((window[1] - progress) / 0.02, 0), 1)
   return 0.8 * Math.min(fadeIn, fadeOut)

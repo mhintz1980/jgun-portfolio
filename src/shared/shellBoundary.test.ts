@@ -79,7 +79,11 @@ function walk(dir: string): string[] {
   return out.sort()
 }
 
-const rel = (file: string) => path.relative(path.resolve(SHARED_DIR, '..', '..'), file).split(path.sep).join('/')
+const rel = (file: string) =>
+  path
+    .relative(path.resolve(SHARED_DIR, '..', '..'), file)
+    .split(path.sep)
+    .join('/')
 const isUnder = (file: string, dir: string) => {
   const r = path.relative(dir, file)
   return r !== '' && !r.startsWith('..') && !path.isAbsolute(r)
@@ -93,7 +97,14 @@ const rl300Files = walk(RL300_DIR).filter((file) => /\.[cm]?[jt]sx?$/.test(file)
 
 describe('boundary helpers', () => {
   it('stripComments removes block and line comments but not a URL scheme', () => {
-    const src = ['const a = 1 // innerHeight', '/* scrollTop */ const b = 2', 'const u = "https://x.test/a"', '/**', ' * lenis', ' */'].join('\n')
+    const src = [
+      'const a = 1 // innerHeight',
+      '/* scrollTop */ const b = 2',
+      'const u = "https://x.test/a"',
+      '/**',
+      ' * lenis',
+      ' */',
+    ].join('\n')
     const out = stripComments(src)
     expect(out).not.toMatch(/innerHeight|scrollTop|lenis/)
     expect(out).toContain('const a = 1')
@@ -137,7 +148,7 @@ describe('boundary helpers', () => {
         'const a = 1 // innerHeight',
         '/* lenis */ const b = 2',
         "// don't scrollTop",
-        '/* it\'s ScrollTrigger */',
+        "/* it's ScrollTrigger */",
         'const u = "https://x.test/a" // 100vh',
       ].join('\n')
       const out = stripComments(src)

@@ -1,0 +1,8 @@
+import { t as e } from "./rolldown-runtime.Bi-D_2cA.mjs";
+import { C as t, F as n, L as r, g as i, k as a, o, s, v as c } from "./react.B4lOa1lM.mjs";
+import { H as l, i as u } from "./framer.BIOwr9OE.mjs";
+function d() { let [e, t] = i(!1); return c(() => { let e = r.matchMedia(`(max-width: 809px)`), n = () => { t(e.matches); }; return n(), e.addEventListener(`change`, n), () => { e.removeEventListener(`change`, n); }; }, []), { style: { touchAction: e ? `pan-y` : `none` } }; }
+function f(e) { return t => (a(u), o(e, { ...t, ...d(t) })); }
+function p() { return (p = e((() => { n(), s(), t(), l(), f.displayName = `SplineMobileScroll`; })))(); }
+export { f as n, p as t };
+//# sourceMappingURL=spline_mobile_scroll.BzAmz_XO.mjs.map

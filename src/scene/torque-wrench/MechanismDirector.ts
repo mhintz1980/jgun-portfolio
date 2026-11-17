@@ -40,7 +40,7 @@ function sampleBaseline(q: number, out: MechanismSample): void {
   // Owner correction (2026-10-21): the shift completes by .545 so the OSHA
   // Red stripe is fully uncovered when the camera reaches the red view, and
   // the camera then holds the handle-side framing through .560.
-  out.shift = smooth((q - (0.520 - MECHANISM_TRANSLATION)) / 0.025)
+  out.shift = smooth((q - (0.52 - MECHANISM_TRANSLATION)) / 0.025)
   out.explode = smooth((q - 0.575) / 0.075)
   out.gearAngle = Math.PI * 8 * smooth((q - 0.52) / 0.17)
   // Owner correction (2026-10-26): housing stays solid through explosion and return.

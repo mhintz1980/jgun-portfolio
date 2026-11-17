@@ -20,6 +20,15 @@ Owner request, 2026-11-07: replace each landing-page project image stack with th
 
 ## Status
 
+2026-11-14 owner correction: replace the earlier interpretation with the exact
+structure of the supplied Claude Design HTML export. Preserve working navigation
+and gallery access, with a readable phone layout. Source identity, proportional
+checks and publication boundary are recorded in the
+[export correction](../evidence/JG-043-homepage-arc-carousel/export-correction-2026-11-14.md).
+The correction is published as `31e75c81` from production source `d2a820dd`, with
+the same homepage change on main at `3e014a7f`. Four live viewport cases and 175
+public file/route checks pass. Owner visual acceptance remains separate.
+
 2026-11-13: owner authorized porting the saved Claude Design homepage edits and
 committing, pushing and deploying them. The bounded responsive port, source
 identity, checks and publication record are in

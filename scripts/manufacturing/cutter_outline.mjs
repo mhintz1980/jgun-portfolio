@@ -20,7 +20,8 @@ import { fileURLToPath } from 'node:url'
 const HERE = dirname(fileURLToPath(import.meta.url))
 const REPO = resolve(HERE, '..', '..')
 
-const PROFILE_REL = 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile-study.json'
+const PROFILE_REL =
+  'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile-study.json'
 const OUT_REL = 'src/scene/inspection/shaft/cutterOutline.json'
 const PROFILE_PATH = join(REPO, PROFILE_REL)
 const OUT_PATH = join(REPO, OUT_REL)
@@ -31,7 +32,7 @@ const CHECK = process.argv.includes('--check')
 const SCHEMA = 'jgun-shaper-cutter-outline/v2-prototype-60t'
 const MODULE_MM = 1
 const CUTTER_TEETH = 60
-const CENTRE_MM = MODULE_MM * (CUTTER_TEETH + 10) / 2
+const CENTRE_MM = (MODULE_MM * (CUTTER_TEETH + 10)) / 2
 const SIGNED_RATIO_WORK_OVER_CUTTER = -CUTTER_TEETH / 10
 const WORK_TEETH = 10 // measured: 36 deg pitch
 const WORK_TIP_MM = 6.0834 // measured legacy face tip radius
@@ -56,12 +57,13 @@ function fail(message) {
 
 function main() {
   // Match the source-hash convention used by tools.test.ts across CRLF/LF checkouts.
-  const raw = Buffer.from(readFileSync(PROFILE_PATH,'utf8').replace(/\r\n/g,'\n'))
+  const raw = Buffer.from(readFileSync(PROFILE_PATH, 'utf8').replace(/\r\n/g, '\n'))
   const digest = createHash('sha256').update(raw).digest('hex')
   const study = JSON.parse(raw.toString('utf8'))
 
   const workProfile = study?.profiles?.legacy?.['6.0']
-  if (!Array.isArray(workProfile) || workProfile.length !== 7200) fail('profile-study.json profiles.legacy["6.0"] must contain 7200 radii')
+  if (!Array.isArray(workProfile) || workProfile.length !== 7200)
+    fail('profile-study.json profiles.legacy["6.0"] must contain 7200 radii')
   const angularStepDeg = Number(study?.angular_step_deg)
   if (angularStepDeg !== 0.05) fail('angular_step_deg must be 0.05')
   if (workProfile.some((r) => !Number.isFinite(r) || r <= 0)) fail('work profile contains an invalid radius')
@@ -136,13 +138,21 @@ function main() {
     points[b] = [Number(angleRad.toFixed(9)), Number(r.toFixed(6))]
   }
 
-  const diagnostics = CUTTER_TEETH===20 ? compareToMatchedShaper(study, points)
-    : { comparable:false,reason:'no certified matched-shaper diagnostic exists for the 60-tooth prototype' }
+  const diagnostics =
+    CUTTER_TEETH === 20
+      ? compareToMatchedShaper(study, points)
+      : { comparable: false, reason: 'no certified matched-shaper diagnostic exists for the 60-tooth prototype' }
 
   const document = {
     schema: SCHEMA,
-    method: 'conjugate envelope: roll one cutter pitch, fold the cutter polar angle into one tooth, keep the minimum work-material radius per 0.05 deg bin, subtract 0.005 mm radial stock, clamp to the derived prototype envelope',
-    source: { profile_study: PROFILE_REL, sha256: digest, angular_step_deg: angularStepDeg, work_profile: 'profiles.legacy["6.0"]' },
+    method:
+      'conjugate envelope: roll one cutter pitch, fold the cutter polar angle into one tooth, keep the minimum work-material radius per 0.05 deg bin, subtract 0.005 mm radial stock, clamp to the derived prototype envelope',
+    source: {
+      profile_study: PROFILE_REL,
+      sha256: digest,
+      angular_step_deg: angularStepDeg,
+      work_profile: 'profiles.legacy["6.0"]',
+    },
     parameters: {
       cutter_teeth: CUTTER_TEETH,
       work_teeth: WORK_TEETH,
@@ -158,44 +168,83 @@ function main() {
       roll_step_deg: ROLL_STEP_DEG,
       bin_deg: BIN_DEG,
     },
-    tooth: { angle_span_deg: TOOTH_SPAN_DEG, point_count: points.length, min_radius_mm: Number(minOut.toFixed(6)), max_radius_mm: Number(maxOut.toFixed(6)), points },
+    tooth: {
+      angle_span_deg: TOOTH_SPAN_DEG,
+      point_count: points.length,
+      min_radius_mm: Number(minOut.toFixed(6)),
+      max_radius_mm: Number(maxOut.toFixed(6)),
+      points,
+    },
     prototype: {
-      status:'illustrative-derived-prototype',module_mm:MODULE_MM,
-      work_pitch_radius_mm:MODULE_MM*WORK_TEETH/2,cutter_pitch_radius_mm:MODULE_MM*CUTTER_TEETH/2,
-      centre_distance_mm:CENTRE_MM,
-      derivation:'centre = sum of pitch radii; tip = centre - work root - stock; root limit = centre - work tip - clearance',
-      historical_certified_outline:'20-tooth clearance-v4 outline (centre 15.5, ratio -2) is unchanged in the certified report',
-      owner_approved:false,manufacturing_acceptance:false,
-      generator:'scripts/manufacturing/cutter_outline.mjs (60-tooth prototype; --check verifies without writing)',
+      status: 'illustrative-derived-prototype',
+      module_mm: MODULE_MM,
+      work_pitch_radius_mm: (MODULE_MM * WORK_TEETH) / 2,
+      cutter_pitch_radius_mm: (MODULE_MM * CUTTER_TEETH) / 2,
+      centre_distance_mm: CENTRE_MM,
+      derivation:
+        'centre = sum of pitch radii; tip = centre - work root - stock; root limit = centre - work tip - clearance',
+      historical_certified_outline:
+        '20-tooth clearance-v4 outline (centre 15.5, ratio -2) is unchanged in the certified report',
+      owner_approved: false,
+      manufacturing_acceptance: false,
+      generator: 'scripts/manufacturing/cutter_outline.mjs (60-tooth prototype; --check verifies without writing)',
     },
     diagnostics: { empty_bins_filled: emptyBefore, matched_shaper: diagnostics },
   }
 
-  if(CHECK){
-    const installed=JSON.parse(readFileSync(OUT_PATH,'utf8'))
+  if (CHECK) {
+    const installed = JSON.parse(readFileSync(OUT_PATH, 'utf8'))
     // Compare values recursively; JSON property order is not geometry.
-    const stable=value=>Array.isArray(value)?value.map(stable):value&&typeof value==='object'
-      ?Object.fromEntries(Object.keys(value).sort().map(key=>[key,stable(value[key])])):value
-    if(JSON.stringify(stable(installed))!==JSON.stringify(stable(document))){
-      const mismatches=[]
-      const compare=(a,b,path)=>{
-        if(mismatches.length>=5)return
-        if(a&&b&&typeof a==='object'&&typeof b==='object'){
-          for(const key of new Set([...Object.keys(a),...Object.keys(b)]))compare(a[key],b[key],path+'.'+key)
-        }else if(a!==b)mismatches.push(path+': '+JSON.stringify(a)+' != '+JSON.stringify(b))
+    const stable = (value) =>
+      Array.isArray(value)
+        ? value.map(stable)
+        : value && typeof value === 'object'
+          ? Object.fromEntries(
+              Object.keys(value)
+                .sort()
+                .map((key) => [key, stable(value[key])]),
+            )
+          : value
+    if (JSON.stringify(stable(installed)) !== JSON.stringify(stable(document))) {
+      const mismatches = []
+      const compare = (a, b, path) => {
+        if (mismatches.length >= 5) return
+        if (a && b && typeof a === 'object' && typeof b === 'object') {
+          for (const key of new Set([...Object.keys(a), ...Object.keys(b)])) compare(a[key], b[key], path + '.' + key)
+        } else if (a !== b) mismatches.push(path + ': ' + JSON.stringify(a) + ' != ' + JSON.stringify(b))
       }
-      compare(installed,document,'outline')
-      fail('installed outline differs from regenerated prototype: '+mismatches.join('; '))
+      compare(installed, document, 'outline')
+      fail('installed outline differs from regenerated prototype: ' + mismatches.join('; '))
     }
-  }else writeFileSync(OUT_PATH, JSON.stringify(document, null, 1) + '\n')
+  } else writeFileSync(OUT_PATH, JSON.stringify(document, null, 1) + '\n')
 
   const ds = diagnostics
-  process.stdout.write('cutter_outline: ' + (CHECK?'verified ':'wrote ') + OUT_REL + '\n')
+  process.stdout.write('cutter_outline: ' + (CHECK ? 'verified ' : 'wrote ') + OUT_REL + '\n')
   process.stdout.write('  profile sha256 ' + digest + '\n')
-  process.stdout.write('  points ' + points.length + ' (span ' + TOOTH_SPAN_DEG + ' deg), radius ' + minOut.toFixed(6) + '..' + maxOut.toFixed(6) + ' mm\n')
+  process.stdout.write(
+    '  points ' +
+      points.length +
+      ' (span ' +
+      TOOTH_SPAN_DEG +
+      ' deg), radius ' +
+      minOut.toFixed(6) +
+      '..' +
+      maxOut.toFixed(6) +
+      ' mm\n',
+  )
   process.stdout.write('  empty_bins_filled ' + emptyBefore + '\n')
   if (ds.comparable) {
-    process.stdout.write('  matched_shaper_diagnostics: shift ' + ds.shiftBins + ' bins, max |outline - diag| ' + ds.maxDeviationMm.toFixed(6) + ' mm, rms ' + ds.rmsDeviationMm.toFixed(6) + ' mm (unaligned max ' + ds.unalignedMaxDeviationMm.toFixed(6) + ' mm)\n')
+    process.stdout.write(
+      '  matched_shaper_diagnostics: shift ' +
+        ds.shiftBins +
+        ' bins, max |outline - diag| ' +
+        ds.maxDeviationMm.toFixed(6) +
+        ' mm, rms ' +
+        ds.rmsDeviationMm.toFixed(6) +
+        ' mm (unaligned max ' +
+        ds.unalignedMaxDeviationMm.toFixed(6) +
+        ' mm)\n',
+    )
   } else {
     process.stdout.write('  matched_shaper_diagnostics: not comparable (' + ds.reason + ')\n')
   }

@@ -1,0 +1,35 @@
+#!/bin/sh
+# Pre-push gate: run the repo's full check before anything leaves this machine.
+# Activated per clone with:  git config core.hooksPath .githooks
+# Bypass for a deliberate emergency push:  git push --no-verify
+
+# Branches cut before the gate existed have no `check` script; skip instead of
+# blocking their pushes. The gate applies once they merge main.
+if ! node -e "process.exit(require('./package.json').scripts?.check ? 0 : 1)" 2>/dev/null; then
+  echo "pre-push: no 'check' script on this branch - gate skipped."
+  exit 0
+fi
+
+# Pure branch deletions push no code.
+deleting_only=1
+while read -r local_ref local_sha remote_ref remote_sha; do
+  case "$local_sha" in
+    *[!0]*) deleting_only=0 ;;
+  esac
+done
+if [ "$deleting_only" -eq 1 ]; then
+  exit 0
+fi
+
+# Trees that merged the gate but haven't reinstalled dependencies yet.
+if [ ! -e node_modules/.bin/biome ]; then
+  echo "pre-push: Biome missing from node_modules - run 'npm install', then push again."
+  exit 1
+fi
+
+echo "pre-push: running npm run check (lint, typecheck, tests, station2)..."
+if ! npm run check; then
+  echo ""
+  echo "pre-push: check FAILED - push aborted. Fix it, or 'git push --no-verify' if you must."
+  exit 1
+fi

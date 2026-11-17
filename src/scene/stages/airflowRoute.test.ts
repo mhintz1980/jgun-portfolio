@@ -20,10 +20,7 @@ import {
  * .scratch probe 2026-09-08): x [-0.600, 0.600], y [1.200, 1.855],
  * z [0.431, 1.300] — the +Z intake plenum only.
  */
-const MEASURED_AIRWAY = new Box3(
-  new Vector3(-0.6, 1.2, 0.431),
-  new Vector3(0.6, 1.855, 1.3),
-)
+const MEASURED_AIRWAY = new Box3(new Vector3(-0.6, 1.2, 0.431), new Vector3(0.6, 1.855, 1.3))
 
 describe('JG-032 airway box → route parameter derivation', () => {
   it('lands the intake leg entry/exit planes on the expected z values', () => {
@@ -56,13 +53,9 @@ describe('JG-032 airway box → route parameter derivation', () => {
     // Box3() default is "empty": min=+Inf, max=-Inf
     expect(airwayRouteParams(new Box3()).valid).toBe(false)
     // Zero-thickness slab
-    expect(
-      airwayRouteParams(new Box3(new Vector3(0, 0, 0), new Vector3(1, 1, 0))).valid,
-    ).toBe(false)
+    expect(airwayRouteParams(new Box3(new Vector3(0, 0, 0), new Vector3(1, 1, 0))).valid).toBe(false)
     // Zero-size point
-    expect(
-      airwayRouteParams(new Box3(new Vector3(1, 1, 1), new Vector3(1, 1, 1))).valid,
-    ).toBe(false)
+    expect(airwayRouteParams(new Box3(new Vector3(1, 1, 1), new Vector3(1, 1, 1))).valid).toBe(false)
   })
 })
 

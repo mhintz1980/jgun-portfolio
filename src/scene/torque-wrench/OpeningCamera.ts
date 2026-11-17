@@ -7,8 +7,22 @@ import { BULLET_TIME_SHOT_SPECS } from './bulletTime'
 const overview = new Vector3(0.32, 0.16, 0.42)
 const overviewTarget = new Vector3()
 const overviewUp = new Vector3(0, 1, 0)
-const orbitBefore = { position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 30, ortho: 0, distance: 1 }
-const orbitEarlier = { position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 30, ortho: 0, distance: 1 }
+const orbitBefore = {
+  position: new Vector3(),
+  target: new Vector3(),
+  up: new Vector3(),
+  fov: 30,
+  ortho: 0,
+  distance: 1,
+}
+const orbitEarlier = {
+  position: new Vector3(),
+  target: new Vector3(),
+  up: new Vector3(),
+  fov: 30,
+  ortho: 0,
+  distance: 1,
+}
 const orbitStart = { position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 30, ortho: 0, distance: 1 }
 
 /** The shatter owns this span: one complete revolution, then a settled overview. */
@@ -31,8 +45,11 @@ export const ORBIT_ELEVATION_DIP_NARROW = 0.052
 const layoutBlend = (aspect: number) => Math.max(0, Math.min(1, (aspect - 0.62) / 0.4))
 
 function overviewPose(out: SheetCameraPose, aspect: number): SheetCameraPose {
-  out.position.copy(overview); out.target.copy(overviewTarget); out.up.copy(overviewUp)
-  out.fov = aspect < 0.8 ? 58 : 42; out.ortho = 0
+  out.position.copy(overview)
+  out.target.copy(overviewTarget)
+  out.up.copy(overviewUp)
+  out.fov = aspect < 0.8 ? 58 : 42
+  out.ortho = 0
   out.distance = out.position.distanceTo(out.target)
   return out
 }
@@ -61,44 +78,102 @@ export function sampleOpeningCamera(layout: DrawingLayout, aspect: number, progr
   introCameraPose(layout, aspect, openingTimeAt(SHATTER_ORBIT_START - 2 * ENTRY_SLOPE_PROBE), orbitEarlier)
   const bx = orbitBefore.position.x - orbitBefore.target.x
   const bz = orbitBefore.position.z - orbitBefore.target.z
-  const beforeDelta = Math.atan2(Math.sin(startAzimuth - Math.atan2(bx, bz)), Math.cos(startAzimuth - Math.atan2(bx, bz)))
-  const ex = orbitEarlier.position.x - orbitEarlier.target.x, ey = orbitEarlier.position.y - orbitEarlier.target.y, ez = orbitEarlier.position.z - orbitEarlier.target.z
-  const earlierDelta = Math.atan2(Math.sin(startAzimuth - Math.atan2(ex, ez)), Math.cos(startAzimuth - Math.atan2(ex, ez)))
+  const beforeDelta = Math.atan2(
+    Math.sin(startAzimuth - Math.atan2(bx, bz)),
+    Math.cos(startAzimuth - Math.atan2(bx, bz)),
+  )
+  const ex = orbitEarlier.position.x - orbitEarlier.target.x,
+    ey = orbitEarlier.position.y - orbitEarlier.target.y,
+    ez = orbitEarlier.position.z - orbitEarlier.target.z
+  const earlierDelta = Math.atan2(
+    Math.sin(startAzimuth - Math.atan2(ex, ez)),
+    Math.cos(startAzimuth - Math.atan2(ex, ez)),
+  )
   const duration = SHATTER_ORBIT_END - SHATTER_ORBIT_START
-  const entrySlope = Math.min(0, (4 * beforeDelta - earlierDelta) / (2 * ENTRY_SLOPE_PROBE) * duration)
+  const entrySlope = Math.min(0, ((4 * beforeDelta - earlierDelta) / (2 * ENTRY_SLOPE_PROBE)) * duration)
   const w = (progress - SHATTER_ORBIT_START) / (SHATTER_ORBIT_END - SHATTER_ORBIT_START)
-  const w2 = w * w, w3 = w2 * w
+  const w2 = w * w,
+    w3 = w2 * w
   const azimuth = startAzimuth + (w3 - 2 * w2 + w) * entrySlope + (3 * w2 - 2 * w3) * total
   // sin^2 dip: zero value and slope at both ends, so the join and the overview handoff stay C1.
   const dip = Math.sin(Math.PI * w)
   const layout01 = layoutBlend(aspect)
-  const beforeRadius = Math.hypot(bx, orbitBefore.position.y - orbitBefore.target.y, bz), earlierRadius = Math.hypot(ex, ey, ez)
+  const beforeRadius = Math.hypot(bx, orbitBefore.position.y - orbitBefore.target.y, bz),
+    earlierRadius = Math.hypot(ex, ey, ez)
   const startElevation = Math.asin(sy / startDistance)
-  const elevationSlope = entryDerivative(startElevation,
-    Math.asin((orbitBefore.position.y - orbitBefore.target.y) / beforeRadius), Math.asin(ey / earlierRadius)) * duration
-  const elevation = entryJoin(startElevation, Math.asin(overview.y / endDistance), elevationSlope, w)
-    - (ORBIT_ELEVATION_DIP_NARROW + (ORBIT_ELEVATION_DIP - ORBIT_ELEVATION_DIP_NARROW) * layout01) * dip * dip
+  const elevationSlope =
+    entryDerivative(
+      startElevation,
+      Math.asin((orbitBefore.position.y - orbitBefore.target.y) / beforeRadius),
+      Math.asin(ey / earlierRadius),
+    ) * duration
+  const elevation =
+    entryJoin(startElevation, Math.asin(overview.y / endDistance), elevationSlope, w) -
+    (ORBIT_ELEVATION_DIP_NARROW + (ORBIT_ELEVATION_DIP - ORBIT_ELEVATION_DIP_NARROW) * layout01) * dip * dip
   const dive = ORBIT_SHRAPNEL_DIP + (ORBIT_SHRAPNEL_DIP_DESKTOP - ORBIT_SHRAPNEL_DIP) * layout01
   const logSlope = entryDerivative(Math.log(startDistance), Math.log(beforeRadius), Math.log(earlierRadius)) * duration
-  const distance = Math.exp(entryJoin(Math.log(startDistance), Math.log(endDistance), logSlope, w)) * (1 - dive * dip * dip)
+  const distance =
+    Math.exp(entryJoin(Math.log(startDistance), Math.log(endDistance), logSlope, w)) * (1 - dive * dip * dip)
   const horizontal = distance * Math.cos(elevation)
   out.target.set(
-    entryJoin(orbitStart.target.x, overviewTarget.x, entryDerivative(orbitStart.target.x, orbitBefore.target.x, orbitEarlier.target.x) * duration, w),
-    entryJoin(orbitStart.target.y, overviewTarget.y, entryDerivative(orbitStart.target.y, orbitBefore.target.y, orbitEarlier.target.y) * duration, w),
-    entryJoin(orbitStart.target.z, overviewTarget.z, entryDerivative(orbitStart.target.z, orbitBefore.target.z, orbitEarlier.target.z) * duration, w),
+    entryJoin(
+      orbitStart.target.x,
+      overviewTarget.x,
+      entryDerivative(orbitStart.target.x, orbitBefore.target.x, orbitEarlier.target.x) * duration,
+      w,
+    ),
+    entryJoin(
+      orbitStart.target.y,
+      overviewTarget.y,
+      entryDerivative(orbitStart.target.y, orbitBefore.target.y, orbitEarlier.target.y) * duration,
+      w,
+    ),
+    entryJoin(
+      orbitStart.target.z,
+      overviewTarget.z,
+      entryDerivative(orbitStart.target.z, orbitBefore.target.z, orbitEarlier.target.z) * duration,
+      w,
+    ),
   )
   out.position.set(
     out.target.x + horizontal * Math.sin(azimuth),
     out.target.y + distance * Math.sin(elevation),
     out.target.z + horizontal * Math.cos(azimuth),
   )
-  out.up.set(
-    entryJoin(orbitStart.up.x, overviewUp.x, entryDerivative(orbitStart.up.x, orbitBefore.up.x, orbitEarlier.up.x) * duration, w),
-    entryJoin(orbitStart.up.y, overviewUp.y, entryDerivative(orbitStart.up.y, orbitBefore.up.y, orbitEarlier.up.y) * duration, w),
-    entryJoin(orbitStart.up.z, overviewUp.z, entryDerivative(orbitStart.up.z, orbitBefore.up.z, orbitEarlier.up.z) * duration, w),
-  ).normalize()
-  out.fov = entryJoin(orbitStart.fov, aspect < 0.8 ? 58 : 42, entryDerivative(orbitStart.fov, orbitBefore.fov, orbitEarlier.fov) * duration, w)
-  out.ortho = entryJoin(orbitStart.ortho, 0, entryDerivative(orbitStart.ortho, orbitBefore.ortho, orbitEarlier.ortho) * duration, w)
+  out.up
+    .set(
+      entryJoin(
+        orbitStart.up.x,
+        overviewUp.x,
+        entryDerivative(orbitStart.up.x, orbitBefore.up.x, orbitEarlier.up.x) * duration,
+        w,
+      ),
+      entryJoin(
+        orbitStart.up.y,
+        overviewUp.y,
+        entryDerivative(orbitStart.up.y, orbitBefore.up.y, orbitEarlier.up.y) * duration,
+        w,
+      ),
+      entryJoin(
+        orbitStart.up.z,
+        overviewUp.z,
+        entryDerivative(orbitStart.up.z, orbitBefore.up.z, orbitEarlier.up.z) * duration,
+        w,
+      ),
+    )
+    .normalize()
+  out.fov = entryJoin(
+    orbitStart.fov,
+    aspect < 0.8 ? 58 : 42,
+    entryDerivative(orbitStart.fov, orbitBefore.fov, orbitEarlier.fov) * duration,
+    w,
+  )
+  out.ortho = entryJoin(
+    orbitStart.ortho,
+    0,
+    entryDerivative(orbitStart.ortho, orbitBefore.ortho, orbitEarlier.ortho) * duration,
+    w,
+  )
   out.distance = out.position.distanceTo(out.target)
   return out
 }

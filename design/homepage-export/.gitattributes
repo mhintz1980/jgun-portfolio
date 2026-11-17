@@ -1,0 +1,2 @@
+# Preserve the owner's portable export byte-for-byte, including its bundled data.
+source.html binary

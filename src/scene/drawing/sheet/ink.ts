@@ -95,7 +95,12 @@ export const penColorOf = (dash: number): number => Math.floor(dash / 10 + 0.5)
 /** Dash style (0..3) of a segment's dash field. */
 export const dashStyleOf = (dash: number): number => dash - 10 * penColorOf(dash)
 
-export interface TextCell { x: number; y: number; w: number; h: number }
+export interface TextCell {
+  x: number
+  y: number
+  w: number
+  h: number
+}
 
 export interface InkText {
   text: string
@@ -128,7 +133,17 @@ export class InkBuilder {
   readonly fills: number[] = []
   readonly texts: InkText[] = []
 
-  line(x1: number, y1: number, x2: number, y2: number, pen: number, group: number, key = 0, dur = 0.08, dash = 0): this {
+  line(
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number,
+    pen: number,
+    group: number,
+    key = 0,
+    dur = 0.08,
+    dash = 0,
+  ): this {
     this.segs.push(x1, y1, x2, y2, pen, group, key, dur, dash)
     return this
   }
@@ -136,7 +151,8 @@ export class InkBuilder {
   /** Polyline whose pen travels continuously: each piece gets its own slice of [key, key+dur]. */
   path(points: number[][], pen: number, group: number, key = 0, dur = 0.08, dash = 0): this {
     let total = 0
-    for (let i = 1; i < points.length; i += 1) total += Math.hypot(points[i][0] - points[i - 1][0], points[i][1] - points[i - 1][1])
+    for (let i = 1; i < points.length; i += 1)
+      total += Math.hypot(points[i][0] - points[i - 1][0], points[i][1] - points[i - 1][1])
     let walked = 0
     for (let i = 1; i < points.length; i += 1) {
       const len = Math.hypot(points[i][0] - points[i - 1][0], points[i][1] - points[i - 1][1])
@@ -149,10 +165,33 @@ export class InkBuilder {
   }
 
   rect(x: number, y: number, w: number, h: number, pen: number, group: number, key = 0, dur = 0.08): this {
-    return this.path([[x, y], [x + w, y], [x + w, y + h], [x, y + h], [x, y]], pen, group, key, dur)
+    return this.path(
+      [
+        [x, y],
+        [x + w, y],
+        [x + w, y + h],
+        [x, y + h],
+        [x, y],
+      ],
+      pen,
+      group,
+      key,
+      dur,
+    )
   }
 
-  circle(cx: number, cy: number, r: number, pen: number, group: number, key = 0, dur = 0.08, dash = 0, start = 0, sweep = Math.PI * 2): this {
+  circle(
+    cx: number,
+    cy: number,
+    r: number,
+    pen: number,
+    group: number,
+    key = 0,
+    dur = 0.08,
+    dash = 0,
+    start = 0,
+    sweep = Math.PI * 2,
+  ): this {
     const n = Math.max(24, Math.ceil((r * sweep) / 0.0015))
     const points: number[][] = []
     for (let i = 0; i <= n; i += 1) {
@@ -162,7 +201,17 @@ export class InkBuilder {
     return this.path(points, pen, group, key, dur, dash)
   }
 
-  tri(ax: number, ay: number, bx: number, by: number, cx: number, cy: number, group: number, key = 0, dur = 0.02): this {
+  tri(
+    ax: number,
+    ay: number,
+    bx: number,
+    by: number,
+    cx: number,
+    cy: number,
+    group: number,
+    key = 0,
+    dur = 0.02,
+  ): this {
     this.fills.push(ax, ay, group, key, dur, bx, by, group, key, dur, cx, cy, group, key, dur)
     return this
   }
@@ -244,7 +293,7 @@ export function makeSheetUniforms(): SheetUniforms {
   return {
     // The sheet furniture is pre-printed; every driven group starts blank so a
     // warm-up or first-frame render can never expose the finished drawing.
-    uReveal: { value: Array.from({ length: GROUP_COUNT }, (_, group) => group === GROUP.printed ? 1 : 0) },
+    uReveal: { value: Array.from({ length: GROUP_COUNT }, (_, group) => (group === GROUP.printed ? 1 : 0)) },
     uViewport: { value: new Vector2(1, 1) },
     uInk: { value: new Color(INK) },
     uInkRed: { value: new Color(INK_RED) },
@@ -347,52 +396,53 @@ export function makeInkLines(
   // Split long strokes without resetting dash phase, reveal timing or end caps.
   const pieces: { source: number; lo: number; hi: number }[] = []
   for (let i = 0; i < builder.segs.length / 9; i += 1) {
-    const s = builder.segs, j = i * 9
+    const s = builder.segs,
+      j = i * 9
     const n = Math.max(1, Math.ceil(Math.hypot(s[j + 2] - s[j], s[j + 3] - s[j + 1]) / PAPER_FLEX_STEP))
     for (let k = 0; k < n; k += 1) pieces.push({ source: i, lo: k / n, hi: (k + 1) / n })
   }
   const count = pieces.length
   const geometry = new InstancedBufferGeometry()
   let material: ShaderMaterial | null = null
-try {
-  geometry.setAttribute('position', new Float32BufferAttribute([0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0], 3))
-  geometry.setAttribute('corner', new Float32BufferAttribute([0, -1, 1, -1, 1, 1, 0, 1], 2))
-  geometry.setIndex([0, 1, 2, 0, 2, 3])
-  const seg = new Float32Array(count * 4)
-  const style = new Float32Array(count * 4)
-  const dash = new Float32Array(count)
-  const range = new Float32Array(count * 2)
-  const s = builder.segs
-  for (let i = 0; i < count; i += 1) {
-    const j = pieces[i].source
-    range.set([pieces[i].lo, pieces[i].hi], i * 2)
-    seg.set([s[j * 9], s[j * 9 + 1], s[j * 9 + 2], s[j * 9 + 3]], i * 4)
-    style.set([s[j * 9 + 4], s[j * 9 + 5], s[j * 9 + 6], s[j * 9 + 7]], i * 4)
-    dash[i] = s[j * 9 + 8]
+  try {
+    geometry.setAttribute('position', new Float32BufferAttribute([0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0], 3))
+    geometry.setAttribute('corner', new Float32BufferAttribute([0, -1, 1, -1, 1, 1, 0, 1], 2))
+    geometry.setIndex([0, 1, 2, 0, 2, 3])
+    const seg = new Float32Array(count * 4)
+    const style = new Float32Array(count * 4)
+    const dash = new Float32Array(count)
+    const range = new Float32Array(count * 2)
+    const s = builder.segs
+    for (let i = 0; i < count; i += 1) {
+      const j = pieces[i].source
+      range.set([pieces[i].lo, pieces[i].hi], i * 2)
+      seg.set([s[j * 9], s[j * 9 + 1], s[j * 9 + 2], s[j * 9 + 3]], i * 4)
+      style.set([s[j * 9 + 4], s[j * 9 + 5], s[j * 9 + 6], s[j * 9 + 7]], i * 4)
+      dash[i] = s[j * 9 + 8]
+    }
+    geometry.setAttribute('aSeg', new InstancedBufferAttribute(seg, 4))
+    geometry.setAttribute('aStyle', new InstancedBufferAttribute(style, 4))
+    geometry.setAttribute('aRange', new InstancedBufferAttribute(range, 2))
+    geometry.setAttribute('aDash', new InstancedBufferAttribute(dash, 1))
+    geometry.instanceCount = count
+    material = new ShaderMaterial({
+      uniforms,
+      vertexShader: lineVertex,
+      fragmentShader: lineFragment,
+      transparent: true,
+      depthWrite: false,
+      side: DoubleSide,
+      toneMapped: false,
+    })
+    const mesh = new Mesh(geometry, material)
+    mesh.frustumCulled = false
+    mesh.renderOrder = 2
+    mesh.name = 'sheet-ink-lines'
+    return mesh
+  } catch (error) {
+    rollbackOwned(material ? [geometry, material] : [geometry], cleanupFailureSink)
+    throw error
   }
-  geometry.setAttribute('aSeg', new InstancedBufferAttribute(seg, 4))
-  geometry.setAttribute('aStyle', new InstancedBufferAttribute(style, 4))
-  geometry.setAttribute('aRange', new InstancedBufferAttribute(range, 2))
-  geometry.setAttribute('aDash', new InstancedBufferAttribute(dash, 1))
-  geometry.instanceCount = count
-  material = new ShaderMaterial({
-    uniforms,
-    vertexShader: lineVertex,
-    fragmentShader: lineFragment,
-    transparent: true,
-    depthWrite: false,
-    side: DoubleSide,
-    toneMapped: false,
-  })
-  const mesh = new Mesh(geometry, material)
-  mesh.frustumCulled = false
-  mesh.renderOrder = 2
-  mesh.name = 'sheet-ink-lines'
-  return mesh
-} catch (error) {
-  rollbackOwned(material ? [geometry, material] : [geometry], cleanupFailureSink)
-  throw error
-}
 }
 
 const fillVertex = /* glsl */ `
@@ -434,8 +484,13 @@ export function makeInkFills(
       return
     }
     const midpoint = (u: number[], v: number[]) => u.map((value, i) => (value + v[i]) / 2)
-    const ab = midpoint(a, b), bc = midpoint(b, c), ca = midpoint(c, a)
-    split(a, ab, ca); split(ab, b, bc); split(ca, bc, c); split(ab, bc, ca)
+    const ab = midpoint(a, b),
+      bc = midpoint(b, c),
+      ca = midpoint(c, a)
+    split(a, ab, ca)
+    split(ab, b, bc)
+    split(ca, bc, c)
+    split(ab, bc, ca)
   }
   for (let i = 0; i < builder.fills.length; i += 15) {
     split(builder.fills.slice(i, i + 5), builder.fills.slice(i + 5, i + 10), builder.fills.slice(i + 10, i + 15))
@@ -449,25 +504,25 @@ export function makeInkFills(
   }
   const geometry = new BufferGeometry()
   let material: ShaderMaterial | null = null
-try {
-  geometry.setAttribute('position', new Float32BufferAttribute(position, 3))
-  geometry.setAttribute('aStyle', new Float32BufferAttribute(style, 3))
-  material = new ShaderMaterial({
-    uniforms,
-    vertexShader: fillVertex,
-    fragmentShader: fillFragment,
-    transparent: true,
-    depthWrite: false,
-    side: DoubleSide,
-    toneMapped: false,
-  })
-  const mesh = new Mesh(geometry, material)
-  mesh.frustumCulled = false
-  mesh.renderOrder = 2
-  mesh.name = 'sheet-ink-fills'
-  return mesh
-} catch (error) {
-  rollbackOwned(material ? [geometry, material] : [geometry], cleanupFailureSink)
-  throw error
-}
+  try {
+    geometry.setAttribute('position', new Float32BufferAttribute(position, 3))
+    geometry.setAttribute('aStyle', new Float32BufferAttribute(style, 3))
+    material = new ShaderMaterial({
+      uniforms,
+      vertexShader: fillVertex,
+      fragmentShader: fillFragment,
+      transparent: true,
+      depthWrite: false,
+      side: DoubleSide,
+      toneMapped: false,
+    })
+    const mesh = new Mesh(geometry, material)
+    mesh.frustumCulled = false
+    mesh.renderOrder = 2
+    mesh.name = 'sheet-ink-fills'
+    return mesh
+  } catch (error) {
+    rollbackOwned(material ? [geometry, material] : [geometry], cleanupFailureSink)
+    throw error
+  }
 }

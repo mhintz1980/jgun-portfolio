@@ -27,10 +27,13 @@ export function TorqueWrenchPage({ store }: TorqueWrenchPageProps) {
   const sceneWanted = tier !== 'poster'
   const posterLayer = tier === 'poster' || sceneStatus === 'failed'
 
-  const failScene = useCallback((_error: unknown) => {
-    setSceneComponent(null)
-    store.setSceneStatus('failed')
-  }, [store])
+  const failScene = useCallback(
+    (_error: unknown) => {
+      setSceneComponent(null)
+      store.setSceneStatus('failed')
+    },
+    [store],
+  )
 
   // The DOM story is mounted; release the shared fade-in now (releaseFade is a no-op when the
   // head shell never set data-fade="in").

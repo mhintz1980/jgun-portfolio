@@ -66,10 +66,7 @@ export function BootPanel({ progress, loaded, total, log, faults, reducedMotion,
               ))}
             </div>
             <div className="mt-4 h-px w-full bg-cyan-400/20">
-              <div
-                className="h-px bg-cyan-300 transition-[width] duration-300"
-                style={{ width: `${pct}%` }}
-              />
+              <div className="h-px bg-cyan-300 transition-[width] duration-300" style={{ width: `${pct}%` }} />
             </div>
             <p className="mt-2 flex justify-between text-cyan-400/70">
               <span>
@@ -81,9 +78,7 @@ export function BootPanel({ progress, loaded, total, log, faults, reducedMotion,
         )}
 
         {faults > 0 && (
-          <p className="mt-3 text-amber-400/90">
-            FAULT: {faults} RESOURCE(S) FAILED — CONTINUING WITHOUT
-          </p>
+          <p className="mt-3 text-amber-400/90">FAULT: {faults} RESOURCE(S) FAILED — CONTINUING WITHOUT</p>
         )}
       </div>
     </div>

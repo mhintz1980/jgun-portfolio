@@ -882,7 +882,11 @@ describe('the default env, built at call time', () => {
     vi.setSystemTime(424_242)
     const assign = vi.fn()
     const setItem = vi.fn()
-    vi.stubGlobal('window', { location: { assign }, matchMedia: () => ({ matches: false }), sessionStorage: { setItem } })
+    vi.stubGlobal('window', {
+      location: { assign },
+      matchMedia: () => ({ matches: false }),
+      sessionStorage: { setItem },
+    })
     fadeNavigate('/x')
     expect(setItem).toHaveBeenCalledWith(FADE_KEY, '424242')
     expect(assign).not.toHaveBeenCalled()

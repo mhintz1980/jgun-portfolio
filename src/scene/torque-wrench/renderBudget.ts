@@ -19,11 +19,7 @@ function floorAtLeastOne(value: number): number {
   return Math.max(1, Math.floor(value))
 }
 
-function fitToPixelLimit(
-  width: number,
-  height: number,
-  limit: number,
-): { widthPx: number; heightPx: number } {
+function fitToPixelLimit(width: number, height: number, limit: number): { widthPx: number; heightPx: number } {
   let widthPx = floorAtLeastOne(width)
   let heightPx = floorAtLeastOne(height)
   let pixels = widthPx * heightPx
@@ -55,7 +51,11 @@ export function computeRenderBudget(
   deviceDpr: number,
   tier: RenderBudgetTier,
 ): RenderBudget {
-  for (const [value, field] of [[width, 'CSS width'], [height, 'CSS height'], [deviceDpr, 'Device DPR']] as const) {
+  for (const [value, field] of [
+    [width, 'CSS width'],
+    [height, 'CSS height'],
+    [deviceDpr, 'Device DPR'],
+  ] as const) {
     if (!Number.isFinite(value) || value <= 0) throw new RangeError(`${field} must be finite and positive`)
   }
   if (tier !== 'full' && tier !== 'lite') throw new TypeError('Render budget tier must be full or lite')

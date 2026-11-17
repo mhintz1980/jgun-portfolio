@@ -30,7 +30,10 @@ import { BULLET_TIME_SHOT_SPECS, SHAPER_CAMERA_CLOCK } from '../../torque-wrench
 const DEG = Math.PI / 180
 const MM = 1e-3
 const clamp01 = (x: number) => (x < 0 ? 0 : x > 1 ? 1 : x)
-const ease = (x: number) => { const t = clamp01(x); return t * t * (3 - 2 * t) }
+const ease = (x: number) => {
+  const t = clamp01(x)
+  return t * t * (3 - 2 * t)
+}
 
 /**
  * Frozen follow azimuth wrapped to the nearest turn, so post-15 s anchors can be authored
@@ -62,8 +65,11 @@ const RECAP_MF_START = followMfAt(RECAP_SWING_START_S)
 export function machiningViewAzimuthDeg(t: number): number {
   const sweep = BULLET_TIME_SHOT_SPECS.shaperContact.cameraSweepDeg
   if (t <= SHAPER_CAMERA_CLOCK.start) return CUTTER_VIEW_AZIMUTH_DEG
-  if (t < SHAPER_CAMERA_CLOCK.end) return CUTTER_VIEW_AZIMUTH_DEG + sweep
-    * ease((t - SHAPER_CAMERA_CLOCK.start) / (SHAPER_CAMERA_CLOCK.end - SHAPER_CAMERA_CLOCK.start))
+  if (t < SHAPER_CAMERA_CLOCK.end)
+    return (
+      CUTTER_VIEW_AZIMUTH_DEG +
+      sweep * ease((t - SHAPER_CAMERA_CLOCK.start) / (SHAPER_CAMERA_CLOCK.end - SHAPER_CAMERA_CLOCK.start))
+    )
   if (t <= RECAP_SWING_START_S) return CUTTER_VIEW_AZIMUTH_DEG + sweep
   const g = clamp01((followMfAt(t) - RECAP_MF_START) / (FOLLOW_MF_TOTAL - RECAP_MF_START))
   return CUTTER_VIEW_AZIMUTH_DEG + sweep + (RECAP_SWING_DEG - sweep) * g
@@ -96,12 +102,21 @@ const ANCHORS: readonly CameraAnchor[] = [
   // side in the right-hand 62% of a desktop frame (copy column ends at x 537 px). Narrow targets are
   // centred on the pair. `az` is documentary for t < 15: the machining-era azimuth is a closed-form
   // law (machiningViewAzimuthDeg), not a lerp of these rows.
-  { t: 0,    az: 180,                         el: 6.3, dist: 0.24,   fovDesktop: 17,   fovNarrow: 27,   tgt: [0, 9, 0] },
-  { t: 2,    az: 180,                         el: 6.2, dist: 0.2,    fovDesktop: 9.4,  fovNarrow: 17.1, tgt: [0, 7.5, -0.8], tgtNarrow: [0, 6.8, 5.5] },
-  { t: 6,    az: 180,                         el: 4.6, dist: 0.2,    fovDesktop: 8.2,  fovNarrow: 15.1, tgt: [0, 6.8, -1.6], tgtNarrow: [0, 6.1, 4] },
-  { t: 7.2,  az: 180,                         el: 3.2, dist: 0.2,    fovDesktop: 7.5,  fovNarrow: 13.8, tgt: [0, 9, -2.2],   tgtNarrow: [0, 8.2, 3] },
-  { t: 9.7,  az: 180,                         el: 3.2, dist: 0.2,    fovDesktop: 7.5,  fovNarrow: 13.8, tgt: [0, 9, -2.2],   tgtNarrow: [0, 8.2, 3] },
-  { t: 11,   az: 180,                         el: 4.2, dist: 0.2,    fovDesktop: 8.2,  fovNarrow: 15.1, tgt: [0, 7.2, -1.6], tgtNarrow: [0, 6.5, 4] },
+  { t: 0, az: 180, el: 6.3, dist: 0.24, fovDesktop: 17, fovNarrow: 27, tgt: [0, 9, 0] },
+  {
+    t: 2,
+    az: 180,
+    el: 6.2,
+    dist: 0.2,
+    fovDesktop: 9.4,
+    fovNarrow: 17.1,
+    tgt: [0, 7.5, -0.8],
+    tgtNarrow: [0, 6.8, 5.5],
+  },
+  { t: 6, az: 180, el: 4.6, dist: 0.2, fovDesktop: 8.2, fovNarrow: 15.1, tgt: [0, 6.8, -1.6], tgtNarrow: [0, 6.1, 4] },
+  { t: 7.2, az: 180, el: 3.2, dist: 0.2, fovDesktop: 7.5, fovNarrow: 13.8, tgt: [0, 9, -2.2], tgtNarrow: [0, 8.2, 3] },
+  { t: 9.7, az: 180, el: 3.2, dist: 0.2, fovDesktop: 7.5, fovNarrow: 13.8, tgt: [0, 9, -2.2], tgtNarrow: [0, 8.2, 3] },
+  { t: 11, az: 180, el: 4.2, dist: 0.2, fovDesktop: 8.2, fovNarrow: 15.1, tgt: [0, 7.2, -1.6], tgtNarrow: [0, 6.5, 4] },
   // Recap pull-back completes at 14 s; 14..15 s is the C1 handoff into the settled materials
   // side view, so the camera is steady before the first card is visible (15.0 s) and fully
   // readable (15.14 s). The hold runs the whole materials beat 15..22.6 s.
@@ -110,33 +125,148 @@ const ANCHORS: readonly CameraAnchor[] = [
   // bar x1342..1420 / py148..488; narrow compact block py346..392 under the card). Desktop: fov 11.4, target
   // y18.2 z-1.6 mm; narrow: the action band y3.2..14.2 mm is held between the compact block (py392) and the
   // footer top (py529.5) with fovNarrow 25.7 and tgtNarrow z 4.5 mm (>= 8 px both sides; camera.test.ts).
-  { t: 14,   az: 180 + RECAP_SWING_DEG * 0.999,  el: 5,   dist: 0.26,   fovDesktop: 14.5, fovNarrow: 20,   tgt: [0, 6.5, 0] },
-  { t: 15,   az: 20 - FOLLOW_AZIMUTH_MOD / DEG, el: 0.5, dist: 0.2,  fovDesktop: 11.4, fovNarrow: 25.7, tgt: [0, 18.2, -1.6], tgtNarrow: [0, 8.5, 4.5] },
-  { t: 22.6, az: 30 - FOLLOW_AZIMUTH_MOD / DEG, el: 0.5, dist: 0.2,  fovDesktop: 11.4, fovNarrow: 25.7, tgt: [0, 18.2, -1.6], tgtNarrow: [0, 8.5, 4.5] },
-  { t: 23.4, az: 32 - FOLLOW_AZIMUTH_MOD / DEG, el: 3,   dist: 0.2,  fovDesktop: 9.7,  fovNarrow: 15.5, tgt: [0, 11, 2.8] },
-  { t: 25.4, az: 33.7 - FOLLOW_AZIMUTH_MOD / DEG, el: 5.7, dist: 0.2, fovDesktop: 9.7, fovNarrow: 16,   tgt: [0, 11, 2.8] },
-  { t: 30.2, az: 33.7 - FOLLOW_AZIMUTH_MOD / DEG, el: 5.7, dist: 0.2, fovDesktop: 9.7, fovNarrow: 16,   tgt: [0, 11, 2.8] },
-  { t: 31,   az: 28 - FOLLOW_AZIMUTH_MOD / DEG,   el: 4.6, dist: 0.2, fovDesktop: 8,    fovNarrow: 13.5, tgt: [0, 12.2, 1.4] },
-  { t: 32,   az: 24.2 - FOLLOW_AZIMUTH_MOD / DEG, el: 4.2, dist: 0.2, fovDesktop: 6.3,  fovNarrow: 30, tgt: [0, 12.8, 0], tgtNarrow: [0, 8.7, 0] },
+  { t: 14, az: 180 + RECAP_SWING_DEG * 0.999, el: 5, dist: 0.26, fovDesktop: 14.5, fovNarrow: 20, tgt: [0, 6.5, 0] },
+  {
+    t: 15,
+    az: 20 - FOLLOW_AZIMUTH_MOD / DEG,
+    el: 0.5,
+    dist: 0.2,
+    fovDesktop: 11.4,
+    fovNarrow: 25.7,
+    tgt: [0, 18.2, -1.6],
+    tgtNarrow: [0, 8.5, 4.5],
+  },
+  {
+    t: 22.6,
+    az: 30 - FOLLOW_AZIMUTH_MOD / DEG,
+    el: 0.5,
+    dist: 0.2,
+    fovDesktop: 11.4,
+    fovNarrow: 25.7,
+    tgt: [0, 18.2, -1.6],
+    tgtNarrow: [0, 8.5, 4.5],
+  },
+  { t: 23.4, az: 32 - FOLLOW_AZIMUTH_MOD / DEG, el: 3, dist: 0.2, fovDesktop: 9.7, fovNarrow: 15.5, tgt: [0, 11, 2.8] },
+  {
+    t: 25.4,
+    az: 33.7 - FOLLOW_AZIMUTH_MOD / DEG,
+    el: 5.7,
+    dist: 0.2,
+    fovDesktop: 9.7,
+    fovNarrow: 16,
+    tgt: [0, 11, 2.8],
+  },
+  {
+    t: 30.2,
+    az: 33.7 - FOLLOW_AZIMUTH_MOD / DEG,
+    el: 5.7,
+    dist: 0.2,
+    fovDesktop: 9.7,
+    fovNarrow: 16,
+    tgt: [0, 11, 2.8],
+  },
+  { t: 31, az: 28 - FOLLOW_AZIMUTH_MOD / DEG, el: 4.6, dist: 0.2, fovDesktop: 8, fovNarrow: 13.5, tgt: [0, 12.2, 1.4] },
+  {
+    t: 32,
+    az: 24.2 - FOLLOW_AZIMUTH_MOD / DEG,
+    el: 4.2,
+    dist: 0.2,
+    fovDesktop: 6.3,
+    fovNarrow: 30,
+    tgt: [0, 12.8, 0],
+    tgtNarrow: [0, 8.7, 0],
+  },
   // Final 4340 card window 33.2..35 s: card-safe runout framing, reached while no card is on
   // screen. The full revised section (axis y 3.2..20 mm, journal r 6.325 over y 9..20) stays
   // left of the desktop right 8..44% card band, clear of the model block / FOS bar, and below the narrow
   // compact FOS block (py346..392). Decoded broad y3.2..20 mm action clears both measured footers
   // (camera.test.ts, >= 8 px).
-  { t: 33.2, az: 24.2 - FOLLOW_AZIMUTH_MOD / DEG, el: 4.2, dist: 0.2, fovDesktop: 20,   fovNarrow: 40, tgt: [0, 20, -4], tgtNarrow: [0, 14, 9] },
-  { t: 35,   az: 84.2 - FOLLOW_AZIMUTH_MOD / DEG, el: 4.2, dist: 0.2, fovDesktop: 20,   fovNarrow: 40, tgt: [0, 20, -4], tgtNarrow: [0, 14, 9] },
+  {
+    t: 33.2,
+    az: 24.2 - FOLLOW_AZIMUTH_MOD / DEG,
+    el: 4.2,
+    dist: 0.2,
+    fovDesktop: 20,
+    fovNarrow: 40,
+    tgt: [0, 20, -4],
+    tgtNarrow: [0, 14, 9],
+  },
+  {
+    t: 35,
+    az: 84.2 - FOLLOW_AZIMUTH_MOD / DEG,
+    el: 4.2,
+    dist: 0.2,
+    fovDesktop: 20,
+    fovNarrow: 40,
+    tgt: [0, 20, -4],
+    tgtNarrow: [0, 14, 9],
+  },
   // Astra correction: contact macro, viewed from rear/+shaft Y above the front carrier plate.
   // Pitch point = 5.29mm * [cos(39.06deg), sin(39.06deg)] in the shaft radial plane.
   // 38.5..40.2 retains the 18deg azimuth swing; elevation rises 40 -> 55deg.
   // Desktop/narrow stand-off .220/.320m and FOV 8.8/16.2 retain readable flank scale.
   // The v51.1 continuation starts after 40.2; these successful contact samples stay fixed.
-  { t: 36.2, az: 98 - FOLLOW_AZIMUTH_MOD / DEG,   el: 35, dist: 0.220, distNarrow: 0.320, fovDesktop: 9.4, fovNarrow: 20, tgt: [4.108, 6.2, 3.333] },
-  { t: 38.2, az: 102 - FOLLOW_AZIMUTH_MOD / DEG,   el: 40, dist: 0.220, distNarrow: 0.320, fovDesktop: 8.8, fovNarrow: 16.2, tgt: [4.108, 6.2, 3.333] },
-  { t: 38.5, az: 103.5 - FOLLOW_AZIMUTH_MOD / DEG, el: 40, dist: 0.220, distNarrow: 0.320, fovDesktop: 8.8, fovNarrow: 16.2, tgt: [4.108, 6.2, 3.333] },
-  { t: 40.2, az: 103.5 + BULLET_TIME_SHOT_SPECS.stage1Ignition.cameraSweepDeg - FOLLOW_AZIMUTH_MOD / DEG, el: 55, dist: 0.220, distNarrow: 0.320, fovDesktop: 8.8, fovNarrow: 16.2, tgt: [4.108, 6.2, 3.333] },
+  {
+    t: 36.2,
+    az: 98 - FOLLOW_AZIMUTH_MOD / DEG,
+    el: 35,
+    dist: 0.22,
+    distNarrow: 0.32,
+    fovDesktop: 9.4,
+    fovNarrow: 20,
+    tgt: [4.108, 6.2, 3.333],
+  },
+  {
+    t: 38.2,
+    az: 102 - FOLLOW_AZIMUTH_MOD / DEG,
+    el: 40,
+    dist: 0.22,
+    distNarrow: 0.32,
+    fovDesktop: 8.8,
+    fovNarrow: 16.2,
+    tgt: [4.108, 6.2, 3.333],
+  },
+  {
+    t: 38.5,
+    az: 103.5 - FOLLOW_AZIMUTH_MOD / DEG,
+    el: 40,
+    dist: 0.22,
+    distNarrow: 0.32,
+    fovDesktop: 8.8,
+    fovNarrow: 16.2,
+    tgt: [4.108, 6.2, 3.333],
+  },
+  {
+    t: 40.2,
+    az: 103.5 + BULLET_TIME_SHOT_SPECS.stage1Ignition.cameraSweepDeg - FOLLOW_AZIMUTH_MOD / DEG,
+    el: 55,
+    dist: 0.22,
+    distNarrow: 0.32,
+    fovDesktop: 8.8,
+    fovNarrow: 16.2,
+    tgt: [4.108, 6.2, 3.333],
+  },
   // Elevated oblique cascade framing; the track lowers during the reveal.
-  { t: 43.5, az: 601.5 - FOLLOW_AZIMUTH_MOD / DEG, el: -35, dist: 0.220, distNarrow: 0.320, fovDesktop: 22, fovNarrow: 32, tgt: [0, -16, 0] },
-  { t: 52.2, az: 601.5 - FOLLOW_AZIMUTH_MOD / DEG, el: -35, dist: 0.220, distNarrow: 0.320, fovDesktop: 22, fovNarrow: 32, tgt: [0, -16, 0] },
+  {
+    t: 43.5,
+    az: 601.5 - FOLLOW_AZIMUTH_MOD / DEG,
+    el: -35,
+    dist: 0.22,
+    distNarrow: 0.32,
+    fovDesktop: 22,
+    fovNarrow: 32,
+    tgt: [0, -16, 0],
+  },
+  {
+    t: 52.2,
+    az: 601.5 - FOLLOW_AZIMUTH_MOD / DEG,
+    el: -35,
+    dist: 0.22,
+    distNarrow: 0.32,
+    fovDesktop: 22,
+    fovNarrow: 32,
+    tgt: [0, -16, 0],
+  },
 ]
 
 /** Target tracks shaft-local -Y toward the output while the camera lowers. */
@@ -172,9 +302,15 @@ export interface ShaftCameraSample {
 export function createShaftCameraSample(): ShaftCameraSample {
   return {
     valid: false,
-    px: 0.24, py: 0.02, pz: 0.1,
-    tx: 0, ty: 0.009, tz: 0,
-    ux: 0, uy: 1, uz: 0,
+    px: 0.24,
+    py: 0.02,
+    pz: 0.1,
+    tx: 0,
+    ty: 0.009,
+    tz: 0,
+    ux: 0,
+    uy: 1,
+    uz: 0,
     fov: 17,
     followAzimuth: 0,
     followWeight: 0,
@@ -213,7 +349,7 @@ export function sampleShaftCamera(
 
   // Before 15 s the azimuth is the closed-form machining view (the follow is already folded into it);
   // from 15 s the authored anchors carry the frozen follow turn as before.
-  const az = t < 15 ? machiningViewAzimuthDeg(t) * DEG : (lerp(a.az, b.az, u) * DEG) + kinematics.followAzimuth
+  const az = t < 15 ? machiningViewAzimuthDeg(t) * DEG : lerp(a.az, b.az, u) * DEG + kinematics.followAzimuth
   let el = lerp(a.el, b.el, u) * DEG
   const dist = lerp(lerp(a.distNarrow ?? a.dist, a.dist, layout), lerp(b.distNarrow ?? b.dist, b.dist, layout), u)
   // Ease the elevated entry into a lower view as the cascade advances.
@@ -223,9 +359,10 @@ export function sampleShaftCamera(
   // Preserve a gentle lens change as the macro opens into the cascade.
   // A later shoulder completes the fit without a fast zoom at 42.4 s.
   const lensU = a.t === 40.2 ? ease((t - 40.2) / (46 - 40.2)) : u
-  const fov = t >= 43.5 && t < 46
-    ? lerp(lerp(16.2, 8.8, layout), lerp(32, 22, layout), ease((t - 40.2) / (46 - 40.2)))
-    : lerp(lerp(a.fovNarrow, a.fovDesktop, layout), lerp(b.fovNarrow, b.fovDesktop, layout), lensU)
+  const fov =
+    t >= 43.5 && t < 46
+      ? lerp(lerp(16.2, 8.8, layout), lerp(32, 22, layout), ease((t - 40.2) / (46 - 40.2)))
+      : lerp(lerp(a.fovNarrow, a.fovDesktop, layout), lerp(b.fovNarrow, b.fovDesktop, layout), lensU)
 
   const tx = txMM * MM
   const ty = (tyMM + hobFollow) * MM
@@ -238,7 +375,8 @@ export function sampleShaftCamera(
   out.ty = ty
   out.tz = tz
   if (t > SHAFT_DOLLY_START) {
-    const travel = SHAFT_DOLLY_TRAVEL_M * ease((t - SHAFT_DOLLY_START) / (SHAFT_KINEMATICS_DURATION - SHAFT_DOLLY_START))
+    const travel =
+      SHAFT_DOLLY_TRAVEL_M * ease((t - SHAFT_DOLLY_START) / (SHAFT_KINEMATICS_DURATION - SHAFT_DOLLY_START))
     out.py += travel
     out.ty += travel
   }

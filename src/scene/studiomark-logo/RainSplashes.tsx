@@ -81,7 +81,7 @@ export function RainSplashes({ count = 130, enabled = true, simTime = null }: Ra
       lifetimes[i] = p0 // Stagger phase
       phaseOffsets[i] = p0
       speeds[i] = 2.2 + nextRand() * 1.4
-      scales[i] = 0.08 + nextRand() * 0.10
+      scales[i] = 0.08 + nextRand() * 0.1
     }
     mesh.instanceMatrix.needsUpdate = true
   }, [count, dummy, lifetimes, phaseOffsets, scales, seedXZ, speeds])
@@ -128,11 +128,7 @@ export function RainSplashes({ count = 130, enabled = true, simTime = null }: Ra
       if (lifetimes[i] >= 1.0) {
         // Respawn splash at random impact site
         lifetimes[i] = 0
-        pos.set(
-          THREE.MathUtils.randFloatSpread(12),
-          0.015,
-          THREE.MathUtils.randFloatSpread(12),
-        )
+        pos.set(THREE.MathUtils.randFloatSpread(12), 0.015, THREE.MathUtils.randFloatSpread(12))
       }
 
       // Expand ring outwards
@@ -150,14 +146,9 @@ export function RainSplashes({ count = 130, enabled = true, simTime = null }: Ra
   })
 
   return (
-    <instancedMesh
-      ref={meshRef}
-      args={[undefined, undefined, count]}
-      frustumCulled={false}
-    >
+    <instancedMesh ref={meshRef} args={[undefined, undefined, count]} frustumCulled={false}>
       <planeGeometry args={[1, 1]} />
       <primitive object={splashMaterial} attach="material" />
     </instancedMesh>
   )
 }
-

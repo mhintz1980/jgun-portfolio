@@ -128,13 +128,7 @@ export const THERMAL_SHELL_COUNT = 5
 /** Nested shell radii (m) around PUMP_HOUSING, spanning the 0.25–0.65 band. */
 export const THERMAL_SHELL_RADII = [0.25, 0.35, 0.45, 0.55, 0.65] as const
 /** Per-shell color: #fbbf24 → #f97316 → #ea580c across the pool. */
-export const THERMAL_SHELL_COLORS = [
-  '#fbbf24',
-  '#f9991d',
-  '#f97316',
-  '#f26511',
-  '#ea580c',
-] as const
+export const THERMAL_SHELL_COLORS = ['#fbbf24', '#f9991d', '#f97316', '#f26511', '#ea580c'] as const
 /** Restrained additive opacity band. */
 export const THERMAL_SHELL_OPACITY_MIN = 0.06
 export const THERMAL_SHELL_OPACITY_MAX = 0.1

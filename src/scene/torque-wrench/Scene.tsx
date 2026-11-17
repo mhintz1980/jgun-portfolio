@@ -19,7 +19,10 @@ configureTextBuilder({ defaultFontURL: '/fonts/NotoSansSymbols-unicode-resolver-
 
 export default function TorqueScene({ store, onFailure, playback }: TorqueSceneProps) {
   const isolation = useMemo(() => createInspectionIsolationSample(), [])
-  const rendererFactory = useMemo(() => createPrivateRenderer(onFailure, () => store.getState().tier === 'lite' ? 'lite' : 'full'), [onFailure, store])
+  const rendererFactory = useMemo(
+    () => createPrivateRenderer(onFailure, () => (store.getState().tier === 'lite' ? 'lite' : 'full')),
+    [onFailure, store],
+  )
   const rendererSupported = useMemo(() => {
     try {
       const canvas = document.createElement('canvas')
@@ -34,7 +37,8 @@ export default function TorqueScene({ store, onFailure, playback }: TorqueSceneP
     let pacingExtra = page ? parseFloat(getComputedStyle(page).getPropertyValue('--torque-pacing-extra')) : 0
     // The shell fallback is expressed in vh; convert before subtracting its
     // already-reserved space. Never shrink the live document during restoration.
-    if (page && getComputedStyle(page).getPropertyValue('--torque-pacing-extra').includes('vh')) pacingExtra *= innerHeight / 100
+    if (page && getComputedStyle(page).getPropertyValue('--torque-pacing-extra').includes('vh'))
+      pacingExtra *= innerHeight / 100
     const resizePacing = () => {
       const baseRange = Math.max(0, document.documentElement.scrollHeight - innerHeight - pacingExtra)
       pacingExtra = baseRange * (TORQUE_PACING_SCALE - 1)
@@ -48,16 +52,24 @@ export default function TorqueScene({ store, onFailure, playback }: TorqueSceneP
       snapshot: () => {
         const s = store.getNarrativeSample()
         return {
-          progress: s.progress, beatId: s.beat.id, localProgress: s.localProgress,
-          phase: s.phase, stateKey: s.stateKey, previousId: s.previousId, nextId: s.nextId,
+          progress: s.progress,
+          beatId: s.beat.id,
+          localProgress: s.localProgress,
+          phase: s.phase,
+          stateKey: s.stateKey,
+          previousId: s.previousId,
+          nextId: s.nextId,
         }
       },
       beats: TORQUE_BEATS.map(({ id, start, end, poster }) => ({ id, start, end, chapter: poster })),
       diagnostics: () => store.getConductorDiagnostics(),
       scrollFraction: torqueScrollFraction,
       narrativeProgress: torqueNarrativeProgress,
-      pacing: () => ({ scale: TORQUE_PACING_SCALE, baselineRange: pacingExtra / (TORQUE_PACING_SCALE - 1),
-        actualRange: document.documentElement.scrollHeight - innerHeight }),
+      pacing: () => ({
+        scale: TORQUE_PACING_SCALE,
+        baselineRange: pacingExtra / (TORQUE_PACING_SCALE - 1),
+        actualRange: document.documentElement.scrollHeight - innerHeight,
+      }),
     }
     const target = window as unknown as Record<string, unknown>
     target.__torqueNarrative = probe
@@ -91,13 +103,18 @@ export default function TorqueScene({ store, onFailure, playback }: TorqueSceneP
   return (
     <div className="torque-scene" data-torque-scene="live">
       <ScrollConductor store={store} onFailure={onFailure} />
-      {rendererSupported && <Canvas camera={{ near: 0.001, far: 30, position: [0.32, 0.16, 0.42], fov: 42 }}
-        dpr={store.getState().tier === 'lite' ? 1 : [1, 1.5]}
-        gl={rendererFactory}
-      >
-        <BackgroundWorld store={store} onFailure={onFailure} isolation={isolation} />
-        <Suspense fallback={null}><RuntimeWorld store={store} onFailure={onFailure} playback={playback} isolation={isolation} /></Suspense>
-      </Canvas>}
+      {rendererSupported && (
+        <Canvas
+          camera={{ near: 0.001, far: 30, position: [0.32, 0.16, 0.42], fov: 42 }}
+          dpr={store.getState().tier === 'lite' ? 1 : [1, 1.5]}
+          gl={rendererFactory}
+        >
+          <BackgroundWorld store={store} onFailure={onFailure} isolation={isolation} />
+          <Suspense fallback={null}>
+            <RuntimeWorld store={store} onFailure={onFailure} playback={playback} isolation={isolation} />
+          </Suspense>
+        </Canvas>
+      )}
       {rendererSupported && <TorqueInspectionOverlay />}
     </div>
   )

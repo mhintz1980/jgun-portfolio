@@ -2,8 +2,12 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Box3, BufferGeometry, Float32BufferAttribute, Matrix4, Vector3 } from 'three'
 import { SIDE_ROTATION, type DrawingGeometry, type DrawingLayout } from './drawingGeometry'
 import {
-  applyExtractionCore, bindExtractionPressure, createExtractionContext,
-  lowestVertex, relativePose, solveExtraction,
+  applyExtractionCore,
+  bindExtractionPressure,
+  createExtractionContext,
+  lowestVertex,
+  relativePose,
+  solveExtraction,
 } from './poseCore'
 import { clearPaperFlexField, makePaperFlexField, type PaperFlexField } from './sheet/paperFlex'
 
@@ -15,31 +19,70 @@ afterEach(() => {
 
 function fixture(center = new Vector3()) {
   const points = [
-    [-0.14, 0, 0.02], [0, 0, 0.02], [0.14, 0, 0.02],
-    [-0.14, 0.045, 0.019], [0.14, -0.045, 0.019],
-    [-0.14, 0, -0.04], [0.14, 0, -0.04],
+    [-0.14, 0, 0.02],
+    [0, 0, 0.02],
+    [0.14, 0, 0.02],
+    [-0.14, 0.045, 0.019],
+    [0.14, -0.045, 0.019],
+    [-0.14, 0, -0.04],
+    [0.14, 0, -0.04],
   ]
   const inverse = SIDE_ROTATION.clone().invert()
-  const positions = points.flatMap(p => new Vector3(...p as [number, number, number]).applyMatrix4(inverse).toArray())
+  const positions = points.flatMap((p) =>
+    new Vector3(...(p as [number, number, number])).applyMatrix4(inverse).toArray(),
+  )
   const attribute = new Float32BufferAttribute(positions, 3)
   const geometry = new BufferGeometry().setAttribute('position', attribute)
   const data: DrawingGeometry = {
-    geometry, bounds: new Box3().setFromBufferAttribute(attribute),
-    features: {}, units: {}, rigCenter: new Vector3(), sourceTriangles: 0,
+    geometry,
+    bounds: new Box3().setFromBufferAttribute(attribute),
+    features: {},
+    units: {},
+    rigCenter: new Vector3(),
+    sourceTriangles: 0,
   }
   const layout: DrawingLayout = {
-    width: 0.8, height: 0.5, primaryRotation: SIDE_ROTATION, primaryCenter: center,
-    views: [], fitDistance: 1, narrow: false, sectionLineY: 0,
+    width: 0.8,
+    height: 0.5,
+    primaryRotation: SIDE_ROTATION,
+    primaryCenter: center,
+    views: [],
+    fitDistance: 1,
+    narrow: false,
+    sectionLineY: 0,
   }
   const field = makePaperFlexField(
-    [[-0.15, -0.05], [0.15, -0.05], [0.15, 0.05], [-0.15, 0.05]], 0.8, 0.5)
-  resources.push(() => { clearPaperFlexField(field); field.texture.dispose(); geometry.dispose() })
+    [
+      [-0.15, -0.05],
+      [0.15, -0.05],
+      [0.15, 0.05],
+      [-0.15, 0.05],
+    ],
+    0.8,
+    0.5,
+  )
+  resources.push(() => {
+    clearPaperFlexField(field)
+    field.texture.dispose()
+    geometry.dispose()
+  })
   return { data, layout, field, extraction: solveExtraction(data, layout) }
 }
 
-function expectTrueCrossing(data: DrawingGeometry, layout: DrawingLayout, extraction: ReturnType<typeof solveExtraction>) {
-  const matrix = relativePose(extraction.crossing, layout, extraction.travel, extraction.initialZ,
-    new Matrix4(), extraction.clearanceTravel, extraction.pressureTravel)
+function expectTrueCrossing(
+  data: DrawingGeometry,
+  layout: DrawingLayout,
+  extraction: ReturnType<typeof solveExtraction>,
+) {
+  const matrix = relativePose(
+    extraction.crossing,
+    layout,
+    extraction.travel,
+    extraction.initialZ,
+    new Matrix4(),
+    extraction.clearanceTravel,
+    extraction.pressureTravel,
+  )
   expect(lowestVertex(data, matrix).z).toBeCloseTo(0, 10)
 }
 
@@ -106,12 +149,15 @@ describe('explicit extraction inputs', () => {
   })
 
   it('keeps separate contexts stable while another consumer publishes and applies a field', () => {
-    const a = fixture(), b = fixture(new Vector3(0.08, -0.02, 0))
-    const ca = createExtractionContext(), cb = createExtractionContext()
+    const a = fixture(),
+      b = fixture(new Vector3(0.08, -0.02, 0))
+    const ca = createExtractionContext(),
+      cb = createExtractionContext()
     expect(ca.modelMatrix).not.toBe(cb.modelMatrix)
     expect(ca.sheetMatrix).not.toBe(cb.sheetMatrix)
     const minA = applyExtractionCore(0.48, a.layout, a.extraction, a.field, 'full', ca)
-    const modelA = ca.modelMatrix.elements.slice(), sheetA = ca.sheetMatrix.elements.slice()
+    const modelA = ca.modelMatrix.elements.slice(),
+      sheetA = ca.sheetMatrix.elements.slice()
     const pushA = a.extraction.modelPush
     applyExtractionCore(0.85, b.layout, b.extraction, null, 'lite', cb)
     expect(ca.modelMatrix.elements).toEqual(modelA)

@@ -42,9 +42,7 @@ export function StaticPoster({ reason }: { reason?: StaticPosterReason }) {
         </p>
         <p className="text-cyan-400/30">{ASSEMBLY_IDENTITY.machine}</p>
         <p className="text-cyan-400/30">{ASSEMBLY_IDENTITY.spec}</p>
-        <p className="mt-1 text-cyan-400/30">
-          {reason ? MODE_LINES[reason] : 'STATIC RENDER MODE'}
-        </p>
+        <p className="mt-1 text-cyan-400/30">{reason ? MODE_LINES[reason] : 'STATIC RENDER MODE'}</p>
       </div>
 
       {/* Sheet furniture, bottom-right — engineering title block. */}

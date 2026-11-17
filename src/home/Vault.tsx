@@ -34,7 +34,11 @@ function useMedia(query: string): boolean {
     },
     [query],
   )
-  return useSyncExternalStore(subscribe, () => window.matchMedia(query).matches, () => false)
+  return useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(query).matches,
+    () => false,
+  )
 }
 
 function readViewport(): Viewport {
@@ -189,7 +193,11 @@ export default function Vault({ focus }: VaultProps) {
       <div className="home-vault-plane home-vault-ghost">{renderPlane('ghost')}</div>
       {loupeOn && (
         <>
-          <div ref={loupeRef} className="home-vault-plane home-vault-loupe" style={{ '--lr': `${radius}px` } as CSSProperties}>
+          <div
+            ref={loupeRef}
+            className="home-vault-plane home-vault-loupe"
+            style={{ '--lr': `${radius}px` } as CSSProperties}
+          >
             {renderPlane('loupe')}
           </div>
           <div ref={ringRef} className="home-vault-ring" style={{ width: radius * 2, height: radius * 2 }}>

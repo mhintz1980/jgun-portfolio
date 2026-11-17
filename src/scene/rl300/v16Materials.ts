@@ -55,7 +55,8 @@ export function mapFor(map: V16Map, partName: string, slotIndex: number, slotCou
   const slots = map.parts[partName].v16
   let name: string | undefined
   if (slots.length === 1) name = slots[0]
-  else if (slots.length === slotCount && Number.isInteger(slotIndex) && slotIndex >= 0 && slotIndex < slots.length) name = slots[slotIndex]
+  else if (slots.length === slotCount && Number.isInteger(slotIndex) && slotIndex >= 0 && slotIndex < slots.length)
+    name = slots[slotIndex]
   if (name === undefined || !has(map.materials, name)) return null
   return { ...map.materials[name], name }
 }

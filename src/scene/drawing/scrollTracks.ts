@@ -162,10 +162,7 @@ export function chapterTransitVh(
 }
 
 /** Raw document scroll fraction (`scrollY / maxScroll`) for a vh offset. */
-export function rawScrollFraction(
-  offsetVh: number,
-  tracks: ScrollTracksVh = SCROLL_TRACK_VH,
-): number {
+export function rawScrollFraction(offsetVh: number, tracks: ScrollTracksVh = SCROLL_TRACK_VH): number {
   return clamp01(offsetVh / scrollDistanceVh(tracks))
 }
 
@@ -180,4 +177,3 @@ export function chapterTransitPaced(
     end: pacedProgress(rawScrollFraction(endVh, tracks)),
   }
 }
-

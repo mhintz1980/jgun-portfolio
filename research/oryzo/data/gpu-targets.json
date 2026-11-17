@@ -1,0 +1,50 @@
+[ {
+   "description": "",
+   "devtoolsFrontendUrl": "https://chrome-devtools-frontend.appspot.com/serve_rev/@6dc9bc3bdaea5c35ed6d41fceab2f7a3a2227c4f/inspector.html?ws=127.0.0.1:9226/devtools/page/FB14D608FE246BEA7A502DB156FB1E7D",
+   "id": "FB14D608FE246BEA7A502DB156FB1E7D",
+   "title": "Hi Mark",
+   "type": "page",
+   "url": "https://accounts.google.com/v3/signin/challenge/pk?TL=AAxq8ntzSdRXXzbdeLm_OUjxFNnHXbpFJq1UB1UDQ7BOYYJPmEq8fhfnbKdyk8rF&checkConnection=youtube%3A262&checkedDomains=youtube&cid=1&color_scheme=dark&continue=https%3A%2F%2Faccounts.google.com%2Fsignin%2Fchrome%2Fsync%2Ffinish%3Fest%3DAJD7mip8IuljLsbNIsphleLYvwXScjyn_AHwKcrJy0kP8G6brcSbym3DoghS7Dchz7xb9oR3uMg2brB2iPzvw4o%26continue%3Dhttps%3A%2F%2Faccounts.google.com%2Fchrome%2Fblank.html&dsh=S-1388622444%3A1794621654114321&flow=promo&flowName=GlifDesktopChromeSync&pstMsg=1&theme=mn",
+   "webSocketDebuggerUrl": "ws://127.0.0.1:9226/devtools/page/FB14D608FE246BEA7A502DB156FB1E7D"
+}, {
+   "description": "",
+   "devtoolsFrontendUrl": "https://chrome-devtools-frontend.appspot.com/serve_rev/@6dc9bc3bdaea5c35ed6d41fceab2f7a3a2227c4f/inspector.html?ws=127.0.0.1:9226/devtools/page/4A16EF25595EE38F9F3017DDF79239EE",
+   "id": "4A16EF25595EE38F9F3017DDF79239EE",
+   "parentId": "FB14D608FE246BEA7A502DB156FB1E7D",
+   "title": "https://accounts.youtube.com/accounts/CheckConnection?pmpo=https%3A%2F%2Faccounts.google.com&amp;v=30752651&amp;timestamp=1794621655711",
+   "type": "iframe",
+   "url": "https://accounts.youtube.com/accounts/CheckConnection?pmpo=https%3A%2F%2Faccounts.google.com&v=30752651&timestamp=1794621655711",
+   "webSocketDebuggerUrl": "ws://127.0.0.1:9226/devtools/page/4A16EF25595EE38F9F3017DDF79239EE"
+}, {
+   "description": "",
+   "devtoolsFrontendUrl": "https://chrome-devtools-frontend.appspot.com/serve_rev/@6dc9bc3bdaea5c35ed6d41fceab2f7a3a2227c4f/inspector.html?ws=127.0.0.1:9226/devtools/page/A15C80F28970FB65A424F6D53E54DEA5",
+   "id": "A15C80F28970FB65A424F6D53E54DEA5",
+   "title": "Sign in to Chrome",
+   "type": "page",
+   "url": "chrome://intro/",
+   "webSocketDebuggerUrl": "ws://127.0.0.1:9226/devtools/page/A15C80F28970FB65A424F6D53E54DEA5"
+}, {
+   "description": "",
+   "devtoolsFrontendUrl": "https://chrome-devtools-frontend.appspot.com/serve_rev/@6dc9bc3bdaea5c35ed6d41fceab2f7a3a2227c4f/inspector.html?ws=127.0.0.1:9226/devtools/page/DB8FA544DD47375195CCF596E9F15D74",
+   "id": "DB8FA544DD47375195CCF596E9F15D74",
+   "title": "",
+   "type": "worker",
+   "url": "",
+   "webSocketDebuggerUrl": "ws://127.0.0.1:9226/devtools/page/DB8FA544DD47375195CCF596E9F15D74"
+}, {
+   "description": "",
+   "devtoolsFrontendUrl": "https://chrome-devtools-frontend.appspot.com/serve_rev/@6dc9bc3bdaea5c35ed6d41fceab2f7a3a2227c4f/inspector.html?ws=127.0.0.1:9226/devtools/page/A7ED49720DA6CFC71E8E754F8E6122C4",
+   "id": "A7ED49720DA6CFC71E8E754F8E6122C4",
+   "title": "",
+   "type": "worker",
+   "url": "",
+   "webSocketDebuggerUrl": "ws://127.0.0.1:9226/devtools/page/A7ED49720DA6CFC71E8E754F8E6122C4"
+}, {
+   "description": "",
+   "devtoolsFrontendUrl": "https://chrome-devtools-frontend.appspot.com/serve_rev/@6dc9bc3bdaea5c35ed6d41fceab2f7a3a2227c4f/inspector.html?ws=127.0.0.1:9226/devtools/page/E0D3D4AA3C909FB0CBB4B56F1A5DF8C5",
+   "id": "E0D3D4AA3C909FB0CBB4B56F1A5DF8C5",
+   "title": "",
+   "type": "worker",
+   "url": "",
+   "webSocketDebuggerUrl": "ws://127.0.0.1:9226/devtools/page/E0D3D4AA3C909FB0CBB4B56F1A5DF8C5"
+} ]

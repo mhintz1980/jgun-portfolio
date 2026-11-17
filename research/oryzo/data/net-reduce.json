@@ -1,0 +1,3923 @@
+{
+ "mode": "net",
+ "viewport": "see-launch",
+ "perf": {
+  "timeOrigin": 0,
+  "navigationType": "reload",
+  "domInteractive": 908.3,
+  "domContentLoaded": 1123.7,
+  "loadEnd": 10827.2,
+  "paints": [
+   {
+    "name": "first-paint",
+    "t": 1120
+   },
+   {
+    "name": "first-contentful-paint",
+    "t": 1120
+   }
+  ],
+  "lcp": [],
+  "res": [
+   {
+    "name": "https://static.cloudflareinsights.com/beacon.min.js",
+    "init": "script",
+    "start": 771.7,
+    "end": 920.2,
+    "dur": 148.5,
+    "transfer": 0,
+    "encoded": 0,
+    "decoded": 0
+   },
+   {
+    "name": "https://oryzo.ai/_astro/index.TL6TuoJb.css",
+    "init": "link",
+    "start": 772.5,
+    "end": 863,
+    "dur": 90.5,
+    "transfer": 13669,
+    "encoded": 13369,
+    "decoded": 69220
+   },
+   {
+    "name": "https://oryzo.ai/_astro/hoisted.CRsATKbF.js",
+    "init": "script",
+    "start": 772.6,
+    "end": 925.9,
+    "dur": 153.3,
+    "transfer": 303865,
+    "encoded": 303565,
+    "decoded": 1097812
+   },
+   {
+    "name": "https://oryzo.ai/images/video_thumb.webp",
+    "init": "img",
+    "start": 772.8,
+    "end": 897.6,
+    "dur": 124.8,
+    "transfer": 9598,
+    "encoded": 9298,
+    "decoded": 9298
+   },
+   {
+    "name": "https://use.typekit.net/pmn6ngx.css",
+    "init": "css",
+    "start": 898.4,
+    "end": 957.4,
+    "dur": 59,
+    "transfer": 967,
+    "encoded": 667,
+    "decoded": 2110
+   },
+   {
+    "name": "https://oryzo.ai/meta/site.webmanifest",
+    "init": "link",
+    "start": 922.7,
+    "end": 1056.2,
+    "dur": 133.5,
+    "transfer": 511,
+    "encoded": 211,
+    "decoded": 436
+   },
+   {
+    "name": "https://oryzo.ai/fonts/Literata.woff2",
+    "init": "css",
+    "start": 1042.9,
+    "end": 1106.5,
+    "dur": 63.6,
+    "transfer": 110380,
+    "encoded": 110080,
+    "decoded": 110080
+   },
+   {
+    "name": "https://oryzo.ai/fonts/DM-Mono-400-Latin.woff2",
+    "init": "css",
+    "start": 1046.6,
+    "end": 1130.5,
+    "dur": 83.9,
+    "transfer": 15120,
+    "encoded": 14820,
+    "decoded": 14820
+   },
+   {
+    "name": "https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fplayer.vimeo.com%2Fvideo%2F1174820580%3Fh%3D5aaa6219d2&url=https%3A%2F%2Fplayer.vimeo.com%2Fvideo%2F1174820580%3Fh%3D5aaa6219d2&width=100%25&height=100%25&responsive=true&title=false&controls=false&byline=false&dnt=true",
+    "init": "xmlhttprequest",
+    "start": 1308.2,
+    "end": 1591.9,
+    "dur": 283.7,
+    "transfer": 0,
+    "encoded": 0,
+    "decoded": 0
+   },
+   {
+    "name": "https://unpkg.com/@rive-app/canvas@2.37.0/rive.wasm",
+    "init": "fetch",
+    "start": 1595.2,
+    "end": 2121.3,
+    "dur": 526.1,
+    "transfer": 0,
+    "encoded": 0,
+    "decoded": 0
+   },
+   {
+    "name": "https://oryzo.ai/textures/brdf.png",
+    "init": "img",
+    "start": 2748.1,
+    "end": 2867.1,
+    "dur": 119,
+    "transfer": 12482,
+    "encoded": 12182,
+    "decoded": 12182
+   },
+   {
+    "name": "https://oryzo.ai/textures/smaa-search.png",
+    "init": "img",
+    "start": 2748.5,
+    "end": 2816.8,
+    "dur": 68.3,
+    "transfer": 413,
+    "encoded": 113,
+    "decoded": 113
+   },
+   {
+    "name": "https://oryzo.ai/textures/smaa-area.png",
+    "init": "img",
+    "start": 2748.9,
+    "end": 2826.3,
+    "dur": 77.4,
+    "transfer": 33503,
+    "encoded": 33203,
+    "decoded": 33203
+   },
+   {
+    "name": "https://oryzo.ai/textures/LDR_RGB1_0.png",
+    "init": "img",
+    "start": 2749.3,
+    "end": 2831.7,
+    "dur": 82.4,
+    "transfer": 49059,
+    "encoded": 48759,
+    "decoded": 48759
+   },
+   {
+    "name": "https://player.vimeo.com/video/1174820580?h=5aaa6219d2&title=0&byline=0&controls=0&dnt=1&app_id=122963",
+    "init": "iframe",
+    "start": 3131.1,
+    "end": 9415.4,
+    "dur": 6284.3,
+    "transfer": 0,
+    "encoded": 0,
+    "decoded": 0
+   },
+   {
+    "name": "https://oryzo.ai/textures/gobo/gobo_b_0.4630597.avif",
+    "init": "img",
+    "start": 3271.7,
+    "end": 3429.5,
+    "dur": 157.8,
+    "transfer": 166914,
+    "encoded": 166614,
+    "decoded": 166614
+   },
+   {
+    "name": "https://oryzo.ai/textures/gobo/gobo_c_0.38847005.avif",
+    "init": "img",
+    "start": 3272.4,
+    "end": 3544.2,
+    "dur": 271.8,
+    "transfer": 165837,
+    "encoded": 165537,
+    "decoded": 165537
+   },
+   {
+    "name": "https://oryzo.ai/textures/hero/env_hero.webp",
+    "init": "img",
+    "start": 3272.6,
+    "end": 3400.4,
+    "dur": 127.8,
+    "transfer": 8756,
+    "encoded": 8456,
+    "decoded": 8456
+   },
+   {
+    "name": "https://oryzo.ai/textures/hero/BASE.webp",
+    "init": "img",
+    "start": 3272.9,
+    "end": 3565.5,
+    "dur": 292.6,
+    "transfer": 421202,
+    "encoded": 420902,
+    "decoded": 420902
+   },
+   {
+    "name": "https://oryzo.ai/rive/oryzo.riv",
+    "init": "fetch",
+    "start": 3346.7,
+    "end": 3520.7,
+    "dur": 174,
+    "transfer": 59477,
+    "encoded": 59177,
+    "decoded": 59177
+   },
+   {
+    "name": "https://oryzo.ai/rive/oryzo.riv",
+    "init": "fetch",
+    "start": 3347.5,
+    "end": 3547.3,
+    "dur": 199.8,
+    "transfer": 59477,
+    "encoded": 59177,
+    "decoded": 59177
+   },
+   {
+    "name": "https://oryzo.ai/textures/hero/pencil_color.webp",
+    "init": "img",
+    "start": 3480.3,
+    "end": 3644.3,
+    "dur": 164,
+    "transfer": 76332,
+    "encoded": 76032,
+    "decoded": 76032
+   },
+   {
+    "name": "https://oryzo.ai/textures/hero/pencil_alpha.webp",
+    "init": "img",
+    "start": 3520,
+    "end": 3616.4,
+    "dur": 96.4,
+    "transfer": 5006,
+    "encoded": 4706,
+    "decoded": 4706
+   },
+   {
+    "name": "https://oryzo.ai/textures/hero/eraser_color.webp",
+    "init": "img",
+    "start": 3600.1,
+    "end": 3727,
+    "dur": 126.9,
+    "transfer": 22436,
+    "encoded": 22136,
+    "decoded": 22136
+   },
+   {
+    "name": "https://oryzo.ai/textures/hero/eraser_alpha.webp",
+    "init": "img",
+    "start": 3600.8,
+    "end": 3730.4,
+    "dur": 129.6,
+    "transfer": 2228,
+    "encoded": 1928,
+    "decoded": 1928
+   },
+   {
+    "name": "https://oryzo.ai/textures/hero/cutter_color.webp",
+    "init": "img",
+    "start": 3718.3,
+    "end": 3892.2,
+    "dur": 173.9,
+    "transfer": 117196,
+    "encoded": 116896,
+    "decoded": 116896
+   },
+   {
+    "name": "https://oryzo.ai/textures/hero/cutter_alpha.webp",
+    "init": "img",
+    "start": 3906.9,
+    "end": 4099.8,
+    "dur": 192.9,
+    "transfer": 5350,
+    "encoded": 5050,
+    "decoded": 5050
+   },
+   {
+    "name": "https://oryzo.ai/textures/hero/pen_color.webp",
+    "init": "img",
+    "start": 3933.8,
+    "end": 4099,
+    "dur": 165.2,
+    "transfer": 37430,
+    "encoded": 37130,
+    "decoded": 37130
+   },
+   {
+    "name": "https://oryzo.ai/textures/hero/pen_alpha.webp",
+    "init": "img",
+    "start": 3949.5,
+    "end": 4099.5,
+    "dur": 150,
+    "transfer": 4464,
+    "encoded": 4164,
+    "decoded": 4164
+   },
+   {
+    "name": "https://oryzo.ai/textures/hero/paperclip1_color.webp",
+    "init": "img",
+    "start": 3977.8,
+    "end": 4234.2,
+    "dur": 256.4,
+    "transfer": 13092,
+    "encoded": 12792,
+    "decoded": 12792
+   },
+   {
+    "name": "https://oryzo.ai/textures/hero/paperclip1_alpha.webp",
+    "init": "img",
+    "start": 4110.3,
+    "end": 4314.6,
+    "dur": 204.3,
+    "transfer": 3084,
+    "encoded": 2784,
+    "decoded": 2784
+   },
+   {
+    "name": "https://oryzo.ai/textures/hero/paperclip2_color.webp",
+    "init": "img",
+    "start": 4143.5,
+    "end": 4317.3,
+    "dur": 173.8,
+    "transfer": 12882,
+    "encoded": 12582,
+    "decoded": 12582
+   },
+   {
+    "name": "https://oryzo.ai/textures/hero/paperclip2_alpha.webp",
+    "init": "img",
+    "start": 4204.4,
+    "end": 4316.6,
+    "dur": 112.2,
+    "transfer": 3026,
+    "encoded": 2726,
+    "decoded": 2726
+   },
+   {
+    "name": "https://oryzo.ai/textures/hero/paperclip3_color.webp",
+    "init": "img",
+    "start": 4276.5,
+    "end": 4431,
+    "dur": 154.5,
+    "transfer": 14904,
+    "encoded": 14604,
+    "decoded": 14604
+   },
+   {
+    "name": "https://oryzo.ai/textures/hero/paperclip3_alpha.webp",
+    "init": "img",
+    "start": 4348.4,
+    "end": 4486.9,
+    "dur": 138.5,
+    "transfer": 3322,
+    "encoded": 3022,
+    "decoded": 3022
+   },
+   {
+    "name": "https://oryzo.ai/models/hero_camera.buf",
+    "init": "xmlhttprequest",
+    "start": 4349.2,
+    "end": 4488.8,
+    "dur": 139.6,
+    "transfer": 2660,
+    "encoded": 2360,
+    "decoded": 2360
+   },
+   {
+    "name": "https://oryzo.ai/models/coaster_hero_animation.buf",
+    "init": "xmlhttprequest",
+    "start": 4360.2,
+    "end": 4485.4,
+    "dur": 125.2,
+    "transfer": 3264,
+    "encoded": 2964,
+    "decoded": 2964
+   },
+   {
+    "name": "https://oryzo.ai/textures/hero/env_hand.webp",
+    "init": "img",
+    "start": 4432.8,
+    "end": 4528.2,
+    "dur": 95.4,
+    "transfer": 5780,
+    "encoded": 5480,
+    "decoded": 5480
+   },
+   {
+    "name": "https://oryzo.ai/textures/hero/env_hand_spec_20.webp",
+    "init": "img",
+    "start": 4501.5,
+    "end": 4572.8,
+    "dur": 71.3,
+    "transfer": 1456,
+    "encoded": 1156,
+    "decoded": 1156
+   },
+   {
+    "name": "https://oryzo.ai/models/hand.buf",
+    "init": "xmlhttprequest",
+    "start": 4505.4,
+    "end": 4674.5,
+    "dur": 169.1,
+    "transfer": 381334,
+    "encoded": 381034,
+    "decoded": 381034
+   },
+   {
+    "name": "https://oryzo.ai/models/hand_animation.buf",
+    "init": "xmlhttprequest",
+    "start": 4516.3,
+    "end": 4604.1,
+    "dur": 87.8,
+    "transfer": 41812,
+    "encoded": 41512,
+    "decoded": 41512
+   },
+   {
+    "name": "https://oryzo.ai/textures/hero/AI_HAND.webp",
+    "init": "img",
+    "start": 4544,
+    "end": 4723.6,
+    "dur": 179.6,
+    "transfer": 208888,
+    "encoded": 208588,
+    "decoded": 208588
+   },
+   {
+    "name": "https://oryzo.ai/textures/wearable/wearable_text.webp",
+    "init": "img",
+    "start": 4609.4,
+    "end": 4768.3,
+    "dur": 158.9,
+    "transfer": 12714,
+    "encoded": 12414,
+    "decoded": 12414
+   },
+   {
+    "name": "https://oryzo.ai/textures/wearable/condom/condom_anim.webp",
+    "init": "img",
+    "start": 4613,
+    "end": 4783.7,
+    "dur": 170.7,
+    "transfer": 422818,
+    "encoded": 422518,
+    "decoded": 422518
+   },
+   {
+    "name": "https://oryzo.ai/textures/wearable/condom/normal.png",
+    "init": "img",
+    "start": 4696.7,
+    "end": 4856.8,
+    "dur": 160.1,
+    "transfer": 1781,
+    "encoded": 1481,
+    "decoded": 1481
+   },
+   {
+    "name": "https://oryzo.ai/textures/wearable/condom/pattern.png",
+    "init": "img",
+    "start": 4729.3,
+    "end": 4880.8,
+    "dur": 151.5,
+    "transfer": 1647,
+    "encoded": 1347,
+    "decoded": 1347
+   },
+   {
+    "name": "https://oryzo.ai/textures/wearable/condom/front/base.avif",
+    "init": "img",
+    "start": 4776.9,
+    "end": 4860.9,
+    "dur": 84,
+    "transfer": 23859,
+    "encoded": 23559,
+    "decoded": 23559
+   },
+   {
+    "name": "https://oryzo.ai/textures/wearable/condom/front/harmonics_0.avif",
+    "init": "img",
+    "start": 4785.3,
+    "end": 4881.3,
+    "dur": 96,
+    "transfer": 30762,
+    "encoded": 30462,
+    "decoded": 30462
+   },
+   {
+    "name": "https://oryzo.ai/textures/wearable/condom/front/harmonics_1.avif",
+    "init": "img",
+    "start": 4945.8,
+    "end": 5048.4,
+    "dur": 102.6,
+    "transfer": 32566,
+    "encoded": 32266,
+    "decoded": 32266
+   },
+   {
+    "name": "https://oryzo.ai/models/wearable/condom_front.buf",
+    "init": "xmlhttprequest",
+    "start": 4946.5,
+    "end": 5109.5,
+    "dur": 163,
+    "transfer": 421300,
+    "encoded": 421000,
+    "decoded": 421000
+   },
+   {
+    "name": "https://oryzo.ai/textures/wearable/condom/back/base.avif",
+    "init": "img",
+    "start": 4947,
+    "end": 5015.2,
+    "dur": 68.2,
+    "transfer": 47960,
+    "encoded": 47660,
+    "decoded": 47660
+   },
+   {
+    "name": "https://oryzo.ai/textures/wearable/condom/back/harmonics_0.avif",
+    "init": "img",
+    "start": 4947.3,
+    "end": 5048.7,
+    "dur": 101.4,
+    "transfer": 35389,
+    "encoded": 35089,
+    "decoded": 35089
+   },
+   {
+    "name": "https://oryzo.ai/textures/wearable/condom/back/harmonics_1.avif",
+    "init": "img",
+    "start": 5020.8,
+    "end": 5117.4,
+    "dur": 96.6,
+    "transfer": 35739,
+    "encoded": 35439,
+    "decoded": 35439
+   },
+   {
+    "name": "https://oryzo.ai/models/wearable/condom_back.buf",
+    "init": "xmlhttprequest",
+    "start": 5053.7,
+    "end": 5188.7,
+    "dur": 135,
+    "transfer": 317121,
+    "encoded": 316821,
+    "decoded": 316821
+   },
+   {
+    "name": "https://oryzo.ai/models/wearable/coaster_first.buf",
+    "init": "xmlhttprequest",
+    "start": 5054.5,
+    "end": 5174.5,
+    "dur": 120,
+    "transfer": 1992,
+    "encoded": 1692,
+    "decoded": 1692
+   },
+   {
+    "name": "https://oryzo.ai/textures/wearable/1.webp",
+    "init": "img",
+    "start": 5116.3,
+    "end": 5189.6,
+    "dur": 73.3,
+    "transfer": 42534,
+    "encoded": 42234,
+    "decoded": 42234
+   },
+   {
+    "name": "https://oryzo.ai/textures/wearable/1_clip.webp",
+    "init": "img",
+    "start": 5119.4,
+    "end": 5199.1,
+    "dur": 79.7,
+    "transfer": 7632,
+    "encoded": 7332,
+    "decoded": 7332
+   },
+   {
+    "name": "https://oryzo.ai/textures/wearable/pin.webp",
+    "init": "img",
+    "start": 5182.7,
+    "end": 5234.8,
+    "dur": 52.1,
+    "transfer": 35564,
+    "encoded": 35264,
+    "decoded": 35264
+   },
+   {
+    "name": "https://oryzo.ai/textures/wearable/rise.webp",
+    "init": "img",
+    "start": 5200.6,
+    "end": 5251.6,
+    "dur": 51,
+    "transfer": 7792,
+    "encoded": 7492,
+    "decoded": 7492
+   },
+   {
+    "name": "https://oryzo.ai/models/table/TRAY_COVERS.buf",
+    "init": "xmlhttprequest",
+    "start": 5204.4,
+    "end": 5266.6,
+    "dur": 62.2,
+    "transfer": 4526,
+    "encoded": 4226,
+    "decoded": 4226
+   },
+   {
+    "name": "https://oryzo.ai/textures/thermal_gradient.webp",
+    "init": "img",
+    "start": 5205.1,
+    "end": 5251.9,
+    "dur": 46.8,
+    "transfer": 550,
+    "encoded": 250,
+    "decoded": 250
+   },
+   {
+    "name": "https://oryzo.ai/models/featuresAnimations/CAMERA_ANIM.buf",
+    "init": "xmlhttprequest",
+    "start": 5274.6,
+    "end": 5332.9,
+    "dur": 58.3,
+    "transfer": 8796,
+    "encoded": 8496,
+    "decoded": 8496
+   },
+   {
+    "name": "https://oryzo.ai/models/featuresAnimations/COASTER_ANIM.buf",
+    "init": "xmlhttprequest",
+    "start": 5275.3,
+    "end": 5400.3,
+    "dur": 125,
+    "transfer": 7952,
+    "encoded": 7652,
+    "decoded": 7652
+   },
+   {
+    "name": "https://oryzo.ai/models/featuresAnimations/COFFEE_ANIM.buf",
+    "init": "xmlhttprequest",
+    "start": 5275.8,
+    "end": 5400.7,
+    "dur": 124.9,
+    "transfer": 8056,
+    "encoded": 7756,
+    "decoded": 7756
+   },
+   {
+    "name": "https://oryzo.ai/models/COASTER_FLIP_ANIM.buf",
+    "init": "xmlhttprequest",
+    "start": 5278.4,
+    "end": 5403,
+    "dur": 124.6,
+    "transfer": 2664,
+    "encoded": 2364,
+    "decoded": 2364
+   },
+   {
+    "name": "https://oryzo.ai/textures/table/env_table.webp",
+    "init": "img",
+    "start": 5370.9,
+    "end": 5463.6,
+    "dur": 92.7,
+    "transfer": 9730,
+    "encoded": 9430,
+    "decoded": 9430
+   },
+   {
+    "name": "https://oryzo.ai/textures/table/env_grip.webp",
+    "init": "img",
+    "start": 5416.3,
+    "end": 5512.8,
+    "dur": 96.5,
+    "transfer": 9618,
+    "encoded": 9318,
+    "decoded": 9318
+   },
+   {
+    "name": "https://oryzo.ai/models/sustainability_text.buf",
+    "init": "xmlhttprequest",
+    "start": 5418.6,
+    "end": 5503.4,
+    "dur": 84.8,
+    "transfer": 55318,
+    "encoded": 55018,
+    "decoded": 55018
+   },
+   {
+    "name": "https://oryzo.ai/models/sustainability_text_outline.buf",
+    "init": "xmlhttprequest",
+    "start": 5422,
+    "end": 5533.3,
+    "dur": 111.3,
+    "transfer": 82345,
+    "encoded": 82045,
+    "decoded": 82045
+   },
+   {
+    "name": "https://oryzo.ai/models/stack_camera.buf",
+    "init": "xmlhttprequest",
+    "start": 5466.9,
+    "end": 5599.5,
+    "dur": 132.6,
+    "transfer": 1336,
+    "encoded": 1036,
+    "decoded": 1036
+   },
+   {
+    "name": "https://oryzo.ai/textures/coffeeBean/DIFF.webp",
+    "init": "img",
+    "start": 5517,
+    "end": 5613,
+    "dur": 96,
+    "transfer": 3074,
+    "encoded": 2774,
+    "decoded": 2774
+   },
+   {
+    "name": "https://oryzo.ai/textures/coffeeBean/HEIGHT.webp",
+    "init": "img",
+    "start": 5535.1,
+    "end": 5674.8,
+    "dur": 139.7,
+    "transfer": 3320,
+    "encoded": 3020,
+    "decoded": 3020
+   },
+   {
+    "name": "https://oryzo.ai/models/COFFEE_BEAN.buf",
+    "init": "xmlhttprequest",
+    "start": 5539.1,
+    "end": 5665.9,
+    "dur": 126.8,
+    "transfer": 7924,
+    "encoded": 7624,
+    "decoded": 7624
+   },
+   {
+    "name": "https://oryzo.ai/textures/coaster/DIFF.webp",
+    "init": "img",
+    "start": 5605,
+    "end": 5764,
+    "dur": 159,
+    "transfer": 273422,
+    "encoded": 273122,
+    "decoded": 273122
+   },
+   {
+    "name": "https://oryzo.ai/textures/coaster/HEIGHT.webp",
+    "init": "img",
+    "start": 5615.1,
+    "end": 5732.6,
+    "dur": 117.5,
+    "transfer": 276420,
+    "encoded": 276120,
+    "decoded": 276120
+   },
+   {
+    "name": "https://oryzo.ai/models/coaster.buf",
+    "init": "xmlhttprequest",
+    "start": 5676.5,
+    "end": 5816.1,
+    "dur": 139.6,
+    "transfer": 67252,
+    "encoded": 66952,
+    "decoded": 66952
+   },
+   {
+    "name": "https://oryzo.ai/fonts/msdf/Inter.json",
+    "init": "xmlhttprequest",
+    "start": 5683.3,
+    "end": 5780.6,
+    "dur": 97.3,
+    "transfer": 2499,
+    "encoded": 2199,
+    "decoded": 14130
+   },
+   {
+    "name": "https://oryzo.ai/fonts/msdf/Inter.webp",
+    "init": "img",
+    "start": 5737.8,
+    "end": 5814.4,
+    "dur": 76.6,
+    "transfer": 24274,
+    "encoded": 23974,
+    "decoded": 23974
+   },
+   {
+    "name": "https://oryzo.ai/splats/props.sog",
+    "init": "xmlhttprequest",
+    "start": 6018.4,
+    "end": 7484.6,
+    "dur": 1466.2,
+    "transfer": 3093258,
+    "encoded": 3092958,
+    "decoded": 3092958
+   },
+   {
+    "name": "https://oryzo.ai/splats/table_reflection.sog",
+    "init": "xmlhttprequest",
+    "start": 6019.1,
+    "end": 6231.4,
+    "dur": 212.3,
+    "transfer": 486736,
+    "encoded": 486436,
+    "decoded": 486436
+   },
+   {
+    "name": "https://oryzo.ai/textures/table/DESK.webp",
+    "init": "img",
+    "start": 6020,
+    "end": 6962,
+    "dur": 942,
+    "transfer": 747676,
+    "encoded": 747376,
+    "decoded": 747376
+   },
+   {
+    "name": "https://oryzo.ai/textures/table/DESK_HD.webp",
+    "init": "img",
+    "start": 6021.1,
+    "end": 7151.2,
+    "dur": 1130.1,
+    "transfer": 670178,
+    "encoded": 669878,
+    "decoded": 669878
+   },
+   {
+    "name": "https://oryzo.ai/models/table/DESK.buf",
+    "init": "xmlhttprequest",
+    "start": 6021.9,
+    "end": 6449.1,
+    "dur": 427.2,
+    "transfer": 14672,
+    "encoded": 14372,
+    "decoded": 14372
+   },
+   {
+    "name": "https://oryzo.ai/textures/table/PINBOARD.webp",
+    "init": "img",
+    "start": 6022.1,
+    "end": 6697.6,
+    "dur": 675.5,
+    "transfer": 69348,
+    "encoded": 69048,
+    "decoded": 69048
+   },
+   {
+    "name": "https://oryzo.ai/models/table/PINBOARD.buf",
+    "init": "xmlhttprequest",
+    "start": 6024.4,
+    "end": 7047.2,
+    "dur": 1022.8,
+    "transfer": 535828,
+    "encoded": 535528,
+    "decoded": 535528
+   },
+   {
+    "name": "https://oryzo.ai/textures/table/WALL.webp",
+    "init": "img",
+    "start": 6024.8,
+    "end": 6253,
+    "dur": 228.2,
+    "transfer": 9780,
+    "encoded": 9480,
+    "decoded": 9480
+   },
+   {
+    "name": "https://oryzo.ai/models/table/WALL.buf",
+    "init": "xmlhttprequest",
+    "start": 6025.1,
+    "end": 6255.6,
+    "dur": 230.5,
+    "transfer": 1074,
+    "encoded": 774,
+    "decoded": 774
+   },
+   {
+    "name": "https://oryzo.ai/textures/coffee/cover-specular.webp",
+    "init": "img",
+    "start": 6026,
+    "end": 6263,
+    "dur": 237,
+    "transfer": 12336,
+    "encoded": 12036,
+    "decoded": 12036
+   },
+   {
+    "name": "https://oryzo.ai/textures/coffee/LABEL.webp",
+    "init": "img",
+    "start": 6027,
+    "end": 6920,
+    "dur": 893,
+    "transfer": 89564,
+    "encoded": 89264,
+    "decoded": 89264
+   },
+   {
+    "name": "https://oryzo.ai/textures/coffee/BASE_COLOR.webp",
+    "init": "img",
+    "start": 6027.3,
+    "end": 6335.7,
+    "dur": 308.4,
+    "transfer": 43606,
+    "encoded": 43306,
+    "decoded": 43306
+   },
+   {
+    "name": "https://oryzo.ai/textures/coffee/BASE_HARMONICS_0_MOBILE.png",
+    "init": "img",
+    "start": 6027.7,
+    "end": 6501.1,
+    "dur": 473.4,
+    "transfer": 42723,
+    "encoded": 42423,
+    "decoded": 42423
+   },
+   {
+    "name": "https://oryzo.ai/models/table/COFFEE/COVER.buf",
+    "init": "xmlhttprequest",
+    "start": 6028.1,
+    "end": 7136.1,
+    "dur": 1108,
+    "transfer": 451632,
+    "encoded": 451332,
+    "decoded": 451332
+   },
+   {
+    "name": "https://oryzo.ai/models/table/COFFEE/CUP.buf",
+    "init": "xmlhttprequest",
+    "start": 6028.4,
+    "end": 6853.3,
+    "dur": 824.9,
+    "transfer": 95324,
+    "encoded": 95024,
+    "decoded": 95024
+   },
+   {
+    "name": "https://oryzo.ai/models/table/COFFEE/LABEL.buf",
+    "init": "xmlhttprequest",
+    "start": 6028.9,
+    "end": 7118.5,
+    "dur": 1089.6,
+    "transfer": 415420,
+    "encoded": 415120,
+    "decoded": 415120
+   },
+   {
+    "name": "https://oryzo.ai/textures/coffee/smoke/base.webp",
+    "init": "img",
+    "start": 6029.4,
+    "end": 6336.5,
+    "dur": 307.1,
+    "transfer": 11536,
+    "encoded": 11236,
+    "decoded": 11236
+   },
+   {
+    "name": "https://oryzo.ai/textures/coffee/smoke/harmonics_0.webp",
+    "init": "img",
+    "start": 6029.6,
+    "end": 6349.3,
+    "dur": 319.7,
+    "transfer": 20060,
+    "encoded": 19760,
+    "decoded": 19760
+   },
+   {
+    "name": "https://oryzo.ai/textures/coffee/smoke/harmonics_1.webp",
+    "init": "img",
+    "start": 6030,
+    "end": 6349.6,
+    "dur": 319.6,
+    "transfer": 20868,
+    "encoded": 20568,
+    "decoded": 20568
+   },
+   {
+    "name": "https://oryzo.ai/textures/table/cork_closeup.webp",
+    "init": "img",
+    "start": 6031.6,
+    "end": 6993.2,
+    "dur": 961.6,
+    "transfer": 308604,
+    "encoded": 308304,
+    "decoded": 308304
+   },
+   {
+    "name": "https://oryzo.ai/textures/table/microscopic.webp",
+    "init": "img",
+    "start": 6033.8,
+    "end": 6375.5,
+    "dur": 341.7,
+    "transfer": 59152,
+    "encoded": 58852,
+    "decoded": 58852
+   },
+   {
+    "name": "https://oryzo.ai/textures/table/WATERBEAR.webp",
+    "init": "img",
+    "start": 6035.2,
+    "end": 6376.8,
+    "dur": 341.6,
+    "transfer": 62540,
+    "encoded": 62240,
+    "decoded": 62240
+   },
+   {
+    "name": "https://oryzo.ai/models/table/water_bear.buf",
+    "init": "xmlhttprequest",
+    "start": 6042.6,
+    "end": 7048.4,
+    "dur": 1005.8,
+    "transfer": 420499,
+    "encoded": 420199,
+    "decoded": 420199
+   },
+   {
+    "name": "https://oryzo.ai/textures/table/WATERBEAR_2.webp",
+    "init": "img",
+    "start": 6045.3,
+    "end": 6653.4,
+    "dur": 608.1,
+    "transfer": 33952,
+    "encoded": 33652,
+    "decoded": 33652
+   },
+   {
+    "name": "https://oryzo.ai/textures/sustainability/bark.webp",
+    "init": "img",
+    "start": 6046.1,
+    "end": 6994.2,
+    "dur": 948.1,
+    "transfer": 519032,
+    "encoded": 518732,
+    "decoded": 518732
+   },
+   {
+    "name": "https://oryzo.ai/models/BARK.buf",
+    "init": "xmlhttprequest",
+    "start": 6046.6,
+    "end": 6746.1,
+    "dur": 699.5,
+    "transfer": 278470,
+    "encoded": 278170,
+    "decoded": 278170
+   },
+   {
+    "name": "https://oryzo.ai/textures/coaster/STACK.webp",
+    "init": "img",
+    "start": 6047,
+    "end": 6719.5,
+    "dur": 672.5,
+    "transfer": 91344,
+    "encoded": 91044,
+    "decoded": 91044
+   },
+   {
+    "name": "https://oryzo.ai/textures/sketches/sketches_a.png",
+    "init": "img",
+    "start": 6133.8,
+    "end": 6840.7,
+    "dur": 706.9,
+    "transfer": 209524,
+    "encoded": 209224,
+    "decoded": 209224
+   },
+   {
+    "name": "https://oryzo.ai/textures/sketches/sketches_b.png",
+    "init": "img",
+    "start": 6134.2,
+    "end": 6618.1,
+    "dur": 483.9,
+    "transfer": 170059,
+    "encoded": 169759,
+    "decoded": 169759
+   },
+   {
+    "name": "https://oryzo.ai/images/wearable-gallery/thumbs/intro.webp",
+    "init": "img",
+    "start": 7636.1,
+    "end": 7698.9,
+    "dur": 62.8,
+    "transfer": 8104,
+    "encoded": 7804,
+    "decoded": 7804
+   },
+   {
+    "name": "https://oryzo.ai/images/wearable-gallery/thumbs/yoga.webp",
+    "init": "img",
+    "start": 7637.6,
+    "end": 7746.5,
+    "dur": 108.9,
+    "transfer": 5938,
+    "encoded": 5638,
+    "decoded": 5638
+   },
+   {
+    "name": "https://oryzo.ai/images/wearable-gallery/shoulder.webp",
+    "init": "img",
+    "start": 7638.1,
+    "end": 7746.9,
+    "dur": 108.8,
+    "transfer": 59444,
+    "encoded": 59144,
+    "decoded": 59144
+   },
+   {
+    "name": "https://oryzo.ai/images/wearable-gallery/thumbs/shoulder.webp",
+    "init": "img",
+    "start": 7638.7,
+    "end": 7764.4,
+    "dur": 125.7,
+    "transfer": 10896,
+    "encoded": 10596,
+    "decoded": 10596
+   },
+   {
+    "name": "https://oryzo.ai/images/wearable-gallery/bikini.webp",
+    "init": "img",
+    "start": 7639.1,
+    "end": 7844.6,
+    "dur": 205.5,
+    "transfer": 66556,
+    "encoded": 66256,
+    "decoded": 66256
+   },
+   {
+    "name": "https://oryzo.ai/images/wearable-gallery/bikini_on.webp",
+    "init": "img",
+    "start": 7639.6,
+    "end": 7774.8,
+    "dur": 135.2,
+    "transfer": 65960,
+    "encoded": 65660,
+    "decoded": 65660
+   },
+   {
+    "name": "https://oryzo.ai/images/wearable-gallery/thumbs/bikini_on.webp",
+    "init": "img",
+    "start": 7640,
+    "end": 7768.1,
+    "dur": 128.1,
+    "transfer": 8598,
+    "encoded": 8298,
+    "decoded": 8298
+   },
+   {
+    "name": "https://oryzo.ai/images/wearable-gallery/glasses.webp",
+    "init": "img",
+    "start": 7640.6,
+    "end": 7818.7,
+    "dur": 178.1,
+    "transfer": 74004,
+    "encoded": 73704,
+    "decoded": 73704
+   },
+   {
+    "name": "https://oryzo.ai/images/wearable-gallery/thumbs/glasses.webp",
+    "init": "img",
+    "start": 7641.2,
+    "end": 7761.6,
+    "dur": 120.4,
+    "transfer": 16892,
+    "encoded": 16592,
+    "decoded": 16592
+   },
+   {
+    "name": "https://oryzo.ai/images/wearable-gallery/thumbs/bite.webp",
+    "init": "img",
+    "start": 7643.6,
+    "end": 7769.6,
+    "dur": 126,
+    "transfer": 14368,
+    "encoded": 14068,
+    "decoded": 14068
+   },
+   {
+    "name": "https://oryzo.ai/images/wearable-gallery/pocket.webp",
+    "init": "img",
+    "start": 7644.3,
+    "end": 7845.1,
+    "dur": 200.8,
+    "transfer": 106306,
+    "encoded": 106006,
+    "decoded": 106006
+   },
+   {
+    "name": "https://oryzo.ai/images/wearable-gallery/thumbs/pocket.webp",
+    "init": "img",
+    "start": 7644.5,
+    "end": 7820.3,
+    "dur": 175.8,
+    "transfer": 28858,
+    "encoded": 28558,
+    "decoded": 28558
+   },
+   {
+    "name": "https://oryzo.ai/images/wearable-gallery/thumbs/outro.webp",
+    "init": "img",
+    "start": 7645.1,
+    "end": 7829.3,
+    "dur": 184.2,
+    "transfer": 17546,
+    "encoded": 17246,
+    "decoded": 17246
+   },
+   {
+    "name": "https://oryzo.ai/rive/oryzo.riv",
+    "init": "fetch",
+    "start": 9338.3,
+    "end": 9402.4,
+    "dur": 64.1,
+    "transfer": 59477,
+    "encoded": 59177,
+    "decoded": 59177
+   },
+   {
+    "name": "https://oryzo.ai/rive/oryzo.riv",
+    "init": "fetch",
+    "start": 9339.4,
+    "end": 9394.6,
+    "dur": 55.2,
+    "transfer": 59477,
+    "encoded": 59177,
+    "decoded": 59177
+   },
+   {
+    "name": "https://oryzo.ai/images/testimonies/astronut.webp",
+    "init": "img",
+    "start": 9477,
+    "end": 9557.5,
+    "dur": 80.5,
+    "transfer": 20518,
+    "encoded": 20218,
+    "decoded": 20218
+   },
+   {
+    "name": "https://oryzo.ai/images/testimonies/pirate_king.webp",
+    "init": "img",
+    "start": 9898.2,
+    "end": 10193.7,
+    "dur": 295.5,
+    "transfer": 78512,
+    "encoded": 78212,
+    "decoded": 78212
+   },
+   {
+    "name": "https://oryzo.ai/images/testimonies/youtuber.webp",
+    "init": "img",
+    "start": 9987.1,
+    "end": 10158.6,
+    "dur": 171.5,
+    "transfer": 29108,
+    "encoded": 28808,
+    "decoded": 28808
+   },
+   {
+    "name": "https://oryzo.ai/images/testimonies/attention.webp",
+    "init": "img",
+    "start": 10029.1,
+    "end": 10166.2,
+    "dur": 137.1,
+    "transfer": 33914,
+    "encoded": 33614,
+    "decoded": 33614
+   },
+   {
+    "name": "https://oryzo.ai/images/testimonies/flat_earth.webp",
+    "init": "img",
+    "start": 10072.2,
+    "end": 10330.4,
+    "dur": 258.2,
+    "transfer": 16760,
+    "encoded": 16460,
+    "decoded": 16460
+   },
+   {
+    "name": "https://oryzo.ai/images/social-content/edge.webp",
+    "init": "img",
+    "start": 10677.8,
+    "end": 10735.9,
+    "dur": 58.1,
+    "transfer": 66714,
+    "encoded": 66414,
+    "decoded": 66414
+   },
+   {
+    "name": "https://oryzo.ai/images/social-content/sticker_1.webp",
+    "init": "img",
+    "start": 10775.4,
+    "end": 10830.3,
+    "dur": 54.9,
+    "transfer": 94704,
+    "encoded": 94404,
+    "decoded": 94404
+   },
+   {
+    "name": "https://oryzo.ai/_astro/SplatsWorker-DSMxtdkh.js",
+    "init": "other",
+    "start": 10783.2,
+    "end": 10157.7,
+    "dur": -625.5,
+    "transfer": 300,
+    "encoded": 1510,
+    "decoded": 3271
+   },
+   {
+    "name": "https://oryzo.ai/images/social-content/always_on.webp",
+    "init": "img",
+    "start": 10812.8,
+    "end": 10904.8,
+    "dur": 92,
+    "transfer": 114184,
+    "encoded": 113884,
+    "decoded": 113884
+   },
+   {
+    "name": "https://oryzo.ai/_astro/SplatsWorker-DSMxtdkh.js",
+    "init": "other",
+    "start": 10823.7,
+    "end": 10727.3,
+    "dur": -96.4,
+    "transfer": 300,
+    "encoded": 1510,
+    "decoded": 3271
+   },
+   {
+    "name": "https://oryzo.ai/images/social-content/always_on_cover.webp",
+    "init": "img",
+    "start": 10836.5,
+    "end": 10907.1,
+    "dur": 70.6,
+    "transfer": 17414,
+    "encoded": 17114,
+    "decoded": 17114
+   },
+   {
+    "name": "https://cloudflareinsights.com/cdn-cgi/rum",
+    "init": "xmlhttprequest",
+    "start": 10860.4,
+    "end": 10898.3,
+    "dur": 37.9,
+    "transfer": 0,
+    "encoded": 0,
+    "decoded": 0
+   },
+   {
+    "name": "https://oryzo.ai/images/social-content/color.webp",
+    "init": "img",
+    "start": 10882.3,
+    "end": 10947.2,
+    "dur": 64.9,
+    "transfer": 35602,
+    "encoded": 35302,
+    "decoded": 35302
+   },
+   {
+    "name": "https://oryzo.ai/meta/favicon.ico",
+    "init": "other",
+    "start": 10967,
+    "end": 11025.9,
+    "dur": 58.9,
+    "transfer": 2871,
+    "encoded": 2571,
+    "decoded": 15086
+   },
+   {
+    "name": "https://oryzo.ai/images/social-content/3090.webp",
+    "init": "img",
+    "start": 11084.4,
+    "end": 11144.5,
+    "dur": 60.1,
+    "transfer": 122040,
+    "encoded": 121740,
+    "decoded": 121740
+   },
+   {
+    "name": "https://oryzo.ai/images/social-content/3090_cover.webp",
+    "init": "img",
+    "start": 11141.8,
+    "end": 11204.5,
+    "dur": 62.7,
+    "transfer": 17468,
+    "encoded": 17168,
+    "decoded": 17168
+   },
+   {
+    "name": "https://oryzo.ai/images/social-content/perfect.webp",
+    "init": "img",
+    "start": 11164,
+    "end": 11233.8,
+    "dur": 69.8,
+    "transfer": 116692,
+    "encoded": 116392,
+    "decoded": 116392
+   },
+   {
+    "name": "https://oryzo.ai/images/social-content/drop_test.webp",
+    "init": "img",
+    "start": 11204.7,
+    "end": 11320.1,
+    "dur": 115.4,
+    "transfer": 229274,
+    "encoded": 228974,
+    "decoded": 228974
+   },
+   {
+    "name": "https://oryzo.ai/images/social-content/drop_test_cover.webp",
+    "init": "img",
+    "start": 11264.1,
+    "end": 11387.6,
+    "dur": 123.5,
+    "transfer": 17994,
+    "encoded": 17694,
+    "decoded": 17694
+   },
+   {
+    "name": "https://oryzo.ai/images/social-content/sticker_2.webp",
+    "init": "img",
+    "start": 11312.5,
+    "end": 11397.9,
+    "dur": 85.4,
+    "transfer": 125732,
+    "encoded": 125432,
+    "decoded": 125432
+   },
+   {
+    "name": "https://oryzo.ai/images/social-content/legacy_support.webp",
+    "init": "img",
+    "start": 11385.4,
+    "end": 11448.4,
+    "dur": 63,
+    "transfer": 137306,
+    "encoded": 137006,
+    "decoded": 137006
+   }
+  ],
+  "longtasks": [
+   {
+    "s": 1144,
+    "d": 1636
+   },
+   {
+    "s": 2801.2,
+    "d": 322
+   },
+   {
+    "s": 3634.7,
+    "d": 77
+   },
+   {
+    "s": 3817.9,
+    "d": 90
+   },
+   {
+    "s": 4143.7,
+    "d": 61
+   },
+   {
+    "s": 5774.4,
+    "d": 122
+   },
+   {
+    "s": 5963.5,
+    "d": 1440
+   },
+   {
+    "s": 7505.6,
+    "d": 1084
+   },
+   {
+    "s": 8637.3,
+    "d": 55
+   },
+   {
+    "s": 8693.1,
+    "d": 686
+   },
+   {
+    "s": 9494.4,
+    "d": 394
+   },
+   {
+    "s": 10071.8,
+    "d": 58
+   },
+   {
+    "s": 10136.3,
+    "d": 533
+   },
+   {
+    "s": 10882.1,
+    "d": 77
+   },
+   {
+    "s": 12289.2,
+    "d": 60
+   },
+   {
+    "s": 14670.4,
+    "d": 64
+   }
+  ],
+  "canvasEvents": [
+   {
+    "t": 806.8,
+    "ev": "canvas-added-subtree",
+    "id": "canvas"
+   },
+   {
+    "t": 806.9,
+    "ev": "canvas-added-subtree",
+    "id": "wearable-main-canvas"
+   },
+   {
+    "t": 806.9,
+    "ev": "canvas-added-subtree",
+    "id": "features-curve-canvas"
+   },
+   {
+    "t": 806.9,
+    "ev": "canvas-added-subtree",
+    "id": "sustainability-rive-canvas-harvesting"
+   },
+   {
+    "t": 806.9,
+    "ev": "canvas-added-subtree",
+    "id": "sustainability-rive-canvas-text"
+   },
+   {
+    "t": 807,
+    "ev": "canvas-added",
+    "id": "canvas",
+    "cls": ""
+   },
+   {
+    "t": 807.3,
+    "ev": "canvas-added-subtree",
+    "id": "wearable-main-canvas"
+   },
+   {
+    "t": 807.3,
+    "ev": "canvas-added-subtree",
+    "id": "features-curve-canvas"
+   },
+   {
+    "t": 807.3,
+    "ev": "canvas-added-subtree",
+    "id": "sustainability-rive-canvas-harvesting"
+   },
+   {
+    "t": 807.3,
+    "ev": "canvas-added-subtree",
+    "id": "sustainability-rive-canvas-text"
+   },
+   {
+    "t": 807.3,
+    "ev": "canvas-added-subtree",
+    "id": "wearable-main-canvas"
+   },
+   {
+    "t": 807.3,
+    "ev": "canvas-added-subtree",
+    "id": "features-curve-canvas"
+   },
+   {
+    "t": 807.3,
+    "ev": "canvas-added-subtree",
+    "id": "sustainability-rive-canvas-harvesting"
+   },
+   {
+    "t": 807.3,
+    "ev": "canvas-added-subtree",
+    "id": "sustainability-rive-canvas-text"
+   },
+   {
+    "t": 807.4,
+    "ev": "canvas-added-subtree",
+    "id": "wearable-main-canvas"
+   },
+   {
+    "t": 807.4,
+    "ev": "canvas-added-subtree",
+    "id": "features-curve-canvas"
+   },
+   {
+    "t": 807.4,
+    "ev": "canvas-added-subtree",
+    "id": "sustainability-rive-canvas-harvesting"
+   },
+   {
+    "t": 807.4,
+    "ev": "canvas-added-subtree",
+    "id": "sustainability-rive-canvas-text"
+   },
+   {
+    "t": 807.4,
+    "ev": "canvas-added-subtree",
+    "id": "wearable-main-canvas"
+   },
+   {
+    "t": 807.4,
+    "ev": "canvas-added-subtree",
+    "id": "features-curve-canvas"
+   },
+   {
+    "t": 807.4,
+    "ev": "canvas-added-subtree",
+    "id": "sustainability-rive-canvas-harvesting"
+   },
+   {
+    "t": 807.4,
+    "ev": "canvas-added-subtree",
+    "id": "sustainability-rive-canvas-text"
+   },
+   {
+    "t": 807.8,
+    "ev": "canvas-added-subtree",
+    "id": "wearable-main-canvas"
+   },
+   {
+    "t": 807.9,
+    "ev": "canvas-added-subtree",
+    "id": "wearable-main-canvas"
+   },
+   {
+    "t": 807.9,
+    "ev": "canvas-added-subtree",
+    "id": "wearable-main-canvas"
+   },
+   {
+    "t": 807.9,
+    "ev": "canvas-added",
+    "id": "wearable-main-canvas",
+    "cls": ""
+   },
+   {
+    "t": 808.2,
+    "ev": "canvas-added-subtree",
+    "id": "features-curve-canvas"
+   },
+   {
+    "t": 808.3,
+    "ev": "canvas-added-subtree",
+    "id": "features-curve-canvas"
+   },
+   {
+    "t": 808.4,
+    "ev": "canvas-added",
+    "id": "features-curve-canvas",
+    "cls": ""
+   },
+   {
+    "t": 809.2,
+    "ev": "canvas-added-subtree",
+    "id": "sustainability-rive-canvas-harvesting"
+   },
+   {
+    "t": 809.2,
+    "ev": "canvas-added-subtree",
+    "id": "sustainability-rive-canvas-text"
+   },
+   {
+    "t": 809.2,
+    "ev": "canvas-added-subtree",
+    "id": "sustainability-rive-canvas-harvesting"
+   },
+   {
+    "t": 809.2,
+    "ev": "canvas-added-subtree",
+    "id": "sustainability-rive-canvas-text"
+   },
+   {
+    "t": 809.3,
+    "ev": "canvas-added-subtree",
+    "id": "sustainability-rive-canvas-harvesting"
+   },
+   {
+    "t": 809.3,
+    "ev": "canvas-added-subtree",
+    "id": "sustainability-rive-canvas-text"
+   },
+   {
+    "t": 809.3,
+    "ev": "canvas-added-subtree",
+    "id": "sustainability-rive-canvas-harvesting"
+   },
+   {
+    "t": 809.4,
+    "ev": "canvas-added",
+    "id": "sustainability-rive-canvas-harvesting",
+    "cls": ""
+   },
+   {
+    "t": 809.4,
+    "ev": "canvas-added-subtree",
+    "id": "sustainability-rive-canvas-text"
+   },
+   {
+    "t": 809.4,
+    "ev": "canvas-added",
+    "id": "sustainability-rive-canvas-text",
+    "cls": ""
+   },
+   {
+    "t": 921.2,
+    "ev": "canvas-added-subtree",
+    "id": "preloader-canvas"
+   },
+   {
+    "t": 921.2,
+    "ev": "canvas-added",
+    "id": "preloader-canvas",
+    "cls": ""
+   },
+   {
+    "t": 8474.3,
+    "ev": "canvas-added-subtree",
+    "id": "wearable-main-canvas"
+   },
+   {
+    "t": 8474.4,
+    "ev": "video-added-subtree",
+    "id": ""
+   },
+   {
+    "t": 8474.5,
+    "ev": "video-added-subtree",
+    "id": ""
+   },
+   {
+    "t": 8474.5,
+    "ev": "canvas-added-subtree",
+    "id": "features-curve-canvas"
+   },
+   {
+    "t": 8474.5,
+    "ev": "canvas-added-subtree",
+    "id": "sustainability-rive-canvas-harvesting"
+   },
+   {
+    "t": 8474.5,
+    "ev": "canvas-added-subtree",
+    "id": "sustainability-rive-canvas-text"
+   },
+   {
+    "t": 8474.5,
+    "ev": "video-added",
+    "src": "https://oryzo.ai/images/wearable-gallery/yoga.mp4"
+   },
+   {
+    "t": 8474.6,
+    "ev": "video-added",
+    "src": "https://oryzo.ai/images/wearable-gallery/bite.mp4"
+   }
+  ],
+  "canvasCtxTypes": [
+   [
+    "webgl2"
+   ],
+   [
+    "2d"
+   ],
+   [
+    "2d"
+   ],
+   [
+    "2d"
+   ],
+   [
+    "2d"
+   ],
+   [
+    "2d"
+   ]
+  ]
+ },
+ "records": [
+  {
+   "url": "https://oryzo.ai/",
+   "method": "GET",
+   "type": "Document",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 23542,
+   "fromCache": false,
+   "mimeType": "text/html",
+   "contentEncoding": "zstd",
+   "initiator": "other"
+  },
+  {
+   "url": "https://static.cloudflareinsights.com/beacon.min.js",
+   "method": "GET",
+   "type": "Script",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 10351,
+   "fromCache": false,
+   "mimeType": "text/javascript",
+   "contentEncoding": "gzip",
+   "initiator": "parser"
+  },
+  {
+   "url": "https://oryzo.ai/_astro/index.TL6TuoJb.css",
+   "method": "GET",
+   "type": "Stylesheet",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 13853,
+   "fromCache": false,
+   "mimeType": "text/css",
+   "contentEncoding": "zstd",
+   "initiator": "parser"
+  },
+  {
+   "url": "https://oryzo.ai/_astro/hoisted.CRsATKbF.js",
+   "method": "GET",
+   "type": "Script",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 304302,
+   "fromCache": false,
+   "mimeType": "text/javascript",
+   "contentEncoding": "zstd",
+   "initiator": "parser"
+  },
+  {
+   "url": "https://oryzo.ai/images/video_thumb.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 9779,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "https://use.typekit.net/pmn6ngx.css",
+   "method": "GET",
+   "type": "Stylesheet",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 922,
+   "fromCache": false,
+   "mimeType": "text/css",
+   "contentEncoding": "gzip",
+   "initiator": "parser"
+  },
+  {
+   "url": "https://oryzo.ai/meta/site.webmanifest",
+   "method": "GET",
+   "type": "Manifest",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 741,
+   "fromCache": false,
+   "mimeType": "application/manifest+json",
+   "contentEncoding": "zstd",
+   "initiator": "parser"
+  },
+  {
+   "url": "https://p.typekit.net/p.css?s=1&k=pmn6ngx&ht=tk&f=52149.52151&a=83030954&app=typekit&e=css",
+   "method": "GET",
+   "type": "Stylesheet",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 172,
+   "fromCache": false,
+   "mimeType": "text/css",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "https://use.typekit.net/af/daa5d6/0000000000000000775abe8b/31/l?primer=388f68b35a7cbf1ee3543172445c23e26935269fadd3b392a13ac7b2903677eb&fvd=n4&v=3",
+   "method": "GET",
+   "type": "Font",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 223855,
+   "fromCache": false,
+   "mimeType": "application/font-woff2",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "https://oryzo.ai/fonts/Literata.woff2",
+   "method": "GET",
+   "type": "Font",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 110587,
+   "fromCache": false,
+   "mimeType": "font/woff2",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "https://oryzo.ai/fonts/DM-Mono-400-Latin.woff2",
+   "method": "GET",
+   "type": "Font",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 15308,
+   "fromCache": false,
+   "mimeType": "font/woff2",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAB0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAIAAAACAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQ0MAAAAABNjb2xybmNseAACAAIAAYAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKCBgANogQEAwgMg8f8D///8WfhwB8+ErK42A=",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": true,
+   "mimeType": "image/avif",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fplayer.vimeo.com%2Fvideo%2F1174820580%3Fh%3D5aaa6219d2&url=https%3A%2F%2Fplayer.vimeo.com%2Fvideo%2F1174820580%3Fh%3D5aaa6219d2&width=100%25&height=100%25&responsive=true&title=false&controls=false&byline=false&dnt=true",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 1511,
+   "fromCache": false,
+   "mimeType": "application/json",
+   "contentEncoding": "gzip",
+   "initiator": "script"
+  },
+  {
+   "url": "https://unpkg.com/@rive-app/canvas@2.37.0/rive.wasm",
+   "method": "GET",
+   "type": "Fetch",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 670542,
+   "fromCache": false,
+   "mimeType": "application/wasm",
+   "contentEncoding": "gzip",
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/brdf.png",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 12654,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/smaa-search.png",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 583,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/smaa-area.png",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 33682,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/LDR_RGB1_0.png",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 49242,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://player.vimeo.com/video/1174820580?h=5aaa6219d2&title=0&byline=0&controls=0&dnt=1&app_id=122963",
+   "method": "GET",
+   "type": "Document",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": null,
+   "fromCache": false,
+   "mimeType": "text/html",
+   "contentEncoding": "gzip",
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/gobo/gobo_b_0.4630597.avif",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 167112,
+   "fromCache": false,
+   "mimeType": "image/avif",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/gobo/gobo_c_0.38847005.avif",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 166046,
+   "fromCache": false,
+   "mimeType": "image/avif",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/hero/env_hero.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 8937,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/hero/BASE.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 421428,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/rive/oryzo.riv",
+   "method": "GET",
+   "type": "Fetch",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 59663,
+   "fromCache": false,
+   "mimeType": "",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/rive/oryzo.riv",
+   "method": "GET",
+   "type": "Fetch",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 59660,
+   "fromCache": false,
+   "mimeType": "",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/hero/pencil_color.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 76525,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/hero/pencil_alpha.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 5180,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/hero/eraser_color.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 22617,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/hero/eraser_alpha.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 2402,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "blob:https://oryzo.ai/7666f3cf-a534-45e7-bdc2-eb979cdc0055",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/9bf1e21c-c8c4-4d7a-abd6-df9c0f882902",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/31912a09-de4e-43c8-b859-5e930ef21a23",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/df15ee69-61f9-4bbb-b098-6e4f80e5d268",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/6512f0c8-48bd-41ff-aca1-a128ebd9a7ec",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/4e830e70-7d33-432a-aa99-53071dbc85eb",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/f18097ef-9d0e-4a99-ae99-d467f77d1f01",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "https://oryzo.ai/textures/hero/cutter_color.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 117396,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "blob:https://oryzo.ai/a4abac8d-2adb-4e6b-902e-49ea86bafffd",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/b171ecc9-2ab1-42dd-9ae9-2465ccef1311",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/37b629f7-42a4-4352-b84a-59075036ab2b",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/d65a114f-0972-4c5b-9f9e-2b7e132b3e07",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/19c39eef-ea19-4387-95e5-7f3e761aceb8",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/a14f35cf-de46-4a5c-a9e0-8fc95317bbd6",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/daf73ef3-37f7-40fd-8fb2-62fed9605d98",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "https://oryzo.ai/textures/hero/cutter_alpha.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 5527,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/hero/pen_color.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 37620,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/hero/pen_alpha.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 4642,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/hero/paperclip1_color.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 13274,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/hero/paperclip1_alpha.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 3262,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/hero/paperclip2_color.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 13071,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/hero/paperclip2_alpha.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 3205,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/hero/paperclip3_color.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 15081,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/hero/paperclip3_alpha.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 3504,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/hero_camera.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 2823,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/coaster_hero_animation.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 3434,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/hero/env_hand.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 5959,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/hero/env_hand_spec_20.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 1638,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/hand.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 381546,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/hand_animation.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 41991,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/hero/AI_HAND.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 209108,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/wearable/wearable_text.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 12895,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/wearable/condom/condom_anim.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 423051,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/wearable/condom/normal.png",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 1956,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/wearable/condom/pattern.png",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 1820,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/wearable/condom/front/base.avif",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 24037,
+   "fromCache": false,
+   "mimeType": "image/avif",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/wearable/condom/front/harmonics_0.avif",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 30950,
+   "fromCache": false,
+   "mimeType": "image/avif",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/wearable/condom/front/harmonics_1.avif",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 32754,
+   "fromCache": false,
+   "mimeType": "image/avif",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/wearable/condom_front.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 421515,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/wearable/condom/back/base.avif",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 48143,
+   "fromCache": false,
+   "mimeType": "image/avif",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/wearable/condom/back/harmonics_0.avif",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 35581,
+   "fromCache": false,
+   "mimeType": "image/avif",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/wearable/condom/back/harmonics_1.avif",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 35922,
+   "fromCache": false,
+   "mimeType": "image/avif",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/wearable/condom_back.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 317334,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/wearable/coaster_first.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 2157,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/wearable/1.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 42734,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/wearable/1_clip.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 7811,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/wearable/pin.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 35746,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/wearable/rise.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 7970,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/table/TRAY_COVERS.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 4689,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/thermal_gradient.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 727,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/featuresAnimations/CAMERA_ANIM.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 8962,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/featuresAnimations/COASTER_ANIM.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 8125,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/featuresAnimations/COFFEE_ANIM.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 8228,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/COASTER_FLIP_ANIM.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 2834,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/table/env_table.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 9915,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/table/env_grip.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 9803,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/sustainability_text.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 55501,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/sustainability_text_outline.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 82534,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/stack_camera.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 1505,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/coffeeBean/DIFF.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 3256,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/coffeeBean/HEIGHT.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 3497,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/COFFEE_BEAN.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 8100,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/coaster/DIFF.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 273635,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/coaster/HEIGHT.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 276626,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/coaster.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 67433,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/fonts/msdf/Inter.json",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 2676,
+   "fromCache": false,
+   "mimeType": "application/json",
+   "contentEncoding": "zstd",
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/fonts/msdf/Inter.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 24467,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/splats/props.sog",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 3093771,
+   "fromCache": false,
+   "mimeType": "application/zip",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/splats/table_reflection.sog",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 486957,
+   "fromCache": false,
+   "mimeType": "application/zip",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/table/DESK.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 747945,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/table/DESK_HD.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 670433,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/table/DESK.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 14845,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/table/PINBOARD.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 69548,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/table/PINBOARD.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 536072,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/table/WALL.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 9962,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/table/WALL.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 1241,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/coffee/cover-specular.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 12519,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/coffee/LABEL.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 89773,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/coffee/BASE_COLOR.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 43794,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/coffee/BASE_HARMONICS_0_MOBILE.png",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 42905,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/table/COFFEE/COVER.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 451854,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/table/COFFEE/CUP.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 95523,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/table/COFFEE/LABEL.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 415649,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/coffee/smoke/base.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 11719,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/coffee/smoke/harmonics_0.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 20242,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/coffee/smoke/harmonics_1.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 21055,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/table/cork_closeup.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 308822,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/table/microscopic.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 59345,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/table/WATERBEAR.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 62733,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/table/water_bear.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 420713,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/table/WATERBEAR_2.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 34148,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/sustainability/bark.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 519267,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/models/BARK.buf",
+   "method": "GET",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 278679,
+   "fromCache": false,
+   "mimeType": "application/octet-stream",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/coaster/STACK.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 91547,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/sketches/sketches_a.png",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 209725,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/textures/sketches/sketches_b.png",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 170245,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/wearable-gallery/thumbs/intro.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 8283,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/wearable-gallery/thumbs/yoga.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 6117,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/wearable-gallery/shoulder.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 59639,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/wearable-gallery/thumbs/shoulder.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 11076,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/wearable-gallery/bikini.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 66754,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/wearable-gallery/bikini_on.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 66154,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/wearable-gallery/thumbs/bikini_on.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 8775,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/wearable-gallery/glasses.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 74201,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/wearable-gallery/thumbs/glasses.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 17077,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/wearable-gallery/thumbs/bite.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 14560,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/wearable-gallery/pocket.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 106503,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/wearable-gallery/thumbs/pocket.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 29043,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/wearable-gallery/thumbs/outro.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 17738,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/rive/oryzo.riv",
+   "method": "GET",
+   "type": "Fetch",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 59657,
+   "fromCache": false,
+   "mimeType": "",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/rive/oryzo.riv",
+   "method": "GET",
+   "type": "Fetch",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 59656,
+   "fromCache": false,
+   "mimeType": "",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/wearable-gallery/yoga.mp4",
+   "method": "GET",
+   "type": "Media",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": null,
+   "fromCache": false,
+   "mimeType": "video/mp4",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "https://oryzo.ai/images/wearable-gallery/bite.mp4",
+   "method": "GET",
+   "type": "Media",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": null,
+   "fromCache": false,
+   "mimeType": "video/mp4",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "https://oryzo.ai/images/testimonies/astronut.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 20699,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/_astro/SplatsWorker-DSMxtdkh.js",
+   "method": "GET",
+   "type": "Script",
+   "startTsMs": null,
+   "status": null,
+   "encodedDataLength": null,
+   "fromCache": false,
+   "mimeType": null,
+   "contentEncoding": null,
+   "initiator": "other"
+  },
+  {
+   "url": "https://oryzo.ai/images/testimonies/pirate_king.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 78708,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "blob:https://oryzo.ai/5ee97bba-8855-42a7-b452-a76574b9ceda",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/71ace6c0-e33b-4704-be5d-25d6a456b9d2",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/d93bcd01-39d4-40a0-8510-8a01cb1760c0",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/9150d3fe-2397-4f14-a66f-64b97184e022",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/c51c9ad8-28a9-4e8d-b9b8-6df49dc48e9c",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/1b55dcd7-d406-457a-acf7-b7d57c283cf8",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/78c3ee86-8bae-4ded-82c3-4d42c196d391",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/2defa0ac-716f-4419-adce-06650e1973a1",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/35d2e4dc-4c44-417b-ab14-050a2ca66f10",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/6a1423af-7746-400d-8c2a-7e5d05ba975d",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/3decf9e4-7154-40ba-ba5b-5cef25d88f9b",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/72b18050-5c4c-4335-997f-33445c180c3d",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/badc060c-f5ca-4ab9-b4f6-b2d128e95c73",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "blob:https://oryzo.ai/52e7487a-3faa-47d8-bf37-20c9a77e4ce5",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 0,
+   "fromCache": false,
+   "mimeType": "image/png",
+   "contentEncoding": null,
+   "initiator": "parser"
+  },
+  {
+   "url": "https://oryzo.ai/images/testimonies/youtuber.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 29302,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/testimonies/attention.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 34105,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/testimonies/flat_earth.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 16945,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/_astro/SplatsWorker-DSMxtdkh.js",
+   "method": "GET",
+   "type": "Script",
+   "startTsMs": null,
+   "status": null,
+   "encodedDataLength": null,
+   "fromCache": false,
+   "mimeType": null,
+   "contentEncoding": null,
+   "initiator": "other"
+  },
+  {
+   "url": "https://oryzo.ai/images/social-content/edge.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 66906,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/social-content/sticker_1.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 94899,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/social-content/always_on.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 114392,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/social-content/always_on_cover.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 17598,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://cloudflareinsights.com/cdn-cgi/rum",
+   "method": "POST",
+   "type": "XHR",
+   "startTsMs": null,
+   "status": 204,
+   "encodedDataLength": 59,
+   "fromCache": false,
+   "mimeType": "text/plain",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/social-content/color.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 35791,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/meta/favicon.ico",
+   "method": "GET",
+   "type": "Other",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 3062,
+   "fromCache": false,
+   "mimeType": "image/vnd.microsoft.icon",
+   "contentEncoding": "zstd",
+   "initiator": "other"
+  },
+  {
+   "url": "https://oryzo.ai/images/social-content/3090.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 122245,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/social-content/3090_cover.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 17653,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/social-content/perfect.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 116897,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/social-content/drop_test.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 229481,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/social-content/drop_test_cover.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 18180,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/social-content/sticker_2.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 125935,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  },
+  {
+   "url": "https://oryzo.ai/images/social-content/legacy_support.webp",
+   "method": "GET",
+   "type": "Image",
+   "startTsMs": null,
+   "status": 200,
+   "encodedDataLength": 137507,
+   "fromCache": false,
+   "mimeType": "image/webp",
+   "contentEncoding": null,
+   "initiator": "script"
+  }
+ ],
+ "milestones": {
+  "domContentLoadedFiredAtMs": 720.7930000004126,
+  "loadEventFiredAtMs": 10424.392000000807
+ }
+}

@@ -1,0 +1,6 @@
+import { t as e } from "./rolldown-runtime.Bi-D_2cA.mjs";
+function t(e, t) { return { breakpoints: [{ hash: `c1kt4h`, mediaQuery: `(min-width: 1600px)` }, { hash: `1ltqps3`, mediaQuery: `(min-width: 1200px) and (max-width: 1599.98px)` }, { hash: `e1mr7o`, mediaQuery: `(min-width: 810px) and (max-width: 1199.98px)` }, { hash: `s9pvc6`, mediaQuery: `(max-width: 809.98px)` }], description: `A complete rebrand and website redesign for EWM, built around a cohesive 3D visual identity, interactive elements and clear brand guidelines.`, elements: { CFJRsYElJ: `drag-area`, woJQEaLG3: `scroll-hero` }, framerSearch: { index: !0 }, robots: `max-image-preview:large`, serializationId: `framer-MTpo4`, socialImage: `https://framerusercontent.com/assets/NNWGwIPcpdzSXCI3kcVa34GuLdo.png`, title: `EWM · Fragment Studio`, viewport: `width=device-width` }; }
+var n, r;
+function i() { return (i = e((() => { n = 1, r = { exports: { metadataVersion: { type: `variable`, annotations: { framerContractVersion: `1` } }, default: { type: `function`, annotations: { framerContractVersion: `1` } }, __FramerMetadata__: { type: `variable` } } }; })))(); }
+export { n as i, i as n, t as r, r as t };
+//# sourceMappingURL=LFC_jLKY5.DClvwqYe.mjs.map

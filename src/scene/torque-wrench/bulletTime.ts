@@ -79,10 +79,10 @@ export const BULLET_TIME_SHOT_SPECS = Object.freeze({
   }),
   stage1Ignition: Object.freeze({
     id: 'stage1Ignition',
-    window: Object.freeze([0.922, 0.930] as const),
+    window: Object.freeze([0.922, 0.93] as const),
     progressSpace: 'shaft-study',
     rate: BULLET_TIME_RATE,
-    maxRevolutions: .2, // Input sun: two of its ten tooth pitches over the complete macro.
+    maxRevolutions: 0.2, // Input sun: two of its ten tooth pitches over the complete macro.
     minCameraSweepDeg: 165,
     cameraSweepDeg: 165.1,
     rampFraction: 0.15,
@@ -98,11 +98,7 @@ const clamp01 = (u: number): number => (u < 0 ? 0 : u > 1 ? 1 : u)
  * - At u = 0 and u = 1: r(u) = 1.0 (full normal speed contrast at boundaries).
  * - Across [ramp, 1 - ramp]: r(u) = rate (exact flat-top bullet-time plateau).
  */
-export function sampleBulletTimeRate(
-  u: number,
-  rate: number = BULLET_TIME_RATE,
-  ramp: number = 0.15,
-): number {
+export function sampleBulletTimeRate(u: number, rate: number = BULLET_TIME_RATE, ramp: number = 0.15): number {
   const c = clamp01(u)
   const r = Math.max(1e-4, Math.min(0.45, ramp))
   if (c < r) {
@@ -126,11 +122,7 @@ export function sampleBulletTimeRate(
  * totalArea = rate + clamp(ramp, 1e-4, .45) * (1 - rate). Existing physically
  * calibrated scene clocks retain their own C1 shoulders until separately authored.
  */
-export function sampleBulletTimeWarp(
-  u: number,
-  rate: number = BULLET_TIME_RATE,
-  ramp: number = 0.15,
-): number {
+export function sampleBulletTimeWarp(u: number, rate: number = BULLET_TIME_RATE, ramp: number = 0.15): number {
   const c = clamp01(u)
   if (c <= 0) return 0
   if (c >= 1) return 1

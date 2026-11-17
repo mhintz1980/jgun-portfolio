@@ -44,8 +44,10 @@ for (const [name, a, b] of [
 ]) {
   if (a.length !== b.length || !a.every((v, i) => v === b[i])) failures.push(name)
 }
-if (legacy.profile.length !== decoded.profile.length
-  || !legacy.profile.every((p, i) => p[0] === decoded.profile[i][0] && p[1] === decoded.profile[i][1])) {
+if (
+  legacy.profile.length !== decoded.profile.length ||
+  !legacy.profile.every((p, i) => p[0] === decoded.profile[i][0] && p[1] === decoded.profile[i][1])
+) {
   failures.push('profile')
 }
 if (JSON.stringify(decoded.texts) !== JSON.stringify(legacy.texts)) failures.push('texts')
@@ -67,13 +69,19 @@ if (canonicalLegacy !== canonicalDecoded) {
 
 const gzip = gzipSync(container, { level: 9 })
 await writeFile(target, gzip)
-console.log(JSON.stringify({
-  status: 'converted',
-  source: source.pathname.split('/').pop(),
-  target: target.pathname.split('/').pop(),
-  exact: true,
-  legacyJsonBytes: Buffer.byteLength(canonicalLegacy),
-  containerBytes: container.length,
-  gzipBytes: gzip.length,
-  legacyGzipBytes: (await readFile(source)).length,
-}, null, 2))
+console.log(
+  JSON.stringify(
+    {
+      status: 'converted',
+      source: source.pathname.split('/').pop(),
+      target: target.pathname.split('/').pop(),
+      exact: true,
+      legacyJsonBytes: Buffer.byteLength(canonicalLegacy),
+      containerBytes: container.length,
+      gzipBytes: gzip.length,
+      legacyGzipBytes: (await readFile(source)).length,
+    },
+    null,
+    2,
+  ),
+)

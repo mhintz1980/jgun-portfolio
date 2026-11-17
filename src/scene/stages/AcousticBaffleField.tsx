@@ -111,11 +111,7 @@ export function AcousticBaffleField() {
     const safeDelta = Math.min(delta, 0.1)
     const { progress } = getScrollState()
 
-    const envelope = stageEnvelope(
-      progress,
-      STAGE_TRANSITIONS.enclosureIn,
-      STAGE_TRANSITIONS.enclosureOut,
-    )
+    const envelope = stageEnvelope(progress, STAGE_TRANSITIONS.enclosureIn, STAGE_TRANSITIONS.enclosureOut)
 
     if (!envelope.active || isStaticMode) {
       if (waveIntensity.current !== 0) {
@@ -162,8 +158,7 @@ export function AcousticBaffleField() {
       const phase = (i / SHELL_COUNT) * Math.PI * 2
       const undulate = 0.5 + 0.5 * Math.sin(time * 0.54 + phase)
       mat.opacity =
-        (THERMAL_SHELL_OPACITY_MIN +
-          (THERMAL_SHELL_OPACITY_MAX - THERMAL_SHELL_OPACITY_MIN) * undulate) *
+        (THERMAL_SHELL_OPACITY_MIN + (THERMAL_SHELL_OPACITY_MAX - THERMAL_SHELL_OPACITY_MIN) * undulate) *
         envelope.alpha *
         waveIntensity.current
     })
@@ -234,16 +229,9 @@ export function AcousticBaffleField() {
       </group>
 
       {/* 2. Thermal Boundary Shells: nested heat-soak boundary around PUMP_HOUSING (JG-032) */}
-      <group
-        ref={thermalShellsRef}
-        position={[pumpPos.x, pumpPos.y, pumpPos.z]}
-      >
+      <group ref={thermalShellsRef} position={[pumpPos.x, pumpPos.y, pumpPos.z]}>
         {shellGeometries.map((geo, i) => (
-          <mesh
-            key={`thermal-shell-${i}`}
-            geometry={geo}
-            material={thermalMaterials[i]}
-          />
+          <mesh key={`thermal-shell-${i}`} geometry={geo} material={thermalMaterials[i]} />
         ))}
       </group>
     </group>

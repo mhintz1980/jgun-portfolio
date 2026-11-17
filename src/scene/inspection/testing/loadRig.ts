@@ -14,9 +14,26 @@ import { NodeDracoLoader } from './nodeDraco'
 function installCanvasStub() {
   const g = globalThis as unknown as { document?: unknown }
   if (g.document) return
-  const noop2d = new Proxy({}, { get: (_t, key) => key === 'measureText' ? () => ({ width: 0 }) : key === 'createLinearGradient' || key === 'createRadialGradient' ? () => ({ addColorStop() {} }) : () => {}, set: () => true })
+  const noop2d = new Proxy(
+    {},
+    {
+      get: (_t, key) =>
+        key === 'measureText'
+          ? () => ({ width: 0 })
+          : key === 'createLinearGradient' || key === 'createRadialGradient'
+            ? () => ({ addColorStop() {} })
+            : () => {},
+      set: () => true,
+    },
+  )
   const globals = globalThis as unknown as { Path2D?: unknown }
-  globals.Path2D ??= class { moveTo() {} lineTo() {} closePath() {} arc() {} rect() {} }
+  globals.Path2D ??= class {
+    moveTo() {}
+    lineTo() {}
+    closePath() {}
+    arc() {}
+    rect() {}
+  }
   g.document = { createElement: () => ({ width: 0, height: 0, style: {}, getContext: () => noop2d }) }
 }
 
@@ -31,7 +48,7 @@ export function loadRingSource(path = 'public/models/Default.glb') {
     const rig = buildWrenchRig(gltf.scene)
     const source = rig.clutch.ringSwitch
     if (!source) throw new Error('Ring switch unit missing from the rig')
-    const meshes = rig.meshes.filter(mesh => rig.originalMaterials.get(mesh) === roleMaterial('ringSwitch'))
+    const meshes = rig.meshes.filter((mesh) => rig.originalMaterials.get(mesh) === roleMaterial('ringSwitch'))
     return { rig, source, meshes }
   })()
   return cached

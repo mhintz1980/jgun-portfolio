@@ -391,8 +391,8 @@ Mark reviewed the delivered films and ruled:
   (logo, identity act, rendering-tool act) were not re-addressed and stay open backlog to confirm
   with Mark before building. Detail and status per directive: `TODO.md` JG-041.
 - **The StudioMark showcase "Precision Revealed"** (32 s, rendered 2026-11-06, never committed) is
-  **rejected**: not for the homepage, not a basis for future work, and its files and frames must not be
-  committed, published or reused. It stays in the build exclusion list
+  **rejected**: not for the homepage, not a basis for future work, and its files and frames must not
+  be committed, published or reused. It stays in the build exclusion list
   (`build/excludePublicAssets.ts`).
 - Implementation the same day: the homepage gained a lazy showreel section under the hero
   (`src/home/ShowreelSection.tsx`) — poster only on first load, muted autoplay when half in view,

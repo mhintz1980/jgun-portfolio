@@ -42,9 +42,11 @@ export const CLEARANCE_V4_SHAPER = Object.freeze({
  */
 export const SHAPER_PROTOTYPE = Object.freeze({
   status: 'illustrative-derived-prototype',
-  basis: 'owner directed 60 teeth with consistent module, pitch radius, centre distance, generating ratio and clearance (docs/torque-wrench-rebuild/65)',
+  basis:
+    'owner directed 60 teeth with consistent module, pitch radius, centre distance, generating ratio and clearance (docs/torque-wrench-rebuild/65)',
   certifiedReport: 'clearance-v4 (20 teeth); retained unchanged as CLEARANCE_V4_SHAPER',
-  mount: 'sketch spindle adapter, locating shoulder, pilot arbor, clamping flange, threaded stud and retaining nut (owner selected; visual review open)',
+  mount:
+    'sketch spindle adapter, locating shoulder, pilot arbor, clamping flange, threaded stud and retaining nut (owner selected; visual review open)',
   mountDimensions: 'authoring proposals; no dimension measured from the reference image',
   ownerGeometryApproved: false,
   manufacturingAcceptance: false,

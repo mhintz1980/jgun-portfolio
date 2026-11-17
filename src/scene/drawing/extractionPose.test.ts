@@ -1,28 +1,68 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import { Box3, BufferGeometry, Float32BufferAttribute, Matrix4, Vector3 } from 'three'
 import { SIDE_ROTATION, type DrawingGeometry, type DrawingLayout } from './drawingGeometry'
-import { applyExtraction, bindExtractionPressure, extractionLift, lowestVertex, relativePose, solveExtraction } from './extractionPose'
+import {
+  applyExtraction,
+  bindExtractionPressure,
+  extractionLift,
+  lowestVertex,
+  relativePose,
+  solveExtraction,
+} from './extractionPose'
 import { DRAWING_INTRO_WINDOW, drawingIntroState, introPoseTime, introScrollTimeFor } from './introTimeline'
 import { clearPaperFlexField, getPaperFlexField, makePaperFlexField, paperFlexAmplitude } from './sheet/paperFlex'
 import { applyExtractionCore, createExtractionContext } from './poseCore'
 
-afterEach(() => { clearPaperFlexField(getPaperFlexField()) })
+afterEach(() => {
+  clearPaperFlexField(getPaperFlexField())
+})
 
 // Different surface heights near the soft field shoulder exercise the limiting
 // vertex. A peak-only bound would let that shoulder vertex pierce intact stock.
 function fixture() {
   const sheetPoints = [
-    [-0.14, 0, 0.02], [0, 0, 0.02], [0.14, 0, 0.02],
-    [-0.14, 0.045, 0.019], [0.14, -0.045, 0.019],
-    [-0.14, 0, -0.04], [0.14, 0, -0.04],
+    [-0.14, 0, 0.02],
+    [0, 0, 0.02],
+    [0.14, 0, 0.02],
+    [-0.14, 0.045, 0.019],
+    [0.14, -0.045, 0.019],
+    [-0.14, 0, -0.04],
+    [0.14, 0, -0.04],
   ]
   const inv = SIDE_ROTATION.clone().invert()
-  const positions = sheetPoints.flatMap(p => new Vector3(...p as [number, number, number]).applyMatrix4(inv).toArray())
+  const positions = sheetPoints.flatMap((p) =>
+    new Vector3(...(p as [number, number, number])).applyMatrix4(inv).toArray(),
+  )
   const attribute = new Float32BufferAttribute(positions, 3)
   const geometry = new BufferGeometry().setAttribute('position', attribute)
-  const data: DrawingGeometry = { geometry, bounds: new Box3().setFromBufferAttribute(attribute), features: {}, units: {}, rigCenter: new Vector3(), sourceTriangles: 0 }
-  const layout: DrawingLayout = { width: 0.8, height: 0.5, primaryRotation: SIDE_ROTATION, primaryCenter: new Vector3(), views: [], fitDistance: 1, narrow: false, sectionLineY: 0 }
-  const field = makePaperFlexField([[-0.15, -0.05], [0.15, -0.05], [0.15, 0.05], [-0.15, 0.05]], 0.8, 0.5)
+  const data: DrawingGeometry = {
+    geometry,
+    bounds: new Box3().setFromBufferAttribute(attribute),
+    features: {},
+    units: {},
+    rigCenter: new Vector3(),
+    sourceTriangles: 0,
+  }
+  const layout: DrawingLayout = {
+    width: 0.8,
+    height: 0.5,
+    primaryRotation: SIDE_ROTATION,
+    primaryCenter: new Vector3(),
+    views: [],
+    fitDistance: 1,
+    narrow: false,
+    sectionLineY: 0,
+  }
+  const field = makePaperFlexField(
+    [
+      [-0.15, -0.05],
+      [0.15, -0.05],
+      [0.15, 0.05],
+      [-0.15, 0.05],
+    ],
+    0.8,
+    0.5,
+  )
   const extraction = solveExtraction(data, layout)
   return { data, layout, field, extraction }
 }
@@ -30,10 +70,15 @@ function fixture() {
 describe('model-driven paper rupture', () => {
   it('retains a legacy pressure binding when its global field is missing, even on a tier change', () => {
     const { data, layout, field, extraction } = fixture()
-    const model = new Matrix4(), sheet = new Matrix4()
+    const model = new Matrix4(),
+      sheet = new Matrix4()
     applyExtraction(0.5, layout, extraction, model, sheet, 'full')
-    const bound = { pressure: extraction.pressureTravel, crossing: extraction.crossing,
-      model: model.elements.slice(), sheet: sheet.elements.slice() }
+    const bound = {
+      pressure: extraction.pressureTravel,
+      crossing: extraction.crossing,
+      model: model.elements.slice(),
+      sheet: sheet.elements.slice(),
+    }
     expect(clearPaperFlexField(field)).toBe(true)
     applyExtraction(0.5, layout, extraction, model, sheet, 'lite')
     expect(extraction.pressureTravel).toBe(bound.pressure)
@@ -43,23 +88,28 @@ describe('model-driven paper rupture', () => {
     applyExtractionCore(0.5, layout, extraction, null, 'lite', createExtractionContext())
     expect(extraction.pressureTravel).toBe(0)
     expect(extraction.crossing).toBeGreaterThan(bound.crossing)
-    field.texture.dispose(); data.geometry.dispose()
+    field.texture.dispose()
+    data.geometry.dispose()
   })
 
   for (const tier of ['full', 'lite', 'poster'] as const) {
     it(`matches the explicit core matrices and support at ${tier} forward/reverse inputs`, () => {
       const { data, layout, field, extraction } = fixture()
       const privateExtraction = solveExtraction(data, layout)
-      const out = createExtractionContext(), model = new Matrix4(), sheet = new Matrix4()
+      const out = createExtractionContext(),
+        model = new Matrix4(),
+        sheet = new Matrix4()
       const times = [0, 0.4, 0.45, 0.5, 0.72, 0.9, 1, 0.9, 0.5, 0]
       for (const t of times) {
-        expect(applyExtraction(t, layout, extraction, model, sheet, tier))
-          .toBe(applyExtractionCore(t, layout, privateExtraction, field, tier, out))
+        expect(applyExtraction(t, layout, extraction, model, sheet, tier)).toBe(
+          applyExtractionCore(t, layout, privateExtraction, field, tier, out),
+        )
         expect(model.elements).toEqual(out.modelMatrix.elements)
         expect(sheet.elements).toEqual(out.sheetMatrix.elements)
         expect(extraction).toEqual(privateExtraction)
       }
-      field.texture.dispose(); data.geometry.dispose()
+      field.texture.dispose()
+      data.geometry.dispose()
     })
   }
 
@@ -74,12 +124,20 @@ describe('model-driven paper rupture', () => {
       const a = data.geometry.getAttribute('position')
       let previous = 0
       for (let i = 0; i <= 200; i += 1) {
-        const t = 0.79 + i / 200 * 0.05
+        const t = 0.79 + (i / 200) * 0.05
         const poseT = introPoseTime(t)
         const lift = extractionLift(poseT, extraction.travel, extraction.pressureTravel)
         expect(lift).toBeGreaterThanOrEqual(previous)
         previous = lift
-        relativePose(poseT, layout, extraction.travel, extraction.initialZ, matrix, extraction.clearanceTravel, extraction.pressureTravel)
+        relativePose(
+          poseT,
+          layout,
+          extraction.travel,
+          extraction.initialZ,
+          matrix,
+          extraction.clearanceTravel,
+          extraction.pressureTravel,
+        )
         const amplitude = paperFlexAmplitude(t, poseT, extraction.crossing, tier)
         for (let j = 0; j < a.count; j += 1) {
           const p = new Vector3().fromBufferAttribute(a, j).applyMatrix4(matrix)
@@ -94,25 +152,39 @@ describe('model-driven paper rupture', () => {
       // A meaningful shell section is already present on the first capture,
       // rather than a stationary tool waiting below an empty opening until .89.
       expect(firstGap - previous).toBeGreaterThan(0.01)
-      field.texture.dispose(); data.geometry.dispose()
+      field.texture.dispose()
+      data.geometry.dispose()
     })
   }
 
   it('continues monotonically across rupture, solves true clearance and hands off at identity', () => {
     const { data, layout, field, extraction } = fixture()
-    const model = new Matrix4(), sheet = new Matrix4(), matrix = new Matrix4()
+    const model = new Matrix4(),
+      sheet = new Matrix4(),
+      matrix = new Matrix4()
     let previous = -Infinity
     for (let i = 0; i <= 800; i += 1) {
-      const t = 0.79 + i / 800 * 0.21
+      const t = 0.79 + (i / 800) * 0.21
       applyExtraction(introPoseTime(t), layout, extraction, model, sheet, 'full')
       expect(extraction.modelPush).toBeGreaterThanOrEqual(previous - 1e-12)
       expect(extraction.modelTop).toBeCloseTo(extraction.initialTop + extraction.modelPush, 12)
-      expect(extraction.modelPush).toBeCloseTo(new Matrix4().multiplyMatrices(sheet.clone().invert(), model).elements[14] - extraction.initialZ, 12)
+      expect(extraction.modelPush).toBeCloseTo(
+        new Matrix4().multiplyMatrices(sheet.clone().invert(), model).elements[14] - extraction.initialZ,
+        12,
+      )
       previous = extraction.modelPush
     }
     const push = (t: number) => extractionLift(introPoseTime(t), extraction.travel, extraction.pressureTravel)
     expect(push(0.84 + 1e-9) - push(0.84 - 1e-9)).toBeLessThan(1e-6)
-    relativePose(extraction.crossing, layout, extraction.travel, extraction.initialZ, matrix, extraction.clearanceTravel, extraction.pressureTravel)
+    relativePose(
+      extraction.crossing,
+      layout,
+      extraction.travel,
+      extraction.initialZ,
+      matrix,
+      extraction.clearanceTravel,
+      extraction.pressureTravel,
+    )
     expect(lowestVertex(data, matrix).z).toBeCloseTo(0, 10)
     expect(introScrollTimeFor(extraction.crossing)).toBeGreaterThan(0.84)
     expect(model.elements).toEqual(new Matrix4().elements)
@@ -120,21 +192,32 @@ describe('model-driven paper rupture', () => {
     // support rather than accumulate errors from the previous crossing.
     const fullCrossing = extraction.crossing
     applyExtraction(extraction.crossing, layout, extraction, model, sheet, 'lite')
-    relativePose(extraction.crossing, layout, extraction.travel, extraction.initialZ, matrix, extraction.clearanceTravel, extraction.pressureTravel)
+    relativePose(
+      extraction.crossing,
+      layout,
+      extraction.travel,
+      extraction.initialZ,
+      matrix,
+      extraction.clearanceTravel,
+      extraction.pressureTravel,
+    )
     expect(lowestVertex(data, matrix).z).toBeCloseTo(0, 10)
     applyExtraction(extraction.crossing, layout, extraction, model, sheet, 'full')
     expect(extraction.crossing).toBeCloseTo(fullCrossing, 12)
-    field.texture.dispose(); data.geometry.dispose()
+    field.texture.dispose()
+    data.geometry.dispose()
   })
 
   it('keeps proof and reduced-motion poses below the flat sheet even with a bound flex field', () => {
     const { data, layout, field, extraction } = fixture()
-    const model = new Matrix4(), sheet = new Matrix4()
+    const model = new Matrix4(),
+      sheet = new Matrix4()
     for (const poseT of [0, introPoseTime(0.38)]) {
       applyExtraction(poseT, layout, extraction, model, sheet, 'full')
       expect(extraction.modelPush).toBe(0)
       expect(extraction.modelTop).toBeCloseTo(-0.0006, 9)
     }
-    field.texture.dispose(); data.geometry.dispose()
+    field.texture.dispose()
+    data.geometry.dispose()
   })
 })

@@ -25,7 +25,10 @@ export interface ShardDome {
   vy: number
 }
 
-interface ShardSource { center: Vector2 | Vector3; velocity: Vector3 }
+interface ShardSource {
+  center: Vector2 | Vector3
+  velocity: Vector3
+}
 
 const clamp01 = (x: number) => Math.max(0, Math.min(1, x))
 const lerp = (a: number, b: number, k: number) => a + (b - a) * k

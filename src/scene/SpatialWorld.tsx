@@ -81,21 +81,12 @@ export function SpatialWorld({ children }: { children: ReactNode }) {
   return (
     <group name="spatial-world">
       {/* STATION 1 — [0, 0, 0]: JGun Torque Multiplier & Kinematics */}
-      <group
-        ref={station1Ref}
-        name="station-1-jgun"
-        position={[...STATION_TRANSFORMS.station1]}
-      >
+      <group ref={station1Ref} name="station-1-jgun" position={[...STATION_TRANSFORMS.station1]}>
         {children}
       </group>
 
       {/* STATION 2 — [28, 0, -6]: RL-300 / MSP Acoustic SAFE Enclosure */}
-      <group
-        ref={station2Ref}
-        name="station-2-enclosure"
-        position={[...STATION_TRANSFORMS.station2]}
-        visible={false}
-      >
+      <group ref={station2Ref} name="station-2-enclosure" position={[...STATION_TRANSFORMS.station2]} visible={false}>
         {/* JG-021 materials round 3: with the retained CAD palette the
             global studio crossfades to a floor while this station is up
             (SceneCanvas StudioRig), so this scoped rig IS the station key —
@@ -119,12 +110,7 @@ export function SpatialWorld({ children }: { children: ReactNode }) {
       </group>
 
       {/* STATION 3 — [56, 0, -12]: M249 / MK46 Parametric CAD Platform */}
-      <group
-        ref={station3Ref}
-        name="station-3-m249"
-        position={[...STATION_TRANSFORMS.station3]}
-        visible={false}
-      >
+      <group ref={station3Ref} name="station-3-m249" position={[...STATION_TRANSFORMS.station3]} visible={false}>
         <directionalLight position={[3, 5, 4]} intensity={2.2} color="#ffffff" />
         <directionalLight position={[-4, 3, -3]} intensity={1.0} color="#7dd3fc" />
         <pointLight position={[0, 2, 1.5]} intensity={1.5} color="#38bdf8" distance={8} decay={2} />

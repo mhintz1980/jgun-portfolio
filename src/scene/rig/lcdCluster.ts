@@ -316,8 +316,7 @@ export function buildLcdCluster(root: Object3D, finalMeshes: Mesh[]): LcdCluster
 
   const screenCenter = worldMeshCenter(screen)
   const screenNormalRaw = worldAxis(screen.node, axes[2].axis)
-  const outward =
-    screenNormalRaw.dot(screenCenter.clone().sub(handleCenter)) >= 0 ? 1 : -1
+  const outward = screenNormalRaw.dot(screenCenter.clone().sub(handleCenter)) >= 0 ? 1 : -1
   const screenNormal = screenNormalRaw.multiplyScalar(outward)
   const screenFace = screenCenter.clone().addScaledVector(screenNormal, thinHalf)
 
@@ -335,18 +334,10 @@ export function buildLcdCluster(root: Object3D, finalMeshes: Mesh[]): LcdCluster
   const READOUT_BASIS = decalBasis(screenNormal, WORLD_UP).multiply(
     new Quaternion().setFromAxisAngle(new Vector3(0, 0, 1), -Math.PI / 2),
   )
-  const bezel = new Mesh(
-    new ShapeGeometry(outer, 6),
-    roleMaterial('lcdBezelRed'),
-  )
+  const bezel = new Mesh(new ShapeGeometry(outer, 6), roleMaterial('lcdBezelRed'))
   bezel.name = 'JG-025 LCD Bezel Ring (red, sampled #ad0707)'
   bezel.frustumCulled = true
-  attachInWorld(
-    screen.node,
-    bezel,
-    screenFace.clone().addScaledVector(screenNormal, 0.0002),
-    READOUT_BASIS.clone(),
-  )
+  attachInWorld(screen.node, bezel, screenFace.clone().addScaledVector(screenNormal, 0.0002), READOUT_BASIS.clone())
 
   // Data readout: white-on-dark canvas LCD over the panel face.
   const readout = new Mesh(
@@ -355,20 +346,13 @@ export function buildLcdCluster(root: Object3D, finalMeshes: Mesh[]): LcdCluster
   )
   readout.name = 'JG-025 LCD Readout Decal (torque Nm + battery + mode)'
   readout.frustumCulled = true
-  attachInWorld(
-    screen.node,
-    readout,
-    screenFace.clone().addScaledVector(screenNormal, 0.0006),
-    READOUT_BASIS.clone(),
-  )
+  attachInWorld(screen.node, readout, screenFace.clone().addScaledVector(screenNormal, 0.0006), READOUT_BASIS.clone())
 
   // ---- Buttons: luminous white ▲/⏎/▼ symbol decals on each cap.
   const symbols: Mesh[] = []
   const buttonMeshes: Mesh[] = []
   const WORLD_UP_CLONE = WORLD_UP.clone()
-  const ordered = buttonParts
-    .map((part) => part!)
-    .sort((a, b) => worldMeshCenter(b).y - worldMeshCenter(a).y)
+  const ordered = buttonParts.map((part) => part!).sort((a, b) => worldMeshCenter(b).y - worldMeshCenter(a).y)
   const kinds: Array<'up' | 'enter' | 'down'> = ['up', 'enter', 'down']
 
   for (let i = 0; i < ordered.length; i += 1) {

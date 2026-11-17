@@ -1,0 +1,264 @@
+/* The export's inline desktop layout is authoritative. These rules supply theme,
+   focus, working controls and a readable narrow layout without a canvas runtime. */
+:root {
+  --design-bg: #0b1622;
+  --design-surface: #102133;
+  --design-ink: #e8e4da;
+  --design-muted: #a9b4c2;
+  --design-accent: #f0703a;
+  --design-ghost: #cfe0f2;
+  --design-rule: rgba(232, 228, 218, 0.16);
+  color-scheme: dark;
+}
+html[data-theme="light"] {
+  --design-bg: #f4f1ea;
+  --design-surface: #fbf9f4;
+  --design-ink: #14181d;
+  --design-muted: #4a5260;
+  --design-accent: #c2410c;
+  --design-ghost: #1d4e89;
+  --design-rule: rgba(20, 24, 29, 0.16);
+  color-scheme: light;
+}
+html,
+body {
+  margin: 0;
+  background: var(--design-bg);
+  color: var(--design-ink);
+}
+.design-home {
+  min-height: 100vh;
+}
+.design-header,
+.design-home main,
+.design-footer {
+  position: relative;
+  z-index: 1;
+}
+.design-drawings {
+  z-index: 0;
+}
+.design-home a {
+  color: inherit;
+}
+.design-home :focus-visible {
+  outline: 2px solid var(--design-accent);
+  outline-offset: 3px;
+}
+.design-home a:hover {
+  color: var(--design-accent) !important;
+}
+.design-card {
+  overflow: hidden;
+  cursor: pointer;
+  touch-action: pan-y;
+}
+.design-gallery {
+  touch-action: pan-y;
+}
+.design-gallery .design-caption {
+  box-sizing: border-box;
+  max-width: calc(100% - 574px) !important;
+}
+.design-gallery button {
+  cursor: pointer;
+  color: var(--design-ink);
+}
+.design-caption button[aria-disabled="true"] {
+  opacity: 0.35;
+  cursor: default;
+}
+.design-caption button[aria-disabled="false"] {
+  opacity: 1 !important;
+}
+.design-loupe {
+  visibility: hidden;
+  pointer-events: none;
+}
+.design-contact a {
+  overflow-wrap: anywhere;
+}
+.design-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+html[data-theme="light"] .design-header > button {
+  justify-content: flex-start !important;
+}
+.design-header > button {
+  background: var(--design-surface) !important;
+  border-color: var(--design-rule) !important;
+}
+@media (max-width: 1199px) {
+  .design-header {
+    height: auto !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 16px !important;
+    padding: 20px !important;
+  }
+  .design-header > div {
+    min-width: 0;
+    margin-right: 0 !important;
+    gap: 6px !important;
+  }
+  .design-header .design-name {
+    width: auto !important;
+    height: auto !important;
+    font-size: clamp(28px, 5vw, 56px) !important;
+    letter-spacing: -1px !important;
+  }
+  .design-header > div p {
+    top: 0 !important;
+    font-size: 10px !important;
+    letter-spacing: 0.25em !important;
+  }
+  .design-header > button {
+    grid-column: 2;
+    grid-row: 1;
+    top: 0 !important;
+  }
+  .design-header nav {
+    grid-column: 1 / -1;
+    top: 0 !important;
+    font-size: 18px !important;
+    gap: 28px !important;
+  }
+  .design-home main > section {
+    width: auto !important;
+    max-width: 100% !important;
+    padding-inline: 24px !important;
+    box-sizing: border-box;
+  }
+  .design-hero {
+    height: auto !important;
+    padding-top: 36px !important;
+    padding-bottom: 70px !important;
+    top: 0 !important;
+  }
+  .design-hero h1 {
+    font-size: clamp(22px, 5.04vw, 60px) !important;
+    margin-top: 0 !important;
+  }
+  .design-hero p {
+    width: auto !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+  .design-hero p:nth-of-type(1) {
+    font-size: 18px !important;
+  }
+  .design-hero p:nth-of-type(2) {
+    font-size: 15px !important;
+    line-height: 1.8 !important;
+  }
+  .design-work {
+    height: auto !important;
+    padding: 0 !important;
+  }
+  .design-work > div:not(.design-gallery) {
+    padding-inline: 24px !important;
+    box-sizing: border-box;
+  }
+  .design-row {
+    left: 0 !important;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .design-row > span {
+    min-width: 0;
+  }
+  .design-gallery {
+    height: 900px !important;
+  }
+  .design-footer {
+    padding-inline: 24px !important;
+  }
+}
+@media (max-width: 999px) {
+  .design-gallery {
+    height: max(680px, 100svh) !important;
+    margin-block: 24px !important;
+  }
+  .design-gallery .design-caption {
+    left: 0 !important;
+    top: auto !important;
+    bottom: 0;
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    padding: 50px 24px 24px;
+    box-sizing: border-box;
+    background: linear-gradient(transparent, var(--design-bg) 42px);
+  }
+  .design-caption h3 {
+    width: auto !important;
+    height: auto !important;
+    font-size: clamp(24px, 4.5vw, 34px) !important;
+    line-height: 1.2 !important;
+    overflow-wrap: anywhere;
+  }
+  .design-caption > p:first-child {
+    margin-bottom: 10px !important;
+  }
+  .design-caption p {
+    letter-spacing: 0.1em !important;
+  }
+  .design-caption > p:nth-last-child(-n + 2) {
+    display: none;
+  }
+  .design-caption > div {
+    margin-top: 16px !important;
+  }
+}
+@media (max-width: 720px) {
+  .design-header {
+    padding: 16px !important;
+  }
+  .design-home main > section {
+    padding-inline: 20px !important;
+  }
+  .design-work > div:not(.design-gallery) {
+    padding-inline: 20px !important;
+  }
+  .design-row {
+    gap: 12px !important;
+    padding: 20px !important;
+  }
+  .design-row span[style*="font-style: italic"] {
+    font-size: 20px !important;
+    letter-spacing: 0.025em !important;
+    overflow-wrap: anywhere;
+  }
+  .design-row span[style*="letter-spacing: 3px"],
+  .design-row span[style*="letter-spacing: 2px"] {
+    letter-spacing: 0.025em !important;
+  }
+  .design-plus > div[style*="grid"] {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .design-home h2 {
+    font-size: 36px !important;
+  }
+  .design-home section > figure {
+    padding: 24px !important;
+    box-sizing: border-box;
+  }
+  .design-home blockquote {
+    font-size: 18px !important;
+  }
+  .design-contact > div:last-child {
+    gap: 18px !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .design-home * {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}

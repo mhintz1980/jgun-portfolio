@@ -237,7 +237,8 @@ export function isSolved(rope: Rope): boolean {
 /** Largest per-step displacement of any point, in px (≈ 0 once the rope has settled). */
 export function maxSpeed(rope: Rope): number {
   let m = 0
-  for (let i = 0; i < rope.x.length; i++) m = Math.max(m, Math.abs(rope.x[i] - rope.px[i]), Math.abs(rope.y[i] - rope.py[i]))
+  for (let i = 0; i < rope.x.length; i++)
+    m = Math.max(m, Math.abs(rope.x[i] - rope.px[i]), Math.abs(rope.y[i] - rope.py[i]))
   return m
 }
 

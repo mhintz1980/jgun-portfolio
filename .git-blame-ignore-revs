@@ -1,0 +1,7 @@
+# Formatting-only commits. GitHub's blame view honors this file automatically.
+# Locally use the flag:  git blame --ignore-revs-file .git-blame-ignore-revs <path>
+# (Not blame.ignoreRevsFile in the shared repo config: worktrees on branches that
+# predate this file would make `git blame` fail.)
+
+# tooling: add Biome 2.6.6 (repo-matched config) + first full format pass
+0a2a08888c5971c1dc0d685aa0418fa4d265ed38

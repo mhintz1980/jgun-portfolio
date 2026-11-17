@@ -94,29 +94,18 @@ const STATION2_ANCHOR_MAP: Record<string, { pos: readonly [number, number, numbe
   'duct-intake': { pos: STATION2_CAD_ANCHORS.ductIntake, dx: -220, dy: 100 },
 }
 
-function Station2Callout({
-  def,
-  selected,
-}: {
-  def: HotspotDef
-  selected: boolean
-}) {
+function Station2Callout({ def, selected }: { def: HotspotDef; selected: boolean }) {
   const groupRef = useRef<Group>(null)
   const config = STATION2_ANCHOR_MAP[def.id] ?? { pos: [0, 0, 0], dx: 200, dy: -80 }
   const isInternal =
-    def.id === 'pump-housing' ||
-    def.id === 'acoustic-baffles' ||
-    def.id === 'duct-intake' ||
-    def.id === 'duct-exhaust'
+    def.id === 'pump-housing' || def.id === 'acoustic-baffles' || def.id === 'duct-intake' || def.id === 'duct-exhaust'
 
   useFrame(() => {
     if (!groupRef.current) return
     const { progress } = getScrollState()
     // Internal subassemblies visible only during the cross-section hold [0.610, 0.700]
     // External subassemblies visible from entry [0.565, 0.720]
-    const isVisible = isInternal
-      ? progress >= 0.610 && progress <= 0.700
-      : progress >= 0.565 && progress <= 0.720
+    const isVisible = isInternal ? progress >= 0.61 && progress <= 0.7 : progress >= 0.565 && progress <= 0.72
     groupRef.current.visible = isVisible
   })
 
@@ -214,11 +203,7 @@ function resolvePartNodeName(object: Object3D): string {
   return object.name
 }
 
-function cloneMaterials(
-  root: Object3D,
-  lite: boolean,
-  panelMaterialsCollector?: MeshStandardMaterial[],
-): void {
+function cloneMaterials(root: Object3D, lite: boolean, panelMaterialsCollector?: MeshStandardMaterial[]): void {
   const isPanels = root.name === 'COMPOSITE_PANELS'
   // JG-032 recolor scope gate: only the chassis and panel roots are even
   // eligible — the per-mesh allow-list predicate decides inside them.
@@ -360,10 +345,10 @@ export function Station2_AcousticEnclosure() {
     if (progress >= 0.585 && progress <= 0.645) {
       const u = (progress - 0.585) / (0.645 - 0.585)
       cut = u * u * (3 - 2 * u)
-    } else if (progress > 0.645 && progress < 0.700) {
+    } else if (progress > 0.645 && progress < 0.7) {
       cut = 1
-    } else if (progress >= 0.700 && progress <= 0.715) {
-      const u = (progress - 0.700) / (0.715 - 0.700)
+    } else if (progress >= 0.7 && progress <= 0.715) {
+      const u = (progress - 0.7) / (0.715 - 0.7)
       cut = 1 - u * u * (3 - 2 * u)
     }
     panelOpacity = PANEL_OPACITY_ASSEMBLED - (PANEL_OPACITY_ASSEMBLED - PANEL_OPACITY_REVEALED) * cut
@@ -378,8 +363,7 @@ export function Station2_AcousticEnclosure() {
   useMemo(() => {
     scene.children.forEach((child) => {
       const sub = ENCLOSURE_SUBASSEMBLIES[child.name]
-      const isHighlighted =
-        child.name === hoveredNode || (activeHotspotId && sub && sub.id === activeHotspotId)
+      const isHighlighted = child.name === hoveredNode || (activeHotspotId && sub && sub.id === activeHotspotId)
 
       child.traverse((obj) => {
         if (!(obj instanceof Mesh)) return
@@ -438,13 +422,7 @@ export function Station2_AcousticEnclosure() {
 
       {/* 3D Spatial Datum Markers on Station 2 */}
       {chapter === 2 &&
-        station2Hotspots.map((def) => (
-          <Station2Callout
-            key={def.id}
-            def={def}
-            selected={activeHotspotId === def.id}
-          />
-        ))}
+        station2Hotspots.map((def) => <Station2Callout key={def.id} def={def} selected={activeHotspotId === def.id} />)}
     </group>
   )
 }

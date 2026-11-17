@@ -52,11 +52,7 @@ export const PAPER_GRAIN_SIZE = 256
 export const PAPER_GRAIN_MIX = 0.06
 export const PAPER_GRAIN_SEED = 0x2f6e2b1
 
-export function fillPaperGrain(
-  data: Uint8ClampedArray,
-  size: number,
-  seed: number = PAPER_GRAIN_SEED,
-): void {
+export function fillPaperGrain(data: Uint8ClampedArray, size: number, seed: number = PAPER_GRAIN_SEED): void {
   let s = seed >>> 0
   const next = (): number => {
     s = (Math.imul(s, 1664525) + 1013904223) >>> 0
@@ -108,12 +104,7 @@ export const SHEET_FOV = 34
  * inverse — that identity is what lands the extracted model exactly at world identity when
  * the intro hands off — which puts the sheet's printed "up" on world -X.
  */
-export const SIDE_ROTATION = new Matrix4().set(
-  0, 0, -1, 0,
-  -1, 0, 0, 0,
-  0, 1, 0, 0,
-  0, 0, 0, 1,
-)
+export const SIDE_ROTATION = new Matrix4().set(0, 0, -1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1)
 /** Sheet placement (plane -> world). Forced to be `SIDE_ROTATION` inverted; see above. */
 export const SHEET_ROTATION = SIDE_ROTATION.clone().invert()
 /** Printed "up" on the sheet, in world space. Used by the intro camera's up vector. */
@@ -288,7 +279,15 @@ interface ViewDef {
 export const VIEW_DEFS: readonly ViewDef[] = [
   { name: 'side', label: 'SIDE VIEW', scaleLabel: 'SCALE 1:1', rotation: 'side', scale: 1, at: [-0.12, -0.042] },
   { name: 'top', label: 'TOP VIEW', scaleLabel: 'SCALE 1:2', rotation: 'top', scale: 0.5, at: [-0.262, 0.19] },
-  { name: 'section', label: 'SECTION A–A', scaleLabel: 'SCALE 1:2', rotation: 'side', scale: 0.5, at: [0.19, 0.02], section: true },
+  {
+    name: 'section',
+    label: 'SECTION A–A',
+    scaleLabel: 'SCALE 1:2',
+    rotation: 'side',
+    scale: 0.5,
+    at: [0.19, 0.02],
+    section: true,
+  },
   { name: 'front', label: 'FRONT VIEW', scaleLabel: 'SCALE 1:2', rotation: 'front', scale: 0.5, at: [-0.335, -0.03] },
   { name: 'rear', label: 'REAR VIEW', scaleLabel: 'SCALE 1:2', rotation: 'rear', scale: 0.5, at: [0.085, -0.03] },
   { name: 'bottom', label: 'BOTTOM VIEW', scaleLabel: 'SCALE 1:2', rotation: 'bottom', scale: 0.5, at: [-0.07, 0.19] },
@@ -378,7 +377,11 @@ const PROFILE_RIBBON_HALF_WIDTH = 0.0011
  * than a hairline. `LineBasicMaterial.linewidth` is ignored on every WebGL platform, so the
  * width has to be geometry.
  */
-export function buildProfileRibbon(points: number[][], arc: number[], cleanupFailureSink?: CleanupFailureSink): BufferGeometry {
+export function buildProfileRibbon(
+  points: number[][],
+  arc: number[],
+  cleanupFailureSink?: CleanupFailureSink,
+): BufferGeometry {
   const count = points.length
   const positions = new Float32Array(count * 6)
   const arcLength = new Float32Array(count * 2)
@@ -475,13 +478,18 @@ export function sectionLinework(
   const v = new Float32Array(9)
   for (let i = 0; i < position.length; i += 9) {
     for (let k = 0; k < 3; k += 1) {
-      const x = position[i + k * 3], y = position[i + k * 3 + 1], z = position[i + k * 3 + 2]
+      const x = position[i + k * 3],
+        y = position[i + k * 3 + 1],
+        z = position[i + k * 3 + 2]
       v[k * 3] = e[0] * x + e[4] * y + e[8] * z + e[12]
       v[k * 3 + 1] = e[1] * x + e[5] * y + e[9] * z + e[13]
       v[k * 3 + 2] = e[2] * x + e[6] * y + e[10] * z + e[14]
     }
     let hits = 0
-    let hx0 = 0, hy0 = 0, hx1 = 0, hy1 = 0
+    let hx0 = 0,
+      hy0 = 0,
+      hx1 = 0,
+      hy1 = 0
     for (let k = 0; k < 3; k += 1) {
       const pz = v[k * 3 + 2]
       const q = (k + 1) % 3
@@ -490,7 +498,13 @@ export function sectionLinework(
         const t = -pz / (qz - pz)
         const hx = v[k * 3] + (v[q * 3] - v[k * 3]) * t
         const hy = v[k * 3 + 1] + (v[q * 3 + 1] - v[k * 3 + 1]) * t
-        if (hits === 0) { hx0 = hx; hy0 = hy } else { hx1 = hx; hy1 = hy }
+        if (hits === 0) {
+          hx0 = hx
+          hy0 = hy
+        } else {
+          hx1 = hx
+          hy1 = hy
+        }
         hits += 1
       }
     }

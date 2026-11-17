@@ -8,13 +8,29 @@ import { readFileSync } from 'node:fs'
 // @ts-ignore — node builtins, see above.
 import { fileURLToPath } from 'node:url'
 import {
-  PORTAL_CLEARANCE_M, PORTAL_CLEARANCE_RAMP_M, PORTAL_CLOSURE_Z, PORTAL_FISSURE_HEX,
-  PORTAL_FISSURE_RGB, PORTAL_MOUTH_Z, PORTAL_RELIEF_BOUND_M, PORTAL_RELIEF_M,
-  PORTAL_RING_DEVIATION_BOUND_M, PORTAL_RING_DEPTHS,
-  PORTAL_SHAFT_DEPTH_M, PORTAL_SIGHTLINE_FLOOR_DEG,
-  buildPortalShaftProfile, makePortalShaftGeometry,
-  portalClearanceM, portalDeepHazeM, portalOcclusionGuarantee, portalReliefM, portalRingPoint,
-  portalRgb8Bit, portalRockRadianceM, portalRockTermM, portalSightlineDepthM,
+  PORTAL_CLEARANCE_M,
+  PORTAL_CLEARANCE_RAMP_M,
+  PORTAL_CLOSURE_Z,
+  PORTAL_FISSURE_HEX,
+  PORTAL_FISSURE_RGB,
+  PORTAL_MOUTH_Z,
+  PORTAL_RELIEF_BOUND_M,
+  PORTAL_RELIEF_M,
+  PORTAL_RING_DEVIATION_BOUND_M,
+  PORTAL_RING_DEPTHS,
+  PORTAL_SHAFT_DEPTH_M,
+  PORTAL_SIGHTLINE_FLOOR_DEG,
+  buildPortalShaftProfile,
+  makePortalShaftGeometry,
+  portalClearanceM,
+  portalDeepHazeM,
+  portalOcclusionGuarantee,
+  portalReliefM,
+  portalRingPoint,
+  portalRgb8Bit,
+  portalRockRadianceM,
+  portalRockTermM,
+  portalSightlineDepthM,
 } from './portalGeometry'
 
 /**
@@ -54,7 +70,8 @@ const SYNTHETIC_RING: number[][] = (() => {
 const signedArea = (ring: number[][]): number => {
   let area = 0
   for (let i = 0; i < ring.length; i += 1) {
-    const a = ring[i], b = ring[(i + 1) % ring.length]
+    const a = ring[i],
+      b = ring[(i + 1) % ring.length]
     area += a[0] * b[1] - b[0] * a[1]
   }
   return area / 2
@@ -63,16 +80,17 @@ const signedArea = (ring: number[][]): number => {
 /** Proper-crossing search over one ring, bucketed on a uniform grid. Returns a violating pair. */
 function findFold(ring: number[][]): [number, number] | null {
   const n = ring.length
-  const bounds = ring.reduce((acc, p) => [
-    Math.min(acc[0], p[0]), Math.min(acc[1], p[1]),
-    Math.max(acc[2], p[0]), Math.max(acc[3], p[1]),
-  ], [Infinity, Infinity, -Infinity, -Infinity])
+  const bounds = ring.reduce(
+    (acc, p) => [Math.min(acc[0], p[0]), Math.min(acc[1], p[1]), Math.max(acc[2], p[0]), Math.max(acc[3], p[1])],
+    [Infinity, Infinity, -Infinity, -Infinity],
+  )
   const span = Math.max(bounds[2] - bounds[0], bounds[3] - bounds[1])
   const cell = Math.max(span / 96, 1e-4)
   const buckets = new Map<string, number[]>()
   const cellOf = (x: number, y: number) => `${Math.floor(x / cell)}:${Math.floor(y / cell)}`
   for (let i = 0; i < n; i += 1) {
-    const a = ring[i], b = ring[(i + 1) % n]
+    const a = ring[i],
+      b = ring[(i + 1) % n]
     const length = Math.hypot(b[0] - a[0], b[1] - a[1])
     const steps = Math.max(1, Math.ceil(length / (cell * 0.5)))
     const seen = new Set<string>()
@@ -92,16 +110,19 @@ function findFold(ring: number[][]): [number, number] | null {
   for (const bucket of buckets.values()) {
     for (let m = 0; m < bucket.length; m += 1) {
       for (let k = m + 1; k < bucket.length; k += 1) {
-        const i = bucket[m], j = bucket[k]
+        const i = bucket[m],
+          j = bucket[k]
         if (i === j) continue
         if (j === (i + 1) % n || i === (j + 1) % n) continue
-        const a = ring[i], b = ring[(i + 1) % n], c = ring[j], d = ring[(j + 1) % n]
+        const a = ring[i],
+          b = ring[(i + 1) % n],
+          c = ring[j],
+          d = ring[(j + 1) % n]
         const d1 = cross(a[0], a[1], b[0], b[1], c[0], c[1])
         const d2 = cross(a[0], a[1], b[0], b[1], d[0], d[1])
         const d3 = cross(c[0], c[1], d[0], d[1], a[0], a[1])
         const d4 = cross(c[0], c[1], d[0], d[1], b[0], b[1])
-        const straddles = (p: number, q: number) =>
-          (p > epsilon && q < -epsilon) || (p < -epsilon && q > epsilon)
+        const straddles = (p: number, q: number) => (p > epsilon && q < -epsilon) || (p < -epsilon && q > epsilon)
         if (straddles(d1, d2) && straddles(d3, d4)) return [i, j]
       }
     }
@@ -121,7 +142,9 @@ const ringAt = (geometry: { getAttribute: (name: string) => { array: ArrayLike<n
 
 describe('portal vertical rock shaft geometry', () => {
   let profilePoints: number[][]
-  beforeAll(() => { profilePoints = loadTrackedProfile() })
+  beforeAll(() => {
+    profilePoints = loadTrackedProfile()
+  })
   it('private cavern keeps the real tracked contour fold-free at every ring', () => {
     const shaft = makePrivatePitGeometry(profilePoints)
     for (let k = 0; k < shaft.ringCount; k++) {
@@ -129,9 +152,10 @@ describe('portal vertical rock shaft geometry', () => {
       expect(findFold(ring), `private ring ${k}`).toBe(null)
       expect(signedArea(ring)).toBeGreaterThan(0)
     }
-    expect(shaft.maxRingDeviationM).toBeGreaterThan(.05)
-    expect(shaft.maxRingDeviationM).toBeLessThan(.13)
-    shaft.wallGeometry.dispose(); shaft.closureGeometry.dispose()
+    expect(shaft.maxRingDeviationM).toBeGreaterThan(0.05)
+    expect(shaft.maxRingDeviationM).toBeLessThan(0.13)
+    shaft.wallGeometry.dispose()
+    shaft.closureGeometry.dispose()
   })
 
   it('extrudes the exact torn contour: ring 0 is the outline itself', () => {
@@ -160,7 +184,9 @@ describe('portal vertical rock shaft geometry', () => {
     const shaft = makePortalShaftGeometry(profilePoints)
     expect(shaft.maxRingDeviationM).toBeGreaterThan(0)
     expect(shaft.maxRingDeviationM).toBeLessThanOrEqual(PORTAL_RING_DEVIATION_BOUND_M + 1e-9)
-    expect(PORTAL_RING_DEVIATION_BOUND_M).toBeLessThanOrEqual(PORTAL_CLEARANCE_M + 1.5 * Math.hypot(PORTAL_RELIEF_M, PORTAL_RELIEF_M))
+    expect(PORTAL_RING_DEVIATION_BOUND_M).toBeLessThanOrEqual(
+      PORTAL_CLEARANCE_M + 1.5 * Math.hypot(PORTAL_RELIEF_M, PORTAL_RELIEF_M),
+    )
     // The rejected build flared rings by 65% of the profile radius; a vertical shaft must not.
     const mouth = buildPortalShaftProfile(profilePoints)
     const deepest = ringAt(shaft.wallGeometry, profilePoints.length, shaft.ringCount - 1)
@@ -186,7 +212,7 @@ describe('portal vertical rock shaft geometry', () => {
       expect(portalRingPoint(shaft.profile, 0, PORTAL_RING_DEPTHS[k])[2]).toBe(PORTAL_MOUTH_Z - PORTAL_RING_DEPTHS[k])
       for (let i = 0; i < n; i += 1) {
         const z = positions[(k * n + i) * 3 + 2]
-        expect(Math.abs((PORTAL_MOUTH_Z - z) - PORTAL_RING_DEPTHS[k])).toBeLessThan(1e-5)
+        expect(Math.abs(PORTAL_MOUTH_Z - z - PORTAL_RING_DEPTHS[k])).toBeLessThan(1e-5)
       }
     }
     expect(PORTAL_CLOSURE_Z).toBeCloseTo(PORTAL_MOUTH_Z - PORTAL_SHAFT_DEPTH_M, 12)
@@ -215,7 +241,8 @@ describe('portal vertical rock shaft geometry', () => {
     for (let t = 0; t < wallIndices.length; t += 3) {
       const tri = [wallIndices[t], wallIndices[t + 1], wallIndices[t + 2]]
       for (let e = 0; e < 3; e += 1) {
-        const a = tri[e], b = tri[(e + 1) % 3]
+        const a = tri[e],
+          b = tri[(e + 1) % 3]
         const key = a < b ? `${a}:${b}` : `${b}:${a}`
         edges.set(key, (edges.get(key) ?? 0) + 1)
       }
@@ -227,7 +254,8 @@ describe('portal vertical rock shaft geometry', () => {
     for (let i = 0; i < n; i += 1) {
       const j = (i + 1) % n
       const lip = i < j ? `${i}:${j}` : `${j}:${i}`
-      const deepA = (rings - 1) * n + i, deepB = (rings - 1) * n + j
+      const deepA = (rings - 1) * n + i,
+        deepB = (rings - 1) * n + j
       const deep = deepA < deepB ? `${deepA}:${deepB}` : `${deepB}:${deepA}`
       expect(edges.get(lip)).toBe(1)
       expect(edges.get(deep)).toBe(1)
@@ -246,7 +274,9 @@ describe('portal vertical rock shaft geometry', () => {
     const orientation = Math.sign(signedArea(deepest))
     let area = 0
     for (let t = 0; t < closureIndices.length; t += 3) {
-      const a = deepest[closureIndices[t]], b = deepest[closureIndices[t + 1]], c = deepest[closureIndices[t + 2]]
+      const a = deepest[closureIndices[t]],
+        b = deepest[closureIndices[t + 1]],
+        c = deepest[closureIndices[t + 2]]
       const double = (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0])
       expect(Math.sign(double) * orientation).toBeGreaterThanOrEqual(0)
       area += Math.abs(double) / 2
@@ -304,10 +334,12 @@ describe('portal vertical rock shaft geometry', () => {
   it('is deterministic and fold-free on the real torn contour', () => {
     const a = makePortalShaftGeometry(profilePoints)
     const b = makePortalShaftGeometry(profilePoints)
-    expect(Array.from(a.wallGeometry.getAttribute('position').array as ArrayLike<number>))
-      .toEqual(Array.from(b.wallGeometry.getAttribute('position').array as ArrayLike<number>))
-    expect(Array.from(a.closureGeometry.getIndex()!.array as ArrayLike<number>))
-      .toEqual(Array.from(b.closureGeometry.getIndex()!.array as ArrayLike<number>))
+    expect(Array.from(a.wallGeometry.getAttribute('position').array as ArrayLike<number>)).toEqual(
+      Array.from(b.wallGeometry.getAttribute('position').array as ArrayLike<number>),
+    )
+    expect(Array.from(a.closureGeometry.getIndex()!.array as ArrayLike<number>)).toEqual(
+      Array.from(b.closureGeometry.getIndex()!.array as ArrayLike<number>),
+    )
     // Relief and clearance must not fold the jagged torn contour at any ring.
     for (let k = 0; k < a.ringCount; k += 1) {
       const ring = ringAt(a.wallGeometry, profilePoints.length, k)
@@ -337,7 +369,9 @@ describe('portal vertical rock shaft geometry', () => {
 
 describe('makePortal contract (parent integration)', () => {
   let profilePoints: number[][]
-  beforeAll(() => { profilePoints = loadTrackedProfile() })
+  beforeAll(() => {
+    profilePoints = loadTrackedProfile()
+  })
 
   it('keeps the shape of the API the sheet drives, with an honest closure report', async () => {
     const { makePortal, portalPulse } = await import('./portal')

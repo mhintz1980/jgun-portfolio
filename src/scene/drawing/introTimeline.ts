@@ -76,8 +76,7 @@ export const smooth01 = (x: number): number => {
 const INTRO_SLOPE = DRAWING_INTRO_WINDOW.releaseEnd / INTRO_SCROLL_SHARE
 const MAIN_SLOPE = (1 - DRAWING_INTRO_WINDOW.releaseEnd) / (1 - INTRO_SCROLL_SHARE)
 const introLine = (s: number): number => INTRO_SLOPE * s
-const mainLine = (s: number): number =>
-  DRAWING_INTRO_WINDOW.releaseEnd + MAIN_SLOPE * (s - INTRO_SCROLL_SHARE)
+const mainLine = (s: number): number => DRAWING_INTRO_WINDOW.releaseEnd + MAIN_SLOPE * (s - INTRO_SCROLL_SHARE)
 
 /**
  * JG-035 owner revision O3 (2026-10-07): extra close-reading scroll in the drafting pass.
@@ -94,7 +93,13 @@ const mainLine = (s: number): number =>
  * anchors with the identity slope (`INTRO_SCROLL_SHARE`) pinned at both ends, hence C1 at the join.
  */
 export const OPENING_CLOSE_READ_ANCHORS: readonly (readonly [number, number])[] = [
-  [0, 0], [0.05, 0.025], [0.29, 0.18], [0.38, 0.23], [0.45, 0.265], [0.58, 0.31], [0.66, 0.33],
+  [0, 0],
+  [0.05, 0.025],
+  [0.29, 0.18],
+  [0.38, 0.23],
+  [0.45, 0.265],
+  [0.58, 0.31],
+  [0.66, 0.33],
 ]
 export const OPENING_CLOSE_READ_END_T = OPENING_CLOSE_READ_ANCHORS[OPENING_CLOSE_READ_ANCHORS.length - 1][0]
 export const OPENING_CLOSE_READ_END_RAW = OPENING_CLOSE_READ_ANCHORS[OPENING_CLOSE_READ_ANCHORS.length - 1][1]
@@ -102,13 +107,18 @@ export const OPENING_CLOSE_READ_END_RAW = OPENING_CLOSE_READ_ANCHORS[OPENING_CLO
 const READ_SLOPES: number[] = (() => {
   const a = OPENING_CLOSE_READ_ANCHORS
   const n = a.length
-  const h: number[] = [], d: number[] = []
-  for (let i = 0; i < n - 1; i += 1) { h.push(a[i + 1][0] - a[i][0]); d.push((a[i + 1][1] - a[i][1]) / h[i]) }
+  const h: number[] = [],
+    d: number[] = []
+  for (let i = 0; i < n - 1; i += 1) {
+    h.push(a[i + 1][0] - a[i][0])
+    d.push((a[i + 1][1] - a[i][1]) / h[i])
+  }
   const m = new Array<number>(n)
   m[0] = INTRO_SCROLL_SHARE
   m[n - 1] = INTRO_SCROLL_SHARE
   for (let i = 1; i < n - 1; i += 1) {
-    const w1 = 2 * h[i] + h[i - 1], w2 = h[i] + 2 * h[i - 1]
+    const w1 = 2 * h[i] + h[i - 1],
+      w2 = h[i] + 2 * h[i - 1]
     m[i] = (w1 + w2) / (w1 / d[i - 1] + w2 / d[i])
   }
   return m
@@ -121,16 +131,24 @@ export function introRawFraction(t: number): number {
   const a = OPENING_CLOSE_READ_ANCHORS
   let i = 0
   while (i < a.length - 2 && x >= a[i + 1][0]) i += 1
-  const h = a[i + 1][0] - a[i][0], u = (x - a[i][0]) / h, u2 = u * u, u3 = u2 * u
-  return (2 * u3 - 3 * u2 + 1) * a[i][1] + (u3 - 2 * u2 + u) * h * READ_SLOPES[i]
-    + (-2 * u3 + 3 * u2) * a[i + 1][1] + (u3 - u2) * h * READ_SLOPES[i + 1]
+  const h = a[i + 1][0] - a[i][0],
+    u = (x - a[i][0]) / h,
+    u2 = u * u,
+    u3 = u2 * u
+  return (
+    (2 * u3 - 3 * u2 + 1) * a[i][1] +
+    (u3 - 2 * u2 + u) * h * READ_SLOPES[i] +
+    (-2 * u3 + 3 * u2) * a[i + 1][1] +
+    (u3 - u2) * h * READ_SLOPES[i + 1]
+  )
 }
 
 /** Inverse of `introRawFraction` on the close-reading span (raw <= `OPENING_CLOSE_READ_END_RAW`). */
 export function introTimeFromRaw(raw: number): number {
   if (raw <= 0) return 0
   if (raw >= OPENING_CLOSE_READ_END_RAW) return raw / INTRO_SCROLL_SHARE
-  let lo = 0, hi = OPENING_CLOSE_READ_END_T
+  let lo = 0,
+    hi = OPENING_CLOSE_READ_END_T
   for (let i = 0; i < 52; i += 1) {
     const mid = (lo + hi) / 2
     if (introRawFraction(mid) > raw) hi = mid
@@ -228,11 +246,19 @@ export const INTRO_PHASES = {
  * same scroll position produce the same light in either direction.
  */
 const LAMP_FAILURE_KEYS = [
-  [0, 1], [0.12, 0.58], [0.18, 0.92],
-  [0.28, 0.14], [0.34, 0.78],
-  [0.46, 0.36], [0.51, 0.86],
-  [0.64, 0.015], [0.72, 0.015], [0.78, 0.58],
-  [0.85, 0.08], [0.91, 0.34], [1, 0],
+  [0, 1],
+  [0.12, 0.58],
+  [0.18, 0.92],
+  [0.28, 0.14],
+  [0.34, 0.78],
+  [0.46, 0.36],
+  [0.51, 0.86],
+  [0.64, 0.015],
+  [0.72, 0.015],
+  [0.78, 0.58],
+  [0.85, 0.08],
+  [0.91, 0.34],
+  [1, 0],
 ] as const
 
 function lampFlickerPower(t: number): number {
@@ -265,7 +291,7 @@ export function introPoseTime(t: number): number {
   const clamped = clamp01(t)
   if (clamped <= INTRO_PHASES.riseStart) return 0.4 * (clamped / INTRO_PHASES.riseStart)
   if (clamped <= INTRO_PHASES.fractureStart) {
-    return 0.4 + 0.1 * (clamped - INTRO_PHASES.riseStart) / (INTRO_PHASES.fractureStart - INTRO_PHASES.riseStart)
+    return 0.4 + (0.1 * (clamped - INTRO_PHASES.riseStart)) / (INTRO_PHASES.fractureStart - INTRO_PHASES.riseStart)
   }
   const x = (clamped - INTRO_PHASES.fractureStart) / (1 - INTRO_PHASES.fractureStart)
   return 0.5 + 0.5 * Math.pow(clamp01(x), RISE_EASE_EXPONENT)
@@ -275,7 +301,8 @@ export function introPoseTime(t: number): number {
 export function introScrollTimeFor(poseTime: number): number {
   const pose = clamp01(poseTime)
   if (pose <= 0.4) return (pose / 0.4) * INTRO_PHASES.riseStart
-  if (pose <= 0.5) return INTRO_PHASES.riseStart + (pose - 0.4) / 0.1 * (INTRO_PHASES.fractureStart - INTRO_PHASES.riseStart)
+  if (pose <= 0.5)
+    return INTRO_PHASES.riseStart + ((pose - 0.4) / 0.1) * (INTRO_PHASES.fractureStart - INTRO_PHASES.riseStart)
   const x = Math.pow((pose - 0.5) / 0.5, 1 / RISE_EASE_EXPONENT)
   return INTRO_PHASES.fractureStart + x * (1 - INTRO_PHASES.fractureStart)
 }
@@ -348,8 +375,12 @@ export function drawingIntroState(progress: number, crossing = 0.9): IntroState 
     fracture,
     openingClear: t >= INTRO_PHASES.fractureEnd ? 1 : 0,
     crackWeb: smooth01((t - BRANCH_START_T) / 0.012) * (1 - fracture),
-    crackGlow: t < INTRO_PHASES.pulseStart ? 0 : t <= INTRO_PHASES.pulseEnd ? 1 :
-      (0.65 + 0.35 * pressure) * (1 - 0.78 * fracture) * (1 - smooth01((t - 0.94) / 0.05)),
+    crackGlow:
+      t < INTRO_PHASES.pulseStart
+        ? 0
+        : t <= INTRO_PHASES.pulseEnd
+          ? 1
+          : (0.65 + 0.35 * pressure) * (1 - 0.78 * fracture) * (1 - smooth01((t - 0.94) / 0.05)),
     t,
     poseT,
     focus: smooth01(t / INTRO_PHASES.focusEnd),

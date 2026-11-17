@@ -1,16 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { CONTACT } from './content'
-import {
-  REACH,
-  createRope,
-  easeInOutCubic,
-  endDirection,
-  freeEnd,
-  freeze,
-  isSolved,
-  maxSpeed,
-  step,
-} from './rope'
+import { REACH, createRope, easeInOutCubic, endDirection, freeEnd, freeze, isSolved, maxSpeed, step } from './rope'
 import type { Rope, Vec } from './rope'
 import './rope.css'
 
@@ -58,8 +48,8 @@ export default function ContactRope() {
   const handleRef = useRef<HTMLDivElement>(null)
   const pullRef = useRef<() => void>(() => {})
   const [solved, setSolved] = useState(false)
-  const [reduced, setReduced] = useState(() =>
-    typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches,
+  const [reduced, setReduced] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches,
   )
 
   useEffect(() => {
@@ -298,12 +288,7 @@ export default function ContactRope() {
           {straight ? CONTACT.pulled : CONTACT.pull}
         </p>
         {!reduced && (
-          <button
-            type="button"
-            className="home-rope-button"
-            aria-disabled={solved}
-            onClick={() => pullRef.current()}
-          >
+          <button type="button" className="home-rope-button" aria-disabled={solved} onClick={() => pullRef.current()}>
             {solved ? 'Pulled' : CONTACT.pull}
           </button>
         )}

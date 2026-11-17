@@ -1,15 +1,40 @@
 import {
-  BufferGeometry, DoubleSide, Float32BufferAttribute, Group, Mesh, PointLight,
-  Camera, Color, MeshBasicMaterial, Object3D, Scene, ShaderMaterial, ShapeUtils, Vector2,
-  Vector3, WebGLRenderer, WebGLRenderTarget,
+  BufferGeometry,
+  DoubleSide,
+  Float32BufferAttribute,
+  Group,
+  Mesh,
+  PointLight,
+  Camera,
+  Color,
+  MeshBasicMaterial,
+  Object3D,
+  Scene,
+  ShaderMaterial,
+  ShapeUtils,
+  Vector2,
+  Vector3,
+  WebGLRenderer,
+  WebGLRenderTarget,
 } from 'three'
 import { CRACK_APERTURE_GLSL } from './breakthrough'
 import {
-  PORTAL_AMBIENT_FLOOR, PORTAL_FISSURE_CEILING, PORTAL_FISSURE_FALLOFF_M,
-  PORTAL_FISSURE_HEX, PORTAL_FISSURE_RGB, PORTAL_HAZE_EXTINCTION_M, PORTAL_HAZE_RGB,
-  PORTAL_MOUTH_Z, PORTAL_RELIEF_M, PORTAL_ROCK_DARK, PORTAL_ROCK_EXTINCTION_M,
-  PORTAL_ROCK_LIGHT, PORTAL_SHAFT_DEPTH_M,
-  buildPortalShaftProfile, makePortalShaftGeometry, portalOcclusionGuarantee,
+  PORTAL_AMBIENT_FLOOR,
+  PORTAL_FISSURE_CEILING,
+  PORTAL_FISSURE_FALLOFF_M,
+  PORTAL_FISSURE_HEX,
+  PORTAL_FISSURE_RGB,
+  PORTAL_HAZE_EXTINCTION_M,
+  PORTAL_HAZE_RGB,
+  PORTAL_MOUTH_Z,
+  PORTAL_RELIEF_M,
+  PORTAL_ROCK_DARK,
+  PORTAL_ROCK_EXTINCTION_M,
+  PORTAL_ROCK_LIGHT,
+  PORTAL_SHAFT_DEPTH_M,
+  buildPortalShaftProfile,
+  makePortalShaftGeometry,
+  portalOcclusionGuarantee,
 } from './portalGeometry'
 
 /** Sheet-local metres. The desktop is cut out, rather than drawn over the model. */
@@ -122,8 +147,7 @@ void main() {
 
 /** Reversible, deterministic pulse: no wall-clock animation while scroll is held. */
 export function portalPulse(t: number, reducedMotion: boolean) {
-  return reducedMotion ? 1 : 0.94 + 0.035 * Math.sin(t * 71.0 + 0.7)
-    + 0.025 * Math.sin(t * 137.0 + Math.sin(t * 29.0))
+  return reducedMotion ? 1 : 0.94 + 0.035 * Math.sin(t * 71.0 + 0.7) + 0.025 * Math.sin(t * 137.0 + Math.sin(t * 29.0))
 }
 
 /**
@@ -150,8 +174,10 @@ export function makePortal(
     uPortalLight: sharedLight,
     uPortalFissureEnergy: effects?.fissureEnergy ?? sharedLight,
     uPortalFissureGrowth: effects?.fissureGrowth ?? { value: 100 },
-    uPortalTime: { value: 0 }, uPortalLite: { value: 0 },
-    uPortalWall: { value: 0 }, uPortalMouthZ: { value: PORTAL_MOUTH_Z },
+    uPortalTime: { value: 0 },
+    uPortalLite: { value: 0 },
+    uPortalWall: { value: 0 },
+    uPortalMouthZ: { value: PORTAL_MOUTH_Z },
     uPortalCenter: { value: center.clone() },
     uPortalRelief: { value: PORTAL_RELIEF_M },
     uPortalRockAlive: { value: PORTAL_AMBIENT_FLOOR },
@@ -162,21 +188,45 @@ export function makePortal(
     uPortalRockLight: { value: new Vector3(...PORTAL_ROCK_LIGHT) },
     uPortalHaze: { value: new Vector3(...PORTAL_HAZE_RGB) },
   }
-  const capMaterial = new ShaderMaterial({ uniforms, vertexShader: VERTEX, fragmentShader: FRAGMENT,
-    side: DoubleSide, depthTest: true, depthWrite: true, transparent: false, toneMapped: false })
-  const privateVertex = VERTEX.replace('varying vec3 vPortal;', 'varying vec3 vPortal; varying vec3 vRockNormal;')
-    .replace('vPortal = position;', 'vPortal = position; vRockNormal = normal;')
+  const capMaterial = new ShaderMaterial({
+    uniforms,
+    vertexShader: VERTEX,
+    fragmentShader: FRAGMENT,
+    side: DoubleSide,
+    depthTest: true,
+    depthWrite: true,
+    transparent: false,
+    toneMapped: false,
+  })
+  const privateVertex = VERTEX.replace(
+    'varying vec3 vPortal;',
+    'varying vec3 vPortal; varying vec3 vRockNormal;',
+  ).replace('vPortal = position;', 'vPortal = position; vRockNormal = normal;')
   const privateFragment = FRAGMENT.replace('varying vec3 vPortal;', 'varying vec3 vPortal; varying vec3 vRockNormal;')
-    .replace('vec3 rock = mix', 'facet = clamp(facet + 0.26 * dot(normalize(vRockNormal), normalize(vec3(-0.4, 0.5, 0.7))), 0.0, 1.0); vec3 rock = mix')
-    .replace(/float ridge =[^;]+;/, `float trunk = abs(fbm3(vec3(p * 61.0, depth * 7.1), octaves) - 0.5);
+    .replace(
+      'vec3 rock = mix',
+      'facet = clamp(facet + 0.26 * dot(normalize(vRockNormal), normalize(vec3(-0.4, 0.5, 0.7))), 0.0, 1.0); vec3 rock = mix',
+    )
+    .replace(
+      /float ridge =[^;]+;/,
+      `float trunk = abs(fbm3(vec3(p * 61.0, depth * 7.1), octaves) - 0.5);
       float branch = abs(fbm3(vec3(p * 123.0 + 9.3, depth * 13.7), octaves) - 0.52);
-      float ridge = 1.0 - min(trunk * 14.0, branch * 17.0 + smoothstep(0.08, 0.14, trunk));`)
-  const wallMaterial = new ShaderMaterial({ uniforms: { ...uniforms, uPortalWall: { value: 1 } },
-    vertexShader: effects?.rocky ? privateVertex : VERTEX, fragmentShader: effects?.rocky ? privateFragment : FRAGMENT,
-    side: DoubleSide, depthTest: true, depthWrite: true, transparent: false, toneMapped: false })
+      float ridge = 1.0 - min(trunk * 14.0, branch * 17.0 + smoothstep(0.08, 0.14, trunk));`,
+    )
+  const wallMaterial = new ShaderMaterial({
+    uniforms: { ...uniforms, uPortalWall: { value: 1 } },
+    vertexShader: effects?.rocky ? privateVertex : VERTEX,
+    fragmentShader: effects?.rocky ? privateFragment : FRAGMENT,
+    side: DoubleSide,
+    depthTest: true,
+    depthWrite: true,
+    transparent: false,
+    toneMapped: false,
+  })
   const cap = new Mesh(shaft.closureGeometry, capMaterial)
   const walls = new Mesh(shaft.wallGeometry, wallMaterial)
-  cap.name = 'portal-far-closure'; walls.name = 'portal-vertical-rock-walls'
+  cap.name = 'portal-far-closure'
+  walls.name = 'portal-vertical-rock-walls'
   // Draw behind-stock geometry after the opaque paper so depth rejects hidden wall shading.
   cap.renderOrder = walls.renderOrder = 2
   cap.frustumCulled = walls.frustumCulled = false
@@ -186,13 +236,22 @@ export function makePortal(
   light.position.set(center.x, center.y, -0.014)
   group.add(light)
   return {
-    group, cap, walls, light,
+    group,
+    cap,
+    walls,
+    light,
     /** Deepest surface of the shaft. Retained under the historical name for the sheet stats. */
-    capZ: closureZ, closureZ, mouthZ: PORTAL_MOUTH_Z, initialModelBottom,
+    capZ: closureZ,
+    closureZ,
+    mouthZ: PORTAL_MOUTH_Z,
+    initialModelBottom,
     shaftDepthM: PORTAL_SHAFT_DEPTH_M,
-    wallLevels: shaft.ringCount, ringDepthsM: shaft.ringDepthsM,
-    profilePoints: profile.count, maxRingDeviationM: shaft.maxRingDeviationM,
-    extentM: profile.extentM, occlusion,
+    wallLevels: shaft.ringCount,
+    ringDepthsM: shaft.ringDepthsM,
+    profilePoints: profile.count,
+    maxRingDeviationM: shaft.maxRingDeviationM,
+    extentM: profile.extentM,
+    occlusion,
     /** False by construction: no sight line through the torn aperture reaches the closure. */
     capVisible: false,
     closureBehindInitialModel: closureZ < initialModelBottom,
@@ -206,8 +265,10 @@ export function makePortal(
       return pulse
     },
     dispose() {
-      shaft.wallGeometry.dispose(); shaft.closureGeometry.dispose()
-      capMaterial.dispose(); wallMaterial.dispose()
+      shaft.wallGeometry.dispose()
+      shaft.closureGeometry.dispose()
+      capMaterial.dispose()
+      wallMaterial.dispose()
       light.dispose()
     },
   }
@@ -221,31 +282,65 @@ export function makePortal(
  * are what separate a wall pixel from a visible closure pixel — the honest replacement for the
  * old "capBehindInitialModel" shorthand, which could only ever say where the cap sat.
  */
-export function capturePortalPixels({ gl, camera, sheet, outline, portal, desk, paper, fragments, edge,
-  modelRootName = 'jgun-live-registered-model' }: {
-  gl: WebGLRenderer; camera: Camera; sheet: Group; outline: number[][];
-  portal: ReturnType<typeof makePortal>; desk: Mesh; paper: Mesh; fragments: Mesh[]; edge: Mesh;
-  modelRootName?: string;
+export function capturePortalPixels({
+  gl,
+  camera,
+  sheet,
+  outline,
+  portal,
+  desk,
+  paper,
+  fragments,
+  edge,
+  modelRootName = 'jgun-live-registered-model',
+}: {
+  gl: WebGLRenderer
+  camera: Camera
+  sheet: Group
+  outline: number[][]
+  portal: ReturnType<typeof makePortal>
+  desk: Mesh
+  paper: Mesh
+  fragments: Mesh[]
+  edge: Mesh
+  modelRootName?: string
 }) {
   let root: Object3D = sheet
   while (root.parent) root = root.parent
   const model = root.getObjectByName(modelRootName)
   if (!model) throw new Error('Portal pixel proof requires the live registered JGun root')
   root.updateMatrixWorld(true)
-  const width = 640, height = Math.max(1, Math.round(width * gl.domElement.height / gl.domElement.width))
+  const width = 640,
+    height = Math.max(1, Math.round((width * gl.domElement.height) / gl.domElement.width))
   const target = new WebGLRenderTarget(width, height)
-  const priorTarget = gl.getRenderTarget(), cameraMatrix = camera.matrixWorld.clone()
-  const capVisible = portal.cap.visible, wallVisible = portal.walls.visible
-  const modelVisible = model.visible, deskVisible = desk.visible
+  const priorTarget = gl.getRenderTarget(),
+    cameraMatrix = camera.matrixWorld.clone()
+  const capVisible = portal.cap.visible,
+    wallVisible = portal.walls.visible
+  const modelVisible = model.visible,
+    deskVisible = desk.visible
   const maskScene = new Scene()
   maskScene.background = new Color(0)
   const profileGeometry = new BufferGeometry()
-  profileGeometry.setAttribute('position', new Float32BufferAttribute(outline.flatMap(p => [p[0], p[1], -0.00046]), 3))
-  profileGeometry.setIndex(ShapeUtils.triangulateShape(outline.map(p => new Vector2(p[0], p[1])), []).flat())
+  profileGeometry.setAttribute(
+    'position',
+    new Float32BufferAttribute(
+      outline.flatMap((p) => [p[0], p[1], -0.00046]),
+      3,
+    ),
+  )
+  profileGeometry.setIndex(
+    ShapeUtils.triangulateShape(
+      outline.map((p) => new Vector2(p[0], p[1])),
+      [],
+    ).flat(),
+  )
   const white = new MeshBasicMaterial({ color: 0xffffff, side: DoubleSide, toneMapped: false })
   const shape = new Mesh(profileGeometry, white)
-  shape.matrixAutoUpdate = false; shape.matrix.copy(sheet.matrixWorld)
-  shape.visible = sheet.visible; shape.frustumCulled = false
+  shape.matrixAutoUpdate = false
+  shape.matrix.copy(sheet.matrixWorld)
+  shape.visible = sheet.visible
+  shape.frustumCulled = false
   maskScene.add(shape)
   const blockers: ShaderMaterial[] = []
   // Rasterize the real displaced/rotated stock in black, rather than counting the full
@@ -253,14 +348,21 @@ export function capturePortalPixels({ gl, camera, sheet, outline, portal, desk, 
   for (const original of [paper, ...fragments, edge]) {
     if (!original.visible) continue
     const material = original.material as ShaderMaterial
-    const black = new ShaderMaterial({ uniforms: material.uniforms, vertexShader: material.vertexShader,
+    const black = new ShaderMaterial({
+      uniforms: material.uniforms,
+      vertexShader: material.vertexShader,
       fragmentShader: `${CRACK_APERTURE_GLSL}
         varying vec2 vPlane; void main(){ openHairline(vPlane); gl_FragColor=vec4(0,0,0,1); }`,
-      side: DoubleSide, depthWrite: true, toneMapped: false })
+      side: DoubleSide,
+      depthWrite: true,
+      toneMapped: false,
+    })
     const blocker = new Mesh(original.geometry, black)
-    blocker.matrixAutoUpdate = false; blocker.matrix.copy(original.matrixWorld)
+    blocker.matrixAutoUpdate = false
+    blocker.matrix.copy(original.matrixWorld)
     blocker.frustumCulled = false
-    maskScene.add(blocker); blockers.push(black)
+    maskScene.add(blocker)
+    blockers.push(black)
   }
   const read = (scene: Object3D) => {
     const pixels = new Uint8Array(width * height * 4)
@@ -276,9 +378,11 @@ export function capturePortalPixels({ gl, camera, sheet, outline, portal, desk, 
     const noPortal = read(root)
     portal.walls.visible = wallVisible
     const noCap = read(root)
-    portal.walls.visible = false; portal.cap.visible = true
+    portal.walls.visible = false
+    portal.cap.visible = true
     const noWall = read(root)
-    portal.cap.visible = capVisible; portal.walls.visible = wallVisible
+    portal.cap.visible = capVisible
+    portal.walls.visible = wallVisible
     model.visible = false
     const noModel = read(root)
     model.visible = modelVisible
@@ -287,84 +391,137 @@ export function capturePortalPixels({ gl, camera, sheet, outline, portal, desk, 
     desk.visible = deskVisible
     const changed = (a: Uint8Array, b: Uint8Array, i: number) =>
       Math.max(Math.abs(a[i] - b[i]), Math.abs(a[i + 1] - b[i + 1]), Math.abs(a[i + 2] - b[i + 2])) > 8
-    let portalChangedPixels = 0, modelChangedPixels = 0, deskChangedInsidePixels = 0, sampledInsidePixels = 0
-    let capChangedPixels = 0, wallChangedPixels = 0
-    let portalVisiblePixels = 0, portalMaxLuminance = 0, portalWhitePixels = 0, portalFissurePixels = 0
-    let modelLitPixels = 0, modelMaxLuminance = 0
+    let portalChangedPixels = 0,
+      modelChangedPixels = 0,
+      deskChangedInsidePixels = 0,
+      sampledInsidePixels = 0
+    let capChangedPixels = 0,
+      wallChangedPixels = 0
+    let portalVisiblePixels = 0,
+      portalMaxLuminance = 0,
+      portalWhitePixels = 0,
+      portalFissurePixels = 0
+    let modelLitPixels = 0,
+      modelMaxLuminance = 0
     let fullFramePortalChangedPixels = 0
     for (let i = 0; i < normal.length; i += 4) if (changed(normal, noPortal, i)) fullFramePortalChangedPixels++
-    let xMin = width, xMax = -1, yMin = height, yMax = -1
+    let xMin = width,
+      xMax = -1,
+      yMin = height,
+      yMax = -1
     // Erode two pixels to reject silhouette/rim AA and partially covered departing fragments.
-    for (let y = 2; y < height - 2; y++) for (let x = 2; x < width - 2; x++) {
-      let inside = true
-      for (let dy = -2; dy <= 2 && inside; dy++) for (let dx = -2; dx <= 2; dx++) {
-        if (mask[((y + dy) * width + x + dx) * 4] < 250) { inside = false; break }
-      }
-      if (!inside) continue
-      const i = (y * width + x) * 4
-      sampledInsidePixels++
-      if (changed(normal, noPortal, i)) portalChangedPixels++
-      if (changed(normal, noModel, i)) {
-        modelChangedPixels++
-        const luminance = (0.2126 * normal[i] + 0.7152 * normal[i + 1] + 0.0722 * normal[i + 2]) / 255
-        modelMaxLuminance = Math.max(modelMaxLuminance, luminance)
-        if (luminance > 0.08) modelLitPixels++
-      }
-      if (changed(normal, noDesk, i)) deskChangedInsidePixels++
-      if (changed(normal, noCap, i)) capChangedPixels++
-      if (changed(normal, noWall, i)) wallChangedPixels++
-      // Statistics over pixels where the shaft itself is the visible surface: the emerging
-      // metal and the surviving stock occlude the shaft there and are excluded here.
-      if (changed(normal, noPortal, i)) {
-        portalVisiblePixels++
-        const r = normal[i] / 255, g = normal[i + 1] / 255, b = normal[i + 2] / 255
-        const lum = Math.max(Math.max(r, g), b)
-        if (lum > portalMaxLuminance) portalMaxLuminance = lum
-        const min = Math.min(Math.min(r, g), b)
-        if (min > 0.62 * lum && lum > 0.12) portalWhitePixels++
-        if (b - r > 0.08 && b > 0.10 && r / Math.max(b, 1e-6) < 0.8) portalFissurePixels++
-      }
-      xMin = Math.min(xMin, x); xMax = Math.max(xMax, x); yMin = Math.min(yMin, y); yMax = Math.max(yMax, y)
-    }
-    const controls = [[0, 0, 8, 8], [width - 8, height - 8, 8, 8]].map(rect => {
-      let portalChangedPixels = 0, modelChangedPixels = 0, deskChangedPixels = 0
-      for (let y = rect[1]; y < rect[1] + rect[3]; y++) for (let x = rect[0]; x < rect[0] + rect[2]; x++) {
+    for (let y = 2; y < height - 2; y++)
+      for (let x = 2; x < width - 2; x++) {
+        let inside = true
+        for (let dy = -2; dy <= 2 && inside; dy++)
+          for (let dx = -2; dx <= 2; dx++) {
+            if (mask[((y + dy) * width + x + dx) * 4] < 250) {
+              inside = false
+              break
+            }
+          }
+        if (!inside) continue
         const i = (y * width + x) * 4
+        sampledInsidePixels++
         if (changed(normal, noPortal, i)) portalChangedPixels++
-        if (changed(normal, noModel, i)) modelChangedPixels++
-        if (changed(normal, noDesk, i)) deskChangedPixels++
+        if (changed(normal, noModel, i)) {
+          modelChangedPixels++
+          const luminance = (0.2126 * normal[i] + 0.7152 * normal[i + 1] + 0.0722 * normal[i + 2]) / 255
+          modelMaxLuminance = Math.max(modelMaxLuminance, luminance)
+          if (luminance > 0.08) modelLitPixels++
+        }
+        if (changed(normal, noDesk, i)) deskChangedInsidePixels++
+        if (changed(normal, noCap, i)) capChangedPixels++
+        if (changed(normal, noWall, i)) wallChangedPixels++
+        // Statistics over pixels where the shaft itself is the visible surface: the emerging
+        // metal and the surviving stock occlude the shaft there and are excluded here.
+        if (changed(normal, noPortal, i)) {
+          portalVisiblePixels++
+          const r = normal[i] / 255,
+            g = normal[i + 1] / 255,
+            b = normal[i + 2] / 255
+          const lum = Math.max(Math.max(r, g), b)
+          if (lum > portalMaxLuminance) portalMaxLuminance = lum
+          const min = Math.min(Math.min(r, g), b)
+          if (min > 0.62 * lum && lum > 0.12) portalWhitePixels++
+          if (b - r > 0.08 && b > 0.1 && r / Math.max(b, 1e-6) < 0.8) portalFissurePixels++
+        }
+        xMin = Math.min(xMin, x)
+        xMax = Math.max(xMax, x)
+        yMin = Math.min(yMin, y)
+        yMax = Math.max(yMax, y)
       }
+    const controls = [
+      [0, 0, 8, 8],
+      [width - 8, height - 8, 8, 8],
+    ].map((rect) => {
+      let portalChangedPixels = 0,
+        modelChangedPixels = 0,
+        deskChangedPixels = 0
+      for (let y = rect[1]; y < rect[1] + rect[3]; y++)
+        for (let x = rect[0]; x < rect[0] + rect[2]; x++) {
+          const i = (y * width + x) * 4
+          if (changed(normal, noPortal, i)) portalChangedPixels++
+          if (changed(normal, noModel, i)) modelChangedPixels++
+          if (changed(normal, noDesk, i)) deskChangedPixels++
+        }
       return { rect, pixels: rect[2] * rect[3], portalChangedPixels, modelChangedPixels, deskChangedPixels }
     })
     return {
-      portalChangedPixels, modelChangedPixels, deskChangedInsidePixels, sampledInsidePixels,
+      portalChangedPixels,
+      modelChangedPixels,
+      deskChangedInsidePixels,
+      sampledInsidePixels,
       fullFramePortalChangedPixels,
-      modelLitPixels, modelMaxLuminance,
-      profilePixels: sampledInsidePixels, cameraUnchanged: cameraMatrix.equals(camera.matrixWorld), controls,
+      modelLitPixels,
+      modelMaxLuminance,
+      profilePixels: sampledInsidePixels,
+      cameraUnchanged: cameraMatrix.equals(camera.matrixWorld),
+      controls,
       clipRect: sampledInsidePixels ? [xMin, height - 1 - yMax, xMax - xMin + 1, yMax - yMin + 1] : null,
-      width, height,
-      sampleClipRect: sampledInsidePixels ? { x: xMin, y: height - 1 - yMax, width: xMax - xMin + 1, height: yMax - yMin + 1 } : null,
+      width,
+      height,
+      sampleClipRect: sampledInsidePixels
+        ? { x: xMin, y: height - 1 - yMax, width: xMax - xMin + 1, height: yMax - yMin + 1 }
+        : null,
       mask: 'projected-torn-profile-minus-live-stock-fragments-rim-eroded-2px',
       fixedCamera: cameraMatrix.equals(camera.matrixWorld),
       portalActive: sheet.visible && portal.group.visible,
-      modelVisible, deskVisible, capZ: portal.capZ,
+      modelVisible,
+      deskVisible,
+      capZ: portal.capZ,
       // Wall versus visible closure. capVisiblePixels is measured, not asserted: a closure that
       // any sight line could reach would show up here, and the shaft design says it cannot.
-      capChangedPixels, wallChangedPixels, capVisiblePixels: capChangedPixels, capVisible: capChangedPixels > 0,
+      capChangedPixels,
+      wallChangedPixels,
+      capVisiblePixels: capChangedPixels,
+      capVisible: capChangedPixels > 0,
       wallVisible: wallChangedPixels > 0,
       closureOccluded: portal.occlusion.closureOccluded,
       // Deep-frame honesty: no white core, no floodlight, fissures blue and walls-only.
-      portalVisiblePixels, portalMaxLuminance, portalWhitePixels, portalFissurePixels,
-      shaftDepthM: portal.shaftDepthM, wallLevels: portal.wallLevels,
-      maxRingDeviationM: portal.maxRingDeviationM, extentM: portal.extentM,
+      portalVisiblePixels,
+      portalMaxLuminance,
+      portalWhitePixels,
+      portalFissurePixels,
+      shaftDepthM: portal.shaftDepthM,
+      wallLevels: portal.wallLevels,
+      maxRingDeviationM: portal.maxRingDeviationM,
+      extentM: portal.extentM,
       occlusionMargin: portal.occlusion.margin,
-      shaderValid: gl.info.programs?.every(p =>
-        (p as typeof p & { diagnostics?: { runnable: boolean } }).diagnostics?.runnable !== false) ?? false,
+      shaderValid:
+        gl.info.programs?.every(
+          (p) => (p as typeof p & { diagnostics?: { runnable: boolean } }).diagnostics?.runnable !== false,
+        ) ?? false,
     }
   } finally {
-    portal.cap.visible = capVisible; portal.walls.visible = wallVisible
-    model.visible = modelVisible; desk.visible = deskVisible
+    portal.cap.visible = capVisible
+    portal.walls.visible = wallVisible
+    model.visible = modelVisible
+    desk.visible = deskVisible
     gl.setRenderTarget(priorTarget)
-    profileGeometry.dispose(); white.dispose(); blockers.forEach(m => m.dispose()); target.dispose()
+    profileGeometry.dispose()
+    white.dispose()
+    blockers.forEach((m) => m.dispose())
+    target.dispose()
   }
 }

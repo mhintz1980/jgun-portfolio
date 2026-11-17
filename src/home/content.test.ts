@@ -66,7 +66,11 @@ describe('homepage copy accuracy rules', () => {
   })
 
   it('the live rows link to the registered pages', () => {
-    expect(CORE_PROJECTS.filter((project) => project.href).map((project) => project.href)).toEqual(['/torque-wrench/', '/quiet-machine/', '/armament/'])
+    expect(CORE_PROJECTS.filter((project) => project.href).map((project) => project.href)).toEqual([
+      '/torque-wrench/',
+      '/quiet-machine/',
+      '/armament/',
+    ])
   })
 
   it('contact links are plain, absolute and complete', () => {
@@ -85,7 +89,10 @@ describe('DRAWING_LAYERS', () => {
     const ids = DRAWING_LAYERS.map((layer) => layer.id)
     expect(new Set(ids).size).toBe(ids.length)
     for (const project of ['torque-wrench', 'quiet-machine', 'armament'] as const) {
-      expect(DRAWING_LAYERS.filter((layer) => layer.project === project && layer.primary), project).toHaveLength(1)
+      expect(
+        DRAWING_LAYERS.filter((layer) => layer.project === project && layer.primary),
+        project,
+      ).toHaveLength(1)
     }
   })
 

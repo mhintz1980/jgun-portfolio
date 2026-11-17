@@ -163,9 +163,9 @@ function readGlbHeader(file, parseCapBytes = Number(flag('parse-cap', 20 * 1024 
     const extensionsRequired = counts ? counts.extensionsRequired : []
     const extensionsUsed = counts ? counts.extensionsUsed : []
     const draco =
-      extensionsRequired.includes('KHR_draco_mesh_compression')
-      || extensionsUsed.includes('KHR_draco_mesh_compression')
-      || (scan !== null && scan.KHR_draco_mesh_compression === true)
+      extensionsRequired.includes('KHR_draco_mesh_compression') ||
+      extensionsUsed.includes('KHR_draco_mesh_compression') ||
+      (scan !== null && scan.KHR_draco_mesh_compression === true)
     return {
       ...identity,
       glbVersion: version,
@@ -271,9 +271,7 @@ async function compileEntry(contents) {
   try {
     esbuild = require('esbuild')
   } catch {
-    throw new Error(
-      'esbuild is not resolvable from this workspace; run through the repo install or use Vite SSR',
-    )
+    throw new Error('esbuild is not resolvable from this workspace; run through the repo install or use Vite SSR')
   }
   const built = await esbuild.build({
     stdin: {
@@ -301,9 +299,7 @@ async function compileEntry(contents) {
   return module.exports
 }
 
-const drawingEntry = [
-  "export * from './src/scene/drawing/drawingGeometry.ts'",
-].join(NL)
+const drawingEntry = ["export * from './src/scene/drawing/drawingGeometry.ts'"].join(NL)
 
 const codecEntry = [
   "export { decodeDrawingPrecompute, DRAWING_CODEC_VERSION } from './src/scene/drawing/sheet/drawingCodec.ts'",
@@ -330,8 +326,14 @@ function summarise(asset, decoded) {
   const textWeights = {}
   const textColors = {}
   const textAttrs = {
-    withMaxWidth: 0, withLineHeight: 0, withLetterSpacing: 0, withScaleX: 0, withRotation: 0,
-    anchorX: {}, anchorY: {}, unsupportedForSvg: [],
+    withMaxWidth: 0,
+    withLineHeight: 0,
+    withLetterSpacing: 0,
+    withScaleX: 0,
+    withRotation: 0,
+    anchorX: {},
+    anchorY: {},
+    unsupportedForSvg: [],
   }
   for (const t of asset.texts) {
     textWeights[t.weight ?? 'default'] = (textWeights[t.weight ?? 'default'] ?? 0) + 1
@@ -426,8 +428,13 @@ function embeddedFontFaces(fonts) {
       file: 'public/fonts/' + path.basename(url),
       bytes: bytes.length,
       sha256,
-      css: "@font-face { font-family: '" + family + "'; font-style: normal; font-weight: normal;"
-        + ' src: url(data:font/ttf;base64,' + bytes.toString('base64') + ") format('truetype'); }",
+      css:
+        "@font-face { font-family: '" +
+        family +
+        "'; font-style: normal; font-weight: normal;" +
+        ' src: url(data:font/ttf;base64,' +
+        bytes.toString('base64') +
+        ") format('truetype'); }",
     })
   }
   return faces
@@ -459,8 +466,13 @@ function emitSvg(asset, dims, palette, fonts, limit = 0, options = {}) {
   out.push('<!-- FIDELITY: text is emitted with the embedded frozen outlines at the authored size, -->')
   out.push('<!-- anchors, rotation and horizontal scale; no textLength or width heuristic is used. -->')
   if (unverified) {
-    out.push('<!-- UNVERIFIED TEXT: ' + unverified + ' of ' + asset.texts.length
-      + ' strings carry maxWidth and/or lineHeight, which need runtime layout; those elements are -->')
+    out.push(
+      '<!-- UNVERIFIED TEXT: ' +
+        unverified +
+        ' of ' +
+        asset.texts.length +
+        ' strings carry maxWidth and/or lineHeight, which need runtime layout; those elements are -->',
+    )
     out.push('<!-- marked data-fidelity="unverified-wrapping" and must not be treated as exact. -->')
   }
   if (!embedFonts) {
@@ -468,8 +480,15 @@ function emitSvg(asset, dims, palette, fonts, limit = 0, options = {}) {
     out.push('<!-- file; every text element is marked data-fidelity="unverified-font". Geometry is exact. -->')
   }
   out.push(
-    '<svg xmlns="http://www.w3.org/2000/svg" width="' + n(W) + 'mm" height="' + n(H)
-    + 'mm" viewBox="0 0 ' + n(W) + ' ' + n(H) + '">',
+    '<svg xmlns="http://www.w3.org/2000/svg" width="' +
+      n(W) +
+      'mm" height="' +
+      n(H) +
+      'mm" viewBox="0 0 ' +
+      n(W) +
+      ' ' +
+      n(H) +
+      '">',
   )
   if (embedFonts && faces.length) {
     out.push('  <defs>')
@@ -497,10 +516,27 @@ function emitSvg(asset, dims, palette, fonts, limit = 0, options = {}) {
     const dash = asset.segs[i + 8]
     const style = dashOf(dash)
     out.push(
-      '    <line x1="' + n(X(x1)) + '" y1="' + n(Y(y1)) + '" x2="' + n(X(x2)) + '" y2="' + n(Y(y2))
-      + '" stroke="' + colorOf(dash) + '" stroke-width="' + n(halfWidth * 2000) + '"'
-      + (DASH_ARRAY[style] ? ' stroke-dasharray="' + DASH_ARRAY[style] + '"' : '')
-      + ' data-group="' + group + '" data-key="' + n(key) + '" data-dur="' + n(dur) + '"/>',
+      '    <line x1="' +
+        n(X(x1)) +
+        '" y1="' +
+        n(Y(y1)) +
+        '" x2="' +
+        n(X(x2)) +
+        '" y2="' +
+        n(Y(y2)) +
+        '" stroke="' +
+        colorOf(dash) +
+        '" stroke-width="' +
+        n(halfWidth * 2000) +
+        '"' +
+        (DASH_ARRAY[style] ? ' stroke-dasharray="' + DASH_ARRAY[style] + '"' : '') +
+        ' data-group="' +
+        group +
+        '" data-key="' +
+        n(key) +
+        '" data-dur="' +
+        n(dur) +
+        '"/>',
     )
   }
   out.push('  </g>')
@@ -516,8 +552,17 @@ function emitSvg(asset, dims, palette, fonts, limit = 0, options = {}) {
     const key = asset.fills[i + 3]
     const dur = asset.fills[i + 4]
     out.push(
-      '    <polygon points="' + points.join(' ') + '" fill="' + palette.ink
-      + '" data-group="' + group + '" data-key="' + n(key) + '" data-dur="' + n(dur) + '"/>',
+      '    <polygon points="' +
+        points.join(' ') +
+        '" fill="' +
+        palette.ink +
+        '" data-group="' +
+        group +
+        '" data-key="' +
+        n(key) +
+        '" data-dur="' +
+        n(dur) +
+        '"/>',
     )
   }
   out.push('  </g>')
@@ -528,34 +573,61 @@ function emitSvg(asset, dims, palette, fonts, limit = 0, options = {}) {
     const size = t.size * 1000
     const anchor = t.anchorX === 'center' ? 'middle' : t.anchorX === 'right' ? 'end' : 'start'
     // anchorY 'baseline' is the SVG default (alphabetic), so it emits no dominant-baseline.
-    const baseline = t.anchorY === 'middle' ? 'central' : t.anchorY === 'top' ? 'hanging'
-      : t.anchorY === 'bottom' ? 'text-after-edge' : null
+    const baseline =
+      t.anchorY === 'middle'
+        ? 'central'
+        : t.anchorY === 'top'
+          ? 'hanging'
+          : t.anchorY === 'bottom'
+            ? 'text-after-edge'
+            : null
     const rotation = t.rotation ? -t.rotation : 0
     const scaleX = t.scaleX !== undefined && t.scaleX !== 1 ? t.scaleX : 0
     const color = t.color === 'red' ? palette.red : t.color === 'graphite' ? palette.graphite : palette.ink
     const family = familyOf(fonts[t.weight ?? 'medium'] ?? fonts.medium ?? 'BarlowCondensed-Medium.ttf')
     // troika letterSpacing is in ems; SVG letter-spacing is in user units, so em x font size.
     const spacing = t.letterSpacing ? ' letter-spacing="' + n(t.letterSpacing * size) + '"' : ''
-    const transform = rotation || scaleX
-      ? ' transform="translate(' + n(X(t.x)) + ' ' + n(Y(t.y)) + ')'
-        + (rotation ? ' rotate(' + n(rotation) + ')' : '')
-        + (scaleX ? ' scale(' + n(scaleX) + ' 1)' : '') + '"'
-      : ''
-    const xy = transform
-      ? ' x="0" y="0"'
-      : ' x="' + n(X(t.x)) + '" y="' + n(Y(t.y)) + '"'
+    const transform =
+      rotation || scaleX
+        ? ' transform="translate(' +
+          n(X(t.x)) +
+          ' ' +
+          n(Y(t.y)) +
+          ')' +
+          (rotation ? ' rotate(' + n(rotation) + ')' : '') +
+          (scaleX ? ' scale(' + n(scaleX) + ' 1)' : '') +
+          '"'
+        : ''
+    const xy = transform ? ' x="0" y="0"' : ' x="' + n(X(t.x)) + '" y="' + n(Y(t.y)) + '"'
     const fidelity = !embedFonts
       ? ' data-fidelity="unverified-font"'
       : t.maxWidth !== undefined || t.lineHeight !== undefined
         ? ' data-fidelity="unverified-wrapping"'
         : ' data-fidelity="exact"'
     out.push(
-      '    <text' + xy + transform + ' font-size="' + n(size)
-      + '" font-family="' + family + '"'
-      + ' text-anchor="' + anchor + '"' + (baseline ? ' dominant-baseline="' + baseline + '"' : '') + spacing
-      + fidelity
-      + ' fill="' + color + '" data-group="' + t.group + '" data-key="' + n(t.key) + '">'
-      + t.text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</text>',
+      '    <text' +
+        xy +
+        transform +
+        ' font-size="' +
+        n(size) +
+        '" font-family="' +
+        family +
+        '"' +
+        ' text-anchor="' +
+        anchor +
+        '"' +
+        (baseline ? ' dominant-baseline="' + baseline + '"' : '') +
+        spacing +
+        fidelity +
+        ' fill="' +
+        color +
+        '" data-group="' +
+        t.group +
+        '" data-key="' +
+        n(t.key) +
+        '">' +
+        t.text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') +
+        '</text>',
     )
   }
   out.push('  </g>')
@@ -563,7 +635,14 @@ function emitSvg(asset, dims, palette, fonts, limit = 0, options = {}) {
   return {
     svg: out.join(NL) + NL,
     emitted: { segs: emittedSegs, fills: emittedFills, texts: emittedTexts },
-    fonts: faces.map((f) => ({ weight: f.weight, family: f.family, file: f.file, bytes: f.bytes, sha256: f.sha256, embedded: Boolean(f.css) })),
+    fonts: faces.map((f) => ({
+      weight: f.weight,
+      family: f.family,
+      file: f.file,
+      bytes: f.bytes,
+      sha256: f.sha256,
+      embedded: Boolean(f.css),
+    })),
     textFidelity: {
       exact: embedFonts ? asset.texts.length - unverified : 0,
       unverifiedWrapping: unverified,
@@ -597,7 +676,8 @@ function contractPayload(glbChecks) {
         key: 'string, sha256(positions):type:sha256(topology):sha256(layoutKey)',
         segs: 'number[], stride 9 = x1 y1 x2 y2 halfWidth group key dur dash',
         fills: 'number[], stride 15 = 3 x (x y group key dur)',
-        texts: 'InkText[] = {text,x,y,size,anchorX?,anchorY?,rotation?,weight?,color?,scaleX?,letterSpacing?,group,key,dur?,opacity?,maxWidth?,lineHeight?,fitCell?}',
+        texts:
+          'InkText[] = {text,x,y,size,anchorX?,anchorY?,rotation?,weight?,color?,scaleX?,letterSpacing?,group,key,dur?,opacity?,maxWidth?,lineHeight?,fitCell?}',
         marks: 'Record<string,[number,number]> sheet-plane anchor points',
         stats: 'Record<string,number>',
         profile: 'number[][] [x,y] pairs, the traced fracture profile',
@@ -617,15 +697,88 @@ function contractPayload(glbChecks) {
       determinism: 'every value bit-exact f64; no canvas, no rasterization, no font rasterization at export time',
     },
     exportPath: [
-      { step: 1, fn: 'buildWrenchRig', file: 'src/scene/rig/nodeRoles.ts', line: 191, signature: 'buildWrenchRig(root: Object3D): WrenchRig', purity: 'cpu', input: 'GLTF scene parsed from the immutable Fine GLB', note: 'the only GLB-decode step; never run by this script' },
-      { step: 2, fn: 'snapshotDrawing', file: 'src/scene/drawing/drawingGeometry.ts', line: 202, signature: 'snapshotDrawing(rig: WrenchRig): DrawingGeometry', purity: 'cpu', note: 'clones consolidated rest geometry, recentres on rig.center, records bounds/features/units' },
-      { step: 3, fn: 'makeDrawingLayout', file: 'src/scene/drawing/drawingGeometry.ts', line: 322, signature: 'makeDrawingLayout(aspect: number, bounds: Box3): DrawingLayout', purity: 'cpu' },
-      { step: 4, fn: 'buildEdgeSet', file: 'src/scene/drawing/sheet/edgeExtract.ts', line: 48, signature: 'buildEdgeSet(position: Float32Array): EdgeSet', purity: 'cpu' },
-      { step: 5, fn: 'depthField', file: 'src/scene/drawing/sheet/edgeExtract.ts', line: 181, signature: 'depthField(gl: WebGLRenderer, geometry: BufferGeometry, view: ViewSpec, sink?): {z: Float32Array, w: number, h: number}', purity: 'GL', note: 'PRIVATE. The one and only GL dependency of the whole drafting pipeline.' },
-      { step: 6, fn: 'extractView', file: 'src/scene/drawing/sheet/edgeExtract.ts', line: 344, signature: 'extractView(gl: WebGLRenderer, geometry: BufferGeometry, edges: EdgeSet, view: ViewSpec, sink?): ViewLines', purity: 'GL (via depthField)', note: 'everything after depthField is CPU' },
-      { step: 7, fn: 'composeSheet', file: 'src/scene/drawing/sheet/composeSheet.ts', line: 130, signature: 'composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: DrawingLayout, cleanupFailureSink?): ComposedSheet', purity: 'GL (via extractView)', returns: '{ink: InkBuilder, stats: Record<string,number>, marks: Record<string,[number,number]>}' },
-      { step: 8, fn: 'exportDrawingPrecompute', file: 'src/scene/drawing/sheet/drawingCache.ts', line: 126, signature: 'exportDrawingPrecompute(): Promise<DrawingPrecompute>', purity: 'cpu', note: 'reads the last live bake; rejects an installed precompute (needs drawingCache=bypass)' },
-      { step: 9, fn: 'encodeDrawingPrecompute', file: 'src/scene/drawing/sheet/drawingCodec.ts', line: 46, signature: 'encodeDrawingPrecompute(asset: DrawingPrecompute): Uint8Array<ArrayBuffer>', purity: 'cpu' },
+      {
+        step: 1,
+        fn: 'buildWrenchRig',
+        file: 'src/scene/rig/nodeRoles.ts',
+        line: 191,
+        signature: 'buildWrenchRig(root: Object3D): WrenchRig',
+        purity: 'cpu',
+        input: 'GLTF scene parsed from the immutable Fine GLB',
+        note: 'the only GLB-decode step; never run by this script',
+      },
+      {
+        step: 2,
+        fn: 'snapshotDrawing',
+        file: 'src/scene/drawing/drawingGeometry.ts',
+        line: 202,
+        signature: 'snapshotDrawing(rig: WrenchRig): DrawingGeometry',
+        purity: 'cpu',
+        note: 'clones consolidated rest geometry, recentres on rig.center, records bounds/features/units',
+      },
+      {
+        step: 3,
+        fn: 'makeDrawingLayout',
+        file: 'src/scene/drawing/drawingGeometry.ts',
+        line: 322,
+        signature: 'makeDrawingLayout(aspect: number, bounds: Box3): DrawingLayout',
+        purity: 'cpu',
+      },
+      {
+        step: 4,
+        fn: 'buildEdgeSet',
+        file: 'src/scene/drawing/sheet/edgeExtract.ts',
+        line: 48,
+        signature: 'buildEdgeSet(position: Float32Array): EdgeSet',
+        purity: 'cpu',
+      },
+      {
+        step: 5,
+        fn: 'depthField',
+        file: 'src/scene/drawing/sheet/edgeExtract.ts',
+        line: 181,
+        signature:
+          'depthField(gl: WebGLRenderer, geometry: BufferGeometry, view: ViewSpec, sink?): {z: Float32Array, w: number, h: number}',
+        purity: 'GL',
+        note: 'PRIVATE. The one and only GL dependency of the whole drafting pipeline.',
+      },
+      {
+        step: 6,
+        fn: 'extractView',
+        file: 'src/scene/drawing/sheet/edgeExtract.ts',
+        line: 344,
+        signature:
+          'extractView(gl: WebGLRenderer, geometry: BufferGeometry, edges: EdgeSet, view: ViewSpec, sink?): ViewLines',
+        purity: 'GL (via depthField)',
+        note: 'everything after depthField is CPU',
+      },
+      {
+        step: 7,
+        fn: 'composeSheet',
+        file: 'src/scene/drawing/sheet/composeSheet.ts',
+        line: 130,
+        signature:
+          'composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: DrawingLayout, cleanupFailureSink?): ComposedSheet',
+        purity: 'GL (via extractView)',
+        returns: '{ink: InkBuilder, stats: Record<string,number>, marks: Record<string,[number,number]>}',
+      },
+      {
+        step: 8,
+        fn: 'exportDrawingPrecompute',
+        file: 'src/scene/drawing/sheet/drawingCache.ts',
+        line: 126,
+        signature: 'exportDrawingPrecompute(): Promise<DrawingPrecompute>',
+        purity: 'cpu',
+        note: 'reads the last live bake; rejects an installed precompute (needs drawingCache=bypass)',
+      },
+      {
+        step: 9,
+        fn: 'encodeDrawingPrecompute',
+        file: 'src/scene/drawing/sheet/drawingCodec.ts',
+        line: 46,
+        signature: 'encodeDrawingPrecompute(asset: DrawingPrecompute): Uint8Array<ArrayBuffer>',
+        purity: 'cpu',
+      },
     ],
     glSeam: {
       why: 'depthField renders an orthographic depth field of the model to a WebGLRenderTarget and reads it back to decide visibility (hidden-line removal). It is not a picture of the model; it is a z buffer.',
@@ -643,12 +796,44 @@ function contractPayload(glbChecks) {
       note: 'Either seam keeps composeSheet and everything downstream unchanged. No new design is introduced: the CPU field must reproduce the same coverage/visibility decision, so the registered content is identical.',
     },
     fractureAndPitExport: [
-      { capability: 'fracture', fn: 'makeBreakthroughGeometry', file: 'src/scene/drawing/sheet/breakthroughGeometry.ts', line: 1057, purity: 'cpu' },
-      { capability: 'fracture outline', fn: 'rasterTornOutline', file: 'src/scene/drawing/sheet/breakthroughGeometry.ts', line: 455, purity: 'cpu', signature: 'rasterTornOutline(profile: number[][]): number[][]' },
-      { capability: 'pit', fn: 'makePrivatePitGeometry', file: 'src/scene/torque-wrench/PitGeometry.ts', purity: 'cpu', signature: 'makePrivatePitGeometry(outline: number[][]): PortalShaftGeometry' },
-      { capability: 'pit shaft', fn: 'makePortalShaftGeometry', file: 'src/scene/drawing/sheet/portalGeometry.ts', line: 212, purity: 'cpu' },
-      { capability: 'paper flex field', fn: 'PaperFlexField', file: 'src/scene/drawing/sheet/paperFlex.ts', purity: 'cpu' },
-      { note: 'both consumers take the same profile number[][] the JGD3 container already carries, so a fracture/pit export can reuse profile from the container without re-deriving it' },
+      {
+        capability: 'fracture',
+        fn: 'makeBreakthroughGeometry',
+        file: 'src/scene/drawing/sheet/breakthroughGeometry.ts',
+        line: 1057,
+        purity: 'cpu',
+      },
+      {
+        capability: 'fracture outline',
+        fn: 'rasterTornOutline',
+        file: 'src/scene/drawing/sheet/breakthroughGeometry.ts',
+        line: 455,
+        purity: 'cpu',
+        signature: 'rasterTornOutline(profile: number[][]): number[][]',
+      },
+      {
+        capability: 'pit',
+        fn: 'makePrivatePitGeometry',
+        file: 'src/scene/torque-wrench/PitGeometry.ts',
+        purity: 'cpu',
+        signature: 'makePrivatePitGeometry(outline: number[][]): PortalShaftGeometry',
+      },
+      {
+        capability: 'pit shaft',
+        fn: 'makePortalShaftGeometry',
+        file: 'src/scene/drawing/sheet/portalGeometry.ts',
+        line: 212,
+        purity: 'cpu',
+      },
+      {
+        capability: 'paper flex field',
+        fn: 'PaperFlexField',
+        file: 'src/scene/drawing/sheet/paperFlex.ts',
+        purity: 'cpu',
+      },
+      {
+        note: 'both consumers take the same profile number[][] the JGD3 container already carries, so a fracture/pit export can reuse profile from the container without re-deriving it',
+      },
     ],
     frozenFonts: fontInventory(),
     palette: inkPalette(),
@@ -679,7 +864,8 @@ async function runLayout() {
   const raw = flag('bounds', null)
   if (!raw) throw new Error('layout mode needs --bounds x0,y0,z0,x1,y1,z1 (real model bounds from snapshotDrawing)')
   const values = raw.split(',').map(Number)
-  if (values.length !== 6 || values.some((v) => !Number.isFinite(v))) throw new Error('--bounds must be six finite numbers')
+  if (values.length !== 6 || values.some((v) => !Number.isFinite(v)))
+    throw new Error('--bounds must be six finite numbers')
   const THREE = require('three')
   const mod = await compileEntry(drawingEntry)
   const bounds = new THREE.Box3(

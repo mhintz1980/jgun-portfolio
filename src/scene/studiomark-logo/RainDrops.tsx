@@ -9,12 +9,7 @@ interface RainDropsProps {
   simTime?: number | null
 }
 
-export function RainDrops({
-  count = 1400,
-  intensity = 'heavy',
-  onDropImpact,
-  simTime = null,
-}: RainDropsProps) {
+export function RainDrops({ count = 1400, intensity = 'heavy', onDropImpact, simTime = null }: RainDropsProps) {
   const meshRef = useRef<THREE.InstancedMesh>(null!)
   const dummy = useMemo(() => new THREE.Object3D(), [])
 
@@ -125,16 +120,12 @@ export function RainDrops({
         const y0 = seedPos[i * 3 + 1]
         const z0 = seedPos[i * 3 + 2]
         const fallDist = velocities[i] * simTime * speedScale
-        const y = 9.85 - (((9.85 - y0 + fallDist) % spanY + spanY) % spanY)
+        const y = 9.85 - ((((9.85 - y0 + fallDist) % spanY) + spanY) % spanY)
         const cycle = Math.floor((9.85 - y0 + fallDist) / spanY)
         const x = ((x0 + windOffsets[i] * ((9.85 - y) / velocities[i]) + cycle * 1.7 + 7) % 14) - 7
 
         dummy.position.set(x, y, z0)
-        dummy.rotation.set(
-          0,
-          Math.atan2(state.camera.position.x - x, state.camera.position.z - z0),
-          -0.06,
-        )
+        dummy.rotation.set(0, Math.atan2(state.camera.position.x - x, state.camera.position.z - z0), -0.06)
         dummy.scale.set(1.0, seedScaleY[i], 1.0)
         dummy.updateMatrix()
         mesh.setMatrixAt(i, dummy.matrix)
@@ -170,10 +161,7 @@ export function RainDrops({
       dummy.position.copy(pos)
       dummy.quaternion.copy(rot)
       dummy.scale.copy(scale)
-      dummy.rotation.y = Math.atan2(
-        state.camera.position.x - pos.x,
-        state.camera.position.z - pos.z,
-      )
+      dummy.rotation.y = Math.atan2(state.camera.position.x - pos.x, state.camera.position.z - pos.z)
 
       dummy.updateMatrix()
       mesh.setMatrixAt(i, dummy.matrix)
@@ -183,15 +171,10 @@ export function RainDrops({
   })
 
   return (
-    <instancedMesh
-      ref={meshRef}
-      args={[undefined, undefined, count]}
-      frustumCulled={false}
-    >
+    <instancedMesh ref={meshRef} args={[undefined, undefined, count]} frustumCulled={false}>
       {/* Thin vertical blade geometry for rain streak */}
       <planeGeometry args={[0.02, 0.45]} />
       <primitive object={rainMaterial} attach="material" />
     </instancedMesh>
   )
 }
-

@@ -1,10 +1,4 @@
-import type {
-  CameraKeyframe,
-  CaseStudy,
-  ChapterDef,
-  HotspotDef,
-  MaterialMode,
-} from '../types/portfolio'
+import type { CameraKeyframe, CaseStudy, ChapterDef, HotspotDef, MaterialMode } from '../types/portfolio'
 
 /**
  * Copy and HUD vocabulary sourced verbatim from OUTBOX/portfolio-module4-copy.md
@@ -25,8 +19,7 @@ export const CHAPTERS: ChapterDef[] = [
     index: 1,
     label: 'CH.02 X-RAY / EXPLODE',
     title: 'Inside the Reduction Train',
-    subtitle:
-      'Housing fades to ghost wireframe; the planetary stages explode axially to expose the gear train.',
+    subtitle: 'Housing fades to ghost wireframe; the planetary stages explode axially to expose the gear train.',
     callouts: ['RUNOUT < .001" TIR', 'POSITION .002" @ MMC'],
     datum: 'B',
   },
@@ -108,8 +101,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     id: 'm249',
     chapter: 3,
     headline: 'From Point Cloud to Parametric: Reverse-Engineering Mission-Critical Hardware',
-    oneLiner:
-      '3D scan data reconstructed into fully toleranced, manufacturable CAD for the M249/MK46 platform.',
+    oneLiner: '3D scan data reconstructed into fully toleranced, manufacturable CAD for the M249/MK46 platform.',
     bullets: [
       'Converted raw 3D scan point clouds of legacy mil-spec hardware into clean, parametric CAD models.',
       'Rebuilt ASME Y14.5 GD&T drawings from physical parts with no original technical data package — reverse-engineered datums, fits, and tolerance stacks from scratch.',
@@ -247,8 +239,8 @@ export const CLUTCH_SHIFT_DISTANCE = -0.015
  * following the groove. Rotation is CW when viewed from the handle (away
  * from camera in the CH.01 3/4 view).
  */
-export const RING_SWITCH_TRAVEL_Z = 0.009525  // +9.525 mm (+Z = away from handle)
-export const RING_SWITCH_ROTATION = (2 * Math.PI) / 3  // +120° about measured model +Z
+export const RING_SWITCH_TRAVEL_Z = 0.009525 // +9.525 mm (+Z = away from handle)
+export const RING_SWITCH_ROTATION = (2 * Math.PI) / 3 // +120° about measured model +Z
 
 /**
  * Camera trajectory state machine keyframes — one per scroll chapter.
@@ -261,7 +253,7 @@ export const CAMERA_PATH: CameraKeyframe[] = [
   // CH.01 — hero planetary torque wrench, 3/4 perspective (Station 1: [0, 0, 0])
   { position: [0.32, 0.16, 0.42], target: [0, 0, 0], fov: 42 },
   // CH.02 — x-ray & axial exploded reduction stages, lateral inspection (Station 1: [0, 0, 0])
-  { position: [0.60, 0.08, 0.05], target: [0, 0.015, -0.07], fov: 36 },
+  { position: [0.6, 0.08, 0.05], target: [0, 0.015, -0.07], fov: 36 },
   // CH.03 — acoustic enclosure / thermal airflow, macro isometric (Station 2: [28, 0, -6])
   // JG-021 remediation: pulled to R = 8.5 m about the arc center so the 1.6 x 3.4 m
   // subject clears the left CH.03 card lane with margin (was R ≈ 6.905 m — subject
@@ -292,10 +284,10 @@ export interface CameraSegment {
  *   - 0.760 → 1.000: Station 3 M249 continuous zoom-out override.
  */
 export const PATH_SEGMENTS: readonly CameraSegment[] = [
-  { fromIndex: 0, toIndex: 1, startProgress: 0.000, endProgress: 0.525 },
-  { fromIndex: 1, toIndex: 2, startProgress: 0.525, endProgress: 0.600 },
-  { fromIndex: 2, toIndex: 2, startProgress: 0.600, endProgress: 0.720 },
-  { fromIndex: 2, toIndex: 3, startProgress: 0.720, endProgress: 0.760 },
+  { fromIndex: 0, toIndex: 1, startProgress: 0.0, endProgress: 0.525 },
+  { fromIndex: 1, toIndex: 2, startProgress: 0.525, endProgress: 0.6 },
+  { fromIndex: 2, toIndex: 2, startProgress: 0.6, endProgress: 0.72 },
+  { fromIndex: 2, toIndex: 3, startProgress: 0.72, endProgress: 0.76 },
 ] as const
 
 export interface CameraPose {
@@ -308,7 +300,7 @@ export interface CameraPose {
 const S2_ARC_CENTER: readonly [number, number, number] = [28.0, 1.2, -6.35]
 const S2_ARC_RADIUS = 8.5 // hypot(33.662357 - 28.0, -0.010622 - (-6.35)) — widened from 6.905 (JG-021 remediation) for card-lane clearance
 const S2_ARC_START_AZIMUTH = 0.84174869911009054 // exact atan2(5.15, 4.6) — azimuth of K2 about S2_ARC_CENTER; the remediation K2 sits on this azimuth by construction (no goal seam at the 0.600 boundary)
-const S2_ARC_SWEEP = 0.70 // ~40.1 deg sweep
+const S2_ARC_SWEEP = 0.7 // ~40.1 deg sweep
 
 /** Arc end pose at p=0.720 (derived for exact C0 handoff into Segment 3). */
 export const S2_ARC_END_POSE: CameraPose = {
@@ -352,13 +344,13 @@ export function baseAt(progress: number): CameraPose {
     }
   }
 
-  if (p <= 0.600) {
+  if (p <= 0.6) {
     // Segment 1 [0.525, 0.600]: K1 -> K2 (Flight into Station 2).
     // JG-021 remediation: the TARGET leads the position (triple smoothstep)
     // so the camera turns toward the enclosure early in the approach —
     // previously the target lagged and the subject sat off-screen right
     // through the arrival transit (owner visual pass finding).
-    const u = (p - 0.525) / (0.600 - 0.525)
+    const u = (p - 0.525) / (0.6 - 0.525)
     const t = smoothstep(u)
     const tTarget = smoothstep(smoothstep(t))
     const from = CAMERA_PATH[1]
@@ -378,9 +370,9 @@ export function baseAt(progress: number): CameraPose {
     }
   }
 
-  if (p <= 0.720) {
+  if (p <= 0.72) {
     // Segment 2 [0.600, 0.720]: Station 2 Orbit Arc around [28.0, 1.2, -6.35]
-    const u = (p - 0.600) / (0.720 - 0.600)
+    const u = (p - 0.6) / (0.72 - 0.6)
     const t = smoothstep(u)
     const azimuth = S2_ARC_START_AZIMUTH + S2_ARC_SWEEP * t
     return {
@@ -394,11 +386,11 @@ export function baseAt(progress: number): CameraPose {
     }
   }
 
-  if (p <= 0.760) {
+  if (p <= 0.76) {
     // Segment 3 [0.720, 0.760]: Handoff flight from S2_ARC_END_POSE -> K3.
     // Target leads position (same remediation as segment 1) so the receiver
     // is on-screen through the approach rather than snapping in at 0.760.
-    const u = (p - 0.720) / (0.760 - 0.720)
+    const u = (p - 0.72) / (0.76 - 0.72)
     const t = smoothstep(u)
     const tTarget = smoothstep(smoothstep(t))
     const to = CAMERA_PATH[3]
@@ -447,7 +439,7 @@ export function framingBiasVec(progress: number): FramingBiasVec {
   const ramp = 0.035
   const w0 = Math.min(Math.max((0.22 - progress) / ramp, 0), 1)
   const w1 = Math.min(Math.max((progress - 0.24) / ramp, 0), Math.max((0.46 - progress) / ramp, 0), 1)
-  const w2 = Math.min(Math.max((progress - 0.50) / ramp, 0), Math.max((0.72 - progress) / ramp, 0), 1)
+  const w2 = Math.min(Math.max((progress - 0.5) / ramp, 0), Math.max((0.72 - progress) / ramp, 0), 1)
   // CH.04 ramps in over 0.02 (tighter than the card fade) so the receiver is
   // fully biased by p = 0.78, where the card is already ~57% visible.
   const w3 = Math.min(Math.max((progress - 0.76) / 0.02, 0), 1)
@@ -476,13 +468,29 @@ export function framingBias(progress: number): number {
  */
 export const SHIFT_CAMERA_KEYFRAMES = {
   /** Before shift: CH.01 wide view. */
-  idle:    { position: [0.32, 0.16, 0.42] as [number,number,number], target: [0, 0, 0] as [number,number,number], fov: 42 },
+  idle: {
+    position: [0.32, 0.16, 0.42] as [number, number, number],
+    target: [0, 0, 0] as [number, number, number],
+    fov: 42,
+  },
   /** Shift starts: zoom to P000420 groove area — blue groove visible. */
-  zoomIn:  { position: [0.14, 0.04, 0.19] as [number,number,number], target: [0, 0, 0.06] as [number,number,number], fov: 22 },
+  zoomIn: {
+    position: [0.14, 0.04, 0.19] as [number, number, number],
+    target: [0, 0, 0.06] as [number, number, number],
+    fov: 22,
+  },
   /** Mid shift: hold tight — ring switch rising, red groove revealed. */
-  hold:    { position: [0.12, 0.03, 0.17] as [number,number,number], target: [0, 0, 0.06] as [number,number,number], fov: 20 },
+  hold: {
+    position: [0.12, 0.03, 0.17] as [number, number, number],
+    target: [0, 0, 0.06] as [number, number, number],
+    fov: 20,
+  },
   /** Shift complete: pull back to CH.01 framing. */
-  pullBack: { position: [0.32, 0.16, 0.42] as [number,number,number], target: [0, 0, 0] as [number,number,number], fov: 42 },
+  pullBack: {
+    position: [0.32, 0.16, 0.42] as [number, number, number],
+    target: [0, 0, 0] as [number, number, number],
+    fov: 42,
+  },
 } as const
 
 /**
@@ -500,7 +508,7 @@ export const SHIFT_CAMERA_KEYFRAMES = {
  */
 export const LCD_REVEAL_WINDOW = {
   /** After the explode beat completes (measured ≈0.416). */
-  start: 0.420,
+  start: 0.42,
   /** Stable rear LCD/buttons dwell before the wrench stage handoff. */
   dwellStart: 0.458,
   dwellEnd: 0.488,
@@ -510,9 +518,17 @@ export const LCD_REVEAL_WINDOW = {
 
 export const LCD_ORBIT_KEYFRAMES = {
   /** Swing around the extracted train's mid-span toward the handle rear cap. */
-  arc:    { position: [0.28, 0.10, 0.50] as [number,number,number], target: [-0.05, 0.01, 0.18] as [number,number,number], fov: 34 },
+  arc: {
+    position: [0.28, 0.1, 0.5] as [number, number, number],
+    target: [-0.05, 0.01, 0.18] as [number, number, number],
+    fov: 34,
+  },
   /** Dwell: 0.32 m behind the exploded rear cap, looking straight at the LCD cluster (world [−0.14, 0, 0.46]). */
-  dwell:  { position: [-0.28, 0.08, 0.74] as [number,number,number], target: [-0.14, 0.00, 0.46] as [number,number,number], fov: 31 },
+  dwell: {
+    position: [-0.28, 0.08, 0.74] as [number, number, number],
+    target: [-0.14, 0.0, 0.46] as [number, number, number],
+    fov: 31,
+  },
 } as const
 
 /**
@@ -597,8 +613,7 @@ export const HOTSPOTS: HotspotDef[] = [
     occurrence: 'P000245-1',
     kind: 'inspect',
     label: 'GEARBOX HOUSING',
-    detail:
-      'Outer housing of the planetary gearbox — ring gears and 4-planet carriers run inside this shell.',
+    detail: 'Outer housing of the planetary gearbox — ring gears and 4-planet carriers run inside this shell.',
     annotation: {
       frame: {
         characteristic: 'POSITION',

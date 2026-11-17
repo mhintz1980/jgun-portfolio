@@ -45,13 +45,7 @@ const isExplodeBeatOn = (progress: number): boolean => progress > 0.18 && progre
 const isLcdBeatOn = (progress: number): boolean => progress > 0.44 && progress <= 0.51
 
 /** Bottom-left edge caption for the active mechanical beat. */
-function BeatCaption({
-  kicker,
-  children,
-}: {
-  kicker: string
-  children: React.ReactNode
-}) {
+function BeatCaption({ kicker, children }: { kicker: string; children: React.ReactNode }) {
   return (
     <div className="fixed left-6 md:left-12 bottom-[9vh] z-10 pointer-events-none font-mono border-l-2 border-cyan-400 pl-3 [text-shadow:0_1px_8px_rgba(0,0,0,0.95)]">
       <p className="text-[10px] tracking-[0.25em] text-cyan-400 mb-1.5">{kicker}</p>
@@ -64,13 +58,14 @@ function BeatCaption({
 function CaseStudyBody({ caseStudy }: { caseStudy: CaseStudy }) {
   return (
     <div className="border-t border-slate-800/80 pt-4 mt-2">
-      <h3 className="text-sm md:text-base font-semibold text-slate-200 mb-1">
-        {caseStudy.headline}
-      </h3>
+      <h3 className="text-sm md:text-base font-semibold text-slate-200 mb-1">{caseStudy.headline}</h3>
       <p className="text-xs text-slate-400 mb-3 leading-relaxed">{caseStudy.oneLiner}</p>
       <ul className="space-y-2 mb-4">
         {caseStudy.bullets.map((bullet) => (
-          <li key={bullet.slice(0, 32)} className="flex items-start gap-2 text-xs text-slate-300 font-sans leading-normal">
+          <li
+            key={bullet.slice(0, 32)}
+            className="flex items-start gap-2 text-xs text-slate-300 font-sans leading-normal"
+          >
             <span className="text-cyan-400 mt-0.5 shrink-0">▸</span>
             <span>{bullet}</span>
           </li>
@@ -126,8 +121,7 @@ export function Chapters() {
   const gearboxStudy = CASE_STUDIES.find((cs) => cs.id === 'gearbox')
 
   // The shift beat's window opens at 0.04, inside the intro band the drawing owns.
-  const shiftBeat =
-    !isStaticMode && progress > DRAWING_INTRO_WINDOW.releaseEnd && isShiftBeatOn(progress)
+  const shiftBeat = !isStaticMode && progress > DRAWING_INTRO_WINDOW.releaseEnd && isShiftBeatOn(progress)
   const explodeBeat = !isStaticMode && isExplodeBeatOn(progress)
   const lcdBeat = !isStaticMode && isLcdBeatOn(progress)
 
@@ -150,9 +144,7 @@ export function Chapters() {
             // CH.01's range opens at 0.00, which the B1/B2 intro now owns outright:
             // hold its card back until the drawing has handed off.
             const afterIntro =
-              chapterDef.index === 0
-                ? Math.min(Math.max((progress - DRAWING_INTRO_WINDOW.releaseEnd) / 0.02, 0), 1)
-                : 1
+              chapterDef.index === 0 ? Math.min(Math.max((progress - DRAWING_INTRO_WINDOW.releaseEnd) / 0.02, 0), 1) : 1
             const opacity = Math.min(fadeIn, fadeOut) * afterIntro
 
             if (opacity <= 0.001) return null
@@ -181,9 +173,7 @@ export function Chapters() {
                     <h2 className="text-xl md:text-2xl font-bold tracking-tight text-slate-100 mb-2 font-sans leading-tight">
                       {chapterDef.index === 0 ? 'From drawing to machining' : chapterDef.title}
                     </h2>
-                    <p className="text-sm text-slate-300 mb-3 leading-relaxed font-sans">
-                      {chapterDef.subtitle}
-                    </p>
+                    <p className="text-sm text-slate-300 mb-3 leading-relaxed font-sans">{chapterDef.subtitle}</p>
                     {chapterDef.index === 0 && gearboxStudy && (
                       <p className="text-sm italic text-slate-200 mb-3 leading-relaxed font-sans">
                         {gearboxStudy.oneLiner}
@@ -242,9 +232,7 @@ export function Chapters() {
                   </h2>
 
                   {/* Subtitle */}
-                  <p className="text-sm text-slate-300 mb-4 leading-relaxed font-sans">
-                    {chapterDef.subtitle}
-                  </p>
+                  <p className="text-sm text-slate-300 mb-4 leading-relaxed font-sans">{chapterDef.subtitle}</p>
 
                   {/* Case Study Details */}
                   {caseStudy && <CaseStudyBody caseStudy={caseStudy} />}
@@ -275,7 +263,9 @@ export function Chapters() {
               >
                 {chapterDef.index === 0 && <AuthorshipInline />}
                 <p className="font-mono text-xs tracking-[0.2em] text-cyan-400 mb-2">{chapterDef.label}</p>
-                <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-100 mb-3 font-sans">{chapterDef.index === 0 ? 'From drawing to machining' : chapterDef.title}</h2>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-100 mb-3 font-sans">
+                  {chapterDef.index === 0 ? 'From drawing to machining' : chapterDef.title}
+                </h2>
                 <p className="text-sm text-slate-300 mb-4 leading-relaxed font-sans">{chapterDef.subtitle}</p>
                 {chapterDef.index === 0 && gearboxStudy && (
                   <>

@@ -86,12 +86,16 @@ export interface PosterPathReport {
   ok: boolean
 }
 
-const validCount = (value: unknown): value is number => typeof value === 'number' && Number.isInteger(value) && value >= 0
+const validCount = (value: unknown): value is number =>
+  typeof value === 'number' && Number.isInteger(value) && value >= 0
 
 export function checkPosterPath(evidence: PosterPathEvidence): PosterPathReport {
   const problems: string[] = []
   const seen: number[] = []
-  for (const [name, value] of [['canvasCount', evidence.canvasCount], ['canvasMounts', evidence.canvasMounts]] as const) {
+  for (const [name, value] of [
+    ['canvasCount', evidence.canvasCount],
+    ['canvasMounts', evidence.canvasMounts],
+  ] as const) {
     if (value === undefined) continue
     if (validCount(value)) seen.push(value)
     else problems.push(`${name} is not a non-negative integer`)

@@ -1,0 +1,552 @@
+{
+ "t0Iso": "2026-11-14T02:44:26.168Z",
+ "dom": {
+  "domContentLoadedWall": 3335,
+  "loadWall": 14561
+ },
+ "consent": {
+  "attempted": true,
+  "dismissed": false,
+  "how": null
+ },
+ "survey1": {
+  "title": "The Extraordinary Lab",
+  "metaViewport": "width=device-width, initial-scale=1",
+  "bodyTextLength": 10,
+  "canvasCount": 1,
+  "canvases": [
+   {
+    "w": 1440,
+    "h": 900,
+    "area": 1296000,
+    "cls": "",
+    "id": null,
+    "dataAttrs": [
+     "data-v-824a61b9",
+     "data-engine"
+    ]
+   }
+  ],
+  "videoCount": 0,
+  "videos": [],
+  "iframeCount": 8,
+  "iframes": [
+   {
+    "src": "",
+    "w": 1,
+    "title": "3rd party ad content"
+   },
+   {
+    "src": "about:blank",
+    "w": 0,
+    "title": null
+   },
+   {
+    "src": "",
+    "w": 0,
+    "title": null
+   },
+   {
+    "src": "https://cdn.permutive.app/topics.html",
+    "w": 0,
+    "title": null
+   },
+   {
+    "src": "",
+    "w": 0,
+    "title": null
+   },
+   {
+    "src": "",
+    "w": 0,
+    "title": null
+   },
+   {
+    "src": "https://www.google.com/recaptcha/api2/aframe",
+    "w": 0,
+    "title": null
+   },
+   {
+    "src": "https://cm.g.doubleclick.net/partnerpixels?url=https%3A%2F%2Fwww.gq.com%2Fsponsored%2Fstory%2Fthe-extraordinary-lab",
+    "w": 0,
+    "title": null
+   }
+  ],
+  "headings": [
+   {
+    "tag": "H2",
+    "text": "Audemars Piguet DNA"
+   },
+   {
+    "tag": "H2",
+    "text": "I Audemars Piguet DNA"
+   },
+   {
+    "tag": "H2",
+    "text": "II Design & user experience"
+   },
+   {
+    "tag": "H2",
+    "text": "III Innovation"
+   }
+  ],
+  "embedHostFound": true,
+  "embedHostTag": "DIV.interactive-override-container interactive-override-containe",
+  "embedHostText": "BACK\nSOUND",
+  "scrollHeight": 900,
+  "reducedMotionMatches": false,
+  "docDriverScripts": [
+   "https://interactive.gq.com/audemars-piquet-gq-rd5/assets/BIhX5qj-.js"
+  ]
+ },
+ "survey2": {
+  "title": "The Extraordinary Lab",
+  "metaViewport": "width=device-width, initial-scale=1",
+  "bodyTextLength": 103,
+  "canvasCount": 1,
+  "canvases": [
+   {
+    "w": 1440,
+    "h": 900,
+    "area": 1296000,
+    "cls": "",
+    "id": null,
+    "dataAttrs": [
+     "data-v-824a61b9",
+     "data-engine"
+    ]
+   }
+  ],
+  "videoCount": 0,
+  "videos": [],
+  "iframeCount": 8,
+  "iframes": [
+   {
+    "src": "",
+    "w": 1,
+    "title": "3rd party ad content"
+   },
+   {
+    "src": "about:blank",
+    "w": 0,
+    "title": null
+   },
+   {
+    "src": "",
+    "w": 0,
+    "title": null
+   },
+   {
+    "src": "https://cdn.permutive.app/topics.html",
+    "w": 0,
+    "title": null
+   },
+   {
+    "src": "",
+    "w": 0,
+    "title": null
+   },
+   {
+    "src": "",
+    "w": 0,
+    "title": null
+   },
+   {
+    "src": "https://www.google.com/recaptcha/api2/aframe",
+    "w": 0,
+    "title": null
+   },
+   {
+    "src": "https://cm.g.doubleclick.net/partnerpixels?url=https%3A%2F%2Fwww.gq.com%2Fsponsored%2Fstory%2Fthe-extraordinary-lab",
+    "w": 0,
+    "title": null
+   }
+  ],
+  "headings": [
+   {
+    "tag": "H2",
+    "text": "Audemars Piguet DNA"
+   },
+   {
+    "tag": "H2",
+    "text": "I Audemars Piguet DNA"
+   },
+   {
+    "tag": "H2",
+    "text": "II Design & user experience"
+   },
+   {
+    "tag": "H2",
+    "text": "III Innovation"
+   }
+  ],
+  "embedHostFound": true,
+  "embedHostTag": "DIV.interactive-override-container interactive-override-containe",
+  "embedHostText": "FOLLOW A STORY TOLD BY CAM WOLF, GQ WATCH EDITOR AND J BALVIN\nCLICK ANYWHERE TO ENABLE SOUND\nBACK\nSOUND",
+  "scrollHeight": 900,
+  "reducedMotionMatches": false,
+  "docDriverScripts": [
+   "https://interactive.gq.com/audemars-piquet-gq-rd5/assets/BIhX5qj-.js"
+  ]
+ },
+ "probe1": {
+  "canvases": [
+   {
+    "wall": 419,
+    "w": 300,
+    "h": 150
+   },
+   {
+    "wall": 419,
+    "w": 300,
+    "h": 150
+   },
+   {
+    "wall": 419,
+    "w": 300,
+    "h": 150
+   },
+   {
+    "wall": 419,
+    "w": 300,
+    "h": 150
+   },
+   {
+    "wall": 419,
+    "w": 300,
+    "h": 150
+   }
+  ],
+  "firstCanvasWall": 419,
+  "webglContexts": 2,
+  "firstWebGLWall": 2036,
+  "scrollSamples": []
+ },
+ "scrollRes": {
+  "frames": 381,
+  "avgFps": 38,
+  "worstFrameMs": 729,
+  "longTasks": 0,
+  "worstLongTask": 0,
+  "scrollSamples": [
+   {
+    "t": 1329,
+    "y": 0
+   },
+   {
+    "t": 1563,
+    "y": 0
+   },
+   {
+    "t": 1796,
+    "y": 0
+   },
+   {
+    "t": 2063,
+    "y": 0
+   },
+   {
+    "t": 2297,
+    "y": 0
+   },
+   {
+    "t": 2530,
+    "y": 0
+   },
+   {
+    "t": 2814,
+    "y": 0
+   },
+   {
+    "t": 3047,
+    "y": 0
+   },
+   {
+    "t": 3264,
+    "y": 0
+   },
+   {
+    "t": 3498,
+    "y": 0
+   },
+   {
+    "t": 3731,
+    "y": 0
+   },
+   {
+    "t": 3965,
+    "y": 0
+   },
+   {
+    "t": 4198,
+    "y": 0
+   },
+   {
+    "t": 4432,
+    "y": 0
+   },
+   {
+    "t": 4649,
+    "y": 0
+   },
+   {
+    "t": 4882,
+    "y": 0
+   },
+   {
+    "t": 5116,
+    "y": 0
+   },
+   {
+    "t": 5333,
+    "y": 0
+   },
+   {
+    "t": 5583,
+    "y": 0
+   },
+   {
+    "t": 5800,
+    "y": 0
+   },
+   {
+    "t": 6033,
+    "y": 0
+   },
+   {
+    "t": 6267,
+    "y": 0
+   },
+   {
+    "t": 6500,
+    "y": 0
+   },
+   {
+    "t": 6734,
+    "y": 0
+   },
+   {
+    "t": 6967,
+    "y": 0
+   },
+   {
+    "t": 7184,
+    "y": 0
+   },
+   {
+    "t": 7418,
+    "y": 0
+   },
+   {
+    "t": 7651,
+    "y": 0
+   },
+   {
+    "t": 7868,
+    "y": 0
+   },
+   {
+    "t": 8102,
+    "y": 0
+   },
+   {
+    "t": 8319,
+    "y": 0
+   },
+   {
+    "t": 8552,
+    "y": 0
+   },
+   {
+    "t": 8785,
+    "y": 0
+   },
+   {
+    "t": 9036,
+    "y": 0
+   },
+   {
+    "t": 9269,
+    "y": 0
+   },
+   {
+    "t": 9503,
+    "y": 0
+   },
+   {
+    "t": 9736,
+    "y": 0
+   },
+   {
+    "t": 9986,
+    "y": 0
+   }
+  ],
+  "finalScrollY": 0,
+  "scrollHeight": 900,
+  "errors": []
+ },
+ "consoleMsgs": [
+  {
+   "t": "error",
+   "text": "Access to fetch at 'https://variants.conde.digital/api/features/sdk-PcBGbIRj0k95mUi' from origin 'https://www.gq.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested r"
+  },
+  {
+   "t": "error",
+   "text": "Failed to load resource: net::ERR_FAILED"
+  },
+  {
+   "t": "error",
+   "text": "[readmo] Readmo container does not exist!"
+  },
+  {
+   "t": "warning",
+   "text": "[ hotzones ads plugin 4d ] XID not propagated for  infinityid.condenastdigital.com Event"
+  },
+  {
+   "t": "error",
+   "text": "Access to fetch at 'https://4d.condenastdigital.com/user?xid=51bb5ebb-dabd-4706-86e6-e69794d65b33' from origin 'https://www.gq.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on t"
+  },
+  {
+   "t": "error",
+   "text": "Failed to load resource: net::ERR_FAILED"
+  },
+  {
+   "t": "error",
+   "text": "Access to fetch at 'https://id-mapper-service.gp-prod.conde.digital/associations' from origin 'https://www.gq.com' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Acc"
+  },
+  {
+   "t": "error",
+   "text": "Failed to load resource: net::ERR_FAILED"
+  },
+  {
+   "t": "error",
+   "text": "Access to XMLHttpRequest at 'https://infinityid.condenastdigital.com/?rand=1794624270389' from origin 'https://www.gq.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the reques"
+  },
+  {
+   "t": "error",
+   "text": "Failed to load resource: net::ERR_FAILED"
+  },
+  {
+   "t": "warning",
+   "text": "[ hotzones ads plugin 4d ] XID not propagated for  www.self.com Event"
+  },
+  {
+   "t": "warning",
+   "text": "[ hotzones ads plugin 4d ] XID not propagated for  www.newyorker.com Event"
+  },
+  {
+   "t": "warning",
+   "text": "[ hotzones ads plugin 4d ] XID not propagated for  pitchfork.com Event"
+  },
+  {
+   "t": "warning",
+   "text": "[ hotzones ads plugin 4d ] XID not propagated for  www.epicurious.com Event"
+  },
+  {
+   "t": "warning",
+   "text": "[ hotzones ads plugin 4d ] XID not propagated for  www.allure.com Event"
+  },
+  {
+   "t": "warning",
+   "text": "[ hotzones ads plugin 4d ] XID not propagated for  www.glamour.com Event"
+  },
+  {
+   "t": "warning",
+   "text": "[ hotzones ads plugin 4d ] XID not propagated for  www.architecturaldigest.com Event"
+  },
+  {
+   "t": "warning",
+   "text": "[ hotzones ads plugin 4d ] XID not propagated for  www.teenvogue.com Event"
+  },
+  {
+   "t": "warning",
+   "text": "[ hotzones ads plugin 4d ] XID not propagated for  www.bonappetit.com Event"
+  },
+  {
+   "t": "warning",
+   "text": "[ hotzones ads plugin 4d ] XID not propagated for  www.cntraveler.com Event"
+  },
+  {
+   "t": "warning",
+   "text": "[ hotzones ads plugin 4d ] XID not propagated for  www.vanityfair.com Event"
+  },
+  {
+   "t": "warning",
+   "text": "[ hotzones ads plugin 4d ] XID not propagated for  www.vogue.com Event"
+  },
+  {
+   "t": "warning",
+   "text": "[ hotzones ads plugin 4d ] XID not propagated for  www.wired.com Event"
+  },
+  {
+   "t": "pageerror",
+   "text": "Uncaught (in promise) undefined"
+  },
+  {
+   "t": "pageerror",
+   "text": "Uncaught (in promise) undefined"
+  },
+  {
+   "t": "pageerror",
+   "text": "Uncaught (in promise) undefined"
+  },
+  {
+   "t": "pageerror",
+   "text": "Uncaught (in promise) undefined"
+  },
+  {
+   "t": "pageerror",
+   "text": "Uncaught (in promise) undefined"
+  },
+  {
+   "t": "pageerror",
+   "text": "Uncaught (in promise) undefined"
+  },
+  {
+   "t": "pageerror",
+   "text": "Uncaught (in promise) undefined"
+  },
+  {
+   "t": "pageerror",
+   "text": "Uncaught (in promise) undefined"
+  },
+  {
+   "t": "pageerror",
+   "text": "Uncaught (in promise) undefined"
+  },
+  {
+   "t": "pageerror",
+   "text": "Uncaught (in promise) undefined"
+  },
+  {
+   "t": "pageerror",
+   "text": "Uncaught (in promise) undefined"
+  },
+  {
+   "t": "pageerror",
+   "text": "Uncaught (in promise) undefined"
+  },
+  {
+   "t": "pageerror",
+   "text": "Uncaught (in promise) undefined"
+  },
+  {
+   "t": "error",
+   "text": "Failed to load resource: the server responded with a status of 404 ()"
+  },
+  {
+   "t": "error",
+   "text": "Failed to load resource: net::ERR_NAME_NOT_RESOLVED"
+  },
+  {
+   "t": "warning",
+   "text": "[nuxt] Cannot load payload  /audemars-piquet-gq-rd5/_payload.json?cfd7dc7a-be2f-4c1e-9509-644441151ffe SyntaxError: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON\n    at Object.parse (<anonymous>)\n    at dV (htt"
+  },
+  {
+   "t": "error",
+   "text": "Failed to load resource: the server responded with a status of 404 ()"
+  }
+ ],
+ "requests": []
+}

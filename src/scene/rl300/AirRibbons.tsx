@@ -17,16 +17,28 @@ import {
   Vector3,
 } from 'three'
 import type { PreviewControl } from './QuietMachineScene'
-import { evaluateFlow, HEAT_RAMP, RIBBON_COUNT, SOUND_FACES, SOUND_FRONTS, SOUND_ORIGIN, SOUND_TARGETS, SOUND_WINDOWS, SPINES, type Bundle, type Vec3 } from './flow'
+import {
+  evaluateFlow,
+  HEAT_RAMP,
+  RIBBON_COUNT,
+  SOUND_FACES,
+  SOUND_FRONTS,
+  SOUND_ORIGIN,
+  SOUND_TARGETS,
+  SOUND_WINDOWS,
+  SPINES,
+  type Bundle,
+  type Vec3,
+} from './flow'
 import * as flowConfig from './flow'
 import { WINDOWS } from './beats'
 
 /** GLSL float literal for an authored window edge: the same digits the JS constant prints. */
-const glslFloat = (value: number) => Number.isInteger(value) ? value.toFixed(1) : String(value)
+const glslFloat = (value: number) => (Number.isInteger(value) ? value.toFixed(1) : String(value))
 
 export const AIR_SAMPLES = 144
 const SOUND_SAMPLES = 28
-const HOTSPOT = new Vector3(.022, .943, -.055)
+const HOTSPOT = new Vector3(0.022, 0.943, -0.055)
 const AIR_BUNDLES: readonly Exclude<Bundle, 'sound'>[] = ['main', 'lower', 'merged']
 const BUNDLES: readonly Bundle[] = [...AIR_BUNDLES, 'sound']
 
@@ -235,7 +247,7 @@ function tangentAt(points: readonly Vector3[], index: number) {
 // non-steep sample and carry sideA twist-free along the spine.
 function transportFrames(points: readonly Vector3[]): (readonly [Vector3, Vector3])[] {
   const legacyFrame = (tangent: Vector3): readonly [Vector3, Vector3] => {
-    const up = Math.abs(tangent.y) < .92 ? new Vector3(0, 1, 0) : new Vector3(1, 0, 0)
+    const up = Math.abs(tangent.y) < 0.92 ? new Vector3(0, 1, 0) : new Vector3(1, 0, 0)
     const sideA = tangent.clone().cross(up).normalize()
     const sideB = tangent.clone().cross(sideA).normalize()
     return [sideA, sideB]
@@ -247,12 +259,14 @@ function transportFrames(points: readonly Vector3[]): (readonly [Vector3, Vector
     return [sideA, tangent.clone().cross(sideA).normalize()]
   }
   const tangents = points.map((_, i) => tangentAt(points, i))
-  let anchor = tangents.findIndex(tangent => Math.abs(tangent.y) < .92)
+  let anchor = tangents.findIndex((tangent) => Math.abs(tangent.y) < 0.92)
   if (anchor === -1) anchor = 0
   const frames: (readonly [Vector3, Vector3])[] = new Array(points.length)
   frames[anchor] = legacyFrame(tangents[anchor])
-  for (let i = anchor + 1; i < points.length; i++) frames[i] = transported(frames[i - 1][0], tangents[i]) ?? legacyFrame(tangents[i])
-  for (let i = anchor - 1; i >= 0; i--) frames[i] = transported(frames[i + 1][0], tangents[i]) ?? legacyFrame(tangents[i])
+  for (let i = anchor + 1; i < points.length; i++)
+    frames[i] = transported(frames[i - 1][0], tangents[i]) ?? legacyFrame(tangents[i])
+  for (let i = anchor - 1; i >= 0; i--)
+    frames[i] = transported(frames[i + 1][0], tangents[i]) ?? legacyFrame(tangents[i])
   return frames
 }
 
@@ -324,7 +338,7 @@ const clamp01 = (value: number) => Math.max(0, Math.min(1, value))
 
 function sourceInfluence(point: Vector3) {
   const distance = point.distanceTo(HOTSPOT)
-  return clamp01(1 - distance / .52)
+  return clamp01(1 - distance / 0.52)
 }
 
 function accumulatedHeat(points: readonly Vector3[], initialHeat: number, terminalHeat = initialHeat) {
@@ -358,7 +372,7 @@ function accumulatedHeat(points: readonly Vector3[], initialHeat: number, termin
 }
 
 export function airPaths(bundle: AirBundle, ribbonCount: number, carriedHeat = 0): StripPath[] {
-  const curve = new CatmullRomCurve3(SPINES[bundle].map(vector), false, 'centripetal', .5)
+  const curve = new CatmullRomCurve3(SPINES[bundle].map(vector), false, 'centripetal', 0.5)
   const spine = curve.getPoints(AIR_SAMPLES)
   const frames = transportFrames(spine)
   const paths: StripPath[] = []
@@ -366,14 +380,16 @@ export function airPaths(bundle: AirBundle, ribbonCount: number, carriedHeat = 0
   for (let ribbon = 0; ribbon < ribbonCount; ribbon++) {
     // Irrational multipliers provide stable, deliberately non-uniform fanning
     // and widths without Math.random() or a hidden build-time seed.
-    const radialPhase = fract((ribbon + 1) * .61803398875)
-    const radialScale = .006 + .042 * Math.sqrt(fract((ribbon + 1) * .75487766625))
-    const width = .014 + .008 * fract((ribbon + 1) * .569840296)
-    const tracerPhase = fract((ribbon + 1) * .41421356237)
+    const radialPhase = fract((ribbon + 1) * 0.61803398875)
+    const radialScale = 0.006 + 0.042 * Math.sqrt(fract((ribbon + 1) * 0.75487766625))
+    const width = 0.014 + 0.008 * fract((ribbon + 1) * 0.569840296)
+    const tracerPhase = fract((ribbon + 1) * 0.41421356237)
     const angle = radialPhase * Math.PI * 2
     const points = spine.map((point, i) => {
       const [sideA, sideB] = frames[i]
-      const offset = sideA.clone().multiplyScalar(Math.cos(angle) * radialScale)
+      const offset = sideA
+        .clone()
+        .multiplyScalar(Math.cos(angle) * radialScale)
         .add(sideB.clone().multiplyScalar(Math.sin(angle) * radialScale))
       return point.clone().add(offset)
     })
@@ -390,16 +406,21 @@ export function airPaths(bundle: AirBundle, ribbonCount: number, carriedHeat = 0
 }
 
 const ISOLATION_MOUNTS: readonly Vec3[] = [
-  [-.53, .025, -1.355051], [.53, .025, -1.355051],
-  [-.53, .025, -.055051], [.53, .025, -.055051],
-  [-.53, .025, 1.244949], [.53, .025, 1.244949],
+  [-0.53, 0.025, -1.355051],
+  [0.53, 0.025, -1.355051],
+  [-0.53, 0.025, -0.055051],
+  [0.53, 0.025, -0.055051],
+  [-0.53, 0.025, 1.244949],
+  [0.53, 0.025, 1.244949],
 ]
 
 // Glancing stub per contact: length and alpha ceiling per evidence 24 §2 (brightness
 // inverse to length — "longest must not also be brightest").
 const SOUND_STUBS: readonly { length: number; alpha: number }[] = [
-  { length: .08, alpha: .50 }, { length: .10, alpha: .45 },
-  { length: .13, alpha: .35 }, { length: .07, alpha: .50 },
+  { length: 0.08, alpha: 0.5 },
+  { length: 0.1, alpha: 0.45 },
+  { length: 0.13, alpha: 0.35 },
+  { length: 0.07, alpha: 0.5 },
 ]
 
 export function soundPaths(): StripPath[] {
@@ -407,19 +428,19 @@ export function soundPaths(): StripPath[] {
   const paths: StripPath[] = []
   for (let i = 0; i < SOUND_FRONTS; i++) {
     const target = vector(SOUND_TARGETS[i])
-    const control = origin.clone().lerp(target, .52)
-    control.x += (i - 1.5) * .028
-    control.z += (i % 2 ? -.045 : .055)
-    const curve = new CatmullRomCurve3([origin.clone(), control, target], false, 'centripetal', .5)
+    const control = origin.clone().lerp(target, 0.52)
+    control.x += (i - 1.5) * 0.028
+    control.z += i % 2 ? -0.045 : 0.055
+    const curve = new CatmullRomCurve3([origin.clone(), control, target], false, 'centripetal', 0.5)
     const points = curve.getPoints(SOUND_SAMPLES)
-    const terminal = Math.floor(SOUND_SAMPLES * .85)
+    const terminal = Math.floor(SOUND_SAMPLES * 0.85)
     paths.push({
       points,
       kind: 0,
-      width: () => .0075,
+      width: () => 0.0075,
       heat: points.map(() => 0),
       contact: points.map((_, j) => (j >= terminal ? 1 : 0)),
-      tracerPhase: fract((i + 1) * .41421356237),
+      tracerPhase: fract((i + 1) * 0.41421356237),
       window: [...SOUND_WINDOWS[i]],
       alpha: 1,
     })
@@ -432,17 +453,20 @@ export function soundPaths(): StripPath[] {
     if (glance.lengthSq() < 1e-4) glance.set(0, 0, 1)
     glance.normalize()
     const stub = SOUND_STUBS[i]
-    const lift = normal.clone().multiplyScalar(stub.length * .12)
-    const mid = target.clone().addScaledVector(glance, stub.length * .5).add(lift)
+    const lift = normal.clone().multiplyScalar(stub.length * 0.12)
+    const mid = target
+      .clone()
+      .addScaledVector(glance, stub.length * 0.5)
+      .add(lift)
     const end = target.clone().addScaledVector(glance, stub.length)
-    const stubPoints = new CatmullRomCurve3([target.clone(), mid, end], false, 'centripetal', .5).getPoints(8)
+    const stubPoints = new CatmullRomCurve3([target.clone(), mid, end], false, 'centripetal', 0.5).getPoints(8)
     paths.push({
       points: stubPoints,
       kind: 2,
-      width: () => .005,
+      width: () => 0.005,
       heat: stubPoints.map(() => 0),
       contact: stubPoints.map(() => 0),
-      tracerPhase: fract((i + 1) * .41421356237),
+      tracerPhase: fract((i + 1) * 0.41421356237),
       window: [SOUND_WINDOWS[i][1], SOUND_WINDOWS[i][1] + WINDOWS.stubIgnition],
       alpha: stub.alpha,
     })
@@ -454,14 +478,14 @@ export function soundPaths(): StripPath[] {
     const [x, y, z] = ISOLATION_MOUNTS[i]
     const flip = i % 2 === 0 ? 1 : -1
     const points = [
-      new Vector3(x - .055 * flip, y, z + .035),
-      new Vector3(x, .046, z - .045),
-      new Vector3(x + .055 * flip, y, z + .035),
+      new Vector3(x - 0.055 * flip, y, z + 0.035),
+      new Vector3(x, 0.046, z - 0.045),
+      new Vector3(x + 0.055 * flip, y, z + 0.035),
     ]
     paths.push({
       points,
       kind: 1,
-      width: () => .0105,
+      width: () => 0.0105,
       heat: points.map(() => 0),
       contact: points.map(() => 0),
       tracerPhase: 0,
@@ -522,7 +546,7 @@ function createMaterial(plane: Plane | null, clipped: boolean, hidden = false): 
       uReducedMotion: { value: 0 },
       uCool: { value: new Color(HEAT_RAMP[0]) },
       uWarm: { value: new Color(HEAT_RAMP[1]) },
-      uAlphaCap: { value: hidden ? .40 : 1 },
+      uAlphaCap: { value: hidden ? 0.4 : 1 },
     },
     transparent: true,
     blending: NormalBlending,
@@ -562,18 +586,24 @@ function createMaterials(plane: Plane): FlowMaterials {
 }
 
 function readReducedMotion() {
-  return typeof window !== 'undefined' && typeof window.matchMedia === 'function' &&
+  return (
+    typeof window !== 'undefined' &&
+    typeof window.matchMedia === 'function' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
 }
 
 export function AirRibbons({ control, plane }: { control: PreviewControl; plane: Plane }) {
-  const width = useThree(state => state.size.width)
+  const width = useThree((state) => state.size.width)
   const [reducedMotion, setReducedMotion] = useState(readReducedMotion)
   const ribbonPlane = useMemo(() => new Plane().copy(plane), [plane])
   const clipOverride = useRef<number | null>(null)
   const meshes = useRef<Record<string, { visible: boolean } | null>>({})
   const ribbonCounts = useMemo(() => ribbonCountsForViewport(width), [width])
-  const geometries = useMemo(() => createGeometries(ribbonCounts), [ribbonCounts.main, ribbonCounts.lower, ribbonCounts.merged])
+  const geometries = useMemo(
+    () => createGeometries(ribbonCounts),
+    [ribbonCounts.main, ribbonCounts.lower, ribbonCounts.merged],
+  )
   const materials = useMemo(() => createMaterials(ribbonPlane), [ribbonPlane])
 
   useEffect(() => {
@@ -582,16 +612,21 @@ export function AirRibbons({ control, plane }: { control: PreviewControl; plane:
     if (!quietMachine) return
     const ribbons: Record<string, unknown> = {
       render: quietMachine.render,
-      setClipOverride: (constant: number) => { clipOverride.current = constant },
-      clearClipOverride: () => { clipOverride.current = null },
+      setClipOverride: (constant: number) => {
+        clipOverride.current = constant
+      },
+      clearClipOverride: () => {
+        clipOverride.current = null
+      },
     }
     for (const bundle of BUNDLES) {
       const material = materials.materials[bundle]
-      if (material) ribbons[bundle] = {
-        clipping: material.clipping,
-        clippingPlanes: material.clippingPlanes,
-        uuid: material.uuid,
-      }
+      if (material)
+        ribbons[bundle] = {
+          clipping: material.clipping,
+          clippingPlanes: material.clippingPlanes,
+          uuid: material.uuid,
+        }
     }
     quietMachine.ribbons = ribbons
     return () => {
@@ -619,14 +654,20 @@ export function AirRibbons({ control, plane }: { control: PreviewControl; plane:
     }
   }, [])
 
-  useEffect(() => () => {
-    Object.values(geometries.geometries).forEach(geometry => geometry.dispose())
-  }, [geometries])
+  useEffect(
+    () => () => {
+      Object.values(geometries.geometries).forEach((geometry) => geometry.dispose())
+    },
+    [geometries],
+  )
 
-  useEffect(() => () => {
-    Object.values(materials.materials).forEach(material => material.dispose())
-    Object.values(materials.hiddenMaterials).forEach(material => material.dispose())
-  }, [materials])
+  useEffect(
+    () => () => {
+      Object.values(materials.materials).forEach((material) => material.dispose())
+      Object.values(materials.hiddenMaterials).forEach((material) => material.dispose())
+    },
+    [materials],
+  )
 
   useFrame(() => {
     ribbonPlane.normal.copy(plane.normal)
@@ -640,7 +681,8 @@ export function AirRibbons({ control, plane }: { control: PreviewControl; plane:
     // bundle that is still fading is never cut.
     for (const bundle of BUNDLES) {
       const live = flow.weight[bundle] > 0
-      const hidden = meshes.current[`${bundle}-hidden`], shown = meshes.current[bundle]
+      const hidden = meshes.current[`${bundle}-hidden`],
+        shown = meshes.current[bundle]
       if (hidden) hidden.visible = live
       if (shown) shown.visible = live
     }
@@ -659,10 +701,32 @@ export function AirRibbons({ control, plane }: { control: PreviewControl; plane:
     }
   })
 
-  return <group name="RL300_FLOW_RIBBONS">
-    {BUNDLES.map(bundle => <mesh key={`${bundle}-hidden`} ref={node => { meshes.current[`${bundle}-hidden`] = node }} geometry={geometries.geometries[bundle]}
-      material={materials.hiddenMaterials[bundle]} renderOrder={20} dispose={null} />)}
-    {BUNDLES.map(bundle => <mesh key={bundle} ref={node => { meshes.current[bundle] = node }} geometry={geometries.geometries[bundle]}
-      material={materials.materials[bundle]} renderOrder={21} dispose={null} />)}
-  </group>
+  return (
+    <group name="RL300_FLOW_RIBBONS">
+      {BUNDLES.map((bundle) => (
+        <mesh
+          key={`${bundle}-hidden`}
+          ref={(node) => {
+            meshes.current[`${bundle}-hidden`] = node
+          }}
+          geometry={geometries.geometries[bundle]}
+          material={materials.hiddenMaterials[bundle]}
+          renderOrder={20}
+          dispose={null}
+        />
+      ))}
+      {BUNDLES.map((bundle) => (
+        <mesh
+          key={bundle}
+          ref={(node) => {
+            meshes.current[bundle] = node
+          }}
+          geometry={geometries.geometries[bundle]}
+          material={materials.materials[bundle]}
+          renderOrder={21}
+          dispose={null}
+        />
+      ))}
+    </group>
+  )
 }

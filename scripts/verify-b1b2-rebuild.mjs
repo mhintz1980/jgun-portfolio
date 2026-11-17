@@ -19,19 +19,20 @@ import { chromium } from 'playwright'
 const OUT = 'project/work/evidence/b1-b2-rebuild/proof'
 fs.mkdirSync(OUT, { recursive: true })
 const save = (name, data) =>
-  fs.writeFileSync(
-    path.join(OUT, name),
-    typeof data === 'string' ? data : JSON.stringify(data, null, 2) + '\n',
-  )
+  fs.writeFileSync(path.join(OUT, name), typeof data === 'string' ? data : JSON.stringify(data, null, 2) + '\n')
 
 const INTRO_SHARE = 0.3
 const RELEASE_END = 0.12
 
 /** Wait for the drawing runtime to publish its proof API. */
 const waitReady = (page) =>
-  page.waitForFunction(() => Boolean(window.__drawingProof?.ready && window.__telemetry?.drawing?.annotationsReady), null, {
-    timeout: 60000,
-  })
+  page.waitForFunction(
+    () => Boolean(window.__drawingProof?.ready && window.__telemetry?.drawing?.annotationsReady),
+    null,
+    {
+      timeout: 60000,
+    },
+  )
 
 /**
  * Scroll to a paced-progress value through the real document, then wait for the damped
@@ -391,8 +392,18 @@ for (const viewport of [
       goalResidual: maxAbsDiff(a.goal, b.goal),
       drawingResidual: maxAbsDiff(a.drawing, b.drawing),
       rigResidual: maxAbsDiff(
-        { explodeFactor: a.rig.explodeFactor, ghostOpacity: a.rig.ghostOpacity, shift: a.rig.shift, stageZ: a.rig.stageZ },
-        { explodeFactor: b.rig.explodeFactor, ghostOpacity: b.rig.ghostOpacity, shift: b.rig.shift, stageZ: b.rig.stageZ },
+        {
+          explodeFactor: a.rig.explodeFactor,
+          ghostOpacity: a.rig.ghostOpacity,
+          shift: a.rig.shift,
+          stageZ: a.rig.stageZ,
+        },
+        {
+          explodeFactor: b.rig.explodeFactor,
+          ghostOpacity: b.rig.ghostOpacity,
+          shift: b.rig.shift,
+          stageZ: b.rig.stageZ,
+        },
       ),
       renderedCameraResidual: maxAbsDiff(a.camera, b.camera),
       wallClockChannelActive: wallClockChannel,

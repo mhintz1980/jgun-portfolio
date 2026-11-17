@@ -1,0 +1,21 @@
+{
+  "before": {
+    "url": "/en",
+    "hasCanvas": true,
+    "resCount": 22,
+    "vtSupported": true
+  },
+  "after": {
+    "url": "/en/work",
+    "hasCanvas": false,
+    "sameCanvasNode": false,
+    "canvasVisible": false,
+    "newResources": [
+      "work?_rsc=Ay62Fn9gJ-ffXQXO",
+      "?sid=3P1w24d3Pkk7mY5n&data=eyJnYVRyYWNraW5nSWRzIjpbXSwiZ2FNZWFzdXJlbWV",
+      "e32ecbdc530f55d3fa03aa62a7779a92b02249d8-1672x941.jpg?w=1024&auto=form"
+    ],
+    "textStart": "01\nWork\nAntwerp 03:50\nBack to 1984\nStart a project\nStart a project\nMenu\nClose\n\nWork\n\nWork\n05\nprojects\n\nRecent websites, designed and built to measure by the same small studio.\n\nIndex\nSheet\n01\nMEGA Charge\nE-mobility & cha"
+  },
+  "link": "a[href='/en/work']"
+}

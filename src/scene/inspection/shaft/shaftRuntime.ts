@@ -1,8 +1,24 @@
 import {
-  BackSide, Box3, BufferGeometry, Color, DirectionalLight, Group, Matrix4, Mesh,
-  MeshStandardMaterial, Plane, Quaternion, TorusGeometry, Vector3,
-  Material, WebGLRenderTarget,
-  type Camera, type InstancedMesh, type Object3D, type Texture, type WebGLRenderer,
+  BackSide,
+  Box3,
+  BufferGeometry,
+  Color,
+  DirectionalLight,
+  Group,
+  Matrix4,
+  Mesh,
+  MeshStandardMaterial,
+  Plane,
+  Quaternion,
+  TorusGeometry,
+  Vector3,
+  Material,
+  WebGLRenderTarget,
+  type Camera,
+  type InstancedMesh,
+  type Object3D,
+  type Texture,
+  type WebGLRenderer,
 } from 'three'
 import { creasedNormals } from './normalRepair'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
@@ -17,28 +33,47 @@ import { createShaftCameraSample, sampleShaftCamera } from './camera'
 import { narrativeModelToStudy, placeHob, placeShaper, shaftMetrePoint, shaftMmPoint, studyToShaftLocal } from './frame'
 import { createShaftKinematicsFrame, sampleShaftKinematics, writeShaftProgression } from './kinematics'
 import {
-  applyProgression, createProgressionState, createProgressionUniforms, FACE_START_MM,
-  HOB_INFEED_YC_MM, HOB_RETRACT_MM, HOB_VISUAL_A_MM, HOB_VISUAL_R_MM,
-  makeStressOverlayMaterial, setShaftTransform, writeProgressionUniforms, writeStressUniforms,
-  type ProgressionShaft, type ProgressionUniforms, type StressOverlay,
+  applyProgression,
+  createProgressionState,
+  createProgressionUniforms,
+  FACE_START_MM,
+  HOB_INFEED_YC_MM,
+  HOB_RETRACT_MM,
+  HOB_VISUAL_A_MM,
+  HOB_VISUAL_R_MM,
+  makeStressOverlayMaterial,
+  setShaftTransform,
+  writeProgressionUniforms,
+  writeStressUniforms,
+  type ProgressionShaft,
+  type ProgressionUniforms,
+  type StressOverlay,
 } from './progression'
 import { createShaftSchedule, sampleShaftSchedule } from './schedule'
 import { createShaftScriptFrame, sampleShaftScript } from './script'
 import { FOS_CENTER_Y, FOS_MAX, newFosPresentation, sampleFosPresentation } from './fosPresentation'
 import { shaftStory } from './story'
-import {
-  buildHob, buildShaperCutter, type ShaftCleanupFailure, type ShaftLifecycleOptions,
-} from './tools'
+import { buildHob, buildShaperCutter, type ShaftCleanupFailure, type ShaftLifecycleOptions } from './tools'
 
 interface BundleNode {
-  name?: string; mesh?: number; children?: number[]; matrix?: number[]
-  translation?: number[]; rotation?: number[]; scale?: number[]
+  name?: string
+  mesh?: number
+  children?: number[]
+  matrix?: number[]
+  translation?: number[]
+  rotation?: number[]
+  scale?: number[]
 }
 /** Human-readable beat labels for the dialog's polite status line. */
 const SHAFT_BEAT_LABELS: Readonly<Record<string, string>> = Object.freeze({
-  isolate: 'Grooved blank', shaping: 'Gear shaping', 'slow-exit': 'Cutter exit into the relief groove',
-  recap: 'Remaining teeth, time compressed', materials: 'Material attempts', 'revised-blank': 'Revised blank',
-  hobbing: 'Rotary hobbing', 'runout-hold': 'Runout and revised material',
+  isolate: 'Grooved blank',
+  shaping: 'Gear shaping',
+  'slow-exit': 'Cutter exit into the relief groove',
+  recap: 'Remaining teeth, time compressed',
+  materials: 'Material attempts',
+  'revised-blank': 'Revised blank',
+  hobbing: 'Rotary hobbing',
+  'runout-hold': 'Runout and revised material',
   'stage1-mesh': 'Stage 1 planetary tooth engagement',
   'cascade-finale': 'Epicyclic spin-up and driveline cascade',
 })
@@ -52,8 +87,13 @@ export interface ShaftBundleDocument {
 /** Read only GLB metadata; Draco is decoded by the normal loader, not by this helper. */
 export function readShaftBundleDocument(data: ArrayBuffer): ShaftBundleDocument {
   const view = new DataView(data)
-  if (view.byteLength < 20 || view.getUint32(0, true) !== 0x46546c67 || view.getUint32(4, true) !== 2
-    || view.getUint32(16, true) !== 0x4e4f534a) throw new Error('Invalid shaft GLB')
+  if (
+    view.byteLength < 20 ||
+    view.getUint32(0, true) !== 0x46546c67 ||
+    view.getUint32(4, true) !== 2 ||
+    view.getUint32(16, true) !== 0x4e4f534a
+  )
+    throw new Error('Invalid shaft GLB')
   const length = view.getUint32(12, true)
   if (20 + length > data.byteLength) throw new Error('Truncated shaft GLB')
   return JSON.parse(new TextDecoder().decode(new Uint8Array(data, 20, length))) as ShaftBundleDocument
@@ -63,16 +103,25 @@ export function readShaftBundleDocument(data: ArrayBuffer): ShaftBundleDocument 
  * handles future TRS nodes: use the union of ALL POSITION accessor bounds in study space.
  */
 export function exportedNodeBounds(doc: ShaftBundleDocument, name: string, out: Box3): Box3 {
-  const index = doc.nodes.findIndex(node => node.name === name)
+  const index = doc.nodes.findIndex((node) => node.name === name)
   if (index < 0) throw new Error('Missing shaft node: ' + name)
-  const world = new Matrix4(), local = new Matrix4(), p = new Vector3(), q = new Quaternion(), s = new Vector3()
+  const world = new Matrix4(),
+    local = new Matrix4(),
+    p = new Vector3(),
+    q = new Quaternion(),
+    s = new Vector3()
   let cursor = index
   while (cursor >= 0) {
     const node = doc.nodes[cursor]
     if (node.matrix) local.fromArray(node.matrix)
-    else local.compose(p.fromArray(node.translation ?? [0, 0, 0]), q.fromArray(node.rotation ?? [0, 0, 0, 1]), s.fromArray(node.scale ?? [1, 1, 1]))
+    else
+      local.compose(
+        p.fromArray(node.translation ?? [0, 0, 0]),
+        q.fromArray(node.rotation ?? [0, 0, 0, 1]),
+        s.fromArray(node.scale ?? [1, 1, 1]),
+      )
     world.premultiply(local)
-    cursor = doc.nodes.findIndex(parent => parent.children?.includes(cursor))
+    cursor = doc.nodes.findIndex((parent) => parent.children?.includes(cursor))
   }
   const node = doc.nodes[index]
   if (node.mesh === undefined) throw new Error('Shaft node has no exported mesh: ' + name)
@@ -81,14 +130,18 @@ export function exportedNodeBounds(doc: ShaftBundleDocument, name: string, out: 
   for (const primitive of doc.meshes[node.mesh].primitives) {
     const accessor = doc.accessors[primitive.attributes.POSITION]
     if (!accessor.min || !accessor.max) throw new Error('Shaft accessor bounds missing: ' + name)
-    box.min.fromArray(accessor.min); box.max.fromArray(accessor.max)
+    box.min.fromArray(accessor.min)
+    box.max.fromArray(accessor.max)
     out.union(box.applyMatrix4(world))
   }
   return out
 }
 
 export function measureSupportDelta(doc: ShaftBundleDocument, out: Vector3): number {
-  const box = new Box3(), legacy = new Vector3(), approved = new Vector3(), ring = new Vector3()
+  const box = new Box3(),
+    legacy = new Vector3(),
+    approved = new Vector3(),
+    ring = new Vector3()
   exportedNodeBounds(doc, 'legacybearing', box).getCenter(legacy)
   exportedNodeBounds(doc, 'approvedbearing', box).getCenter(approved)
   out.subVectors(approved, legacy)
@@ -96,23 +149,47 @@ export function measureSupportDelta(doc: ShaftBundleDocument, out: Vector3): num
   exportedNodeBounds(doc, 'approvedring', box).getCenter(approved)
   ring.subVectors(approved, legacy)
   const deltaYmm = -out.z * 1000
-  if (Math.abs(deltaYmm - 2.75) > 0.005 || Math.abs(out.x) > 0.000005 || Math.abs(out.y) > 0.000005
-    || ring.distanceTo(out) > 0.000005) throw new Error('Exported support pair does not translate rigidly +2.750 mm')
+  if (
+    Math.abs(deltaYmm - 2.75) > 0.005 ||
+    Math.abs(out.x) > 0.000005 ||
+    Math.abs(out.y) > 0.000005 ||
+    ring.distanceTo(out) > 0.000005
+  )
+    throw new Error('Exported support pair does not translate rigidly +2.750 mm')
   return deltaYmm
 }
 
-interface Part { root: Group; materials: MeshStandardMaterial[]; caps: Mesh[]; bindings: ProgressionBinding[] }
+interface Part {
+  root: Group
+  materials: MeshStandardMaterial[]
+  caps: Mesh[]
+  bindings: ProgressionBinding[]
+}
 interface ProgressionBinding {
-  uniforms: ProgressionUniforms; kind: ProgressionShaft; material: MeshStandardMaterial; overlay: Mesh | null
+  uniforms: ProgressionUniforms
+  kind: ProgressionShaft
+  material: MeshStandardMaterial
+  overlay: Mesh | null
 }
 interface Neighbour {
-  carrier: Object3D; planets: Object3D[]; ratio: number; materials: Material[]
+  carrier: Object3D
+  planets: Object3D[]
+  ratio: number
+  materials: Material[]
   planetMaterials: Material[][]
-  index: number; baseZ: number
+  index: number
+  baseZ: number
 }
 /** Physical driveline order, independent of historical stage numbering. */
 export const DRIVELINE_CASCADE_ORDER = Object.freeze([
-  'stage1', 'stage2', 'stage5', 'bearing', 'stage3', 'stage4', 'output', 'outerHousing',
+  'stage1',
+  'stage2',
+  'stage5',
+  'bearing',
+  'stage3',
+  'stage4',
+  'output',
+  'outerHousing',
 ] as const)
 const CLIPPED_PARTS = ['legacyshaft', 'approvedshaft', 'housing'] as const
 
@@ -124,10 +201,15 @@ const TIN_GOLD_CREST = '#d4a62a'
 
 /** Caller-owned private presentation. Omitted controls preserve shared runtime behavior. */
 export interface ShaftPresentation {
-  entryOpaque?: boolean; contextOpacity?: number; phaseCorrection?: number; narrativeAlpha?: number
+  entryOpaque?: boolean
+  contextOpacity?: number
+  phaseCorrection?: number
+  narrativeAlpha?: number
   supportReturnOffset?: readonly [number, number, number]
 }
-export interface ShaftRuntimeOptions extends ShaftLifecycleOptions { presentation?: ShaftPresentation }
+export interface ShaftRuntimeOptions extends ShaftLifecycleOptions {
+  presentation?: ShaftPresentation
+}
 
 /** Synchronous factory; async readiness owns every parsed/created resource by this session. */
 /**
@@ -142,10 +224,12 @@ export const APPROVED_INDEX_WINDOW = Object.freeze({ start: 31.8, end: 32.8 })
 /** Continue the hob spindle direction to the next complete 36-degree tooth pitch. */
 export function approvedShaftBaseAngle(time: number, hobWorkPhi: number): number {
   if (!(time > APPROVED_INDEX_WINDOW.start)) return hobWorkPhi
-  const pitch = 2 * Math.PI / 10
+  const pitch = (2 * Math.PI) / 10
   const home = Math.floor(hobWorkPhi / pitch + 1e-12) * pitch
-  const x = time >= APPROVED_INDEX_WINDOW.end ? 1
-    : (time - APPROVED_INDEX_WINDOW.start) / (APPROVED_INDEX_WINDOW.end - APPROVED_INDEX_WINDOW.start)
+  const x =
+    time >= APPROVED_INDEX_WINDOW.end
+      ? 1
+      : (time - APPROVED_INDEX_WINDOW.start) / (APPROVED_INDEX_WINDOW.end - APPROVED_INDEX_WINDOW.start)
   const k = x * x * x * (x * (x * 6 - 15) + 10)
   return hobWorkPhi + (home - hobWorkPhi) * k
 }
@@ -167,723 +251,1104 @@ export function createShaftRuntime(
   ctx: StoryContext,
   options: ShaftRuntimeOptions = {},
 ): StoryRuntime {
-  const root = new Group(); root.name = 'manufacturing-study-root'
-  const ownedGeometry = new Set<BufferGeometry>(), sharedGeometry = new Set<BufferGeometry>()
-  const ownedMaterials = new Set<Material>(), ownedTextures = new Set<Texture>(), sharedTextures = new Set<Texture>()
+  const root = new Group()
+  root.name = 'manufacturing-study-root'
+  const ownedGeometry = new Set<BufferGeometry>(),
+    sharedGeometry = new Set<BufferGeometry>()
+  const ownedMaterials = new Set<Material>(),
+    ownedTextures = new Set<Texture>(),
+    sharedTextures = new Set<Texture>()
   const ownedDisposers: Array<{ resource: string; dispose: () => void }> = []
   const resources = { geometries: 0, materials: 0, textures: 0, meshes: 0 }
-  let disposed = false, loaded = false, supportDeltaYmm = 0, shaftMinZ = -0.071524, shaftMaxZ = 0
+  let disposed = false,
+    loaded = false,
+    supportDeltaYmm = 0,
+    shaftMinZ = -0.071524,
+    shaftMaxZ = 0
   let draco: DRACOLoader | null = null
   let releaseShared: (() => void) | null = null
   let runtime!: StoryRuntime
 
   const attempt = (resource: string, dispose: () => void, failures: ShaftCleanupFailure[]): void => {
-    try { dispose() } catch (error) { failures.push(Object.freeze({ resource, error })) }
+    try {
+      dispose()
+    } catch (error) {
+      failures.push(Object.freeze({ resource, error }))
+    }
   }
   const disposeAll = (): void => {
     if (disposed) return
-    disposed = true; loaded = false
+    disposed = true
+    loaded = false
     const failures: ShaftCleanupFailure[] = []
-    attempt('scene-root', () => { root.removeFromParent(); root.visible = false }, failures)
+    attempt(
+      'scene-root',
+      () => {
+        root.removeFromParent()
+        root.visible = false
+      },
+      failures,
+    )
     for (let i = ownedDisposers.length - 1; i >= 0; i--) {
       const owner = ownedDisposers[i]
       attempt(owner.resource, owner.dispose, failures)
     }
-    ownedGeometry.forEach(value => attempt('geometry', () => value.dispose(), failures))
-    ownedMaterials.forEach(value => attempt('material', () => value.dispose(), failures))
-    ownedTextures.forEach(value => attempt('texture', () => value.dispose(), failures))
-    attempt('shared-lease', () => { releaseShared?.(); releaseShared = null }, failures)
+    ownedGeometry.forEach((value) => attempt('geometry', () => value.dispose(), failures))
+    ownedMaterials.forEach((value) => attempt('material', () => value.dispose(), failures))
+    ownedTextures.forEach((value) => attempt('texture', () => value.dispose(), failures))
+    attempt(
+      'shared-lease',
+      () => {
+        releaseShared?.()
+        releaseShared = null
+      },
+      failures,
+    )
     // Shared narrative geometries/textures are borrowed, never disposed here.
-    ownedGeometry.clear(); ownedMaterials.clear(); ownedTextures.clear(); sharedGeometry.clear(); sharedTextures.clear()
-    resources.geometries = 0; resources.materials = 0; resources.textures = 0; resources.meshes = 0
+    ownedGeometry.clear()
+    ownedMaterials.clear()
+    ownedTextures.clear()
+    sharedGeometry.clear()
+    sharedTextures.clear()
+    resources.geometries = 0
+    resources.materials = 0
+    resources.textures = 0
+    resources.meshes = 0
     attempt('scene-children', () => root.clear(), failures)
     if (failures.length) {
-      try { options.onCleanupFailure?.(Object.freeze(failures)) } catch { /* Reporting cannot interrupt cleanup. */ }
+      try {
+        options.onCleanupFailure?.(Object.freeze(failures))
+      } catch {
+        /* Reporting cannot interrupt cleanup. */
+      }
     }
   }
   session.own({ dispose: disposeAll })
   if (!session.current()) throw new DOMException('Shaft runtime session cancelled', 'AbortError')
 
   try {
-  // Fixed origin/identity. Every asset, camera and light is in this independent world.
-  const supportPair = new Group(); supportPair.name = 'shaft-rigid-support-pair'; root.add(supportPair)
-  const key = new DirectionalLight('#f0f1f2', 2.6), graze = new DirectionalLight('#d6dde2', 1.4)
-  root.add(key, key.target, graze, graze.target)
-  ownedDisposers.push({ resource: 'key-light', dispose: () => key.dispose() })
-  ownedDisposers.push({ resource: 'graze-light', dispose: () => graze.dispose() })
-  const steel = new MeshStandardMaterial({ color: '#adb4ba', metalness: 0.94, roughness: 0.28 })
-  ownedMaterials.add(steel)
-  const shaperMaterial = steel.clone(); ownedMaterials.add(shaperMaterial)
-  const shaperDetailMaterial = steel.clone(); ownedMaterials.add(shaperDetailMaterial)
-  // Ground HSS faces and TiN-coated cutting flanks, as in the owner's shaper
-  // reference. Separate surface materials preserve the certified tooth geometry.
-  shaperMaterial.color.set('#454b51'); shaperMaterial.roughness = .38
-  shaperMaterial.name = 'shaper-hardened-steel-hardware'
-  shaperDetailMaterial.color.set('#b9b9af'); shaperDetailMaterial.roughness = .31
-  shaperDetailMaterial.name = 'shaper-ground-HSS-faces'
-  const shaperFlankMaterial = steel.clone(); ownedMaterials.add(shaperFlankMaterial)
-  shaperFlankMaterial.color.set('#c69b36'); shaperFlankMaterial.metalness = .96
-  shaperFlankMaterial.roughness = .27; shaperFlankMaterial.name = 'shaper-TiN-cutting-flanks'
-  const hobMaterial = steel.clone(); ownedMaterials.add(hobMaterial)
-  const hobDetailMaterial = steel.clone(); ownedMaterials.add(hobDetailMaterial)
-  // The body shell, collars and flute floors are the cutting body; the thread shares
-  // the TiN coating. Only the arbor stub is ground steel. The mock has no bore mesh:
-  // the body is a closed cylinder, so the arbor is the single non-cutting surface.
-  hobMaterial.color.set(TIN_GOLD); hobMaterial.metalness = .96; hobMaterial.roughness = .34
-  hobMaterial.name = 'hob-TiN-cutting-body'
-  hobDetailMaterial.color.set(TIN_GOLD_CREST); hobDetailMaterial.metalness = .96
-  hobDetailMaterial.roughness = .30; hobDetailMaterial.name = 'hob-TiN-thread'
-  const hobArborMaterial = steel.clone(); ownedMaterials.add(hobArborMaterial)
-  hobArborMaterial.color.set('#adb4ba'); hobArborMaterial.metalness = .94
-  hobArborMaterial.roughness = .34; hobArborMaterial.name = 'hob-ground-arbor-steel'
-  const chipMaterial = steel.clone(); chipMaterial.roughness = 0.38; ownedMaterials.add(chipMaterial)
-  const shaper = buildShaperCutter(shaperMaterial, options)
-  ownedDisposers.push({ resource: 'shaper-tool', dispose: () => shaper.dispose() })
-  const hob = buildHob(hobMaterial, options)
-  ownedDisposers.push({ resource: 'hob-tool', dispose: () => hob.dispose() })
-  const toolGeometryCount = shaper.geometryCount + hob.geometryCount
-  const shaperDisc = shaper.root.getObjectByName('shaper-cutter-disc') as Mesh | undefined
-  const hobThread = hob.root.getObjectByName('hob-thread') as InstancedMesh | undefined
-  const hobArbor = hob.root.getObjectByName('hob-arbor') as Mesh | undefined
-  // ExtrudeGeometry group 0 is the ground caps, group 1 the coated tooth walls.
-  if (shaperDisc) shaperDisc.material = [shaperDetailMaterial, shaperFlankMaterial]
-  // The sketch mount borrows the existing ground-steel hardware palette.
-  // New mount pieces participate in the same opacity/lifecycle ownership.
-  for(const name of ['shaper-hub','shaper-clamp-nut','shaper-arbor','shaper-adapter-flange',
-    'shaper-adapter-taper','shaper-arbor-shank','shaper-clamp-flange','shaper-stud','shaper-stud-thread']){
-    const mesh=shaper.root.getObjectByName(name) as Mesh | undefined
-    if(mesh)mesh.material=shaperMaterial
-  }
-  if (hobThread) hobThread.material = hobDetailMaterial
-  if (hobArbor) hobArbor.material = hobArborMaterial
-  const chipGeometry = new TorusGeometry(0.00035, 0.000045, 4, 14, Math.PI * 1.3)
-  ownedGeometry.add(chipGeometry)
-  const chip = new Mesh(chipGeometry, chipMaterial)
-  chip.name = 'shaft-single-rake-chip'; root.add(shaper.root, hob.root, chip)
-  const datumGeometry = new TorusGeometry(0.011641, 0.00008, 8, 48)
-  const datumMaterial = new MeshStandardMaterial({ color: '#38bdf8', emissive: '#38bdf8', emissiveIntensity: 0.8, transparent: true, opacity: 0, depthWrite: false })
-  ownedGeometry.add(datumGeometry); ownedMaterials.add(datumMaterial)
-  const datumRing = new Mesh(datumGeometry, datumMaterial)
-  datumRing.name = 'stage1-pitch-datum'; datumRing.position.z = -0.00318; datumRing.visible = false
-  root.add(datumRing)
-  const parts: Record<string, Part> = Object.create(null) as Record<string, Part>
-  const neighbours: Neighbour[] = []
-  let ringWitness: Object3D | null = null
-  const ringWitnessMaterials: Material[] = []
-  const bindings: ProgressionBinding[] = []
-  const schedule = createShaftSchedule(), kinematics = createShaftKinematicsFrame(), script = createShaftScriptFrame()
-  const cameraSample = createShaftCameraSample()
-  const legacyState = createProgressionState(), approvedState = createProgressionState()
-  const stress: StressOverlay = { kind: 'none', mix: 0, scanProgress: 0, yMin: 0, yMax: 16, rMax: 9, centerY: FOS_CENTER_Y.attempt, hotspotFos: 0, bodyFos: FOS_MAX }
-  const fos = newFosPresentation()
-  const camera = { valid: true, position: new Vector3(), target: new Vector3(), up: new Vector3(0, 1, 0), fov: 34 }
-  const render = { background: new Color('#05070a'), fogNear: 25, fogFar: 120, envIntensity: 0.35, envRotationY: 0,
-    bloom: 0.16, aberration: 0, dofBokeh: 0, exposure: ctx.gl.toneMappingExposure }
-  const frame = { time: 0, chapter: 0, phase: 'isolate', discrete: 0, narrativeAlpha: 1, returnBlend: 0, ownsNarrative: true }
-  const toShaft = studyToShaftLocal(new Matrix4()), matrix = new Matrix4(), delta = new Vector3(), rootInverse = new Matrix4()
-  const wipeLegacy = new Plane(new Vector3(0, 0, -1), 0), wipeApproved = new Plane(new Vector3(0, 0, 1), 0)
-  const sectionPlane = new Plane(new Vector3(1, 0, 0), 0)
-  const noPlanes: Plane[] = [], legacyWipePlanes = [wipeLegacy], approvedWipePlanes = [wipeApproved], sectionPlanes = [sectionPlane]
-  const probe = {
-    teethFormed: 0, teethPartial: 0,
-    cutter: { visible: false, stroke: 0, infeed: 0, rotation: 0, softened: false },
-    hob: { visible: false, feed: 0, rotation: 0, softened: false },
-    card: { id: script.card, stamp: script.stamp }, stress: {
-      kind: script.stress, mix: 0, scanProgress: 0, shaderMaterials: 0, shaderReady: 0,
-      uniformKind: 0, uniformMix: 0, uniformScan: 0, uniformBodyFos: 0, uniformHotspotFos: 0,
-      overlayVisible: 0,
-    },
-    supports: { deltaYmm: 0, witnesses: false, endpointHeld: false },
-    finale: { assembled: false, shaftCount: 0, racesFollow: false, carrierCount: 0, missingCarriers: true, bearingRacePolicy: 'unsplit-fixed', ringFollowsShaft: false, bearingOuterFixed: true,
-      driveAngle: 0, driveRate: 0, inputRpm: 0, correctedDriveAngle: 0, correctionSlope: 0 },
-    narrative: { alpha: 1, hiddenCount: 0, originalsIntact: true },
-    nodes: { housing: '', legacyHousing: '', legacyHousingPresent: false },
-    stage1: {
-      slideProgress: 0, carrierZ: 0, carrierRotZ: 0, planetRotZ: 0, sunRotZ: 0,
-      bulletTimeActive: false, gearMeshClean: false, meshPhaseError: 0,
-      housingGhostAlpha: 0, datumPulseAlpha: 0, section: false,
-      contactGlintYmm: 0, contactGlintMix: 0, housingWitnessAlpha: 0,
-      legacyHousingAlpha: 0, legacyBearingAlpha: 0, legacyRingAlpha: 0,
-      cascadeAlpha: [0, 0, 0, 0, 0, 0, 0, 0],
-      cascadePlanetAlpha: [0, 0, 0, 0, 0, 0, 0, 0],
-      cascadeMembership: [] as Array<{ unit: string; carrierMeshes: number; carrierMaterials: number;
-        planets: Array<{ name: string; meshes: number; materials: number }> }>,
-      cascadeOffsetZ: [0, 0, 0, 0, 0, 0, 0, 0],
-      cascadeRotZ: [0, 0, 0, 0, 0, 0, 0, 0],
-      cascadePlanetRotZ: [] as number[][],
-      cascadePresent: [false, false, false, false, false, false, false, false],
-    },
-  }
-  /** Diagnostic, read-only: the stress bindings actually installed on the shaft meshes. */
-  const stressProbe = () => bindings.map(binding => ({
-    kind: binding.kind,
-    shaderReady: binding.material.userData.jgunStressShader === true,
-    overlayVisible: binding.overlay?.visible === true,
-    uniformKind: binding.uniforms.uStressKind.value,
-    uniformMix: binding.uniforms.uStressMix.value,
-    yMin: binding.uniforms.uStressYMin.value,
-    yMax: binding.uniforms.uStressYMax.value,
-    rMax: binding.uniforms.uStressRMax.value,
-    centerY: binding.uniforms.uStressCenterY.value,
-    bodyFos: binding.uniforms.uStressBodyFos.value,
-    hotspotFos: binding.uniforms.uStressHotspotFos.value,
-    hasOverlayMaterial: (binding.overlay?.material as { type?: string } | undefined)?.type === 'ShaderMaterial',
-    baseColor: binding.material.color.getHexString(),
-    metalness: binding.material.metalness,
-    overlayWorld: binding.overlay ? binding.overlay.getWorldPosition(new Vector3()).toArray() : null,
-    overlayParentVisible: binding.overlay?.parent?.visible ?? null,
-    overlayInFrustum: binding.overlay ? !binding.overlay.frustumCulled : null,
-    overlayGeometryCount: binding.overlay?.geometry.getAttribute('position')?.count ?? 0,
-  }))
-
-  /**
-   * Diagnostic A/B: render the study with and without the stress overlays and
-   * count the pixels that actually change. The overlay is the only difference,
-   * so a positive coloured count is the proof that the FEA field is on screen.
-   */
-  const stressCapture = (gl: WebGLRenderer, camera: Camera) => {
-    const overlays = bindings.map(binding => binding.overlay).filter((overlay): overlay is Mesh => !!overlay)
-    if (!overlays.length) return { changedPixels: 0, coloredPixels: 0, totalPixels: 0, overlays: 0 }
-    const priorTarget = gl.getRenderTarget()
-    const width = 640, height = Math.max(1, Math.round(width * gl.domElement.height / gl.domElement.width))
-    const target = new WebGLRenderTarget(width, height)
-    const read = () => {
-      const pixels = new Uint8Array(width * height * 4)
-      gl.setRenderTarget(target); gl.render(root, camera)
-      gl.readRenderTargetPixels(target, 0, 0, width, height, pixels)
-      return pixels
+    // Fixed origin/identity. Every asset, camera and light is in this independent world.
+    const supportPair = new Group()
+    supportPair.name = 'shaft-rigid-support-pair'
+    root.add(supportPair)
+    const key = new DirectionalLight('#f0f1f2', 2.6),
+      graze = new DirectionalLight('#d6dde2', 1.4)
+    root.add(key, key.target, graze, graze.target)
+    ownedDisposers.push({ resource: 'key-light', dispose: () => key.dispose() })
+    ownedDisposers.push({ resource: 'graze-light', dispose: () => graze.dispose() })
+    const steel = new MeshStandardMaterial({ color: '#adb4ba', metalness: 0.94, roughness: 0.28 })
+    ownedMaterials.add(steel)
+    const shaperMaterial = steel.clone()
+    ownedMaterials.add(shaperMaterial)
+    const shaperDetailMaterial = steel.clone()
+    ownedMaterials.add(shaperDetailMaterial)
+    // Ground HSS faces and TiN-coated cutting flanks, as in the owner's shaper
+    // reference. Separate surface materials preserve the certified tooth geometry.
+    shaperMaterial.color.set('#454b51')
+    shaperMaterial.roughness = 0.38
+    shaperMaterial.name = 'shaper-hardened-steel-hardware'
+    shaperDetailMaterial.color.set('#b9b9af')
+    shaperDetailMaterial.roughness = 0.31
+    shaperDetailMaterial.name = 'shaper-ground-HSS-faces'
+    const shaperFlankMaterial = steel.clone()
+    ownedMaterials.add(shaperFlankMaterial)
+    shaperFlankMaterial.color.set('#c69b36')
+    shaperFlankMaterial.metalness = 0.96
+    shaperFlankMaterial.roughness = 0.27
+    shaperFlankMaterial.name = 'shaper-TiN-cutting-flanks'
+    const hobMaterial = steel.clone()
+    ownedMaterials.add(hobMaterial)
+    const hobDetailMaterial = steel.clone()
+    ownedMaterials.add(hobDetailMaterial)
+    // The body shell, collars and flute floors are the cutting body; the thread shares
+    // the TiN coating. Only the arbor stub is ground steel. The mock has no bore mesh:
+    // the body is a closed cylinder, so the arbor is the single non-cutting surface.
+    hobMaterial.color.set(TIN_GOLD)
+    hobMaterial.metalness = 0.96
+    hobMaterial.roughness = 0.34
+    hobMaterial.name = 'hob-TiN-cutting-body'
+    hobDetailMaterial.color.set(TIN_GOLD_CREST)
+    hobDetailMaterial.metalness = 0.96
+    hobDetailMaterial.roughness = 0.3
+    hobDetailMaterial.name = 'hob-TiN-thread'
+    const hobArborMaterial = steel.clone()
+    ownedMaterials.add(hobArborMaterial)
+    hobArborMaterial.color.set('#adb4ba')
+    hobArborMaterial.metalness = 0.94
+    hobArborMaterial.roughness = 0.34
+    hobArborMaterial.name = 'hob-ground-arbor-steel'
+    const chipMaterial = steel.clone()
+    chipMaterial.roughness = 0.38
+    ownedMaterials.add(chipMaterial)
+    const shaper = buildShaperCutter(shaperMaterial, options)
+    ownedDisposers.push({ resource: 'shaper-tool', dispose: () => shaper.dispose() })
+    const hob = buildHob(hobMaterial, options)
+    ownedDisposers.push({ resource: 'hob-tool', dispose: () => hob.dispose() })
+    const toolGeometryCount = shaper.geometryCount + hob.geometryCount
+    const shaperDisc = shaper.root.getObjectByName('shaper-cutter-disc') as Mesh | undefined
+    const hobThread = hob.root.getObjectByName('hob-thread') as InstancedMesh | undefined
+    const hobArbor = hob.root.getObjectByName('hob-arbor') as Mesh | undefined
+    // ExtrudeGeometry group 0 is the ground caps, group 1 the coated tooth walls.
+    if (shaperDisc) shaperDisc.material = [shaperDetailMaterial, shaperFlankMaterial]
+    // The sketch mount borrows the existing ground-steel hardware palette.
+    // New mount pieces participate in the same opacity/lifecycle ownership.
+    for (const name of [
+      'shaper-hub',
+      'shaper-clamp-nut',
+      'shaper-arbor',
+      'shaper-adapter-flange',
+      'shaper-adapter-taper',
+      'shaper-arbor-shank',
+      'shaper-clamp-flange',
+      'shaper-stud',
+      'shaper-stud-thread',
+    ]) {
+      const mesh = shaper.root.getObjectByName(name) as Mesh | undefined
+      if (mesh) mesh.material = shaperMaterial
     }
-    try {
-      root.updateWorldMatrix(true, true)
-      const withField = read()
-      for (const overlay of overlays) overlay.visible = false
-      const withoutField = read()
-      for (const overlay of overlays) overlay.visible = true
-      let changed = 0, colored = 0
-      for (let i = 0; i < withField.length; i += 4) {
-        const delta = Math.max(
-          Math.abs(withField[i] - withoutField[i]),
-          Math.abs(withField[i + 1] - withoutField[i + 1]),
-          Math.abs(withField[i + 2] - withoutField[i + 2]))
-        if (delta > 6) {
-          changed++
-          if (withField[i + 2] > withField[i] * 1.25 || withField[i] > withField[i + 2] * 1.25) colored++
-        }
-      }
-      return {
-        changedPixels: changed, coloredPixels: colored,
-        totalPixels: width * height, overlays: overlays.length,
-      }
-    } finally {
-      for (const overlay of overlays) overlay.visible = true
-      gl.setRenderTarget(priorTarget); target.dispose()
-    }
-  }
-  function collect(object: Object3D, shared = false, includeGeometry = true): void {
-    object.traverse(child => {
-      if (!(child instanceof Mesh)) return
-      if (!includeGeometry) {
-        // Tools own their geometries; the runtime still counts them for census.
-      } else if (shared) sharedGeometry.add(child.geometry); else ownedGeometry.add(child.geometry)
-      resources.meshes++
-      const materials = Array.isArray(child.material) ? child.material : [child.material]
-      for (const material of materials) {
-        ownedMaterials.add(material)
-        for (const value of Object.values(material)) {
-          if (value && typeof value === 'object' && 'isTexture' in value) {
-            if (shared) sharedTextures.add(value as Texture); else ownedTextures.add(value as Texture)
-          }
-        }
-      }
+    if (hobThread) hobThread.material = hobDetailMaterial
+    if (hobArbor) hobArbor.material = hobArborMaterial
+    const chipGeometry = new TorusGeometry(0.00035, 0.000045, 4, 14, Math.PI * 1.3)
+    ownedGeometry.add(chipGeometry)
+    const chip = new Mesh(chipGeometry, chipMaterial)
+    chip.name = 'shaft-single-rake-chip'
+    root.add(shaper.root, hob.root, chip)
+    const datumGeometry = new TorusGeometry(0.011641, 0.00008, 8, 48)
+    const datumMaterial = new MeshStandardMaterial({
+      color: '#38bdf8',
+      emissive: '#38bdf8',
+      emissiveIntensity: 0.8,
+      transparent: true,
+      opacity: 0,
+      depthWrite: false,
     })
-  }
-  const contactCapture = (gl: WebGLRenderer, camera: Camera) => {
-    const active = bindings.filter(binding => binding.kind === 'approved')
-    const priorMix = active.map(binding => binding.uniforms.uAxialContactMix.value)
-    const priorTarget = gl.getRenderTarget()
-    const width = gl.domElement.width, height = gl.domElement.height
-    const target = new WebGLRenderTarget(width, height)
-    const read = () => {
-      const pixels = new Uint8Array(width * height * 4)
-      gl.setRenderTarget(target); gl.render(ctx.scene, camera)
-      gl.readRenderTargetPixels(target, 0, 0, width, height, pixels)
-      return pixels
+    ownedGeometry.add(datumGeometry)
+    ownedMaterials.add(datumMaterial)
+    const datumRing = new Mesh(datumGeometry, datumMaterial)
+    datumRing.name = 'stage1-pitch-datum'
+    datumRing.position.z = -0.00318
+    datumRing.visible = false
+    root.add(datumRing)
+    const parts: Record<string, Part> = Object.create(null) as Record<string, Part>
+    const neighbours: Neighbour[] = []
+    let ringWitness: Object3D | null = null
+    const ringWitnessMaterials: Material[] = []
+    const bindings: ProgressionBinding[] = []
+    const schedule = createShaftSchedule(),
+      kinematics = createShaftKinematicsFrame(),
+      script = createShaftScriptFrame()
+    const cameraSample = createShaftCameraSample()
+    const legacyState = createProgressionState(),
+      approvedState = createProgressionState()
+    const stress: StressOverlay = {
+      kind: 'none',
+      mix: 0,
+      scanProgress: 0,
+      yMin: 0,
+      yMax: 16,
+      rMax: 9,
+      centerY: FOS_CENTER_Y.attempt,
+      hotspotFos: 0,
+      bodyFos: FOS_MAX,
     }
-    try {
-      const withGlint = read()
-      for (const binding of active) binding.uniforms.uAxialContactMix.value = 0
-      const withoutGlint = read()
-      let changedPixels = 0, maximumDelta = 0
-      for (let i = 0; i < withGlint.length; i += 4) {
-        const delta = Math.max(Math.abs(withGlint[i] - withoutGlint[i]),
-          Math.abs(withGlint[i + 1] - withoutGlint[i + 1]), Math.abs(withGlint[i + 2] - withoutGlint[i + 2]))
-        maximumDelta = Math.max(maximumDelta, delta)
-        if (delta > 2) changedPixels++
-      }
-      return { changedPixels, maximumDelta, totalPixels: width * height, mix: Math.max(0, ...priorMix), bindingMix: priorMix }
-    } finally {
-      for (let i = 0; i < active.length; i++) active[i].uniforms.uAxialContactMix.value = priorMix[i]
-      gl.setRenderTarget(priorTarget); target.dispose()
+    const fos = newFosPresentation()
+    const camera = { valid: true, position: new Vector3(), target: new Vector3(), up: new Vector3(0, 1, 0), fov: 34 }
+    const render = {
+      background: new Color('#05070a'),
+      fogNear: 25,
+      fogFar: 120,
+      envIntensity: 0.35,
+      envRotationY: 0,
+      bloom: 0.16,
+      aberration: 0,
+      dofBokeh: 0,
+      exposure: ctx.gl.toneMappingExposure,
     }
-  }
-  collect(shaper.root, false, false); collect(hob.root, false, false); collect(chip); collect(datumRing)
-  function census(): void {
-    resources.geometries = ownedGeometry.size + sharedGeometry.size + toolGeometryCount
-    resources.materials = ownedMaterials.size; resources.textures = ownedTextures.size + sharedTextures.size
-  }
-  function materialOpacity(material: Material, opacity: number): void {
-    const transparent = opacity < 0.999
-    if (material.transparent !== transparent) { material.transparent = transparent; material.needsUpdate = true }
-    material.opacity = opacity; material.depthWrite = !transparent
-  }
-  function partOpacity(part: Part | undefined, opacity: number): void {
-    if (!part) return
-    part.root.visible = opacity > 0
-    for (let i = 0; i < part.materials.length; i++) materialOpacity(part.materials[i], opacity)
-    for (let i = 0; i < part.caps.length; i++) materialOpacity(part.caps[i].material as Material, opacity)
-  }
+    const frame = {
+      time: 0,
+      chapter: 0,
+      phase: 'isolate',
+      discrete: 0,
+      narrativeAlpha: 1,
+      returnBlend: 0,
+      ownsNarrative: true,
+    }
+    const toShaft = studyToShaftLocal(new Matrix4()),
+      matrix = new Matrix4(),
+      delta = new Vector3(),
+      rootInverse = new Matrix4()
+    const wipeLegacy = new Plane(new Vector3(0, 0, -1), 0),
+      wipeApproved = new Plane(new Vector3(0, 0, 1), 0)
+    const sectionPlane = new Plane(new Vector3(1, 0, 0), 0)
+    const noPlanes: Plane[] = [],
+      legacyWipePlanes = [wipeLegacy],
+      approvedWipePlanes = [wipeApproved],
+      sectionPlanes = [sectionPlane]
+    const probe = {
+      teethFormed: 0,
+      teethPartial: 0,
+      cutter: { visible: false, stroke: 0, infeed: 0, rotation: 0, softened: false },
+      hob: { visible: false, feed: 0, rotation: 0, softened: false },
+      card: { id: script.card, stamp: script.stamp },
+      stress: {
+        kind: script.stress,
+        mix: 0,
+        scanProgress: 0,
+        shaderMaterials: 0,
+        shaderReady: 0,
+        uniformKind: 0,
+        uniformMix: 0,
+        uniformScan: 0,
+        uniformBodyFos: 0,
+        uniformHotspotFos: 0,
+        overlayVisible: 0,
+      },
+      supports: { deltaYmm: 0, witnesses: false, endpointHeld: false },
+      finale: {
+        assembled: false,
+        shaftCount: 0,
+        racesFollow: false,
+        carrierCount: 0,
+        missingCarriers: true,
+        bearingRacePolicy: 'unsplit-fixed',
+        ringFollowsShaft: false,
+        bearingOuterFixed: true,
+        driveAngle: 0,
+        driveRate: 0,
+        inputRpm: 0,
+        correctedDriveAngle: 0,
+        correctionSlope: 0,
+      },
+      narrative: { alpha: 1, hiddenCount: 0, originalsIntact: true },
+      nodes: { housing: '', legacyHousing: '', legacyHousingPresent: false },
+      stage1: {
+        slideProgress: 0,
+        carrierZ: 0,
+        carrierRotZ: 0,
+        planetRotZ: 0,
+        sunRotZ: 0,
+        bulletTimeActive: false,
+        gearMeshClean: false,
+        meshPhaseError: 0,
+        housingGhostAlpha: 0,
+        datumPulseAlpha: 0,
+        section: false,
+        contactGlintYmm: 0,
+        contactGlintMix: 0,
+        housingWitnessAlpha: 0,
+        legacyHousingAlpha: 0,
+        legacyBearingAlpha: 0,
+        legacyRingAlpha: 0,
+        cascadeAlpha: [0, 0, 0, 0, 0, 0, 0, 0],
+        cascadePlanetAlpha: [0, 0, 0, 0, 0, 0, 0, 0],
+        cascadeMembership: [] as Array<{
+          unit: string
+          carrierMeshes: number
+          carrierMaterials: number
+          planets: Array<{ name: string; meshes: number; materials: number }>
+        }>,
+        cascadeOffsetZ: [0, 0, 0, 0, 0, 0, 0, 0],
+        cascadeRotZ: [0, 0, 0, 0, 0, 0, 0, 0],
+        cascadePlanetRotZ: [] as number[][],
+        cascadePresent: [false, false, false, false, false, false, false, false],
+      },
+    }
+    /** Diagnostic, read-only: the stress bindings actually installed on the shaft meshes. */
+    const stressProbe = () =>
+      bindings.map((binding) => ({
+        kind: binding.kind,
+        shaderReady: binding.material.userData.jgunStressShader === true,
+        overlayVisible: binding.overlay?.visible === true,
+        uniformKind: binding.uniforms.uStressKind.value,
+        uniformMix: binding.uniforms.uStressMix.value,
+        yMin: binding.uniforms.uStressYMin.value,
+        yMax: binding.uniforms.uStressYMax.value,
+        rMax: binding.uniforms.uStressRMax.value,
+        centerY: binding.uniforms.uStressCenterY.value,
+        bodyFos: binding.uniforms.uStressBodyFos.value,
+        hotspotFos: binding.uniforms.uStressHotspotFos.value,
+        hasOverlayMaterial: (binding.overlay?.material as { type?: string } | undefined)?.type === 'ShaderMaterial',
+        baseColor: binding.material.color.getHexString(),
+        metalness: binding.material.metalness,
+        overlayWorld: binding.overlay ? binding.overlay.getWorldPosition(new Vector3()).toArray() : null,
+        overlayParentVisible: binding.overlay?.parent?.visible ?? null,
+        overlayInFrustum: binding.overlay ? !binding.overlay.frustumCulled : null,
+        overlayGeometryCount: binding.overlay?.geometry.getAttribute('position')?.count ?? 0,
+      }))
 
-  function attachPart(node: Object3D, name: string, kind?: ProgressionShaft): Part {
-    const group = new Group(); group.name = 'study-' + name
-    group.add(node); (name === 'approvedbearing' || name === 'approvedring' ? supportPair : root).add(group)
-    const part: Part = { root: group, materials: [], caps: [], bindings: [] }; parts[name] = part
-    // Freeze the undeformed rest registration before sampling any spins/sections.
-    root.updateWorldMatrix(true, true)
-    // The host copies the world registration onto `root.matrix` every frame, possibly before this async attach runs.
-    // The shader frame is study-ROOT-local CAD millimetres, so strip the root's own world transform: otherwise the
-    // registration (-21.43 mm axial) is baked into uShaftMatrix and every y-gated feature (teeth, FEA band) shifts.
-    rootInverse.copy(root.matrixWorld).invert()
-    const meshToShaft = (mesh: Mesh) => matrix.multiplyMatrices(rootInverse, mesh.matrixWorld).premultiply(toShaft)
-    const meshes: Mesh[] = []; node.traverse(child => { if (child instanceof Mesh) meshes.push(child) })
-    for (const mesh of meshes) {
-      if (kind) {
-        // S3: the exported shaft normals streak across sliver fans; rebuild them creased + angle-weighted (see normalRepair.ts).
-        const original = mesh.geometry
-        mesh.geometry = creasedNormals(original, 40, meshToShaft(mesh)).geometry
-        ownedGeometry.delete(original); ownedGeometry.add(mesh.geometry); original.dispose()
+    /**
+     * Diagnostic A/B: render the study with and without the stress overlays and
+     * count the pixels that actually change. The overlay is the only difference,
+     * so a positive coloured count is the proof that the FEA field is on screen.
+     */
+    const stressCapture = (gl: WebGLRenderer, camera: Camera) => {
+      const overlays = bindings.map((binding) => binding.overlay).filter((overlay): overlay is Mesh => !!overlay)
+      if (!overlays.length) return { changedPixels: 0, coloredPixels: 0, totalPixels: 0, overlays: 0 }
+      const priorTarget = gl.getRenderTarget()
+      const width = 640,
+        height = Math.max(1, Math.round((width * gl.domElement.height) / gl.domElement.width))
+      const target = new WebGLRenderTarget(width, height)
+      const read = () => {
+        const pixels = new Uint8Array(width * height * 4)
+        gl.setRenderTarget(target)
+        gl.render(root, camera)
+        gl.readRenderTargetPixels(target, 0, 0, width, height, pixels)
+        return pixels
       }
-      const material = steel.clone()
-      if (name.includes('housing')) { material.color.set('#040404'); material.roughness = 0.4 }
-      ownedMaterials.add(material); part.materials.push(material); mesh.material = material
-      let uniforms: ProgressionUniforms | undefined
-      if (kind) {
-        uniforms = createProgressionUniforms()
-        setShaftTransform(uniforms, meshToShaft(mesh)); applyProgression(material, uniforms)
-        const binding: ProgressionBinding = { uniforms, kind, material, overlay: null }
-        bindings.push(binding); part.bindings.push(binding)
-        const overlayMaterial = makeStressOverlayMaterial(uniforms)
-        ownedMaterials.add(overlayMaterial)
-        // The overlay must be a SIBLING of the shaft mesh carrying the same
-        // transform: as a child it would receive the mesh transform twice and
-        // draw away from the surface it colours.
-        const overlay = new Mesh(mesh.geometry, overlayMaterial)
-        overlay.name = 'study-stress-surface'
-        overlay.frustumCulled = false; overlay.renderOrder = 3; overlay.visible = false
-        overlay.position.copy(mesh.position)
-        overlay.quaternion.copy(mesh.quaternion)
-        overlay.scale.copy(mesh.scale)
-        mesh.parent?.add(overlay)
-        binding.overlay = overlay
-        resources.meshes++
-      }
-      if (name === 'approvedshaft' || name === 'housing') {
-        // Darker clipped back faces suggest section walls. No CSG or fabricated solid cap.
-        const capMaterial = steel.clone(); capMaterial.side = BackSide; capMaterial.color.set('#262c32'); capMaterial.roughness = 0.65
-        capMaterial.clippingPlanes = sectionPlanes
-        if (uniforms) applyProgression(capMaterial, uniforms)
-        ownedMaterials.add(capMaterial)
-        const cap = new Mesh(mesh.geometry, capMaterial); cap.name = 'study-section-backface'
-        cap.position.copy(mesh.position); cap.quaternion.copy(mesh.quaternion); cap.scale.copy(mesh.scale)
-        mesh.parent?.add(cap); cap.visible = false; part.caps.push(cap); resources.meshes++
-      }
-    }
-    return part
-  }
-
-  function cloneNeighbours(): void {
-    const rig = ctx.rig as Partial<WrenchRig> | null
-    if (!rig?.stages || !rig.basePositions) return
-    const modelFrame = new Group(); modelFrame.name = 'study-narrative-rest-registration'; modelFrame.matrixAutoUpdate = false
-    narrativeModelToStudy(modelFrame.matrix)
-    // Carrier pivots and baked merged geometry are gearbox-local, not model-local.
-    if (rig.gearboxRoot) {
-      const gearboxLocal = new Matrix4().compose(rig.gearboxRoot.position, rig.gearboxRoot.quaternion, rig.gearboxRoot.scale)
-      modelFrame.matrix.multiply(gearboxLocal)
-    }
-    root.add(modelFrame)
-    for (let index = 0; index < DRIVELINE_CASCADE_ORDER.length; index++) {
-      const id = DRIVELINE_CASCADE_ORDER[index]
-      const stage = id.startsWith('stage') ? rig.stages[id as StageId] : undefined
-      const source = stage?.carrier ?? (id === 'bearing' ? rig.bearing : id === 'output' ? rig.outputShaft : id === 'outerHousing' ? rig.housing : null)
-      if (!source) continue
-      const base = rig.basePositions.get(source) ?? source.position
-      const carrier = source.clone(true)
-      carrier.userData.stage1CascadeIndex = index
-      carrier.position.copy(base); carrier.rotation.set(0, 0, 0); carrier.visible = false
-      // Materials are shared by PBR role in the source rig. Each reveal unit must
-      // own its own clone map or one unit's opacity would overwrite another's.
-      const materialClones = new Map<Material, Material>()
-      const sourceTree: Object3D[] = [], cloneTree: Object3D[] = []
-      source.traverse(child => sourceTree.push(child)); carrier.traverse(child => cloneTree.push(child))
-      const planets: Object3D[] = []
-      for (const planet of stage?.planets ?? []) {
-        const i = sourceTree.indexOf(planet)
-        if (i >= 0) {
-          cloneTree[i].rotation.set(0, 0, 0)
-          // Stable CAD membership survives merged meshes with empty names.
-          // The owning Stage 1 unit authenticates these as its P000247 parts.
-          cloneTree[i].userData.studyPlanetOccurrence = planets.length
-          planets.push(cloneTree[i])
-        }
-      }
-      const materials: Material[] = []
-      // Separate maps for every planet occurrence, even when the source uses
-      // one shared PBR role for both cage and planets. Setup-only allocations.
-      const planetClones = planets.map(() => new Map<Material, Material>())
-      const planetMaterials: Material[][] = planets.map(() => [])
-      const membership = { unit: id, carrierMeshes: 0, carrierMaterials: 0,
-        planets: planets.map(planet => ({ name: planet.name, meshes: 0, materials: 0 })) }
-      carrier.traverse(child => {
-        child.visible = true
-        if (!(child instanceof Mesh)) return
-        let ancestor: Object3D | null = child, planetIndex = -1
-        while (ancestor && ancestor !== carrier && planetIndex < 0) {
-          planetIndex = planets.indexOf(ancestor); ancestor = ancestor.parent
-        }
-        const clones = planetIndex >= 0 ? planetClones[planetIndex] : materialClones
-        const owned = planetIndex >= 0 ? planetMaterials[planetIndex] : materials
-        if (planetIndex >= 0) membership.planets[planetIndex].meshes++
-        else membership.carrierMeshes++
-        const cloneMaterial = (original: Material): Material => {
-          let material = clones.get(original)
-          if (!material) {
-            material = original.clone()
-            // A narrative shader callback may own cached, mutable hero uniforms.
-            // The study keeps PBR fields/textures; it does not copy that callback.
-            material.onBeforeCompile = Material.prototype.onBeforeCompile
-            material.customProgramCacheKey = Material.prototype.customProgramCacheKey
-            if (id === 'outerHousing' && material instanceof MeshStandardMaterial) {
-              material.color.set('#040404'); material.roughness = 0.4
-              material.normalMap = null; material.bumpMap = null
-            }
-            clones.set(original, material); ownedMaterials.add(material)
+      try {
+        root.updateWorldMatrix(true, true)
+        const withField = read()
+        for (const overlay of overlays) overlay.visible = false
+        const withoutField = read()
+        for (const overlay of overlays) overlay.visible = true
+        let changed = 0,
+          colored = 0
+        for (let i = 0; i < withField.length; i += 4) {
+          const delta = Math.max(
+            Math.abs(withField[i] - withoutField[i]),
+            Math.abs(withField[i + 1] - withoutField[i + 1]),
+            Math.abs(withField[i + 2] - withoutField[i + 2]),
+          )
+          if (delta > 6) {
+            changed++
+            if (withField[i + 2] > withField[i] * 1.25 || withField[i] > withField[i + 2] * 1.25) colored++
           }
-          if (!owned.includes(material)) owned.push(material)
-          return material
         }
-        child.material = Array.isArray(child.material) ? child.material.map(cloneMaterial) : cloneMaterial(child.material)
-      })
-      carrier.visible = false; modelFrame.add(carrier); collect(carrier, true)
-      neighbours.push({ carrier, planets, ratio: CASCADE_RATIOS[index], materials, planetMaterials, index, baseZ: base.z })
-      probe.stage1.cascadePlanetRotZ[index] = planets.map(() => 0)
-      membership.carrierMaterials = materials.length
-      for (let i = 0; i < planets.length; i++) membership.planets[i].materials = planetMaterials[i].length
-      probe.stage1.cascadeMembership.push(membership)
-      probe.stage1.cascadePresent[index] = true
-      if (id === 'outerHousing') {
-        // A stationary, seated ring-gear witness supplies context during the
-        // tooth-push macro; the separate seated shell fades after the output.
-        ringWitness = carrier.clone(true); ringWitness.name = 'stage1-stationary-ring-witness'
-        ringWitness.traverse(child => {
-          if (!(child instanceof Mesh)) return
-          const originals = Array.isArray(child.material) ? child.material : [child.material]
-          const clones = originals.map(material => {
-            const clone = material.clone(); ownedMaterials.add(clone); ringWitnessMaterials.push(clone)
-            return clone
-          })
-          child.material = Array.isArray(child.material) ? clones : clones[0]
-        })
-        modelFrame.add(ringWitness); collect(ringWitness, true)
+        return {
+          changedPixels: changed,
+          coloredPixels: colored,
+          totalPixels: width * height,
+          overlays: overlays.length,
+        }
+      } finally {
+        for (const overlay of overlays) overlay.visible = true
+        gl.setRenderTarget(priorTarget)
+        target.dispose()
       }
     }
-    probe.finale.carrierCount = neighbours.filter(unit => unit.planets.length > 0).length
-    probe.finale.missingCarriers = probe.finale.carrierCount !== STAGE_IDS.length
-    if (neighbours.length > 0) releaseShared = session.borrowShared('shaft-finale-carriers')
-  }
-
-  const ready = (async () => {
-    if (disposed || !session.current()) return
-    const asset = shaftStory.assets.find(candidate => candidate.tier === ctx.tier)
-    if (!asset) throw new Error('Missing shaft tier asset')
-    const url = `${import.meta.env.BASE_URL}${asset.url}`
-    const response = await fetch(url, { signal: session.signal })
-    if (disposed || !session.current()) return
-    if (!response.ok) throw new Error(`Shaft download failed (${response.status})`)
-    const data = await response.arrayBuffer()
-    if (disposed || !session.current()) return
-    if (data.byteLength > asset.maxBytes) throw new Error('Shaft bundle exceeds declared byte limit')
-    const doc = readShaftBundleDocument(data)
-    supportDeltaYmm = measureSupportDelta(doc, delta)
-    const shaftBounds = exportedNodeBounds(doc, 'approvedshaft', new Box3())
-    shaftMinZ = shaftBounds.min.z; shaftMaxZ = shaftBounds.max.z
-    draco = new DRACOLoader().setDecoderPath(`${import.meta.env.BASE_URL}draco/`)
-    const loader = new GLTFLoader().setDRACOLoader(draco)
-    const gltf = await loader.parseAsync(data, url.slice(0, url.lastIndexOf('/') + 1))
-    if (disposed || !session.current()) {
-      // A parse cannot be aborted; release its unmounted results, including after cancel.
-      const geometries = new Set<BufferGeometry>(), materials = new Set<Material>(), textures = new Set<Texture>()
-      gltf.scene.traverse(child => {
+    function collect(object: Object3D, shared = false, includeGeometry = true): void {
+      object.traverse((child) => {
         if (!(child instanceof Mesh)) return
-        geometries.add(child.geometry)
-        for (const material of Array.isArray(child.material) ? child.material : [child.material]) {
-          materials.add(material)
-          for (const value of Object.values(material)) if (value && typeof value === 'object' && 'isTexture' in value) textures.add(value as Texture)
+        if (!includeGeometry) {
+          // Tools own their geometries; the runtime still counts them for census.
+        } else if (shared) sharedGeometry.add(child.geometry)
+        else ownedGeometry.add(child.geometry)
+        resources.meshes++
+        const materials = Array.isArray(child.material) ? child.material : [child.material]
+        for (const material of materials) {
+          ownedMaterials.add(material)
+          for (const value of Object.values(material)) {
+            if (value && typeof value === 'object' && 'isTexture' in value) {
+              if (shared) sharedTextures.add(value as Texture)
+              else ownedTextures.add(value as Texture)
+            }
+          }
         }
       })
-      const failures: ShaftCleanupFailure[] = []
-      geometries.forEach(value => attempt('stale-geometry', () => value.dispose(), failures))
-      materials.forEach(value => attempt('stale-material', () => value.dispose(), failures))
-      textures.forEach(value => attempt('stale-texture', () => value.dispose(), failures))
-      if (failures.length) {
-        try { options.onCleanupFailure?.(Object.freeze(failures)) } catch { /* Late cleanup still completed. */ }
+    }
+    const contactCapture = (gl: WebGLRenderer, camera: Camera) => {
+      const active = bindings.filter((binding) => binding.kind === 'approved')
+      const priorMix = active.map((binding) => binding.uniforms.uAxialContactMix.value)
+      const priorTarget = gl.getRenderTarget()
+      const width = gl.domElement.width,
+        height = gl.domElement.height
+      const target = new WebGLRenderTarget(width, height)
+      const read = () => {
+        const pixels = new Uint8Array(width * height * 4)
+        gl.setRenderTarget(target)
+        gl.render(ctx.scene, camera)
+        gl.readRenderTargetPixels(target, 0, 0, width, height, pixels)
+        return pixels
       }
-      return
+      try {
+        const withGlint = read()
+        for (const binding of active) binding.uniforms.uAxialContactMix.value = 0
+        const withoutGlint = read()
+        let changedPixels = 0,
+          maximumDelta = 0
+        for (let i = 0; i < withGlint.length; i += 4) {
+          const delta = Math.max(
+            Math.abs(withGlint[i] - withoutGlint[i]),
+            Math.abs(withGlint[i + 1] - withoutGlint[i + 1]),
+            Math.abs(withGlint[i + 2] - withoutGlint[i + 2]),
+          )
+          maximumDelta = Math.max(maximumDelta, delta)
+          if (delta > 2) changedPixels++
+        }
+        return {
+          changedPixels,
+          maximumDelta,
+          totalPixels: width * height,
+          mix: Math.max(0, ...priorMix),
+          bindingMix: priorMix,
+        }
+      } finally {
+        for (let i = 0; i < active.length; i++) active[i].uniforms.uAxialContactMix.value = priorMix[i]
+        gl.setRenderTarget(priorTarget)
+        target.dispose()
+      }
     }
-    collect(gltf.scene)
-    const names = ['legacyshaft', 'approvedshaft', 'legacybearing', 'legacyring', 'approvedbearing', 'approvedring'] as const
-    for (const name of names) {
-      const node = gltf.scene.getObjectByName(name)
-      if (!node) throw new Error('Missing shaft bundle node: ' + name)
-      attachPart(node, name, name === 'legacyshaft' ? 'legacy' : name === 'approvedshaft' ? 'approved' : undefined)
+    collect(shaper.root, false, false)
+    collect(hob.root, false, false)
+    collect(chip)
+    collect(datumRing)
+    function census(): void {
+      resources.geometries = ownedGeometry.size + sharedGeometry.size + toolGeometryCount
+      resources.materials = ownedMaterials.size
+      resources.textures = ownedTextures.size + sharedTextures.size
     }
-    const housing = gltf.scene.getObjectByName('approvedhousing') ?? gltf.scene.getObjectByName('housing')
-    if (!housing) throw new Error('Missing approvedhousing/housing')
-    probe.nodes.housing = housing.name; attachPart(housing, 'housing')
-    const legacyHousing = gltf.scene.getObjectByName('legacyhousing')
-    if (legacyHousing) { probe.nodes.legacyHousing = legacyHousing.name; probe.nodes.legacyHousingPresent = true; attachPart(legacyHousing, 'legacyhousing') }
-    cloneNeighbours(); census(); loaded = true
-    // Preserve a seek issued during loading, applying only after registration is complete.
-    runtime.apply()
-  })().catch(error => {
-    if (!disposed && session.current()) { session.fail(error); runtime.dispose(); throw error }
-  }).finally(() => { draco?.dispose(); draco = null })
+    function materialOpacity(material: Material, opacity: number): void {
+      const transparent = opacity < 0.999
+      if (material.transparent !== transparent) {
+        material.transparent = transparent
+        material.needsUpdate = true
+      }
+      material.opacity = opacity
+      material.depthWrite = !transparent
+    }
+    function partOpacity(part: Part | undefined, opacity: number): void {
+      if (!part) return
+      part.root.visible = opacity > 0
+      for (let i = 0; i < part.materials.length; i++) materialOpacity(part.materials[i], opacity)
+      for (let i = 0; i < part.caps.length; i++) materialOpacity(part.caps[i].material as Material, opacity)
+    }
 
-  runtime = {
-    root, ready, frame, camera, render, resources,
-    stressProbe,
-    stressCapture,
-    contactCapture,
-    sample(time) {
-      if (disposed) return
-      sampleShaftSchedule(time, schedule)
-      const t = schedule.time
-      sampleShaftKinematics(t, kinematics); sampleShaftScript(t, false, script)
-      writeShaftProgression(kinematics, legacyState); writeShaftProgression(kinematics, approvedState)
-      // Kinematics mode='none' outside cutting; explicitly preserve the appropriate stock.
-      legacyState.mode = 'shaping'
-      if (t < 2) { legacyState.spaceDepth.fill(0); legacyState.engagedSpace = -1 }
-      if (t >= 15) { legacyState.spaceDepth.fill(1); legacyState.engagedSpace = -1 }
-      approvedState.mode = t < 32 ? 'hobbing' : 'none'
-      if (t < 25) {
-        approvedState.hobYc = HOB_INFEED_YC_MM; approvedState.hobA = HOB_VISUAL_A_MM + HOB_RETRACT_MM; approvedState.hobR = HOB_VISUAL_R_MM
-      }
-      frame.time = t; frame.phase = schedule.beat; frame.discrete = schedule.beatIndex
-      frame.chapter = t < 15 ? 0 : t < 22.6 ? 1 : t < 35 ? 2 : 3
-      frame.narrativeAlpha = options.presentation?.narrativeAlpha ?? schedule.narrativeAlpha; frame.ownsNarrative = true; frame.returnBlend = 0
-      sampleShaftCamera(t, ctx.aspect, kinematics, cameraSample)
-      shaftMetrePoint(camera.position, cameraSample.px, cameraSample.py, cameraSample.pz)
-      shaftMetrePoint(camera.target, cameraSample.tx, cameraSample.ty, cameraSample.tz)
-      shaftMetrePoint(camera.up, cameraSample.ux, cameraSample.uy, cameraSample.uz).normalize()
-      camera.fov = cameraSample.fov; camera.valid = cameraSample.valid
-      render.envRotationY = 0 // local lights carry the authored frame-follow reflection.
-    },
-    apply() {
-      if (disposed) return
-      root.visible = true
-      partOpacity(parts.legacyshaft, options.presentation?.entryOpaque && frame.time <= 1.2 ? 1 : schedule.legacyShaft); partOpacity(parts.approvedshaft, schedule.approvedShaft)
-      const context = options.presentation?.contextOpacity ?? 1
-      partOpacity(parts.housing, schedule.housing * context); partOpacity(parts.legacyhousing, schedule.legacyHousing * context)
-      partOpacity(parts.legacybearing, schedule.legacyBearing * context); partOpacity(parts.legacyring, schedule.legacyRing * context)
-      partOpacity(parts.approvedbearing, schedule.approvedBearing * context); partOpacity(parts.approvedring, schedule.approvedRing * context)
-      const legacyAngle = legacyShaftAngle(frame.time, kinematics.workPhi)
-      const approvedBaseAngle = approvedShaftBaseAngle(frame.time, kinematics.hobWorkPhi)
-      const approvedAngle = approvedBaseAngle + schedule.finaleAngle * SUN_TO_STAGE1_CARRIER_RATIO
-      if (parts.legacyshaft) parts.legacyshaft.root.rotation.z = -legacyAngle
-      // The source inherits this exact common phase and fixed tooth index.
-      // phaseCorrection owns support translation only; visible gears never rewind.
-      const correctedShaftAngle = -approvedAngle
-      if (parts.approvedshaft) parts.approvedshaft.root.rotation.z = correctedShaftAngle
-      if (parts.approvedring) parts.approvedring.root.rotation.z = frame.time >= 38.5 ? correctedShaftAngle : 0
-      // Unsplit bearing stays fixed; only an authenticated separable inner race may spin.
-      const supportReturn = options.presentation?.supportReturnOffset
-      const returnWeight = options.presentation?.phaseCorrection ?? 0
-      supportPair.position.set(supportReturn ? supportReturn[0] * returnWeight : 0,
-        supportReturn ? supportReturn[1] * returnWeight : 0, supportReturn ? supportReturn[2] * returnWeight : 0)
-      datumRing.visible = schedule.datumPulseAlpha * context > 0
-      materialOpacity(datumMaterial, schedule.datumPulseAlpha * context)
-      const witnessIn = Math.max(0, Math.min(1, (frame.time - 38.2) / 0.3))
-      const witnessOut = Math.max(0, Math.min(1, (frame.time - 40.2) / 0.4))
-      const witnessAlpha = 0.18 * witnessIn * witnessIn * (3 - 2 * witnessIn)
-        * (1 - witnessOut * witnessOut * (3 - 2 * witnessOut)) * context
-      if (ringWitness) ringWitness.visible = witnessAlpha > 0
-      for (let i = 0; i < ringWitnessMaterials.length; i++) materialOpacity(ringWitnessMaterials[i], witnessAlpha)
-      const wipeZ = shaftMaxZ + (shaftMinZ - shaftMaxZ) * schedule.wipeProgress
-      wipeLegacy.constant = wipeZ; wipeApproved.constant = -wipeZ
-      // Remove the camera-facing half, retaining the far half and its darker backs.
-      // Study shaft axis is -Z, so the section plane uses only the radial XY direction.
-      sectionPlane.normal.set(camera.target.x - camera.position.x, camera.target.y - camera.position.y, 0).normalize()
-      // Three.js discards negative plane distance. New retains z>=wipeZ, old z<=wipeZ.
-      for (let partIndex = 0; partIndex < CLIPPED_PARTS.length; partIndex++) {
-        const name = CLIPPED_PARTS[partIndex]
-        const part = parts[name]; if (!part) continue
-        const planes = schedule.wipe ? name === 'legacyshaft' ? legacyWipePlanes : name === 'approvedshaft' ? approvedWipePlanes : noPlanes
-          : schedule.section && name !== 'legacyshaft' ? sectionPlanes : noPlanes
-        for (let i = 0; i < part.materials.length; i++) {
-          const material = part.materials[i]
-          if (material.clippingPlanes !== planes) { material.clippingPlanes = planes; material.needsUpdate = true }
-        }
-        for (let i = 0; i < part.caps.length; i++) part.caps[i].visible = schedule.section
-      }
-      stress.kind = script.stress; stress.mix = script.stressMix; stress.scanProgress = script.scanProgress
-      // The whole shaft carries the field (body blue, hotspot warm/blue); it spreads from the hotspot centre.
-      // The field covers the whole shaft so the solved colours are visible on
-      // the surface the owner is looking at; the hotspot stays at the measured
-      // groove floor and the body stays at the far-field value.
-      // Owner correction (2026-10-22): the band spans the gear, relief groove and the shoulder above it, in true
-      // study-root-local CAD millimetres (y = 0 at the pilot tip). The hotspot sits at the measured groove floor
-      // (legacy) or hob lead-out (revised) with no frame-offset fudge.
-      stress.yMin = 2.5; stress.yMax = 18; stress.rMax = 9
-      stress.centerY = script.stress === 'warm' ? FOS_CENTER_Y.attempt : FOS_CENTER_Y.revised
-      sampleFosPresentation(frame.time, script.stress, script.stressMix, fos)
-      stress.hotspotFos = fos.hotspot; stress.bodyFos = fos.body
-      let stressShaderReady = 0, overlayVisible = 0
-      for (let i = 0; i < bindings.length; i++) {
-        const binding = bindings[i]
-        writeProgressionUniforms(binding.uniforms, binding.kind === 'legacy' ? legacyState : approvedState, binding.kind,
-          binding.kind === 'approved' ? schedule.contactGlintYmm : 0, binding.kind === 'approved' ? schedule.contactGlintMix : 0)
-        // Warm geometry leaves only with the old shaft; cool belongs only to the revision.
-        stress.kind = binding.kind === 'legacy' && script.stress === 'warm' ? 'warm'
-          : binding.kind === 'approved' && script.stress === 'cool' ? 'cool' : 'none'
-        writeStressUniforms(binding.uniforms, stress)
-        if (binding.overlay) binding.overlay.visible = stress.kind !== 'none' && stress.mix > 0.001
-          && !schedule.wipe && !schedule.section
-        if (binding.overlay?.visible) overlayVisible++
-        if (binding.material.userData.jgunStressShader === true) stressShaderReady++
-        if (binding.kind === 'legacy') {
-          probe.stress.uniformKind = binding.uniforms.uStressKind.value
-          probe.stress.uniformMix = binding.uniforms.uStressMix.value
-          probe.stress.uniformScan = binding.uniforms.uStressScanProgress.value
-          probe.stress.uniformBodyFos = binding.uniforms.uStressBodyFos.value
-          probe.stress.uniformHotspotFos = binding.uniforms.uStressHotspotFos.value
-        }
-      }
-      probe.stress.shaderMaterials = bindings.length
-      probe.stress.shaderReady = stressShaderReady
-      probe.stress.overlayVisible = overlayVisible
-      placeShaper(shaper.root, kinematics); shaper.root.visible = schedule.shaper > 0
-      placeHob(hob.root, kinematics); hob.root.visible = schedule.hob > 0
-      materialOpacity(shaperMaterial, schedule.shaper); materialOpacity(shaperDetailMaterial, schedule.shaper * (kinematics.softened ? 0.25 : 1))
-      materialOpacity(shaperFlankMaterial, schedule.shaper * (kinematics.softened ? 0.25 : 1))
-      materialOpacity(hobMaterial, schedule.hob); materialOpacity(hobDetailMaterial, schedule.hob * (kinematics.softened ? 0.25 : 1))
-      materialOpacity(hobArborMaterial, schedule.hob)
-      shaftMmPoint(chip.position, kinematics.chipX, kinematics.chipY, kinematics.chipZ)
-      chip.rotation.set(Math.PI / 2, 0, kinematics.chipCurl); chip.scale.setScalar(0.6 + kinematics.chipCurl * 0.2)
-      const chipAlpha = kinematics.chipOpacity * schedule.shaper
-      chip.visible = chipAlpha > 0; materialOpacity(chipMaterial, chipAlpha)
-      const follow = kinematics.followAzimuth
-      shaftMetrePoint(key.position, 0.08 * Math.cos(follow) + 0.06 * Math.sin(follow), 0.1, 0.06 * Math.cos(follow) - 0.08 * Math.sin(follow))
-      const approach = Math.max(0, Math.min(1, (frame.time - 35) / 3.5))
-      const rake = follow + 0.48 * approach * approach * (3 - 2 * approach)
-      // Follow the active torque region once the preserved engagement is over.
-      const targetY = frame.time > 40.2 ? cameraSample.ty * 1000
-        : 12 - 5.8 * approach * approach * (3 - 2 * approach)
-      shaftMmPoint(key.target.position, 0, targetY, 0)
-      shaftMetrePoint(graze.position, -0.025 * Math.cos(rake) + 0.075 * Math.sin(rake), 0.02, 0.075 * Math.cos(rake) + 0.025 * Math.sin(rake))
-      shaftMmPoint(graze.target.position, 0, targetY, 0)
-      for (let i = 0; i < neighbours.length; i++) {
-        const neighbour = neighbours[i]
-        const angle = -schedule.finaleAngle * neighbour.ratio
-        const alpha = schedule.cascadeAlpha[neighbour.index] * context
-        const planetAlpha = schedule.cascadePlanetAlpha[neighbour.index] * context
-        // The carrier group remains the live orbit pivot while its cage meshes
-        // are transparent. Hiding that group would suppress the early planets.
-        neighbour.carrier.visible = alpha > 0 || planetAlpha > 0; neighbour.carrier.rotation.z = angle
-        neighbour.carrier.position.z = neighbour.baseZ + schedule.cascadeOffsetZ[neighbour.index]
-        for (let j = 0; j < neighbour.planets.length; j++) {
-          neighbour.planets[j].rotation.z = -angle * CASCADE_PLANET_MULTIPLIERS[neighbour.index]
-          neighbour.planets[j].visible = planetAlpha > 0
-          const materials = neighbour.planetMaterials[j]
-          for (let k = 0; k < materials.length; k++) materialOpacity(materials[k], planetAlpha)
-        }
-        for (let j = 0; j < neighbour.materials.length; j++) materialOpacity(neighbour.materials[j], alpha)
-      }
+    function attachPart(node: Object3D, name: string, kind?: ProgressionShaft): Part {
+      const group = new Group()
+      group.name = 'study-' + name
+      group.add(node)
+      ;(name === 'approvedbearing' || name === 'approvedring' ? supportPair : root).add(group)
+      const part: Part = { root: group, materials: [], caps: [], bindings: [] }
+      parts[name] = part
+      // Freeze the undeformed rest registration before sampling any spins/sections.
       root.updateWorldMatrix(true, true)
-    },
-    telemetry(out) {
-      if (disposed) return
-      out.phase = SHAFT_BEAT_LABELS[frame.phase] ?? frame.phase
-      let formed = 0, partial = 0
-      if (frame.time < 22.6) {
-        for (let i = 0; i < legacyState.spaceDepth.length; i++) {
-          if (legacyState.spaceDepth[i] >= 1) formed++
-          else if (legacyState.spaceDepth[i] > 0) partial++
+      // The host copies the world registration onto `root.matrix` every frame, possibly before this async attach runs.
+      // The shader frame is study-ROOT-local CAD millimetres, so strip the root's own world transform: otherwise the
+      // registration (-21.43 mm axial) is baked into uShaftMatrix and every y-gated feature (teeth, FEA band) shifts.
+      rootInverse.copy(root.matrixWorld).invert()
+      const meshToShaft = (mesh: Mesh) => matrix.multiplyMatrices(rootInverse, mesh.matrixWorld).premultiply(toShaft)
+      const meshes: Mesh[] = []
+      node.traverse((child) => {
+        if (child instanceof Mesh) meshes.push(child)
+      })
+      for (const mesh of meshes) {
+        if (kind) {
+          // S3: the exported shaft normals streak across sliver fans; rebuild them creased + angle-weighted (see normalRepair.ts).
+          const original = mesh.geometry
+          mesh.geometry = creasedNormals(original, 40, meshToShaft(mesh)).geometry
+          ownedGeometry.delete(original)
+          ownedGeometry.add(mesh.geometry)
+          original.dispose()
         }
-      } else if (frame.time >= 32) formed = 10
-      else if (approvedState.hobYc > FACE_START_MM) partial = 10
-      probe.teethFormed = formed; probe.teethPartial = partial
-      probe.cutter.visible = schedule.shaper > 0; probe.cutter.stroke = kinematics.strokeCentreY
-      probe.cutter.infeed = kinematics.cutterRho; probe.cutter.rotation = kinematics.cutterPhi; probe.cutter.softened = kinematics.softened
-      probe.hob.visible = schedule.hob > 0; probe.hob.feed = kinematics.hobYc; probe.hob.rotation = kinematics.hobPhi; probe.hob.softened = kinematics.softened
-      probe.card.id = script.card; probe.card.stamp = script.stamp
-      probe.stress.kind = script.stress; probe.stress.mix = script.stressMix
-      probe.stress.scanProgress = script.scanProgress
-      probe.supports.deltaYmm = supportDeltaYmm; probe.supports.witnesses = loaded && schedule.witnesses
-      probe.supports.endpointHeld = loaded && schedule.endpointHeld
-      probe.finale.assembled = loaded && !probe.finale.missingCarriers && frame.time >= shaftStory.duration
-      probe.finale.shaftCount = loaded ? (schedule.legacyShaft > 0 ? 1 : 0) + (schedule.approvedShaft > 0 ? 1 : 0) : 0
-      // These bundles expose an unsplit bearing: do not claim an animated inner race.
-      probe.finale.racesFollow = false
-      probe.finale.ringFollowsShaft = loaded && frame.time >= 38.5
-      // Authored drive before the parent's held endpoint registration correction.
-      probe.finale.driveAngle = schedule.finaleAngle
-      probe.finale.driveRate = schedule.finaleDriveRate
-      probe.finale.inputRpm = schedule.finaleDriveRate * SUN_TO_STAGE1_CARRIER_RATIO * 60 / (2 * Math.PI)
-      probe.finale.correctedDriveAngle = schedule.finaleAngle
-      probe.finale.correctionSlope = 0
-      probe.narrative.alpha = frame.narrativeAlpha
-      probe.stage1.slideProgress = schedule.stage1SlideProgress
-      probe.stage1.bulletTimeActive = schedule.bulletTimeActive
-      probe.stage1.datumPulseAlpha = datumMaterial.opacity
-      probe.stage1.housingGhostAlpha = schedule.housingGhostAlpha * (options.presentation?.contextOpacity ?? 1)
-      probe.stage1.section = schedule.section
-      probe.stage1.legacyHousingAlpha = parts.legacyhousing?.materials[0]?.opacity ?? 0
-      probe.stage1.legacyBearingAlpha = parts.legacybearing?.materials[0]?.opacity ?? 0
-      probe.stage1.legacyRingAlpha = parts.legacyring?.materials[0]?.opacity ?? 0
-      probe.stage1.sunRotZ = parts.approvedshaft?.root.rotation.z ?? 0
-      probe.stage1.housingWitnessAlpha = ringWitnessMaterials[0]?.opacity ?? 0
-      for (let i = 0; i < bindings.length; i++) {
-        if (bindings[i].kind !== 'approved') continue
-        probe.stage1.contactGlintYmm = bindings[i].uniforms.uAxialContactY.value
-        probe.stage1.contactGlintMix = bindings[i].uniforms.uAxialContactMix.value
-        break
-      }
-      for (let i = 0; i < neighbours.length; i++) {
-        const unit = neighbours[i], index = unit.index
-        probe.stage1.cascadeAlpha[index] = unit.materials[0]?.opacity ?? 0
-        probe.stage1.cascadePlanetAlpha[index] = unit.planetMaterials[0]?.[0]?.opacity ?? 0
-        probe.stage1.cascadeOffsetZ[index] = unit.carrier.position.z - unit.baseZ
-        probe.stage1.cascadeRotZ[index] = unit.carrier.rotation.z
-        for (let j = 0; j < unit.planets.length; j++) probe.stage1.cascadePlanetRotZ[index][j] = unit.planets[j].rotation.z
-        if (index === 0) {
-          probe.stage1.carrierZ = unit.carrier.position.z
-          probe.stage1.carrierRotZ = unit.carrier.rotation.z
-          probe.stage1.planetRotZ = unit.planets[0]?.rotation.z ?? 0
+        const material = steel.clone()
+        if (name.includes('housing')) {
+          material.color.set('#040404')
+          material.roughness = 0.4
+        }
+        ownedMaterials.add(material)
+        part.materials.push(material)
+        mesh.material = material
+        let uniforms: ProgressionUniforms | undefined
+        if (kind) {
+          uniforms = createProgressionUniforms()
+          setShaftTransform(uniforms, meshToShaft(mesh))
+          applyProgression(material, uniforms)
+          const binding: ProgressionBinding = { uniforms, kind, material, overlay: null }
+          bindings.push(binding)
+          part.bindings.push(binding)
+          const overlayMaterial = makeStressOverlayMaterial(uniforms)
+          ownedMaterials.add(overlayMaterial)
+          // The overlay must be a SIBLING of the shaft mesh carrying the same
+          // transform: as a child it would receive the mesh transform twice and
+          // draw away from the surface it colours.
+          const overlay = new Mesh(mesh.geometry, overlayMaterial)
+          overlay.name = 'study-stress-surface'
+          overlay.frustumCulled = false
+          overlay.renderOrder = 3
+          overlay.visible = false
+          overlay.position.copy(mesh.position)
+          overlay.quaternion.copy(mesh.quaternion)
+          overlay.scale.copy(mesh.scale)
+          mesh.parent?.add(overlay)
+          binding.overlay = overlay
+          resources.meshes++
+        }
+        if (name === 'approvedshaft' || name === 'housing') {
+          // Darker clipped back faces suggest section walls. No CSG or fabricated solid cap.
+          const capMaterial = steel.clone()
+          capMaterial.side = BackSide
+          capMaterial.color.set('#262c32')
+          capMaterial.roughness = 0.65
+          capMaterial.clippingPlanes = sectionPlanes
+          if (uniforms) applyProgression(capMaterial, uniforms)
+          ownedMaterials.add(capMaterial)
+          const cap = new Mesh(mesh.geometry, capMaterial)
+          cap.name = 'study-section-backface'
+          cap.position.copy(mesh.position)
+          cap.quaternion.copy(mesh.quaternion)
+          cap.scale.copy(mesh.scale)
+          mesh.parent?.add(cap)
+          cap.visible = false
+          part.caps.push(cap)
+          resources.meshes++
         }
       }
-      const phase = 10 * (probe.stage1.sunRotZ - probe.stage1.carrierRotZ) + 12 * probe.stage1.planetRotZ
-      const reference = -10 * approvedShaftBaseAngle(frame.time, kinematics.hobWorkPhi)
-      probe.stage1.meshPhaseError = Math.abs(phase - reference)
-      probe.stage1.gearMeshClean = loaded && probe.stage1.cascadePresent[0]
-        && frame.time >= 38.5 && probe.stage1.meshPhaseError < 1e-4
-      out.shaft = probe; out.resources = resources
-    },
-    dispose() {
-      // Do not terminate a pending Draco parse: worker disposal would strand its
-      // promise. ready's finally releases it after stale parsed assets are cleaned up.
-      disposeAll()
-    },
-  }
-  census(); runtime.sample(0); runtime.apply()
+      return part
+    }
+
+    function cloneNeighbours(): void {
+      const rig = ctx.rig as Partial<WrenchRig> | null
+      if (!rig?.stages || !rig.basePositions) return
+      const modelFrame = new Group()
+      modelFrame.name = 'study-narrative-rest-registration'
+      modelFrame.matrixAutoUpdate = false
+      narrativeModelToStudy(modelFrame.matrix)
+      // Carrier pivots and baked merged geometry are gearbox-local, not model-local.
+      if (rig.gearboxRoot) {
+        const gearboxLocal = new Matrix4().compose(
+          rig.gearboxRoot.position,
+          rig.gearboxRoot.quaternion,
+          rig.gearboxRoot.scale,
+        )
+        modelFrame.matrix.multiply(gearboxLocal)
+      }
+      root.add(modelFrame)
+      for (let index = 0; index < DRIVELINE_CASCADE_ORDER.length; index++) {
+        const id = DRIVELINE_CASCADE_ORDER[index]
+        const stage = id.startsWith('stage') ? rig.stages[id as StageId] : undefined
+        const source =
+          stage?.carrier ??
+          (id === 'bearing'
+            ? rig.bearing
+            : id === 'output'
+              ? rig.outputShaft
+              : id === 'outerHousing'
+                ? rig.housing
+                : null)
+        if (!source) continue
+        const base = rig.basePositions.get(source) ?? source.position
+        const carrier = source.clone(true)
+        carrier.userData.stage1CascadeIndex = index
+        carrier.position.copy(base)
+        carrier.rotation.set(0, 0, 0)
+        carrier.visible = false
+        // Materials are shared by PBR role in the source rig. Each reveal unit must
+        // own its own clone map or one unit's opacity would overwrite another's.
+        const materialClones = new Map<Material, Material>()
+        const sourceTree: Object3D[] = [],
+          cloneTree: Object3D[] = []
+        source.traverse((child) => sourceTree.push(child))
+        carrier.traverse((child) => cloneTree.push(child))
+        const planets: Object3D[] = []
+        for (const planet of stage?.planets ?? []) {
+          const i = sourceTree.indexOf(planet)
+          if (i >= 0) {
+            cloneTree[i].rotation.set(0, 0, 0)
+            // Stable CAD membership survives merged meshes with empty names.
+            // The owning Stage 1 unit authenticates these as its P000247 parts.
+            cloneTree[i].userData.studyPlanetOccurrence = planets.length
+            planets.push(cloneTree[i])
+          }
+        }
+        const materials: Material[] = []
+        // Separate maps for every planet occurrence, even when the source uses
+        // one shared PBR role for both cage and planets. Setup-only allocations.
+        const planetClones = planets.map(() => new Map<Material, Material>())
+        const planetMaterials: Material[][] = planets.map(() => [])
+        const membership = {
+          unit: id,
+          carrierMeshes: 0,
+          carrierMaterials: 0,
+          planets: planets.map((planet) => ({ name: planet.name, meshes: 0, materials: 0 })),
+        }
+        carrier.traverse((child) => {
+          child.visible = true
+          if (!(child instanceof Mesh)) return
+          let ancestor: Object3D | null = child,
+            planetIndex = -1
+          while (ancestor && ancestor !== carrier && planetIndex < 0) {
+            planetIndex = planets.indexOf(ancestor)
+            ancestor = ancestor.parent
+          }
+          const clones = planetIndex >= 0 ? planetClones[planetIndex] : materialClones
+          const owned = planetIndex >= 0 ? planetMaterials[planetIndex] : materials
+          if (planetIndex >= 0) membership.planets[planetIndex].meshes++
+          else membership.carrierMeshes++
+          const cloneMaterial = (original: Material): Material => {
+            let material = clones.get(original)
+            if (!material) {
+              material = original.clone()
+              // A narrative shader callback may own cached, mutable hero uniforms.
+              // The study keeps PBR fields/textures; it does not copy that callback.
+              material.onBeforeCompile = Material.prototype.onBeforeCompile
+              material.customProgramCacheKey = Material.prototype.customProgramCacheKey
+              if (id === 'outerHousing' && material instanceof MeshStandardMaterial) {
+                material.color.set('#040404')
+                material.roughness = 0.4
+                material.normalMap = null
+                material.bumpMap = null
+              }
+              clones.set(original, material)
+              ownedMaterials.add(material)
+            }
+            if (!owned.includes(material)) owned.push(material)
+            return material
+          }
+          child.material = Array.isArray(child.material)
+            ? child.material.map(cloneMaterial)
+            : cloneMaterial(child.material)
+        })
+        carrier.visible = false
+        modelFrame.add(carrier)
+        collect(carrier, true)
+        neighbours.push({
+          carrier,
+          planets,
+          ratio: CASCADE_RATIOS[index],
+          materials,
+          planetMaterials,
+          index,
+          baseZ: base.z,
+        })
+        probe.stage1.cascadePlanetRotZ[index] = planets.map(() => 0)
+        membership.carrierMaterials = materials.length
+        for (let i = 0; i < planets.length; i++) membership.planets[i].materials = planetMaterials[i].length
+        probe.stage1.cascadeMembership.push(membership)
+        probe.stage1.cascadePresent[index] = true
+        if (id === 'outerHousing') {
+          // A stationary, seated ring-gear witness supplies context during the
+          // tooth-push macro; the separate seated shell fades after the output.
+          ringWitness = carrier.clone(true)
+          ringWitness.name = 'stage1-stationary-ring-witness'
+          ringWitness.traverse((child) => {
+            if (!(child instanceof Mesh)) return
+            const originals = Array.isArray(child.material) ? child.material : [child.material]
+            const clones = originals.map((material) => {
+              const clone = material.clone()
+              ownedMaterials.add(clone)
+              ringWitnessMaterials.push(clone)
+              return clone
+            })
+            child.material = Array.isArray(child.material) ? clones : clones[0]
+          })
+          modelFrame.add(ringWitness)
+          collect(ringWitness, true)
+        }
+      }
+      probe.finale.carrierCount = neighbours.filter((unit) => unit.planets.length > 0).length
+      probe.finale.missingCarriers = probe.finale.carrierCount !== STAGE_IDS.length
+      if (neighbours.length > 0) releaseShared = session.borrowShared('shaft-finale-carriers')
+    }
+
+    const ready = (async () => {
+      if (disposed || !session.current()) return
+      const asset = shaftStory.assets.find((candidate) => candidate.tier === ctx.tier)
+      if (!asset) throw new Error('Missing shaft tier asset')
+      const url = `${import.meta.env.BASE_URL}${asset.url}`
+      const response = await fetch(url, { signal: session.signal })
+      if (disposed || !session.current()) return
+      if (!response.ok) throw new Error(`Shaft download failed (${response.status})`)
+      const data = await response.arrayBuffer()
+      if (disposed || !session.current()) return
+      if (data.byteLength > asset.maxBytes) throw new Error('Shaft bundle exceeds declared byte limit')
+      const doc = readShaftBundleDocument(data)
+      supportDeltaYmm = measureSupportDelta(doc, delta)
+      const shaftBounds = exportedNodeBounds(doc, 'approvedshaft', new Box3())
+      shaftMinZ = shaftBounds.min.z
+      shaftMaxZ = shaftBounds.max.z
+      draco = new DRACOLoader().setDecoderPath(`${import.meta.env.BASE_URL}draco/`)
+      const loader = new GLTFLoader().setDRACOLoader(draco)
+      const gltf = await loader.parseAsync(data, url.slice(0, url.lastIndexOf('/') + 1))
+      if (disposed || !session.current()) {
+        // A parse cannot be aborted; release its unmounted results, including after cancel.
+        const geometries = new Set<BufferGeometry>(),
+          materials = new Set<Material>(),
+          textures = new Set<Texture>()
+        gltf.scene.traverse((child) => {
+          if (!(child instanceof Mesh)) return
+          geometries.add(child.geometry)
+          for (const material of Array.isArray(child.material) ? child.material : [child.material]) {
+            materials.add(material)
+            for (const value of Object.values(material))
+              if (value && typeof value === 'object' && 'isTexture' in value) textures.add(value as Texture)
+          }
+        })
+        const failures: ShaftCleanupFailure[] = []
+        geometries.forEach((value) => attempt('stale-geometry', () => value.dispose(), failures))
+        materials.forEach((value) => attempt('stale-material', () => value.dispose(), failures))
+        textures.forEach((value) => attempt('stale-texture', () => value.dispose(), failures))
+        if (failures.length) {
+          try {
+            options.onCleanupFailure?.(Object.freeze(failures))
+          } catch {
+            /* Late cleanup still completed. */
+          }
+        }
+        return
+      }
+      collect(gltf.scene)
+      const names = [
+        'legacyshaft',
+        'approvedshaft',
+        'legacybearing',
+        'legacyring',
+        'approvedbearing',
+        'approvedring',
+      ] as const
+      for (const name of names) {
+        const node = gltf.scene.getObjectByName(name)
+        if (!node) throw new Error('Missing shaft bundle node: ' + name)
+        attachPart(node, name, name === 'legacyshaft' ? 'legacy' : name === 'approvedshaft' ? 'approved' : undefined)
+      }
+      const housing = gltf.scene.getObjectByName('approvedhousing') ?? gltf.scene.getObjectByName('housing')
+      if (!housing) throw new Error('Missing approvedhousing/housing')
+      probe.nodes.housing = housing.name
+      attachPart(housing, 'housing')
+      const legacyHousing = gltf.scene.getObjectByName('legacyhousing')
+      if (legacyHousing) {
+        probe.nodes.legacyHousing = legacyHousing.name
+        probe.nodes.legacyHousingPresent = true
+        attachPart(legacyHousing, 'legacyhousing')
+      }
+      cloneNeighbours()
+      census()
+      loaded = true
+      // Preserve a seek issued during loading, applying only after registration is complete.
+      runtime.apply()
+    })()
+      .catch((error) => {
+        if (!disposed && session.current()) {
+          session.fail(error)
+          runtime.dispose()
+          throw error
+        }
+      })
+      .finally(() => {
+        draco?.dispose()
+        draco = null
+      })
+
+    runtime = {
+      root,
+      ready,
+      frame,
+      camera,
+      render,
+      resources,
+      stressProbe,
+      stressCapture,
+      contactCapture,
+      sample(time) {
+        if (disposed) return
+        sampleShaftSchedule(time, schedule)
+        const t = schedule.time
+        sampleShaftKinematics(t, kinematics)
+        sampleShaftScript(t, false, script)
+        writeShaftProgression(kinematics, legacyState)
+        writeShaftProgression(kinematics, approvedState)
+        // Kinematics mode='none' outside cutting; explicitly preserve the appropriate stock.
+        legacyState.mode = 'shaping'
+        if (t < 2) {
+          legacyState.spaceDepth.fill(0)
+          legacyState.engagedSpace = -1
+        }
+        if (t >= 15) {
+          legacyState.spaceDepth.fill(1)
+          legacyState.engagedSpace = -1
+        }
+        approvedState.mode = t < 32 ? 'hobbing' : 'none'
+        if (t < 25) {
+          approvedState.hobYc = HOB_INFEED_YC_MM
+          approvedState.hobA = HOB_VISUAL_A_MM + HOB_RETRACT_MM
+          approvedState.hobR = HOB_VISUAL_R_MM
+        }
+        frame.time = t
+        frame.phase = schedule.beat
+        frame.discrete = schedule.beatIndex
+        frame.chapter = t < 15 ? 0 : t < 22.6 ? 1 : t < 35 ? 2 : 3
+        frame.narrativeAlpha = options.presentation?.narrativeAlpha ?? schedule.narrativeAlpha
+        frame.ownsNarrative = true
+        frame.returnBlend = 0
+        sampleShaftCamera(t, ctx.aspect, kinematics, cameraSample)
+        shaftMetrePoint(camera.position, cameraSample.px, cameraSample.py, cameraSample.pz)
+        shaftMetrePoint(camera.target, cameraSample.tx, cameraSample.ty, cameraSample.tz)
+        shaftMetrePoint(camera.up, cameraSample.ux, cameraSample.uy, cameraSample.uz).normalize()
+        camera.fov = cameraSample.fov
+        camera.valid = cameraSample.valid
+        render.envRotationY = 0 // local lights carry the authored frame-follow reflection.
+      },
+      apply() {
+        if (disposed) return
+        root.visible = true
+        partOpacity(
+          parts.legacyshaft,
+          options.presentation?.entryOpaque && frame.time <= 1.2 ? 1 : schedule.legacyShaft,
+        )
+        partOpacity(parts.approvedshaft, schedule.approvedShaft)
+        const context = options.presentation?.contextOpacity ?? 1
+        partOpacity(parts.housing, schedule.housing * context)
+        partOpacity(parts.legacyhousing, schedule.legacyHousing * context)
+        partOpacity(parts.legacybearing, schedule.legacyBearing * context)
+        partOpacity(parts.legacyring, schedule.legacyRing * context)
+        partOpacity(parts.approvedbearing, schedule.approvedBearing * context)
+        partOpacity(parts.approvedring, schedule.approvedRing * context)
+        const legacyAngle = legacyShaftAngle(frame.time, kinematics.workPhi)
+        const approvedBaseAngle = approvedShaftBaseAngle(frame.time, kinematics.hobWorkPhi)
+        const approvedAngle = approvedBaseAngle + schedule.finaleAngle * SUN_TO_STAGE1_CARRIER_RATIO
+        if (parts.legacyshaft) parts.legacyshaft.root.rotation.z = -legacyAngle
+        // The source inherits this exact common phase and fixed tooth index.
+        // phaseCorrection owns support translation only; visible gears never rewind.
+        const correctedShaftAngle = -approvedAngle
+        if (parts.approvedshaft) parts.approvedshaft.root.rotation.z = correctedShaftAngle
+        if (parts.approvedring) parts.approvedring.root.rotation.z = frame.time >= 38.5 ? correctedShaftAngle : 0
+        // Unsplit bearing stays fixed; only an authenticated separable inner race may spin.
+        const supportReturn = options.presentation?.supportReturnOffset
+        const returnWeight = options.presentation?.phaseCorrection ?? 0
+        supportPair.position.set(
+          supportReturn ? supportReturn[0] * returnWeight : 0,
+          supportReturn ? supportReturn[1] * returnWeight : 0,
+          supportReturn ? supportReturn[2] * returnWeight : 0,
+        )
+        datumRing.visible = schedule.datumPulseAlpha * context > 0
+        materialOpacity(datumMaterial, schedule.datumPulseAlpha * context)
+        const witnessIn = Math.max(0, Math.min(1, (frame.time - 38.2) / 0.3))
+        const witnessOut = Math.max(0, Math.min(1, (frame.time - 40.2) / 0.4))
+        const witnessAlpha =
+          0.18 *
+          witnessIn *
+          witnessIn *
+          (3 - 2 * witnessIn) *
+          (1 - witnessOut * witnessOut * (3 - 2 * witnessOut)) *
+          context
+        if (ringWitness) ringWitness.visible = witnessAlpha > 0
+        for (let i = 0; i < ringWitnessMaterials.length; i++) materialOpacity(ringWitnessMaterials[i], witnessAlpha)
+        const wipeZ = shaftMaxZ + (shaftMinZ - shaftMaxZ) * schedule.wipeProgress
+        wipeLegacy.constant = wipeZ
+        wipeApproved.constant = -wipeZ
+        // Remove the camera-facing half, retaining the far half and its darker backs.
+        // Study shaft axis is -Z, so the section plane uses only the radial XY direction.
+        sectionPlane.normal.set(camera.target.x - camera.position.x, camera.target.y - camera.position.y, 0).normalize()
+        // Three.js discards negative plane distance. New retains z>=wipeZ, old z<=wipeZ.
+        for (let partIndex = 0; partIndex < CLIPPED_PARTS.length; partIndex++) {
+          const name = CLIPPED_PARTS[partIndex]
+          const part = parts[name]
+          if (!part) continue
+          const planes = schedule.wipe
+            ? name === 'legacyshaft'
+              ? legacyWipePlanes
+              : name === 'approvedshaft'
+                ? approvedWipePlanes
+                : noPlanes
+            : schedule.section && name !== 'legacyshaft'
+              ? sectionPlanes
+              : noPlanes
+          for (let i = 0; i < part.materials.length; i++) {
+            const material = part.materials[i]
+            if (material.clippingPlanes !== planes) {
+              material.clippingPlanes = planes
+              material.needsUpdate = true
+            }
+          }
+          for (let i = 0; i < part.caps.length; i++) part.caps[i].visible = schedule.section
+        }
+        stress.kind = script.stress
+        stress.mix = script.stressMix
+        stress.scanProgress = script.scanProgress
+        // The whole shaft carries the field (body blue, hotspot warm/blue); it spreads from the hotspot centre.
+        // The field covers the whole shaft so the solved colours are visible on
+        // the surface the owner is looking at; the hotspot stays at the measured
+        // groove floor and the body stays at the far-field value.
+        // Owner correction (2026-10-22): the band spans the gear, relief groove and the shoulder above it, in true
+        // study-root-local CAD millimetres (y = 0 at the pilot tip). The hotspot sits at the measured groove floor
+        // (legacy) or hob lead-out (revised) with no frame-offset fudge.
+        stress.yMin = 2.5
+        stress.yMax = 18
+        stress.rMax = 9
+        stress.centerY = script.stress === 'warm' ? FOS_CENTER_Y.attempt : FOS_CENTER_Y.revised
+        sampleFosPresentation(frame.time, script.stress, script.stressMix, fos)
+        stress.hotspotFos = fos.hotspot
+        stress.bodyFos = fos.body
+        let stressShaderReady = 0,
+          overlayVisible = 0
+        for (let i = 0; i < bindings.length; i++) {
+          const binding = bindings[i]
+          writeProgressionUniforms(
+            binding.uniforms,
+            binding.kind === 'legacy' ? legacyState : approvedState,
+            binding.kind,
+            binding.kind === 'approved' ? schedule.contactGlintYmm : 0,
+            binding.kind === 'approved' ? schedule.contactGlintMix : 0,
+          )
+          // Warm geometry leaves only with the old shaft; cool belongs only to the revision.
+          stress.kind =
+            binding.kind === 'legacy' && script.stress === 'warm'
+              ? 'warm'
+              : binding.kind === 'approved' && script.stress === 'cool'
+                ? 'cool'
+                : 'none'
+          writeStressUniforms(binding.uniforms, stress)
+          if (binding.overlay)
+            binding.overlay.visible =
+              stress.kind !== 'none' && stress.mix > 0.001 && !schedule.wipe && !schedule.section
+          if (binding.overlay?.visible) overlayVisible++
+          if (binding.material.userData.jgunStressShader === true) stressShaderReady++
+          if (binding.kind === 'legacy') {
+            probe.stress.uniformKind = binding.uniforms.uStressKind.value
+            probe.stress.uniformMix = binding.uniforms.uStressMix.value
+            probe.stress.uniformScan = binding.uniforms.uStressScanProgress.value
+            probe.stress.uniformBodyFos = binding.uniforms.uStressBodyFos.value
+            probe.stress.uniformHotspotFos = binding.uniforms.uStressHotspotFos.value
+          }
+        }
+        probe.stress.shaderMaterials = bindings.length
+        probe.stress.shaderReady = stressShaderReady
+        probe.stress.overlayVisible = overlayVisible
+        placeShaper(shaper.root, kinematics)
+        shaper.root.visible = schedule.shaper > 0
+        placeHob(hob.root, kinematics)
+        hob.root.visible = schedule.hob > 0
+        materialOpacity(shaperMaterial, schedule.shaper)
+        materialOpacity(shaperDetailMaterial, schedule.shaper * (kinematics.softened ? 0.25 : 1))
+        materialOpacity(shaperFlankMaterial, schedule.shaper * (kinematics.softened ? 0.25 : 1))
+        materialOpacity(hobMaterial, schedule.hob)
+        materialOpacity(hobDetailMaterial, schedule.hob * (kinematics.softened ? 0.25 : 1))
+        materialOpacity(hobArborMaterial, schedule.hob)
+        shaftMmPoint(chip.position, kinematics.chipX, kinematics.chipY, kinematics.chipZ)
+        chip.rotation.set(Math.PI / 2, 0, kinematics.chipCurl)
+        chip.scale.setScalar(0.6 + kinematics.chipCurl * 0.2)
+        const chipAlpha = kinematics.chipOpacity * schedule.shaper
+        chip.visible = chipAlpha > 0
+        materialOpacity(chipMaterial, chipAlpha)
+        const follow = kinematics.followAzimuth
+        shaftMetrePoint(
+          key.position,
+          0.08 * Math.cos(follow) + 0.06 * Math.sin(follow),
+          0.1,
+          0.06 * Math.cos(follow) - 0.08 * Math.sin(follow),
+        )
+        const approach = Math.max(0, Math.min(1, (frame.time - 35) / 3.5))
+        const rake = follow + 0.48 * approach * approach * (3 - 2 * approach)
+        // Follow the active torque region once the preserved engagement is over.
+        const targetY = frame.time > 40.2 ? cameraSample.ty * 1000 : 12 - 5.8 * approach * approach * (3 - 2 * approach)
+        shaftMmPoint(key.target.position, 0, targetY, 0)
+        shaftMetrePoint(
+          graze.position,
+          -0.025 * Math.cos(rake) + 0.075 * Math.sin(rake),
+          0.02,
+          0.075 * Math.cos(rake) + 0.025 * Math.sin(rake),
+        )
+        shaftMmPoint(graze.target.position, 0, targetY, 0)
+        for (let i = 0; i < neighbours.length; i++) {
+          const neighbour = neighbours[i]
+          const angle = -schedule.finaleAngle * neighbour.ratio
+          const alpha = schedule.cascadeAlpha[neighbour.index] * context
+          const planetAlpha = schedule.cascadePlanetAlpha[neighbour.index] * context
+          // The carrier group remains the live orbit pivot while its cage meshes
+          // are transparent. Hiding that group would suppress the early planets.
+          neighbour.carrier.visible = alpha > 0 || planetAlpha > 0
+          neighbour.carrier.rotation.z = angle
+          neighbour.carrier.position.z = neighbour.baseZ + schedule.cascadeOffsetZ[neighbour.index]
+          for (let j = 0; j < neighbour.planets.length; j++) {
+            neighbour.planets[j].rotation.z = -angle * CASCADE_PLANET_MULTIPLIERS[neighbour.index]
+            neighbour.planets[j].visible = planetAlpha > 0
+            const materials = neighbour.planetMaterials[j]
+            for (let k = 0; k < materials.length; k++) materialOpacity(materials[k], planetAlpha)
+          }
+          for (let j = 0; j < neighbour.materials.length; j++) materialOpacity(neighbour.materials[j], alpha)
+        }
+        root.updateWorldMatrix(true, true)
+      },
+      telemetry(out) {
+        if (disposed) return
+        out.phase = SHAFT_BEAT_LABELS[frame.phase] ?? frame.phase
+        let formed = 0,
+          partial = 0
+        if (frame.time < 22.6) {
+          for (let i = 0; i < legacyState.spaceDepth.length; i++) {
+            if (legacyState.spaceDepth[i] >= 1) formed++
+            else if (legacyState.spaceDepth[i] > 0) partial++
+          }
+        } else if (frame.time >= 32) formed = 10
+        else if (approvedState.hobYc > FACE_START_MM) partial = 10
+        probe.teethFormed = formed
+        probe.teethPartial = partial
+        probe.cutter.visible = schedule.shaper > 0
+        probe.cutter.stroke = kinematics.strokeCentreY
+        probe.cutter.infeed = kinematics.cutterRho
+        probe.cutter.rotation = kinematics.cutterPhi
+        probe.cutter.softened = kinematics.softened
+        probe.hob.visible = schedule.hob > 0
+        probe.hob.feed = kinematics.hobYc
+        probe.hob.rotation = kinematics.hobPhi
+        probe.hob.softened = kinematics.softened
+        probe.card.id = script.card
+        probe.card.stamp = script.stamp
+        probe.stress.kind = script.stress
+        probe.stress.mix = script.stressMix
+        probe.stress.scanProgress = script.scanProgress
+        probe.supports.deltaYmm = supportDeltaYmm
+        probe.supports.witnesses = loaded && schedule.witnesses
+        probe.supports.endpointHeld = loaded && schedule.endpointHeld
+        probe.finale.assembled = loaded && !probe.finale.missingCarriers && frame.time >= shaftStory.duration
+        probe.finale.shaftCount = loaded ? (schedule.legacyShaft > 0 ? 1 : 0) + (schedule.approvedShaft > 0 ? 1 : 0) : 0
+        // These bundles expose an unsplit bearing: do not claim an animated inner race.
+        probe.finale.racesFollow = false
+        probe.finale.ringFollowsShaft = loaded && frame.time >= 38.5
+        // Authored drive before the parent's held endpoint registration correction.
+        probe.finale.driveAngle = schedule.finaleAngle
+        probe.finale.driveRate = schedule.finaleDriveRate
+        probe.finale.inputRpm = (schedule.finaleDriveRate * SUN_TO_STAGE1_CARRIER_RATIO * 60) / (2 * Math.PI)
+        probe.finale.correctedDriveAngle = schedule.finaleAngle
+        probe.finale.correctionSlope = 0
+        probe.narrative.alpha = frame.narrativeAlpha
+        probe.stage1.slideProgress = schedule.stage1SlideProgress
+        probe.stage1.bulletTimeActive = schedule.bulletTimeActive
+        probe.stage1.datumPulseAlpha = datumMaterial.opacity
+        probe.stage1.housingGhostAlpha = schedule.housingGhostAlpha * (options.presentation?.contextOpacity ?? 1)
+        probe.stage1.section = schedule.section
+        probe.stage1.legacyHousingAlpha = parts.legacyhousing?.materials[0]?.opacity ?? 0
+        probe.stage1.legacyBearingAlpha = parts.legacybearing?.materials[0]?.opacity ?? 0
+        probe.stage1.legacyRingAlpha = parts.legacyring?.materials[0]?.opacity ?? 0
+        probe.stage1.sunRotZ = parts.approvedshaft?.root.rotation.z ?? 0
+        probe.stage1.housingWitnessAlpha = ringWitnessMaterials[0]?.opacity ?? 0
+        for (let i = 0; i < bindings.length; i++) {
+          if (bindings[i].kind !== 'approved') continue
+          probe.stage1.contactGlintYmm = bindings[i].uniforms.uAxialContactY.value
+          probe.stage1.contactGlintMix = bindings[i].uniforms.uAxialContactMix.value
+          break
+        }
+        for (let i = 0; i < neighbours.length; i++) {
+          const unit = neighbours[i],
+            index = unit.index
+          probe.stage1.cascadeAlpha[index] = unit.materials[0]?.opacity ?? 0
+          probe.stage1.cascadePlanetAlpha[index] = unit.planetMaterials[0]?.[0]?.opacity ?? 0
+          probe.stage1.cascadeOffsetZ[index] = unit.carrier.position.z - unit.baseZ
+          probe.stage1.cascadeRotZ[index] = unit.carrier.rotation.z
+          for (let j = 0; j < unit.planets.length; j++)
+            probe.stage1.cascadePlanetRotZ[index][j] = unit.planets[j].rotation.z
+          if (index === 0) {
+            probe.stage1.carrierZ = unit.carrier.position.z
+            probe.stage1.carrierRotZ = unit.carrier.rotation.z
+            probe.stage1.planetRotZ = unit.planets[0]?.rotation.z ?? 0
+          }
+        }
+        const phase = 10 * (probe.stage1.sunRotZ - probe.stage1.carrierRotZ) + 12 * probe.stage1.planetRotZ
+        const reference = -10 * approvedShaftBaseAngle(frame.time, kinematics.hobWorkPhi)
+        probe.stage1.meshPhaseError = Math.abs(phase - reference)
+        probe.stage1.gearMeshClean =
+          loaded && probe.stage1.cascadePresent[0] && frame.time >= 38.5 && probe.stage1.meshPhaseError < 1e-4
+        out.shaft = probe
+        out.resources = resources
+      },
+      dispose() {
+        // Do not terminate a pending Draco parse: worker disposal would strand its
+        // promise. ready's finally releases it after stale parsed assets are cleaned up.
+        disposeAll()
+      },
+    }
+    census()
+    runtime.sample(0)
+    runtime.apply()
   } catch (error) {
     disposeAll()
     throw error

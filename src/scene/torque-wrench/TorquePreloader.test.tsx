@@ -1,17 +1,13 @@
 import { describe, expect, it } from 'vitest'
 import { renderToStaticMarkup } from 'react-dom/server'
-import {
-  TorquePreloader,
-  getPreloaderProgressColor,
-  getPreloaderGlow,
-} from './TorquePreloader'
+import { TorquePreloader, getPreloaderProgressColor, getPreloaderGlow } from './TorquePreloader'
 
 describe('TorquePreloader', () => {
   describe('Color transition between orange and blue around halfway', () => {
     it('returns orange (#f0703a) in the first half below 0.42', () => {
       expect(getPreloaderProgressColor(0)).toBe('#f0703a')
       expect(getPreloaderProgressColor(0.25)).toBe('#f0703a')
-      expect(getPreloaderProgressColor(0.40)).toBe('#f0703a')
+      expect(getPreloaderProgressColor(0.4)).toBe('#f0703a')
       expect(getPreloaderProgressColor(0.42)).toBe('#f0703a')
     })
 
@@ -22,7 +18,7 @@ describe('TorquePreloader', () => {
     })
 
     it('interpolates smoothly between orange and blue around 0.50', () => {
-      const mid = getPreloaderProgressColor(0.50)
+      const mid = getPreloaderProgressColor(0.5)
       expect(mid).toMatch(/^rgb\(\d+,\s*\d+,\s*\d+\)$/)
       // At 50%, red should be less than 240 and more than 56; blue should be more than 58 and less than 248
       const match = mid.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/)

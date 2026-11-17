@@ -3,17 +3,24 @@ import { Matrix4, Quaternion, Vector3 } from 'three'
 import { createCameraHandoff, type CameraHandoffPose } from './CameraHandoff'
 
 const pose = (p: number[], t: number[], up: number[], fov: number): CameraHandoffPose => ({
-  position: new Vector3(...p), target: new Vector3(...t), up: new Vector3(...up), fov,
+  position: new Vector3(...p),
+  target: new Vector3(...t),
+  up: new Vector3(...up),
+  fov,
 })
-const from = pose([.32, .16, .74], [0, 0, -.15], [0, 1, 0], 42)
-const to = pose([-.23855, 0, -.03534], [0, 0, -.009], [0, 0, -1], 17)
+const from = pose([0.32, 0.16, 0.74], [0, 0, -0.15], [0, 1, 0], 42)
+const to = pose([-0.23855, 0, -0.03534], [0, 0, -0.009], [0, 0, -1], 17)
 const fresh = () => pose([0, 0, 0], [0, 0, 0], [0, 1, 0], 0)
-const rotation = (p: CameraHandoffPose) => new Quaternion().setFromRotationMatrix(new Matrix4().lookAt(p.position, p.target, p.up))
+const rotation = (p: CameraHandoffPose) =>
+  new Quaternion().setFromRotationMatrix(new Matrix4().lookAt(p.position, p.target, p.up))
 
 describe('private camera domain handoff', () => {
   it('matches both camera poses and look orientation at endpoints', () => {
     const sample = createCameraHandoff()
-    for (const [u, expected] of [[0, from], [1, to]] as const) {
+    for (const [u, expected] of [
+      [0, from],
+      [1, to],
+    ] as const) {
       const result = sample(from, to, u, 0, 1, fresh())
       expect(result.position.distanceTo(expected.position)).toBeLessThan(1e-12)
       expect(result.target.distanceTo(expected.target)).toBeLessThan(1e-12)
@@ -22,20 +29,22 @@ describe('private camera domain handoff', () => {
     }
   })
   it('has vanishing endpoint position, target, orientation and FOV rates', () => {
-    const sample = createCameraHandoff(), h = 1e-5
+    const sample = createCameraHandoff(),
+      h = 1e-5
     for (const endpoint of [0, 1]) {
       const a = sample(from, to, endpoint, 0, 1, fresh())
-      const b = sample(from, to, endpoint === 0 ? h : 1-h, 0, 1, fresh())
-      expect(a.position.distanceTo(b.position)/h).toBeLessThan(1e-6)
-      expect(a.target.distanceTo(b.target)/h).toBeLessThan(1e-6)
-      expect(Math.abs(a.fov-b.fov)/h).toBeLessThan(1e-6)
+      const b = sample(from, to, endpoint === 0 ? h : 1 - h, 0, 1, fresh())
+      expect(a.position.distanceTo(b.position) / h).toBeLessThan(1e-6)
+      expect(a.target.distanceTo(b.target) / h).toBeLessThan(1e-6)
+      expect(Math.abs(a.fov - b.fov) / h).toBeLessThan(1e-6)
       expect(rotation(a).angleTo(rotation(b))).toBeLessThan(1e-7)
     }
   })
   it('retraces on reverse and remains independent of sample history', () => {
-    const sample = createCameraHandoff(), expected = sample(from,to,.4,0,1,fresh())
-    for (const u of [.9, .1, .7, .4]) sample(from,to,u,0,1,fresh())
-    const reverse = sample(from,to,.4,0,1,fresh())
+    const sample = createCameraHandoff(),
+      expected = sample(from, to, 0.4, 0, 1, fresh())
+    for (const u of [0.9, 0.1, 0.7, 0.4]) sample(from, to, u, 0, 1, fresh())
+    const reverse = sample(from, to, 0.4, 0, 1, fresh())
     expect(reverse.position.toArray()).toEqual(expected.position.toArray())
     expect(reverse.target.toArray()).toEqual(expected.target.toArray())
     expect(reverse.up.toArray()).toEqual(expected.up.toArray())
@@ -43,22 +52,23 @@ describe('private camera domain handoff', () => {
   })
   it('keeps the view and up vectors nondegenerate through a large roll change', () => {
     const sample = createCameraHandoff()
-    for (let i=0;i<=100;i++) {
-      const result=sample(from,to,i/100,0,1,fresh())
+    for (let i = 0; i <= 100; i++) {
+      const result = sample(from, to, i / 100, 0, 1, fresh())
       const look = result.target.clone().sub(result.position).normalize()
       expect(result.position.toArray().every(Number.isFinite)).toBe(true)
       expect(Math.abs(look.dot(result.up))).toBeLessThan(1e-12)
-      expect(result.up.length()).toBeCloseTo(1,12)
+      expect(result.up.length()).toBeCloseTo(1, 12)
     }
   })
 })
 
 it('interpolates focus distance in log space and degrades safely for coincident position and target', () => {
   const sample = createCameraHandoff()
-  const near = pose([0, 0, .1], [0, 0, 0], [0, 1, 0], 30), far = pose([0, 0, 2.5], [0, 0, 0], [0, 1, 0], 30)
-  const mid = sample(near, far, .5, 0, 1, fresh())
-  expect(mid.target.distanceTo(mid.position)).toBeCloseTo(Math.sqrt(.1 * 2.5), 12)
+  const near = pose([0, 0, 0.1], [0, 0, 0], [0, 1, 0], 30),
+    far = pose([0, 0, 2.5], [0, 0, 0], [0, 1, 0], 30)
+  const mid = sample(near, far, 0.5, 0, 1, fresh())
+  expect(mid.target.distanceTo(mid.position)).toBeCloseTo(Math.sqrt(0.1 * 2.5), 12)
   const degenerate = pose([1, 1, 1], [1, 1, 1], [0, 1, 0], 30)
-  const result = sample(degenerate, far, .5, 0, 1, fresh())
+  const result = sample(degenerate, far, 0.5, 0, 1, fresh())
   expect(result.position.toArray().every(Number.isFinite) && result.target.toArray().every(Number.isFinite)).toBe(true)
 })

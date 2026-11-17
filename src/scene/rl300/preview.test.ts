@@ -1,14 +1,45 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { BoxGeometry, CatmullRomCurve3, Float32BufferAttribute, Group, Mesh, MeshStandardMaterial, Plane, Raycaster, Vector3 } from 'three'
-import { bakeGeometry, finishFor, FINISHED_CUT, isClosedVolume, PART_POLICY, policyFor, prepareModel, sanitizeName, SECTION_ROOTS } from './prepareModel'
+import {
+  BoxGeometry,
+  CatmullRomCurve3,
+  Float32BufferAttribute,
+  Group,
+  Mesh,
+  MeshStandardMaterial,
+  Plane,
+  Raycaster,
+  Vector3,
+} from 'three'
+import {
+  bakeGeometry,
+  finishFor,
+  FINISHED_CUT,
+  isClosedVolume,
+  PART_POLICY,
+  policyFor,
+  prepareModel,
+  sanitizeName,
+  SECTION_ROOTS,
+} from './prepareModel'
 import { CLOSED_CUT, DEEPEST_CUT, evaluateShot, MODEL_BOUNDS, SHOTS } from './shot'
 import { createLowerIntake } from './LowerIntake'
 import { WINDOWS } from './beats'
 import { createStencilMaterials } from './SectionCaps'
 import { airPaths, AIR_SAMPLES, soundPaths } from './AirRibbons'
-import { AIRWAY_BOUNDS, AIRWAY_SECTION, evaluateFlow, insideAirwaySection, RIBBON_COUNT, ribbonSplit, SOUND_FACES, SOUND_TARGETS, SOUND_WINDOWS, SPINES } from './flow'
+import {
+  AIRWAY_BOUNDS,
+  AIRWAY_SECTION,
+  evaluateFlow,
+  insideAirwaySection,
+  RIBBON_COUNT,
+  ribbonSplit,
+  SOUND_FACES,
+  SOUND_TARGETS,
+  SOUND_WINDOWS,
+  SPINES,
+} from './flow'
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import QuietMachinePreview, { END_CARD_AT, fadeReady, initialStudyMode, QM_LENGTH_VH } from './QuietMachinePreview'
@@ -17,22 +48,27 @@ import { resolveEntryTier } from '../../shared/pages'
 describe('RL300 review prototype', () => {
   // Point-to-segment distance on the (y, z) plane, shared by the owner-ruled path tests.
   const pointToSegment = (y: number, z: number, a: readonly [number, number], b: readonly [number, number]) => {
-    const dy = b[0] - a[0], dz = b[1] - a[1]
+    const dy = b[0] - a[0],
+      dz = b[1] - a[1]
     const t = Math.max(0, Math.min(1, ((y - a[0]) * dy + (z - a[1]) * dz) / (dy * dy + dz * dz)))
     return Math.hypot(y - (a[0] + t * dy), z - (a[1] + t * dz))
   }
   it('moves both stencil counters with the live plane after material cloning', () => {
-    const plane = new Plane(new Vector3(-1, 0, 0), .85)
+    const plane = new Plane(new Vector3(-1, 0, 0), 0.85)
     const pair = createStencilMaterials(plane)
-    plane.constant = -.15
-    expect(pair.back.clippingPlanes![0].distanceToPoint(new Vector3(0, 0, 0))).toBe(-.15)
-    expect(pair.front.clippingPlanes![0].distanceToPoint(new Vector3(0, 0, 0))).toBe(-.15)
-    pair.back.dispose(); pair.front.dispose()
+    plane.constant = -0.15
+    expect(pair.back.clippingPlanes![0].distanceToPoint(new Vector3(0, 0, 0))).toBe(-0.15)
+    expect(pair.front.clippingPlanes![0].distanceToPoint(new Vector3(0, 0, 0))).toBe(-0.15)
+    pair.back.dispose()
+    pair.front.dispose()
   })
   it('returns the same finite shot in either direction and clamps invalid input', () => {
     const forward = Array.from({ length: 101 }, (_, i) => evaluateShot(i / 100, false))
     const reverse = Array.from({ length: 101 }, (_, i) => evaluateShot(1 - i / 100, false)).reverse()
-    forward.forEach((shot, i) => { expect(shot.plane).toBeCloseTo(reverse[i].plane, 10); expect(shot.position.every(Number.isFinite)).toBe(true) })
+    forward.forEach((shot, i) => {
+      expect(shot.plane).toBeCloseTo(reverse[i].plane, 10)
+      expect(shot.position.every(Number.isFinite)).toBe(true)
+    })
     expect(evaluateShot(NaN, true).u).toBe(0)
     // The sequence opens the section and closes it again, so both ends are the closed shell.
     expect(evaluateShot(-1, false).cut).toBe(0)
@@ -58,7 +94,7 @@ describe('RL300 review prototype', () => {
     expect(Math.max(...planes)).toBeCloseTo(CLOSED_CUT, 10)
     expect(FINISHED_CUT).toBe(DEEPEST_CUT)
     // The deepest cut must actually be reached, or ruled `hide` parts survive the sequence.
-    expect(planes.some(p => Math.abs(p - DEEPEST_CUT) < 1e-9)).toBe(true)
+    expect(planes.some((p) => Math.abs(p - DEEPEST_CUT) < 1e-9)).toBe(true)
   })
   it('keeps the camera outside the model envelope and on the side the cut opens', () => {
     for (let i = 0; i <= 1000; i++) {
@@ -67,17 +103,17 @@ describe('RL300 review prototype', () => {
         // The clip keeps x <= plane.constant, so an eye at x <= the model's own +x face
         // would sit inside the opened shell and read as a camera punch-through.
         expect(shot.position[0]).toBeGreaterThan(MODEL_BOUNDS.max[0])
-        expect(shot.position[1]).toBeGreaterThan(-.22) // never below the ground plane
+        expect(shot.position[1]).toBeGreaterThan(-0.22) // never below the ground plane
         expect(shot.fov).toBeGreaterThanOrEqual(28)
         expect(shot.fov).toBeLessThanOrEqual(45)
       }
     }
   })
   it('frames portrait from further out than landscape at the same progress', () => {
-    for (const u of [0, .2, .51, .76, 1]) {
-      const wide = evaluateShot(u, false), tall = evaluateShot(u, true)
-      const span = (s: ReturnType<typeof evaluateShot>) =>
-        Math.hypot(...s.position.map((v, i) => v - s.target[i]))
+    for (const u of [0, 0.2, 0.51, 0.76, 1]) {
+      const wide = evaluateShot(u, false),
+        tall = evaluateShot(u, true)
+      const span = (s: ReturnType<typeof evaluateShot>) => Math.hypot(...s.position.map((v, i) => v - s.target[i]))
       expect(span(tall)).toBeGreaterThan(span(wide))
       expect(tall.target).toEqual(wide.target)
       expect(tall.plane).toBe(wide.plane)
@@ -102,31 +138,40 @@ describe('RL300 review prototype', () => {
     // (prepareModel throws when a ruled part is missing).
     const build = (name: string) => {
       const source = new Group()
-      const root = (n: string) => { const g = new Group(); g.name = n; source.add(g); return g }
+      const root = (n: string) => {
+        const g = new Group()
+        g.name = n
+        source.add(g)
+        return g
+      }
       const part = (parent: Group, n: string, mat: string, x: number) => {
-        const geometry = new BoxGeometry(.02, .02, .02); geometry.translate(x, 0, 0)
-        const material = new MeshStandardMaterial({ name: mat }); material.color.setHex(0xffd400)
-        const mesh = new Mesh(geometry, material); mesh.name = n; parent.add(mesh)
+        const geometry = new BoxGeometry(0.02, 0.02, 0.02)
+        geometry.translate(x, 0, 0)
+        const material = new MeshStandardMaterial({ name: mat })
+        material.color.setHex(0xffd400)
+        const mesh = new Mesh(geometry, material)
+        mesh.name = n
+        parent.add(mesh)
       }
       const shell = root('COMPOSITE_PANELS')
       part(shell, 'PANEL_A', 'MSP_YELLOW_PAINT', 0)
-      part(shell, name, 'MSP_YELLOW_PAINT', .1)
-      part(shell, 'V2RL300-SAF-RES-1020-SAFE-1', 'MSP_YELLOW_PAINT', .2)
-      part(shell, 'RL300-SIF-1013-1', 'MSP_RUBBER', .3)
+      part(shell, name, 'MSP_YELLOW_PAINT', 0.1)
+      part(shell, 'V2RL300-SAF-RES-1020-SAFE-1', 'MSP_YELLOW_PAINT', 0.2)
+      part(shell, 'RL300-SIF-1013-1', 'MSP_RUBBER', 0.3)
       const pump = root('PUMP_HOUSING')
       part(pump, 'V2RL200-RES-1003-1', 'MSP_YELLOW_PAINT', 0)
-      part(pump, 'V2RL300-SAF-1047-5', 'MSP_ALUMINUM', .1)
+      part(pump, 'V2RL300-SAF-1047-5', 'MSP_ALUMINUM', 0.1)
       let i = 0
-      for (const key of Object.keys(PART_POLICY)) part(pump, sanitizeName(key), 'MSP_STAINLESS', .2 + (i++) * .03)
+      for (const key of Object.keys(PART_POLICY)) part(pump, sanitizeName(key), 'MSP_STAINLESS', 0.2 + i++ * 0.03)
       const intake = root('PROPOSED_LOWER_INTAKE')
-      part(intake, 'V2RL300-SAF-1047-5_PROPOSED_LOUVERS', 'MSP_ALUMINUM', .5)
+      part(intake, 'V2RL300-SAF-1047-5_PROPOSED_LOUVERS', 'MSP_ALUMINUM', 0.5)
       return source
     }
     const keys = (name: string) => {
-      const model = prepareModel(build(name), new Plane(new Vector3(-1, 0, 0), .85))
+      const model = prepareModel(build(name), new Plane(new Vector3(-1, 0, 0), 0.85))
       const out = (model.group.children as Mesh[])
-        .filter(c => c.userData.sourceRoot === 'COMPOSITE_PANELS')
-        .map(c => (c.material as MeshStandardMaterial).name)
+        .filter((c) => c.userData.sourceRoot === 'COMPOSITE_PANELS')
+        .map((c) => (c.material as MeshStandardMaterial).name)
       model.dispose()
       return out
     }
@@ -137,8 +182,8 @@ describe('RL300 review prototype', () => {
     expect(keys('V2RL300-SAF-RES-1019-SAFE-1')).toContain('COMPOSITE_PANELS/MSP_RUBBER/cut/#193f66')
     // The GLB's reference lower-intake root is dropped at load — the authored code copy
     // is the renderer of record.
-    const model = prepareModel(build('V2RL300-SAF-RES-1019-SAFE-1'), new Plane(new Vector3(-1, 0, 0), .85))
-    expect((model.group.children as Mesh[]).some(c => c.userData.sourceRoot === 'PROPOSED_LOWER_INTAKE')).toBe(false)
+    const model = prepareModel(build('V2RL300-SAF-RES-1019-SAFE-1'), new Plane(new Vector3(-1, 0, 0), 0.85))
+    expect((model.group.children as Mesh[]).some((c) => c.userData.sourceRoot === 'PROPOSED_LOWER_INTAKE')).toBe(false)
     model.dispose()
   })
 
@@ -167,34 +212,51 @@ describe('RL300 review prototype', () => {
     expect(policyFor('V2MSP-MID-5406HHP24_~-2')).toBeNull()
     expect(policyFor('12335A81_Oil-Resistant_Push-on_Seal_with_Bulb-1')?.policy).toBe('delete')
     // 4 + RL300-CPM-3001-1 + RL300-P-CPM-2001-1 (never cut) + EXHAUST PIPE-1 (the stack stays visible) = 7.
-    expect(Object.values(PART_POLICY).filter(p => p === 'keep')).toHaveLength(7)
-    expect(Object.values(PART_POLICY).filter(p => p === 'hide')).toHaveLength(18)
-    expect(Object.values(PART_POLICY).filter(p => p === 'delete')).toHaveLength(1)
+    expect(Object.values(PART_POLICY).filter((p) => p === 'keep')).toHaveLength(7)
+    expect(Object.values(PART_POLICY).filter((p) => p === 'hide')).toHaveLength(18)
+    expect(Object.values(PART_POLICY).filter((p) => p === 'delete')).toHaveLength(1)
   })
   it('bakes reflected CAD without reversing the signed volume or mutating source', () => {
     const g = new BoxGeometry(1, 2, 3)
-    const mesh = new Mesh(g, new MeshStandardMaterial()); mesh.scale.x = -1; mesh.updateMatrixWorld()
-    const baked = bakeGeometry(mesh), p = baked.getAttribute('position')
+    const mesh = new Mesh(g, new MeshStandardMaterial())
+    mesh.scale.x = -1
+    mesh.updateMatrixWorld()
+    const baked = bakeGeometry(mesh),
+      p = baked.getAttribute('position')
     let volume = 0
-    const a = new Vector3(), b = new Vector3(), c = new Vector3()
-    for (let i = 0; i < p.count; i += 3) { a.fromBufferAttribute(p, i); b.fromBufferAttribute(p, i + 1); c.fromBufferAttribute(p, i + 2); volume += a.dot(b.cross(c)) / 6 }
+    const a = new Vector3(),
+      b = new Vector3(),
+      c = new Vector3()
+    for (let i = 0; i < p.count; i += 3) {
+      a.fromBufferAttribute(p, i)
+      b.fromBufferAttribute(p, i + 1)
+      c.fromBufferAttribute(p, i + 2)
+      volume += a.dot(b.cross(c)) / 6
+    }
     expect(volume).toBeCloseTo(6)
     expect(isClosedVolume(baked)).toBe(true)
     expect(g.index).not.toBeNull()
-    const open = baked.clone(); open.setDrawRange(0, p.count - 6)
+    const open = baked.clone()
+    open.setDrawRange(0, p.count - 6)
     // Remove a face from the actual position/normal arrays, not merely a draw range.
     for (const name of ['position', 'normal']) {
-      const attr = open.getAttribute(name); open.setAttribute(name, new Float32BufferAttribute(attr.array.slice(0, -18), attr.itemSize))
+      const attr = open.getAttribute(name)
+      open.setAttribute(name, new Float32BufferAttribute(attr.array.slice(0, -18), attr.itemSize))
     }
     expect(isClosedVolume(open)).toBe(false)
-    g.dispose(); baked.dispose(); open.dispose(); (mesh.material as MeshStandardMaterial).dispose()
+    g.dispose()
+    baked.dispose()
+    open.dispose()
+    ;(mesh.material as MeshStandardMaterial).dispose()
   })
   it('authors actual open louver gaps at the named liner location', () => {
-    const intake = createLowerIntake(); intake.group.updateMatrixWorld(true)
+    const intake = createLowerIntake()
+    intake.group.updateMatrixWorld(true)
     const louvers = intake.group.children[0]
-    const ray = new Raycaster(); let misses = 0
+    const ray = new Raycaster()
+    let misses = 0
     for (let i = 0; i < 40; i++) {
-      ray.set(new Vector3(.1, .5, .49 + i / 40 * .25), new Vector3(0, -1, 0))
+      ray.set(new Vector3(0.1, 0.5, 0.49 + (i / 40) * 0.25), new Vector3(0, -1, 0))
       if (ray.intersectObject(louvers).length === 0) misses++
     }
     expect(misses).toBeGreaterThan(8)
@@ -212,7 +274,7 @@ describe('RL300 review prototype', () => {
     }
   })
   it('returns exact zero flow quantities at the closed-shell boundaries', () => {
-    for (const u of [0, .26, .90, 1]) {
+    for (const u of [0, 0.26, 0.9, 1]) {
       const flow = evaluateFlow(u)
       expect(Object.values(flow.extent)).toEqual([0, 0, 0, 0])
       expect(Object.values(flow.weight)).toEqual([0, 0, 0, 0])
@@ -229,20 +291,21 @@ describe('RL300 review prototype', () => {
     expect(firstNonZero('merged')).toBeLessThan(firstNonZero('sound'))
   })
   it('heats through the pump beat and is cool again after the handoff', () => {
-    expect(evaluateFlow(.54).heat).toBe(0)
-    expect([.56, .64, .78].some(u => evaluateFlow(u).heat > 0)).toBe(true)
-    expect(evaluateFlow(.89).heat).toBe(0)
+    expect(evaluateFlow(0.54).heat).toBe(0)
+    expect([0.56, 0.64, 0.78].some((u) => evaluateFlow(u).heat > 0)).toBe(true)
+    expect(evaluateFlow(0.89).heat).toBe(0)
   })
   it('keeps every authored flow spine point inside the measured model envelope', () => {
-    for (const [bundle, spine] of Object.entries(SPINES)) for (const [x, y, z] of spine) {
-      expect(x).toBeGreaterThanOrEqual(-.8)
-      expect(x).toBeLessThanOrEqual(.8)
-      expect(y).toBeGreaterThanOrEqual(-.2)
-      expect(y).toBeLessThanOrEqual(2.107)
-      // The merged exhaust discharge intentionally leaves the enclosure through the -z face.
-      expect(z).toBeGreaterThanOrEqual(bundle === 'merged' ? -1.95 : -1.683)
-      expect(z).toBeLessThanOrEqual(1.683)
-    }
+    for (const [bundle, spine] of Object.entries(SPINES))
+      for (const [x, y, z] of spine) {
+        expect(x).toBeGreaterThanOrEqual(-0.8)
+        expect(x).toBeLessThanOrEqual(0.8)
+        expect(y).toBeGreaterThanOrEqual(-0.2)
+        expect(y).toBeLessThanOrEqual(2.107)
+        // The merged exhaust discharge intentionally leaves the enclosure through the -z face.
+        expect(z).toBeGreaterThanOrEqual(bundle === 'merged' ? -1.95 : -1.683)
+        expect(z).toBeLessThanOrEqual(1.683)
+      }
     expect(SPINES.merged.at(-1)![2]).toBeLessThan(-1.683)
   })
   it('keeps the main corridor waypoints inside the rebuilt airway bounds', () => {
@@ -251,16 +314,17 @@ describe('RL300 review prototype', () => {
     // the pocket mouth, running aft to the merged discharge): the outside groups are pinned
     // positively instead: entries must stay outboard of the intake panel, tails must have left
     // the section and dropped below the volume.
-    for (let i = 2; i <= 9; i++) for (const [axis, v] of SPINES.main[i].entries()) {
-      expect(v).toBeGreaterThanOrEqual(AIRWAY_BOUNDS.min[axis])
-      expect(v).toBeLessThanOrEqual(AIRWAY_BOUNDS.max[axis])
-    }
+    for (let i = 2; i <= 9; i++)
+      for (const [axis, v] of SPINES.main[i].entries()) {
+        expect(v).toBeGreaterThanOrEqual(AIRWAY_BOUNDS.min[axis])
+        expect(v).toBeLessThanOrEqual(AIRWAY_BOUNDS.max[axis])
+      }
     for (let i = 2; i <= 9; i++) {
       const [y, z] = [SPINES.main[i][1], SPINES.main[i][2]]
       expect(insideAirwaySection(y, z)).toBe(true)
     }
     // This is the exact point the rebuild removed; the AABB test alone cannot catch it.
-    expect(insideAirwaySection(1.40, .74)).toBe(false)
+    expect(insideAirwaySection(1.4, 0.74)).toBe(false)
     expect(SPINES.main[0][2]).toBeGreaterThan(AIRWAY_BOUNDS.max[2])
     expect(SPINES.main[1][2]).toBeGreaterThan(AIRWAY_BOUNDS.max[2])
     for (let i = 10; i <= 18; i++) {
@@ -269,49 +333,74 @@ describe('RL300 review prototype', () => {
     }
     for (let i = 14; i <= 18; i++) expect(SPINES.main[i][1]).toBeLessThan(AIRWAY_BOUNDS.min[1])
     // The hairpin's tip is the loop's minimum z, and the loop returns aft of the tip.
-    expect(SPINES.main[7][2]).toBe(Math.min(...SPINES.main.slice(5, 10).map(p => p[2])))
-    expect(SPINES.main[9][2]).toBeGreaterThan(SPINES.main[7][2] + .04)
+    expect(SPINES.main[7][2]).toBe(Math.min(...SPINES.main.slice(5, 10).map((p) => p[2])))
+    expect(SPINES.main[9][2]).toBeGreaterThan(SPINES.main[7][2] + 0.04)
     for (let i = 10; i < 18; i++) expect(SPINES.main[i][2]).toBeGreaterThan(SPINES.main[i + 1][2])
   })
   it('keeps the entry approach in the owner-ruled band, clear of the slanted floor', () => {
     // The owner's 2026-09-23 ruling (project/work/evidence/rl300-quiet-machine/entry-fix/owner-entry-path-ruling-2026-09-23.png) unprojected onto the x = -.40 plane from the u = 0.34 camera, as [y, z] polygons.
-    const OWNER_BAND: readonly (readonly [number, number])[] =
-      [[1.523, 1.552], [1.522, 1.392], [1.828, 1.072], [1.813, .588],
-       [1.680, .712], [1.691, 1.067], [1.385, 1.416], [1.383, 1.597]]
-    const OWNER_RED: readonly (readonly [number, number])[] =
-      [[1.369, 1.357], [1.316, 1.335], [1.610, .722], [1.624, 1.079]]
+    const OWNER_BAND: readonly (readonly [number, number])[] = [
+      [1.523, 1.552],
+      [1.522, 1.392],
+      [1.828, 1.072],
+      [1.813, 0.588],
+      [1.68, 0.712],
+      [1.691, 1.067],
+      [1.385, 1.416],
+      [1.383, 1.597],
+    ]
+    const OWNER_RED: readonly (readonly [number, number])[] = [
+      [1.369, 1.357],
+      [1.316, 1.335],
+      [1.61, 0.722],
+      [1.624, 1.079],
+    ]
     // the owner's middle blue strand
-    const OWNER_MIDDLE: readonly (readonly [number, number])[] =
-      [[1.450, 1.573], [1.448, 1.402], [1.757, 1.056], [1.749, .694]]
+    const OWNER_MIDDLE: readonly (readonly [number, number])[] = [
+      [1.45, 1.573],
+      [1.448, 1.402],
+      [1.757, 1.056],
+      [1.749, 0.694],
+    ]
     // Same ray-casting rule as insideAirwaySection in flow.ts, on [y, z].
     const pointInPolygon = (y: number, z: number, polygon: readonly (readonly [number, number])[]) => {
       let inside = false
       for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
         const [yi, zi] = polygon[i]
         const [yj, zj] = polygon[j]
-        if ((zi > z) !== (zj > z) && y < (yj - yi) * (z - zi) / (zj - zi) + yi) inside = !inside
+        if (zi > z !== zj > z && y < ((yj - yi) * (z - zi)) / (zj - zi) + yi) inside = !inside
       }
       return inside
     }
-    const signedDistance = (y: number, z: number, polygon: readonly (readonly [number, number])[], openLastEdge = false) => {
+    const signedDistance = (
+      y: number,
+      z: number,
+      polygon: readonly (readonly [number, number])[],
+      openLastEdge = false,
+    ) => {
       const edgeCount = openLastEdge ? polygon.length - 1 : polygon.length
       let nearest = Infinity
       for (let i = 0; i < edgeCount; i++)
         nearest = Math.min(nearest, pointToSegment(y, z, polygon[i], polygon[(i + 1) % polygon.length]))
       return (pointInPolygon(y, z, polygon) ? 1 : -1) * nearest
     }
-    const middleDistance = (y: number, z: number) => Math.min(
-      ...OWNER_MIDDLE.slice(0, -1).map((a, i) => pointToSegment(y, z, a, OWNER_MIDDLE[i + 1])))
+    const middleDistance = (y: number, z: number) =>
+      Math.min(...OWNER_MIDDLE.slice(0, -1).map((a, i) => pointToSegment(y, z, a, OWNER_MIDDLE[i + 1])))
     // Centerline: the spine the ribbons fan around, sampled exactly as AirRibbons.tsx samples it (AIR_SAMPLES).
-    const spine = new CatmullRomCurve3(SPINES.main.map(p => new Vector3(...p)), false, 'centripetal', .5).getPoints(AIR_SAMPLES)
-    const entryEnd = spine.findIndex(p => p.z < .60)
+    const spine = new CatmullRomCurve3(
+      SPINES.main.map((p) => new Vector3(...p)),
+      false,
+      'centripetal',
+      0.5,
+    ).getPoints(AIR_SAMPLES)
+    const entryEnd = spine.findIndex((p) => p.z < 0.6)
     expect(entryEnd).toBeGreaterThan(0)
     const entry = entryEnd === -1 ? spine : spine.slice(0, entryEnd)
-    const banded = entry.filter(p => p.z >= .72 && p.z <= 1.55)
+    const banded = entry.filter((p) => p.z >= 0.72 && p.z <= 1.55)
     expect(banded.length).toBeGreaterThan(0)
     // The centerline has to hold well inside the owner's outer strands and track the owner's middle strand.
-    expect(Math.min(...banded.map(p => signedDistance(p.y, p.z, OWNER_BAND)))).toBeGreaterThanOrEqual(.020)
-    expect(Math.max(...banded.map(p => middleDistance(p.y, p.z)))).toBeLessThanOrEqual(.030)
+    expect(Math.min(...banded.map((p) => signedDistance(p.y, p.z, OWNER_BAND)))).toBeGreaterThanOrEqual(0.02)
+    expect(Math.max(...banded.map((p) => middleDistance(p.y, p.z)))).toBeLessThanOrEqual(0.03)
     // Rendered envelope: a ribbon is the centerline plus a radial fan plus a half-width, so a centerline
     // inside the band is not enough. 6 is the desktop main-bundle ribbon count: RIBBON_COUNT.desktop 18
     // split three ways by ribbonSplit.
@@ -321,34 +410,57 @@ describe('RL300 review prototype', () => {
     let minWallClearance = Infinity
     let redCount = 0
     let wallCount = 0
-    for (const path of paths) for (let i = 0; i < entry.length; i++) {
-      const point = path.points[i]
-      // The half-width w is added because the vertex shader offsets each strip edge by aSide * aWidth (AirRibbons.tsx VERTEX_SHADER).
-      const w = path.width(i / AIR_SAMPLES)
-      redCount++
-      minRedClearance = Math.min(minRedClearance, -signedDistance(point.y, point.z, OWNER_RED) - w)
-      // Only the retuned entry run is checked against the wall: the ceiling stretch from spine z .70 down
-      // to .60 belongs to the unchanged corridor waypoints and is out of scope here.
-      if (point.z <= 1.300 && spine[i].z >= .70) {
-        wallCount++
-        minWallClearance = Math.min(minWallClearance, signedDistance(point.y, point.z, AIRWAY_SECTION, true) - w)
+    for (const path of paths)
+      for (let i = 0; i < entry.length; i++) {
+        const point = path.points[i]
+        // The half-width w is added because the vertex shader offsets each strip edge by aSide * aWidth (AirRibbons.tsx VERTEX_SHADER).
+        const w = path.width(i / AIR_SAMPLES)
+        redCount++
+        minRedClearance = Math.min(minRedClearance, -signedDistance(point.y, point.z, OWNER_RED) - w)
+        // Only the retuned entry run is checked against the wall: the ceiling stretch from spine z .70 down
+        // to .60 belongs to the unchanged corridor waypoints and is out of scope here.
+        if (point.z <= 1.3 && spine[i].z >= 0.7) {
+          wallCount++
+          minWallClearance = Math.min(minWallClearance, signedDistance(point.y, point.z, AIRWAY_SECTION, true) - w)
+        }
       }
-    }
     expect(redCount).toBeGreaterThan(0)
     expect(wallCount).toBeGreaterThan(0)
-    expect(minRedClearance).toBeGreaterThanOrEqual(.015)
-    expect(minWallClearance).toBeGreaterThanOrEqual(.015)
+    expect(minRedClearance).toBeGreaterThanOrEqual(0.015)
+    expect(minWallClearance).toBeGreaterThanOrEqual(0.015)
   })
   it('follows the owner mid-path ruling: hairpin under the canopy, then a smooth aft descent', () => {
     // Owner ruling 2026-09-23 (project/work/evidence/rl300-quiet-machine/entry-fix/owner-mid-path-ruling-2026-09-23.png)
     // unprojected onto x = -.40 from the u = .425 camera, as [y, z].
     const OWNER_MID_RED: readonly (readonly [number, number])[] = [
-      [1.767, .757], [1.75, .692], [1.729, .625], [1.701, .56], [1.647, .543], [1.595, .585],
-      [1.554, .64], [1.496, .659], [1.443, .621], [1.405, .56], [1.374, .494], [1.352, .421],
-      [1.328, .349], [1.304, .275], [1.281, .2], [1.257, .125], [1.233, .046], [1.208, -.032],
-      [1.183, -.112], [1.157, -.194], [1.131, -.277],
+      [1.767, 0.757],
+      [1.75, 0.692],
+      [1.729, 0.625],
+      [1.701, 0.56],
+      [1.647, 0.543],
+      [1.595, 0.585],
+      [1.554, 0.64],
+      [1.496, 0.659],
+      [1.443, 0.621],
+      [1.405, 0.56],
+      [1.374, 0.494],
+      [1.352, 0.421],
+      [1.328, 0.349],
+      [1.304, 0.275],
+      [1.281, 0.2],
+      [1.257, 0.125],
+      [1.233, 0.046],
+      [1.208, -0.032],
+      [1.183, -0.112],
+      [1.157, -0.194],
+      [1.131, -0.277],
     ]
-    const spine = new CatmullRomCurve3(SPINES.main.map(p => new Vector3(...p)), false, 'centripetal', .5).getPoints(AIR_SAMPLES)
+    const spine = new CatmullRomCurve3(
+      SPINES.main.map((p) => new Vector3(...p)),
+      false,
+      'centripetal',
+      0.5,
+    ).getPoints(AIR_SAMPLES)
     const per = AIR_SAMPLES / (SPINES.main.length - 1)
     expect(Number.isInteger(per)).toBe(true)
     const polylineDistance = (y: number, z: number, polyline: readonly (readonly [number, number])[]) =>
@@ -356,24 +468,24 @@ describe('RL300 review prototype', () => {
     // Fidelity both ways in the (y, z) plane: the rendered centerline tracks the owner's red
     // curve and every red vertex lands on the centerline.
     for (let i = 5 * per; i <= 16 * per; i++) {
-      expect(polylineDistance(spine[i].y, spine[i].z, OWNER_MID_RED)).toBeLessThanOrEqual(.035)
+      expect(polylineDistance(spine[i].y, spine[i].z, OWNER_MID_RED)).toBeLessThanOrEqual(0.035)
     }
-    const centerline = spine.slice(4 * per, 16 * per + 1).map(p => [p.y, p.z] as const)
+    const centerline = spine.slice(4 * per, 16 * per + 1).map((p) => [p.y, p.z] as const)
     for (const [y, z] of OWNER_MID_RED) {
-      expect(polylineDistance(y, z, centerline)).toBeLessThanOrEqual(.035)
+      expect(polylineDistance(y, z, centerline)).toBeLessThanOrEqual(0.035)
     }
     // Smoothness on the rendered centerline: no linear direction changes between samples.
     for (let i = 4 * per + 1; i <= AIR_SAMPLES - 1; i++) {
       const incoming = spine[i].clone().sub(spine[i - 1])
       const outgoing = spine[i + 1].clone().sub(spine[i])
       const cosine = incoming.dot(outgoing) / (incoming.length() * outgoing.length())
-      expect(Math.acos(Math.max(-1, Math.min(1, cosine))) * 180 / Math.PI).toBeLessThanOrEqual(15)
+      expect((Math.acos(Math.max(-1, Math.min(1, cosine))) * 180) / Math.PI).toBeLessThanOrEqual(15)
       // Circumradius of the sampled triplet bounds the local curvature; collinear triplets are skipped.
       const chord = spine[i + 1].clone().sub(spine[i - 1])
       const doubledArea = new Vector3().crossVectors(incoming, chord).length()
       if (doubledArea > 1e-9) {
-        const radius = incoming.length() * chord.length() * outgoing.length() / (2 * doubledArea)
-        expect(radius).toBeGreaterThanOrEqual(.050)
+        const radius = (incoming.length() * chord.length() * outgoing.length()) / (2 * doubledArea)
+        expect(radius).toBeGreaterThanOrEqual(0.05)
       }
     }
     // Wall envelope: ribbon points between the ceiling run and the pocket mouth hold clearance
@@ -381,42 +493,59 @@ describe('RL300 review prototype', () => {
     const paths = airPaths('main', 6)
     const exit = spine.findIndex((point, i) => i > 8 * per && point.y < 1.479)
     expect(exit).toBeGreaterThan(4 * per)
-    const SOLID_EDGES: readonly (readonly [number, number])[] = [[0, 1], [1, 2], [2, 3], [4, 5], [5, 6]]
+    const SOLID_EDGES: readonly (readonly [number, number])[] = [
+      [0, 1],
+      [1, 2],
+      [2, 3],
+      [4, 5],
+      [5, 6],
+    ]
     let minClearance = Infinity
     for (const path of paths) {
       for (let i = 4 * per; i < exit; i++) {
         const point = path.points[i]
-        const distance = Math.min(...SOLID_EDGES.map(([a, b]) =>
-          pointToSegment(point.y, point.z, AIRWAY_SECTION[a], AIRWAY_SECTION[b])))
+        const distance = Math.min(
+          ...SOLID_EDGES.map(([a, b]) => pointToSegment(point.y, point.z, AIRWAY_SECTION[a], AIRWAY_SECTION[b])),
+        )
         minClearance = Math.min(minClearance, distance - path.width(i / AIR_SAMPLES))
       }
     }
-    expect(minClearance).toBeGreaterThanOrEqual(.015)
+    expect(minClearance).toBeGreaterThanOrEqual(0.015)
     // Handoff: the rebuilt tail meets the merged discharge spine.
-    const merged = new CatmullRomCurve3(SPINES.merged.map(p => new Vector3(...p)), false, 'centripetal', .5).getPoints(4000)
+    const merged = new CatmullRomCurve3(
+      SPINES.merged.map((p) => new Vector3(...p)),
+      false,
+      'centripetal',
+      0.5,
+    ).getPoints(4000)
     const tail = new Vector3(...SPINES.main.at(-1)!)
-    expect(Math.min(...merged.map(p => p.distanceTo(tail)))).toBeLessThanOrEqual(.005)
+    expect(Math.min(...merged.map((p) => p.distanceTo(tail)))).toBeLessThanOrEqual(0.005)
   })
   it('routes the lower supply in through the louver opening and onto the merged discharge', () => {
     // Lower-bundle ruling 2026-09-24 (cycle "lower-fix"): the spine is drawn from the crawl space
     // under the louver footprint (the skid bay since the owner's (0,+.205,+.150) intake move, then .120 toward the engine with four louvers), crosses the authored louver panel inside a measured open gap,
     // rides the collector and shallow duct with 15 mm centerline clearance, climbs past the EMG
     // panel on the old lane, and lands ON the merged discharge spine like the main tail does.
-    const spine = new CatmullRomCurve3(SPINES.lower.map(p => new Vector3(...p)), false, 'centripetal', .5).getPoints(AIR_SAMPLES)
+    const spine = new CatmullRomCurve3(
+      SPINES.lower.map((p) => new Vector3(...p)),
+      false,
+      'centripetal',
+      0.5,
+    ).getPoints(AIR_SAMPLES)
     // The head starts in the skid bay under the louver footprint — not at the ground (y -.22),
     // not touching the panel (bottom y .163).
     const [, sy, sz] = SPINES.lower[0]
-    expect(sy).toBeGreaterThanOrEqual(.075)
-    expect(sy).toBeLessThanOrEqual(.143)
-    expect(sz).toBeGreaterThanOrEqual(.479)
-    expect(sz).toBeLessThanOrEqual(.777)
+    expect(sy).toBeGreaterThanOrEqual(0.075)
+    expect(sy).toBeLessThanOrEqual(0.143)
+    expect(sz).toBeGreaterThanOrEqual(0.479)
+    expect(sz).toBeLessThanOrEqual(0.777)
     // Traversal is checked against the authored louver geometry itself: where the centerline
     // crosses the panel plane, a downward ray at the crossing (and +/- 4 mm along z) must miss
     // the louvers entirely, i.e. the crossing sits in an open gap.
     let crossing: Vector3 | null = null
     for (let i = 1; i <= AIR_SAMPLES && !crossing; i++) {
-      if (spine[i - 1].y < .172 && spine[i].y >= .172) {
-        const t = (.172 - spine[i - 1].y) / (spine[i].y - spine[i - 1].y)
+      if (spine[i - 1].y < 0.172 && spine[i].y >= 0.172) {
+        const t = (0.172 - spine[i - 1].y) / (spine[i].y - spine[i - 1].y)
         crossing = spine[i - 1].clone().lerp(spine[i], t)
       }
     }
@@ -424,55 +553,61 @@ describe('RL300 review prototype', () => {
     // The crossing must be through the actual panel footprint, not just anywhere on the
     // infinite y = .172 plane — a bypass route under the machine would cross the plane
     // where no panel exists and the rays would trivially miss.
-    expect(crossing!.z).toBeGreaterThanOrEqual(.479)
-    expect(crossing!.z).toBeLessThanOrEqual(.777)
-    expect(Math.abs(crossing!.x)).toBeLessThanOrEqual(.378)
-    const intake = createLowerIntake(); intake.group.updateMatrixWorld(true)
+    expect(crossing!.z).toBeGreaterThanOrEqual(0.479)
+    expect(crossing!.z).toBeLessThanOrEqual(0.777)
+    expect(Math.abs(crossing!.x)).toBeLessThanOrEqual(0.378)
+    const intake = createLowerIntake()
+    intake.group.updateMatrixWorld(true)
     const louvers = intake.group.children[0]
     const ray = new Raycaster()
-    for (const dz of [-.004, 0, .004]) {
-      ray.set(new Vector3(crossing!.x, .5, crossing!.z + dz), new Vector3(0, -1, 0))
+    for (const dz of [-0.004, 0, 0.004]) {
+      ray.set(new Vector3(crossing!.x, 0.5, crossing!.z + dz), new Vector3(0, -1, 0))
       expect(ray.intersectObject(louvers)).toHaveLength(0)
     }
     intake.dispose()
     // The collector ride stays inside the open box (walls to y .345, open bottom at the panel).
-    const collector = spine.filter(p => p.z <= .750 && p.z >= .505 && p.y > .215)
+    const collector = spine.filter((p) => p.z <= 0.75 && p.z >= 0.505 && p.y > 0.215)
     expect(collector.length).toBeGreaterThan(0)
     for (const p of collector) {
-      expect(p.y).toBeLessThanOrEqual(.343)
-      expect(p.y).toBeGreaterThanOrEqual(.181)
+      expect(p.y).toBeLessThanOrEqual(0.343)
+      expect(p.y).toBeGreaterThanOrEqual(0.181)
     }
     // Under the duct's top panel the centerline holds 15 mm clearance to the panel bottom (y .334)
     // and the floor top (y .196).
-    const duct = spine.filter(p => p.z <= .614 && p.z >= -.006 && p.y > .225)
+    const duct = spine.filter((p) => p.z <= 0.614 && p.z >= -0.006 && p.y > 0.225)
     expect(duct.length).toBeGreaterThan(0)
     for (const p of duct) {
-      expect(p.y).toBeLessThanOrEqual(.334 - .015)
-      expect(p.y).toBeGreaterThanOrEqual(.196 + .015)
+      expect(p.y).toBeLessThanOrEqual(0.334 - 0.015)
+      expect(p.y).toBeGreaterThanOrEqual(0.196 + 0.015)
     }
     // In the riser's z band at riser heights, the centerline stays 15 mm off the left wall's inner
     // face (x -.204); the wall spans y .190...500, so higher samples are the open interior climb.
-    const riser = spine.filter(p => p.z <= -.155 && p.z >= -.425 && p.y <= .525)
+    const riser = spine.filter((p) => p.z <= -0.155 && p.z >= -0.425 && p.y <= 0.525)
     expect(riser.length).toBeGreaterThan(0)
     for (const p of riser) {
-      expect(p.x).toBeGreaterThanOrEqual(-.204 + .015)
+      expect(p.x).toBeGreaterThanOrEqual(-0.204 + 0.015)
     }
     // Handoff: the tail lands ON the merged discharge spine — the same contract the main tail holds.
-    const merged = new CatmullRomCurve3(SPINES.merged.map(p => new Vector3(...p)), false, 'centripetal', .5).getPoints(4000)
+    const merged = new CatmullRomCurve3(
+      SPINES.merged.map((p) => new Vector3(...p)),
+      false,
+      'centripetal',
+      0.5,
+    ).getPoints(4000)
     const tail = new Vector3(...SPINES.lower.at(-1)!)
-    expect(Math.min(...merged.map(p => p.distanceTo(tail)))).toBeLessThanOrEqual(.005)
+    expect(Math.min(...merged.map((p) => p.distanceTo(tail)))).toBeLessThanOrEqual(0.005)
     // Smoothness on the rendered centerline: no linear direction change over 15 degrees and no
     // curvature radius under 50 mm — the bounds the mid-path ruling test holds the main bundle to.
     for (let i = 1; i < AIR_SAMPLES; i++) {
       const incoming = spine[i].clone().sub(spine[i - 1])
       const outgoing = spine[i + 1].clone().sub(spine[i])
       const cosine = incoming.dot(outgoing) / (incoming.length() * outgoing.length())
-      expect(Math.acos(Math.max(-1, Math.min(1, cosine))) * 180 / Math.PI).toBeLessThanOrEqual(15)
+      expect((Math.acos(Math.max(-1, Math.min(1, cosine))) * 180) / Math.PI).toBeLessThanOrEqual(15)
       const chord = spine[i + 1].clone().sub(spine[i - 1])
       const doubledArea = new Vector3().crossVectors(incoming, chord).length()
       if (doubledArea > 1e-9) {
-        const radius = incoming.length() * chord.length() * outgoing.length() / (2 * doubledArea)
-        expect(radius).toBeGreaterThanOrEqual(.050)
+        const radius = (incoming.length() * chord.length() * outgoing.length()) / (2 * doubledArea)
+        expect(radius).toBeGreaterThanOrEqual(0.05)
       }
     }
   })
@@ -481,65 +616,78 @@ describe('RL300 review prototype', () => {
     // face, stubs glance in the face planes, the sweep resolves before the chevron
     // isolation response, and that response stays bounded.
     const planeDistance = (p: readonly number[], face: { point: readonly number[]; normal: readonly number[] }) =>
-      (p[0] - face.point[0]) * face.normal[0] + (p[1] - face.point[1]) * face.normal[1] + (p[2] - face.point[2]) * face.normal[2]
+      (p[0] - face.point[0]) * face.normal[0] +
+      (p[1] - face.point[1]) * face.normal[1] +
+      (p[2] - face.point[2]) * face.normal[2]
     SOUND_TARGETS.forEach((target, i) => {
-      expect(Math.abs(planeDistance(target, SOUND_FACES[i]))).toBeLessThanOrEqual(.005)
+      expect(Math.abs(planeDistance(target, SOUND_FACES[i]))).toBeLessThanOrEqual(0.005)
       // inside the measured ACOUSTIC_BAFFLES root bounds (y 1.070..1.862, z -1.024..1.352)
-      expect(target[1]).toBeGreaterThanOrEqual(1.070)
+      expect(target[1]).toBeGreaterThanOrEqual(1.07)
       expect(target[1]).toBeLessThanOrEqual(1.862)
       expect(target[2]).toBeGreaterThanOrEqual(-1.024)
       expect(target[2]).toBeLessThanOrEqual(1.352)
     })
     SOUND_WINDOWS.forEach(([from, to], i) => {
-      expect(to - from).toBeCloseTo(.060, 5)
+      expect(to - from).toBeCloseTo(0.06, 5)
       if (i) expect(from).toBeGreaterThan(SOUND_WINDOWS[i - 1][0])
     })
-    expect(SOUND_WINDOWS[0][0]).toBeGreaterThanOrEqual(.76)
-    expect(SOUND_WINDOWS.at(-1)![1]).toBeLessThanOrEqual(.856)
+    expect(SOUND_WINDOWS[0][0]).toBeGreaterThanOrEqual(0.76)
+    expect(SOUND_WINDOWS.at(-1)![1]).toBeLessThanOrEqual(0.856)
     const paths = soundPaths()
-    const fronts = paths.filter(p => p.kind === 0)
-    const stubs = paths.filter(p => p.kind === 2)
-    const chevrons = paths.filter(p => p.kind === 1)
+    const fronts = paths.filter((p) => p.kind === 0)
+    const stubs = paths.filter((p) => p.kind === 2)
+    const chevrons = paths.filter((p) => p.kind === 1)
     expect(fronts).toHaveLength(4)
     expect(stubs).toHaveLength(4)
     expect(chevrons).toHaveLength(6)
-    const stubLengths = [.08, .10, .13, .07]
+    const stubLengths = [0.08, 0.1, 0.13, 0.07]
     stubs.forEach((stub, i) => {
       const target = new Vector3(...SOUND_TARGETS[i])
       const end = stub.points.at(-1)!
-      expect(stub.points[0].distanceTo(target)).toBeLessThanOrEqual(.002)
+      expect(stub.points[0].distanceTo(target)).toBeLessThanOrEqual(0.002)
       expect(stub.points[0].distanceTo(end)).toBeCloseTo(stubLengths[i], 3)
       // the stub glances IN the face plane (its arc lifts mid-way, so only the sampled
       // endpoints are pinned to the plane)
       const face = SOUND_FACES[i]
-      const d = (end.x - face.point[0]) * face.normal[0] + (end.y - face.point[1]) * face.normal[1] + (end.z - face.point[2]) * face.normal[2]
-      expect(Math.abs(d)).toBeLessThanOrEqual(.02)
+      const d =
+        (end.x - face.point[0]) * face.normal[0] +
+        (end.y - face.point[1]) * face.normal[1] +
+        (end.z - face.point[2]) * face.normal[2]
+      expect(Math.abs(d)).toBeLessThanOrEqual(0.02)
     })
     // Fronts terminate exactly at the measured contacts, and the terminal collapse
     // region is where the design says: sample 23 of 28 is the first terminal sample
     // (floor(28 * .85) = 23; getPoints(28) yields 29 samples, so 6 terminal samples).
     fronts.forEach((front, i) => {
       const target = new Vector3(...SOUND_TARGETS[i])
-      expect(front.points.at(-1)!.distanceTo(target)).toBeLessThanOrEqual(.002)
-      expect(front.contact.filter(v => v === 1)).toHaveLength(front.points.length - 23)
+      expect(front.points.at(-1)!.distanceTo(target)).toBeLessThanOrEqual(0.002)
+      expect(front.contact.filter((v) => v === 1)).toHaveLength(front.points.length - 23)
       expect(front.contact[22]).toBe(0)
       expect(front.contact[23]).toBe(1)
     })
     // The chevron isolation response is bounded (+30% max) and settles back to 1.
     const response = (u: number) => {
-      const s = (a: number, b: number, x: number) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t) }
-      return 1 + .30 * s(...WINDOWS.chevronResponseIn, u) * (1 - s(...WINDOWS.chevronResponseOut, u))
+      const s = (a: number, b: number, x: number) => {
+        const t = Math.max(0, Math.min(1, (x - a) / (b - a)))
+        return t * t * (3 - 2 * t)
+      }
+      return 1 + 0.3 * s(...WINDOWS.chevronResponseIn, u) * (1 - s(...WINDOWS.chevronResponseOut, u))
     }
-    expect(response(.862)).toBeGreaterThan(1.05)
-    expect(response(.883)).toBeGreaterThan(1.05)
-    expect(response(.90)).toBeCloseTo(1, 5)
+    expect(response(0.862)).toBeGreaterThan(1.05)
+    expect(response(0.883)).toBeGreaterThan(1.05)
+    expect(response(0.9)).toBeCloseTo(1, 5)
     for (let i = 0; i <= 100; i++) expect(response(i / 100)).toBeLessThanOrEqual(1.3)
   })
   it('moves every ribbon continuously: no frame flip between samples', () => {
     // Parallel transport replaces the legacy world-up frame, whose sideways jump at every
     // |tangent.y| >= .92 switch showed as a kink in the fanned ribbons.
     for (const bundle of ['main', 'lower', 'merged'] as const) {
-      const spine = new CatmullRomCurve3(SPINES[bundle].map(p => new Vector3(...p)), false, 'centripetal', .5).getPoints(AIR_SAMPLES)
+      const spine = new CatmullRomCurve3(
+        SPINES[bundle].map((p) => new Vector3(...p)),
+        false,
+        'centripetal',
+        0.5,
+      ).getPoints(AIR_SAMPLES)
       for (const path of airPaths(bundle, 6)) {
         let maximum = 0
         for (let i = 1; i < path.points.length; i++) {
@@ -547,7 +695,7 @@ describe('RL300 review prototype', () => {
           const current = path.points[i].clone().sub(spine[i])
           maximum = Math.max(maximum, current.distanceTo(previous))
         }
-        expect(maximum).toBeLessThanOrEqual(.015)
+        expect(maximum).toBeLessThanOrEqual(0.015)
       }
     }
   })
@@ -564,12 +712,13 @@ describe('Quiet Machine preview reduced motion', () => {
   const saved = { matchMedia: g.matchMedia, location: g.location }
   afterEach(() => {
     for (const [key, value] of Object.entries(saved)) {
-      if (value === undefined) delete g[key]; else g[key] = value
+      if (value === undefined) delete g[key]
+      else g[key] = value
     }
   })
   it('initialStudyMode sends reduced motion to the poster at the requested shot, with no .52 special case', () => {
     expect(initialStudyMode(true, '')).toEqual({ poster: true, tier: 'poster', u: 0 })
-    expect(initialStudyMode(true, '?shot=.5')).toEqual({ poster: true, tier: 'poster', u: .5 })
+    expect(initialStudyMode(true, '?shot=.5')).toEqual({ poster: true, tier: 'poster', u: 0.5 })
   })
   it('initialStudyMode takes its tier from resolveEntryTier, so reduced motion beats ?quality=lite', () => {
     for (const reduced of [false, true]) {
@@ -621,7 +770,9 @@ describe('Quiet Machine preview reduced motion', () => {
     expect(html).toContain('href="/torque-wrench/?quality=poster"')
     // The current page is plain text, not a link to itself.
     expect(html).not.toContain('href="/quiet-machine/?quality=poster"')
-    expect(html).toContain('<span class="shell-nav-current" aria-current="page"><span class="shell-nav-index">02</span> THE QUIET MACHINE</span>')
+    expect(html).toContain(
+      '<span class="shell-nav-current" aria-current="page"><span class="shell-nav-index">02</span> THE QUIET MACHINE</span>',
+    )
     expect(html).toContain('data-fade')
     expect(html).not.toMatch(/m249/i)
     expect(html).not.toContain('<canvas')
@@ -633,7 +784,9 @@ describe('Quiet Machine preview reduced motion', () => {
   }
   const sourceText = (name: string) => readFileSync(fileURLToPath(new URL(name, import.meta.url)), 'utf8')
   it('drives the page length from --qm-length on the main element and the CSS', () => {
-    expect(poster('?shot=.5&quality=poster')).toContain(`<main class="qm-preview" data-reduced-motion="false" style="--qm-length:${QM_LENGTH_VH}vh">`)
+    expect(poster('?shot=.5&quality=poster')).toContain(
+      `<main class="qm-preview" data-reduced-motion="false" style="--qm-length:${QM_LENGTH_VH}vh">`,
+    )
     const css = sourceText('./quiet-machine.css')
     expect(css).toContain('var(--qm-length)')
     expect(css).not.toMatch(/min-height: *320vh/)
@@ -650,7 +803,7 @@ describe('Quiet Machine preview reduced motion', () => {
     expect(card).toContain('<span class="shell-nav-index">01</span> TORQUE WRENCH')
     expect(card).not.toMatch(/m249/i)
     expect(poster('?shot=.5&quality=poster')).not.toContain('qm-endcard')
-    expect(poster(`?shot=${END_CARD_AT - .01}&quality=poster`)).not.toContain('qm-endcard')
+    expect(poster(`?shot=${END_CARD_AT - 0.01}&quality=poster`)).not.toContain('qm-endcard')
     expect(poster(`?shot=${END_CARD_AT}&quality=poster`)).toContain('qm-endcard')
   })
   it('keeps the progress bar and the end card outside the stage, and scales the bar from progress', () => {
@@ -659,13 +812,15 @@ describe('Quiet Machine preview reduced motion', () => {
     expect(stage).toContain('qm-poster')
     expect(stage).not.toContain('qm-progress')
     expect(stage).not.toContain('qm-endcard')
-    expect(html).toContain('<div class="qm-progress" aria-hidden="true"><span style="transform:scaleX(0.98)"></span></div>')
+    expect(html).toContain(
+      '<div class="qm-progress" aria-hidden="true"><span style="transform:scaleX(0.98)"></span></div>',
+    )
     expect(poster('?shot=.5&quality=poster')).toContain('scaleX(0.5)')
   })
   it('prefetches the torque gun page once, the first time progress reaches the end card', () => {
     const source = sourceText('./QuietMachinePreview.tsx')
     expect(source.match(/prefetchPage\(/g)).toHaveLength(1)
-    expect(source).toContain("prefetchPage(document, [next])")
+    expect(source).toContain('prefetchPage(document, [next])')
     expect(source).toContain("pageHref('torque-wrench', mode.tier)")
   })
 })

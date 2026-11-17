@@ -170,9 +170,9 @@ function usePuddleRoughnessTexture() {
     const data = imgData.data
 
     function hash12(x: number, y: number) {
-      let p3x = ((x * 0.1031) % 1 + 1) % 1
-      let p3y = ((y * 0.1031) % 1 + 1) % 1
-      let p3z = ((x * 0.1031) % 1 + 1) % 1
+      let p3x = (((x * 0.1031) % 1) + 1) % 1
+      let p3y = (((y * 0.1031) % 1) + 1) % 1
+      let p3z = (((x * 0.1031) % 1) + 1) % 1
       const dot = p3x * (p3y + 19.19) + p3y * (p3z + 19.19) + p3z * (p3x + 19.19)
       p3x += dot
       p3y += dot
@@ -197,7 +197,7 @@ function usePuddleRoughnessTexture() {
 
     function fbm(x: number, y: number) {
       let v = 0
-      v += 0.50 * smoothNoise(x * 1.0, y * 1.0)
+      v += 0.5 * smoothNoise(x * 1.0, y * 1.0)
       v += 0.28 * smoothNoise(x * 2.1, y * 2.1)
       v += 0.14 * smoothNoise(x * 4.3, y * 4.3)
       v += 0.08 * smoothNoise(x * 8.7, y * 8.7)
@@ -284,12 +284,7 @@ export function RainFloor({
   return (
     <group position={[0, -0.01, 0]}>
       {/* Wet Asphalt Street & Mirror Puddle Floor (Faraz Shaikh reference look + Planar Mirror) */}
-      <mesh
-        ref={floorRef}
-        rotation={[-Math.PI / 2, 0, 0]}
-        receiveShadow
-        position={[0, 0, 0]}
-      >
+      <mesh ref={floorRef} rotation={[-Math.PI / 2, 0, 0]} receiveShadow position={[0, 0, 0]}>
         <planeGeometry args={[28, 28, 32, 32]} />
         <MeshReflectorMaterial
           blur={[64, 18]}
@@ -317,12 +312,7 @@ export function RainFloor({
       {/* Subtle outer horizon fade ring */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.002, 0]}>
         <ringGeometry args={[8.5, 16.0, 64]} />
-        <meshBasicMaterial
-          color="#06080e"
-          transparent
-          opacity={0.78}
-          depthWrite={false}
-        />
+        <meshBasicMaterial color="#06080e" transparent opacity={0.78} depthWrite={false} />
       </mesh>
     </group>
   )

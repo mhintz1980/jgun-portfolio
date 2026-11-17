@@ -2,17 +2,43 @@ import { Box3, Mesh, MeshStandardMaterial, Vector3 } from 'three'
 import { describe, expect, it } from 'vitest'
 import outline from './cutterOutline.json'
 import {
-  CUTTER_ORBIT_M, CUTTER_RATE, INFEED_END_M, MACHINING_AT_SLOW_MID, WORK_RATE, infeedRhoAt, machiningTimeAt,
-  sampleShaftKinematics, createShaftKinematicsFrame, SHAFT_KINEMATICS_DURATION, CUTTER_TIP_RHO_MM,
+  CUTTER_ORBIT_M,
+  CUTTER_RATE,
+  INFEED_END_M,
+  MACHINING_AT_SLOW_MID,
+  WORK_RATE,
+  infeedRhoAt,
+  machiningTimeAt,
+  sampleShaftKinematics,
+  createShaftKinematicsFrame,
+  SHAFT_KINEMATICS_DURATION,
+  CUTTER_TIP_RHO_MM,
 } from './kinematics'
 import { SHAFT_ROOT_MM } from './progression'
 import { buildShaperCutter } from './tools'
 import {
-  CLEARANCE_V4_SHAPER, SHAPER_BORE_RADIUS_MM, SHAPER_CENTRE_DISTANCE_MM, SHAPER_MODULE_MM, SHAPER_MOUNT_MAX_RADIUS_MM,
-  SHAPER_PILOT_RADIUS_MM, SHAPER_PITCH_RADIUS_MM, SHAPER_PROTOTYPE, SHAPER_ROOT_LIMIT_MM, SHAPER_SIGNED_RATIO,
-  SHAPER_STOCK_MM, SHAPER_TEETH, SHAPER_THICKNESS_MM, SHAPER_TIP_RADIUS_MM, SHAPER_WORK_PITCH_RADIUS_MM,
-  SHAPER_WORK_ROOT_RADIUS_MM, SHAPER_WORK_TEETH, SHAPER_WORK_TIP_RADIUS_MM, SHAPER_ROOT_CLEARANCE_MM,
-  SHAPER_ARBOR_EXTENSION_MM, SHAPER_LEADING_FACE_Y_MM, SHAPER_BODY_REAR_Y_MM,
+  CLEARANCE_V4_SHAPER,
+  SHAPER_BORE_RADIUS_MM,
+  SHAPER_CENTRE_DISTANCE_MM,
+  SHAPER_MODULE_MM,
+  SHAPER_MOUNT_MAX_RADIUS_MM,
+  SHAPER_PILOT_RADIUS_MM,
+  SHAPER_PITCH_RADIUS_MM,
+  SHAPER_PROTOTYPE,
+  SHAPER_ROOT_LIMIT_MM,
+  SHAPER_SIGNED_RATIO,
+  SHAPER_STOCK_MM,
+  SHAPER_TEETH,
+  SHAPER_THICKNESS_MM,
+  SHAPER_TIP_RADIUS_MM,
+  SHAPER_WORK_PITCH_RADIUS_MM,
+  SHAPER_WORK_ROOT_RADIUS_MM,
+  SHAPER_WORK_TEETH,
+  SHAPER_WORK_TIP_RADIUS_MM,
+  SHAPER_ROOT_CLEARANCE_MM,
+  SHAPER_ARBOR_EXTENSION_MM,
+  SHAPER_LEADING_FACE_Y_MM,
+  SHAPER_BODY_REAR_Y_MM,
 } from './toolSpec'
 
 /** Coherence of the 60-tooth illustrative derived prototype; makes no manufacturing claim. */
@@ -24,18 +50,33 @@ describe('60-tooth shaper prototype: geometry', () => {
     expect(SHAPER_CENTRE_DISTANCE_MM).toBe(SHAPER_WORK_PITCH_RADIUS_MM + SHAPER_PITCH_RADIUS_MM)
     expect(SHAPER_SIGNED_RATIO).toBe(-SHAPER_TEETH / SHAPER_WORK_TEETH)
     expect(SHAPER_SIGNED_RATIO).toBe(-SHAPER_PITCH_RADIUS_MM / SHAPER_WORK_PITCH_RADIUS_MM)
-    expect(SHAPER_TIP_RADIUS_MM).toBeCloseTo(SHAPER_CENTRE_DISTANCE_MM - SHAPER_WORK_ROOT_RADIUS_MM - SHAPER_STOCK_MM, 9)
-    expect(SHAPER_ROOT_LIMIT_MM).toBeCloseTo(SHAPER_CENTRE_DISTANCE_MM - SHAPER_WORK_TIP_RADIUS_MM - SHAPER_ROOT_CLEARANCE_MM, 9)
+    expect(SHAPER_TIP_RADIUS_MM).toBeCloseTo(
+      SHAPER_CENTRE_DISTANCE_MM - SHAPER_WORK_ROOT_RADIUS_MM - SHAPER_STOCK_MM,
+      9,
+    )
+    expect(SHAPER_ROOT_LIMIT_MM).toBeCloseTo(
+      SHAPER_CENTRE_DISTANCE_MM - SHAPER_WORK_TIP_RADIUS_MM - SHAPER_ROOT_CLEARANCE_MM,
+      9,
+    )
     // The kinematic cutter-tip clearance matches the work root plus stock.
     expect(SHAPER_CENTRE_DISTANCE_MM - SHAPER_TIP_RADIUS_MM).toBeCloseTo(SHAFT_ROOT_MM + SHAPER_STOCK_MM, 4)
     // Circular pitch is shared by both gears: pi * module.
     const pitch = Math.PI * SHAPER_MODULE_MM
-    expect(2 * Math.PI * SHAPER_PITCH_RADIUS_MM / SHAPER_TEETH).toBeCloseTo(pitch, 12)
-    expect(2 * Math.PI * SHAPER_WORK_PITCH_RADIUS_MM / SHAPER_WORK_TEETH).toBeCloseTo(pitch, 12)
+    expect((2 * Math.PI * SHAPER_PITCH_RADIUS_MM) / SHAPER_TEETH).toBeCloseTo(pitch, 12)
+    expect((2 * Math.PI * SHAPER_WORK_PITCH_RADIUS_MM) / SHAPER_WORK_TEETH).toBeCloseTo(pitch, 12)
   })
   it('keeps the certified 20-tooth values only as the frozen historical record', () => {
-    expect(CLEARANCE_V4_SHAPER).toMatchObject({ teeth: 20, centreDistanceMm: 15.5, signedRatio: -2, tipRadiusMm: 11.2032 })
-    expect(SHAPER_PROTOTYPE).toMatchObject({ status: 'illustrative-derived-prototype', ownerGeometryApproved: false, manufacturingAcceptance: false })
+    expect(CLEARANCE_V4_SHAPER).toMatchObject({
+      teeth: 20,
+      centreDistanceMm: 15.5,
+      signedRatio: -2,
+      tipRadiusMm: 11.2032,
+    })
+    expect(SHAPER_PROTOTYPE).toMatchObject({
+      status: 'illustrative-derived-prototype',
+      ownerGeometryApproved: false,
+      manufacturingAcceptance: false,
+    })
   })
   it('ships an outline whose one tooth spans exactly 360/60 degrees inside the derived radii', () => {
     expect(outline.parameters.cutter_teeth).toBe(SHAPER_TEETH)
@@ -88,12 +129,18 @@ describe('60-tooth shaper prototype: sketch mount', () => {
       return new Box3().setFromObject(mesh)
     }
     const mm = (v: number) => v * 1000
-    const disc = box('shaper-cutter-disc'), hub = box('shaper-hub'), arbor = box('shaper-arbor')
-    const flange = box('shaper-clamp-flange'), nut = box('shaper-clamp-nut'), stud = box('shaper-stud')
-    const adapter = box('shaper-adapter-flange'), taper = box('shaper-adapter-taper'), thread = box('shaper-stud-thread')
-    const shank=box('shaper-arbor-shank')
-    expect(mm(shank.max.y)).toBeCloseTo(mm(taper.min.y),5)
-    expect(mm(shank.max.y-shank.min.y)).toBeCloseTo(4.5*25.4,4)
+    const disc = box('shaper-cutter-disc'),
+      hub = box('shaper-hub'),
+      arbor = box('shaper-arbor')
+    const flange = box('shaper-clamp-flange'),
+      nut = box('shaper-clamp-nut'),
+      stud = box('shaper-stud')
+    const adapter = box('shaper-adapter-flange'),
+      taper = box('shaper-adapter-taper'),
+      thread = box('shaper-stud-thread')
+    const shank = box('shaper-arbor-shank')
+    expect(mm(shank.max.y)).toBeCloseTo(mm(taper.min.y), 5)
+    expect(mm(shank.max.y - shank.min.y)).toBeCloseTo(4.5 * 25.4, 4)
     expect(SHAPER_ARBOR_EXTENSION_MM).toBe(114.3)
     // Axial order along -Y -> +Y: taper, adapter flange, shoulder, disc, clamping flange, nut.
     expect(mm(taper.max.y)).toBeCloseTo(mm(adapter.min.y), 6)
@@ -112,31 +159,37 @@ describe('60-tooth shaper prototype: sketch mount', () => {
     const position = discMesh.geometry.getAttribute('position')
     const v = new Vector3()
     let innermost = Infinity
-    for (let i = 0; i < position.count; i++) { v.fromBufferAttribute(position, i); innermost = Math.min(innermost, Math.hypot(v.x, v.z)) }
+    for (let i = 0; i < position.count; i++) {
+      v.fromBufferAttribute(position, i)
+      innermost = Math.min(innermost, Math.hypot(v.x, v.z))
+    }
     expect(mm(innermost)).toBeCloseTo(SHAPER_BORE_RADIUS_MM, 3)
     // Stud and thread sit proud of the nut so the nut visibly retains them.
     expect(mm(stud.max.y)).toBeGreaterThan(mm(nut.max.y))
     expect(mm(thread.max.y)).toBeGreaterThan(mm(nut.max.y))
     // Nothing in the mount reaches the work: mount radius stays far inside the centre distance.
     let mountRadius = 0
-    for (const b of [hub, arbor, flange, nut, stud, adapter, taper, thread,shank]) {
-      mountRadius = Math.max(mountRadius, mm(Math.max(Math.abs(b.min.x), Math.abs(b.max.x), Math.abs(b.min.z), Math.abs(b.max.z))))
+    for (const b of [hub, arbor, flange, nut, stud, adapter, taper, thread, shank]) {
+      mountRadius = Math.max(
+        mountRadius,
+        mm(Math.max(Math.abs(b.min.x), Math.abs(b.max.x), Math.abs(b.min.z), Math.abs(b.max.z))),
+      )
     }
     expect(mountRadius).toBeLessThanOrEqual(SHAPER_MOUNT_MAX_RADIUS_MM + 1e-6)
     expect(SHAPER_CENTRE_DISTANCE_MM - SHAPER_MOUNT_MAX_RADIUS_MM).toBeGreaterThanOrEqual(20)
     // Disc envelope is the derived crest radius.
     expect(mm(Math.max(disc.max.x, disc.max.z))).toBeLessThanOrEqual(SHAPER_TIP_RADIUS_MM + 1e-6)
     expect(mm(disc.max.y - disc.min.y)).toBeCloseTo(SHAPER_THICKNESS_MM, 6)
-    expect(mm(disc.min.y)).toBeCloseTo(SHAPER_BODY_REAR_Y_MM,5)
-    expect(mm(disc.max.y)).toBeCloseTo(SHAPER_LEADING_FACE_Y_MM,5)
-    expect(SHAPER_THICKNESS_MM/(2*SHAPER_TIP_RADIUS_MM)).toBeGreaterThan(.12)
-    expect(SHAPER_THICKNESS_MM/(2*SHAPER_TIP_RADIUS_MM)).toBeLessThan(.14)
+    expect(mm(disc.min.y)).toBeCloseTo(SHAPER_BODY_REAR_Y_MM, 5)
+    expect(mm(disc.max.y)).toBeCloseTo(SHAPER_LEADING_FACE_Y_MM, 5)
+    expect(SHAPER_THICKNESS_MM / (2 * SHAPER_TIP_RADIUS_MM)).toBeGreaterThan(0.12)
+    expect(SHAPER_THICKNESS_MM / (2 * SHAPER_TIP_RADIUS_MM)).toBeLessThan(0.14)
     // Physical rake-face/adjacent groove relation is independent of body thickness.
-    const k=createShaftKinematicsFrame()
-    for(const t of [2,3.5,6,8.4,10,12,14.9]){
-      sampleShaftKinematics(t,k)
-      expect(k.strokeCentreY+mm(disc.max.y)).toBeCloseTo(k.edgeY,5)
-      expect(k.strokeCentreY+mm(disc.max.y)).toBeLessThan(10.94-.5)
+    const k = createShaftKinematicsFrame()
+    for (const t of [2, 3.5, 6, 8.4, 10, 12, 14.9]) {
+      sampleShaftKinematics(t, k)
+      expect(k.strokeCentreY + mm(disc.max.y)).toBeCloseTo(k.edgeY, 5)
+      expect(k.strokeCentreY + mm(disc.max.y)).toBeLessThan(10.94 - 0.5)
     }
     cutter.dispose()
     material.dispose()
@@ -149,7 +202,8 @@ describe('60-tooth shaper prototype: sketch mount', () => {
     const angle = (i: number) => Math.atan2(-p.getZ(i), p.getX(i))
     // Vertex 2 of each ring is crest-high. Over the whole sweep, axial advance / pitch must equal
     // the accumulated angle / 2 pi: that is the definition of a helix of that pitch.
-    const a = 2, b = p.count - 2
+    const a = 2,
+      b = p.count - 2
     const dy = (p.getY(b) - p.getY(a)) * 1000
     const turns = dy / 1.75
     expect(turns).toBeGreaterThan(1.5)

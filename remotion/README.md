@@ -1,9 +1,19 @@
 # Showreel v3 — "The Line"
 
+> **SUPERSEDED DIRECTION (owner ruling 2026-11-13).** The go-forward showreel is the "The Line"
+> rework — slices owner-approved 2026-11-09 — on branch `torque-wrench/rebuild` (see that
+> branch's `remotion/README.md`; approvals in its `docs/HANDOFF-showreel-v3-2026-11-09b.md`/
+> `-09c.md`). "The Thread" (this composition) is NOT the direction. The description below
+> documents the Thread-era source preserved on this branch; the homepage MP4 is replaced only
+> after Mark accepts a "The Line" cut. The "Precision Revealed" rejection still stands.
+> Directive status: `TODO.md` JG-041.
+
 The hero video for studiomark.dev, built in [Remotion](https://remotion.dev) 4.0.540.
 Output: `public/video/showreel-v3.mp4` (1920×1080, 30 fps, H.264, silent). The committed MP4
 is the accepted ~69 s cut; the source now runs ~79 s with the StudioMark ident (JG-041
 iteration 1, owner-approved 2026-11-09) and "The Line" motif (JG-041 iteration 2, in review).
+
+> Editing the film? Start with [HANDOFF.md](HANDOFF.md): tools, lessons, file map, how to add a chapter or change copy.
 
 > Editing the film? Start with [HANDOFF.md](HANDOFF.md): tools, lessons, file map, how to add a chapter or change copy.
 

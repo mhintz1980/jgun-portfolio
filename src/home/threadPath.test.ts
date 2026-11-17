@@ -28,13 +28,17 @@ const ANCHORS: Anchor[] = [
 /** Sample a polyline (stand-in for SVGPathElement.getPointAtLength). */
 function polyline(points: Point[]) {
   const cum = [0]
-  for (let i = 1; i < points.length; i++) cum.push(cum[i - 1] + Math.hypot(points[i].x - points[i - 1].x, points[i].y - points[i - 1].y))
+  for (let i = 1; i < points.length; i++)
+    cum.push(cum[i - 1] + Math.hypot(points[i].x - points[i - 1].x, points[i].y - points[i - 1].y))
   const total = cum[cum.length - 1]
   const at = (length: number): Point => {
     let i = 1
     while (i < cum.length - 1 && cum[i] < length) i++
     const t = (length - cum[i - 1]) / (cum[i] - cum[i - 1] || 1)
-    return { x: points[i - 1].x + (points[i].x - points[i - 1].x) * t, y: points[i - 1].y + (points[i].y - points[i - 1].y) * t }
+    return {
+      x: points[i - 1].x + (points[i].x - points[i - 1].x) * t,
+      y: points[i - 1].y + (points[i].y - points[i - 1].y) * t,
+    }
   }
   return { total, at }
 }
@@ -71,14 +75,18 @@ describe('buildThread', () => {
   it('routes into the cards via the left margin and into the pin from the left', () => {
     const firstCard = ANCHORS[4]
     const lastRowExit = layout.eyelets[5]
-    const between = layout.points.slice(lastRowExit.pointIndex + 1, layout.points.findIndex((p) => p.y === 1800))
+    const between = layout.points.slice(
+      lastRowExit.pointIndex + 1,
+      layout.points.findIndex((p) => p.y === 1800),
+    )
     expect(between.some((p) => p.x < firstCard.left && p.y < firstCard.top + 60 && p.y > 1376)).toBe(true)
     const tail = layout.points.slice(-3, -1)
     for (const p of tail) expect(p.x).toBeLessThan(216)
   })
 
   it('zig-zags through every card interior in reading order', () => {
-    const inside = (p: Point, a: Anchor) => p.x > a.left && p.x < a.left + a.width && p.y > a.top && p.y < a.top + a.height
+    const inside = (p: Point, a: Anchor) =>
+      p.x > a.left && p.x < a.left + a.width && p.y > a.top && p.y < a.top + a.height
     const cards = ANCHORS.filter((a) => a.kind === 'card')
     let from = 0
     for (const c of cards) {
@@ -130,7 +138,13 @@ describe('catmullRomPath', () => {
   it('survives duplicate and degenerate inputs', () => {
     expect(catmullRomPath([])).toBe('')
     expect(catmullRomPath([{ x: 1, y: 2 }])).toBe('M1,2')
-    expect(catmullRomPath([{ x: 1, y: 2 }, { x: 1, y: 2 }, { x: 5, y: 9 }])).not.toMatch(/NaN|Infinity/)
+    expect(
+      catmullRomPath([
+        { x: 1, y: 2 },
+        { x: 1, y: 2 },
+        { x: 5, y: 9 },
+      ]),
+    ).not.toMatch(/NaN|Infinity/)
   })
 })
 
@@ -184,7 +198,9 @@ describe('scroll drawing', () => {
     expect(p.y).toBeCloseTo(350, 0)
     // Within half a sample step (4px) of the true length.
     expect(Math.abs(lengthNearest(samples, { x: 0, y: 400 }) - 400)).toBeLessThanOrEqual(4)
-    expect(Math.abs(lengthNearest(samples, { x: 100, y: 400 }, 500) - (400 + Math.SQRT2 * 100 + 100))).toBeLessThanOrEqual(4)
+    expect(
+      Math.abs(lengthNearest(samples, { x: 100, y: 400 }, 500) - (400 + Math.SQRT2 * 100 + 100)),
+    ).toBeLessThanOrEqual(4)
     // fromLength skips earlier passes: (0, 200) is on the first leg, so a later search ends late.
     expect(lengthNearest(samples, { x: 0, y: 200 }, 600)).toBeGreaterThanOrEqual(600)
   })

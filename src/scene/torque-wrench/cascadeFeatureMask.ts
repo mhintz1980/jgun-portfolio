@@ -96,7 +96,7 @@ function validateBandsList(rawBands: unknown, context: string): readonly Feature
     throw new Error('Feature mask ' + context + ' needs at least one axial band')
   if (rawBands.length > FEATURE_MASK_BAND_CAPACITY)
     throw new Error('Feature mask ' + context + ' supports at most ' + FEATURE_MASK_BAND_CAPACITY + ' bands')
-  const bands = rawBands.map(band => {
+  const bands = rawBands.map((band) => {
     if (!Array.isArray(band) || band.length !== 2)
       throw new Error('Each feature mask band must be [yMin, yMax] in shaft-datum mm')
     const yMin = requireFinite(band[0], 'band yMin')
@@ -106,19 +106,20 @@ function validateBandsList(rawBands: unknown, context: string): readonly Feature
     return [yMin, yMax] as const
   })
   for (let i = 1; i < bands.length; i++)
-    if (bands[i][0] < bands[i - 1][1])
-      throw new Error('Feature mask bands must be sorted ascending without overlap')
+    if (bands[i][0] < bands[i - 1][1]) throw new Error('Feature mask bands must be sorted ascending without overlap')
   return bands
 }
 
 /** Fail-closed contract validation; exact mesh coverage when ids are supplied. */
-export function validateFeatureMaskContract(contract: unknown, expectedMeshIds?: readonly string[]): ValidatedFeatureMask {
+export function validateFeatureMaskContract(
+  contract: unknown,
+  expectedMeshIds?: readonly string[],
+): ValidatedFeatureMask {
   if (!isRecord(contract)) throw new Error('Feature mask contract must be an object')
   if (contract.version !== FEATURE_MASK_VERSION)
     throw new Error('Feature mask contract version must be "' + FEATURE_MASK_VERSION + '"')
   const featureId = contract.featureId
-  if (typeof featureId !== 'string' || !featureId)
-    throw new Error('Feature mask contract needs a non-empty featureId')
+  if (typeof featureId !== 'string' || !featureId) throw new Error('Feature mask contract needs a non-empty featureId')
   const bands = validateBandsList(contract.bands, 'contract')
   const rawMatrices = contract.objectToShaft
   if (!isRecord(rawMatrices) || Object.keys(rawMatrices).length === 0)
@@ -141,8 +142,7 @@ export function validateFeatureMaskContract(contract: unknown, expectedMeshIds?:
   if (contract.meshBands !== undefined) {
     if (!isRecord(contract.meshBands)) throw new Error('Feature mask meshBands must be an object when provided')
     for (const [meshId, rawMeshBands] of Object.entries(contract.meshBands)) {
-      if (!matrices.has(meshId))
-        throw new Error('Feature mask meshBands references unknown mesh ' + meshId)
+      if (!matrices.has(meshId)) throw new Error('Feature mask meshBands references unknown mesh ' + meshId)
       meshBands.set(meshId, validateBandsList(rawMeshBands, 'meshBands[' + meshId + ']'))
     }
   }
@@ -156,8 +156,14 @@ export function validateFeatureMaskContract(contract: unknown, expectedMeshIds?:
       if (!expected.has(meshId))
         throw new Error('Feature mask contract covers unexpected mesh ' + meshId + ' (stale contract)')
   }
-  return { version: FEATURE_MASK_VERSION, featureId, bands, meshBands, matrices,
-    notes: typeof contract.notes === 'string' ? contract.notes : null }
+  return {
+    version: FEATURE_MASK_VERSION,
+    featureId,
+    bands,
+    meshBands,
+    matrices,
+    notes: typeof contract.notes === 'string' ? contract.notes : null,
+  }
 }
 
 /**
@@ -185,11 +191,12 @@ export function buildAuthenticatedInputFeatureContracts(
   const teethMeshBands: Record<string, readonly FeatureMaskBand[]> = {}
   for (const mesh of meshes.inputSunTeeth) {
     const isSource = mesh.userData.partNumber === 'P001835'
-    teethMeshBands[mesh.uuid] = mode === 'sharedFunctional'
-      ? AUTHENTICATED_SHAFT_FEATURE_BANDS.inputSunTeeth.sharedFunctional
-      : isSource
-        ? AUTHENTICATED_SHAFT_FEATURE_BANDS.inputSunTeeth.sourceFullShaping
-        : AUTHENTICATED_SHAFT_FEATURE_BANDS.inputSunTeeth.studyFullHob
+    teethMeshBands[mesh.uuid] =
+      mode === 'sharedFunctional'
+        ? AUTHENTICATED_SHAFT_FEATURE_BANDS.inputSunTeeth.sharedFunctional
+        : isSource
+          ? AUTHENTICATED_SHAFT_FEATURE_BANDS.inputSunTeeth.sourceFullShaping
+          : AUTHENTICATED_SHAFT_FEATURE_BANDS.inputSunTeeth.studyFullHob
   }
   return {
     inputSunTeeth: {
@@ -198,9 +205,10 @@ export function buildAuthenticatedInputFeatureContracts(
       bands: AUTHENTICATED_SHAFT_FEATURE_BANDS.inputSunTeeth.sharedFunctional,
       meshBands: teethMeshBands,
       objectToShaft: teethMatrices,
-      notes: mode === 'sharedFunctional'
-        ? 'Authenticated shared 10-tooth functional band [3.174827, 9.524858] mm (geometry-report.json)'
-        : 'Authenticated variant-specific full tooth bands: source P001835 [3.174827, 9.789711] mm, study approvedshaft [3.174827, 13.938684] mm (geometry-report.json)',
+      notes:
+        mode === 'sharedFunctional'
+          ? 'Authenticated shared 10-tooth functional band [3.174827, 9.524858] mm (geometry-report.json)'
+          : 'Authenticated variant-specific full tooth bands: source P001835 [3.174827, 9.789711] mm, study approvedshaft [3.174827, 13.938684] mm (geometry-report.json)',
     },
     inputSixfold: {
       version: FEATURE_MASK_VERSION,
@@ -230,8 +238,12 @@ export interface FeatureMaskShaderPatch {
  * in the cache key. Unused uniform slots are (0, 0) and can never match a
  * non-degenerate band, so a stray count cannot widen the mask.
  */
-export function createFeatureMaskShaderPatch(mask: ValidatedFeatureMask, meshId: string, fragment: FeatureMaskFragment,
-  capacity: number = FEATURE_MASK_BAND_CAPACITY): FeatureMaskShaderPatch {
+export function createFeatureMaskShaderPatch(
+  mask: ValidatedFeatureMask,
+  meshId: string,
+  fragment: FeatureMaskFragment,
+  capacity: number = FEATURE_MASK_BAND_CAPACITY,
+): FeatureMaskShaderPatch {
   if (!Number.isInteger(capacity) || capacity < 1 || capacity > 16)
     throw new Error('Feature mask band capacity must be an integer in [1, 16]')
   const activeBands = mask.meshBands.get(meshId) ?? mask.bands
@@ -243,7 +255,10 @@ export function createFeatureMaskShaderPatch(mask: ValidatedFeatureMask, meshId:
   if (fragment.kind === 'rgb' && (!override || !override.trim()))
     throw new Error('Feature mask rgb override needs a non-empty GLSL expression')
   const bands = new Float32Array(capacity * 2)
-  for (const [index, band] of activeBands.entries()) { bands[index * 2] = band[0]; bands[index * 2 + 1] = band[1] }
+  for (const [index, band] of activeBands.entries()) {
+    bands[index * 2] = band[0]
+    bands[index * 2 + 1] = band[1]
+  }
   return {
     // MSAA pixel centres can lie outside a covered triangle. Centroid keeps
     // the datum interpolation inside the primitive instead of extrapolating
@@ -254,11 +269,15 @@ export function createFeatureMaskShaderPatch(mask: ValidatedFeatureMask, meshId:
     // variable afterwards, but axial Y is preserved, so bands stay datum-bound.
     vertexBody: '\n  jgFeatureShaftLocal = (uJgFeatureToShaft * vec4(position, 1.0)).xyz;\n',
     fragmentDeclarations:
-      'uniform vec2 uJgFeatureBands[' + capacity + '];\n' +
+      'uniform vec2 uJgFeatureBands[' +
+      capacity +
+      '];\n' +
       'uniform int uJgFeatureBandCount;\n' +
       'centroid varying vec3 jgFeatureShaftLocal;\n' +
       'bool jgFeatureInside() {\n' +
-      '  for (int jgfmBand = 0; jgfmBand < ' + capacity + '; jgfmBand++) {\n' +
+      '  for (int jgfmBand = 0; jgfmBand < ' +
+      capacity +
+      '; jgfmBand++) {\n' +
       '    if (jgfmBand >= uJgFeatureBandCount) break;\n' +
       '    vec2 jgfmBandRange = uJgFeatureBands[jgfmBand];\n' +
       '    if (jgFeatureShaftLocal.y >= jgfmBandRange.x && jgFeatureShaftLocal.y <= jgfmBandRange.y) return true;\n' +
@@ -278,16 +297,22 @@ export function createFeatureMaskShaderPatch(mask: ValidatedFeatureMask, meshId:
 }
 
 /** Diagnostic-only selector: all controls reuse one shader; only uniforms change. */
-export function createFeatureMaskControlPatch(mask: ValidatedFeatureMask, meshId: string, fragment: FeatureMaskFragment) {
+export function createFeatureMaskControlPatch(
+  mask: ValidatedFeatureMask,
+  meshId: string,
+  fragment: FeatureMaskFragment,
+) {
   const patch = createFeatureMaskShaderPatch(mask, meshId, fragment)
   const count = patch.uniforms.uJgFeatureBandCount
   const bandCount = count.value
   const whole = { value: 0 }
   patch.uniforms.uJgFeatureWholeControl = whole
-  patch.fragmentDeclarations = 'uniform int uJgFeatureWholeControl;\n' + patch.fragmentDeclarations.replace(
-    'bool jgFeatureInside() {\n',
-    'bool jgFeatureInside() {\n  if (uJgFeatureWholeControl == 1) return true;\n',
-  )
+  patch.fragmentDeclarations =
+    'uniform int uJgFeatureWholeControl;\n' +
+    patch.fragmentDeclarations.replace(
+      'bool jgFeatureInside() {\n',
+      'bool jgFeatureInside() {\n  if (uJgFeatureWholeControl == 1) return true;\n',
+    )
   patch.cacheKeySuffix += '|same-program-controls-v1'
   return {
     patch,
@@ -320,7 +345,8 @@ export function createFeatureMaskedMaterial(original: Material, patch: FeatureMa
   clone.onBeforeCompile = (shader, renderer) => {
     hook.call(clone, shader, renderer)
     shader.vertexShader = patch.vertexDeclarations + insertBeforeFinalBrace(shader.vertexShader, patch.vertexBody)
-    shader.fragmentShader = patch.fragmentDeclarations + insertBeforeFinalBrace(shader.fragmentShader, patch.fragmentBody)
+    shader.fragmentShader =
+      patch.fragmentDeclarations + insertBeforeFinalBrace(shader.fragmentShader, patch.fragmentBody)
     Object.assign(shader.uniforms, patch.uniforms)
   }
   const baseKey = original.customProgramCacheKey()

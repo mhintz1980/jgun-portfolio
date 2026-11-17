@@ -1,0 +1,6 @@
+import { t as e } from "./rolldown-runtime.Bi-D_2cA.mjs";
+function t(e, t) { return { breakpoints: [{ hash: `1vfqth5`, mediaQuery: `(min-width: 1600px)` }, { hash: `17tsph9`, mediaQuery: `(min-width: 1200px) and (max-width: 1599.98px)` }, { hash: `1a1ak09`, mediaQuery: `(min-width: 810px) and (max-width: 1199.98px)` }, { hash: `m24r2f`, mediaQuery: `(max-width: 809.98px)` }], description: `Projektowanie identyfikacji wizualnych, stron internetowych i produktów cyfrowych, od koncepcji po finalną realizację.`, elements: { Kmjak0A0h: `project1`, LgaBz33dW: `scroll-end`, LWSuH8GAi: `project4`, Ox4d9f4o1: `project3`, tFoNk7zlt: `project2` }, framerSearch: { index: !0 }, robots: `max-image-preview:large`, serializationId: `framer-1auZ0`, socialImage: `https://framerusercontent.com/assets/W41KbbNBUr2eBk5zvTiPVvKT0.png`, title: `Fragment Studio · Identyfikacja wizualna, strony internetowe i product design`, viewport: `width=device-width` }; }
+var n, r;
+function i() { return (i = e((() => { n = 1, r = { exports: { metadataVersion: { type: `variable`, annotations: { framerContractVersion: `1` } }, default: { type: `function`, annotations: { framerContractVersion: `1` } }, __FramerMetadata__: { type: `variable` } } }; })))(); }
+export { n as i, i as n, t as r, r as t };
+//# sourceMappingURL=I6E3tV45p.CIb2Lzh3.mjs.map

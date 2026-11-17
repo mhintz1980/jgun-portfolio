@@ -1,0 +1,178 @@
+{
+ "gsapVersion": "3.12.5",
+ "gsapGlobals": [
+  "registerPlugin",
+  "timeline",
+  "getTweensOf",
+  "getProperty",
+  "quickSetter",
+  "quickTo",
+  "isTweening",
+  "defaults",
+  "config",
+  "registerEffect",
+  "registerEase",
+  "parseEase",
+  "getById",
+  "exportRoot",
+  "context",
+  "matchMedia",
+  "matchMediaRefresh",
+  "addEventListener",
+  "removeEventListener",
+  "utils",
+  "install",
+  "effects",
+  "ticker",
+  "updateRoot",
+  "plugins",
+  "globalTimeline",
+  "core",
+  "to",
+  "from",
+  "fromTo",
+  "delayedCall",
+  "set",
+  "killTweensOf",
+  "version"
+ ],
+ "pluginsRegistry": [
+  "attr",
+  "endArray",
+  "roundProps",
+  "modifiers",
+  "snap",
+  "css"
+ ],
+ "tyndall": "undefined",
+ "guiHandles": [
+  "experience:object",
+  "world:undefined",
+  "__DEBUG:undefined",
+  "debug:undefined",
+  "ri:undefined",
+  "rikoutaku:undefined",
+  "scene:undefined",
+  "camera:undefined"
+ ],
+ "links": [
+  {
+   "href": "/about.html",
+   "label": "02About me↗",
+   "aria": null
+  },
+  {
+   "href": "/projects/",
+   "label": "03Projects↗",
+   "aria": null
+  },
+  {
+   "href": "/about.html",
+   "label": "ABOUT MY APPROACH",
+   "aria": null
+  },
+  {
+   "href": "/projects/mofulog/",
+   "label": "GMO DESIGN AWARD 2025 · 入選VIEW PROJECT 0",
+   "aria": "MofuLog — プロジェクトを見る"
+  },
+  {
+   "href": "/projects/monolink/",
+   "label": "VIEW PROJECT 02 / 06TABLET APP · UI/UX D",
+   "aria": "MonoLink — プロジェクトを見る"
+  },
+  {
+   "href": "/projects/infty/",
+   "label": "VIEW PROJECT 03 / 06WEB DESIGN · INTERAC",
+   "aria": "INFTY STUDIO — プロジェクトを見る"
+  },
+  {
+   "href": "/projects/bigbang-web/",
+   "label": "VIEW PROJECT 04 / 06EXHIBITION WEBSITE ·",
+   "aria": "これが私の爆発 — プロジェクトを見る"
+  },
+  {
+   "href": "/projects/shin-tamabi/",
+   "label": "VIEW PROJECT 05 / 06AR · GRAPHIC DESIGNA",
+   "aria": "シン・タマビマップ — プロジェクトを見る"
+  },
+  {
+   "href": "/projects/threemedia/",
+   "label": "VIEW PROJECT 06 / 06POSTER · ANIMATION ·",
+   "aria": "ThreeMedia — プロジェクトを見る"
+  },
+  {
+   "href": "/projects/",
+   "label": "ALL PROJECTS",
+   "aria": null
+  }
+ ],
+ "sections": [
+  {
+   "tag": "HTML",
+   "chapter": null,
+   "comp": "two",
+   "label": null,
+   "cls": "light fx-live is-ready"
+  },
+  {
+   "tag": "SECTION",
+   "chapter": "1",
+   "comp": "two",
+   "label": "スタイル 2",
+   "cls": "composition-two is-motion-ready is-room-ready"
+  },
+  {
+   "tag": "BUTTON",
+   "chapter": null,
+   "comp": "one",
+   "label": null,
+   "cls": ""
+  },
+  {
+   "tag": "BUTTON",
+   "chapter": null,
+   "comp": "two",
+   "label": null,
+   "cls": ""
+  },
+  {
+   "tag": "DIV",
+   "chapter": null,
+   "comp": "two",
+   "label": "Shared room interactions",
+   "cls": "shared-ui"
+  }
+ ],
+ "fxSample": [
+  "type@0",
+  "lines@70",
+  "pop@480",
+  "type@450",
+  "type@500",
+  "pop@540",
+  "rise@180",
+  "fade@0",
+  "pop@60",
+  "pop@100",
+  "pop@140",
+  "rise@"
+ ],
+ "fxLive": "light fx-live is-ready",
+ "riSmooth": {
+  "smooth": false,
+  "covered": false
+ },
+ "canvasInfo": {
+  "engine": "three.js r165",
+  "w": 1924,
+  "h": 969,
+  "styleW": "",
+  "styleH": "",
+  "parent": "BODY."
+ },
+ "reduceQuery": false,
+ "coarse": false,
+ "webgl": true,
+ "supabaseUrl": "https://wiheipxqavssmynrdwsx.supabase.co/rest/v1/messages?select=id%2Cname%2Ccontent%2Ccreated_at&is_approved=eq.true&order=created_at.desc"
+}

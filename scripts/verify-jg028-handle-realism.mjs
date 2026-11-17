@@ -12,10 +12,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-const { chromium } = await import(
-  process.env.PLAYWRIGHT_MODULE ||
-    'playwright'
-)
+const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright')
 
 const OUT_DIR = 'project/work/evidence/jg028-handle-realism'
 const SCRATCH_DIR = '.scratch'
@@ -58,7 +55,7 @@ try {
   await page.waitForFunction(
     () => Boolean(window.__drawingProof?.ready && window.__telemetry?.drawing?.annotationsReady),
     null,
-    { timeout: 60000 }
+    { timeout: 60000 },
   )
   await page.waitForTimeout(2000)
 
@@ -67,7 +64,7 @@ try {
   await page.evaluate((p) => {
     window.__scrollCommitDisabled = true
     return window.__drawingProof.scrollToProgress(p)
-  }, 0.10)
+  }, 0.1)
 
   await page.evaluate(async () => {
     const t = window.__telemetry
@@ -207,9 +204,7 @@ try {
     }
 
     // Fasteners
-    const fastenerMeshes = allRigMeshes.filter(
-      (m) => m.colorHex === '#0d0d0d' && m.metalness >= 0.95
-    )
+    const fastenerMeshes = allRigMeshes.filter((m) => m.colorHex === '#0d0d0d' && m.metalness >= 0.95)
 
     return {
       handleMeshes,
@@ -232,25 +227,33 @@ try {
   } else {
     // 1. Assert handle body mesh has anodizedAluminum deep obsidian black (#040404, roughness 0.26, metalness 0.98, envMapIntensity 1.0)
     const anodizedMeshes = probe.handleMeshes.filter(
-      (m) => m.colorHex === '#040404' && Math.abs(m.roughness - 0.26) <= 0.02 && Math.abs(m.metalness - 0.98) <= 0.02
+      (m) => m.colorHex === '#040404' && Math.abs(m.roughness - 0.26) <= 0.02 && Math.abs(m.metalness - 0.98) <= 0.02,
     )
     if (anodizedMeshes.length > 0) {
-      pass(`Found ${anodizedMeshes.length} handle mesh(es) matching anodizedAluminum (#040404, roughness 0.26, metalness 0.98)`)
+      pass(
+        `Found ${anodizedMeshes.length} handle mesh(es) matching anodizedAluminum (#040404, roughness 0.26, metalness 0.98)`,
+      )
       report.assertions.anodizedAluminum = { pass: true, count: anodizedMeshes.length, sample: anodizedMeshes[0] }
     } else {
-      fail(`No handle mesh found matching anodizedAluminum (#040404, roughness 0.26, metalness 0.98). Handle meshes: ${JSON.stringify(probe.handleMeshes)}`)
+      fail(
+        `No handle mesh found matching anodizedAluminum (#040404, roughness 0.26, metalness 0.98). Handle meshes: ${JSON.stringify(probe.handleMeshes)}`,
+      )
       report.assertions.anodizedAluminum = { pass: false }
     }
 
     // 2. Assert P001928 has stainlessSteel (#c2c6cb, roughness 0.28, metalness 0.92, envMapIntensity 1.25)
     const stainlessMeshes = probe.handleMeshes.filter(
-      (m) => m.colorHex === '#c2c6cb' && Math.abs(m.roughness - 0.28) < 0.01 && Math.abs(m.metalness - 0.92) < 0.01
+      (m) => m.colorHex === '#c2c6cb' && Math.abs(m.roughness - 0.28) < 0.01 && Math.abs(m.metalness - 0.92) < 0.01,
     )
     if (stainlessMeshes.length > 0) {
-      pass(`Found ${stainlessMeshes.length} handle mesh(es) matching P001928 stainlessSteel (#c2c6cb, roughness 0.28, metalness 0.92)`)
+      pass(
+        `Found ${stainlessMeshes.length} handle mesh(es) matching P001928 stainlessSteel (#c2c6cb, roughness 0.28, metalness 0.92)`,
+      )
       report.assertions.stainlessSteel = { pass: true, count: stainlessMeshes.length, sample: stainlessMeshes[0] }
     } else {
-      fail(`No handle mesh found matching stainlessSteel (#c2c6cb, roughness 0.28, metalness 0.92). Handle meshes: ${JSON.stringify(probe.handleMeshes)}`)
+      fail(
+        `No handle mesh found matching stainlessSteel (#c2c6cb, roughness 0.28, metalness 0.92). Handle meshes: ${JSON.stringify(probe.handleMeshes)}`,
+      )
       report.assertions.stainlessSteel = { pass: false }
     }
 
@@ -278,7 +281,7 @@ try {
   await page.evaluate((p) => {
     window.__scrollCommitDisabled = true
     return window.__drawingProof.scrollToProgress(p)
-  }, 0.50)
+  }, 0.5)
 
   // Wait for quiet
   await page.evaluate(async () => {
@@ -333,10 +336,14 @@ try {
 
   report.explosionCheck = explosionCheck
   if (Math.abs(explosionCheck.deltaZ - explosionCheck.expectedDeltaZ) < 0.002) {
-    pass(`Handle exploded offset verified: deltaZ = ${explosionCheck.deltaZ.toFixed(4)} (expected ${explosionCheck.expectedDeltaZ})`)
+    pass(
+      `Handle exploded offset verified: deltaZ = ${explosionCheck.deltaZ.toFixed(4)} (expected ${explosionCheck.expectedDeltaZ})`,
+    )
     report.assertions.explosionOffset = { pass: true, explosionCheck }
   } else {
-    fail(`Handle exploded offset mismatch: deltaZ = ${explosionCheck.deltaZ} (expected ${explosionCheck.expectedDeltaZ})`)
+    fail(
+      `Handle exploded offset mismatch: deltaZ = ${explosionCheck.deltaZ} (expected ${explosionCheck.expectedDeltaZ})`,
+    )
     report.assertions.explosionOffset = { pass: false, explosionCheck }
   }
 

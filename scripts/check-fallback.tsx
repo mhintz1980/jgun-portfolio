@@ -18,9 +18,7 @@ const html = renderToString(createElement(App))
 
 // Keyboard a11y: interactive surfaces must be real, tab-reachable buttons
 // with the HUD-cyan focus ring — not click-only divs.
-const hotspotHtml = renderToString(
-  createElement(HotspotButton, { def: HOTSPOTS[0], selected: false }),
-)
+const hotspotHtml = renderToString(createElement(HotspotButton, { def: HOTSPOTS[0], selected: false }))
 setScrollState({ hotspotId: HOTSPOTS[0].id }) // open the detail panel for the close-button check
 const hudHtml = renderToString(createElement(TechnicalHUD))
 

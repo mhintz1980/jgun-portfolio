@@ -154,7 +154,9 @@ describe('K8 follow azimuth integral', () => {
   })
 
   it('matches the law through straddling intervals at every rate/weight boundary in 2..15 s', () => {
-    const boundaries = [...new Set([...MACHINING_RATE_BOUNDARIES.filter((b) => b >= 2 && b <= 15), 12])].sort((a, b) => a - b)
+    const boundaries = [...new Set([...MACHINING_RATE_BOUNDARIES.filter((b) => b >= 2 && b <= 15), 12])].sort(
+      (a, b) => a - b,
+    )
     expect(boundaries).toEqual([2, 3, 6, 7.2, 9.6, 11, 12, 14, 15])
     // Half-step-offset one-sided intervals (never crossing the boundary) plus one interval
     // straddling it; observed worst 1.7e-4 rad/s, tolerance 0.005. 12 is the follow-weight
@@ -248,23 +250,29 @@ describe('K2 shaper kinematics', () => {
         // Independent contact solve: retain the nearest-space interval, find where the
         // certified cosine stroke first enters the material face, not the old angular
         // centre alone. No producer event table or stock-phase constant is imported.
-        const edge = (x: number) => SHAPER_STROKE_CENTRE_Y_MIN_MM
-          + (SHAPER_STROKE_CENTRE_Y_MAX_MM - SHAPER_STROKE_CENTRE_Y_MIN_MM)
-          * (1 - Math.cos(2 * Math.PI * (x / STROKE_PERIOD_M + STROKE_PHASE_OFFSET))) / 2
-          + SHAPER_LEADING_FACE_Y_MM
+        const edge = (x: number) =>
+          SHAPER_STROKE_CENTRE_Y_MIN_MM +
+          ((SHAPER_STROKE_CENTRE_Y_MAX_MM - SHAPER_STROKE_CENTRE_Y_MIN_MM) *
+            (1 - Math.cos(2 * Math.PI * (x / STROKE_PERIOD_M + STROKE_PHASE_OFFSET)))) /
+            2 +
+          SHAPER_LEADING_FACE_Y_MM
         let event = m
         if (edge(m) < FACE_START_MM) {
-          let lo = m, hi = m + 0.1
+          let lo = m,
+            hi = m + 0.1
           for (let j = 0; j < 60; j++) {
             const mid = (lo + hi) / 2
-            if (edge(mid) < FACE_START_MM) lo = mid; else hi = mid
+            if (edge(mid) < FACE_START_MM) lo = mid
+            else hi = mid
           }
           event = (lo + hi) / 2
         } else if (edge(m) > SHAPING_FACE_END_MM) {
-          let lo = m - 0.1, hi = m
+          let lo = m - 0.1,
+            hi = m
           for (let j = 0; j < 60; j++) {
             const mid = (lo + hi) / 2
-            if (edge(mid) < SHAPING_FACE_END_MM) lo = mid; else hi = mid
+            if (edge(mid) < SHAPING_FACE_END_MM) lo = mid
+            else hi = mid
           }
           event = (lo + hi) / 2
         }
@@ -293,17 +301,25 @@ describe('K2 shaper kinematics', () => {
     }
     const priorDepth = new Float32Array(SHAFT_SPACES)
     const state = createProgressionState()
-    let gains = 0, whollyDisengaged = 0, returnPartial = 0, completion = 0
-    let contactFailures = 0, nearestFailures = 0, retainedFailures = 0, previousDepthFailures = 0, aheadMaskFailures = 0
+    let gains = 0,
+      whollyDisengaged = 0,
+      returnPartial = 0,
+      completion = 0
+    let contactFailures = 0,
+      nearestFailures = 0,
+      retainedFailures = 0,
+      previousDepthFailures = 0,
+      aheadMaskFailures = 0
     let priorDisengaged = true
     const firstCompletion = Array(SHAFT_SPACES).fill(-1) as number[]
     const step = 1 / 4800
     for (let tick = 0; tick <= 13 * 4800; tick++) {
-      const t = 2 + tick * step, f = sample(t)
+      const t = 2 + tick * step,
+        f = sample(t)
       const cutting = f.strokePhase < 0.5
-      const contact = cutting && f.edgeY >= FACE_START_MM && f.edgeY <= SHAPING_FACE_END_MM
-        && f.cutterRho < SHAFT_OD_MM - 1e-3
-      if ((f.engagedSpace >= 0) !== (contact && t < 15)) contactFailures++
+      const contact =
+        cutting && f.edgeY >= FACE_START_MM && f.edgeY <= SHAPING_FACE_END_MM && f.cutterRho < SHAFT_OD_MM - 1e-3
+      if (f.engagedSpace >= 0 !== (contact && t < 15)) contactFailures++
       const disengaged = f.engagedSpace < 0
       for (let space = 0; space < SHAFT_SPACES; space++) {
         const depth = f.spaceDepth[space]
@@ -319,29 +335,41 @@ describe('K2 shaper kinematics', () => {
         priorDepth[space] = depth
       }
       if (disengaged && priorDisengaged) whollyDisengaged++
-      if (!cutting && f.spaceDepth.some(d => d > 0 && d < 1)) returnPartial++
-      if (f.spaceDepth.every(d => d === 1) && completion === 0) completion = t
+      if (!cutting && f.spaceDepth.some((d) => d > 0 && d < 1)) returnPartial++
+      if (f.spaceDepth.every((d) => d === 1) && completion === 0) completion = t
       writeShaftProgression(f, state)
       if (contact && t < 15) {
         // Ahead of the leading face, the CPU/shader writer keeps prior event depth;
         // it never drops farther back than one pass or fabricates a new ahead-edge cut.
         const space = f.engagedSpace
-        if ((state.engagedPreviousDepth ?? 0) > f.spaceDepth[space]
-          || f.spaceDepth[space] - (state.engagedPreviousDepth ?? 0) > 1 / SPACE_PASSES_REQUIRED) previousDepthFailures++
+        if (
+          (state.engagedPreviousDepth ?? 0) > f.spaceDepth[space] ||
+          f.spaceDepth[space] - (state.engagedPreviousDepth ?? 0) > 1 / SPACE_PASSES_REQUIRED
+        )
+          previousDepthFailures++
         const y = (f.edgeY + SHAPING_FACE_END_MM) / 2
         const radius = progressedRadius(SHAFT_ROOT_MM, y, SPACE_CLOCK_RAD + space * SPACE_PITCH_RAD, state, 'legacy')
-        if (Math.abs((SHAFT_OD_MM - radius) / (SHAFT_OD_MM - SHAFT_ROOT_MM) - (state.engagedPreviousDepth ?? 0)) >= 0.5e-12) aheadMaskFailures++
+        if (
+          Math.abs((SHAFT_OD_MM - radius) / (SHAFT_OD_MM - SHAFT_ROOT_MM) - (state.engagedPreviousDepth ?? 0)) >=
+          0.5e-12
+        )
+          aheadMaskFailures++
       }
       priorDisengaged = disengaged
     }
     expect(gains).toBe(SHAFT_SPACES * SPACE_PASSES_REQUIRED)
-    expect({ contactFailures, nearestFailures, retainedFailures, previousDepthFailures, aheadMaskFailures })
-      .toEqual({ contactFailures: 0, nearestFailures: 0, retainedFailures: 0, previousDepthFailures: 0, aheadMaskFailures: 0 })
+    expect({ contactFailures, nearestFailures, retainedFailures, previousDepthFailures, aheadMaskFailures }).toEqual({
+      contactFailures: 0,
+      nearestFailures: 0,
+      retainedFailures: 0,
+      previousDepthFailures: 0,
+      aheadMaskFailures: 0,
+    })
     expect(whollyDisengaged).toBeGreaterThan(10000)
     expect(returnPartial).toBeGreaterThan(0)
     expect(completion).toBeGreaterThan(11)
     expect(completion).toBeLessThan(15)
-    expect(firstCompletion.every(t => t > 11 && t < 15)).toBe(true)
+    expect(firstCompletion.every((t) => t > 11 && t < 15)).toBe(true)
   })
   it('completes all ten spaces inside the recap and none before engagement', () => {
     let firstComplete = -1
@@ -476,7 +504,8 @@ describe('determinism and purity', () => {
       expect(fa).toBe(a)
       expect(fb).toBe(b)
       for (const key of Object.keys(fa) as (keyof typeof fa)[]) {
-        if (key === 'spaceDepth' || key === 'mode' || key === 'cutting' || key === 'returning' || key === 'softened') continue
+        if (key === 'spaceDepth' || key === 'mode' || key === 'cutting' || key === 'returning' || key === 'softened')
+          continue
         expect(fa[key]).toBe(fb[key])
       }
       for (let i = 0; i < SHAFT_SPACES; i++) expect(fa.spaceDepth[i]).toBe(fb.spaceDepth[i])
@@ -527,7 +556,8 @@ describe('Stage 1 spindle registration and conjugate rolling', () => {
   })
 
   it('keeps sun/carrier/planet tooth phase locked across bullet ignition, release and shuffled seeks', () => {
-    const frame = createShaftKinematicsFrame(), schedule = createShaftSchedule()
+    const frame = createShaftKinematicsFrame(),
+      schedule = createShaftSchedule()
     expect(SUN_TO_STAGE1_CARRIER_RATIO).toBe(5.2)
     for (let i = 0; i <= 900; i++) {
       const t = 38.5 + ((i * 197) % 901) / 200
@@ -554,7 +584,9 @@ describe('Stage 1 spindle registration and conjugate rolling', () => {
 
 describe('R8 progression review regressions', () => {
   it('retains prior depth ahead of the edge on passes 2-4 across all ten spaces and both sides of crossings', () => {
-    const f = createShaftKinematicsFrame(), state = createProgressionState(), uniforms = createProgressionUniforms()
+    const f = createShaftKinematicsFrame(),
+      state = createProgressionState(),
+      uniforms = createProgressionUniforms()
     const covered = new Set<string>()
     const sides = new Set<number>()
     for (let space = 0; space < SHAFT_SPACES; space++) {
@@ -567,21 +599,30 @@ describe('R8 progression review regressions', () => {
         if (pass < 2 || pass > 4) continue
         for (const offset of [-0.09, -0.05, -0.025, 0, 0.025, 0.05, 0.09]) {
           const m = crossing + offset
-          let lo = 2, hi = 15
+          let lo = 2,
+            hi = 15
           for (let i = 0; i < 60; i++) {
             const mid = (lo + hi) / 2
-            if (machiningTimeAt(mid) < m) lo = mid; else hi = mid
+            if (machiningTimeAt(mid) < m) lo = mid
+            else hi = mid
           }
           sampleShaftKinematics((lo + hi) / 2, f)
           // Some offsets land in the relieved return or beyond the face band;
           // those samples have no engaged region ahead of the edge to evaluate.
           if (f.engagedSpace !== space || f.edgeY >= SHAPING_FACE_END_MM) continue
-          writeShaftProgression(f, state); writeProgressionUniforms(uniforms, state, 'legacy')
+          writeShaftProgression(f, state)
+          writeProgressionUniforms(uniforms, state, 'legacy')
           const previous = (pass - 1) / SPACE_PASSES_REQUIRED
           expect(state.engagedPreviousDepth).toBe(previous)
           expect(uniforms.uEngagedPreviousDepth.value).toBe(previous)
           const aheadY = (f.edgeY + SHAPING_FACE_END_MM) / 2
-          const radius = progressedRadius(SHAFT_ROOT_MM, aheadY, SPACE_CLOCK_RAD + space * SPACE_PITCH_RAD, state, 'legacy')
+          const radius = progressedRadius(
+            SHAFT_ROOT_MM,
+            aheadY,
+            SPACE_CLOCK_RAD + space * SPACE_PITCH_RAD,
+            state,
+            'legacy',
+          )
           const shownDepth = (SHAFT_OD_MM - radius) / (SHAFT_OD_MM - SHAFT_ROOT_MM)
           expect(shownDepth).toBeCloseTo(previous, 12)
           expect(shownDepth).toBeGreaterThanOrEqual(previous - 1e-12)
@@ -597,24 +638,41 @@ describe('R8 progression review regressions', () => {
   })
 
   it('holds the completed swept hob envelope in the shared writer while the tool retracts and withdraws', () => {
-    const f = createShaftKinematicsFrame(), state = createProgressionState()
+    const f = createShaftKinematicsFrame(),
+      state = createProgressionState()
     writeShaftProgression(sampleShaftKinematics(30.2, f), state)
-    const radii = Array.from({ length: 101 }, (_, i) => progressedRadius(SHAFT_ROOT_MM,
-      FACE_START_MM + (HOBBING_FACE_END_MM - FACE_START_MM) * i / 100, 0, state, 'approved'))
+    const radii = Array.from({ length: 101 }, (_, i) =>
+      progressedRadius(
+        SHAFT_ROOT_MM,
+        FACE_START_MM + ((HOBBING_FACE_END_MM - FACE_START_MM) * i) / 100,
+        0,
+        state,
+        'approved',
+      ),
+    )
     for (const t of [31.999, 30.2, 31.2, 30.8, 31.8, 31, 30.2]) {
       writeShaftProgression(sampleShaftKinematics(t, f), state)
       expect(state.hobYc).toBe(HOB_STOP_YC_MM)
       expect(state.hobA).toBe(HOB_VISUAL_A_MM)
       for (let i = 0; i <= 100; i++) {
-        expect(progressedRadius(SHAFT_ROOT_MM, FACE_START_MM + (HOBBING_FACE_END_MM - FACE_START_MM) * i / 100,
-          0, state, 'approved')).toBe(radii[i])
+        expect(
+          progressedRadius(
+            SHAFT_ROOT_MM,
+            FACE_START_MM + ((HOBBING_FACE_END_MM - FACE_START_MM) * i) / 100,
+            0,
+            state,
+            'approved',
+          ),
+        ).toBe(radii[i])
       }
       if (t > 31) expect(f.hobYc).toBeLessThan(HOB_STOP_YC_MM)
       if (t > 30.2) expect(f.hobA).toBeGreaterThan(HOB_VISUAL_A_MM)
     }
     writeShaftProgression(sampleShaftKinematics(30.2 - 1e-6, f), state)
-    expect(state.hobYc).toBe(f.hobYc); expect(state.hobA).toBe(f.hobA)
+    expect(state.hobYc).toBe(f.hobYc)
+    expect(state.hobA).toBe(f.hobA)
     writeShaftProgression(sampleShaftKinematics(25, f), state)
-    expect(state.hobYc).toBe(HOB_INFEED_YC_MM); expect(state.hobA).toBe(f.hobA)
+    expect(state.hobYc).toBe(HOB_INFEED_YC_MM)
+    expect(state.hobA).toBe(f.hobA)
   })
 })

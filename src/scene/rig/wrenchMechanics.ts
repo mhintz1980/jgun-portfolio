@@ -98,7 +98,7 @@ const applyShift = (rig: WrenchRig, shift: number): void => {
     const base = rig.basePositions.get(rs)
     if (base) {
       rs.position.z = base.z + shift * RING_SWITCH_VISUAL_TRAVEL_Z
-      rs.rotation.z = +shift * RING_SWITCH_ROTATION  // +Z travel = positive rotation
+      rs.rotation.z = +shift * RING_SWITCH_ROTATION // +Z travel = positive rotation
     }
   }
 }

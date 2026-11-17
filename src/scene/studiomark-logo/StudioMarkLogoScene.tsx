@@ -5,12 +5,7 @@ import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 import * as THREE from 'three'
 
 import type { LogoConfig } from './types'
-import {
-  BUMPER_SPECS,
-  evaluateBumperState,
-  type BumperFrameState,
-  type BumperMode,
-} from './bumperTimeline'
+import { BUMPER_SPECS, evaluateBumperState, type BumperFrameState, type BumperMode } from './bumperTimeline'
 import { RainFloor } from './RainFloor'
 import { RainDrops } from './RainDrops'
 import { RainSplashes } from './RainSplashes'
@@ -111,9 +106,7 @@ function SceneContent({
 
   const simTime = activeBumperState ? activeBumperState.timeSec : null
   const effectiveRipple = activeBumperState ? activeBumperState.rippleStrength : config.rippleStrength
-  const effectiveReflectivity = activeBumperState
-    ? activeBumperState.puddleReflectivity
-    : config.puddleReflectivity
+  const effectiveReflectivity = activeBumperState ? activeBumperState.puddleReflectivity : config.puddleReflectivity
   const effectiveBloom = activeBumperState ? activeBumperState.bloomIntensity : config.bloomIntensity
 
   return (
@@ -146,10 +139,7 @@ function SceneContent({
 
       {/* Studio Lighting & Softbox Lightformers */}
       <Suspense fallback={null}>
-        <StudioLighting
-          glowColor={config.glowColor}
-          ambientDarkness={config.ambientDarkness}
-        />
+        <StudioLighting glowColor={config.glowColor} ambientDarkness={config.ambientDarkness} />
       </Suspense>
 
       {/* Centerpiece & Lighting render immediately without waiting on fonts */}
@@ -189,17 +179,10 @@ function SceneContent({
       </Suspense>
 
       {/* Falling Raindrops Instanced Simulation */}
-      <RainDrops
-        count={config.rainCount}
-        intensity={config.rainIntensity}
-        simTime={simTime}
-      />
+      <RainDrops count={config.rainCount} intensity={config.rainIntensity} simTime={simTime} />
 
       {/* Ground Water Splash Rings */}
-      <RainSplashes
-        enabled={config.enableSplashes && config.rainIntensity !== 'off'}
-        simTime={simTime}
-      />
+      <RainSplashes enabled={config.enableSplashes && config.rainIntensity !== 'off'} simTime={simTime} />
 
       {/* HDR Bloom & Post-Processing */}
       <PostProcessing bloomIntensity={effectiveBloom} />

@@ -40,6 +40,23 @@ Whenever Mark requests a handoff, provide both the saved handoff document and an
    favor of `src/scene/` and no longer exists. The orzo roadmap is tracked reference
    material, not an approved build spec — treat its unbuilt ideas via normal Task Intake.)
 
+## QA gate (added 2026-11-09)
+
+- `npm run check` = Biome format + lint errors → `tsc --noEmit` → vitest → station2 (~40 s).
+  Run it before declaring work done; `.githooks/pre-push` runs it on every push (activate per
+  clone: `git config core.hooksPath .githooks`; emergency bypass: `git push --no-verify`).
+- `npm run format` fixes formatting; `npm run lint:report` shows warning counts. Rule rationale
+  lives in `biome.jsonc` — tighten `warn` rules over time; no new `off` without a TODO entry.
+- `0a2a0888` was a format-only commit: in-flight branches resolve its conflicts by running
+  `npm run format` on the merged result. Blame past it with
+  `git blame --ignore-revs-file .git-blame-ignore-revs <path>`.
+- Fresh Windows worktrees (`core.autocrlf=true`) check out CRLF and fail Biome's
+  `lineEnding: lf` on ~500 files. Before pushing from a new worktree: LF-normalize
+  `biome.jsonc`, `vite.config.ts`, `playwright.config.ts` and the `src/ tests/ scripts/
+  build/` trees (a byte-level CRLF→LF rewrite; `git checkout -f` will not fix it), and
+  junction or install `node_modules` so `@biomejs/biome` is present (the shared checkout
+  needed one `npm install` after 2026-11-09).
+
 ## Hard rules
 
 - GitHub `origin` (`mhintz1980/jgun-portfolio`) is the authoritative repository. Record the intended update and proportional checks before delivery. Public work-in-progress delivery is separate from full task completion under the owner policy. A Git push and a Cloudflare upload are distinct actions; verify the actual deployment mechanism.

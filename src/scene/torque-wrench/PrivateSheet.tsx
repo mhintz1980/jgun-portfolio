@@ -98,7 +98,11 @@ export function PrivateSheet({ baked, frame, context, onCleanupFailure, onRuntim
       if (window.__metrologyWorkbench === probe) delete window.__metrologyWorkbench
       propsRuntime.dispose()
       if (runtime.current === presentation) runtime.current = null
-      try { latest.current.onRuntime(null) } finally { presentation.dispose() }
+      try {
+        latest.current.onRuntime(null)
+      } finally {
+        presentation.dispose()
+      }
     }
   }, [baked, gl, camera, scene])
 

@@ -28,10 +28,7 @@
  */
 import fs from 'node:fs'
 import path from 'node:path'
-const { chromium } = await import(
-  process.env.PLAYWRIGHT_MODULE ||
-    'playwright'
-)
+const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright')
 
 const BEFORE_MODE = process.argv.includes('--before')
 const OUT = 'project/work/evidence/jg027-lcd-cluster'
@@ -83,7 +80,8 @@ function probeCluster() {
   const scene = window.__threeScene
   const cam = window.__threeCamera
   const cluster = window.__rig?.lcdCluster
-  if (!scene || !cam || !cluster) return { error: 'missing globals', hasScene: !!scene, hasCam: !!cam, hasCluster: !!cluster }
+  if (!scene || !cam || !cluster)
+    return { error: 'missing globals', hasScene: !!scene, hasCam: !!cam, hasCluster: !!cluster }
   cam.updateMatrixWorld()
   const V = cluster.readout.position.constructor
   const Q = cluster.readout.quaternion.constructor
@@ -207,7 +205,7 @@ async function countPixels(page, pngPath, rects) {
       }
       return out
     },
-    { b64, rects }
+    { b64, rects },
   )
 }
 
@@ -235,7 +233,7 @@ for (const leg of legSpecs) {
   await page.waitForFunction(
     () => Boolean(window.__drawingProof?.ready && window.__telemetry?.drawing?.annotationsReady),
     null,
-    { timeout: 60000 }
+    { timeout: 60000 },
   )
   await page.waitForTimeout(2000)
 
@@ -255,19 +253,32 @@ for (const leg of legSpecs) {
         fail(`${leg.label}: cluster surface ${s.key} missing`)
         continue
       }
-      if (leg.assert && s.facingDot <= 0.5) fail(`${leg.label}: ${s.key} facingDot ${s.facingDot} <= 0.5 (backfaced/edge-on)`)
+      if (leg.assert && s.facingDot <= 0.5)
+        fail(`${leg.label}: ${s.key} facingDot ${s.facingDot} <= 0.5 (backfaced/edge-on)`)
       if (leg.assert && !s.inFrame) fail(`${leg.label}: ${s.key} not in frame at dwell`)
       if (leg.assert && (s.key === 'bezel' || s.key === 'readout')) {
-        if (s.longAxisUpDot < 0.8) fail(`${leg.label}: ${s.key} long axis not vertical (upDot ${s.longAxisUpDot}) — 90° CW ruling violated`)
-        if (!s.readsTopToBottom) fail(`${leg.label}: ${s.key} text baseline flows up-screen — rotation direction wrong (should read top-to-bottom)`)
+        if (s.longAxisUpDot < 0.8)
+          fail(`${leg.label}: ${s.key} long axis not vertical (upDot ${s.longAxisUpDot}) — 90° CW ruling violated`)
+        if (!s.readsTopToBottom)
+          fail(
+            `${leg.label}: ${s.key} text baseline flows up-screen — rotation direction wrong (should read top-to-bottom)`,
+          )
       }
-      if (leg.assert && s.texture && s.texture.brightWhitePx < 20 && (s.key === 'readout' || s.key.startsWith('symbol'))) {
+      if (
+        leg.assert &&
+        s.texture &&
+        s.texture.brightWhitePx < 20 &&
+        (s.key === 'readout' || s.key.startsWith('symbol'))
+      ) {
         fail(`${leg.label}: ${s.key} texture has only ${s.texture.brightWhitePx} bright pixels (blank canvas?)`)
       }
     }
   }
 
-  const shot = path.join(OUT, `${BEFORE_MODE ? 'dwell-before' : 'dwell-after'}-${leg.label}-${leg.width}x${leg.height}.png`)
+  const shot = path.join(
+    OUT,
+    `${BEFORE_MODE ? 'dwell-before' : 'dwell-after'}-${leg.label}-${leg.width}x${leg.height}.png`,
+  )
   await page.screenshot({ path: shot, animations: 'disabled' })
   run.screenshot = path.basename(shot)
 
@@ -279,10 +290,13 @@ for (const leg of legSpecs) {
     if (leg.assert) {
       const p = run.pixelCounts
       const isDesktop = leg.label === 'desktop'
-      if ((p.bezel?.redPx ?? 0) < (isDesktop ? 250 : 60)) fail(`${leg.label}: bezel red pixels ${p.bezel?.redPx} below threshold (invisible ring?)`)
-      if ((p.readout?.whitePx ?? 0) < (isDesktop ? 150 : 40)) fail(`${leg.label}: readout white pixels ${p.readout?.whitePx} below threshold (blank screen?)`)
+      if ((p.bezel?.redPx ?? 0) < (isDesktop ? 250 : 60))
+        fail(`${leg.label}: bezel red pixels ${p.bezel?.redPx} below threshold (invisible ring?)`)
+      if ((p.readout?.whitePx ?? 0) < (isDesktop ? 150 : 40))
+        fail(`${leg.label}: readout white pixels ${p.readout?.whitePx} below threshold (blank screen?)`)
       for (const key of ['symbol-up', 'symbol-enter', 'symbol-down']) {
-        if ((p[key]?.whitePx ?? 0) < (isDesktop ? 15 : 5)) fail(`${leg.label}: ${key} white pixels ${p[key]?.whitePx} below threshold (unlit symbol?)`)
+        if ((p[key]?.whitePx ?? 0) < (isDesktop ? 15 : 5))
+          fail(`${leg.label}: ${key} white pixels ${p[key]?.whitePx} below threshold (unlit symbol?)`)
       }
     }
   }
@@ -325,5 +339,7 @@ if (!BEFORE_MODE) {
 await browser.close()
 report.finishedAt = new Date().toISOString()
 save(BEFORE_MODE ? 'report-before.json' : 'report.json', report)
-console.log(`${report.failures.length === 0 ? 'PASS' : 'FAIL'} — ${report.failures.length} failure(s) — ${OUT}/report${BEFORE_MODE ? '-before' : ''}.json`)
+console.log(
+  `${report.failures.length === 0 ? 'PASS' : 'FAIL'} — ${report.failures.length} failure(s) — ${OUT}/report${BEFORE_MODE ? '-before' : ''}.json`,
+)
 process.exitCode = report.failures.length ? 1 : 0

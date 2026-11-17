@@ -1,9 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import {
-  BACKGROUND_LAYERS,
-  createBackgroundSample,
-  sampleBackground,
-} from './backgroundLayers'
+import { BACKGROUND_LAYERS, createBackgroundSample, sampleBackground } from './backgroundLayers'
 import { createPostProfile, samplePostProfile } from './postProfile'
 import { computeRenderBudget } from './renderBudget'
 
@@ -35,11 +31,10 @@ describe('Torque wrench background state', () => {
 
   it('keeps three distinct ordered source luminances below the pit highlight', () => {
     const sample = createBackgroundSample()
-    const luminance = (color: readonly number[]) =>
-      0.2126 * color[0] + 0.7152 * color[1] + 0.0722 * color[2]
+    const luminance = (color: readonly number[]) => 0.2126 * color[0] + 0.7152 * color[1] + 0.0722 * color[2]
     for (const progress of [0, 0.46, 0.69, 1]) {
       sampleBackground(progress, sample)
-      const [far, middle, near] = sample.layers.map(layer => luminance(layer.color))
+      const [far, middle, near] = sample.layers.map((layer) => luminance(layer.color))
       expect(middle).toBeGreaterThan(far * 2)
       expect(near).toBeGreaterThan(middle * 2)
       expect(near).toBeLessThan(0.2)
@@ -59,11 +54,13 @@ describe('Torque wrench background state', () => {
       for (let index = 0; index < 3; index += 1) {
         expect(Math.abs(background.layers[index].opacity - near.layers[index].opacity)).toBeLessThan(0.01)
         expect(Math.abs(background.layers[index].scale - near.layers[index].scale)).toBeLessThan(0.01)
-        expect(Math.hypot(
-          background.layers[index].color[0] - near.layers[index].color[0],
-          background.layers[index].color[1] - near.layers[index].color[1],
-          background.layers[index].color[2] - near.layers[index].color[2],
-        )).toBeLessThan(0.01)
+        expect(
+          Math.hypot(
+            background.layers[index].color[0] - near.layers[index].color[0],
+            background.layers[index].color[1] - near.layers[index].color[1],
+            background.layers[index].color[2] - near.layers[index].color[2],
+          ),
+        ).toBeLessThan(0.01)
       }
       expect(Math.abs(post.exposure - nearPost.exposure)).toBeLessThan(0.001)
     }
@@ -99,7 +96,15 @@ describe('Torque wrench background state', () => {
       { width: 390, height: 844, deviceDpr: 3, tier: 'full' as const, dpr: 1.5, widthPx: 585, heightPx: 1266 },
       { width: 2560, height: 1440, deviceDpr: 2, tier: 'full' as const, dpr: 1, widthPx: 2560, heightPx: 1440 },
       { width: 2560, height: 1440, deviceDpr: 2, tier: 'lite' as const, dpr: 1, widthPx: 2560, heightPx: 1440 },
-      { width: 3840.5, height: 2160.25, deviceDpr: 2, tier: 'full' as const, dpr: 0.6665846937399963, widthPx: 2560, heightPx: 1439 },
+      {
+        width: 3840.5,
+        height: 2160.25,
+        deviceDpr: 2,
+        tier: 'full' as const,
+        dpr: 0.6665846937399963,
+        widthPx: 2560,
+        heightPx: 1439,
+      },
     ]
     for (const expected of cases) {
       const budget = computeRenderBudget(expected.width, expected.height, expected.deviceDpr, expected.tier)

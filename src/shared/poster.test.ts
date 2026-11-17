@@ -32,7 +32,9 @@ describe('validatePosterMap', () => {
       status: 'temporary',
       provenance: null,
     })
-    expect(validatePosterMap(['exterior', 'section', 'intake'].map(frame), ['exterior', 'section', 'intake'])).toEqual([])
+    expect(validatePosterMap(['exterior', 'section', 'intake'].map(frame), ['exterior', 'section', 'intake'])).toEqual(
+      [],
+    )
   })
 
   it('reports each class of problem', () => {
@@ -44,7 +46,11 @@ describe('validatePosterMap', () => {
       ['a CAD path', [entry({ desktop: { src: '/models/a.glb', width: 1, height: 1 } })], /CAD asset/],
       ['bad dimensions', [entry({ desktop: { src: '/a.png', width: 0, height: 1.5 } })], /positive integers/],
       ['final without provenance', [entry({ status: 'final' })], /needs provenance/],
-      ['final with empty versions', [entry({ status: 'final', provenance: { ...provenance, assetVersions: {} } })], /assetVersions is empty/],
+      [
+        'final with empty versions',
+        [entry({ status: 'final', provenance: { ...provenance, assetVersions: {} } })],
+        /assetVersions is empty/,
+      ],
       ['bad narrow', [entry({ narrow: { src: '/n.gif', width: 1, height: 1 } })], /narrow: src must be a raster/],
     ]
     for (const [name, map, pattern] of cases) {

@@ -25,7 +25,8 @@ export function InspectorUI({
   const [isOpen, setIsOpen] = useState(true)
   const [activeTab, setActiveTab] = useState<'model' | 'rain' | 'glass' | 'text'>('model')
 
-  const currentTheme = THEME_PRESETS.find((t) => t.glowColor.toLowerCase() === config.glowColor.toLowerCase()) ?? THEME_PRESETS[0]
+  const currentTheme =
+    THEME_PRESETS.find((t) => t.glowColor.toLowerCase() === config.glowColor.toLowerCase()) ?? THEME_PRESETS[0]
 
   return (
     <aside
@@ -104,11 +105,7 @@ export function InspectorUI({
           {onSelectBumperMode && (
             <>
               <button
-                onClick={() =>
-                  onSelectBumperMode(
-                    bumperMode === 'storm-ignition' ? 'interactive' : 'storm-ignition',
-                  )
-                }
+                onClick={() => onSelectBumperMode(bumperMode === 'storm-ignition' ? 'interactive' : 'storm-ignition')}
                 title="Play Bumper 01: Storm Ignition (4.5s)"
                 style={{
                   display: 'flex',
@@ -122,14 +119,10 @@ export function InspectorUI({
                   textTransform: 'uppercase',
                   cursor: 'pointer',
                   backgroundColor:
-                    bumperMode === 'storm-ignition'
-                      ? 'rgba(210, 196, 163, 0.24)'
-                      : 'rgba(15, 23, 42, 0.78)',
+                    bumperMode === 'storm-ignition' ? 'rgba(210, 196, 163, 0.24)' : 'rgba(15, 23, 42, 0.78)',
                   color: bumperMode === 'storm-ignition' ? config.glowColor : '#e2e8f0',
                   border: `1px solid ${
-                    bumperMode === 'storm-ignition'
-                      ? config.glowColor
-                      : 'rgba(255, 255, 255, 0.14)'
+                    bumperMode === 'storm-ignition' ? config.glowColor : 'rgba(255, 255, 255, 0.14)'
                   }`,
                   backdropFilter: 'blur(12px)',
                   transition: 'all 0.2s ease',
@@ -141,11 +134,7 @@ export function InspectorUI({
 
               {/* Bumper 04: Low Puddle Crane-Up */}
               <button
-                onClick={() =>
-                  onSelectBumperMode(
-                    bumperMode === 'puddle-crane' ? 'interactive' : 'puddle-crane',
-                  )
-                }
+                onClick={() => onSelectBumperMode(bumperMode === 'puddle-crane' ? 'interactive' : 'puddle-crane')}
                 title="Play Bumper 04: Low Puddle Crane-Up (5.0s)"
                 style={{
                   display: 'flex',
@@ -159,15 +148,9 @@ export function InspectorUI({
                   textTransform: 'uppercase',
                   cursor: 'pointer',
                   backgroundColor:
-                    bumperMode === 'puddle-crane'
-                      ? 'rgba(56, 232, 255, 0.22)'
-                      : 'rgba(15, 23, 42, 0.78)',
+                    bumperMode === 'puddle-crane' ? 'rgba(56, 232, 255, 0.22)' : 'rgba(15, 23, 42, 0.78)',
                   color: bumperMode === 'puddle-crane' ? '#38e8ff' : '#e2e8f0',
-                  border: `1px solid ${
-                    bumperMode === 'puddle-crane'
-                      ? '#38e8ff'
-                      : 'rgba(255, 255, 255, 0.14)'
-                  }`,
+                  border: `1px solid ${bumperMode === 'puddle-crane' ? '#38e8ff' : 'rgba(255, 255, 255, 0.14)'}`,
                   backdropFilter: 'blur(12px)',
                   transition: 'all 0.2s ease',
                 }}
@@ -306,7 +289,16 @@ export function InspectorUI({
             {activeTab === 'model' && (
               <>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.62rem', letterSpacing: '0.08em', color: '#94a3b8', marginBottom: '0.4rem', textTransform: 'uppercase' }}>
+                  <label
+                    style={{
+                      display: 'block',
+                      fontSize: '0.62rem',
+                      letterSpacing: '0.08em',
+                      color: '#94a3b8',
+                      marginBottom: '0.4rem',
+                      textTransform: 'uppercase',
+                    }}
+                  >
                     Centerpiece Geometry
                   </label>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.35rem' }}>
@@ -329,8 +321,12 @@ export function InspectorUI({
                           padding: '0.45rem',
                           fontSize: '0.62rem',
                           borderRadius: '6px',
-                          border: config.shape === item.id ? `1px solid ${config.glowColor}` : '1px solid rgba(255, 255, 255, 0.08)',
-                          backgroundColor: config.shape === item.id ? 'rgba(210, 196, 163, 0.12)' : 'rgba(255, 255, 255, 0.03)',
+                          border:
+                            config.shape === item.id
+                              ? `1px solid ${config.glowColor}`
+                              : '1px solid rgba(255, 255, 255, 0.08)',
+                          backgroundColor:
+                            config.shape === item.id ? 'rgba(210, 196, 163, 0.12)' : 'rgba(255, 255, 255, 0.03)',
                           color: config.shape === item.id ? config.glowColor : '#cbd5e1',
                           cursor: 'pointer',
                           fontWeight: config.shape === item.id ? 700 : 500,
@@ -345,7 +341,14 @@ export function InspectorUI({
 
                 {/* Spin Controls */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <label style={{ fontSize: '0.64rem', letterSpacing: '0.08em', color: '#94a3b8', textTransform: 'uppercase' }}>
+                  <label
+                    style={{
+                      fontSize: '0.64rem',
+                      letterSpacing: '0.08em',
+                      color: '#94a3b8',
+                      textTransform: 'uppercase',
+                    }}
+                  >
                     Continuous Spin
                   </label>
                   <button
@@ -366,7 +369,15 @@ export function InspectorUI({
 
                 {/* Speed Slider */}
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.62rem', color: '#94a3b8', marginBottom: '0.3rem' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      fontSize: '0.62rem',
+                      color: '#94a3b8',
+                      marginBottom: '0.3rem',
+                    }}
+                  >
                     <span>Rotation Rate</span>
                     <span style={{ color: config.glowColor }}>{(config.speed * 10000).toFixed(0)}</span>
                   </div>
@@ -383,7 +394,16 @@ export function InspectorUI({
 
                 {/* Camera Angles */}
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.62rem', letterSpacing: '0.08em', color: '#94a3b8', marginBottom: '0.4rem', textTransform: 'uppercase' }}>
+                  <label
+                    style={{
+                      display: 'block',
+                      fontSize: '0.62rem',
+                      letterSpacing: '0.08em',
+                      color: '#94a3b8',
+                      marginBottom: '0.4rem',
+                      textTransform: 'uppercase',
+                    }}
+                  >
                     Camera Angle
                   </label>
                   <div style={{ display: 'flex', gap: '0.35rem' }}>
@@ -420,7 +440,16 @@ export function InspectorUI({
               <>
                 {/* 3D Text Input */}
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.62rem', letterSpacing: '0.08em', color: '#94a3b8', marginBottom: '0.35rem', textTransform: 'uppercase' }}>
+                  <label
+                    style={{
+                      display: 'block',
+                      fontSize: '0.62rem',
+                      letterSpacing: '0.08em',
+                      color: '#94a3b8',
+                      marginBottom: '0.35rem',
+                      textTransform: 'uppercase',
+                    }}
+                  >
                     Logo Typography
                   </label>
                   <input
@@ -444,7 +473,16 @@ export function InspectorUI({
 
                 {/* Subtitle Input */}
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.62rem', letterSpacing: '0.08em', color: '#94a3b8', marginBottom: '0.35rem', textTransform: 'uppercase' }}>
+                  <label
+                    style={{
+                      display: 'block',
+                      fontSize: '0.62rem',
+                      letterSpacing: '0.08em',
+                      color: '#94a3b8',
+                      marginBottom: '0.35rem',
+                      textTransform: 'uppercase',
+                    }}
+                  >
                     Subtitle
                   </label>
                   <input
@@ -468,7 +506,16 @@ export function InspectorUI({
 
                 {/* Theme Palette Presets */}
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.62rem', letterSpacing: '0.08em', color: '#94a3b8', marginBottom: '0.45rem', textTransform: 'uppercase' }}>
+                  <label
+                    style={{
+                      display: 'block',
+                      fontSize: '0.62rem',
+                      letterSpacing: '0.08em',
+                      color: '#94a3b8',
+                      marginBottom: '0.45rem',
+                      textTransform: 'uppercase',
+                    }}
+                  >
                     Color Palette Preset ({currentTheme.name})
                   </label>
                   <div style={{ display: 'flex', gap: '0.45rem', flexWrap: 'wrap' }}>
@@ -497,7 +544,15 @@ export function InspectorUI({
 
                 {/* Emissive Glow Slider */}
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.62rem', color: '#94a3b8', marginBottom: '0.3rem' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      fontSize: '0.62rem',
+                      color: '#94a3b8',
+                      marginBottom: '0.3rem',
+                    }}
+                  >
                     <span>Emissive Glow Power</span>
                     <span style={{ color: config.glowColor }}>{config.emissiveIntensity.toFixed(1)}×</span>
                   </div>
@@ -519,7 +574,15 @@ export function InspectorUI({
               <>
                 {/* Transmission */}
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.62rem', color: '#94a3b8', marginBottom: '0.3rem' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      fontSize: '0.62rem',
+                      color: '#94a3b8',
+                      marginBottom: '0.3rem',
+                    }}
+                  >
                     <span>Optical Transmission</span>
                     <span style={{ color: config.glowColor }}>{(config.transmission * 100).toFixed(0)}%</span>
                   </div>
@@ -536,7 +599,15 @@ export function InspectorUI({
 
                 {/* Roughness */}
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.62rem', color: '#94a3b8', marginBottom: '0.3rem' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      fontSize: '0.62rem',
+                      color: '#94a3b8',
+                      marginBottom: '0.3rem',
+                    }}
+                  >
                     <span>Surface Polish (Roughness)</span>
                     <span style={{ color: config.glowColor }}>{config.roughness.toFixed(2)}</span>
                   </div>
@@ -553,7 +624,15 @@ export function InspectorUI({
 
                 {/* Thickness */}
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.62rem', color: '#94a3b8', marginBottom: '0.3rem' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      fontSize: '0.62rem',
+                      color: '#94a3b8',
+                      marginBottom: '0.3rem',
+                    }}
+                  >
                     <span>Refraction Volume Depth</span>
                     <span style={{ color: config.glowColor }}>{config.thickness.toFixed(2)}</span>
                   </div>
@@ -570,7 +649,15 @@ export function InspectorUI({
 
                 {/* Chromatic Aberration */}
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.62rem', color: '#94a3b8', marginBottom: '0.3rem' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      fontSize: '0.62rem',
+                      color: '#94a3b8',
+                      marginBottom: '0.3rem',
+                    }}
+                  >
                     <span>Prism Dispersion</span>
                     <span style={{ color: config.glowColor }}>{config.chromaticAberration.toFixed(2)}</span>
                   </div>
@@ -592,7 +679,16 @@ export function InspectorUI({
               <>
                 {/* Rain Intensity Switcher */}
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.62rem', letterSpacing: '0.08em', color: '#94a3b8', marginBottom: '0.4rem', textTransform: 'uppercase' }}>
+                  <label
+                    style={{
+                      display: 'block',
+                      fontSize: '0.62rem',
+                      letterSpacing: '0.08em',
+                      color: '#94a3b8',
+                      marginBottom: '0.4rem',
+                      textTransform: 'uppercase',
+                    }}
+                  >
                     Precipitation Mode
                   </label>
                   <div style={{ display: 'flex', gap: '0.35rem' }}>
@@ -605,8 +701,12 @@ export function InspectorUI({
                           padding: '0.45rem 0',
                           fontSize: '0.62rem',
                           borderRadius: '6px',
-                          border: config.rainIntensity === mode ? `1px solid ${config.glowColor}` : '1px solid rgba(255, 255, 255, 0.08)',
-                          backgroundColor: config.rainIntensity === mode ? 'rgba(210, 196, 163, 0.12)' : 'rgba(255, 255, 255, 0.03)',
+                          border:
+                            config.rainIntensity === mode
+                              ? `1px solid ${config.glowColor}`
+                              : '1px solid rgba(255, 255, 255, 0.08)',
+                          backgroundColor:
+                            config.rainIntensity === mode ? 'rgba(210, 196, 163, 0.12)' : 'rgba(255, 255, 255, 0.03)',
                           color: config.rainIntensity === mode ? config.glowColor : '#cbd5e1',
                           cursor: 'pointer',
                           fontWeight: config.rainIntensity === mode ? 700 : 500,
@@ -621,7 +721,15 @@ export function InspectorUI({
 
                 {/* Puddle Reflectivity */}
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.62rem', color: '#94a3b8', marginBottom: '0.3rem' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      fontSize: '0.62rem',
+                      color: '#94a3b8',
+                      marginBottom: '0.3rem',
+                    }}
+                  >
                     <span>Puddle Water Mirror</span>
                     <span style={{ color: config.glowColor }}>{(config.puddleReflectivity * 100).toFixed(0)}%</span>
                   </div>
@@ -638,7 +746,15 @@ export function InspectorUI({
 
                 {/* Ripple Normal Strength */}
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.62rem', color: '#94a3b8', marginBottom: '0.3rem' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      fontSize: '0.62rem',
+                      color: '#94a3b8',
+                      marginBottom: '0.3rem',
+                    }}
+                  >
                     <span>Wave Ripple Distortion</span>
                     <span style={{ color: config.glowColor }}>{config.rippleStrength.toFixed(2)}</span>
                   </div>
@@ -655,7 +771,14 @@ export function InspectorUI({
 
                 {/* Auto Lightning */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <label style={{ fontSize: '0.64rem', letterSpacing: '0.08em', color: '#94a3b8', textTransform: 'uppercase' }}>
+                  <label
+                    style={{
+                      fontSize: '0.64rem',
+                      letterSpacing: '0.08em',
+                      color: '#94a3b8',
+                      textTransform: 'uppercase',
+                    }}
+                  >
                     Auto Thunderstorm
                   </label>
                   <button
@@ -725,4 +848,3 @@ export function InspectorUI({
     </aside>
   )
 }
-

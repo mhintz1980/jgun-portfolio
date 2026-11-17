@@ -55,9 +55,7 @@ describe('STAGE_TRANSITIONS — chapter ownership windows', () => {
   it('runs the handoffs in chapter order, with a hold span between them', () => {
     expect(STAGE_TRANSITIONS.wrenchOut[1]).toBeLessThanOrEqual(STAGE_TRANSITIONS.enclosureOut[0])
     // The same 0.155 span airflowIntensity() ramps over.
-    expect(
-      STAGE_TRANSITIONS.enclosureOut[0] - STAGE_TRANSITIONS.enclosureIn[1],
-    ).toBeCloseTo(0.155, 12)
+    expect(STAGE_TRANSITIONS.enclosureOut[0] - STAGE_TRANSITIONS.enclosureIn[1]).toBeCloseTo(0.155, 12)
   })
 })
 
@@ -183,11 +181,7 @@ describe('stageEnvelope — active gate is alpha > 0.001', () => {
 
   it('never reports an alpha outside [0, 1]', () => {
     for (const progress of [-5, -0.001, 0, 0.525, 0.565, 0.6, 0.72, 0.76, 0.9999, 1, 5]) {
-      const { alpha } = stageEnvelope(
-        progress,
-        STAGE_TRANSITIONS.enclosureIn,
-        STAGE_TRANSITIONS.enclosureOut,
-      )
+      const { alpha } = stageEnvelope(progress, STAGE_TRANSITIONS.enclosureIn, STAGE_TRANSITIONS.enclosureOut)
       expect(alpha, `alpha at progress ${progress}`).toBeGreaterThanOrEqual(0)
       expect(alpha, `alpha at progress ${progress}`).toBeLessThanOrEqual(1)
     }
@@ -228,10 +222,7 @@ describe('airflowIntensity — CH.03 hold-window ramp', () => {
     for (let i = 0; i <= 500; i++) {
       const progress = holdStart + (i / 500) * (holdEnd - holdStart)
       const value = airflowIntensity(progress)
-      expect(
-        value,
-        `airflowIntensity(${progress}) must exceed the previous sample`,
-      ).toBeGreaterThan(previous)
+      expect(value, `airflowIntensity(${progress}) must exceed the previous sample`).toBeGreaterThan(previous)
       previous = value
     }
     expect(previous).toBeCloseTo(1, 12)

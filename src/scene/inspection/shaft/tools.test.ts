@@ -61,7 +61,7 @@ describe('toolSpec mirrors the certified clearance-v4 report', () => {
     expect(SHAPER_CENTRE_DISTANCE_MM).not.toBe(report.shaper.centre_distance_mm)
     expect(SHAPER_SIGNED_RATIO).not.toBe(report.shaper.signed_ratio_work_over_cutter)
     expect(SHAPER_THICKNESS_MM).toBe(8)
-    expect(SHAPER_LEADING_FACE_Y_MM).toBeCloseTo(v4.thicknessMm/2,9)
+    expect(SHAPER_LEADING_FACE_Y_MM).toBeCloseTo(v4.thicknessMm / 2, 9)
   })
   it('matches report.hob exactly', () => {
     expect(report.hob.R_mm).toBeCloseTo(HOB_RADIUS_MM, 9)
@@ -80,20 +80,31 @@ describe('toolSpec mirrors the certified clearance-v4 report', () => {
     // These holder lengths are pinned by the leaf spec; the report has no corresponding keys.
     expect(HOB_COLLAR_WIDTH_MM).toBe(3)
     expect(HOB_ARBOR_LENGTH_MM).toBe(12)
-    expect(HOB_LEAD_MM).toBeCloseTo((Math.PI * HOB_NORMAL_MODULE_MM) / Math.cos((HOB_LEAD_ANGLE_DEG * Math.PI) / 180), 6)
-    console.log('A2: certified report matched; historical shaper N=20 C=15.5 (frozen); hob R=5.87 lead=5.5587 yc=-4.195 stop=9.5249')
+    expect(HOB_LEAD_MM).toBeCloseTo(
+      (Math.PI * HOB_NORMAL_MODULE_MM) / Math.cos((HOB_LEAD_ANGLE_DEG * Math.PI) / 180),
+      6,
+    )
+    console.log(
+      'A2: certified report matched; historical shaper N=20 C=15.5 (frozen); hob R=5.87 lead=5.5587 yc=-4.195 stop=9.5249',
+    )
   })
 })
 
 describe('derived cutter outline', () => {
   it('records the actual source hash and bounded envelope sampling parameters', () => {
     // Hash LF-normalised bytes so Windows (CRLF) and Linux checkouts agree with the recorded digest.
-    const raw = Buffer.from(readFileSync(resolve(process.cwd(), outline.source.profile_study), 'utf8').replace(/\r\n/g, '\n'))
+    const raw = Buffer.from(
+      readFileSync(resolve(process.cwd(), outline.source.profile_study), 'utf8').replace(/\r\n/g, '\n'),
+    )
     expect(outline.source.sha256).toBe(createHash('sha256').update(raw).digest('hex'))
     expect(outline.parameters).toMatchObject({
-      cutter_teeth: SHAPER_TEETH, work_teeth: 10, centre_distance_mm: SHAPER_CENTRE_DISTANCE_MM,
-      signed_ratio_work_over_cutter: SHAPER_SIGNED_RATIO, stock_mm: 0.005,
-      tip_limit_mm: SHAPER_TIP_RADIUS_MM, root_clearance_mm: 0.15,
+      cutter_teeth: SHAPER_TEETH,
+      work_teeth: 10,
+      centre_distance_mm: SHAPER_CENTRE_DISTANCE_MM,
+      signed_ratio_work_over_cutter: SHAPER_SIGNED_RATIO,
+      stock_mm: 0.005,
+      tip_limit_mm: SHAPER_TIP_RADIUS_MM,
+      root_clearance_mm: 0.15,
     })
     expect(outline.parameters.root_limit_mm).toBeCloseTo(SHAPER_CENTRE_DISTANCE_MM - 6.0834 - 0.15, 9)
     expect(outline.parameters.root_limit_mm).toBeCloseTo(SHAPER_ROOT_LIMIT_MM, 9)
@@ -115,7 +126,8 @@ describe('derived cutter outline', () => {
   })
   it('leaves 0.005 mm stock on independently recomputed flank bins, not only the crest', () => {
     const study = JSON.parse(readFileSync(resolve(process.cwd(), outline.source.profile_study), 'utf8')) as {
-      angular_step_deg: number; profiles: { legacy: Record<string, number[]> }
+      angular_step_deg: number
+      profiles: { legacy: Record<string, number[]> }
     }
     const profile = study.profiles.legacy['6.0']
     const deg = Math.PI / 180
@@ -132,7 +144,7 @@ describe('derived cutter outline', () => {
         const y = profile[i] * Math.sin(workAngle)
         let angle = Math.atan2(y, x) - cutter
         angle = ((angle % pitch) + pitch) % pitch
-        const bin = Math.min(toothBins - 1, Math.floor(angle / pitch * toothBins))
+        const bin = Math.min(toothBins - 1, Math.floor((angle / pitch) * toothBins))
         const j = bins.indexOf(bin)
         if (j >= 0) minima[j] = Math.min(minima[j], Math.hypot(x, y))
       }
@@ -216,7 +228,11 @@ describe('hob prop', () => {
     expect(thread.isInstancedMesh).toBe(true)
     expect(thread.count).toBeGreaterThan(0)
     const local = new Vector3(0, 1, 0).applyQuaternion(hob.root.quaternion)
-    const expected = new Vector3(Math.cos(HOB_LEAD_ANGLE_DEG * Math.PI / 180), Math.sin(HOB_LEAD_ANGLE_DEG * Math.PI / 180), 0)
+    const expected = new Vector3(
+      Math.cos((HOB_LEAD_ANGLE_DEG * Math.PI) / 180),
+      Math.sin((HOB_LEAD_ANGLE_DEG * Math.PI) / 180),
+      0,
+    )
     expect(local.dot(expected)).toBeCloseTo(1, 6)
     hob.dispose()
     material.dispose()

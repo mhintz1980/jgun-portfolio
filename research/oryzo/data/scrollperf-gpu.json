@@ -1,0 +1,56 @@
+{
+ "viewport": {
+  "w": 1029,
+  "h": 697
+ },
+ "scrollHeight": 697,
+ "maxScroll": 0,
+ "frames": 371,
+ "elapsedMs": 40192,
+ "avgFps": 9.2,
+ "worstGapMs": 34026.2,
+ "p95GapMs": 17.4,
+ "gapsOver50ms": 1,
+ "gapsOver100ms": 1,
+ "worstGaps": [
+  18,
+  18.8,
+  19.3,
+  19.3,
+  20,
+  20.8,
+  22.1,
+  34026.2
+ ],
+ "longtasksDuringScroll": [],
+ "longtaskCount": 0,
+ "canvasPresent": 0,
+ "endedAtY": 0,
+ "networkDuringScroll": [
+  {
+   "t": 18146,
+   "url": "https://accounts.google.com/v3/signin/_/AccountsSignInUi/gen204/?tmambps=0.3787836078889343&rtembps=-1&rttms=42.494883339&ct=undefined",
+   "type": "Image"
+  },
+  {
+   "t": 44266,
+   "url": "https://play.google.com/log?format=json&hasfast=true",
+   "type": "Fetch"
+  },
+  {
+   "t": 79618,
+   "url": "https://play.google.com/log?format=json&hasfast=true&authuser=0",
+   "type": "Ping"
+  },
+  {
+   "t": 80621,
+   "url": "https://play.google.com/log?format=json&hasfast=true&authuser=0",
+   "type": "Ping"
+  }
+ ],
+ "extra": {
+  "dataEngine": null,
+  "preloaderStillInDom": false,
+  "scrollHeight": 697
+ }
+}

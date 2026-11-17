@@ -37,9 +37,20 @@ const USAGE = [
 ].join('\n')
 
 function parseArgs(argv) {
-  const args = { url: null, out: null, tag: 'D', help: false, readyTimeoutMs: 90000, bakeTimeoutMs: 120000, framesTimeoutMs: 60000 }
+  const args = {
+    url: null,
+    out: null,
+    tag: 'D',
+    help: false,
+    readyTimeoutMs: 90000,
+    bakeTimeoutMs: 120000,
+    framesTimeoutMs: 60000,
+  }
   for (const raw of argv) {
-    if (raw === '--help') { args.help = true; continue }
+    if (raw === '--help') {
+      args.help = true
+      continue
+    }
     const match = /^--([a-z-]+)=(.*)$/i.exec(raw)
     if (!match) throw new Error('unrecognized argument: ' + raw)
     const key = match[1]
@@ -55,9 +66,11 @@ function parseArgs(argv) {
   if (!args.help) {
     if (!args.url) throw new Error('--url is required')
     parseCensusUrl(args.url)
-    if (!/^[A-Za-z0-9][A-Za-z0-9-]{0,31}$/.test(args.tag)) throw new Error('--tag must be 1-32 ASCII letters, digits, or dashes')
+    if (!/^[A-Za-z0-9][A-Za-z0-9-]{0,31}$/.test(args.tag))
+      throw new Error('--tag must be 1-32 ASCII letters, digits, or dashes')
     for (const key of ['readyTimeoutMs', 'bakeTimeoutMs', 'framesTimeoutMs']) {
-      if (!Number.isFinite(args[key]) || args[key] <= 0) throw new Error('--' + key.replace(/([A-Z])/g, '-$1').toLowerCase() + ' must be positive')
+      if (!Number.isFinite(args[key]) || args[key] <= 0)
+        throw new Error('--' + key.replace(/([A-Z])/g, '-$1').toLowerCase() + ' must be positive')
     }
   }
   return args
@@ -76,7 +89,8 @@ function defaultReportPath(tag) {
 function guardReportPath(pathname) {
   const absolute = resolve(pathname)
   if (!isInside(absolute, EVIDENCE_DIR)) throw new Error('report must be inside ' + EVIDENCE_DIR + ': ' + absolute)
-  if (absolute.toLowerCase().replace(/\\/g, '/').includes('/.scratch/')) throw new Error('report must never be inside .scratch')
+  if (absolute.toLowerCase().replace(/\\/g, '/').includes('/.scratch/'))
+    throw new Error('report must never be inside .scratch')
   if (!/\.json$/i.test(absolute)) throw new Error('report must be a .json file')
   if (existsSync(absolute)) throw new Error('refusing to overwrite existing report: ' + absolute)
   return absolute
@@ -118,7 +132,10 @@ async function provenance() {
   const packages = {}
   for (const name of ['react', 'react-dom', '@react-three/fiber', 'three', '@react-three/drei', 'playwright', 'vite']) {
     const packagePath = resolve(REPO_ROOT, 'node_modules', name, 'package.json')
-    packages[name] = { version: JSON.parse(readFileSync(packagePath, 'utf8')).version, packageJsonSha256: sha256File(packagePath) }
+    packages[name] = {
+      version: JSON.parse(readFileSync(packagePath, 'utf8')).version,
+      packageJsonSha256: sha256File(packagePath),
+    }
   }
   let git = null
   try {
@@ -207,7 +224,11 @@ function conductorCheck(before, after) {
 async function run(args, reportPath) {
   const { chromium } = await import('playwright')
   const { launchBrowser, launchConfig, describeLaunch } = await import('./lib/browser-launch.mjs')
-  report.launch = { described: describeLaunch(), config: launchConfig(), playwrightVersion: require('playwright/package.json').version }
+  report.launch = {
+    described: describeLaunch(),
+    config: launchConfig(),
+    playwrightVersion: require('playwright/package.json').version,
+  }
   const browser = await launchBrowser(chromium)
   const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 })
   // Installed React/reconciler calls inject and onCommitFiberRoot when supportsFiber
@@ -220,9 +241,17 @@ async function run(args, reportPath) {
     let nextId = 0
     const renderers = new Map()
     window.__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
-      supportsFiber: true, isDisabled: false, renderers,
-      inject(renderer) { const id = ++nextId; renderers.set(id, renderer); return id },
-      onCommitFiberRoot() {}, onCommitFiberUnmount() {}, onPostCommitFiberRoot() {},
+      supportsFiber: true,
+      isDisabled: false,
+      renderers,
+      inject(renderer) {
+        const id = ++nextId
+        renderers.set(id, renderer)
+        return id
+      },
+      onCommitFiberRoot() {},
+      onCommitFiberUnmount() {},
+      onPostCommitFiberRoot() {},
     }
     window.__torqueCensusHarnessHook = true
   })
@@ -230,15 +259,27 @@ async function run(args, reportPath) {
   const pageErrors = []
   const consoleErrors = []
   page.on('pageerror', (error) => pageErrors.push(String(error)))
-  page.on('console', (message) => { if (message.type() === 'error') consoleErrors.push(message.text()) })
+  page.on('console', (message) => {
+    if (message.type() === 'error') consoleErrors.push(message.text())
+  })
 
   try {
     await page.goto(args.url, { waitUntil: 'domcontentloaded', timeout: 30000 })
     await page.waitForFunction(() => Boolean(window.__torqueCensus), null, { timeout: 30000 })
-    await page.waitForFunction(() => Boolean(window.__torqueWorld?.snapshot?.() && window.__torqueNarrative?.diagnostics), null, { timeout: args.readyTimeoutMs })
-    await page.waitForFunction(() => window.__torqueWorld.snapshot().ready === true, null, { timeout: args.readyTimeoutMs })
-    await page.waitForFunction(() => window.__torqueWorld.snapshot().sheet.baked === true, null, { timeout: args.bakeTimeoutMs })
-    await page.waitForFunction(() => window.__torqueWorld.snapshot().frames > 8, null, { timeout: args.framesTimeoutMs })
+    await page.waitForFunction(
+      () => Boolean(window.__torqueWorld?.snapshot?.() && window.__torqueNarrative?.diagnostics),
+      null,
+      { timeout: args.readyTimeoutMs },
+    )
+    await page.waitForFunction(() => window.__torqueWorld.snapshot().ready === true, null, {
+      timeout: args.readyTimeoutMs,
+    })
+    await page.waitForFunction(() => window.__torqueWorld.snapshot().sheet.baked === true, null, {
+      timeout: args.bakeTimeoutMs,
+    })
+    await page.waitForFunction(() => window.__torqueWorld.snapshot().frames > 8, null, {
+      timeout: args.framesTimeoutMs,
+    })
 
     const startup = await page.evaluate(() => window.__torqueCensus.collect())
     await page.evaluate(() => window.__torqueCensus.setPhase('steady'))
@@ -252,13 +293,21 @@ async function run(args, reportPath) {
       scrollable: document.documentElement.scrollHeight - window.innerHeight,
     }))
 
-    const scrollPlan = await page.evaluate((input) => {
-      const beat = input.beats.find((entry) => input.progress >= entry.start && input.progress < entry.end) ?? input.beats.at(-1)
-      const roomDown = beat ? Math.max(0, (beat.end - input.progress) * input.scrollable) : 0
-      const roomUp = beat ? Math.max(0, (input.progress - beat.start) * input.scrollable) : 0
-      const forward = roomDown >= roomUp || roomDown >= 60
-      return { beatId: beat?.id ?? null, forward, room: Math.max(roomDown, roomUp) }
-    }, { beats: await page.evaluate(() => window.__torqueNarrative.beats), progress: steady.narrative.progress, scrollable: steady.scrollable })
+    const scrollPlan = await page.evaluate(
+      (input) => {
+        const beat =
+          input.beats.find((entry) => input.progress >= entry.start && input.progress < entry.end) ?? input.beats.at(-1)
+        const roomDown = beat ? Math.max(0, (beat.end - input.progress) * input.scrollable) : 0
+        const roomUp = beat ? Math.max(0, (input.progress - beat.start) * input.scrollable) : 0
+        const forward = roomDown >= roomUp || roomDown >= 60
+        return { beatId: beat?.id ?? null, forward, room: Math.max(roomDown, roomUp) }
+      },
+      {
+        beats: await page.evaluate(() => window.__torqueNarrative.beats),
+        progress: steady.narrative.progress,
+        scrollable: steady.scrollable,
+      },
+    )
 
     let scroll = { status: 'UNVERIFIED', reason: 'less than 16px of same-beat room', plan: scrollPlan }
     if (scrollPlan.room >= 16) {
@@ -288,8 +337,11 @@ async function run(args, reportPath) {
       const scrollYDelta = observed.scrollY - beforeScroll.scrollY
       const progressDelta = observed.progress - beforeScroll.progress
       const sameBeat = beforeScroll.beatId === scrollPlan.beatId && observed.beatId === beforeScroll.beatId
-      const nativeScrollMoved = Number.isFinite(observed.scrollY) && observed.scrollY !== 0
-        && Number.isFinite(scrollYDelta) && Math.sign(scrollYDelta) === direction
+      const nativeScrollMoved =
+        Number.isFinite(observed.scrollY) &&
+        observed.scrollY !== 0 &&
+        Number.isFinite(scrollYDelta) &&
+        Math.sign(scrollYDelta) === direction
       const canonicalProgressMoved = Number.isFinite(progressDelta) && Math.sign(progressDelta) === direction
       scroll = {
         status: sameBeat && nativeScrollMoved && canonicalProgressMoved ? 'PASS' : 'FAIL',
@@ -322,11 +374,25 @@ async function run(args, reportPath) {
 
     const conductor = conductorCheck(steady.diagnostics, final.diagnostics)
     record('steady-one-conductor', conductor.mismatches.length ? 'FAIL' : 'PASS', conductor)
-    const worldPass = steady.world.ready === true && final.world.ready === true
-      && final.world.frames > steady.world.frames && final.world.hiddenFrames === 0 && final.world.sheet.baked === true
+    const worldPass =
+      steady.world.ready === true &&
+      final.world.ready === true &&
+      final.world.frames > steady.world.frames &&
+      final.world.hiddenFrames === 0 &&
+      final.world.sheet.baked === true
     record('steady-runtime-world', worldPass ? 'PASS' : 'FAIL', {
-      steady: { ready: steady.world.ready, frames: steady.world.frames, hiddenFrames: steady.world.hiddenFrames, baked: steady.world.sheet.baked },
-      final: { ready: final.world.ready, frames: final.world.frames, hiddenFrames: final.world.hiddenFrames, baked: final.world.sheet.baked },
+      steady: {
+        ready: steady.world.ready,
+        frames: steady.world.frames,
+        hiddenFrames: steady.world.hiddenFrames,
+        baked: steady.world.sheet.baked,
+      },
+      final: {
+        ready: final.world.ready,
+        frames: final.world.frames,
+        hiddenFrames: final.world.hiddenFrames,
+        baked: final.world.sheet.baked,
+      },
     })
 
     const statusSequence = final.census.status.map((entry) => entry.status)
@@ -341,20 +407,24 @@ async function run(args, reportPath) {
       documentCanvasCount: final.census.documentCanvasCount,
       note: 'detached capability calls are reported separately and never counted as connected construction',
     })
-    record('context-disposal', 'UNVERIFIED', { reason: 'getContext pass-through calls cannot prove live disposal or current context liveness' })
+    record('context-disposal', 'UNVERIFIED', {
+      reason: 'getContext pass-through calls cannot prove live disposal or current context liveness',
+    })
 
     const domAvailable = final.census.domCommitSummary.total > 0
     const commitCensusComplete = !final.census.domCommitTruncated && !final.census.r3fCommitTruncated
     if (!domAvailable) record('direct-dom-profiler', 'UNVERIFIED', { reason: 'React Profiler emitted no callback' })
-    else if (scroll.status !== 'PASS') record('same-beat-direct-dom-commits', scroll.status, { scroll, summary: final.census.domCommitSummary })
-    else if (!commitCensusComplete) record('same-beat-direct-dom-commits', 'FAIL', {
-      reason: 'commit census truncated before final observation',
-      domCommitTruncated: final.census.domCommitTruncated,
-      r3fCommitTruncated: final.census.r3fCommitTruncated,
-      summary: final.census.domCommitSummary,
-    })
-    else record('same-beat-direct-dom-commits',
-      final.census.domCommitSummary.sameBeatScroll === 0 ? 'PASS' : 'FAIL', {
+    else if (scroll.status !== 'PASS')
+      record('same-beat-direct-dom-commits', scroll.status, { scroll, summary: final.census.domCommitSummary })
+    else if (!commitCensusComplete)
+      record('same-beat-direct-dom-commits', 'FAIL', {
+        reason: 'commit census truncated before final observation',
+        domCommitTruncated: final.census.domCommitTruncated,
+        r3fCommitTruncated: final.census.r3fCommitTruncated,
+        summary: final.census.domCommitSummary,
+      })
+    else
+      record('same-beat-direct-dom-commits', final.census.domCommitSummary.sameBeatScroll === 0 ? 'PASS' : 'FAIL', {
         summary: final.census.domCommitSummary,
         observedCallbacks: final.census.domCommitSummary.total,
       })
@@ -370,8 +440,16 @@ async function run(args, reportPath) {
       hook: final.census.devtoolsHook,
     }
     if (!final.census.devtoolsHook.presentAtInstrumentation) {
-      record('direct-r3f-commits', 'UNVERIFIED', { reason: final.census.devtoolsHook.missingReason, registrations: final.census.rendererRegistrations })
-    } else if (!r3fInstrumentation.injectWrapped || !r3fInstrumentation.onCommitFiberRootWrapped || !r3fRegistered || r3fInstrumentation.observedCallbacks === 0) {
+      record('direct-r3f-commits', 'UNVERIFIED', {
+        reason: final.census.devtoolsHook.missingReason,
+        registrations: final.census.rendererRegistrations,
+      })
+    } else if (
+      !r3fInstrumentation.injectWrapped ||
+      !r3fInstrumentation.onCommitFiberRootWrapped ||
+      !r3fRegistered ||
+      r3fInstrumentation.observedCallbacks === 0
+    ) {
       const missing = []
       if (!r3fInstrumentation.injectWrapped) missing.push('inject was not wrapped')
       if (!r3fInstrumentation.onCommitFiberRootWrapped) missing.push('onCommitFiberRoot was not wrapped')
@@ -391,22 +469,29 @@ async function run(args, reportPath) {
         summary: final.census.r3fCommitSummary,
       })
     } else {
-      record('same-beat-direct-r3f-commits',
-        final.census.r3fCommitSummary.sameBeatScroll === 0 ? 'PASS' : 'FAIL', {
-          summary: final.census.r3fCommitSummary,
-          instrumentation: r3fInstrumentation,
-        })
+      record('same-beat-direct-r3f-commits', final.census.r3fCommitSummary.sameBeatScroll === 0 ? 'PASS' : 'FAIL', {
+        summary: final.census.r3fCommitSummary,
+        instrumentation: r3fInstrumentation,
+      })
     }
 
-    const relevantResources = final.census.resources.filter((entry) => /Default\.glb|\/draco\/|Scene\.tsx|RuntimeWorld|drawing|sheet/i.test(entry.name))
+    const relevantResources = final.census.resources.filter((entry) =>
+      /Default\.glb|\/draco\/|Scene\.tsx|RuntimeWorld|drawing|sheet/i.test(entry.name),
+    )
     const glb = relevantResources.filter((entry) => /Default\.glb$/i.test(entry.name))
     if (glb.length === 1) record('narrative-resource-request-census', 'PASS', { count: glb.length, relevantResources })
-    else if (glb.length === 0) record('narrative-resource-request-census', 'UNVERIFIED', { reason: 'no Default.glb PerformanceResourceTiming entry', relevantResources })
+    else if (glb.length === 0)
+      record('narrative-resource-request-census', 'UNVERIFIED', {
+        reason: 'no Default.glb PerformanceResourceTiming entry',
+        relevantResources,
+      })
     else record('narrative-resource-request-census', 'FAIL', { count: glb.length, relevantResources })
     record('resource-cache-and-import-invocation', 'UNVERIFIED', {
       reason: 'PerformanceResourceTiming has no reliable cache verdict and does not count dynamic-import invocations',
     })
-    record('hmr-silence', 'UNVERIFIED', { reason: 'Vite HMR activity is not directly observable from the census boundary' })
+    record('hmr-silence', 'UNVERIFIED', {
+      reason: 'Vite HMR activity is not directly observable from the census boundary',
+    })
     record('page-errors', pageErrors.length || consoleErrors.length ? 'FAIL' : 'PASS', { pageErrors, consoleErrors })
   } finally {
     await context.close().catch(() => {})

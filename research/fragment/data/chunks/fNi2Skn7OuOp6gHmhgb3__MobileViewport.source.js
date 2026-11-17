@@ -1,0 +1,31 @@
+import { jsx as _jsx } from "react/jsx-runtime";
+import { forwardRef } from "react";
+export function MobileHero(Component) { return /*#__PURE__*/ forwardRef((props, ref) => { return /*#__PURE__*/ _jsx(Component, {
+    ...props, ref: ref, className: `${props.className || ""} mobile-hero`
+}); }); }
+export function MobileSpline(Component) { return /*#__PURE__*/ forwardRef((props, ref) => { return /*#__PURE__*/ _jsx(Component, {
+    ...props, ref: ref, className: `${props.className || ""} mobile-spline`
+}); }); }
+export function MobileMenu(Component) { return /*#__PURE__*/ forwardRef((props, ref) => { return /*#__PURE__*/ _jsx(Component, {
+    ...props, ref: ref, className: `${props.className || ""} mobile-menu`
+}); }); }
+export const __FramerMetadata__ = {
+    "exports": {
+        "MobileMenu": {
+            "type": "reactHoc", "name": "MobileMenu", "annotations": {
+                "framerContractVersion": "1"
+            }
+        }, "MobileHero": {
+            "type": "reactHoc", "name": "MobileHero", "annotations": {
+                "framerContractVersion": "1"
+            }
+        }, "MobileSpline": {
+            "type": "reactHoc", "name": "MobileSpline", "annotations": {
+                "framerContractVersion": "1"
+            }
+        }, "__FramerMetadata__": {
+            "type": "variable"
+        }
+    }
+};
+//# sourceMappingURL=./MobileViewport.map

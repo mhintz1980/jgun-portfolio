@@ -1,44 +1,104 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import {
-  createShaftScriptFrame, sampleShaftScript, SHAFT_ATTRIBUTION_TEXT, SHAFT_RECAP_CAPTION_TEXT, SHAFT_STAMP_TEXT,
+  createShaftScriptFrame,
+  sampleShaftScript,
+  SHAFT_ATTRIBUTION_TEXT,
+  SHAFT_RECAP_CAPTION_TEXT,
+  SHAFT_STAMP_TEXT,
   type ShaftScriptFrame,
 } from '../scene/inspection/shaft/script'
 import {
-  FOS_MAX, FOS_MIN, FOS_STOPS, newFosPresentation, sampleFosPresentation, type FosPresentation,
+  FOS_MAX,
+  FOS_MIN,
+  FOS_STOPS,
+  newFosPresentation,
+  sampleFosPresentation,
+  type FosPresentation,
 } from '../scene/inspection/shaft/fosPresentation'
 import { SHAFT_CARD_TEXT } from '../scene/inspection/shaft/script'
 import './ShaftStoryLayer.css'
 
 /** CSS gradient of the shared FOS bar, bottom (low FOS, red) to top (high FOS, blue). */
-const fosGradient = (direction: string) => `linear-gradient(${direction}, ${FOS_STOPS.map(([value, r, g, b]) => `rgb(${Math.round(r * 255)} ${Math.round(g * 255)} ${Math.round(b * 255)}) ${(((value - FOS_MIN) / (FOS_MAX - FOS_MIN)) * 100).toFixed(1)}%`).join(', ')})`
-const FOS_VARS = { '--fos-gradient-v': fosGradient('to top'), '--fos-gradient-h': fosGradient('to right') } as CSSProperties
+const fosGradient = (direction: string) =>
+  `linear-gradient(${direction}, ${FOS_STOPS.map(([value, r, g, b]) => `rgb(${Math.round(r * 255)} ${Math.round(g * 255)} ${Math.round(b * 255)}) ${(((value - FOS_MIN) / (FOS_MAX - FOS_MIN)) * 100).toFixed(1)}%`).join(', ')})`
+const FOS_VARS = {
+  '--fos-gradient-v': fosGradient('to top'),
+  '--fos-gradient-h': fosGradient('to right'),
+} as CSSProperties
 const FOS_TICKS = [0, 1, 2, 3] as const
 
 /** Left model block + right FOS bar (JG-035 S2): shown exactly while the stress field is, from the same sampler. */
 function FosPanels({ frame, fos }: { frame: ShaftScriptFrame; fos: FosPresentation }) {
   if (fos.kind === 'none') return null
   const attempt = fos.kind === 'attempt'
-  const material = attempt ? (frame.card !== 'none' ? frame.cardText : SHAFT_CARD_TEXT.c300) : SHAFT_CARD_TEXT['4340-ht']
+  const material = attempt
+    ? frame.card !== 'none'
+      ? frame.cardText
+      : SHAFT_CARD_TEXT.c300
+    : SHAFT_CARD_TEXT['4340-ht']
   const position = (fos.hotspot - FOS_MIN) / (FOS_MAX - FOS_MIN)
-  return <>
-    <div className="shaft-fos-model" data-shaft-fos-model="" data-shaft-fos-kind={fos.kind} style={{ opacity: fos.opacity }} aria-hidden="true">
-      <p><span>Model Name:</span> Input Shaft</p>
-      <p><span>Study:</span> {attempt ? 'Grooved blank (cutter runout groove)' : 'Revised, rotary hobbed'}</p>
-      <p><span>Plot type:</span> Factor of safety</p>
-      <p><span>Material:</span> {material}</p>
-      {attempt && <p className="shaft-fos-min"><span>Min FOS =</span> <b data-shaft-fos-value="">{fos.hotspot.toFixed(2)}</b></p>}
-    </div>
-    <div className="shaft-fos-bar" data-shaft-fos-bar="" data-shaft-fos-kind={fos.kind} style={{ opacity: fos.opacity, ...FOS_VARS }} aria-hidden="true">
-      <span className="shaft-fos-title">FOS</span>
-      <div className="shaft-fos-track">
-        <div className="shaft-fos-gradient" />
-        {FOS_TICKS.map(tick => <span key={tick} className="shaft-fos-tick" style={{ '--fos-pos': tick / FOS_MAX } as CSSProperties}>{tick.toFixed(1)}</span>)}
-        {attempt
-          ? <span className="shaft-fos-marker" data-shaft-fos-marker="" style={{ '--fos-pos': position } as CSSProperties}><i /><em>{fos.hotspot.toFixed(2)}</em></span>
-          : <span className="shaft-fos-range" data-shaft-fos-range="" style={{ '--fos-pos': fos.hotspot / FOS_MAX } as CSSProperties} />}
+  return (
+    <>
+      <div
+        className="shaft-fos-model"
+        data-shaft-fos-model=""
+        data-shaft-fos-kind={fos.kind}
+        style={{ opacity: fos.opacity }}
+        aria-hidden="true"
+      >
+        <p>
+          <span>Model Name:</span> Input Shaft
+        </p>
+        <p>
+          <span>Study:</span> {attempt ? 'Grooved blank (cutter runout groove)' : 'Revised, rotary hobbed'}
+        </p>
+        <p>
+          <span>Plot type:</span> Factor of safety
+        </p>
+        <p>
+          <span>Material:</span> {material}
+        </p>
+        {attempt && (
+          <p className="shaft-fos-min">
+            <span>Min FOS =</span> <b data-shaft-fos-value="">{fos.hotspot.toFixed(2)}</b>
+          </p>
+        )}
       </div>
-    </div>
-  </>
+      <div
+        className="shaft-fos-bar"
+        data-shaft-fos-bar=""
+        data-shaft-fos-kind={fos.kind}
+        style={{ opacity: fos.opacity, ...FOS_VARS }}
+        aria-hidden="true"
+      >
+        <span className="shaft-fos-title">FOS</span>
+        <div className="shaft-fos-track">
+          <div className="shaft-fos-gradient" />
+          {FOS_TICKS.map((tick) => (
+            <span key={tick} className="shaft-fos-tick" style={{ '--fos-pos': tick / FOS_MAX } as CSSProperties}>
+              {tick.toFixed(1)}
+            </span>
+          ))}
+          {attempt ? (
+            <span
+              className="shaft-fos-marker"
+              data-shaft-fos-marker=""
+              style={{ '--fos-pos': position } as CSSProperties}
+            >
+              <i />
+              <em>{fos.hotspot.toFixed(2)}</em>
+            </span>
+          ) : (
+            <span
+              className="shaft-fos-range"
+              data-shaft-fos-range=""
+              style={{ '--fos-pos': fos.hotspot / FOS_MAX } as CSSProperties}
+            />
+          )}
+        </div>
+      </div>
+    </>
+  )
 }
 
 export interface ShaftStoryLayerProps {
@@ -104,7 +164,7 @@ export function ShaftStoryLayer({ time, reducedMotion, fosPanels = true, visualS
   const [status, setStatus] = useState({ version: 0, text: '' })
   useEffect(() => {
     const text = buildShaftAnnouncement(frame)
-    setStatus(previous => previous.text === text ? previous : { version: previous.version + 1, text })
+    setStatus((previous) => (previous.text === text ? previous : { version: previous.version + 1, text }))
   }, [frame.discrete])
   return <div className="shaft-story-layer" data-shaft-cascade={frame.caption !== 'none' ? '' : undefined}>
     {visualStory && <div className="shaft-story-column">

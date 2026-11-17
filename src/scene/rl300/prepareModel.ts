@@ -1,13 +1,26 @@
 import {
-  BufferGeometry, DoubleSide, Float32BufferAttribute, Group, Mesh,
-  MeshPhysicalMaterial, MeshStandardMaterial, Object3D, Plane,
+  BufferGeometry,
+  DoubleSide,
+  Float32BufferAttribute,
+  Group,
+  Mesh,
+  MeshPhysicalMaterial,
+  MeshStandardMaterial,
+  Object3D,
+  Plane,
 } from 'three'
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import { DEEPEST_CUT } from './shot'
 import { isMultiSlotMismatch, mapFor, type V16Map, type V16Resolved } from './v16Materials'
 
 /** Shell roles carry the approved blue. Equipment and hardware keep their CAD identity. */
-export const SHELL_ROOTS = new Set(['ENCLOSURE_CHASSIS', 'COMPOSITE_PANELS', 'ACOUSTIC_BAFFLES', 'DUCT_INTAKE', 'DUCT_EXHAUST'])
+export const SHELL_ROOTS = new Set([
+  'ENCLOSURE_CHASSIS',
+  'COMPOSITE_PANELS',
+  'ACOUSTIC_BAFFLES',
+  'DUCT_INTAKE',
+  'DUCT_EXHAUST',
+])
 /** Roots the cut owns by default. PUMP_HOUSING and ISOLATION_MOUNTS stay whole on
  *  purpose — the engine and pump are the story — so their 150 mesh nodes are cut only
  *  where PART_POLICY names them. */
@@ -59,9 +72,9 @@ export const PART_POLICY: Record<string, SectionPolicy> = {
   'V2SKF-TB-2200-01-2': 'hide',
   'V2SKF-TB-2250-01-1': 'hide',
   'V2SKF-TB-2250-01-2': 'hide',
-  'ISO_MOUNT_4': 'hide',
-  'ISO_MOUNT_5': 'hide',
-  'ISO_MOUNT_6': 'hide',
+  ISO_MOUNT_4: 'hide',
+  ISO_MOUNT_5: 'hide',
+  ISO_MOUNT_6: 'hide',
   // Third pass: the fuel flange and the fuel neck beside it. `-3` completed the flange
   // pair in a follow-up ruling the same day; the owner's report of -2 still showing
   // traced to a screenshot captured before this pass had been built.
@@ -80,7 +93,9 @@ export function sanitizeName(name: string) {
   return name.replace(/\s/g, '_').replace(/[[\].:/]/g, '')
 }
 
-const POLICY_INDEX = new Map(Object.entries(PART_POLICY).map(([name, policy]) => [sanitizeName(name), { name, policy }]))
+const POLICY_INDEX = new Map(
+  Object.entries(PART_POLICY).map(([name, policy]) => [sanitizeName(name), { name, policy }]),
+)
 
 /** Also matches the `name_1` primitives GLTFLoader splits multi-primitive mesh defs into. */
 export function policyFor(name: string): { name: string; policy: SectionPolicy } | null {
@@ -96,11 +111,23 @@ export function policyFor(name: string): { name: string; policy: SectionPolicy }
 export const FINISHED_CUT = DEEPEST_CUT
 
 export interface PartRecord {
-  policy: SectionPolicy; clipped: boolean; repainted: boolean; removed: boolean
-  triangles: number; xMin: number; xMax: number
+  policy: SectionPolicy
+  clipped: boolean
+  repainted: boolean
+  removed: boolean
+  triangles: number
+  xMin: number
+  xMax: number
 }
 
-export function finishFor(root: string, material: string, policy: SectionPolicy = 'section', part?: string, reservoir = false, insulation = false) {
+export function finishFor(
+  root: string,
+  material: string,
+  policy: SectionPolicy = 'section',
+  part?: string,
+  reservoir = false,
+  insulation = false,
+) {
   // A named part rules over its root here too: the exhaust stack is chrome even inside a shell
   // root, and even though it is a kept (never clipped) part.
   if (part === EXHAUST_PIPE) return CHROME
@@ -150,18 +177,23 @@ export function isClosedVolume(geometry: BufferGeometry): boolean {
   const index = geometry.index
   const count = index?.count ?? p.count
   const edges = new Map<string, { count: number; balance: number }>()
-  const key = (i: number) => `${Math.round(p.getX(i) * 1e5)},${Math.round(p.getY(i) * 1e5)},${Math.round(p.getZ(i) * 1e5)}`
+  const key = (i: number) =>
+    `${Math.round(p.getX(i) * 1e5)},${Math.round(p.getY(i) * 1e5)},${Math.round(p.getZ(i) * 1e5)}`
   const keys = Array.from({ length: p.count }, (_, i) => key(i))
   for (let i = 0; i < count; i += 3) {
-    const t = [0, 1, 2].map(j => keys[index ? index.getX(i + j) : i + j])
+    const t = [0, 1, 2].map((j) => keys[index ? index.getX(i + j) : i + j])
     if (new Set(t).size < 3) continue
     for (let j = 0; j < 3; j++) {
-      const a = t[j], b = t[(j + 1) % 3], edge = a < b ? `${a}/${b}` : `${b}/${a}`
+      const a = t[j],
+        b = t[(j + 1) % 3],
+        edge = a < b ? `${a}/${b}` : `${b}/${a}`
       const e = edges.get(edge) ?? { count: 0, balance: 0 }
-      e.count++; e.balance += a < b ? 1 : -1; edges.set(edge, e)
+      e.count++
+      e.balance += a < b ? 1 : -1
+      edges.set(edge, e)
     }
   }
-  return edges.size > 0 && [...edges.values()].every(e => e.count === 2 && e.balance === 0)
+  return edges.size > 0 && [...edges.values()].every((e) => e.count === 2 && e.balance === 0)
 }
 
 const has = (table: object, key: string) => Object.prototype.hasOwnProperty.call(table, key)
@@ -171,11 +203,14 @@ const has = (table: object, key: string) => Object.prototype.hasOwnProperty.call
  *  key). A multi-primitive part is a non-Mesh group carrying the part name whose Mesh
  *  children (`Mesh_422`, `Mesh_422_1`, ...) are its primitives in order. The slot count is
  *  what the loader delivered, never the asset seat's `glbPrims`: lite splits fewer parts. */
-export function locatePart(obj: Mesh, parts: V16Map['parts']): { part: string; slotIndex: number; slotCount: number } | null {
+export function locatePart(
+  obj: Mesh,
+  parts: V16Map['parts'],
+): { part: string; slotIndex: number; slotCount: number } | null {
   if (has(parts, obj.name)) return { part: obj.name, slotIndex: 0, slotCount: 1 }
   const parent = obj.parent
   if (parent && !(parent instanceof Mesh) && has(parts, parent.name)) {
-    const slots = parent.children.filter(child => child instanceof Mesh && !has(parts, child.name))
+    const slots = parent.children.filter((child) => child instanceof Mesh && !has(parts, child.name))
     const slotIndex = slots.indexOf(obj)
     if (slotIndex >= 0) return { part: parent.name, slotIndex, slotCount: slots.length }
   }
@@ -211,25 +246,62 @@ export const EXHAUST_STACK_OFFSET = [0.4, 0, -0.065] as const
  *  Keys are scene names (GLTFLoader-sanitized), matched on any ancestor of a mesh. The
  *  scattered groups (COMPOSITE_PANELS, bolts, tie-downs) are deliberately absent. */
 const FRAME_SHIFT_Z = new Map<string, number>()
-const shiftNodes = (dz: number, names: string[]) => names.forEach(name => FRAME_SHIFT_Z.set(name, dz))
+const shiftNodes = (dz: number, names: string[]) => names.forEach((name) => FRAME_SHIFT_Z.set(name, dz))
 shiftNodes(-0.0149, [
-  '26-01305-1', '4874290_REV00_MS-1', '4874323_VG01_REV01_MS-1', '4874342_VG01_REV08_MS-1', '4901304_VG01_REV12_MS-1',
-  '4987944_VG01_REV02_PART-1', '4992387_VG01_REV02_MS-1', '5055447_REV03_MS-1', '5090203_REV03_MS-1', '5100022_REV03_MS-1',
-  '5118791_REV03_PART-1', '5182996_REV03_MS-1', '5236568_REV08_ASSY_ASM-15236568_REV08_PARTS_MS-1',
-  '5236568_REV08_ASSY_ASM-15515102_REV00_MS-1', '5257943_REV01_MS-1', '5257950_REV00_MS-1', '5286519-06_SIMP-1',
-  '5488442_REV02_MS-1', '5488455_REV05_MS-1', '5488492_REV03_MS-1', '5488512_REV04_PART-1', '5488541_REV03_MS-1',
-  '5488818_REV04_MS-1', '5488968_REV04_ASSY_ASM-15488968_XOVERPIPE_MS01-1',
-  '5488968_REV04_ASSY_ASM-15770437_ASM-15770437_CP01-1', '5495457_REV09_PART-1', '5501384_VG01_REV01_MS-1',
-  '5501498_REV00_MS-1', '5529980_REV02_MS-1', '5545242_REV03_MS-1', '5952967_REV00_MS-1', '6008619_VG01_REV00_MS-1',
-  '6008668_REV02_MS-1', '6013677_REV04_PART-1', '6103389_REV00_MS-1',
+  '26-01305-1',
+  '4874290_REV00_MS-1',
+  '4874323_VG01_REV01_MS-1',
+  '4874342_VG01_REV08_MS-1',
+  '4901304_VG01_REV12_MS-1',
+  '4987944_VG01_REV02_PART-1',
+  '4992387_VG01_REV02_MS-1',
+  '5055447_REV03_MS-1',
+  '5090203_REV03_MS-1',
+  '5100022_REV03_MS-1',
+  '5118791_REV03_PART-1',
+  '5182996_REV03_MS-1',
+  '5236568_REV08_ASSY_ASM-15236568_REV08_PARTS_MS-1',
+  '5236568_REV08_ASSY_ASM-15515102_REV00_MS-1',
+  '5257943_REV01_MS-1',
+  '5257950_REV00_MS-1',
+  '5286519-06_SIMP-1',
+  '5488442_REV02_MS-1',
+  '5488455_REV05_MS-1',
+  '5488492_REV03_MS-1',
+  '5488512_REV04_PART-1',
+  '5488541_REV03_MS-1',
+  '5488818_REV04_MS-1',
+  '5488968_REV04_ASSY_ASM-15488968_XOVERPIPE_MS01-1',
+  '5488968_REV04_ASSY_ASM-15770437_ASM-15770437_CP01-1',
+  '5495457_REV09_PART-1',
+  '5501384_VG01_REV01_MS-1',
+  '5501498_REV00_MS-1',
+  '5529980_REV02_MS-1',
+  '5545242_REV03_MS-1',
+  '5952967_REV00_MS-1',
+  '6008619_VG01_REV00_MS-1',
+  '6008668_REV02_MS-1',
+  '6013677_REV04_PART-1',
+  '6103389_REV00_MS-1',
 ]) // 904j-e28t_eng (34 nodes, +14.9) and 26-01305-1 (+14.9)
 shiftNodes(-0.0145, ['RM100-PX1029008D-1'])
 // RL300-CPM-3000, RL300-P-FFM-1000 and the fused control panel (+14.0).
-shiftNodes(-0.014, ['RL300-CPM-3001-1', 'RL300-P-CPM-2001-1', 'RL300-P-FFM-1001-1', 'RL300-P-FFM-1002-1', 'RL300-P-FFM-1002-2', 'V2CONTROL_PANEL,_URFS-2'])
+shiftNodes(-0.014, [
+  'RL300-CPM-3001-1',
+  'RL300-P-CPM-2001-1',
+  'RL300-P-FFM-1001-1',
+  'RL300-P-FFM-1002-1',
+  'RL300-P-FFM-1002-2',
+  'V2CONTROL_PANEL,_URFS-2',
+])
 shiftNodes(-0.0141, [REPLACED_MAN]) // the shipped fused MAN (+14.1), replaced by the extras assembly on both tiers
 /** The extras GLB bakes the same cluster frame into each root's translation (z +0.0154 /
  *  +0.014 / +0.0141); the roots return to V16 by that amount. Root -> world z. */
-const EXTRAS_FRAME_SHIFT_Z: Record<string, number> = { DUCT_EXHAUST: -0.0154, GAUGE_DIALS: -0.014, PUMP_HOUSING: -0.0141 }
+const EXTRAS_FRAME_SHIFT_Z: Record<string, number> = {
+  DUCT_EXHAUST: -0.0154,
+  GAUGE_DIALS: -0.014,
+  PUMP_HOUSING: -0.0141,
+}
 
 export interface PrepareOptions {
   /** V16 per-part materials. Absent: the GLB's own materials, exactly as before. */
@@ -272,17 +344,33 @@ export function prepareModel(source: Group, plane: Plane, options: PrepareOption
   const buckets = new Map<string, { geometries: BufferGeometry[]; material: MeshStandardMaterial; root: string }>()
   const caps = new Map<string, BufferGeometry[]>()
   const counts = {
-    sourceTriangles: 0, keptTriangles: 0, linerTriangles: 0, sourceMeshes: 0, batches: 0, cappedTriangles: 0, openSectionTriangles: 0, keptWholeTriangles: 0, removedTriangles: 0, skippedRoots: 0,
+    sourceTriangles: 0,
+    keptTriangles: 0,
+    linerTriangles: 0,
+    sourceMeshes: 0,
+    batches: 0,
+    cappedTriangles: 0,
+    openSectionTriangles: 0,
+    keptWholeTriangles: 0,
+    removedTriangles: 0,
+    skippedRoots: 0,
     // Triangles of the shipped fused MAN mesh the extras' PUMP_HOUSING assembly replaces (full tier).
     // Not a ruled removal, so never part of removedTriangles.
     replacedTriangles: 0,
     // V16 telemetry. `materials` is the unique materials in the group; mappedParts and
     // unmappedMultiSlot are unique part names, mappedPrimitives counts delivered meshes
     // (a mapped part whose look a ruling protects still counts: its V16 entry was found).
-    materials: 0, mappedParts: 0, mappedPrimitives: 0, protectedPrimitives: 0, unmappedMultiSlot: 0,
-    extraParts: 0, extraTriangles: 0, v16Applied: false,
+    materials: 0,
+    mappedParts: 0,
+    mappedPrimitives: 0,
+    protectedPrimitives: 0,
+    unmappedMultiSlot: 0,
+    extraParts: 0,
+    extraTriangles: 0,
+    v16Applied: false,
   }
-  const mappedParts = new Set<string>(), unmappedMultiSlot = new Set<string>()
+  const mappedParts = new Set<string>(),
+    unmappedMultiSlot = new Set<string>()
   /** Measured evidence for every part the owner named, so the ruling is verifiable. */
   const parts = new Map<string, PartRecord>()
   let linerFound = false
@@ -293,13 +381,20 @@ export function prepareModel(source: Group, plane: Plane, options: PrepareOption
     const bySignature = new Map<string, string>()
     for (const name of Object.keys(v16.materials).sort()) {
       const m = v16.materials[name]
-      const signature = JSON.stringify([m.baseLinear, m.metalness, m.roughness, m.clearcoat, m.clearcoatRoughness, m.opacity])
+      const signature = JSON.stringify([
+        m.baseLinear,
+        m.metalness,
+        m.roughness,
+        m.clearcoat,
+        m.clearcoatRoughness,
+        m.opacity,
+      ])
       if (!bySignature.has(signature)) bySignature.set(signature, name)
       canonical.set(name, bySignature.get(signature)!)
     }
   }
   // The full tier's extras replace the shipped fused MAN mesh with the V16 assembly.
-  const manReplaced = !!extras && extras.children.some(child => child.name === 'PUMP_HOUSING')
+  const manReplaced = !!extras && extras.children.some((child) => child.name === 'PUMP_HOUSING')
   const ingest = (root: Object3D, extra: boolean) => {
     root.traverse((obj: Object3D) => {
       if (!(obj instanceof Mesh)) return
@@ -328,15 +423,28 @@ export function prepareModel(source: Group, plane: Plane, options: PrepareOption
           if (!frameShiftZ) frameShiftZ = FRAME_SHIFT_Z.get(p.name) ?? 0
           if (/-RES-/.test(p.name)) reservoir = true
           if (/-SIF-/.test(p.name)) insulation = true
-          if (!policy) { const found = policyFor(p.name); if (found) { policy = found.policy; named = found.name } }
+          if (!policy) {
+            const found = policyFor(p.name)
+            if (found) {
+              policy = found.policy
+              named = found.name
+            }
+          }
           p = p.parent
         }
       }
-      if (liner) { linerFound = true; counts.linerTriangles += triangles; return }
+      if (liner) {
+        linerFound = true
+        counts.linerTriangles += triangles
+        return
+      }
       if (manReplaced && !extra) {
         let q: Object3D | null = obj
         while (q && q !== root && q.name !== REPLACED_MAN) q = q.parent
-        if (q && q !== root) { counts.replacedTriangles += triangles; return }
+        if (q && q !== root) {
+          counts.replacedTriangles += triangles
+          return
+        }
       }
       const mats = Array.isArray(obj.material) ? obj.material : [obj.material]
       if (mats.length !== 1) throw new Error('RL300 loader must expand each CAD primitive before batching')
@@ -349,7 +457,14 @@ export function prepareModel(source: Group, plane: Plane, options: PrepareOption
       // the V16 name their GLB carries (MSP_BLACK_CHASSIS still renders the ruled #161e25) and
       // the root is the extras root. The extras' `keep` is a cutting policy, not a finish: they
       // pass `section` like any unnamed part, so the root and material rules decide the finish.
-      const color = finishFor(root.name, original.name, extra ? 'section' : policy ?? 'section', pipe ? EXHAUST_PIPE : undefined, reservoir, insulation)
+      const color = finishFor(
+        root.name,
+        original.name,
+        extra ? 'section' : (policy ?? 'section'),
+        pipe ? EXHAUST_PIPE : undefined,
+        reservoir,
+        insulation,
+      )
       let entry: V16Resolved | null = null
       let partName: string | null = null
       let mismatch = false
@@ -363,7 +478,8 @@ export function prepareModel(source: Group, plane: Plane, options: PrepareOption
           mismatch = !entry && isMultiSlotMismatch(v16, at.part, at.slotCount)
         }
         // An extras mesh the part table lacks still carries a V16 material name.
-        if (!entry && extra && has(v16.materials, original.name)) entry = { ...v16.materials[original.name], name: original.name }
+        if (!entry && extra && has(v16.materials, original.name))
+          entry = { ...v16.materials[original.name], name: original.name }
       }
       // Ruled looks are protected: where finishFor returned a colour the bucket keeps the
       // current roughness and metalness exactly and takes no V16 values. Otherwise a mapped
@@ -376,31 +492,47 @@ export function prepareModel(source: Group, plane: Plane, options: PrepareOption
       // the repaint is a base-material ruling, and several base materials (the -SIF-
       // insulation) share one V16 name, so keying them on it would mix their looks.
       // V16 materials with identical values share the canonical (alphabetically first) name.
-      const material = applyV16 ? canonical.get(entry!.name) ?? entry!.name : v16 && !color ? `${original.name}~glb` : original.name
+      const material = applyV16
+        ? (canonical.get(entry!.name) ?? entry!.name)
+        : v16 && !color
+          ? `${original.name}~glb`
+          : original.name
       const key = `${root.name}/${material}/${clipped ? 'cut' : 'whole'}/${color ?? 'cad'}`
       let bucket = buckets.get(key)
       if (!bucket) {
         const mat = applyV16 ? v16Material(original, entry!, physical) : original.clone()
         mat.name = key
         if (color) mat.color.set(color)
-        mat.transparent = false; mat.opacity = 1; mat.depthWrite = true
+        mat.transparent = false
+        mat.opacity = 1
+        mat.depthWrite = true
         // The one transparent path: a mapped entry with opacity < 1 (the dial lenses, at the
         // JSON's Fresnel normal-incidence value). Nothing else is ever transparent.
         // DoubleSide stays; forceSinglePass stops three drawing a transparent double-sided
         // material as a back pass then a front pass (both faces share colour and opacity, so
         // the order is invisible and the lens costs one draw instead of two).
-        if (applyV16 && entry!.opacity < 1) { mat.transparent = true; mat.opacity = entry!.opacity; mat.depthWrite = false; mat.forceSinglePass = true }
+        if (applyV16 && entry!.opacity < 1) {
+          mat.transparent = true
+          mat.opacity = entry!.opacity
+          mat.depthWrite = false
+          mat.forceSinglePass = true
+        }
         mat.side = DoubleSide
         if (!applyV16) {
           // The chrome ruling carries the stainless tip's own clamped .28/.8, so the whole
           // stack reads as one polished pipe; repainted paint stays satin like the approved blue.
-          mat.roughness = color === CHROME ? .28 : original.name === 'MSP_YELLOW_PAINT' ? .34 : Math.max(.28, original.roughness)
-          mat.metalness = color === CHROME ? .8 : original.name === 'MSP_YELLOW_PAINT' ? .32 : Math.min(.8, original.metalness)
+          mat.roughness =
+            color === CHROME ? 0.28 : original.name === 'MSP_YELLOW_PAINT' ? 0.34 : Math.max(0.28, original.roughness)
+          mat.metalness =
+            color === CHROME ? 0.8 : original.name === 'MSP_YELLOW_PAINT' ? 0.32 : Math.min(0.8, original.metalness)
         }
         // V16 values skip the `roughness >= .28` / `metalness <= .8` clamps above on purpose:
         // they would erase the lacquer's .16 roughness and the brass's 1.0 metalness.
-        mat.envMapIntensity = .65
-        if (clipped) { mat.clippingPlanes = [plane]; mat.clipShadows = true }
+        mat.envMapIntensity = 0.65
+        if (clipped) {
+          mat.clippingPlanes = [plane]
+          mat.clipShadows = true
+        }
         bucket = { geometries: [], material: mat, root: root.name }
         buckets.set(key, bucket)
       }
@@ -415,9 +547,18 @@ export function prepareModel(source: Group, plane: Plane, options: PrepareOption
       if (named) {
         geometry.computeBoundingBox()
         const box = geometry.boundingBox!
-        record = parts.get(named) ?? { policy: resolved, clipped, repainted: !!color, removed: false, triangles: 0, xMin: Infinity, xMax: -Infinity }
+        record = parts.get(named) ?? {
+          policy: resolved,
+          clipped,
+          repainted: !!color,
+          removed: false,
+          triangles: 0,
+          xMin: Infinity,
+          xMax: -Infinity,
+        }
         record.triangles += triangles
-        record.xMin = Math.min(record.xMin, box.min.x); record.xMax = Math.max(record.xMax, box.max.x)
+        record.xMin = Math.min(record.xMin, box.min.x)
+        record.xMax = Math.max(record.xMax, box.max.x)
         parts.set(named, record)
         // The cut only reaches what lies beyond the finished plane. Anything a `hide` ruling
         // names on the near side of it has to go, or it survives the whole sequence.
@@ -429,9 +570,15 @@ export function prepareModel(source: Group, plane: Plane, options: PrepareOption
         }
       }
       // V16 and extras telemetry counts what survives the rulings, not what was removed.
-      if (entry && partName) { mappedParts.add(partName); counts.mappedPrimitives++; if (color) counts.protectedPrimitives++ }
-      else if (mismatch && partName) unmappedMultiSlot.add(partName)
-      if (extra) { counts.extraParts++; counts.extraTriangles += triangles }
+      if (entry && partName) {
+        mappedParts.add(partName)
+        counts.mappedPrimitives++
+        if (color) counts.protectedPrimitives++
+      } else if (mismatch && partName) unmappedMultiSlot.add(partName)
+      if (extra) {
+        counts.extraParts++
+        counts.extraTriangles += triangles
+      }
       counts.keptTriangles += triangles
       if (!clipped && SECTION_ROOTS.has(root.name)) counts.keptWholeTriangles += triangles
       bucket.geometries.push(geometry)
@@ -447,12 +594,16 @@ export function prepareModel(source: Group, plane: Plane, options: PrepareOption
     // The owner's Blender export carries the reference lower-intake geometry as its own
     // root (coordinate source of truth for the authored copy in LowerIntake.tsx). The
     // site draws that passage in code; building the GLB copy too would double-render it.
-    if (root.name === 'PROPOSED_LOWER_INTAKE') { counts.skippedRoots = (counts.skippedRoots ?? 0) + 1; continue }
+    if (root.name === 'PROPOSED_LOWER_INTAKE') {
+      counts.skippedRoots = (counts.skippedRoots ?? 0) + 1
+      continue
+    }
     ingest(root, false)
   }
   // The extras follow the main roots, so every main bucket keeps its place.
   if (extras) for (const root of extras.children) ingest(root, true)
-  for (const name of Object.keys(PART_POLICY)) if (!parts.has(name)) throw new Error(`Ruled RL300 part absent from the CAD source: ${name}`)
+  for (const name of Object.keys(PART_POLICY))
+    if (!parts.has(name)) throw new Error(`Ruled RL300 part absent from the CAD source: ${name}`)
   if (!linerFound) throw new Error(`Missing registered liner ${LINER_PART}`)
   const sections = [...caps].map(([name, geometries]) => {
     const geometry = mergeGeometries(geometries)
@@ -461,14 +612,18 @@ export function prepareModel(source: Group, plane: Plane, options: PrepareOption
   })
   for (const [name, bucket] of buckets) {
     // A bucket can end up empty when every part in it was ruled away.
-    if (!bucket.geometries.length) { bucket.material.dispose(); continue }
+    if (!bucket.geometries.length) {
+      bucket.material.dispose()
+      continue
+    }
     const geometry = mergeGeometries(bucket.geometries)
     if (!geometry) throw new Error(`Incompatible CAD geometry: ${name}`)
     const mesh = new Mesh(geometry, bucket.material)
     mesh.name = name
     // The 78 mm gauge dials cast no shadow (one draw per bucket instead of two); the lens
     // below already has none.
-    mesh.castShadow = bucket.root !== 'GAUGE_DIALS'; mesh.receiveShadow = true
+    mesh.castShadow = bucket.root !== 'GAUGE_DIALS'
+    mesh.receiveShadow = true
     mesh.userData.sourceRoot = bucket.root
     if (bucket.material.transparent) {
       // The lens is nearly clear glass: it renders after the opaque equipment and, being
@@ -479,15 +634,25 @@ export function prepareModel(source: Group, plane: Plane, options: PrepareOption
       mesh.castShadow = false
     }
     group.add(mesh)
-    bucket.geometries.forEach(g => g.dispose())
+    bucket.geometries.forEach((g) => g.dispose())
   }
   counts.batches = group.children.length
-  counts.materials = new Set(group.children.map(obj => (obj as Mesh).material)).size
+  counts.materials = new Set(group.children.map((obj) => (obj as Mesh).material)).size
   counts.mappedParts = mappedParts.size
   counts.unmappedMultiSlot = unmappedMultiSlot.size
   counts.v16Applied = !!v16 && counts.mappedPrimitives > 0
-  return { group, sections, counts, parts: Object.fromEntries(parts), dispose() {
-    group.children.forEach(obj => { const mesh = obj as Mesh; mesh.geometry.dispose(); (mesh.material as MeshStandardMaterial).dispose() })
-    sections.forEach(s => s.geometry.dispose())
-  } }
+  return {
+    group,
+    sections,
+    counts,
+    parts: Object.fromEntries(parts),
+    dispose() {
+      group.children.forEach((obj) => {
+        const mesh = obj as Mesh
+        mesh.geometry.dispose()
+        ;(mesh.material as MeshStandardMaterial).dispose()
+      })
+      sections.forEach((s) => s.geometry.dispose())
+    },
+  }
 }

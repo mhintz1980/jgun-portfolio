@@ -40,9 +40,9 @@ export function getPreloaderGlow(p: number): string {
 
 const MILESTONES = [
   { at: 0.25, text: '20+ YRS PRECISION MACHINING // 5-AXIS GEOMETRY' },
-  { at: 0.50, text: 'SOLVING ASME Y14.5M TOLERANCE STATIONS' },
+  { at: 0.5, text: 'SOLVING ASME Y14.5M TOLERANCE STATIONS' },
   { at: 0.85, text: '+ SYSTEMS ARCHITECT // COMPILING 3D PIPELINE' },
-  { at: 1.00, text: 'THE PLUS ENGINE READY // MOUNTING' },
+  { at: 1.0, text: 'THE PLUS ENGINE READY // MOUNTING' },
 ]
 
 export function TorquePreloader({ onComplete }: TorquePreloaderProps) {
@@ -90,12 +90,12 @@ export function TorquePreloader({ onComplete }: TorquePreloaderProps) {
     const tick = () => {
       const elapsed = performance.now() - startTime
       let targetT = Math.min(1, elapsed / baseDuration)
-      
+
       // Smooth cubic-out easing
       const eased = 1 - Math.pow(1 - targetT, 2.5)
 
       // Hold at 92% if the vector drawing sheet is still compiling
-      const effectiveP = (!sheetReadyRef.current && eased > 0.92) ? 0.92 : eased
+      const effectiveP = !sheetReadyRef.current && eased > 0.92 ? 0.92 : eased
       const curPercent = Math.min(100, Math.floor(effectiveP * 100))
 
       setProgressVal(effectiveP)
@@ -229,15 +229,15 @@ export function TorquePreloader({ onComplete }: TorquePreloaderProps) {
               style={{
                 transform: isZooming ? undefined : `scale(${plusScale})`,
                 color: isZooming || progressVal >= 0.52 ? '#38bdf8' : '#f0703a',
-                textShadow: isZooming || progressVal >= 0.52 ? '0 0 20px rgba(56, 189, 248, 0.7)' : '0 0 20px rgba(240, 112, 58, 0.7)',
+                textShadow:
+                  isZooming || progressVal >= 0.52
+                    ? '0 0 20px rgba(56, 189, 248, 0.7)'
+                    : '0 0 20px rgba(240, 112, 58, 0.7)',
               }}
             >
               +
             </span>
-            <div
-              className="torque-preloader-number"
-              style={{ textShadow: numberGlow }}
-            >
+            <div className="torque-preloader-number" style={{ textShadow: numberGlow }}>
               {String(percent).padStart(3, '0')}
             </div>
             <span className="torque-preloader-unit">PERCENT</span>
@@ -246,10 +246,7 @@ export function TorquePreloader({ onComplete }: TorquePreloaderProps) {
 
         {/* Dynamic Status Ticker */}
         <div className="torque-preloader-ticker-box">
-          <div
-            className="torque-preloader-status"
-            style={{ opacity: statusOpacity }}
-          >
+          <div className="torque-preloader-status" style={{ opacity: statusOpacity }}>
             {statusText}
           </div>
           <div className="torque-preloader-bar-track">
@@ -267,7 +264,10 @@ export function TorquePreloader({ onComplete }: TorquePreloaderProps) {
       {/* Footer Tagline */}
       <footer className="torque-preloader-footer">
         <div className="torque-preloader-tagline">
-          <span className="torque-preloader-dot" style={{ backgroundColor: strokeColor, boxShadow: `0 0 8px ${strokeColor}` }} />
+          <span
+            className="torque-preloader-dot"
+            style={{ backgroundColor: strokeColor, boxShadow: `0 0 8px ${strokeColor}` }}
+          />
           <span>PHYSICAL TOOLING MEETS WEB-NATIVE 3D</span>
         </div>
         <div>CALIBRATING D1-AP VELLUM &amp; CAMERA</div>
@@ -275,4 +275,3 @@ export function TorquePreloader({ onComplete }: TorquePreloaderProps) {
     </div>
   )
 }
-

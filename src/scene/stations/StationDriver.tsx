@@ -64,7 +64,13 @@ const axisDir = new Vector3()
 const toCamera = new Vector3()
 const scratch = new Vector3()
 
-function anchorWorld(anchor: StationAnchor, rig: WrenchRig, inner: Object3D | undefined, camera: Vector3, out: Vector3): boolean {
+function anchorWorld(
+  anchor: StationAnchor,
+  rig: WrenchRig,
+  inner: Object3D | undefined,
+  camera: Vector3,
+  out: Vector3,
+): boolean {
   if (anchor.model) {
     if (!inner) return false
     out.set(anchor.model[0], anchor.model[1], anchor.model[2]).applyMatrix4(inner.matrixWorld)
@@ -99,10 +105,17 @@ const corner = new Vector3()
 const cornerPx = [0, 0]
 
 /** World point -> CSS px, written into `out` at `offset`. False when behind the camera. */
-function toScreen(v: Vector3, camera: Camera, size: { width: number; height: number }, out: number[], offset: number): boolean {
+function toScreen(
+  v: Vector3,
+  camera: Camera,
+  size: { width: number; height: number },
+  out: number[],
+  offset: number,
+): boolean {
   projected.copy(v).project(camera)
   if (!Number.isFinite(projected.x) || !Number.isFinite(projected.y) || !Number.isFinite(projected.z)) {
-    out[offset] = 0; out[offset + 1] = 0
+    out[offset] = 0
+    out[offset + 1] = 0
     return false
   }
   out[offset] = ((projected.x + 1) / 2) * size.width
@@ -148,7 +161,10 @@ export function StationDriver() {
   const state = useMemo(() => ({ text: '' }), [])
 
   useFrame(() => {
-    if (inspection.active) { background.visible = false; return }
+    if (inspection.active) {
+      background.visible = false
+      return
+    }
     const f = stationFrame
     const rig = (window as unknown as { __rig?: WrenchRig }).__rig
     const mode = (window as unknown as Record<string, string | undefined>).__drawingProofMode
@@ -182,9 +198,18 @@ export function StationDriver() {
     f.model[3] = -Infinity
     if (outer) {
       modelBox.setFromObject(outer)
-      if (modelBox.isEmpty()) { f.index = -1; background.visible = false; pushStationFrame(); return }
+      if (modelBox.isEmpty()) {
+        f.index = -1
+        background.visible = false
+        pushStationFrame()
+        return
+      }
       for (let i = 0; i < 8; i += 1) {
-        corner.set(i & 1 ? modelBox.max.x : modelBox.min.x, i & 2 ? modelBox.max.y : modelBox.min.y, i & 4 ? modelBox.max.z : modelBox.min.z)
+        corner.set(
+          i & 1 ? modelBox.max.x : modelBox.min.x,
+          i & 2 ? modelBox.max.y : modelBox.min.y,
+          i & 4 ? modelBox.max.z : modelBox.min.z,
+        )
         toScreen(corner, camera, size, cornerPx, 0)
         f.model[0] = Math.min(f.model[0], cornerPx[0])
         f.model[1] = Math.min(f.model[1], cornerPx[1])
@@ -192,8 +217,17 @@ export function StationDriver() {
         f.model[3] = Math.max(f.model[3], cornerPx[1])
       }
     }
-    if (!outer || !Number.isFinite(f.model[0]) || !Number.isFinite(f.model[1]) || !Number.isFinite(f.model[2]) || !Number.isFinite(f.model[3])) {
-      f.index = -1; background.visible = false; pushStationFrame(); return
+    if (
+      !outer ||
+      !Number.isFinite(f.model[0]) ||
+      !Number.isFinite(f.model[1]) ||
+      !Number.isFinite(f.model[2]) ||
+      !Number.isFinite(f.model[3])
+    ) {
+      f.index = -1
+      background.visible = false
+      pushStationFrame()
+      return
     }
     f.anchor[2] = 0
     if (!station.card && anchorWorld(station.anchor, rig, inner, camera.position, world)) {

@@ -1,10 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import {
-  DRIVELINE_STAGE_IDS,
-  GEAR_RATIOS,
-  ROTATION_TURNS,
-  STAGE_IDS,
-} from '../../data/caseStudies'
+import { DRIVELINE_STAGE_IDS, GEAR_RATIOS, ROTATION_TURNS, STAGE_IDS } from '../../data/caseStudies'
 
 describe('JG-031 Epicyclic Gear Rotation Ratios', () => {
   it('defines 5 reduction stages with exact JG-031 physical driveline display turns', () => {
@@ -23,7 +18,7 @@ describe('JG-031 Epicyclic Gear Rotation Ratios', () => {
       const nextStage = DRIVELINE_STAGE_IDS[i + 1]
       expect(
         ROTATION_TURNS[nextStage],
-        `Physical next stage ${nextStage} must turn slower than ${currentStage}`
+        `Physical next stage ${nextStage} must turn slower than ${currentStage}`,
       ).toBeLessThan(ROTATION_TURNS[currentStage])
     }
   })
@@ -35,11 +30,11 @@ describe('JG-031 Epicyclic Gear Rotation Ratios', () => {
       const ratio = ROTATION_TURNS[nextStage] / ROTATION_TURNS[currentStage]
       expect(
         ratio,
-        `Ratio ${nextStage}/${currentStage} (${ratio.toFixed(4)}) should be approximately 0.65`
+        `Ratio ${nextStage}/${currentStage} (${ratio.toFixed(4)}) should be approximately 0.65`,
       ).toBeGreaterThanOrEqual(0.64)
       expect(
         ratio,
-        `Ratio ${nextStage}/${currentStage} (${ratio.toFixed(4)}) should be approximately 0.65`
+        `Ratio ${nextStage}/${currentStage} (${ratio.toFixed(4)}) should be approximately 0.65`,
       ).toBeLessThanOrEqual(0.66)
     }
   })

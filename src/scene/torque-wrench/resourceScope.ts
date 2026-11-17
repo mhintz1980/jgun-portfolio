@@ -14,11 +14,19 @@ export function createResourceScope(onCleanupFailure: (errors: readonly unknown[
   let active = true
   const report = (failures: unknown[]) => {
     if (failures.length) {
-      try { onCleanupFailure(Object.freeze(failures)) } catch { /* host policy cannot stop cleanup */ }
+      try {
+        onCleanupFailure(Object.freeze(failures))
+      } catch {
+        /* host policy cannot stop cleanup */
+      }
     }
   }
   const disposeOne = (cleanup: () => void) => {
-    try { cleanup() } catch (error) { report([error]) }
+    try {
+      cleanup()
+    } catch (error) {
+      report([error])
+    }
   }
   return {
     signal: abort.signal,
@@ -38,9 +46,17 @@ export function createResourceScope(onCleanupFailure: (errors: readonly unknown[
       if (!active) return
       active = false
       const failures: unknown[] = []
-      try { abort.abort() } catch (error) { failures.push(error) }
+      try {
+        abort.abort()
+      } catch (error) {
+        failures.push(error)
+      }
       for (let i = disposers.length - 1; i >= 0; i--) {
-        try { disposers[i]() } catch (error) { failures.push(error) }
+        try {
+          disposers[i]()
+        } catch (error) {
+          failures.push(error)
+        }
       }
       disposers.length = 0
       report(failures)

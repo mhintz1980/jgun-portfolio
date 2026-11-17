@@ -1,4 +1,15 @@
-import { Box3, BufferAttribute, BufferGeometry, CylinderGeometry, Group, Material, Matrix4, Mesh, Object3D, Vector3 } from 'three'
+import {
+  Box3,
+  BufferAttribute,
+  BufferGeometry,
+  CylinderGeometry,
+  Group,
+  Material,
+  Matrix4,
+  Mesh,
+  Object3D,
+  Vector3,
+} from 'three'
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js'
 import type { StageId } from '../../data/caseStudies'
 import { STAGE_IDS } from '../../data/caseStudies'
@@ -159,7 +170,6 @@ export interface WrenchRig {
   /** Model center offset so the hero group can recenter the wrench at the origin. */
   center: Vector3
 }
-
 
 function hasAncestorMatching(node: Object3D, re: RegExp): boolean {
   let current = node.parent
@@ -477,7 +487,8 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
   }
   const buckets = new Map<string, Bucket>()
   const drawingBuckets = new Map<string, Bucket>()
-  const leftovers: Mesh[] = // array-material meshes (none expected from GLTFLoader)
+  const leftovers: Mesh[] =
+    // array-material meshes (none expected from GLTFLoader)
     []
   for (const mesh of meshes) {
     if (Array.isArray(mesh.material)) {
@@ -506,14 +517,25 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     let partNumber = ''
     while (provenance) {
       const match = provenance.name.match(PROVENANCE_PART_RE)
-      if (match) { partNumber = match[1].toUpperCase(); break }
+      if (match) {
+        partNumber = match[1].toUpperCase()
+        break
+      }
       provenance = provenance.parent
     }
     const key = `${unit.key}|${role}|${ghost ? 'g' : 's'}|${partNumber}`
     const drawingKey = `${unit.key}|${role}|${ghost ? 'g' : 's'}`
     const drawingBucket = drawingBuckets.get(drawingKey)
     if (drawingBucket) drawingBucket.sources.push(mesh)
-    else drawingBuckets.set(drawingKey, { unit, role, material: roleMaterial(role), ghost, sources: [mesh], partNumber: '' })
+    else
+      drawingBuckets.set(drawingKey, {
+        unit,
+        role,
+        material: roleMaterial(role),
+        ghost,
+        sources: [mesh],
+        partNumber: '',
+      })
     const bucket = buckets.get(key)
     if (bucket) bucket.sources.push(mesh)
     else buckets.set(key, { unit, role, material: roleMaterial(role), ghost, sources: [mesh], partNumber })
@@ -545,9 +567,9 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     // mergeGeometries returns null on attribute mismatch — every primitive in
     // this export is indexed POSITION+NORMAL, so a miss means leave originals.
     const merged =
-      geometries.length === 1 ? geometries[0] : (mergeGeometries(geometries, false) as
-        | ReturnType<typeof mergeGeometries>
-        | null)
+      geometries.length === 1
+        ? geometries[0]
+        : (mergeGeometries(geometries, false) as ReturnType<typeof mergeGeometries> | null)
     if (!merged) {
       for (const geometry of geometries) geometry.dispose()
       leftovers.push(...bucket.sources)
@@ -567,7 +589,10 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     }
     const mesh = new Mesh(merged, material)
     mesh.frustumCulled = true
-    if (bucket.partNumber) { mesh.userData.partNumber = bucket.partNumber; mesh.name = `MERGED ${bucket.partNumber}` }
+    if (bucket.partNumber) {
+      mesh.userData.partNumber = bucket.partNumber
+      mesh.name = `MERGED ${bucket.partNumber}`
+    }
     bucket.unit.host.add(mesh)
     finalMeshes.push(mesh)
     renderedBuckets.set(bucket, mesh)
@@ -583,14 +608,16 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     // The drawing cache has a byte-exact legacy contract: retain the original
     // P001835 split only. K000210/K000211 gain render provenance without
     // changing the immutable drawing snapshot.
-    const split = PROVENANCE_PARTS.some(part => buckets.has(key + '|' + part))
+    const split = PROVENANCE_PARTS.some((part) => buckets.has(key + '|' + part))
     if (!split) {
       const rendered = renderedBuckets.get(buckets.get(key + '|')!)
       if (rendered) drawingMeshes.push(rendered)
       continue
     }
     const inv = inverseFor(bucket.unit.host)
-    const geometries = bucket.sources.map(source => source.geometry.clone().applyMatrix4(bake.multiplyMatrices(inv, source.matrixWorld)))
+    const geometries = bucket.sources.map((source) =>
+      source.geometry.clone().applyMatrix4(bake.multiplyMatrices(inv, source.matrixWorld)),
+    )
     const merged = geometries.length === 1 ? geometries[0] : mergeGeometries(geometries, false)
     if (!merged) throw new Error('Part provenance drawing conservation merge failed')
     merged.normalizeNormals()
@@ -609,7 +636,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
   // dynamically revealed/covered as the ring switch (P003068) shifts +Z.
   if (clutchStaticGroup) {
     const makeGroove = (zCenter: number, role: 'grooveRed' | 'grooveBlue', name: string): Mesh => {
-      const geom = new CylinderGeometry(0.03170, 0.03170, 0.0015, 64, 1, true)
+      const geom = new CylinderGeometry(0.0317, 0.0317, 0.0015, 64, 1, true)
       geom.rotateX(Math.PI / 2)
       geom.translate(0, 0, zCenter)
       const mesh = new Mesh(geom, roleMaterial(role))

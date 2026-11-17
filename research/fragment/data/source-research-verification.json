@@ -1,0 +1,17 @@
+{
+  "status": "done",
+  "updated_sections": ["4", "4c", "5", "6"],
+  "animation_rows": 266,
+  "table_columns": ["Trigger", "What moves", "Property", "From → to", "Duration or scroll span", "Easing", "Stagger", "Source evidence"],
+  "all_rows_have_evidence_markers": true,
+  "local_source_links_checked": 369,
+  "missing_source_files_or_out_of_range_lines": 0,
+  "original_content_preserved_byte_for_byte": true,
+  "section_4b_preserved": true,
+  "baseline_sha256": "f59c3c6cb9767d20aaaa0eacb2df5c64408abe6b1924f3e88911556a74428b7c",
+  "reconstructed_original_sha256": "f59c3c6cb9767d20aaaa0eacb2df5c64408abe6b1924f3e88911556a74428b7c",
+  "unknowns": ["Opaque Spline camera, animation graph, lighting, materials, shaders and post-processing", "Unmeasured responsive scroll pixel ranges", "Encoded media clip lengths", "Unauthored cursor/language transition defaults", "Select panel choreography", "Actual playback of declared global route transitions"],
+  "source_blockers": [],
+  "writes_scoped_to": "research/fragment/",
+  "git_state_modified": false
+}

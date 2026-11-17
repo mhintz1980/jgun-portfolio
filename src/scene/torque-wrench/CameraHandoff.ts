@@ -17,9 +17,18 @@ const logDistance = (pose: CameraHandoffPose) => Math.log(Math.max(pose.position
  */
 export function createCameraHandoff() {
   const matrix = new Matrix4()
-  const qa = new Quaternion(), qb = new Quaternion(), orientation = new Quaternion()
+  const qa = new Quaternion(),
+    qb = new Quaternion(),
+    orientation = new Quaternion()
   const forward = new Vector3()
-  return (from: CameraHandoffPose, to: CameraHandoffPose, progress: number, start: number, end: number, out: CameraHandoffPose) => {
+  return (
+    from: CameraHandoffPose,
+    to: CameraHandoffPose,
+    progress: number,
+    start: number,
+    end: number,
+    out: CameraHandoffPose,
+  ) => {
     const u = Math.max(0, Math.min(1, (progress - start) / (end - start)))
     const weight = u * u * u * (10 + u * (-15 + 6 * u))
     const logFrom = logDistance(from)

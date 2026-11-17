@@ -48,11 +48,7 @@ const toTuple = (v: THREE.Vector3): Vec3Tuple => [round3(v.x), round3(v.y), roun
  * `userData.explodeDirectionLocal` (the same displacement expressed in the mesh parent's frame
  * for one world unit, so a scaled or rotated parent still moves the part along the world vector).
  */
-export function auditGLBScene(
-  scene: THREE.Object3D,
-  modelPath: string,
-  stageFit?: GLBStageFit,
-): GLBManifest {
+export function auditGLBScene(scene: THREE.Object3D, modelPath: string, stageFit?: GLBStageFit): GLBManifest {
   const nodes: GLBNodeRecord[] = []
   const materialSet = new Set<string>()
   let totalVertices = 0

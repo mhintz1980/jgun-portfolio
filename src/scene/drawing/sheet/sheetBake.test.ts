@@ -1,7 +1,17 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
-  Box3, BufferGeometry, CanvasTexture, Color, DataTexture, Float32BufferAttribute,
-  Material, Matrix4, Texture, Vector3, WebGLRenderTarget, type WebGLRenderer,
+  Box3,
+  BufferGeometry,
+  CanvasTexture,
+  Color,
+  DataTexture,
+  Float32BufferAttribute,
+  Material,
+  Matrix4,
+  Texture,
+  Vector3,
+  WebGLRenderTarget,
+  type WebGLRenderer,
 } from 'three'
 import { SIDE_ROTATION, makeDrawingLayout, type DrawingGeometry, type CleanupFailureSink } from '../drawingGeometry'
 import * as geometryModule from '../drawingGeometry'
@@ -29,7 +39,12 @@ const host = vi.hoisted(() => ({
   targetFailure: null as unknown,
   batchGeometryFailure: null as unknown,
   batchTextures: [] as Array<{ dispose: ReturnType<typeof vi.fn> }>,
-  texts: [] as Array<{ text?: string; font?: string; dispose: ReturnType<typeof vi.fn>; sync: ReturnType<typeof vi.fn> }>,
+  texts: [] as Array<{
+    text?: string
+    font?: string
+    dispose: ReturnType<typeof vi.fn>
+    sync: ReturnType<typeof vi.fn>
+  }>,
   batches: [] as Array<{ dispose: ReturnType<typeof vi.fn> }>,
 }))
 vi.mock('three', async (original) => {
@@ -51,17 +66,19 @@ vi.mock('three', async (original) => {
   }
 })
 vi.mock('react', async (original) => ({
-  ...await original<typeof import('react')>(),
-  useLayoutEffect: (effect: () => void | (() => void)) => { host.effects.push(effect) },
+  ...(await original<typeof import('react')>()),
+  useLayoutEffect: (effect: () => void | (() => void)) => {
+    host.effects.push(effect)
+  },
   useState: () => [null, host.setState],
   useRef: () => host.epoch,
 }))
 vi.mock('@react-three/fiber', async (original) => ({
-  ...await original<typeof import('@react-three/fiber')>(),
+  ...(await original<typeof import('@react-three/fiber')>()),
   useThree: () => ({ gl: host.gl }),
 }))
 vi.mock('../../../state/qualityStore', async (original) => ({
-  ...await original<typeof import('../../../state/qualityStore')>(),
+  ...(await original<typeof import('../../../state/qualityStore')>()),
   getQuality: () => ({ tier: 'full', reducedMotion: false }),
   forcePoster: vi.fn(),
 }))
@@ -74,8 +91,13 @@ vi.mock('troika-three-text', async () => {
     font = ''
     textRenderInfo = { blockBounds: [0, 0, 0.003, 0.004] }
     dispose = vi.fn()
-    sync = vi.fn((done?: () => void) => { done?.() })
-    constructor() { super(); host.texts.push(this) }
+    sync = vi.fn((done?: () => void) => {
+      done?.()
+    })
+    constructor() {
+      super()
+      host.texts.push(this)
+    }
   }
   class TestBatch extends TestText {
     _dataTextures: Record<string, { dispose: ReturnType<typeof vi.fn> }>
@@ -83,9 +105,7 @@ vi.mock('troika-three-text', async () => {
       super()
       host.texts.pop()
       host.batches.push(this)
-      this._dataTextures = Object.fromEntries(
-        host.batchTextures.map((texture, index) => [String(index), texture]),
-      )
+      this._dataTextures = Object.fromEntries(host.batchTextures.map((texture, index) => [String(index), texture]))
       this.dispose = vi.fn(() => {
         if (host.batchGeometryFailure !== null) throw host.batchGeometryFailure
       })
@@ -95,7 +115,11 @@ vi.mock('troika-three-text', async () => {
 })
 vi.mock('../poseCore', async (original) => {
   const actual = await original<typeof import('../poseCore')>()
-  return { ...actual, solveExtraction: vi.fn(actual.solveExtraction), bindExtractionPressure: vi.fn(actual.bindExtractionPressure) }
+  return {
+    ...actual,
+    solveExtraction: vi.fn(actual.solveExtraction),
+    bindExtractionPressure: vi.fn(actual.bindExtractionPressure),
+  }
 })
 vi.mock('./drawingCache', async (original) => {
   const actual = await original<typeof import('./drawingCache')>()
@@ -115,15 +139,29 @@ vi.mock('./breakthroughGeometry', async (original) => {
 })
 vi.mock('./breakthrough', async (original) => {
   const actual = await original<typeof import('./breakthrough')>()
-  return { ...actual, makeBarrierMask: vi.fn(actual.makeBarrierMask), makeFragmentPrint: vi.fn(actual.makeFragmentPrint), makeCrackMask: vi.fn(actual.makeCrackMask) }
+  return {
+    ...actual,
+    makeBarrierMask: vi.fn(actual.makeBarrierMask),
+    makeFragmentPrint: vi.fn(actual.makeFragmentPrint),
+    makeCrackMask: vi.fn(actual.makeCrackMask),
+  }
 })
 vi.mock('./ink', async (original) => {
   const actual = await original<typeof import('./ink')>()
-  return { ...actual, makeSheetUniforms: vi.fn(actual.makeSheetUniforms), makeInkLines: vi.fn(actual.makeInkLines), makeInkFills: vi.fn(actual.makeInkFills) }
+  return {
+    ...actual,
+    makeSheetUniforms: vi.fn(actual.makeSheetUniforms),
+    makeInkLines: vi.fn(actual.makeInkLines),
+    makeInkFills: vi.fn(actual.makeInkFills),
+  }
 })
 vi.mock('./paperFlex', async (original) => {
   const actual = await original<typeof import('./paperFlex')>()
-  return { ...actual, makePaperFlexField: vi.fn(actual.makePaperFlexField), clearPaperFlexField: vi.fn(actual.clearPaperFlexField) }
+  return {
+    ...actual,
+    makePaperFlexField: vi.fn(actual.makePaperFlexField),
+    clearPaperFlexField: vi.fn(actual.clearPaperFlexField),
+  }
 })
 vi.mock('./sheetText', async (original) => {
   const actual = await original<typeof import('./sheetText')>()
@@ -156,40 +194,83 @@ const actual = {
   edges: await vi.importActual<typeof import('./edgeExtract')>('./edgeExtract'),
   registration: await vi.importActual<typeof import('./registration')>('./registration'),
 }
-const contour = [[-0.15, -0.05], [0.15, -0.05], [0.15, 0.05], [-0.15, 0.05], [-0.15, -0.05]]
+const contour = [
+  [-0.15, -0.05],
+  [0.15, -0.05],
+  [0.15, 0.05],
+  [-0.15, 0.05],
+  [-0.15, -0.05],
+]
 const ownedResults: SheetBakeResult[] = []
 const borrowed: BufferGeometry[] = []
-const canvas = () => ({
-  width: 1, height: 1,
-  getContext: () => ({
-    setLineDash() {}, beginPath() {}, moveTo() {}, lineTo() {}, stroke() {}, fill() {}, closePath() {},
-  }),
-}) as unknown as HTMLCanvasElement
+const canvas = () =>
+  ({
+    width: 1,
+    height: 1,
+    getContext: () => ({
+      setLineDash() {},
+      beginPath() {},
+      moveTo() {},
+      lineTo() {},
+      stroke() {},
+      fill() {},
+      closePath() {},
+    }),
+  }) as unknown as HTMLCanvasElement
 
 function composedFixture(): ReturnType<typeof composition.composeSheet> {
   const builder = new ink.InkBuilder()
   for (let i = 1; i < contour.length; i++) {
-    builder.line(...contour[i - 1] as [number, number], ...contour[i] as [number, number],
-      0.0002, ink.GROUP.side, 0, 0.1)
+    builder.line(
+      ...(contour[i - 1] as [number, number]),
+      ...(contour[i] as [number, number]),
+      0.0002,
+      ink.GROUP.side,
+      0,
+      0.1,
+    )
   }
   builder.tri(0, 0, 0.001, 0, 0, 0.001, ink.GROUP.side)
-  builder.text({ text: 'A', x: 0, y: 0, size: 0.0038, group: ink.GROUP.noteInput,
-    key: 0, weight: 'handwriting', color: 'graphite' })
+  builder.text({
+    text: 'A',
+    x: 0,
+    y: 0,
+    size: 0.0038,
+    group: ink.GROUP.noteInput,
+    key: 0,
+    weight: 'handwriting',
+    color: 'graphite',
+  })
   return { ink: builder, marks: { side: [0, 0] }, stats: { segments: 4, totalMs: 7 } }
 }
 
 // Small owned fracture/texture fixtures keep the boundary matrix CPU-bounded.
 // Actual factories run separately below, including their internal partial throws.
 function fractureFixture(): ReturnType<typeof fracture.makeBreakthroughGeometry> {
-  const paper = new BufferGeometry(), edge = new BufferGeometry(), cracks = new BufferGeometry()
+  const paper = new BufferGeometry(),
+    edge = new BufferGeometry(),
+    cracks = new BufferGeometry()
   return {
-    paper, edge, cracks, fragments: [], profile: contour, outline: contour, tornContour: contour,
-    area: 0.03, fragmentArea: 0.03, thickness: 0.00045, maxBoundaryDeviation: 0,
+    paper,
+    edge,
+    cracks,
+    fragments: [],
+    profile: contour,
+    outline: contour,
+    tornContour: contour,
+    area: 0.03,
+    fragmentArea: 0.03,
+    thickness: 0.00045,
+    maxBoundaryDeviation: 0,
     fragmentZRange: [-0.00045, 0],
     dispose: (sink?: CleanupFailureSink) => {
       const errors: unknown[] = []
       for (const geometry of [paper, edge, cracks]) {
-        try { geometry.dispose() } catch (error) { errors.push(error) }
+        try {
+          geometry.dispose()
+        } catch (error) {
+          errors.push(error)
+        }
       }
       if (errors.length) sink?.(errors)
     },
@@ -198,23 +279,36 @@ function fractureFixture(): ReturnType<typeof fracture.makeBreakthroughGeometry>
 
 function fixture(): SheetBakeInput {
   const inv = SIDE_ROTATION.clone().invert()
-  const values = [[-0.14, 0, 0.02], [0, 0, 0.02], [0.14, 0, 0.02],
-    [-0.14, 0.045, 0.019], [0.14, -0.045, 0.019], [-0.14, 0, -0.04], [0.14, 0, -0.04]]
-    .flatMap(p => new Vector3(...p as [number, number, number]).applyMatrix4(inv).toArray())
+  const values = [
+    [-0.14, 0, 0.02],
+    [0, 0, 0.02],
+    [0.14, 0, 0.02],
+    [-0.14, 0.045, 0.019],
+    [0.14, -0.045, 0.019],
+    [-0.14, 0, -0.04],
+    [0.14, 0, -0.04],
+  ].flatMap((p) => new Vector3(...(p as [number, number, number])).applyMatrix4(inv).toArray())
   const attribute = new Float32BufferAttribute(values, 3)
   const geometry = new BufferGeometry().setAttribute('position', attribute)
   borrowed.push(geometry)
-  const data: DrawingGeometry = { geometry, bounds: new Box3().setFromBufferAttribute(attribute),
-    features: {}, units: {}, rigCenter: new Vector3(), sourceTriangles: 0 }
+  const data: DrawingGeometry = {
+    geometry,
+    bounds: new Box3().setFromBufferAttribute(attribute),
+    features: {},
+    units: {},
+    rigCenter: new Vector3(),
+    sourceTriangles: 0,
+  }
   const layout = makeDrawingLayout(1, data.bounds)
   layout.primaryCenter.set(0, 0, 0)
-  return { gl: {} as WebGLRenderer, data, layout,
-    tier: 'full', onCleanupFailure: vi.fn() }
+  return { gl: {} as WebGLRenderer, data, layout, tier: 'full', onCleanupFailure: vi.fn() }
 }
 
 function deferred<T>() {
   let resolve!: (value: T | PromiseLike<T>) => void
-  const promise = new Promise<T>(ok => { resolve = ok })
+  const promise = new Promise<T>((ok) => {
+    resolve = ok
+  })
   return { promise, resolve }
 }
 
@@ -224,11 +318,19 @@ beforeEach(() => {
   vi.mocked(pose.bindExtractionPressure).mockReset().mockImplementation(actual.pose.bindExtractionPressure)
   vi.mocked(cache.prepareDrawingCache).mockReset().mockResolvedValue(false)
   vi.mocked(composition.composeSheet).mockReset().mockImplementation(composedFixture)
-  vi.mocked(profile.bakeProfile).mockReset().mockImplementation(() => actual.profile.profileFromPoints(contour))
+  vi.mocked(profile.bakeProfile)
+    .mockReset()
+    .mockImplementation(() => actual.profile.profileFromPoints(contour))
   vi.mocked(fracture.makeBreakthroughGeometry).mockReset().mockImplementation(fractureFixture)
-  vi.mocked(masks.makeBarrierMask).mockReset().mockImplementation(() => new DataTexture(new Uint8Array(4), 1, 1))
-  vi.mocked(masks.makeFragmentPrint).mockReset().mockImplementation(() => new CanvasTexture(canvas()))
-  vi.mocked(masks.makeCrackMask).mockReset().mockImplementation(() => new CanvasTexture(canvas()))
+  vi.mocked(masks.makeBarrierMask)
+    .mockReset()
+    .mockImplementation(() => new DataTexture(new Uint8Array(4), 1, 1))
+  vi.mocked(masks.makeFragmentPrint)
+    .mockReset()
+    .mockImplementation(() => new CanvasTexture(canvas()))
+  vi.mocked(masks.makeCrackMask)
+    .mockReset()
+    .mockImplementation(() => new CanvasTexture(canvas()))
   vi.mocked(ink.makeSheetUniforms).mockReset().mockImplementation(actual.ink.makeSheetUniforms)
   vi.mocked(ink.makeInkLines).mockReset().mockImplementation(actual.ink.makeInkLines)
   vi.mocked(ink.makeInkFills).mockReset().mockImplementation(actual.ink.makeInkFills)
@@ -236,7 +338,9 @@ beforeEach(() => {
   vi.mocked(flex.clearPaperFlexField).mockReset().mockImplementation(actual.flex.clearPaperFlexField)
   vi.mocked(lettering.makeSheetText).mockReset().mockImplementation(actual.lettering.makeSheetText)
   vi.mocked(edges.extractView).mockReset().mockImplementation(actual.edges.extractView)
-  vi.mocked(registration.measureProfileRegistration).mockReset().mockImplementation(actual.registration.measureProfileRegistration)
+  vi.mocked(registration.measureProfileRegistration)
+    .mockReset()
+    .mockImplementation(actual.registration.measureProfileRegistration)
   vi.mocked(forcePoster).mockReset()
   host.effects.length = 0
   host.meshFailure = null
@@ -260,7 +364,8 @@ afterEach(() => {
 
 describe('explicit sheet bake ownership', () => {
   it('completes a CPU bake with real fracture/masks/ink/flex/text factories and borrowed input', async () => {
-    const input = fixture(), borrowDispose = vi.spyOn(input.data.geometry, 'dispose')
+    const input = fixture(),
+      borrowDispose = vi.spyOn(input.data.geometry, 'dispose')
     vi.mocked(fracture.makeBreakthroughGeometry).mockImplementation(actual.fracture.makeBreakthroughGeometry)
     vi.mocked(masks.makeBarrierMask).mockImplementation(actual.masks.makeBarrierMask)
     vi.mocked(masks.makeFragmentPrint).mockImplementation(actual.masks.makeFragmentPrint)
@@ -285,8 +390,15 @@ describe('explicit sheet bake ownership', () => {
     const result = await bakeSheet(input)
     ownedResults.push(result)
     expect(cache.prepareDrawingCache).toHaveBeenCalledWith(input.data, input.layout, undefined, undefined)
-    expect(result.stats).toMatchObject({ segments: 4, precomputed: 0, flexAmplitude: 0,
-      flexNormalZ: 1, contactShadow: 0, vellum: 0, flexFieldPeak: result.flex.peak })
+    expect(result.stats).toMatchObject({
+      segments: 4,
+      precomputed: 0,
+      flexAmplitude: 0,
+      flexNormalZ: 1,
+      contactShadow: 0,
+      vellum: 0,
+      flexFieldPeak: result.flex.peak,
+    })
     for (const key of ['cacheMs', 'extractMs', 'bakeMs']) expect(result.stats[key]).toBeGreaterThanOrEqual(0)
     expect(result.uniforms.uFlexField.value).toBe(result.flex.texture)
     expect(result.uniforms.uFlexRect.value).toBe(result.flex.rect)
@@ -326,39 +438,52 @@ describe('explicit sheet bake ownership', () => {
   })
 
   const boundaries = [
-    ['solve', pose.solveExtraction], ['compose', composition.composeSheet], ['profile', profile.bakeProfile],
-    ['fracture', fracture.makeBreakthroughGeometry], ['barrier', masks.makeBarrierMask],
-    ['print', masks.makeFragmentPrint], ['crack mask', masks.makeCrackMask],
-    ['uniforms', ink.makeSheetUniforms], ['flex', flex.makePaperFlexField],
-    ['pressure bind', pose.bindExtractionPressure], ['lines', ink.makeInkLines],
-    ['fills', ink.makeInkFills], ['text', lettering.makeSheetText],
+    ['solve', pose.solveExtraction],
+    ['compose', composition.composeSheet],
+    ['profile', profile.bakeProfile],
+    ['fracture', fracture.makeBreakthroughGeometry],
+    ['barrier', masks.makeBarrierMask],
+    ['print', masks.makeFragmentPrint],
+    ['crack mask', masks.makeCrackMask],
+    ['uniforms', ink.makeSheetUniforms],
+    ['flex', flex.makePaperFlexField],
+    ['pressure bind', pose.bindExtractionPressure],
+    ['lines', ink.makeInkLines],
+    ['fills', ink.makeInkFills],
+    ['text', lettering.makeSheetText],
   ] as const
   for (const [name, factory] of boundaries) {
     it(`cleans all returned resources when the ${name} boundary throws, keeping the primary error`, async () => {
-      const input = fixture(), primary = new Error(name)
+      const input = fixture(),
+        primary = new Error(name)
       const borrowDispose = vi.spyOn(input.data.geometry, 'dispose')
       const geometryDispose = vi.spyOn(BufferGeometry.prototype, 'dispose')
       const textureDispose = vi.spyOn(Texture.prototype, 'dispose')
-      vi.mocked(factory).mockImplementationOnce(() => { throw primary })
+      vi.mocked(factory).mockImplementationOnce(() => {
+        throw primary
+      })
       await expect(bakeSheet(input)).rejects.toBe(primary)
       expect(input.onCleanupFailure).toHaveBeenCalledExactlyOnceWith([])
       expect(borrowDispose).not.toHaveBeenCalled()
       expect(flex.getPaperFlexField()).toBeNull()
-      const madeProfile = vi.mocked(profile.bakeProfile).mock.results.find(r => r.type === 'return')?.value
+      const madeProfile = vi.mocked(profile.bakeProfile).mock.results.find((r) => r.type === 'return')?.value
       if (madeProfile) {
         expect(geometryDispose.mock.contexts).toContain(madeProfile.profile)
         expect(geometryDispose.mock.contexts).toContain(madeProfile.profileRibbon)
       }
-      const madeFracture = vi.mocked(fracture.makeBreakthroughGeometry).mock.results.find(r => r.type === 'return')?.value
-      if (madeFracture) for (const geometry of [madeFracture.paper, madeFracture.edge, madeFracture.cracks]) {
-        expect(geometryDispose.mock.contexts).toContain(geometry)
-      }
+      const madeFracture = vi
+        .mocked(fracture.makeBreakthroughGeometry)
+        .mock.results.find((r) => r.type === 'return')?.value
+      if (madeFracture)
+        for (const geometry of [madeFracture.paper, madeFracture.edge, madeFracture.cracks]) {
+          expect(geometryDispose.mock.contexts).toContain(geometry)
+        }
       for (const maskFactory of [masks.makeBarrierMask, masks.makeFragmentPrint, masks.makeCrackMask]) {
-        const texture = vi.mocked(maskFactory).mock.results.find(r => r.type === 'return')?.value
+        const texture = vi.mocked(maskFactory).mock.results.find((r) => r.type === 'return')?.value
         if (texture) expect(textureDispose.mock.contexts).toContain(texture)
       }
       for (const meshFactory of [ink.makeInkLines, ink.makeInkFills]) {
-        const mesh = vi.mocked(meshFactory).mock.results.find(r => r.type === 'return')?.value
+        const mesh = vi.mocked(meshFactory).mock.results.find((r) => r.type === 'return')?.value
         if (mesh) expect(geometryDispose.mock.contexts).toContain(mesh.geometry)
       }
     })
@@ -366,13 +491,21 @@ describe('explicit sheet bake ownership', () => {
 
   it('collects nested and throwing leaf cleanup once, still clears flex, and survives a throwing reporter', async () => {
     const input = fixture()
-    const hostError = new Error('host'), cleanupA = new Error('profile'), cleanupB = new Error('flex')
-    input.onCleanupFailure = vi.fn(() => { throw hostError })
+    const hostError = new Error('host'),
+      cleanupA = new Error('profile'),
+      cleanupB = new Error('flex')
+    input.onCleanupFailure = vi.fn(() => {
+      throw hostError
+    })
     const result = await bakeSheet(input)
     ownedResults.push(result)
     const borrowDispose = vi.spyOn(input.data.geometry, 'dispose')
-    result.rendered.profile.addEventListener('dispose', () => { throw cleanupA })
-    result.flex.texture.addEventListener('dispose', () => { throw cleanupB })
+    result.rendered.profile.addEventListener('dispose', () => {
+      throw cleanupA
+    })
+    result.flex.texture.addEventListener('dispose', () => {
+      throw cleanupB
+    })
     const geometryDispose = vi.spyOn(BufferGeometry.prototype, 'dispose')
     const materialDispose = vi.spyOn(Material.prototype, 'dispose')
     expect(() => result.dispose()).not.toThrow()
@@ -390,8 +523,12 @@ describe('explicit sheet bake ownership', () => {
   })
 
   it('preserves a primary construction error with factory diagnostics and a throwing host reporter', async () => {
-    const input = fixture(), primary = new Error('construction'), nested = new Error('rollback')
-    input.onCleanupFailure = vi.fn(() => { throw new Error('report') })
+    const input = fixture(),
+      primary = new Error('construction'),
+      nested = new Error('rollback')
+    input.onCleanupFailure = vi.fn(() => {
+      throw new Error('report')
+    })
     vi.mocked(ink.makeInkFills).mockImplementationOnce((_builder, _uniforms, sink) => {
       sink?.([nested])
       throw primary
@@ -402,7 +539,8 @@ describe('explicit sheet bake ownership', () => {
   })
 
   it('rejects an already-aborted caller before cache work, instead of fallback', async () => {
-    const input = fixture(), controller = new AbortController()
+    const input = fixture(),
+      controller = new AbortController()
     controller.abort('owner')
     input.signal = controller.signal
     await expect(bakeSheet(input)).rejects.toMatchObject({ name: 'AbortError' })
@@ -411,7 +549,8 @@ describe('explicit sheet bake ownership', () => {
   })
 
   it('propagates caller AbortError from cache; a false cache result instead composes live', async () => {
-    const input = fixture(), abort = new DOMException('cancelled', 'AbortError')
+    const input = fixture(),
+      abort = new DOMException('cancelled', 'AbortError')
     vi.mocked(cache.prepareDrawingCache).mockRejectedValueOnce(abort)
     await expect(bakeSheet(input)).rejects.toBe(abort)
     expect(composition.composeSheet).not.toHaveBeenCalled()
@@ -420,7 +559,9 @@ describe('explicit sheet bake ownership', () => {
   })
 
   it('checks the signal after cache resolves and before the first allocation', async () => {
-    const input = fixture(), controller = new AbortController(), pending = deferred<boolean>()
+    const input = fixture(),
+      controller = new AbortController(),
+      pending = deferred<boolean>()
     input.signal = controller.signal
     vi.mocked(cache.prepareDrawingCache).mockReturnValueOnce(pending.promise)
     const result = bakeSheet(input)
@@ -432,7 +573,8 @@ describe('explicit sheet bake ownership', () => {
   })
 
   it('checks cancellation after final allocation and disposes text plus every earlier resource', async () => {
-    const input = fixture(), controller = new AbortController()
+    const input = fixture(),
+      controller = new AbortController()
     input.signal = controller.signal
     vi.mocked(lettering.makeSheetText).mockImplementationOnce((...args) => {
       const layer = actual.lettering.makeSheetText(...args)
@@ -447,7 +589,8 @@ describe('explicit sheet bake ownership', () => {
   })
 
   it('leaves a delivered result owned by the host when the caller aborts later', async () => {
-    const input = fixture(), controller = new AbortController()
+    const input = fixture(),
+      controller = new AbortController()
     input.signal = controller.signal
     const result = await bakeSheet(input)
     ownedResults.push(result)
@@ -460,9 +603,11 @@ describe('explicit sheet bake ownership', () => {
   })
 
   it('returns without waiting for text readiness and still disposes once when readiness arrives after retirement', async () => {
-    const ready = deferred<void>(), input = fixture()
+    const ready = deferred<void>(),
+      input = fixture()
     vi.mocked(lettering.makeSheetText).mockImplementationOnce((...args) => ({
-      ...actual.lettering.makeSheetText(...args), ready: ready.promise,
+      ...actual.lettering.makeSheetText(...args),
+      ready: ready.promise,
     }))
     const result = await bakeSheet(input)
     ownedResults.push(result)
@@ -488,7 +633,9 @@ function rendererFixture(primary?: unknown, restoreError?: unknown) {
     }),
     setClearColor: vi.fn(),
     clear: vi.fn(),
-    render: vi.fn(() => { if (primary !== undefined) throw primary }),
+    render: vi.fn(() => {
+      if (primary !== undefined) throw primary
+    }),
     readRenderTargetPixels: vi.fn(),
   }
   return { methods, gl: methods as unknown as WebGLRenderer }
@@ -496,13 +643,16 @@ function rendererFixture(primary?: unknown, restoreError?: unknown) {
 
 describe('actual allocating factory rollback', () => {
   it('composeSheet disposes its temporary extracted geometry after extraction fails, preserving the snapshot', () => {
-    const input = fixture(), primary = new Error('extract')
+    const input = fixture(),
+      primary = new Error('extract')
     const triangle = new Float32BufferAttribute([0, 0, 0, 0.01, 0, 0, 0, 0.01, 0], 3)
     input.data.geometry.setAttribute('position', triangle)
     input.data.bounds.setFromBufferAttribute(triangle)
     input.layout = makeDrawingLayout(1, input.data.bounds)
     vi.stubGlobal('window', { location: { search: '?drawingCache=bypass' } })
-    vi.mocked(edges.extractView).mockImplementationOnce(() => { throw primary })
+    vi.mocked(edges.extractView).mockImplementationOnce(() => {
+      throw primary
+    })
     const dispose = vi.spyOn(BufferGeometry.prototype, 'dispose')
     expect(() => actual.composition.composeSheet(input.gl, input.data, input.layout, vi.fn())).toThrow(primary)
     const temporary = vi.mocked(edges.extractView).mock.calls[0][1]
@@ -512,14 +662,17 @@ describe('actual allocating factory rollback', () => {
   })
 
   it('composeSheet propagates a null cleanup sentinel instead of treating it as success', () => {
-    const input = fixture(), primary = null
+    const input = fixture(),
+      primary = null
     const triangle = new Float32BufferAttribute([0, 0, 0, 0.01, 0, 0, 0, 0.01, 0], 3)
     input.data.geometry.setAttribute('position', triangle)
     input.data.bounds.setFromBufferAttribute(triangle)
     input.layout = makeDrawingLayout(1, input.data.bounds)
     vi.stubGlobal('window', { location: { search: '?drawingCache=bypass' } })
     vi.mocked(edges.extractView).mockImplementation(() => ({ outline: new Float32Array(), edges: new Float32Array() }))
-    const dispose = vi.spyOn(BufferGeometry.prototype, 'dispose').mockImplementationOnce(() => { throw primary })
+    const dispose = vi.spyOn(BufferGeometry.prototype, 'dispose').mockImplementationOnce(() => {
+      throw primary
+    })
     let thrown: unknown = primary
     let didThrow = false
     try {
@@ -535,17 +688,26 @@ describe('actual allocating factory rollback', () => {
   })
 
   it('geometryFrom rolls back its new geometry if attribute installation throws', () => {
-    const primary = new Error('attribute'), cleanup = new Error('geometry dispose'), sink = vi.fn()
-    vi.spyOn(BufferGeometry.prototype, 'setAttribute').mockImplementationOnce(() => { throw primary })
-    const dispose = vi.spyOn(BufferGeometry.prototype, 'dispose').mockImplementation(() => { throw cleanup })
+    const primary = new Error('attribute'),
+      cleanup = new Error('geometry dispose'),
+      sink = vi.fn()
+    vi.spyOn(BufferGeometry.prototype, 'setAttribute').mockImplementationOnce(() => {
+      throw primary
+    })
+    const dispose = vi.spyOn(BufferGeometry.prototype, 'dispose').mockImplementation(() => {
+      throw cleanup
+    })
     expect(() => actual.edges.geometryFrom(new Float32Array(9), sink)).toThrow(primary)
     expect(dispose).toHaveBeenCalledOnce()
     expect(sink).toHaveBeenCalledExactlyOnceWith([cleanup])
   })
 
   it('buildProfileRibbon cleans its allocation if index setup fails', () => {
-    const primary = new Error('ribbon index'), sink = vi.fn()
-    vi.spyOn(BufferGeometry.prototype, 'setIndex').mockImplementationOnce(() => { throw primary })
+    const primary = new Error('ribbon index'),
+      sink = vi.fn()
+    vi.spyOn(BufferGeometry.prototype, 'setIndex').mockImplementationOnce(() => {
+      throw primary
+    })
     const dispose = vi.spyOn(BufferGeometry.prototype, 'dispose')
     expect(() => geometryModule.buildProfileRibbon(contour, [0, 0.3, 0.5, 0.8, 1], sink)).toThrow(primary)
     expect(dispose).toHaveBeenCalledOnce()
@@ -553,9 +715,15 @@ describe('actual allocating factory rollback', () => {
   })
 
   it('profileFromPoints rolls back the profile and failed ribbon, even if the first disposer throws', () => {
-    const primary = new Error('ribbon index'), cleanup = new Error('dispose'), sink = vi.fn()
-    vi.spyOn(BufferGeometry.prototype, 'setIndex').mockImplementationOnce(() => { throw primary })
-    const dispose = vi.spyOn(BufferGeometry.prototype, 'dispose').mockImplementation(() => { throw cleanup })
+    const primary = new Error('ribbon index'),
+      cleanup = new Error('dispose'),
+      sink = vi.fn()
+    vi.spyOn(BufferGeometry.prototype, 'setIndex').mockImplementationOnce(() => {
+      throw primary
+    })
+    const dispose = vi.spyOn(BufferGeometry.prototype, 'dispose').mockImplementation(() => {
+      throw cleanup
+    })
     expect(() => actual.profile.profileFromPoints(contour, sink)).toThrow(primary)
     expect(dispose).toHaveBeenCalledTimes(2)
     expect(new Set(dispose.mock.contexts).size).toBe(2)
@@ -563,7 +731,9 @@ describe('actual allocating factory rollback', () => {
   })
 
   it('bakeProfile cleans material exactly once when Mesh construction throws before renderer setup', () => {
-    const input = fixture(), primary = new Error('profile mesh'), sink = vi.fn()
+    const input = fixture(),
+      primary = new Error('profile mesh'),
+      sink = vi.fn()
     const dispose = vi.spyOn(Material.prototype, 'dispose')
     host.meshFailure = primary
     expect(() => actual.profile.bakeProfile(input.gl, input.data, input.layout, sink)).toThrow(primary)
@@ -572,28 +742,50 @@ describe('actual allocating factory rollback', () => {
   })
 
   it('depthField cleans material exactly once when render-target construction fails', () => {
-    const input = fixture(), primary = new Error('render target'), sink = vi.fn()
+    const input = fixture(),
+      primary = new Error('render target'),
+      sink = vi.fn()
     const dispose = vi.spyOn(Material.prototype, 'dispose')
     host.targetFailure = primary
-    expect(() => actual.edges.extractView(input.gl, input.data.geometry,
-      { hard: new Float32Array(), smooth: new Float32Array(), smoothNormals: new Float32Array(), triangles: 0 },
-      { transform: new Matrix4(), rect: [0, 0, 0.001, 0.001], resolution: 8 }, sink)).toThrow(primary)
+    expect(() =>
+      actual.edges.extractView(
+        input.gl,
+        input.data.geometry,
+        { hard: new Float32Array(), smooth: new Float32Array(), smoothNormals: new Float32Array(), triangles: 0 },
+        { transform: new Matrix4(), rect: [0, 0, 0.001, 0.001], resolution: 8 },
+        sink,
+      ),
+    ).toThrow(primary)
     expect(dispose).toHaveBeenCalledOnce()
     expect(sink).not.toHaveBeenCalled()
   })
 
   for (const surface of ['depthField', 'bakeProfile']) {
     it(`preserves the ${surface} render error while attempting all restoration and disposal`, () => {
-      const input = fixture(), primary = new Error('render'), cleanup = new Error('restore'), sink = vi.fn()
+      const input = fixture(),
+        primary = new Error('render'),
+        cleanup = new Error('restore'),
+        sink = vi.fn()
       const renderer = rendererFixture(primary, cleanup)
       const materialDispose = vi.spyOn(Material.prototype, 'dispose')
       const targetDispose = vi.spyOn(WebGLRenderTarget.prototype, 'dispose')
       const borrowDispose = vi.spyOn(input.data.geometry, 'dispose')
-      const invoke = surface === 'depthField'
-        ? () => actual.edges.extractView(renderer.gl, input.data.geometry,
-          { hard: new Float32Array(), smooth: new Float32Array(), smoothNormals: new Float32Array(), triangles: 0 },
-          { transform: new Matrix4(), rect: [0, 0, 0.001, 0.001], resolution: 8 }, sink)
-        : () => actual.profile.bakeProfile(renderer.gl, input.data, input.layout, sink)
+      const invoke =
+        surface === 'depthField'
+          ? () =>
+              actual.edges.extractView(
+                renderer.gl,
+                input.data.geometry,
+                {
+                  hard: new Float32Array(),
+                  smooth: new Float32Array(),
+                  smoothNormals: new Float32Array(),
+                  triangles: 0,
+                },
+                { transform: new Matrix4(), rect: [0, 0, 0.001, 0.001], resolution: 8 },
+                sink,
+              )
+          : () => actual.profile.bakeProfile(renderer.gl, input.data, input.layout, sink)
       expect(invoke).toThrow(primary)
       expect(renderer.methods.setRenderTarget.mock.calls.at(-1)).toEqual([null])
       expect(renderer.methods.setClearColor.mock.calls.at(-1)?.[1]).toBe(0.4)
@@ -607,15 +799,26 @@ describe('actual allocating factory rollback', () => {
 
   for (const surface of ['depthField', 'bakeProfile'] as const) {
     it('fails loudly when ' + surface + ' restoration throws null without a sink', () => {
-      const input = fixture(), cleanup = null
+      const input = fixture(),
+        cleanup = null
       const renderer = rendererFixture(null, cleanup)
       const materialDispose = vi.spyOn(Material.prototype, 'dispose')
       const targetDispose = vi.spyOn(WebGLRenderTarget.prototype, 'dispose')
-      const invoke = surface === 'depthField'
-        ? () => actual.edges.extractView(renderer.gl, input.data.geometry,
-          { hard: new Float32Array(), smooth: new Float32Array(), smoothNormals: new Float32Array(), triangles: 0 },
-          { transform: new Matrix4(), rect: [0, 0, 0.001, 0.001], resolution: 8 })
-        : () => actual.profile.bakeProfile(renderer.gl, input.data, input.layout)
+      const invoke =
+        surface === 'depthField'
+          ? () =>
+              actual.edges.extractView(
+                renderer.gl,
+                input.data.geometry,
+                {
+                  hard: new Float32Array(),
+                  smooth: new Float32Array(),
+                  smoothNormals: new Float32Array(),
+                  triangles: 0,
+                },
+                { transform: new Matrix4(), rect: [0, 0, 0.001, 0.001], resolution: 8 },
+              )
+          : () => actual.profile.bakeProfile(renderer.gl, input.data, input.layout)
       let thrown: unknown = cleanup
       let didThrow = false
       try {
@@ -634,16 +837,28 @@ describe('actual allocating factory rollback', () => {
 
   for (const surface of ['depthField', 'bakeProfile'] as const) {
     it(`preserves the ${surface} render error over a restoration failure without a sink`, () => {
-      const input = fixture(), primary = new Error('render'), cleanup = new Error('restore')
+      const input = fixture(),
+        primary = new Error('render'),
+        cleanup = new Error('restore')
       const renderer = rendererFixture(primary, cleanup)
       const materialDispose = vi.spyOn(Material.prototype, 'dispose')
       const targetDispose = vi.spyOn(WebGLRenderTarget.prototype, 'dispose')
       const borrowDispose = vi.spyOn(input.data.geometry, 'dispose')
-      const invoke = surface === 'depthField'
-        ? () => actual.edges.extractView(renderer.gl, input.data.geometry,
-          { hard: new Float32Array(), smooth: new Float32Array(), smoothNormals: new Float32Array(), triangles: 0 },
-          { transform: new Matrix4(), rect: [0, 0, 0.001, 0.001], resolution: 8 })
-        : () => actual.profile.bakeProfile(renderer.gl, input.data, input.layout)
+      const invoke =
+        surface === 'depthField'
+          ? () =>
+              actual.edges.extractView(
+                renderer.gl,
+                input.data.geometry,
+                {
+                  hard: new Float32Array(),
+                  smooth: new Float32Array(),
+                  smoothNormals: new Float32Array(),
+                  triangles: 0,
+                },
+                { transform: new Matrix4(), rect: [0, 0, 0.001, 0.001], resolution: 8 },
+              )
+          : () => actual.profile.bakeProfile(renderer.gl, input.data, input.layout)
       expect(invoke).toThrow(primary)
       expect(renderer.methods.setRenderTarget.mock.calls.at(-1)).toEqual([null])
       expect(materialDispose).toHaveBeenCalledOnce()
@@ -653,10 +868,15 @@ describe('actual allocating factory rollback', () => {
   }
 
   it('rolls back earlier fragment geometries plus a later failed fragment without double disposal', () => {
-    const primary = new Error('later fracture'), sink = vi.fn()
+    const primary = new Error('later fracture'),
+      sink = vi.fn()
     const setAttribute = BufferGeometry.prototype.setAttribute
     let positions = 0
-    vi.spyOn(BufferGeometry.prototype, 'setAttribute').mockImplementation(function (this: BufferGeometry, name, attribute) {
+    vi.spyOn(BufferGeometry.prototype, 'setAttribute').mockImplementation(function (
+      this: BufferGeometry,
+      name,
+      attribute,
+    ) {
       if (name === 'position' && ++positions === 3) throw primary
       return setAttribute.call(this, name, attribute)
     })
@@ -669,23 +889,42 @@ describe('actual allocating factory rollback', () => {
 
   for (const kind of ['lines', 'fills'] as const) {
     it(`makeInk ${kind} rolls back geometry and material after Mesh construction fails`, () => {
-      const primary = new Error('ink mesh'), sink = vi.fn(), builder = composedFixture().ink
+      const primary = new Error('ink mesh'),
+        sink = vi.fn(),
+        builder = composedFixture().ink
       const uniforms = actual.ink.makeSheetUniforms()
       const geometryDispose = vi.spyOn(BufferGeometry.prototype, 'dispose')
       const materialDispose = vi.spyOn(Material.prototype, 'dispose')
       host.meshFailure = primary
-      expect(() => (kind === 'lines' ? actual.ink.makeInkLines : actual.ink.makeInkFills)(builder, uniforms, sink)).toThrow(primary)
+      expect(() =>
+        (kind === 'lines' ? actual.ink.makeInkLines : actual.ink.makeInkFills)(builder, uniforms, sink),
+      ).toThrow(primary)
       expect(geometryDispose).toHaveBeenCalledOnce()
       expect(materialDispose).toHaveBeenCalledOnce()
     })
   }
 
   it('invalid handwriting metrics dispose the Text allocated before member registration, plus batch/material', () => {
-    const dispose = vi.spyOn(Material.prototype, 'dispose'), sink = vi.fn()
-    expect(() => actual.lettering.makeSheetText([
-      { text: 'not-a-reference-glyph', x: 0, y: 0, size: 0.0038, group: ink.GROUP.noteInput,
-        key: 0, weight: 'handwriting', color: 'graphite' },
-    ], actual.ink.makeSheetUniforms(), sink)).toThrow('Missing reference font metrics')
+    const dispose = vi.spyOn(Material.prototype, 'dispose'),
+      sink = vi.fn()
+    expect(() =>
+      actual.lettering.makeSheetText(
+        [
+          {
+            text: 'not-a-reference-glyph',
+            x: 0,
+            y: 0,
+            size: 0.0038,
+            group: ink.GROUP.noteInput,
+            key: 0,
+            weight: 'handwriting',
+            color: 'graphite',
+          },
+        ],
+        actual.ink.makeSheetUniforms(),
+        sink,
+      ),
+    ).toThrow('Missing reference font metrics')
     expect(host.texts).toHaveLength(1)
     expect(host.texts[0].font).toBe('/fonts/AcFastReference.ttf')
     expect(host.texts[0].dispose).toHaveBeenCalledOnce()
@@ -694,17 +933,25 @@ describe('actual allocating factory rollback', () => {
   })
 
   it('a throwing Text disposer does not skip its batch/material cleanup or replace invalid-metrics error', () => {
-    const cleanup = new Error('text dispose'), sink = vi.fn()
+    const cleanup = new Error('text dispose'),
+      sink = vi.fn()
     // A real sheetText call first creates a batch and a Text; fault the mock Text's disposal.
     const push = host.texts.push.bind(host.texts)
     vi.spyOn(host.texts, 'push').mockImplementation((...texts) => {
-      for (const text of texts) text.dispose.mockImplementation(() => { throw cleanup })
+      for (const text of texts)
+        text.dispose.mockImplementation(() => {
+          throw cleanup
+        })
       return push(...texts)
     })
     const dispose = vi.spyOn(Material.prototype, 'dispose')
-    expect(() => actual.lettering.makeSheetText([
-      { text: '?invalid', x: 0, y: 0, size: 0.003, group: 0, key: 0, weight: 'handwriting' },
-    ], undefined, sink)).toThrow('Missing reference font metrics')
+    expect(() =>
+      actual.lettering.makeSheetText(
+        [{ text: '?invalid', x: 0, y: 0, size: 0.003, group: 0, key: 0, weight: 'handwriting' }],
+        undefined,
+        sink,
+      ),
+    ).toThrow('Missing reference font metrics')
     expect(host.texts[0].dispose).toHaveBeenCalledOnce()
     expect(host.batches[0].dispose).toHaveBeenCalledOnce()
     expect(dispose).toHaveBeenCalledOnce()
@@ -713,16 +960,24 @@ describe('actual allocating factory rollback', () => {
   })
 
   it('synchronous text sync failure enters construction rollback', () => {
-    const primary = new Error('sync'), sink = vi.fn()
+    const primary = new Error('sync'),
+      sink = vi.fn()
     const push = host.texts.push.bind(host.texts)
     vi.spyOn(host.texts, 'push').mockImplementation((...texts) => {
-      for (const text of texts) text.sync.mockImplementation(() => { throw primary })
+      for (const text of texts)
+        text.sync.mockImplementation(() => {
+          throw primary
+        })
       return push(...texts)
     })
     const materialDispose = vi.spyOn(Material.prototype, 'dispose')
-    expect(() => actual.lettering.makeSheetText([
-      { text: 'A', x: 0, y: 0, size: 0.003, group: ink.GROUP.noteInput, key: 0 },
-    ], undefined, sink)).toThrow(primary)
+    expect(() =>
+      actual.lettering.makeSheetText(
+        [{ text: 'A', x: 0, y: 0, size: 0.003, group: ink.GROUP.noteInput, key: 0 }],
+        undefined,
+        sink,
+      ),
+    ).toThrow(primary)
     expect(host.texts).toHaveLength(1)
     expect(host.texts[0].dispose).toHaveBeenCalledOnce()
     expect(host.batches[0].dispose).toHaveBeenCalledOnce()
@@ -730,7 +985,8 @@ describe('actual allocating factory rollback', () => {
   })
 
   it('batch-owned data textures survive a throwing inherited geometry disposal', () => {
-    const geometryCleanup = new Error('batch geometry'), sink = vi.fn()
+    const geometryCleanup = new Error('batch geometry'),
+      sink = vi.fn()
     const firstTexture = { dispose: vi.fn() }
     const secondTexture = { dispose: vi.fn() }
     host.batchGeometryFailure = geometryCleanup
@@ -746,9 +1002,15 @@ describe('actual allocating factory rollback', () => {
   })
 
   it('barrier-mask texture setup failure rolls back its allocated texture with a resilient sink', () => {
-    const primary = new Error('texture setup'), cleanup = new Error('texture dispose'), sink = vi.fn()
-    vi.spyOn(Texture.prototype, 'needsUpdate', 'set').mockImplementation(() => { throw primary })
-    const dispose = vi.spyOn(Texture.prototype, 'dispose').mockImplementation(() => { throw cleanup })
+    const primary = new Error('texture setup'),
+      cleanup = new Error('texture dispose'),
+      sink = vi.fn()
+    vi.spyOn(Texture.prototype, 'needsUpdate', 'set').mockImplementation(() => {
+      throw primary
+    })
+    const dispose = vi.spyOn(Texture.prototype, 'dispose').mockImplementation(() => {
+      throw cleanup
+    })
     expect(() => actual.masks.makeBarrierMask(contour, 0.8, 0.5, sink)).toThrow(primary)
     expect(dispose).toHaveBeenCalledOnce()
     expect(sink).toHaveBeenCalledExactlyOnceWith([cleanup])
@@ -756,18 +1018,26 @@ describe('actual allocating factory rollback', () => {
 
   for (const kind of ['print', 'cracks'] as const) {
     it(`rolls back the actual ${kind} canvas texture if post-allocation filter setup throws`, () => {
-      const primary = new Error('filter'), sink = vi.fn()
+      const primary = new Error('filter'),
+        sink = vi.fn()
       // CanvasTexture marks needsUpdate inside its constructor. Inject after that succeeds.
       vi.spyOn(Texture.prototype, 'needsUpdate', 'set').mockImplementation(function (this: Texture) {
-        Object.defineProperty(this, 'minFilter', { configurable: true, set: () => { throw primary } })
+        Object.defineProperty(this, 'minFilter', {
+          configurable: true,
+          set: () => {
+            throw primary
+          },
+        })
       })
       const dispose = vi.spyOn(Texture.prototype, 'dispose')
       const cracks = new BufferGeometry().setAttribute('position', new Float32BufferAttribute([], 3))
       borrowed.push(cracks)
       cracks.setAttribute('arcLength', new Float32BufferAttribute([], 1))
-      expect(() => kind === 'print'
-        ? actual.masks.makeFragmentPrint([], [], 0.8, 0.5, sink)
-        : actual.masks.makeCrackMask(contour, cracks, 0.8, 0.5, sink)).toThrow(primary)
+      expect(() =>
+        kind === 'print'
+          ? actual.masks.makeFragmentPrint([], [], 0.8, 0.5, sink)
+          : actual.masks.makeCrackMask(contour, cracks, 0.8, 0.5, sink),
+      ).toThrow(primary)
       expect(dispose).toHaveBeenCalledOnce()
       expect(sink).not.toHaveBeenCalled()
     })
@@ -788,7 +1058,8 @@ function startHost(input: SheetBakeInput) {
 
 describe('legacy adapter installation guard', () => {
   it('disposes a stale result exactly once and publishes no stats or React result', async () => {
-    const input = fixture(), pending = deferred<SheetBakeResult>()
+    const input = fixture(),
+      pending = deferred<SheetBakeResult>()
     const result = await actual.bake.bakeSheet(input)
     ownedResults.push(result)
     const dispose = vi.spyOn(result, 'dispose')
@@ -807,13 +1078,18 @@ describe('legacy adapter installation guard', () => {
   })
 
   it('rejects an earlier epoch even if its result arrives before its cleanup is called', async () => {
-    const first = fixture(), second = fixture()
-    const resultA = await actual.bake.bakeSheet(first), resultB = await actual.bake.bakeSheet(second)
+    const first = fixture(),
+      second = fixture()
+    const resultA = await actual.bake.bakeSheet(first),
+      resultB = await actual.bake.bakeSheet(second)
     ownedResults.push(resultA, resultB)
-    const disposeA = vi.spyOn(resultA, 'dispose'), disposeB = vi.spyOn(resultB, 'dispose')
-    const a = deferred<SheetBakeResult>(), b = deferred<SheetBakeResult>()
+    const disposeA = vi.spyOn(resultA, 'dispose'),
+      disposeB = vi.spyOn(resultB, 'dispose')
+    const a = deferred<SheetBakeResult>(),
+      b = deferred<SheetBakeResult>()
     vi.mocked(bakeSheet).mockReturnValueOnce(a.promise).mockReturnValueOnce(b.promise)
-    const cleanupA = startHost(first), cleanupB = startHost(second)
+    const cleanupA = startHost(first),
+      cleanupB = startHost(second)
     a.resolve(resultA)
     await settleHost()
     expect(disposeA).toHaveBeenCalledOnce()
@@ -830,7 +1106,9 @@ describe('legacy adapter installation guard', () => {
   })
 
   it('keeps initialization failure and cleanup diagnostics in the host, with no bake quality policy', async () => {
-    const primary = new Error('factory'), cleanupError = new Error('cleanup'), input = fixture()
+    const primary = new Error('factory'),
+      cleanupError = new Error('cleanup'),
+      input = fixture()
     const error = vi.spyOn(console, 'error').mockImplementation(() => {})
     vi.mocked(bakeSheet).mockRejectedValueOnce(primary)
     const cleanup = startHost(input)
@@ -845,7 +1123,8 @@ describe('legacy adapter installation guard', () => {
   })
 
   it('suppresses stale rejection policy after unmount', async () => {
-    const input = fixture(), pending = deferred<SheetBakeResult>()
+    const input = fixture(),
+      pending = deferred<SheetBakeResult>()
     vi.mocked(bakeSheet).mockReturnValueOnce(pending.promise)
     const error = vi.spyOn(console, 'error').mockImplementation(() => {})
     const cleanup = startHost(input)

@@ -35,7 +35,9 @@ const SHEET_WIDTH = Number(source.match(/export const SHEET_WIDTH\s*=\s*([\d.]+)
 const zonesBlock = source.match(/export const SHEET_ZONES = \{([\s\S]*?)\n\} as const/)[1]
 const zones = {}
 for (const line of zonesBlock.split('\n')) {
-  const match = line.match(/^\s*(\w+):\s*\{\s*x:\s*(-?[\d.]+),\s*y:\s*(-?[\d.]+),\s*w:\s*(-?[\d.]+),\s*h:\s*(-?[\d.]+)\s*\}/)
+  const match = line.match(
+    /^\s*(\w+):\s*\{\s*x:\s*(-?[\d.]+),\s*y:\s*(-?[\d.]+),\s*w:\s*(-?[\d.]+),\s*h:\s*(-?[\d.]+)\s*\}/,
+  )
   if (match) zones[match[1]] = { x: +match[2], y: +match[3], w: +match[4], h: +match[5] }
 }
 

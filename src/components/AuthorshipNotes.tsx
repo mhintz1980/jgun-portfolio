@@ -35,8 +35,14 @@ export function AuthorshipInline() {
       <h1 className="authorship-inline-name">{AUTHOR_NAME}</h1>
       <p className="authorship-inline-role">{OWNER_TITLE.role}</p>
       <div className="authorship-inline-notes">
-        <p><strong>Input shaft.</strong> {OWNER_NOTES.input.lead.join(' ')} <s>{OWNER_NOTES.input.alloys[0]}</s>, <s>{OWNER_NOTES.input.alloys[1]}</s>, <s>{OWNER_NOTES.input.alloys[2]}</s>. {OWNER_NOTES.input.decision.join(' ')}</p>
-        <p><strong>Output shaft.</strong> {OWNER_NOTES.output.join(' ')}</p>
+        <p>
+          <strong>Input shaft.</strong> {OWNER_NOTES.input.lead.join(' ')} <s>{OWNER_NOTES.input.alloys[0]}</s>,{' '}
+          <s>{OWNER_NOTES.input.alloys[1]}</s>, <s>{OWNER_NOTES.input.alloys[2]}</s>.{' '}
+          {OWNER_NOTES.input.decision.join(' ')}
+        </p>
+        <p>
+          <strong>Output shaft.</strong> {OWNER_NOTES.output.join(' ')}
+        </p>
       </div>
     </div>
   )

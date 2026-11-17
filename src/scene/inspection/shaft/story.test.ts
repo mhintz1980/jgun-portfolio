@@ -8,8 +8,16 @@ describe('v51.1 shaft interface', () => {
   it('shares the 66.9-second endpoint while preserving all pre-continuation beat boundaries', () => {
     expect([shaftStory.duration, SHAFT_DURATION, SHAFT_KINEMATICS_DURATION]).toEqual([66.9, 66.9, 66.9])
     expect(shaftBeats.map(({ start, end }) => [start, end])).toEqual([
-      [0, 2], [2, 6], [6, 11], [11, 15], [15, 22.6], [22.6, 25],
-      [25, 32], [32, 35], [35, 38.5], [38.5, 66.9],
+      [0, 2],
+      [2, 6],
+      [6, 11],
+      [11, 15],
+      [15, 22.6],
+      [22.6, 25],
+      [25, 32],
+      [32, 35],
+      [35, 38.5],
+      [38.5, 66.9],
     ])
     const schedule = createShaftSchedule()
     sampleShaftSchedule(40.2, schedule)

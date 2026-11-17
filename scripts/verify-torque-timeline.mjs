@@ -51,7 +51,14 @@ import { fileURLToPath } from 'node:url'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.resolve(HERE, '..')
-const EVIDENCE_STAGE = path.join(ROOT, 'project', 'work', 'evidence', 'torque-wrench-rebuild', '07-autonomous-2026-10-12')
+const EVIDENCE_STAGE = path.join(
+  ROOT,
+  'project',
+  'work',
+  'evidence',
+  'torque-wrench-rebuild',
+  '07-autonomous-2026-10-12',
+)
 const DEFAULT_OUT_DIR = path.join(EVIDENCE_STAGE, 'runtime-timeline')
 const SCRATCH_ROOT = path.resolve(ROOT, '.scratch')
 
@@ -63,14 +70,31 @@ const STORE_FILE = path.join(ROOT, 'src', 'state', 'torqueWrenchStore.ts')
 
 // Contract 18 approved primary viewports (H/L supplemental stay out of this roster).
 const VIEWPORTS = {
-  D: { key: 'D', width: 1440, height: 900, deviceScaleFactor: 1, isMobile: false, hasTouch: false, label: 'D 1440x900 DPR1 desktop' },
-  N: { key: 'N', width: 390, height: 844, deviceScaleFactor: 3, isMobile: true, hasTouch: true, label: 'N 390x844 DPR3 touch/mobile' },
+  D: {
+    key: 'D',
+    width: 1440,
+    height: 900,
+    deviceScaleFactor: 1,
+    isMobile: false,
+    hasTouch: false,
+    label: 'D 1440x900 DPR1 desktop',
+  },
+  N: {
+    key: 'N',
+    width: 390,
+    height: 844,
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true,
+    label: 'N 390x844 DPR3 touch/mobile',
+  },
 }
 
 const SCENE_SHAPE_RE = /(?:^|\/)(?:src\/scene\/torque-wrench\/Scene(?:\.[tj]sx?)?|assets\/Scene-[\w.-]+\.js)$/
 const SCENE_SOURCE_KEY_RE = /^src\/scene\/torque-wrench\/Scene\.[tj]sx?$/
 // Narrative bytes only; shared DRACOLoader code chunks are not CAD/decoder assets.
-const CAD_REQUEST_RE = /(\.glb($|\?)|\.gltf($|\?)|\.bin($|\?)|\/draco\/(?:draco_decoder(?:_geometry)?\.wasm|draco_wasm_wrapper\.js)|ktx2|basis|\/models\/)/i
+const CAD_REQUEST_RE =
+  /(\.glb($|\?)|\.gltf($|\?)|\.bin($|\?)|\/draco\/(?:draco_decoder(?:_geometry)?\.wasm|draco_wasm_wrapper\.js)|ktx2|basis|\/models\/)/i
 const VITE_DEV_CLIENT_RE = /(^|\/)(@vite\/|@react-refresh)|@vite\/client/i
 
 const EXIT = { PASS: 0, FAIL: 1, USAGE: 2, PREFLIGHT: 10, BLOCKED: 11, INTERNAL: 12 }
@@ -109,7 +133,24 @@ const RENDER_THROW_MODULE = [
   'export default function TorqueScene() { throw FAILURE }',
 ].join('\n')
 
-const DIAGNOSTIC_FIELDS = ['activeConductors', 'lenisInstances', 'lenisScrollHandlers', 'tickerCallbacks', 'scrollTriggers', 'domListeners', 'storeLifecycleSubscriptions', 'mountCount', 'disposeCount', 'refreshCount', 'visibilityResamples', 'pageShowResamples', 'invalidProgressInputs', 'startupFailureCount', 'cleanupFailureCount', 'lagSmoothingMode']
+const DIAGNOSTIC_FIELDS = [
+  'activeConductors',
+  'lenisInstances',
+  'lenisScrollHandlers',
+  'tickerCallbacks',
+  'scrollTriggers',
+  'domListeners',
+  'storeLifecycleSubscriptions',
+  'mountCount',
+  'disposeCount',
+  'refreshCount',
+  'visibilityResamples',
+  'pageShowResamples',
+  'invalidProgressInputs',
+  'startupFailureCount',
+  'cleanupFailureCount',
+  'lagSmoothingMode',
+]
 
 const DEPENDENCIES = [
   'Runtime port dependency: window.__torqueNarrative (parent-saved) is the only narrative state source; snapshot()/beats/diagnostics() per the parent contract. No production hooks were added by this verifier.',
@@ -228,7 +269,8 @@ function validateStrictUrl(raw) {
   const loopback = new Set(['localhost', '127.0.0.1', '::1', '[::1]'])
   if (!/^https?:$/.test(u.protocol)) usage('--url must be http(s) on a loopback host')
   if (!loopback.has(u.hostname)) usage('--url host must be loopback (localhost, 127.0.0.1, or ::1); got ' + u.hostname)
-  if (u.pathname !== '/torque-wrench' && u.pathname !== '/torque-wrench/') usage('--url path must be exactly /torque-wrench (no extra segments)')
+  if (u.pathname !== '/torque-wrench' && u.pathname !== '/torque-wrench/')
+    usage('--url path must be exactly /torque-wrench (no extra segments)')
   if (u.search || u.hash) usage('--url must not carry a query or hash; modes add quality via the URL API')
   return u
 }
@@ -236,14 +278,19 @@ function validateStrictUrl(raw) {
 function validateOut(raw) {
   const resolved = path.resolve(raw)
   const realStage = realpathSync(EVIDENCE_STAGE)
-  if (!existsSync(path.dirname(resolved))) usage('--out parent directory does not exist (no directories are created for explicit --out): ' + path.dirname(resolved))
+  if (!existsSync(path.dirname(resolved)))
+    usage(
+      '--out parent directory does not exist (no directories are created for explicit --out): ' +
+        path.dirname(resolved),
+    )
   let realParent
   try {
     realParent = realpathSync(path.dirname(resolved))
   } catch (e) {
     usage('--out parent cannot be resolved: ' + e.message)
   }
-  if (realParent !== realStage && !realParent.startsWith(realStage + path.sep)) usage('--out must stay inside the owned evidence stage dir: ' + EVIDENCE_STAGE)
+  if (realParent !== realStage && !realParent.startsWith(realStage + path.sep))
+    usage('--out must stay inside the owned evidence stage dir: ' + EVIDENCE_STAGE)
   let st
   try {
     st = lstatSync(resolved)
@@ -262,7 +309,8 @@ function validateOut(raw) {
     } catch (e) {
       usage('--out target cannot be resolved: ' + e.message)
     }
-    if (realTarget !== realStage && !realTarget.startsWith(realStage + path.sep)) usage('--out resolves through a symlink outside the owned evidence stage dir: ' + realTarget)
+    if (realTarget !== realStage && !realTarget.startsWith(realStage + path.sep))
+      usage('--out resolves through a symlink outside the owned evidence stage dir: ' + realTarget)
     if (!lstatSync(realTarget).isFile()) usage('--out target does not resolve to a regular file: ' + resolved)
   }
   return resolved
@@ -275,7 +323,10 @@ function validateViewport(raw) {
 }
 
 function validateOnly(raw) {
-  const ids = String(raw).split(',').map((s) => s.trim()).filter(Boolean)
+  const ids = String(raw)
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
   if (ids.length === 0) usage('--only listed no case ids')
   for (const id of ids) {
     const parts = id.split('-')
@@ -288,7 +339,8 @@ function validateOnly(raw) {
 
 function validateBuildDir(raw) {
   const resolved = path.resolve(raw)
-  if (resolved !== SCRATCH_ROOT && !resolved.startsWith(SCRATCH_ROOT + path.sep)) usage('--build-dir must resolve inside this worktree .scratch: ' + SCRATCH_ROOT)
+  if (resolved !== SCRATCH_ROOT && !resolved.startsWith(SCRATCH_ROOT + path.sep))
+    usage('--build-dir must resolve inside this worktree .scratch: ' + SCRATCH_ROOT)
   if (existsSync(resolved)) {
     let real
     try {
@@ -296,7 +348,8 @@ function validateBuildDir(raw) {
     } catch (e) {
       usage('--build-dir cannot be resolved: ' + e.message)
     }
-    if (real !== resolved && real !== SCRATCH_ROOT && !real.startsWith(SCRATCH_ROOT + path.sep)) usage('--build-dir resolves through a symlink outside .scratch: ' + real)
+    if (real !== resolved && real !== SCRATCH_ROOT && !real.startsWith(SCRATCH_ROOT + path.sep))
+      usage('--build-dir resolves through a symlink outside .scratch: ' + real)
   }
   return resolved
 }
@@ -318,7 +371,8 @@ function buildPlans(viewportKeys, only) {
 
 function loadBuildGraph(buildDir) {
   const manifestPath = path.join(buildDir, '.vite', 'manifest.json')
-  if (!existsSync(manifestPath)) return { error: 'BLOCKED: manifest missing (run the scratch production build first): ' + manifestPath }
+  if (!existsSync(manifestPath))
+    return { error: 'BLOCKED: manifest missing (run the scratch production build first): ' + manifestPath }
   let manifest
   try {
     manifest = JSON.parse(readFileSync(manifestPath, 'utf8'))
@@ -326,13 +380,23 @@ function loadBuildGraph(buildDir) {
     return { error: 'BLOCKED: manifest is not valid JSON: ' + e.message }
   }
   const entry = manifest['torque-wrench/index.html']
-  if (!entry || entry.isEntry !== true || !entry.file) return { error: 'BLOCKED: manifest has no torque-wrench/index.html entry chunk' }
+  if (!entry || entry.isEntry !== true || !entry.file)
+    return { error: 'BLOCKED: manifest has no torque-wrench/index.html entry chunk' }
   const sceneKey = Object.keys(manifest).find((k) => SCENE_SOURCE_KEY_RE.test(k))
   if (!sceneKey) return { error: 'BLOCKED: manifest has no src/scene/torque-wrench/Scene.* dynamic chunk' }
   if (!Array.isArray(entry.dynamicImports) || !entry.dynamicImports.includes(sceneKey)) {
-    return { error: 'BLOCKED: torque entry dynamicImports does not include the Scene chunk (graph identity mismatch): ' + sceneKey }
+    return {
+      error:
+        'BLOCKED: torque entry dynamicImports does not include the Scene chunk (graph identity mismatch): ' + sceneKey,
+    }
   }
-  return { mode: 'built', buildDir, expectedModuleSrc: '/' + entry.file, scenePath: '/' + manifest[sceneKey].file, entryAsset: '/' + entry.file }
+  return {
+    mode: 'built',
+    buildDir,
+    expectedModuleSrc: '/' + entry.file,
+    scenePath: '/' + manifest[sceneKey].file,
+    entryAsset: '/' + entry.file,
+  }
 }
 
 function localAssetSha(build, assetPath) {
@@ -346,7 +410,8 @@ function localAssetSha(build, assetPath) {
   } catch (e) {
     return { error: 'asset cannot be resolved inside the build dir (' + assetPath + '): ' + e.message }
   }
-  if (realFile !== realBuild && !realFile.startsWith(realBuild + path.sep)) return { error: 'asset resolves outside the build dir: ' + realFile }
+  if (realFile !== realBuild && !realFile.startsWith(realBuild + path.sep))
+    return { error: 'asset resolves outside the build dir: ' + realFile }
   return { filePath, sha256: sha256Buffer(readFileSync(filePath)) }
 }
 
@@ -364,14 +429,24 @@ async function fetchSha256(playwright, url) {
 async function verifyBuiltAssets(playwright, baseUrl, build) {
   const origin = new URL(baseUrl).origin
   const identity = {}
-  for (const [name, assetPath] of [['entryAsset', build.expectedModuleSrc], ['sceneAsset', build.scenePath]]) {
+  for (const [name, assetPath] of [
+    ['entryAsset', build.expectedModuleSrc],
+    ['sceneAsset', build.scenePath],
+  ]) {
     const local = localAssetSha(build, assetPath)
     if (local.error) return { error: 'BLOCKED: ' + local.error }
     const remote = await fetchSha256(playwright, origin + assetPath)
-    if (remote.status !== 200) return { error: 'BLOCKED: served ' + name + ' returned status ' + remote.status + ' at ' + assetPath }
+    if (remote.status !== 200)
+      return { error: 'BLOCKED: served ' + name + ' returned status ' + remote.status + ' at ' + assetPath }
     const verified = remote.sha256 === local.sha256
-    identity[name] = { url: origin + assetPath, localSha256: local.sha256, servedSha256: remote.sha256, servedShaVerified: verified }
-    if (!verified) return { error: 'BLOCKED: served ' + name + ' bytes do not match the manifest build output (' + assetPath + ')' }
+    identity[name] = {
+      url: origin + assetPath,
+      localSha256: local.sha256,
+      servedSha256: remote.sha256,
+      servedShaVerified: verified,
+    }
+    if (!verified)
+      return { error: 'BLOCKED: served ' + name + ' bytes do not match the manifest build output (' + assetPath + ')' }
   }
   return { identity }
 }
@@ -384,7 +459,12 @@ async function servedPreflight(playwright, baseUrl, expectedModuleSrc) {
     const finalUrl = res.url()
     const verdict = entrySrcVerdict(body, expectedModuleSrc)
     const pathOk = finalUrl.includes('/torque-wrench')
-    return { ok: res.status() === 200 && verdict.ok && pathOk, status: res.status(), finalUrl, candidates: verdict.candidates }
+    return {
+      ok: res.status() === 200 && verdict.ok && pathOk,
+      status: res.status(),
+      finalUrl,
+      candidates: verdict.candidates,
+    }
   } finally {
     await api.dispose().catch(() => {})
   }
@@ -451,7 +531,12 @@ const PROBE_INIT = () => {
   const probe = { canvasMounts: [], canvasRemovals: 0, offscreenCanvasConstructions: 0 }
   Object.defineProperty(window, '__torqueTimelineProbe', { value: probe, configurable: false })
   const isCanvas = (node) => Boolean(node && node.nodeName === 'CANVAS')
-  const record = (node) => probe.canvasMounts.push({ t: Math.round(performance.now()), id: node.id || null, cls: (node.getAttribute && node.getAttribute('class')) || null })
+  const record = (node) =>
+    probe.canvasMounts.push({
+      t: Math.round(performance.now()),
+      id: node.id || null,
+      cls: (node.getAttribute && node.getAttribute('class')) || null,
+    })
   const scan = (root) => {
     if (root && root.querySelectorAll) for (const c of root.querySelectorAll('canvas')) record(c)
   }
@@ -481,10 +566,14 @@ const PROBE_INIT = () => {
 
 async function flushProbe(page) {
   await Promise.race([
-    page.evaluate(() => new Promise((resolve) => {
-      if (typeof requestAnimationFrame === 'function') requestAnimationFrame(() => requestAnimationFrame(() => resolve(true)))
-      else setTimeout(() => resolve(true), 50)
-    })),
+    page.evaluate(
+      () =>
+        new Promise((resolve) => {
+          if (typeof requestAnimationFrame === 'function')
+            requestAnimationFrame(() => requestAnimationFrame(() => resolve(true)))
+          else setTimeout(() => resolve(true), 50)
+        }),
+    ),
     new Promise((resolve) => setTimeout(() => resolve(false), FLUSH_TIMEOUT_MS)),
   ])
 }
@@ -517,7 +606,10 @@ async function readNarrative(page) {
       diagnosticsError,
       sample: port && typeof port.snapshot === 'function' ? port.snapshot() : null,
       diagnostics,
-      beats: port && Array.isArray(port.beats) ? port.beats.map((b) => ({ id: b.id, start: b.start, end: b.end, chapter: b.chapter })) : null,
+      beats:
+        port && Array.isArray(port.beats)
+          ? port.beats.map((b) => ({ id: b.id, start: b.start, end: b.end, chapter: b.chapter }))
+          : null,
       scrollY: window.scrollY,
       maxScroll: max,
       innerHeight: window.innerHeight,
@@ -553,14 +645,20 @@ async function settleBounded(page) {
     }
     await sleep(SETTLE_POLL_MS)
   }
-  return { settled: false, convergenceMs: SETTLE_TIMEOUT_MS, obs: obs || (await readNarrative(page)), trace: trace.slice(-64) }
+  return {
+    settled: false,
+    convergenceMs: SETTLE_TIMEOUT_MS,
+    obs: obs || (await readNarrative(page)),
+    trace: trace.slice(-64),
+  }
 }
 
 async function waitLive(page) {
   const started = Date.now()
   while (Date.now() - started < STAGE_TIMEOUT_MS) {
     const obs = await readNarrative(page)
-    if (obs.mode === 'live' && obs.present && obs.hasSnapshot && obs.scenePlaceholder === 'live') return { ok: true, obs }
+    if (obs.mode === 'live' && obs.present && obs.hasSnapshot && obs.scenePlaceholder === 'live')
+      return { ok: true, obs }
     await sleep(SETTLE_POLL_MS)
   }
   return { ok: false, obs: await readNarrative(page) }
@@ -594,12 +692,16 @@ async function wheelBurst(page, deltas, gapMs = INPUT_GAP_MS) {
 
 function validateBeats(beats) {
   const errors = []
-  if (!Array.isArray(beats) || beats.length < 5) return { ok: false, errors: ['beats array missing or shorter than the five-chapter coverage'], ids: [] }
+  if (!Array.isArray(beats) || beats.length < 5)
+    return { ok: false, errors: ['beats array missing or shorter than the five-chapter coverage'], ids: [] }
   const ids = beats.map((b) => b.id)
   if (ids.some((id) => typeof id !== 'string' || id === '')) errors.push('non-string or empty beat id')
   if (new Set(ids).size !== ids.length) errors.push('duplicate beat ids')
   for (const b of beats) {
-    if (![b.start, b.end].every((n) => typeof n === 'number' && Number.isFinite(n)) || !(b.start >= 0 && b.start < b.end && b.end <= 1)) {
+    if (
+      ![b.start, b.end].every((n) => typeof n === 'number' && Number.isFinite(n)) ||
+      !(b.start >= 0 && b.start < b.end && b.end <= 1)
+    ) {
       errors.push('invalid window for beat ' + JSON.stringify(b))
     }
   }
@@ -610,7 +712,8 @@ function validateBeats(beats) {
     if (beats[i - 1].end !== beats[i].start) errors.push('gap/overlap at boundary ' + i)
   }
   const chapters = beats.map((b) => b.chapter).filter((chapter, i, all) => i === 0 || chapter !== all[i - 1])
-  if (JSON.stringify(chapters) !== JSON.stringify(CHAPTER_IDS)) errors.push('semantic chapter associations must follow the complete story order: ' + JSON.stringify(chapters))
+  if (JSON.stringify(chapters) !== JSON.stringify(CHAPTER_IDS))
+    errors.push('semantic chapter associations must follow the complete story order: ' + JSON.stringify(chapters))
   return { ok: errors.length === 0, errors, ids }
 }
 
@@ -627,7 +730,17 @@ function diagnosticsIdentityOk(d, errors) {
   }
   const missing = DIAGNOSTIC_FIELDS.filter((f) => d[f] === undefined)
   if (missing.length) errors.push('diagnostics missing fields: ' + missing.join(','))
-  const identity = { activeConductors: 1, lenisInstances: 1, lenisScrollHandlers: 1, tickerCallbacks: 1, scrollTriggers: 1, domListeners: 3, storeLifecycleSubscriptions: 1, startupFailureCount: 0, cleanupFailureCount: 0 }
+  const identity = {
+    activeConductors: 1,
+    lenisInstances: 1,
+    lenisScrollHandlers: 1,
+    tickerCallbacks: 1,
+    scrollTriggers: 1,
+    domListeners: 3,
+    storeLifecycleSubscriptions: 1,
+    startupFailureCount: 0,
+    cleanupFailureCount: 0,
+  }
   let ok = true
   for (const [field, expected] of Object.entries(identity)) {
     if (d[field] !== expected) {
@@ -658,7 +771,16 @@ function sameSnapshot(a, b) {
   }
   for (const key of ['progress', 'localProgress']) {
     if (!(typeof a[key] === 'number' && typeof b[key] === 'number' && Math.abs(a[key] - b[key]) <= PROGRESS_EPS)) {
-      diffs.push(key + ': ' + a[key] + ' vs ' + b[key] + ' (|d|=' + (typeof a[key] === 'number' && typeof b[key] === 'number' ? Math.abs(a[key] - b[key]) : 'n/a') + ')')
+      diffs.push(
+        key +
+          ': ' +
+          a[key] +
+          ' vs ' +
+          b[key] +
+          ' (|d|=' +
+          (typeof a[key] === 'number' && typeof b[key] === 'number' ? Math.abs(a[key] - b[key]) : 'n/a') +
+          ')',
+      )
     }
   }
   return { equal: diffs.length === 0, diffs }
@@ -676,17 +798,49 @@ function consoleErrorsCorrelated(state, marker, scenePath) {
 
 async function assertCommonLive(obs, state, c, failureCorrelation = null) {
   if (obs.mode === 'live') {
-    c('one live document canvas mounted and none removed', obs.probe.canvasMounts.length === 1 && obs.probe.canvasRemovals === 0, JSON.stringify(obs.probe))
-    c('at most one auxiliary OffscreenCanvas construction', obs.probe.offscreenCanvasConstructions <= 1, String(obs.probe.offscreenCanvasConstructions))
-    c('live initialization requests narrative CAD assets', state.cadRequests.some((url) => url.endsWith('/models/Default.glb')), JSON.stringify(state.cadRequests))
+    c(
+      'one live document canvas mounted and none removed',
+      obs.probe.canvasMounts.length === 1 && obs.probe.canvasRemovals === 0,
+      JSON.stringify(obs.probe),
+    )
+    c(
+      'at most one auxiliary OffscreenCanvas construction',
+      obs.probe.offscreenCanvasConstructions <= 1,
+      String(obs.probe.offscreenCanvasConstructions),
+    )
+    c(
+      'live initialization requests narrative CAD assets',
+      state.cadRequests.some((url) => url.endsWith('/models/Default.glb')),
+      JSON.stringify(state.cadRequests),
+    )
   } else if (obs.probe.canvasMounts.length === 1 && obs.probe.canvasRemovals === 1) {
     c('downgraded live document canvas removed exactly once', obs.probe.canvasRemovals === 1, JSON.stringify(obs.probe))
-    c('at most one auxiliary OffscreenCanvas construction', obs.probe.offscreenCanvasConstructions <= 1, String(obs.probe.offscreenCanvasConstructions))
-    c('downgrade follows initialized narrative CAD assets', state.cadRequests.some((url) => url.endsWith('/models/Default.glb')), JSON.stringify(state.cadRequests))
+    c(
+      'at most one auxiliary OffscreenCanvas construction',
+      obs.probe.offscreenCanvasConstructions <= 1,
+      String(obs.probe.offscreenCanvasConstructions),
+    )
+    c(
+      'downgrade follows initialized narrative CAD assets',
+      state.cadRequests.some((url) => url.endsWith('/models/Default.glb')),
+      JSON.stringify(state.cadRequests),
+    )
   } else {
-    c('zero document canvas mounts incl. removed', obs.probe.canvasMounts.length === 0 && obs.probe.canvasRemovals === 0, JSON.stringify(obs.probe))
-    c('at most one auxiliary OffscreenCanvas construction', obs.probe.offscreenCanvasConstructions <= 1, String(obs.probe.offscreenCanvasConstructions))
-    c('zero narrative CAD/decoder byte requests from initialization', state.cadRequests.length === 0, JSON.stringify(state.cadRequests))
+    c(
+      'zero document canvas mounts incl. removed',
+      obs.probe.canvasMounts.length === 0 && obs.probe.canvasRemovals === 0,
+      JSON.stringify(obs.probe),
+    )
+    c(
+      'at most one auxiliary OffscreenCanvas construction',
+      obs.probe.offscreenCanvasConstructions <= 1,
+      String(obs.probe.offscreenCanvasConstructions),
+    )
+    c(
+      'zero narrative CAD/decoder byte requests from initialization',
+      state.cadRequests.length === 0,
+      JSON.stringify(state.cadRequests),
+    )
   }
   c('zero HTTP error responses (>=400)', state.httpErrors.length === 0, JSON.stringify(state.httpErrors))
   const consoleOk = failureCorrelation
@@ -698,29 +852,76 @@ async function assertCommonLive(obs, state, c, failureCorrelation = null) {
 
 async function stepLiveLoad(page, state, c, build) {
   const live = await waitLive(page)
-  c('page resolves to live mode with narrative port', live.ok, JSON.stringify({ mode: live.obs.mode, present: live.obs.present, stage: live.obs.stage, scenePlaceholder: live.obs.scenePlaceholder }))
+  c(
+    'page resolves to live mode with narrative port',
+    live.ok,
+    JSON.stringify({
+      mode: live.obs.mode,
+      present: live.obs.present,
+      stage: live.obs.stage,
+      scenePlaceholder: live.obs.scenePlaceholder,
+    }),
+  )
   const obs = live.obs
   let worldReady = false
   try {
-    await page.waitForFunction(() => {
-      const world = window.__torqueWorld?.snapshot?.()
-      return world?.ready === true && world?.sheet?.baked === true
-    }, undefined, { timeout: 90_000, polling: 50 })
+    await page.waitForFunction(
+      () => {
+        const world = window.__torqueWorld?.snapshot?.()
+        return world?.ready === true && world?.sheet?.baked === true
+      },
+      undefined,
+      { timeout: 90_000, polling: 50 },
+    )
     worldReady = true
   } catch {
     worldReady = false
   }
   c('live renderer and initial sheet bake ready before input', worldReady, 'worldReady=' + String(worldReady))
-  c('exactly one .torque-scene live host element', obs.sceneCount === 1 && obs.scenePlaceholder === 'live', 'count=' + obs.sceneCount)
-  c('lazy Scene module requested exactly once', state.sceneModule.requests.length === 1, JSON.stringify(state.sceneModule.requests))
-  c('port exposes snapshot()/beats/diagnostics()', obs.hasSnapshot && Array.isArray(obs.beats) && obs.hasDiagnostics, 'snapshot=' + obs.hasSnapshot + ' beats=' + Array.isArray(obs.beats) + ' diagnostics=' + obs.hasDiagnostics + (obs.diagnosticsError ? ' diagnosticsError=' + obs.diagnosticsError : ''))
+  c(
+    'exactly one .torque-scene live host element',
+    obs.sceneCount === 1 && obs.scenePlaceholder === 'live',
+    'count=' + obs.sceneCount,
+  )
+  c(
+    'lazy Scene module requested exactly once',
+    state.sceneModule.requests.length === 1,
+    JSON.stringify(state.sceneModule.requests),
+  )
+  c(
+    'port exposes snapshot()/beats/diagnostics()',
+    obs.hasSnapshot && Array.isArray(obs.beats) && obs.hasDiagnostics,
+    'snapshot=' +
+      obs.hasSnapshot +
+      ' beats=' +
+      Array.isArray(obs.beats) +
+      ' diagnostics=' +
+      obs.hasDiagnostics +
+      (obs.diagnosticsError ? ' diagnosticsError=' + obs.diagnosticsError : ''),
+  )
   const beatsVerdict = validateBeats(obs.beats)
-  c('beat windows valid: unique ids, ordered 0..1 coverage, five semantic chapters present', beatsVerdict.ok, JSON.stringify(beatsVerdict.errors))
+  c(
+    'beat windows valid: unique ids, ordered 0..1 coverage, five semantic chapters present',
+    beatsVerdict.ok,
+    JSON.stringify(beatsVerdict.errors),
+  )
   const diagErrors = []
   const identityOk = diagnosticsIdentityOk(obs.diagnostics, diagErrors)
-  c('single conductor via diagnostics (active/lenis/ticker/trigger = 1)', identityOk, JSON.stringify({ diagnostics: obs.diagnostics, errors: diagErrors }))
+  c(
+    'single conductor via diagnostics (active/lenis/ticker/trigger = 1)',
+    identityOk,
+    JSON.stringify({ diagnostics: obs.diagnostics, errors: diagErrors }),
+  )
   const initial = await settleBounded(page)
-  c('initial progress settles at 0 with first beat entering', initial.settled && initial.obs.sample && Math.abs(initial.obs.sample.progress) <= PROGRESS_EPS && initial.obs.sample.beatId === obs.beats[0].id && initial.obs.sample.phase === 'entering', JSON.stringify(initial.obs.sample))
+  c(
+    'initial progress settles at 0 with first beat entering',
+    initial.settled &&
+      initial.obs.sample &&
+      Math.abs(initial.obs.sample.progress) <= PROGRESS_EPS &&
+      initial.obs.sample.beatId === obs.beats[0].id &&
+      initial.obs.sample.phase === 'entering',
+    JSON.stringify(initial.obs.sample),
+  )
   return { obs: initial.obs, beats: obs.beats, diagnostics: obs.diagnostics }
 }
 
@@ -734,7 +935,11 @@ async function stepLiveConductorForward(page, state, c, plan, baseUrl, build) {
   const settledA = await settleBounded(page)
   c('wheel 12x120px settles within bound', settledA.settled, 'convergenceMs=' + settledA.convergenceMs)
   const afterA = settledA.obs
-  c('wheel 12x120px advances progress via native mapping', afterA.sample && afterA.sample.progress > beforeA.sample.progress, JSON.stringify(mappingDelta(beforeA, afterA)))
+  c(
+    'wheel 12x120px advances progress via native mapping',
+    afterA.sample && afterA.sample.progress > beforeA.sample.progress,
+    JSON.stringify(mappingDelta(beforeA, afterA)),
+  )
   checkMapping('wheel 12x120px mapping within 1% of native displacement', beforeA, afterA, c)
 
   const beforeB = await readNarrative(page)
@@ -744,12 +949,29 @@ async function stepLiveConductorForward(page, state, c, plan, baseUrl, build) {
   const afterB = settledB.obs
   checkMapping('wheel 4x1200px mapping within 1% of native displacement', beforeB, afterB, c)
   const beatAfterB = afterB.sample ? afterB.sample.beatId : null
-  const expectedBeat = beats.find((b) => afterB.sample && afterB.sample.progress >= b.start && afterB.sample.progress < b.end)
+  const expectedBeat = beats.find(
+    (b) => afterB.sample && afterB.sample.progress >= b.start && afterB.sample.progress < b.end,
+  )
   const lastBeat = beats[beats.length - 1]
-  const beatOk = afterB.sample && (afterB.sample.progress >= 1 ? beatAfterB === lastBeat.id : expectedBeat && beatAfterB === expectedBeat.id)
-  c('settled beatId matches the [start,end) beat table', Boolean(beatOk), 'progress=' + (afterB.sample && afterB.sample.progress) + ' beatId=' + beatAfterB + ' expected=' + (expectedBeat ? expectedBeat.id : lastBeat.id))
+  const beatOk =
+    afterB.sample &&
+    (afterB.sample.progress >= 1 ? beatAfterB === lastBeat.id : expectedBeat && beatAfterB === expectedBeat.id)
+  c(
+    'settled beatId matches the [start,end) beat table',
+    Boolean(beatOk),
+    'progress=' +
+      (afterB.sample && afterB.sample.progress) +
+      ' beatId=' +
+      beatAfterB +
+      ' expected=' +
+      (expectedBeat ? expectedBeat.id : lastBeat.id),
+  )
   if (afterB.sample) {
-    c('phase matches contract derivation from localProgress', afterB.sample.phase === derivePhase(afterB.sample.localProgress), JSON.stringify(afterB.sample))
+    c(
+      'phase matches contract derivation from localProgress',
+      afterB.sample.phase === derivePhase(afterB.sample.localProgress),
+      JSON.stringify(afterB.sample),
+    )
   }
 
   const repeatAnchor = await readNarrative(page)
@@ -759,12 +981,28 @@ async function stepLiveConductorForward(page, state, c, plan, baseUrl, build) {
   const beforeRepeat = await readNarrative(page)
   await wheelBurst(page, Array(4).fill(1200))
   const settledRepeat = await settleBounded(page)
-  const repeatDelta = Math.abs((settledRepeat.obs.sample ? settledRepeat.obs.sample.progress : NaN) - (afterB.sample ? afterB.sample.progress : NaN))
-  c('repeat identical wheel burst settles to the same progress (deterministic single mapping)', settledRepeat.settled && repeatDelta <= 1e-6, 'repeatDelta=' + repeatDelta)
+  const repeatDelta = Math.abs(
+    (settledRepeat.obs.sample ? settledRepeat.obs.sample.progress : NaN) -
+      (afterB.sample ? afterB.sample.progress : NaN),
+  )
+  c(
+    'repeat identical wheel burst settles to the same progress (deterministic single mapping)',
+    settledRepeat.settled && repeatDelta <= 1e-6,
+    'repeatDelta=' + repeatDelta,
+  )
   checkMapping('repeat burst mapping within 1%', beforeRepeat, settledRepeat.obs, c)
 
   const d1 = (await readNarrative(page)).diagnostics
-  c('diagnostics unchanged by native input (no conductor churn, no invalid inputs)', d1 && d0 && d1.activeConductors === d0.activeConductors && d1.mountCount === d0.mountCount && d1.disposeCount === d0.disposeCount && d1.invalidProgressInputs === d0.invalidProgressInputs, JSON.stringify({ before: d0, after: d1 }))
+  c(
+    'diagnostics unchanged by native input (no conductor churn, no invalid inputs)',
+    d1 &&
+      d0 &&
+      d1.activeConductors === d0.activeConductors &&
+      d1.mountCount === d0.mountCount &&
+      d1.disposeCount === d0.disposeCount &&
+      d1.invalidProgressInputs === d0.invalidProgressInputs,
+    JSON.stringify({ before: d0, after: d1 }),
+  )
 
   // Bounded resize: conductor must resample canonical progress on refresh.
   const beforeResize = await readNarrative(page)
@@ -774,11 +1012,37 @@ async function stepLiveConductorForward(page, state, c, plan, baseUrl, build) {
   await page.setViewportSize({ width: VIEWPORTS[plan.viewport].width, height: h0 })
   const settledBackR = await settleBounded(page)
   const d2 = settledBackR.obs.diagnostics
-  c('resize triggers conductor refresh accounting and resamples mapping', Boolean(d2) && Boolean(d0) && d2.refreshCount > d0.refreshCount, JSON.stringify({ refreshBefore: d0 && d0.refreshCount, refreshAfter: d2 && d2.refreshCount }))
+  c(
+    'resize triggers conductor refresh accounting and resamples mapping',
+    Boolean(d2) && Boolean(d0) && d2.refreshCount > d0.refreshCount,
+    JSON.stringify({ refreshBefore: d0 && d0.refreshCount, refreshAfter: d2 && d2.refreshCount }),
+  )
   const resizedExpected = settledR.obs.maxScroll > 0 ? settledR.obs.scrollY / settledR.obs.maxScroll : 0
   const resizedActual = settledR.obs.sample ? settledR.obs.sample.progress : null
-  c('post-resize progress re-derived from native document metrics', resizedActual !== null && Math.abs(resizedActual - resizedExpected) <= 0.01 * Math.max(Math.abs(resizedExpected), 1e-9), 'scrollY=' + settledR.obs.scrollY + ' max=' + settledR.obs.maxScroll + ' expected=' + resizedExpected + ' actual=' + resizedActual)
-  c('progress returns to pre-resize value after viewport restore', Math.abs((settledBackR.obs.sample ? settledBackR.obs.sample.progress : NaN) - (beforeResize.sample ? beforeResize.sample.progress : NaN)) <= 1e-6, JSON.stringify({ before: beforeResize.sample && beforeResize.sample.progress, after: settledBackR.obs.sample && settledBackR.obs.sample.progress }))
+  c(
+    'post-resize progress re-derived from native document metrics',
+    resizedActual !== null &&
+      Math.abs(resizedActual - resizedExpected) <= 0.01 * Math.max(Math.abs(resizedExpected), 1e-9),
+    'scrollY=' +
+      settledR.obs.scrollY +
+      ' max=' +
+      settledR.obs.maxScroll +
+      ' expected=' +
+      resizedExpected +
+      ' actual=' +
+      resizedActual,
+  )
+  c(
+    'progress returns to pre-resize value after viewport restore',
+    Math.abs(
+      (settledBackR.obs.sample ? settledBackR.obs.sample.progress : NaN) -
+        (beforeResize.sample ? beforeResize.sample.progress : NaN),
+    ) <= 1e-6,
+    JSON.stringify({
+      before: beforeResize.sample && beforeResize.sample.progress,
+      after: settledBackR.obs.sample && settledBackR.obs.sample.progress,
+    }),
+  )
 
   await flushProbe(page)
   const final = await readNarrative(page)
@@ -806,12 +1070,24 @@ async function stepLiveKeyboard(page, state, c, build) {
   await pressAndCheck('ArrowUp x10 @100ms', 'ArrowUp', 10, INPUT_GAP_MS)
   await pressAndCheck('PageUp x3 @500ms', 'PageUp', 3, 500)
   const home = await pressAndCheck('Home', 'Home', 1, INPUT_GAP_MS)
-  c('Home returns progress to 0', home.sample && Math.abs(home.sample.progress) <= PROGRESS_EPS, JSON.stringify(home.sample))
+  c(
+    'Home returns progress to 0',
+    home.sample && Math.abs(home.sample.progress) <= PROGRESS_EPS,
+    JSON.stringify(home.sample),
+  )
   const end = await pressAndCheck('End', 'End', 1, INPUT_GAP_MS)
-  c('End reaches progress 1 with final beat exiting', end.sample && Math.abs(end.sample.progress - 1) <= PROGRESS_EPS && end.sample.phase === 'exiting', JSON.stringify(end.sample))
+  c(
+    'End reaches progress 1 with final beat exiting',
+    end.sample && Math.abs(end.sample.progress - 1) <= PROGRESS_EPS && end.sample.phase === 'exiting',
+    JSON.stringify(end.sample),
+  )
   await flushProbe(page)
   const final = await readNarrative(page)
-  c('keyboard roster leaves exactly one Scene request (no re-import)', state.sceneModule.requests.length === 1, JSON.stringify(state.sceneModule.requests))
+  c(
+    'keyboard roster leaves exactly one Scene request (no re-import)',
+    state.sceneModule.requests.length === 1,
+    JSON.stringify(state.sceneModule.requests),
+  )
   await assertCommonLive(final, state, c)
 }
 
@@ -829,11 +1105,23 @@ async function stepLiveScrollbarDrag(page, state, c, build) {
   await page.mouse.up()
   const settled = await settleBounded(page)
   const { dPx, dProg, expected } = mappingDelta(before, settled.obs)
-  c('scrollbar drag produced native displacement', settled.settled && dPx > 0, 'dPx=' + dPx + ' (classic scrollbars required; overlay/absent scrollbars fail here by design)')
-  c('scrollbar drag mapping within 2% of native displacement', dProg !== null && Math.abs(dProg - expected) <= 0.02 * Math.max(Math.abs(expected), 1e-9), 'expected=' + expected + ' actual=' + dProg)
+  c(
+    'scrollbar drag produced native displacement',
+    settled.settled && dPx > 0,
+    'dPx=' + dPx + ' (classic scrollbars required; overlay/absent scrollbars fail here by design)',
+  )
+  c(
+    'scrollbar drag mapping within 2% of native displacement',
+    dProg !== null && Math.abs(dProg - expected) <= 0.02 * Math.max(Math.abs(expected), 1e-9),
+    'expected=' + expected + ' actual=' + dProg,
+  )
   await flushProbe(page)
   const final = await readNarrative(page)
-  c('scrollbar roster leaves exactly one Scene request', state.sceneModule.requests.length === 1, JSON.stringify(state.sceneModule.requests))
+  c(
+    'scrollbar roster leaves exactly one Scene request',
+    state.sceneModule.requests.length === 1,
+    JSON.stringify(state.sceneModule.requests),
+  )
   await assertCommonLive(final, state, c)
 }
 
@@ -864,13 +1152,20 @@ async function stepLiveEquality(page, state, c, build) {
   let maxDelta = 0
   const diffLog = []
   for (const t of targets) {
-    for (const [label, set] of [['forward', forwardSamples], ['reverse', reverseSamples]]) {
+    for (const [label, set] of [
+      ['forward', forwardSamples],
+      ['reverse', reverseSamples],
+    ]) {
       const verdict = sameSnapshot(reference[t], set[t])
       if (!verdict.equal) diffLog.push(label + '@' + t + ': ' + verdict.diffs.join('; '))
       if (reference[t] && set[t]) maxDelta = Math.max(maxDelta, Math.abs(reference[t].progress - set[t].progress))
     }
   }
-  c('forward/reverse approaches equal direct-seek reference at matched progress', diffLog.length === 0, JSON.stringify(diffLog))
+  c(
+    'forward/reverse approaches equal direct-seek reference at matched progress',
+    diffLog.length === 0,
+    JSON.stringify(diffLog),
+  )
   c('progress equality within 1e-9 across approaches', maxDelta <= PROGRESS_EPS, 'maxDelta=' + maxDelta)
 
   // Boundary ownership: shared boundary belongs to the NEXT beat; final beat includes 1.
@@ -885,19 +1180,31 @@ async function stepLiveEquality(page, state, c, build) {
     // then the first at/above it (the exact boundary when b*max is integral).
     const low = await seekFraction(page, lowerPixel / max)
     const high = await seekFraction(page, upperPixel / max)
-    const separable = max > 0 && low.settled && high.settled && low.obs.scrollY === lowerPixel && high.obs.scrollY === upperPixel && low.obs.sample?.progress < b && high.obs.sample?.progress >= b
+    const separable =
+      max > 0 &&
+      low.settled &&
+      high.settled &&
+      low.obs.scrollY === lowerPixel &&
+      high.obs.scrollY === upperPixel &&
+      low.obs.sample?.progress < b &&
+      high.obs.sample?.progress >= b
     if (!separable || !low.obs.sample || low.obs.sample.beatId !== beats[i - 1].id) {
       boundaryOk = false
-      boundaryLog.push('b-' + b + '-0.001 beatId=' + (low.obs.sample && low.obs.sample.beatId) + ' expected ' + beats[i - 1].id)
+      boundaryLog.push(
+        'b-' + b + '-0.001 beatId=' + (low.obs.sample && low.obs.sample.beatId) + ' expected ' + beats[i - 1].id,
+      )
     }
     if (!separable || !high.obs.sample || high.obs.sample.beatId !== beats[i].id) {
       boundaryOk = false
-      boundaryLog.push('b+' + b + '+0.001 beatId=' + (high.obs.sample && high.obs.sample.beatId) + ' expected ' + beats[i].id)
+      boundaryLog.push(
+        'b+' + b + '+0.001 beatId=' + (high.obs.sample && high.obs.sample.beatId) + ' expected ' + beats[i].id,
+      )
     }
   }
   const top = await seekFraction(page, 0)
   const bottom = await seekFraction(page, 1)
-  boundaryOk = boundaryOk && top.obs.sample.beatId === beats[0].id && bottom.obs.sample.beatId === beats[beats.length - 1].id
+  boundaryOk =
+    boundaryOk && top.obs.sample.beatId === beats[0].id && bottom.obs.sample.beatId === beats[beats.length - 1].id
   c('beat boundary ownership follows [start,end) with final beat including 1', boundaryOk, JSON.stringify(boundaryLog))
 
   // Reload at .5: initial scroll restoration respected, narrative state re-derived identically.
@@ -905,13 +1212,29 @@ async function stepLiveEquality(page, state, c, build) {
   const beforeReload = half.obs.sample
   await page.reload({ waitUntil: 'domcontentloaded', timeout: NAV_TIMEOUT_MS })
   const liveAgain = await waitLive(page)
-  c('after reload page returns to live mode with port', liveAgain.ok, JSON.stringify({ mode: liveAgain.obs.mode, present: liveAgain.obs.present }))
+  c(
+    'after reload page returns to live mode with port',
+    liveAgain.ok,
+    JSON.stringify({ mode: liveAgain.obs.mode, present: liveAgain.obs.present }),
+  )
   const afterReload = await settleBounded(page)
   const verdictReload = sameSnapshot(beforeReload, afterReload.obs.sample)
-  c('post-reload sample equals pre-reload sample at the same position (restoration respected, no forced top)', verdictReload.equal, JSON.stringify(verdictReload.diffs) + ' scrollY=' + afterReload.obs.scrollY + ' max=' + afterReload.obs.maxScroll)
+  c(
+    'post-reload sample equals pre-reload sample at the same position (restoration respected, no forced top)',
+    verdictReload.equal,
+    JSON.stringify(verdictReload.diffs) + ' scrollY=' + afterReload.obs.scrollY + ' max=' + afterReload.obs.maxScroll,
+  )
   const diagErrors = []
-  c('post-reload diagnostics identity fresh mount (1/1/1/1)', diagnosticsIdentityOk(afterReload.obs.diagnostics, diagErrors), JSON.stringify({ diagnostics: afterReload.obs.diagnostics, errors: diagErrors }))
-  c('reload produced exactly two Scene requests total (one per document load)', state.sceneModule.requests.length === 2, JSON.stringify(state.sceneModule.requests))
+  c(
+    'post-reload diagnostics identity fresh mount (1/1/1/1)',
+    diagnosticsIdentityOk(afterReload.obs.diagnostics, diagErrors),
+    JSON.stringify({ diagnostics: afterReload.obs.diagnostics, errors: diagErrors }),
+  )
+  c(
+    'reload produced exactly two Scene requests total (one per document load)',
+    state.sceneModule.requests.length === 2,
+    JSON.stringify(state.sceneModule.requests),
+  )
 
   // Hold: fixed canonical progress for 5s (contract18); drift asserted at sample level.
   const holdAnchor = await seekFraction(page, 0.5)
@@ -927,11 +1250,28 @@ async function stepLiveEquality(page, state, c, build) {
   for (const s of holdSamples) {
     if (!s) continue
     holdDrift = Math.max(holdDrift, Math.abs(s.progress - holdAnchor.obs.sample.progress))
-    if (s.beatId !== holdAnchor.obs.sample.beatId || s.phase !== holdAnchor.obs.sample.phase || s.stateKey !== holdAnchor.obs.sample.stateKey) holdIdentity = false
+    if (
+      s.beatId !== holdAnchor.obs.sample.beatId ||
+      s.phase !== holdAnchor.obs.sample.phase ||
+      s.stateKey !== holdAnchor.obs.sample.stateKey
+    )
+      holdIdentity = false
   }
-  c('5s fixed-progress hold: progress drift <= 1e-9 and beat/phase/stateKey constant', holdDrift <= PROGRESS_EPS && holdIdentity, 'drift=' + holdDrift + ' identityOk=' + holdIdentity + ' samples=' + holdSamples.length)
+  c(
+    '5s fixed-progress hold: progress drift <= 1e-9 and beat/phase/stateKey constant',
+    holdDrift <= PROGRESS_EPS && holdIdentity,
+    'drift=' + holdDrift + ' identityOk=' + holdIdentity + ' samples=' + holdSamples.length,
+  )
   const dHold = (await readNarrative(page)).diagnostics
-  c('hold produces no conductor churn (mount/dispose/refresh stable)', Boolean(dHold) && Boolean(holdAnchor.obs.diagnostics) && dHold.mountCount === holdAnchor.obs.diagnostics.mountCount && dHold.disposeCount === holdAnchor.obs.diagnostics.disposeCount && dHold.refreshCount === holdAnchor.obs.diagnostics.refreshCount, JSON.stringify({ anchor: holdAnchor.obs.diagnostics, final: dHold }))
+  c(
+    'hold produces no conductor churn (mount/dispose/refresh stable)',
+    Boolean(dHold) &&
+      Boolean(holdAnchor.obs.diagnostics) &&
+      dHold.mountCount === holdAnchor.obs.diagnostics.mountCount &&
+      dHold.disposeCount === holdAnchor.obs.diagnostics.disposeCount &&
+      dHold.refreshCount === holdAnchor.obs.diagnostics.refreshCount,
+    JSON.stringify({ anchor: holdAnchor.obs.diagnostics, final: dHold }),
+  )
   await flushProbe(page)
   const final = await readNarrative(page)
   await assertCommonLive(final, state, c)
@@ -939,17 +1279,38 @@ async function stepLiveEquality(page, state, c, build) {
 
 async function stepStaticNoPort(page, state, c, build, caseName, zeroSceneRequests) {
   const terminal = await waitTerminalStatic(page)
-  c(caseName + ': terminal static poster state', terminal.ok, JSON.stringify({ mode: terminal.obs.mode, stage: terminal.obs.stage, present: terminal.obs.present }))
-  c(caseName + ': no telemetry port on static path', !terminal.obs.present && terminal.obs.sceneCount === 0, JSON.stringify({ present: terminal.obs.present, sceneCount: terminal.obs.sceneCount }))
-  if (zeroSceneRequests) c(caseName + ': zero Scene module requests (tier decided before narrative imports)', state.sceneModule.requests.length === 0, JSON.stringify(state.sceneModule.requests))
+  c(
+    caseName + ': terminal static poster state',
+    terminal.ok,
+    JSON.stringify({ mode: terminal.obs.mode, stage: terminal.obs.stage, present: terminal.obs.present }),
+  )
+  c(
+    caseName + ': no telemetry port on static path',
+    !terminal.obs.present && terminal.obs.sceneCount === 0,
+    JSON.stringify({ present: terminal.obs.present, sceneCount: terminal.obs.sceneCount }),
+  )
+  if (zeroSceneRequests)
+    c(
+      caseName + ': zero Scene module requests (tier decided before narrative imports)',
+      state.sceneModule.requests.length === 0,
+      JSON.stringify(state.sceneModule.requests),
+    )
   // Native wheel burst: semantic flow normal, narrative port stays absent, nothing re-imports.
   const sceneRequestsBefore = state.sceneModule.requests.length
   await wheelBurst(page, Array(6).fill(240))
   await settleBounded(page)
   await flushProbe(page)
   const after = await readNarrative(page)
-  c(caseName + ': port stays absent and mode stays static across native scroll', !after.present && after.mode === 'static', JSON.stringify({ present: after.present, mode: after.mode }))
-  c(caseName + ': no additional Scene requests after scroll', state.sceneModule.requests.length === sceneRequestsBefore, JSON.stringify(state.sceneModule.requests))
+  c(
+    caseName + ': port stays absent and mode stays static across native scroll',
+    !after.present && after.mode === 'static',
+    JSON.stringify({ present: after.present, mode: after.mode }),
+  )
+  c(
+    caseName + ': no additional Scene requests after scroll',
+    state.sceneModule.requests.length === sceneRequestsBefore,
+    JSON.stringify(state.sceneModule.requests),
+  )
   await assertCommonLive(after, state, c)
 }
 
@@ -969,49 +1330,114 @@ async function stepMqlDowngrade(page, state, c, build) {
   state.finalDiagnostics = finalDiagnostics
   await page.emulateMedia({ reducedMotion: 'reduce' })
   const terminal = await waitTerminalStatic(page)
-  c('mql-downgrade: mid-session MQL step-down reaches terminal static poster', terminal.ok, JSON.stringify({ mode: terminal.obs.mode, stage: terminal.obs.stage, present: terminal.obs.present }))
+  c(
+    'mql-downgrade: mid-session MQL step-down reaches terminal static poster',
+    terminal.ok,
+    JSON.stringify({ mode: terminal.obs.mode, stage: terminal.obs.stage, present: terminal.obs.present }),
+  )
   const portDeleted = await page.evaluate(() => typeof window.__torqueNarrative === 'undefined')
-  c('mql-downgrade: telemetry port deleted on terminal teardown', Boolean(portDeleted) && terminal.obs.sceneCount === 0, 'deleted=' + portDeleted + ' sceneCount=' + terminal.obs.sceneCount)
+  c(
+    'mql-downgrade: telemetry port deleted on terminal teardown',
+    Boolean(portDeleted) && terminal.obs.sceneCount === 0,
+    'deleted=' + portDeleted + ' sceneCount=' + terminal.obs.sceneCount,
+  )
   const disposedDiagnostics = await retainedPort.evaluate((port) => port.diagnostics())
   state.disposedDiagnostics = disposedDiagnostics
-  const ownedFields = ['activeConductors', 'lenisInstances', 'lenisScrollHandlers', 'tickerCallbacks', 'scrollTriggers', 'domListeners', 'storeLifecycleSubscriptions']
-  c('mql-downgrade: all scoped owned conductor resources released', ownedFields.every((field) => disposedDiagnostics[field] === 0) && disposedDiagnostics.disposeCount === finalDiagnostics.disposeCount + 1 && disposedDiagnostics.cleanupFailureCount === 0, JSON.stringify(disposedDiagnostics))
+  const ownedFields = [
+    'activeConductors',
+    'lenisInstances',
+    'lenisScrollHandlers',
+    'tickerCallbacks',
+    'scrollTriggers',
+    'domListeners',
+    'storeLifecycleSubscriptions',
+  ]
+  c(
+    'mql-downgrade: all scoped owned conductor resources released',
+    ownedFields.every((field) => disposedDiagnostics[field] === 0) &&
+      disposedDiagnostics.disposeCount === finalDiagnostics.disposeCount + 1 &&
+      disposedDiagnostics.cleanupFailureCount === 0,
+    JSON.stringify(disposedDiagnostics),
+  )
   await retainedPort.dispose()
-  c('mql-downgrade: exactly one Scene request total (no re-import after downgrade)', state.sceneModule.requests.length === 1, JSON.stringify(state.sceneModule.requests))
-  c('mql-downgrade: last readable diagnostics show one mount, zero actives-candidate churn markers preserved', Boolean(finalDiagnostics) && finalDiagnostics.mountCount === 1, JSON.stringify(finalDiagnostics))
+  c(
+    'mql-downgrade: exactly one Scene request total (no re-import after downgrade)',
+    state.sceneModule.requests.length === 1,
+    JSON.stringify(state.sceneModule.requests),
+  )
+  c(
+    'mql-downgrade: last readable diagnostics show one mount, zero actives-candidate churn markers preserved',
+    Boolean(finalDiagnostics) && finalDiagnostics.mountCount === 1,
+    JSON.stringify(finalDiagnostics),
+  )
   // Terminal seal: scroll after downgrade never resurrects the conductor.
   await wheelBurst(page, Array(6).fill(240))
   await settleBounded(page)
   await sleep(SEAL_WINDOW_MS)
   await flushProbe(page)
   const after = await readNarrative(page)
-  c('mql-downgrade: port stays deleted and no Scene re-request after post-downgrade scroll (terminal path)', !after.present && state.sceneModule.requests.length === 1, JSON.stringify({ present: after.present, sceneRequests: state.sceneModule.requests.length }))
+  c(
+    'mql-downgrade: port stays deleted and no Scene re-request after post-downgrade scroll (terminal path)',
+    !after.present && state.sceneModule.requests.length === 1,
+    JSON.stringify({ present: after.present, sceneRequests: state.sceneModule.requests.length }),
+  )
   await assertCommonLive(after, state, c)
 }
 
 async function stepInjectedFailure(page, state, c, plan, hold, build, sceneRequestSeen, kind) {
   // While the Scene response is held, capture the pre-fallback document state.
   const heldObs = await readNarrative(page)
-  c('failure case: port absent while the Scene response is held', Boolean(heldObs) && !heldObs.present, JSON.stringify({ mode: heldObs.mode, present: heldObs.present }))
+  c(
+    'failure case: port absent while the Scene response is held',
+    Boolean(heldObs) && !heldObs.present,
+    JSON.stringify({ mode: heldObs.mode, present: heldObs.present }),
+  )
   const seen = await sceneRequestSeen
-  c('failure case: exact Scene request observed before release', Boolean(seen), seen ? seen.url() : 'never observed (timeout)')
+  c(
+    'failure case: exact Scene request observed before release',
+    Boolean(seen),
+    seen ? seen.url() : 'never observed (timeout)',
+  )
   hold.resolve()
   const terminal = await waitTerminalStatic(page)
-  c(kind + ': semantic fallback reaches terminal static poster', terminal.ok, JSON.stringify({ mode: terminal.obs.mode, stage: terminal.obs.stage, present: terminal.obs.present }))
-  c(kind + ': telemetry port absent after terminal fallback (never installed or deleted)', !terminal.obs.present && terminal.obs.sceneCount === 0, JSON.stringify({ present: terminal.obs.present, sceneCount: terminal.obs.sceneCount }))
-  c(kind + ': exactly one Scene request and no response body committed', state.sceneModule.requests.length === 1, JSON.stringify(state.sceneModule.requests))
+  c(
+    kind + ': semantic fallback reaches terminal static poster',
+    terminal.ok,
+    JSON.stringify({ mode: terminal.obs.mode, stage: terminal.obs.stage, present: terminal.obs.present }),
+  )
+  c(
+    kind + ': telemetry port absent after terminal fallback (never installed or deleted)',
+    !terminal.obs.present && terminal.obs.sceneCount === 0,
+    JSON.stringify({ present: terminal.obs.present, sceneCount: terminal.obs.sceneCount }),
+  )
+  c(
+    kind + ': exactly one Scene request and no response body committed',
+    state.sceneModule.requests.length === 1,
+    JSON.stringify(state.sceneModule.requests),
+  )
   const correlated = consoleErrorsCorrelated(state, kind === 'throw' ? RENDER_THROW_MARKER : null, build.scenePath)
   c(kind + ': console errors all correlate to the exact Scene failure', correlated, JSON.stringify(state.consoleErrors))
-  c(kind + ': zero uncaught page errors (SceneBoundary catches)', state.pageErrors.length === 0, JSON.stringify(state.pageErrors))
+  c(
+    kind + ': zero uncaught page errors (SceneBoundary catches)',
+    state.pageErrors.length === 0,
+    JSON.stringify(state.pageErrors),
+  )
   // Terminal seal: nothing re-imports after fallback + scroll.
   await wheelBurst(page, Array(6).fill(240))
   await settleBounded(page)
   await sleep(SEAL_WINDOW_MS)
   await flushProbe(page)
   const after = await readNarrative(page)
-  c(kind + ': no additional Scene requests after post-failure scroll (cadGate seal)', state.sceneModule.requests.length === 1, JSON.stringify(state.sceneModule.requests))
+  c(
+    kind + ': no additional Scene requests after post-failure scroll (cadGate seal)',
+    state.sceneModule.requests.length === 1,
+    JSON.stringify(state.sceneModule.requests),
+  )
   c(kind + ': port stays absent across post-failure scroll', !after.present, 'present=' + after.present)
-  await assertCommonLive(after, state, c, { marker: kind === 'throw' ? RENDER_THROW_MARKER : null, scenePath: build.scenePath })
+  await assertCommonLive(after, state, c, {
+    marker: kind === 'throw' ? RENDER_THROW_MARKER : null,
+    scenePath: build.scenePath,
+  })
 }
 
 // ---- Case runner (watchdog owns the case; every path closes its context) ----
@@ -1036,26 +1462,50 @@ async function runCaseOnContext(context, page, plan, baseUrl, build, state, c, h
   let sceneRequestSeen = null
   const kind = plan.suffix === 'scene-import-abort' ? 'abort' : plan.suffix === 'scene-render-throw' ? 'throw' : null
   if (kind) {
-    await context.route((url) => url.pathname === build.scenePath, async (route) => {
-      await hold.promise
-      if (kind === 'abort') await route.abort()
-      else await route.fulfill({ status: 200, contentType: 'text/javascript; charset=utf-8', body: RENDER_THROW_MODULE })
-    })
-    sceneRequestSeen = page.waitForRequest((r) => {
-      try {
-        return new URL(r.url()).pathname === build.scenePath
-      } catch {
-        return false
-      }
-    }, { timeout: STAGE_TIMEOUT_MS }).catch(() => null)
+    await context.route(
+      (url) => url.pathname === build.scenePath,
+      async (route) => {
+        await hold.promise
+        if (kind === 'abort') await route.abort()
+        else
+          await route.fulfill({ status: 200, contentType: 'text/javascript; charset=utf-8', body: RENDER_THROW_MODULE })
+      },
+    )
+    sceneRequestSeen = page
+      .waitForRequest(
+        (r) => {
+          try {
+            return new URL(r.url()).pathname === build.scenePath
+          } catch {
+            return false
+          }
+        },
+        { timeout: STAGE_TIMEOUT_MS },
+      )
+      .catch(() => null)
   }
-  const response = await page.goto(caseUrl(plan, baseUrl).toString(), { waitUntil: 'domcontentloaded', timeout: NAV_TIMEOUT_MS })
-  c('document responds 200', Boolean(response) && response.status() === 200, 'status=' + (response ? response.status() : 'none'))
+  const response = await page.goto(caseUrl(plan, baseUrl).toString(), {
+    waitUntil: 'domcontentloaded',
+    timeout: NAV_TIMEOUT_MS,
+  })
+  c(
+    'document responds 200',
+    Boolean(response) && response.status() === 200,
+    'status=' + (response ? response.status() : 'none'),
+  )
   const finalUrl = new URL(page.url())
-  c('document is the private /torque-wrench page', finalUrl.pathname === '/torque-wrench' || finalUrl.pathname === '/torque-wrench/', page.url())
+  c(
+    'document is the private /torque-wrench page',
+    finalUrl.pathname === '/torque-wrench' || finalUrl.pathname === '/torque-wrench/',
+    page.url(),
+  )
   const served = await page.content()
   const verdict = entrySrcVerdict(served, build.expectedModuleSrc)
-  c('served module entry is the exact expected identity (dev client ignored)', verdict.ok, 'candidates=' + verdict.candidates.join(','))
+  c(
+    'served module entry is the exact expected identity (dev client ignored)',
+    verdict.ok,
+    'candidates=' + verdict.candidates.join(','),
+  )
   if (plan.suffix === 'live-conductor-forward') await stepLiveConductorForward(page, state, c, plan, baseUrl, build)
   else if (plan.suffix === 'live-keyboard-inputs') await stepLiveKeyboard(page, state, c, build)
   else if (plan.suffix === 'live-scrollbar-drag') await stepLiveScrollbarDrag(page, state, c, build)
@@ -1127,7 +1577,13 @@ async function runCaseGuarded(browser, plan, baseUrl, build) {
       url: caseUrl(plan, baseUrl).toString(),
       status: 'FAIL',
       durationMs: CASE_WATCHDOG_MS,
-      assertions: [{ name: 'case watchdog', pass: false, detail: 'exceeded ' + CASE_WATCHDOG_MS + 'ms; hold released and context closed by watchdog' }],
+      assertions: [
+        {
+          name: 'case watchdog',
+          pass: false,
+          detail: 'exceeded ' + CASE_WATCHDOG_MS + 'ms; hold released and context closed by watchdog',
+        },
+      ],
       observations: { note: 'watchdog; partial collectors discarded' },
     }
   }
@@ -1200,8 +1656,11 @@ async function main() {
 
   const pre = runPreflight()
   if (!pre.ok) {
-    for (const c of pre.checks) if (!c.pass) console.error('PREFLIGHT BLOCKED  ' + c.name + (c.detail ? ' - ' + c.detail : ''))
-    console.error('PREFLIGHT: BLOCKED - parent integration markers absent; refusing to run cases (fail-closed, exit 10).')
+    for (const c of pre.checks)
+      if (!c.pass) console.error('PREFLIGHT BLOCKED  ' + c.name + (c.detail ? ' - ' + c.detail : ''))
+    console.error(
+      'PREFLIGHT: BLOCKED - parent integration markers absent; refusing to run cases (fail-closed, exit 10).',
+    )
     process.exit(EXIT.PREFLIGHT)
   }
 
@@ -1216,7 +1675,9 @@ async function main() {
     process.exit(EXIT.BLOCKED)
   }
 
-  const build = buildDir ? loadBuildGraph(buildDir) : { mode: 'dev', expectedModuleSrc: MODULE_SRC, scenePath: DEV_SCENE_PATH, entryAsset: null }
+  const build = buildDir
+    ? loadBuildGraph(buildDir)
+    : { mode: 'dev', expectedModuleSrc: MODULE_SRC, scenePath: DEV_SCENE_PATH, entryAsset: null }
   if (build.error) {
     console.error(build.error)
     process.exit(EXIT.BLOCKED)
@@ -1240,7 +1701,17 @@ async function main() {
   try {
     const served = await servedPreflight(playwright, baseUrl.toString(), build.expectedModuleSrc)
     if (!served.ok) {
-      console.error('BLOCKED: served document is not the coordinated private torque page (status ' + served.status + ', url ' + served.finalUrl + ', module candidates ' + served.candidates.join(',') + ', expected ' + build.expectedModuleSrc + ').')
+      console.error(
+        'BLOCKED: served document is not the coordinated private torque page (status ' +
+          served.status +
+          ', url ' +
+          served.finalUrl +
+          ', module candidates ' +
+          served.candidates.join(',') +
+          ', expected ' +
+          build.expectedModuleSrc +
+          ').',
+      )
       process.exit(EXIT.BLOCKED)
     }
   } catch (error) {
@@ -1259,15 +1730,18 @@ async function main() {
     expectedModuleSrc: build.expectedModuleSrc,
     viewports: viewportKeys.map((k) => VIEWPORTS[k].label),
     roster: plans.map((p) => p.id),
-    inputContract: 'native input only: page.mouse.wheel, page.keyboard, scrollbar mouse drag, page.emulateMedia (real MQL), window.scrollTo direct seek; store setters and port mutation are never called; samples taken only after bounded settling',
+    inputContract:
+      'native input only: page.mouse.wheel, page.keyboard, scrollbar mouse drag, page.emulateMedia (real MQL), window.scrollTo direct seek; store setters and port mutation are never called; samples taken only after bounded settling',
     diagnosticsContract: {
       fields: DIAGNOSTIC_FIELDS,
       scope: 'scoped lifecycle accounting from the page store; NOT an independent browser-global census',
-      teardownNote: 'public port deleted on unmount; MQL retains a read-only getter handle for scoped post-teardown diagnostics',
+      teardownNote:
+        'public port deleted on unmount; MQL retains a read-only getter handle for scoped post-teardown diagnostics',
     },
     playwrightVersion: pre.playwrightVersion,
     launchConfig: { ...launchConfig(), ignoreDefaultArgs: ['--hide-scrollbars'] },
-    glRenderer: 'unmeasured (Stage 2 Scene is zero-GPU placeholder; no hardware or software rendering claim; configuration only)',
+    glRenderer:
+      'unmeasured (Stage 2 Scene is zero-GPU placeholder; no hardware or software rendering claim; configuration only)',
     assetIdentity: assetIdentity || { mode: 'dev', note: 'dev source-graph identity only; no byte-hash claim' },
     browserVersion: null,
     dependencies: DEPENDENCIES,

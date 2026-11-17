@@ -1,9 +1,7 @@
 import type { TorqueBeatSample } from './beatTimeline'
 
 /** Safe eager metadata only. Real CAD-bearing registrations belong behind cadGate. */
-export const TORQUE_DIRECTOR_IDS = Object.freeze([
-  'opening', 'pit', 'mechanism', 'inspection', 'close',
-] as const)
+export const TORQUE_DIRECTOR_IDS = Object.freeze(['opening', 'pit', 'mechanism', 'inspection', 'close'] as const)
 
 export type TorqueDirectorSampler<State> = (sample: TorqueBeatSample) => State
 

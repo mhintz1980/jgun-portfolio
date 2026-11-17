@@ -1,5 +1,17 @@
 import { describe, expect, it } from 'vitest'
-import { ARC_STEP, arcGeometry, arcPlace, arcVisible, indexAt, positionForProgress, ringOffset, ringSize, scrollTopForIndex, smoothToward, trackStages } from './arcMath'
+import {
+  ARC_STEP,
+  arcGeometry,
+  arcPlace,
+  arcVisible,
+  indexAt,
+  positionForProgress,
+  ringOffset,
+  ringSize,
+  scrollTopForIndex,
+  smoothToward,
+  trackStages,
+} from './arcMath'
 
 describe('arc geometry', () => {
   it('puts the equator card flat, left of centre, on the hub line', () => {

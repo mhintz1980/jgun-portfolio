@@ -1,10 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { TORQUE_BEATS, type TorqueWrenchBeat } from './beats'
 import { createBeatTimeline, type TorqueBeatSample } from './beatTimeline'
-import {
-  createDirectorRegistry, TORQUE_DIRECTOR_IDS,
-  type TorqueDirectorRegistration,
-} from './directorRegistry'
+import { createDirectorRegistry, TORQUE_DIRECTOR_IDS, type TorqueDirectorRegistration } from './directorRegistry'
 
 // Deliberately plain transport state: no geometry, effect, subject-stop, or camera acceptance.
 interface FixtureState {
@@ -14,10 +11,16 @@ interface FixtureState {
   readonly value: number
 }
 
-const registrations = (): TorqueDirectorRegistration<FixtureState>[] => TORQUE_DIRECTOR_IDS.map((id) => ({
-  id,
-  sample: (sample) => ({ director: id, beatId: sample.beat.id, progress: sample.progress, value: sample.localProgress }),
-}))
+const registrations = (): TorqueDirectorRegistration<FixtureState>[] =>
+  TORQUE_DIRECTOR_IDS.map((id) => ({
+    id,
+    sample: (sample) => ({
+      director: id,
+      beatId: sample.beat.id,
+      progress: sample.progress,
+      value: sample.localProgress,
+    }),
+  }))
 
 describe('pure director registry', () => {
   it('exports frozen, unique built-in metadata and dispatches injected samplers', () => {
@@ -28,7 +31,10 @@ describe('pure director registry', () => {
     for (const beat of TORQUE_BEATS) {
       const sample = timeline.sample((beat.start + beat.end) / 2)
       expect(registry.sample(sample)).toEqual({
-        director: beat.director, beatId: beat.id, progress: sample.progress, value: sample.localProgress,
+        director: beat.director,
+        beatId: beat.id,
+        progress: sample.progress,
+        value: sample.localProgress,
       })
       expect(registry.get(beat.director)(sample)).toEqual(registry.sample(sample))
     }
@@ -39,7 +45,9 @@ describe('pure director registry', () => {
     expect(() => createDirectorRegistry([' '], [])).toThrow(/nonempty/)
     const entries = registrations()
     expect(() => createDirectorRegistry(TORQUE_DIRECTOR_IDS, [...entries, entries[0]])).toThrow(/Duplicate/)
-    expect(() => createDirectorRegistry(TORQUE_DIRECTOR_IDS, [...entries, { ...entries[0], id: 'external' }])).toThrow(/Unknown/)
+    expect(() => createDirectorRegistry(TORQUE_DIRECTOR_IDS, [...entries, { ...entries[0], id: 'external' }])).toThrow(
+      /Unknown/,
+    )
     expect(() => createDirectorRegistry(TORQUE_DIRECTOR_IDS, entries.slice(1))).toThrow(/Missing.*opening/)
     const missingSampler = { id: 'opening', sample: undefined } as unknown as TorqueDirectorRegistration<FixtureState>
     expect(() => createDirectorRegistry(['opening'], [missingSampler])).toThrow(/Missing sampler/)
@@ -59,7 +67,12 @@ describe('pure director registry', () => {
     const timeline = createBeatTimeline(TORQUE_BEATS, registry.ids)
     const sample = timeline.sample(0.02)
     const expected = registry.sample(sample)
-    Object.assign(entries[0], { id: 'changed', sample: () => { throw new Error('changed') } })
+    Object.assign(entries[0], {
+      id: 'changed',
+      sample: () => {
+        throw new Error('changed')
+      },
+    })
     entries.splice(0, entries.length)
     ids.splice(0, ids.length, 'changed')
     expect(registry.sample(sample)).toEqual(expected)
@@ -73,14 +86,25 @@ describe('pure director registry', () => {
     const externalId = 'cutter-detail-fixture'
     // Only data additions/change plus a new pure director/registration. Resolver and transport
     // are the same production facilities; this fixture imports no conductor, Scene, or page.
-    const data: TorqueWrenchBeat[] = TORQUE_BEATS.flatMap((beat) => beat.id === 'inspection-bullet-time'
-      ? [
-        { ...beat, end: 0.7 },
-        { ...beat, id: 'inspection-added-detail', start: 0.7, director: externalId, camera: 'external-detail', scene: 'external-detail' },
-      ]
-      : [beat])
+    const data: TorqueWrenchBeat[] = TORQUE_BEATS.flatMap((beat) =>
+      beat.id === 'inspection-bullet-time'
+        ? [
+            { ...beat, end: 0.7 },
+            {
+              ...beat,
+              id: 'inspection-added-detail',
+              start: 0.7,
+              director: externalId,
+              camera: 'external-detail',
+              scene: 'external-detail',
+            },
+          ]
+        : [beat],
+    )
     const addedDirector = (sample: TorqueBeatSample): FixtureState => ({
-      director: externalId, beatId: sample.beat.id, progress: sample.progress,
+      director: externalId,
+      beatId: sample.beat.id,
+      progress: sample.progress,
       value: sample.localProgress * sample.localProgress,
     })
     const known = [...TORQUE_DIRECTOR_IDS, externalId]
@@ -88,8 +112,15 @@ describe('pure director registry', () => {
     const registry = createDirectorRegistry(known, entries)
     const timeline = createBeatTimeline(data, registry.ids)
     const atBoundary = timeline.sample(0.7)
-    expect(atBoundary).toMatchObject({ beat: { id: 'inspection-added-detail', poster: 'inspection' }, localProgress: 0 })
-    expect(atBoundary).toMatchObject({ previousId: 'inspection-bullet-time', nextId: 'inspection-materials', phase: 'entering' })
+    expect(atBoundary).toMatchObject({
+      beat: { id: 'inspection-added-detail', poster: 'inspection' },
+      localProgress: 0,
+    })
+    expect(atBoundary).toMatchObject({
+      previousId: 'inspection-bullet-time',
+      nextId: 'inspection-materials',
+      phase: 'entering',
+    })
     expect(atBoundary.stateKey).toBe(timeline.sample(0.7).stateKey)
     expect(atBoundary.stateKey).not.toBe(timeline.sample(0.71).stateKey)
     expect(timeline.sample(0.71).phase).toBe('active')
@@ -98,9 +129,16 @@ describe('pure director registry', () => {
     expect(timeline.sample(0.72).beat.id).toBe('inspection-materials')
     expect(() => createBeatTimeline(data, TORQUE_DIRECTOR_IDS)).toThrow(/Unknown/)
 
-    const points = [...new Set([0, 1, 0.7, 0.71, 0.72,
-      ...data.flatMap((beat) => [beat.start, (beat.start + beat.end) / 2, beat.end]),
-    ])].sort((a, b) => a - b)
+    const points = [
+      ...new Set([
+        0,
+        1,
+        0.7,
+        0.71,
+        0.72,
+        ...data.flatMap((beat) => [beat.start, (beat.start + beat.end) / 2, beat.end]),
+      ]),
+    ].sort((a, b) => a - b)
     const expected = new Map(points.map((progress) => [progress, registry.sample(timeline.sample(progress))]))
     const seeks = [...points.filter((_, index) => index % 2 === 0), ...points.filter((_, index) => index % 2 === 1)]
     for (const order of [points, [...points].reverse(), seeks]) {

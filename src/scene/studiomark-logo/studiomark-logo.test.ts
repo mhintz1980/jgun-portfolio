@@ -137,5 +137,3 @@ describe('Deterministic Bumper Timeline Choreography', () => {
     expect(heroLock.hudOpacity).toBeCloseTo(1.0, 2)
   })
 })
-
-

@@ -1,6 +1,14 @@
 import { useEffect, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { BufferGeometry, Color, Float32BufferAttribute, PerspectiveCamera, ShaderMaterial, Vector3, Vector4 } from 'three'
+import {
+  BufferGeometry,
+  Color,
+  Float32BufferAttribute,
+  PerspectiveCamera,
+  ShaderMaterial,
+  Vector3,
+  Vector4,
+} from 'three'
 import { SHOTS, clamp01, smooth } from './shot'
 import type { PreviewControl } from './QuietMachineScene'
 
@@ -13,30 +21,37 @@ import type { PreviewControl } from './QuietMachineScene'
  *  stationary `u` is a frozen frame. */
 export const BASE = '#101b24'
 
-interface Look { a: string; b: string; lift: number }
+interface Look {
+  a: string
+  b: string
+  lift: number
+}
 /** One look per beat, sampled at the beat centres and blended with smoothstep between
  *  them: no snaps at beat edges, and it follows the beat records if they re-space. */
 const LOOKS: Look[] = [
-  { a: '#2d5568', b: '#3a6a80', lift: .55 }, // the object
-  { a: '#2d5a70', b: '#40758c', lift: .6 },  // the incision
-  { a: '#2a5f84', b: '#3f7fa8', lift: .65 }, // the main intake
-  { a: '#2b6b78', b: '#44909a', lift: .65 }, // a second breath
-  { a: '#34637f', b: '#4c88a4', lift: .6 },  // two feeds, one exit
-  { a: '#4d5560', b: '#7a6a58', lift: .55 }, // control the noise
-  { a: '#2d5568', b: '#3a6a80', lift: .5 },  // resolve
+  { a: '#2d5568', b: '#3a6a80', lift: 0.55 }, // the object
+  { a: '#2d5a70', b: '#40758c', lift: 0.6 }, // the incision
+  { a: '#2a5f84', b: '#3f7fa8', lift: 0.65 }, // the main intake
+  { a: '#2b6b78', b: '#44909a', lift: 0.65 }, // a second breath
+  { a: '#34637f', b: '#4c88a4', lift: 0.6 }, // two feeds, one exit
+  { a: '#4d5560', b: '#7a6a58', lift: 0.55 }, // control the noise
+  { a: '#2d5568', b: '#3a6a80', lift: 0.5 }, // resolve
 ]
-const LINEAR = LOOKS.map(l => ({ a: new Color(l.a), b: new Color(l.b), lift: l.lift }))
+const LINEAR = LOOKS.map((l) => ({ a: new Color(l.a), b: new Color(l.b), lift: l.lift }))
 
 /** Blend of the looks at `u`. Writes into `out`; allocation-free. */
 export function lookAt(u: number, out: { a: Color; b: Color; lift: number }) {
-  const x = clamp01(u), n = SHOTS.length
+  const x = clamp01(u),
+    n = SHOTS.length
   const at = (i: number) => (SHOTS[i].from + SHOTS[i].to) / 2
   let i = 0
   while (i < n - 1 && x >= at(i + 1)) i++
   const j = Math.min(i + 1, n - 1)
   const t = j === i ? 0 : smooth(at(i), at(j), x)
-  const A = LINEAR[Math.min(i, LINEAR.length - 1)], B = LINEAR[Math.min(j, LINEAR.length - 1)]
-  out.a.copy(A.a).lerp(B.a, t); out.b.copy(A.b).lerp(B.b, t)
+  const A = LINEAR[Math.min(i, LINEAR.length - 1)],
+    B = LINEAR[Math.min(j, LINEAR.length - 1)]
+  out.a.copy(A.a).lerp(B.a, t)
+  out.b.copy(A.b).lerp(B.b, t)
   out.lift = A.lift + (B.lift - A.lift) * t
   return out
 }
@@ -77,8 +92,10 @@ void main() {
 }`
 
 const look = { a: new Color(), b: new Color(), lift: 0 }
-const dir = new Vector3(), ahead = new Vector3()
-const FLOOR_Y = -.22, FLOOR_EDGE = 60
+const dir = new Vector3(),
+  ahead = new Vector3()
+const FLOOR_Y = -0.22,
+  FLOOR_EDGE = 60
 const wrap = (a: number) => ((a + Math.PI * 3) % (Math.PI * 2)) - Math.PI
 
 export function BackgroundDirector({ control }: { control: PreviewControl }) {
@@ -87,32 +104,58 @@ export function BackgroundDirector({ control }: { control: PreviewControl }) {
     g.setAttribute('position', new Float32BufferAttribute([-1, -1, 0, 3, -1, 0, -1, 3, 0], 3))
     return g
   }, [])
-  const material = useMemo(() => new ShaderMaterial({
-    vertexShader, fragmentShader, depthTest: false, depthWrite: false, toneMapped: false, fog: false,
-    uniforms: {
-      uBase: { value: new Color(BASE) }, uA: { value: new Color() }, uB: { value: new Color() },
-      uLift: { value: 0 }, uAspect: { value: 1.6 }, uHorizon: { value: .5 }, uOff: { value: new Vector4() },
+  const material = useMemo(
+    () =>
+      new ShaderMaterial({
+        vertexShader,
+        fragmentShader,
+        depthTest: false,
+        depthWrite: false,
+        toneMapped: false,
+        fog: false,
+        uniforms: {
+          uBase: { value: new Color(BASE) },
+          uA: { value: new Color() },
+          uB: { value: new Color() },
+          uLift: { value: 0 },
+          uAspect: { value: 1.6 },
+          uHorizon: { value: 0.5 },
+          uOff: { value: new Vector4() },
+        },
+      }),
+    [],
+  )
+  useEffect(
+    () => () => {
+      geometry.dispose()
+      material.dispose()
     },
-  }), [])
-  useEffect(() => () => { geometry.dispose(); material.dispose() }, [geometry, material])
+    [geometry, material],
+  )
   // After Driver has set the camera (priority -1) and before it renders (2): no one-frame lag.
   useFrame(({ camera, size }) => {
     const cam = camera as PerspectiveCamera
     const u = material.uniforms
     lookAt(control.u, look)
-    u.uA.value.copy(look.a); u.uB.value.copy(look.b); u.uLift.value = look.lift
+    u.uA.value.copy(look.a)
+    u.uB.value.copy(look.b)
+    u.uLift.value = look.lift
     u.uAspect.value = size.width / Math.max(1, size.height)
     // The layers sit behind the orbit pivot, so they slide against the camera yaw and pitch
     // by an angle-based amount that grows with depth (the far layer moves most).
     cam.getWorldDirection(dir)
-    const yaw = wrap(Math.atan2(dir.x, dir.z) + Math.PI / 2), pitch = Math.asin(Math.max(-1, Math.min(1, dir.y)))
-    const vfov = (cam.fov * Math.PI) / 180, hfov = 2 * Math.atan(Math.tan(vfov / 2) * u.uAspect.value)
-    u.uOff.value.set(yaw / hfov * .34, -pitch / vfov * .22, yaw / hfov * .16, -pitch / vfov * .1)
+    const yaw = wrap(Math.atan2(dir.x, dir.z) + Math.PI / 2),
+      pitch = Math.asin(Math.max(-1, Math.min(1, dir.y)))
+    const vfov = (cam.fov * Math.PI) / 180,
+      hfov = 2 * Math.atan(Math.tan(vfov / 2) * u.uAspect.value)
+    u.uOff.value.set((yaw / hfov) * 0.34, (-pitch / vfov) * 0.22, (yaw / hfov) * 0.16, (-pitch / vfov) * 0.1)
     // Screen height of the floor's far edge along the view azimuth: the glow is BASE there.
     const len = Math.hypot(dir.x, dir.z)
     if (len > 1e-4) {
-      ahead.set(cam.position.x + dir.x / len * FLOOR_EDGE, FLOOR_Y, cam.position.z + dir.z / len * FLOOR_EDGE).project(cam)
-      u.uHorizon.value = Math.min(.95, Math.max(0, ahead.y * .5 + .5))
+      ahead
+        .set(cam.position.x + (dir.x / len) * FLOOR_EDGE, FLOOR_Y, cam.position.z + (dir.z / len) * FLOOR_EDGE)
+        .project(cam)
+      u.uHorizon.value = Math.min(0.95, Math.max(0, ahead.y * 0.5 + 0.5))
     }
   }, 1)
   return <mesh geometry={geometry} material={material} frustumCulled={false} renderOrder={-1000} />

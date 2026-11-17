@@ -21,7 +21,7 @@ export function clearPaperFlexField(field: PaperFlexField | null): boolean {
   activeField = null
   return true
 }
-export const paperFlexTierScale = (tier: string): number => tier === 'poster' ? 0 : tier === 'full' ? 1 : 0.45
+export const paperFlexTierScale = (tier: string): number => (tier === 'poster' ? 0 : tier === 'full' ? 1 : 0.45)
 
 export function paperFlexAmplitude(t: number, poseT: number, crossing: number, tier: string, flat = false): number {
   if (flat || tier === 'poster' || !Number.isFinite(t + poseT + crossing)) return 0
@@ -34,7 +34,11 @@ export function paperFlexAmplitude(t: number, poseT: number, crossing: number, t
 
 /** Retained probe compatibility: breakthrough stock is always opaque. */
 export function paperVellum(poseT: number, crossing: number, pbr: number, tier: string, flat = false): number {
-  void poseT; void crossing; void pbr; void tier; void flat
+  void poseT
+  void crossing
+  void pbr
+  void tier
+  void flat
   return 0
 }
 
@@ -45,7 +49,13 @@ export const CONTACT_SHADOW_MAX = 0.34
  * Contact-shadow separation: a tight shadow once the metal is present, which widens and
  * fades as the tool lifts past the solved separation. Returns [strength, radius (m)].
  */
-export function paperContactShadow(poseT: number, crossing: number, pbr: number, tier: string, flat = false): [number, number] {
+export function paperContactShadow(
+  poseT: number,
+  crossing: number,
+  pbr: number,
+  tier: string,
+  flat = false,
+): [number, number] {
   if (flat || tier === 'poster' || !Number.isFinite(poseT + crossing + pbr)) return [0, 0]
   const separation = smooth01((poseT - crossing) / Math.max(0.001, 1 - crossing))
   const strength = CONTACT_SHADOW_MAX * pbr * (1 - separation)
@@ -66,15 +76,22 @@ float paperDisplacement(vec2 p) { return uFlexAmplitude * paperFlexWeight(p); }
 `
 
 /** Scanline raster + separable soft mask: bounded startup cost, no per-frame CPU geometry work. */
-export function makePaperFlexField(points: number[][], width: number, height: number, nx = 256, ny = 160,
-  cleanupFailureSink?: (errors: readonly unknown[]) => void) {
+export function makePaperFlexField(
+  points: number[][],
+  width: number,
+  height: number,
+  nx = 256,
+  ny = 160,
+  cleanupFailureSink?: (errors: readonly unknown[]) => void,
+) {
   const mask = new Float32Array(nx * ny)
   for (let y = 0; y < ny; y += 1) {
     const py = ((y + 0.5) / ny - 0.5) * height
     const hits: number[] = []
     for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
-      const a = points[j], b = points[i]
-      if ((a[1] > py) !== (b[1] > py)) hits.push(a[0] + (py - a[1]) * (b[0] - a[0]) / (b[1] - a[1]))
+      const a = points[j],
+        b = points[i]
+      if (a[1] > py !== b[1] > py) hits.push(a[0] + ((py - a[1]) * (b[0] - a[0])) / (b[1] - a[1]))
     }
     hits.sort((a, b) => a - b)
     for (let k = 0; k + 1 < hits.length; k += 2) {
@@ -89,30 +106,39 @@ export function makePaperFlexField(points: number[][], width: number, height: nu
     const weights = Array.from({ length: 2 * radius + 1 }, (_, i) => Math.exp(-0.5 * ((i - radius) / sigma) ** 2))
     const total = weights.reduce((sum, w) => sum + w, 0)
     const output = new Float32Array(input.length)
-    for (let y = 0; y < ny; y += 1) for (let x = 0; x < nx; x += 1) {
-      let sum = 0
-      for (let d = -radius; d <= radius; d += 1) {
-        const xx = horizontal ? x + d : x, yy = horizontal ? y : y + d
-        if (xx >= 0 && xx < nx && yy >= 0 && yy < ny) sum += input[yy * nx + xx] * weights[d + radius]
+    for (let y = 0; y < ny; y += 1)
+      for (let x = 0; x < nx; x += 1) {
+        let sum = 0
+        for (let d = -radius; d <= radius; d += 1) {
+          const xx = horizontal ? x + d : x,
+            yy = horizontal ? y : y + d
+          if (xx >= 0 && xx < nx && yy >= 0 && yy < ny) sum += input[yy * nx + xx] * weights[d + radius]
+        }
+        output[y * nx + x] = sum / total
       }
-      output[y * nx + x] = sum / total
-    }
     return output
   }
   const soft = blur(blur(mask, true), false)
   const bytes = new Uint8Array(nx * ny * 4)
   let peak = 0
   for (let x = 0; x < nx; x += 1) {
-    let mass = 0, moment = 0, variance = 0
-    for (let y = 0; y < ny; y += 1) { const w = soft[y * nx + x]; mass += w; moment += w * y }
+    let mass = 0,
+      moment = 0,
+      variance = 0
+    for (let y = 0; y < ny; y += 1) {
+      const w = soft[y * nx + x]
+      mass += w
+      moment += w * y
+    }
     const center = mass > 0 ? moment / mass : ny / 2
-    for (let y = 0; y < ny; y += 1) variance += soft[y * nx + x] * ((y - center) * height / ny) ** 2
+    for (let y = 0; y < ny; y += 1) variance += soft[y * nx + x] * (((y - center) * height) / ny) ** 2
     const spread = Math.max(0.02, Math.sqrt(variance / Math.max(mass, 1e-9)))
     for (let y = 0; y < ny; y += 1) {
-      const dy = (y - center) * height / ny
-      const edge = Math.min(x, nx - 1 - x) * width / nx
-      const edgeY = Math.min(y, ny - 1 - y) * height / ny
-      const weight = soft[y * nx + x] * (0.55 + 0.45 * Math.exp(-0.5 * (dy / spread) ** 2)) * smooth01(Math.min(edge, edgeY) / 0.018)
+      const dy = ((y - center) * height) / ny
+      const edge = (Math.min(x, nx - 1 - x) * width) / nx
+      const edgeY = (Math.min(y, ny - 1 - y) * height) / ny
+      const weight =
+        soft[y * nx + x] * (0.55 + 0.45 * Math.exp(-0.5 * (dy / spread) ** 2)) * smooth01(Math.min(edge, edgeY) / 0.018)
       const i = (y * nx + x) * 4
       bytes[i] = Math.round(weight * 255)
       bytes[i + 3] = 255
@@ -125,22 +151,37 @@ export function makePaperFlexField(points: number[][], width: number, height: nu
     texture.generateMipmaps = false
     texture.needsUpdate = true
     const sample = (x: number, y: number): number => {
-      const u = x / width + 0.5, v = y / height + 0.5
+      const u = x / width + 0.5,
+        v = y / height + 0.5
       if (Math.min(u, v) <= 0 || Math.max(u, v) >= 1) return 0
-      const px = u * nx - 0.5, py = v * ny - 0.5
-      const ix = Math.floor(px), iy = Math.floor(py)
-      const fx = px - ix, fy = py - iy
-      const read = (xx: number, yy: number) => bytes[(Math.max(0, Math.min(ny - 1, yy)) * nx + Math.max(0, Math.min(nx - 1, xx))) * 4] / 255
-      return (read(ix, iy) * (1 - fx) + read(ix + 1, iy) * fx) * (1 - fy) +
+      const px = u * nx - 0.5,
+        py = v * ny - 0.5
+      const ix = Math.floor(px),
+        iy = Math.floor(py)
+      const fx = px - ix,
+        fy = py - iy
+      const read = (xx: number, yy: number) =>
+        bytes[(Math.max(0, Math.min(ny - 1, yy)) * nx + Math.max(0, Math.min(nx - 1, xx))) * 4] / 255
+      return (
+        (read(ix, iy) * (1 - fx) + read(ix + 1, iy) * fx) * (1 - fy) +
         (read(ix, iy + 1) * (1 - fx) + read(ix + 1, iy + 1) * fx) * fy
+      )
     }
     activeField = { texture, rect: new Vector4(-width / 2, -height / 2, width, height), peak, sample }
     return activeField
   } catch (error) {
     const errors: unknown[] = []
-    try { texture.dispose() } catch (cleanupError) { errors.push(cleanupError) }
+    try {
+      texture.dispose()
+    } catch (cleanupError) {
+      errors.push(cleanupError)
+    }
     if (errors.length) {
-      try { cleanupFailureSink?.(Object.freeze(errors)) } catch { /* Preserve the construction error. */ }
+      try {
+        cleanupFailureSink?.(Object.freeze(errors))
+      } catch {
+        /* Preserve the construction error. */
+      }
     }
     throw error
   }

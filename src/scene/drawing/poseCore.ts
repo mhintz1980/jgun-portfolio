@@ -23,7 +23,10 @@ export interface Extraction {
 }
 
 const translation = new Matrix4()
-const source = new WeakMap<Extraction, { data: DrawingGeometry; field: PaperFlexField | null; full: number; lite: number; tier: string; restMin: number }>()
+const source = new WeakMap<
+  Extraction,
+  { data: DrawingGeometry; field: PaperFlexField | null; full: number; lite: number; tier: string; restMin: number }
+>()
 // 0.45 mm stock: reserve its lower half thickness plus 0.05 mm separation.
 const STOCK_UNDERSIDE = 0.000275
 
@@ -55,7 +58,11 @@ export function relativePose(
   // the barrier. Keep this basis throughout the lift so clearance stays monotone.
   void clearanceTravel
   out
-    .makeTranslation(layout.primaryCenter.x, layout.primaryCenter.y, initialZ + extractionLift(t, travel, pressureTravel))
+    .makeTranslation(
+      layout.primaryCenter.x,
+      layout.primaryCenter.y,
+      initialZ + extractionLift(t, travel, pressureTravel),
+    )
     .multiply(SIDE_ROTATION)
   return out
 }
@@ -66,7 +73,10 @@ export function lowestVertex(data: DrawingGeometry, matrix: Matrix4): Vector3 {
   // Raw array walk: the solver calls this ~110 times over ~2.5M vertices during the bake.
   const v = a.array as Float32Array
   const m = matrix.elements
-  const m2 = m[2], m6 = m[6], m10 = m[10], m14 = m[14]
+  const m2 = m[2],
+    m6 = m[6],
+    m10 = m[10],
+    m14 = m[14]
   let z = Infinity
   let index = 0
   for (let i = 0, j = 0; i < a.count; i += 1, j += 3) {
@@ -113,11 +123,29 @@ export function solveExtraction(data: DrawingGeometry, layout: DrawingLayout): E
   const a = data.geometry.getAttribute('position')
   let top = -Infinity
   const e = SIDE_ROTATION.elements
-  for (let i = 0; i < a.count; i += 1) top = Math.max(top, e[2] * a.getX(i) + e[6] * a.getY(i) + e[10] * a.getZ(i) + initialZ)
-  const extraction = { travel, initialZ, clearanceTravel, crossing, contact, support,
-    initialTop: top, pressureTravel: 0, modelTop: top, modelPush: 0, pressureClearance: -top - STOCK_UNDERSIDE }
-  source.set(extraction, { data, field: null, full: 0, lite: 0, tier: '',
-    restMin: contact.z - extractionLift(crossing, travel, 0) })
+  for (let i = 0; i < a.count; i += 1)
+    top = Math.max(top, e[2] * a.getX(i) + e[6] * a.getY(i) + e[10] * a.getZ(i) + initialZ)
+  const extraction = {
+    travel,
+    initialZ,
+    clearanceTravel,
+    crossing,
+    contact,
+    support,
+    initialTop: top,
+    pressureTravel: 0,
+    modelTop: top,
+    modelPush: 0,
+    pressureClearance: -top - STOCK_UNDERSIDE,
+  }
+  source.set(extraction, {
+    data,
+    field: null,
+    full: 0,
+    lite: 0,
+    tier: '',
+    restMin: contact.z - extractionLift(crossing, travel, 0),
+  })
   return extraction
 }
 
@@ -125,7 +153,12 @@ export function solveExtraction(data: DrawingGeometry, layout: DrawingLayout): E
  * throughout pressure: both the lift and sheet displacement use the same smooth01.
  * Use the shader's exact byte texture, not its peak or an assumed silhouette plateau.
  */
-export function bindExtractionPressure(extraction: Extraction, layout: DrawingLayout, field: PaperFlexField | null, tier: string): void {
+export function bindExtractionPressure(
+  extraction: Extraction,
+  layout: DrawingLayout,
+  field: PaperFlexField | null,
+  tier: string,
+): void {
   const cached = source.get(extraction)
   if (!cached) return
   if (field === null) {
@@ -138,9 +171,12 @@ export function bindExtractionPressure(extraction: Extraction, layout: DrawingLa
   if (cached.field !== field) {
     const a = cached.data.geometry.getAttribute('position')
     const e = SIDE_ROTATION.elements
-    let full = PAPER_FLEX_MAX, lite = PAPER_FLEX_MAX * 0.45
+    let full = PAPER_FLEX_MAX,
+      lite = PAPER_FLEX_MAX * 0.45
     for (let i = 0; i < a.count; i += 1) {
-      const x = a.getX(i), y = a.getY(i), z = a.getZ(i)
+      const x = a.getX(i),
+        y = a.getY(i),
+        z = a.getZ(i)
       const px = e[0] * x + e[4] * y + e[8] * z + layout.primaryCenter.x
       const py = e[1] * x + e[5] * y + e[9] * z + layout.primaryCenter.y
       const pz = e[2] * x + e[6] * y + e[10] * z + extraction.initialZ
@@ -159,7 +195,13 @@ export function bindExtractionPressure(extraction: Extraction, layout: DrawingLa
     extraction.pressureTravel = paperFlexTierScale(tier) === 0 ? 0 : tier === 'full' ? cached.full : cached.lite
     // Fixed SIDE_ROTATION makes the true support offset constant. Solve the
     // revised lift analytically, avoiding another repeated multi-million vertex walk.
-    extraction.crossing = 0.5 + 0.5 * Math.pow(clamp01((-cached.restMin - extraction.pressureTravel) / (extraction.travel - extraction.pressureTravel)), 1 / 1.4)
+    extraction.crossing =
+      0.5 +
+      0.5 *
+        Math.pow(
+          clamp01((-cached.restMin - extraction.pressureTravel) / (extraction.travel - extraction.pressureTravel)),
+          1 / 1.4,
+        )
   }
 }
 
@@ -167,7 +209,10 @@ const pose = new Matrix4()
 const sheet = new Matrix4()
 const temp = new Vector3()
 
-export interface ExtractionContext { modelMatrix: Matrix4; sheetMatrix: Matrix4 }
+export interface ExtractionContext {
+  modelMatrix: Matrix4
+  sheetMatrix: Matrix4
+}
 
 export function createExtractionContext(): ExtractionContext {
   return { modelMatrix: new Matrix4(), sheetMatrix: new Matrix4() }
@@ -193,18 +238,29 @@ export function applyBoundExtraction(
   out: ExtractionContext,
 ): number {
   const release = smooth01((t - 0.7) / 0.3)
-  sheet.copy(SHEET_ROTATION).multiply(
-    translation.makeTranslation(
-      -layout.primaryCenter.x * release,
-      -layout.primaryCenter.y * release,
-      -(extraction.initialZ + extraction.travel) * release,
-    ),
+  sheet
+    .copy(SHEET_ROTATION)
+    .multiply(
+      translation.makeTranslation(
+        -layout.primaryCenter.x * release,
+        -layout.primaryCenter.y * release,
+        -(extraction.initialZ + extraction.travel) * release,
+      ),
+    )
+  relativePose(
+    t,
+    layout,
+    extraction.travel,
+    extraction.initialZ,
+    pose,
+    extraction.clearanceTravel,
+    extraction.pressureTravel,
   )
-  relativePose(t, layout, extraction.travel, extraction.initialZ, pose, extraction.clearanceTravel, extraction.pressureTravel)
   extraction.modelPush = extractionLift(t, extraction.travel, extraction.pressureTravel)
   extraction.modelTop = extraction.initialTop + extraction.modelPush
   // Conservative clearance guaranteed by the endpoint bound, including stock thickness.
-  extraction.pressureClearance = t <= 0.5 ? (-extraction.initialTop - STOCK_UNDERSIDE) * (1 - smooth01((t - 0.4) / 0.1)) : 0
+  extraction.pressureClearance =
+    t <= 0.5 ? (-extraction.initialTop - STOCK_UNDERSIDE) * (1 - smooth01((t - 0.4) / 0.1)) : 0
   out.modelMatrix.multiplyMatrices(sheet, pose)
   out.sheetMatrix.copy(sheet)
   let minZ = Infinity

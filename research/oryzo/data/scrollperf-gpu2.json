@@ -1,0 +1,132 @@
+{
+ "viewport": {
+  "w": 1424,
+  "h": 805
+ },
+ "scrollHeight": 51040,
+ "maxScroll": 50235,
+ "frames": 52,
+ "elapsedMs": 10369.1,
+ "avgFps": 5,
+ "worstGapMs": 4141.5,
+ "p95GapMs": 574.8,
+ "gapsOver50ms": 26,
+ "gapsOver100ms": 14,
+ "worstGaps": [
+  220.4,
+  309.2,
+  337.4,
+  474.1,
+  485.9,
+  574.8,
+  1511.2,
+  4141.5
+ ],
+ "longtasksDuringScroll": [
+  79,
+  104,
+  339,
+  52,
+  51,
+  137,
+  1516,
+  4149,
+  319,
+  105,
+  499,
+  70,
+  75,
+  121,
+  63
+ ],
+ "longtaskCount": 15,
+ "canvasPresent": 6,
+ "endedAtY": 50235,
+ "networkDuringScroll": [
+  {
+   "t": 8316,
+   "url": "/rive/oryzo.riv",
+   "type": "Fetch"
+  },
+  {
+   "t": 8356,
+   "url": "/rive/oryzo.riv",
+   "type": "Fetch"
+  },
+  {
+   "t": 9742,
+   "url": "blob:/aab1b8a6-1d6b-4537-8feb-a505f24a9605",
+   "type": "Image"
+  },
+  {
+   "t": 9986,
+   "url": "blob:/7f616df4-7462-40cd-9138-08a5e8fe833d",
+   "type": "Image"
+  },
+  {
+   "t": 10060,
+   "url": "blob:/f42cdcbf-eba2-402f-bac9-12c93021180b",
+   "type": "Image"
+  },
+  {
+   "t": 10223,
+   "url": "blob:/d2b48402-1486-4d6f-adac-5d0f3d82d6e7",
+   "type": "Image"
+  },
+  {
+   "t": 10276,
+   "url": "blob:/1d8521f1-de29-4ad1-a41d-5622523a85a9",
+   "type": "Image"
+  },
+  {
+   "t": 10290,
+   "url": "blob:/510630ea-6e64-4c01-87cc-3992c8752e3e",
+   "type": "Image"
+  },
+  {
+   "t": 10292,
+   "url": "blob:/def2796a-cd19-4790-97e5-e48842921273",
+   "type": "Image"
+  },
+  {
+   "t": 10292,
+   "url": "blob:/ad42725a-e60d-422b-b8cf-98e94b5131c1",
+   "type": "Image"
+  },
+  {
+   "t": 10310,
+   "url": "blob:/27d8ab81-87e5-4126-9099-8c8c76e2cf6f",
+   "type": "Image"
+  },
+  {
+   "t": 10324,
+   "url": "blob:/7b1155e5-a6d3-43d5-a485-25149fe1dd05",
+   "type": "Image"
+  },
+  {
+   "t": 10358,
+   "url": "blob:/08d0716f-17ea-448b-9d86-3b08655b265a",
+   "type": "Image"
+  },
+  {
+   "t": 10374,
+   "url": "blob:/260e59e2-6848-4834-a0e5-5a5436d64f96",
+   "type": "Image"
+  },
+  {
+   "t": 10404,
+   "url": "blob:/b3ae6756-a28d-4a68-a314-6c5341b506a7",
+   "type": "Image"
+  },
+  {
+   "t": 10405,
+   "url": "blob:/14d8d6d0-e7bf-4a32-92ad-0c7d9a412b19",
+   "type": "Image"
+  }
+ ],
+ "extra": {
+  "dataEngine": "three.js r178 - modified by Lusion",
+  "preloaderStillInDom": true,
+  "scrollHeight": 51040
+ }
+}

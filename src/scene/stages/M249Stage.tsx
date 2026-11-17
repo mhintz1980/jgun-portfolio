@@ -1,20 +1,20 @@
-import { useEffect, useMemo, useRef, useState } from "react"
-import { useFrame } from "@react-three/fiber"
-import { useGLTF } from "@react-three/drei"
-import { Box3, Group, Material, Mesh, MeshStandardMaterial, Vector3 } from "three"
-import { createCadTransitionMaterial } from "../../shaders/CadTransitionShader"
-import { getScrollState, setScrollState, useScrollValue } from "../../state/scrollStore"
-import { getQuality } from "../../state/qualityStore"
-import { HOTSPOTS } from "../../data/caseStudies"
-import { SpatialHotspotAnchor } from "../Hotspots"
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { useFrame } from '@react-three/fiber'
+import { useGLTF } from '@react-three/drei'
+import { Box3, Group, Material, Mesh, MeshStandardMaterial, Vector3 } from 'three'
+import { createCadTransitionMaterial } from '../../shaders/CadTransitionShader'
+import { getScrollState, setScrollState, useScrollValue } from '../../state/scrollStore'
+import { getQuality } from '../../state/qualityStore'
+import { HOTSPOTS } from '../../data/caseStudies'
+import { SpatialHotspotAnchor } from '../Hotspots'
 
-const MODEL_URL = "/models/m249-transformed.glb"
+const MODEL_URL = '/models/m249-transformed.glb'
 
 const STATION3_HOTSPOT_CONFIG: Record<string, { pos: [number, number, number]; dx: number; dy: number }> = {
-  "m249-rail": { pos: [0, 0.10, -0.08], dx: -220, dy: -100 },
-  "m249-feed-tray": { pos: [0, 0.06, 0.04], dx: -220, dy: -20 },
-  "m249-trunnion": { pos: [0, 0.02, 0.15], dx: 220, dy: -60 },
-  "m249-receiver": { pos: [0, 0.04, 0], dx: 220, dy: 90 },
+  'm249-rail': { pos: [0, 0.1, -0.08], dx: -220, dy: -100 },
+  'm249-feed-tray': { pos: [0, 0.06, 0.04], dx: -220, dy: -20 },
+  'm249-trunnion': { pos: [0, 0.02, 0.15], dx: 220, dy: -60 },
+  'm249-receiver': { pos: [0, 0.04, 0], dx: 220, dy: 90 },
 }
 
 /**
@@ -30,8 +30,8 @@ export function M249Stage() {
   const groupRef = useRef<Group>(null)
   const originalMaterials = useRef(new Map<Mesh, Material | Material[]>())
   const cadBound = useRef(false)
-  const activeHotspotId = useScrollValue("hotspotId")
-  const chapter = useScrollValue("chapter")
+  const activeHotspotId = useScrollValue('hotspotId')
+  const chapter = useScrollValue('chapter')
   const [hovered, setHovered] = useState(false)
 
   const { sweepMin, sweepMax, center } = useMemo(() => {
@@ -85,11 +85,11 @@ export function M249Stage() {
       const materials = Array.isArray(obj.material) ? obj.material : [obj.material]
       materials.forEach((mat) => {
         if (mat instanceof MeshStandardMaterial) {
-          if (hovered || (activeHotspotId && activeHotspotId.startsWith("m249"))) {
-            mat.emissive.set("#00e5ff")
+          if (hovered || (activeHotspotId && activeHotspotId.startsWith('m249'))) {
+            mat.emissive.set('#00e5ff')
             mat.emissiveIntensity = 0.25
           } else {
-            mat.emissive.set("#000000")
+            mat.emissive.set('#000000')
             mat.emissiveIntensity = 0.0
           }
         }
@@ -100,7 +100,7 @@ export function M249Stage() {
   useFrame((_, delta) => {
     const { chapter, chapterProgress } = getScrollState()
     const { tier } = getQuality()
-    const wantCad = chapter === 3 && tier === "full"
+    const wantCad = chapter === 3 && tier === 'full'
 
     cadMaterial.uniforms.uTime.value += delta
     if (groupRef.current) {
@@ -115,7 +115,7 @@ export function M249Stage() {
   })
 
   const station3Hotspots = useMemo(() => {
-    return HOTSPOTS.filter((h) => h.chapters.includes(3) && h.id.startsWith("m249"))
+    return HOTSPOTS.filter((h) => h.chapters.includes(3) && h.id.startsWith('m249'))
   }, [])
 
   return (
@@ -132,13 +132,13 @@ export function M249Stage() {
           // Classify subassembly by click position in model frame
           const pt = e.point.clone().sub(new Vector3(56, 0, -12))
           if (pt.y > 0.08) {
-            setScrollState({ hotspotId: "m249-rail" })
+            setScrollState({ hotspotId: 'm249-rail' })
           } else if (pt.z > 0.1) {
-            setScrollState({ hotspotId: "m249-trunnion" })
+            setScrollState({ hotspotId: 'm249-trunnion' })
           } else if (pt.y > 0.04) {
-            setScrollState({ hotspotId: "m249-feed-tray" })
+            setScrollState({ hotspotId: 'm249-feed-tray' })
           } else {
-            setScrollState({ hotspotId: "m249-receiver" })
+            setScrollState({ hotspotId: 'm249-receiver' })
           }
         }}
       />

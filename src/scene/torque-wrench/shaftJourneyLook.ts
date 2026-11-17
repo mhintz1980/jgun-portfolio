@@ -4,7 +4,7 @@ import { Color, type Material, MeshStandardMaterial } from 'three'
  * Over the entry leg the private source-shaft clone ramps its look toward the study steel so the
  * atomic swap at .62 shows no luminance pop. look 0 reproduces the source material exactly.
  */
-export const STUDY_STEEL = Object.freeze({ color: '#adb4ba', metalness: .94, roughness: .28, envMapIntensity: 1 })
+export const STUDY_STEEL = Object.freeze({ color: '#adb4ba', metalness: 0.94, roughness: 0.28, envMapIntensity: 1 })
 const steel = new Color(STUDY_STEEL.color)
 export function applyShaftLook(source: Material, clone: Material, look: number): void {
   if (!(source instanceof MeshStandardMaterial) || !(clone instanceof MeshStandardMaterial)) return

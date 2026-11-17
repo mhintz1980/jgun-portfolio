@@ -1,0 +1,1 @@
+try{sessionStorage.getItem('ri:nav')==='1'&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&document.documentElement.classList.add('ri-arriving')}catch(e){}

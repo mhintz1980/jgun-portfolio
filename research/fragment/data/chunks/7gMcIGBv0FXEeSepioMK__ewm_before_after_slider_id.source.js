@@ -1,0 +1,255 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useState, useRef, useCallback, useEffect } from "react";
+import { addPropertyControls, ControlType } from "framer";
+export default function BeforeAfterSlider(props) {
+    const { imageBefore, imageAfter, labelBefore, labelAfter, labelBeforeColor, labelAfterColor, font, direction, labelPosition } = props;
+    const [sliderPos, setSliderPos] = useState(50);
+    const containerRef = useRef(null);
+    const isDragging = useRef(false);
+    const touchStartX = useRef(0);
+    const touchStartY = useRef(0);
+    const gestureIntent = useRef(null);
+    const isHorizontal = direction === "horizontal"; // Refs for direct DOM manipulation
+    const beforeImgRef = useRef(null);
+    const lineRef = useRef(null);
+    const labelBeforeRef = useRef(null);
+    const labelAfterRef = useRef(null);
+    const applyPosition = useCallback(pos => { const clamped = Math.min(100, Math.max(0, pos)); if (beforeImgRef.current) {
+        beforeImgRef.current.style.clipPath = isHorizontal ? `inset(0% ${100 - clamped}% 0% 0%)` : `inset(0% 0% ${100 - clamped}% 0%)`;
+    } if (lineRef.current) {
+        if (isHorizontal) {
+            lineRef.current.style.left = `${clamped}%`;
+        }
+        else {
+            lineRef.current.style.top = `${clamped}%`;
+        }
+    } if (labelBeforeRef.current) {
+        labelBeforeRef.current.style.opacity = clamped < 15 ? "0" : "1";
+    } if (labelAfterRef.current) {
+        labelAfterRef.current.style.opacity = clamped > 85 ? "0" : "1";
+    } }, [isHorizontal]);
+    const getMousePosition = useCallback((clientX, clientY) => { if (!containerRef.current)
+        return sliderPos; const rect = containerRef.current.getBoundingClientRect(); if (isHorizontal) {
+        return (clientX - rect.left) / rect.width * 100;
+    } return (clientY - rect.top) / rect.height * 100; }, [isHorizontal, sliderPos]);
+    const handleTouchStart = useCallback(e => { if (!e.touches || e.touches.length === 0)
+        return; const touch = e.touches[0]; touchStartX.current = touch.clientX; touchStartY.current = touch.clientY; gestureIntent.current = null; isDragging.current = true; }, []);
+    const handleTouchMove = useCallback(e => {
+        if (!isDragging.current)
+            return;
+        if (!e.touches || e.touches.length === 0)
+            return;
+        const touch = e.touches[0];
+        const deltaX = touch.clientX - touchStartX.current;
+        const deltaY = touch.clientY - touchStartY.current;
+        const absX = Math.abs(deltaX);
+        const absY = Math.abs(deltaY); /*
+                     * HORIZONTAL SLIDER
+                     *
+                     * Najpierw wykrywamy intencję gestu:
+                     *
+                     * poziomo -> slider
+                     * pionowo -> normalny scroll strony
+                     */
+        if (isHorizontal) {
+            if (gestureIntent.current === null) { // Ignorujemy minimalne drgania palca
+                if (Math.max(absX, absY) < 6) {
+                    return;
+                } // Poziomy ruch wyraźnie dominuje
+                if (absX > absY * 1.15) {
+                    gestureIntent.current = "slider";
+                }
+                else if (absY > absX * 1.15) {
+                    gestureIntent.current = "scroll";
+                    isDragging.current = false;
+                    return;
+                }
+                else {
+                    return;
+                }
+            }
+            if (gestureIntent.current === "scroll") {
+                return;
+            }
+            if (gestureIntent.current === "slider") {
+                e.preventDefault();
+                const pos = getMousePosition(touch.clientX, touch.clientY);
+                applyPosition(pos);
+            }
+            return;
+        } /*
+                     * VERTICAL SLIDER
+                     *
+                     * Zachowujemy stare zachowanie.
+                     * Pionowy slider przejmuje pionowy ruch palca.
+                     */
+        e.preventDefault();
+        const pos = getMousePosition(touch.clientX, touch.clientY);
+        applyPosition(pos);
+    }, [isHorizontal, getMousePosition, applyPosition]);
+    const handleTouchEnd = useCallback(e => {
+        if (!isDragging.current) {
+            gestureIntent.current = null;
+            return;
+        }
+        if (!e.changedTouches || e.changedTouches.length === 0) {
+            isDragging.current = false;
+            gestureIntent.current = null;
+            return;
+        }
+        const touch = e.changedTouches[0]; /*
+        * Jeśli użytkownik wykonywał normalny scroll,
+        * niczego w sliderze nie zmieniamy.
+        */
+        if (gestureIntent.current === "scroll") {
+            isDragging.current = false;
+            gestureIntent.current = null;
+            return;
+        } /*
+        * Tap lub poziomy drag slidera.
+        */
+        const pos = getMousePosition(touch.clientX, touch.clientY);
+        applyPosition(pos);
+        setSliderPos(Math.min(100, Math.max(0, pos)));
+        isDragging.current = false;
+        gestureIntent.current = null;
+    }, [getMousePosition, applyPosition]);
+    const handleTouchCancel = useCallback(() => { isDragging.current = false; gestureIntent.current = null; }, []);
+    const handleMouseDown = useCallback(e => { e.preventDefault(); isDragging.current = true; const pos = getMousePosition(e.clientX, e.clientY); applyPosition(pos); setSliderPos(Math.min(100, Math.max(0, pos))); }, [getMousePosition, applyPosition]);
+    const handleMouseMove = useCallback(e => { if (!isDragging.current)
+        return; e.preventDefault(); const pos = getMousePosition(e.clientX, e.clientY); applyPosition(pos); }, [getMousePosition, applyPosition]);
+    const handleMouseUp = useCallback(e => { if (!isDragging.current)
+        return; const pos = getMousePosition(e.clientX, e.clientY); setSliderPos(Math.min(100, Math.max(0, pos))); isDragging.current = false; }, [getMousePosition]);
+    useEffect(() => { const el = containerRef.current; if (!el)
+        return; el.addEventListener("touchstart", handleTouchStart, {
+        passive: true
+    }); el.addEventListener("touchmove", handleTouchMove, {
+        passive: false
+    }); el.addEventListener("touchend", handleTouchEnd, {
+        passive: true
+    }); el.addEventListener("touchcancel", handleTouchCancel, {
+        passive: true
+    }); el.addEventListener("mousedown", handleMouseDown); window.addEventListener("mousemove", handleMouseMove); window.addEventListener("mouseup", handleMouseUp); return () => { el.removeEventListener("touchstart", handleTouchStart); el.removeEventListener("touchmove", handleTouchMove); el.removeEventListener("touchend", handleTouchEnd); el.removeEventListener("touchcancel", handleTouchCancel); el.removeEventListener("mousedown", handleMouseDown); window.removeEventListener("mousemove", handleMouseMove); window.removeEventListener("mouseup", handleMouseUp); }; }, [handleTouchStart, handleTouchMove, handleTouchEnd, handleTouchCancel, handleMouseDown, handleMouseMove, handleMouseUp]);
+    const parseLineHeight = lh => { if (!lh)
+        return "inherit"; return typeof lh === "number" ? `${lh}px` : lh; };
+    const parseFontSize = size => { if (!size)
+        return "14px"; return typeof size === "number" ? `${size}px` : size; };
+    const baseDynamicLabelStyle = {
+        ...labelStyle, ...font, fontSize: parseFontSize(font?.fontSize), lineHeight: parseLineHeight(font?.lineHeight)
+    };
+    const clipPath = isHorizontal ? `inset(0% ${100 - sliderPos}% 0% 0%)` : `inset(0% 0% ${100 - sliderPos}% 0%)`;
+    const horizontalVerticalPosition = labelPosition === "top" ? {
+        top: "16px"
+    } : {
+        bottom: "16px"
+    };
+    return /*#__PURE__*/ _jsxs("div", {
+        ref: containerRef, style: {
+            ...containerStyle, cursor: isHorizontal ? "ew-resize" : "ns-resize", /*
+                * Horizontal:
+                * pozwalamy przeglądarce scrollować stronę pionowo.
+                *
+                * Vertical:
+                * zachowujemy stare zachowanie slidera.
+                */
+            touchAction: isHorizontal ? "pan-y" : "none"
+        }, children: [imageAfter ? /*#__PURE__*/ _jsx("img", {
+                src: imageAfter, style: imageStyle, alt: "", draggable: false
+            }) : /*#__PURE__*/ _jsx("div", {
+                style: {
+                    ...imageStyle, backgroundColor: "#EBEBEB"
+                }
+            }), imageBefore ? /*#__PURE__*/ _jsx("img", {
+                ref: beforeImgRef, src: imageBefore, style: {
+                    ...imageStyle, clipPath
+                }, alt: "", draggable: false
+            }) : /*#__PURE__*/ _jsx("div", {
+                ref: beforeImgRef, style: {
+                    ...imageStyle, backgroundColor: "#CCCCCC", clipPath
+                }
+            }), labelBefore && /*#__PURE__*/ _jsx("div", {
+                ref: labelBeforeRef, style: {
+                    ...baseDynamicLabelStyle, backgroundColor: labelBeforeColor, ...isHorizontal ? {
+                        left: "16px", ...horizontalVerticalPosition
+                    } : {
+                        top: "16px", left: "50%", transform: "translateX(-50%)"
+                    }, opacity: sliderPos < 15 ? 0 : 1, transition: "opacity 0.25s ease-in-out"
+                }, children: labelBefore
+            }), labelAfter && /*#__PURE__*/ _jsx("div", {
+                ref: labelAfterRef, style: {
+                    ...baseDynamicLabelStyle, backgroundColor: labelAfterColor, ...isHorizontal ? {
+                        right: "16px", ...horizontalVerticalPosition
+                    } : {
+                        bottom: "16px", left: "50%", transform: "translateX(-50%)"
+                    }, opacity: sliderPos > 85 ? 0 : 1, transition: "opacity 0.25s ease-in-out"
+                }, children: labelAfter
+            }), /*#__PURE__*/ _jsx("div", {
+                ref: lineRef, style: {
+                    ...lineStyle, left: isHorizontal ? `${sliderPos}%` : 0, top: isHorizontal ? 0 : `${sliderPos}%`, width: isHorizontal ? "2px" : "100%", height: isHorizontal ? "100%" : "2px", transform: isHorizontal ? "translateX(-50%)" : "translateY(-50%)"
+                }, children: /*#__PURE__*/ _jsx("div", {
+                    style: {
+                        ...handleStyle, transform: isHorizontal ? "rotate(0deg)" : "rotate(90deg)"
+                    }, children: /*#__PURE__*/ _jsxs("svg", {
+                        viewBox: "0 0 24 24", width: "32", height: "32", stroke: "#333", strokeWidth: "2.5", fill: "none", children: [/*#__PURE__*/ _jsx("polyline", {
+                                points: "9 16 5 12 9 8"
+                            }), /*#__PURE__*/ _jsx("polyline", {
+                                points: "15 8 19 12 15 16"
+                            })]
+                    })
+                })
+            })]
+    });
+}
+BeforeAfterSlider.defaultProps = {
+    direction: "horizontal", labelPosition: "bottom", labelBefore: "Before", labelAfter: "After", labelBeforeColor: "#408053", labelAfterColor: "#408053"
+};
+addPropertyControls(BeforeAfterSlider, {
+    direction: {
+        type: ControlType.Enum, title: "Direction", options: ["horizontal", "vertical"], optionTitles: ["Horizontal", "Vertical"], defaultValue: "horizontal", displaySegmentedControl: true
+    }, labelPosition: {
+        type: ControlType.Enum, title: "Label Position", options: ["top", "bottom"], optionTitles: ["Top", "Bottom"], defaultValue: "bottom", displaySegmentedControl: true, hidden(props) { return props.direction === "vertical"; }
+    }, imageBefore: {
+        type: ControlType.Image, title: "Before Image"
+    }, imageAfter: {
+        type: ControlType.Image, title: "After Image"
+    }, labelBefore: {
+        type: ControlType.String, title: "Before Label", defaultValue: "Before"
+    }, labelBeforeColor: {
+        type: ControlType.Color, title: "Before Color", defaultValue: "#408053"
+    }, labelAfter: {
+        type: ControlType.String, title: "After Label", defaultValue: "After"
+    }, labelAfterColor: {
+        type: ControlType.Color, title: "After Color", defaultValue: "#408053"
+    }, font: {
+        type: ControlType.Font, title: "Label Typography", controls: "extended", displayFontSize: true, displayTextAlignment: true, defaultValue: {
+            fontFamily: "Inter, sans-serif", fontSize: 14, fontWeight: 500
+        }
+    }
+});
+const containerStyle = {
+    position: "relative", width: "100%", height: "100%", overflow: "hidden", backgroundColor: "#F5F5F5", userSelect: "none", WebkitUserSelect: "none"
+};
+const imageStyle = {
+    position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none"
+};
+const labelStyle = {
+    position: "absolute", padding: "6px 14px", color: "#FFFFFF", borderRadius: "20px", border: "1px solid rgba(255, 255, 255, 0.3)", backdropFilter: "blur(4px)", pointerEvents: "none", zIndex: 2
+};
+const lineStyle = {
+    position: "absolute", backgroundColor: "#FFFFFF", pointerEvents: "none", zIndex: 3, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0px 0px 5px rgba(0,0,0,0.3)"
+};
+const handleStyle = {
+    width: "64px", height: "40px", backgroundColor: "#FFFFFF", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 6px rgba(0,0,0,0.3)"
+};
+export const __FramerMetadata__ = {
+    "exports": {
+        "default": {
+            "type": "reactComponent", "name": "BeforeAfterSlider", "slots": [], "annotations": {
+                "framerContractVersion": "1"
+            }
+        }, "__FramerMetadata__": {
+            "type": "variable"
+        }
+    }
+};
+//# sourceMappingURL=./ewm_before_after_slider_id.map

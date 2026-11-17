@@ -146,189 +146,223 @@ export function makeSheetText(
   let materialValue: MeshBasicMaterial | null = null
   const allocatedTexts: Text[] = []
   const syncDetachers: (() => void)[] = []
-try {
-  const material = new MeshBasicMaterial({ color: INK, transparent: true, depthWrite: false, toneMapped: false })
-  materialValue = material
-  if (uniforms) {
-    material.onBeforeCompile = (shader) => {
-      Object.assign(shader.uniforms, uniforms)
-      // `transformed` is already in batch/sheet space here: Troika has applied the
-      // per-member position/rotation matrix. Deforming glyph-local XY misregisters text.
-      shader.vertexShader = 'varying vec2 vStockPlane;\n' + PAPER_FLEX_GLSL + shader.vertexShader.replace(
-        '#include <project_vertex>',
-        'vStockPlane = transformed.xy;\ntransformed.z += paperDisplacement(transformed.xy);\n#include <project_vertex>',
-      )
-      // Glyphs are printed ink, lit by the same failed practical and room bounce
-      // as the vector linework. Opacity alone would leave bright navy lettering
-      // floating over the dark stock.
-      shader.fragmentShader = PAPER_BARRIER_GLSL + 'varying vec2 vStockPlane;\nuniform float uLampPower;\n' + shader.fragmentShader.replace('void main() {', 'void main() {\ncutPrintedStock(vStockPlane);').replace(
-        '#include <color_fragment>',
-        '#include <color_fragment>\ndiffuseColor.rgb *= 0.14 + 0.86 * uLampPower;',
-      )
-    }
-    material.customProgramCacheKey = () => 'sheet-paper-flex-ambient-ink-v2'
-  }
-  batch.material = material
-  let vertexShader: string | null = null
-  let fragmentShader: string | null = null
-  // Troika's derived material setter runs this callback AFTER its nested shader
-  // rewrites. Keep the final sources available for the parent's runtime proof.
-  batch.material.onBeforeCompile = (shader) => {
-    vertexShader = shader.vertexShader
-    fragmentShader = shader.fragmentShader
-  }
-  batch.renderOrder = 3
-  batch.position.z = 0.00034
-  batch.frustumCulled = false
-  const members: { text: Text; item: InkText; clip: number[] }[] = []
-  const syncs: Promise<void>[] = []
-  for (const item of items) {
-    const text = new Text()
-    allocatedTexts.push(text)
-    text.text = item.text
-    text.font = SHEET_FONTS[item.weight ?? 'medium']
-    text.fontSize = item.size / 0.7
-    text.anchorX = item.anchorX ?? 'left'
-    text.anchorY = item.weight === 'handwriting' || item.anchorY === 'baseline' ? 'top-baseline' : item.anchorY ?? 'middle'
-    text.letterSpacing = item.letterSpacing ?? 0.02
-    text.lineHeight = item.lineHeight ?? 1.15
-    text.textAlign = item.anchorX === 'center' ? 'center' : item.anchorX === 'right' ? 'right' : 'left'
-    text.color = COLORS_LINEAR[item.color ?? (item.weight === 'handwriting' ? 'graphite' : 'ink')]
-    text.sdfGlyphSize = 64
-    // Troika's public property is absent from this repo's minimal declaration.
-    ;(text as Text & { glyphGeometryDetail: number }).glyphGeometryDetail = 4
-    text.position.set(item.x, item.y, 0)
-    text.rotation.z = item.rotation ?? 0
-    text.scale.x = item.scaleX ?? 1
-    if (item.weight === 'handwriting') {
-      // Match the normalized reference contours to the actual TTF black bounds,
-      // rather than its nominal cap700/LSB50 metrics. Offset BEFORE member rotation.
-      const glyph: ReferenceGlyph | undefined = REFERENCE_GLYPHS[item.text]
-      const { fontMinX, fontMinY, fontHeight } = glyph ?? {}
-      if (typeof fontMinX !== 'number' || !Number.isFinite(fontMinX)
-        || typeof fontMinY !== 'number' || !Number.isFinite(fontMinY)
-        || typeof fontHeight !== 'number' || !Number.isFinite(fontHeight) || fontHeight <= 0) {
-        throw new Error(`Missing reference font metrics for ${JSON.stringify(item.text)}`)
+  try {
+    const material = new MeshBasicMaterial({ color: INK, transparent: true, depthWrite: false, toneMapped: false })
+    materialValue = material
+    if (uniforms) {
+      material.onBeforeCompile = (shader) => {
+        Object.assign(shader.uniforms, uniforms)
+        // `transformed` is already in batch/sheet space here: Troika has applied the
+        // per-member position/rotation matrix. Deforming glyph-local XY misregisters text.
+        shader.vertexShader =
+          'varying vec2 vStockPlane;\n' +
+          PAPER_FLEX_GLSL +
+          shader.vertexShader.replace(
+            '#include <project_vertex>',
+            'vStockPlane = transformed.xy;\ntransformed.z += paperDisplacement(transformed.xy);\n#include <project_vertex>',
+          )
+        // Glyphs are printed ink, lit by the same failed practical and room bounce
+        // as the vector linework. Opacity alone would leave bright navy lettering
+        // floating over the dark stock.
+        shader.fragmentShader =
+          PAPER_BARRIER_GLSL +
+          'varying vec2 vStockPlane;\nuniform float uLampPower;\n' +
+          shader.fragmentShader
+            .replace('void main() {', 'void main() {\ncutPrintedStock(vStockPlane);')
+            .replace(
+              '#include <color_fragment>',
+              '#include <color_fragment>\ndiffuseColor.rgb *= 0.14 + 0.86 * uLampPower;',
+            )
       }
-      text.fontSize = item.size * 1000 / fontHeight
-      const unit = text.fontSize / 1000
-      const offsetX = fontMinX * unit * text.scale.x
-      const offsetY = fontMinY * unit
-      const c = Math.cos(text.rotation.z), s = Math.sin(text.rotation.z)
-      text.position.x -= offsetX * c - offsetY * s
-      text.position.y -= offsetX * s + offsetY * c
+      material.customProgramCacheKey = () => 'sheet-paper-flex-ambient-ink-v2'
     }
-    text.fillOpacity = 0
-    const clip = [0, 0, 0, 0]
-    text.clipRect = clip
-    members.push({ text, item, clip })
-    batch.add(text)
-    // troika drops a sync() callback outright when the member's _needsSync flag was already
-    // consumed (e.g. by BatchedText's own render-time sync) — observed as a cold load whose
-    // annotationsReady never fired. 'synccomplete' is dispatched by every completed sync,
-    // whoever started it, so resolve on either.
-    let done = () => {}
-    const detachSync = () => text.removeEventListener('synccomplete', done)
-    syncDetachers.push(detachSync)
-    let resolveReady!: () => void
-    const ready = new Promise<void>((resolve) => {
-      resolveReady = resolve
-    })
-    done = () => {
-      detachSync()
-      resolveReady()
+    batch.material = material
+    let vertexShader: string | null = null
+    let fragmentShader: string | null = null
+    // Troika's derived material setter runs this callback AFTER its nested shader
+    // rewrites. Keep the final sources available for the parent's runtime proof.
+    batch.material.onBeforeCompile = (shader) => {
+      vertexShader = shader.vertexShader
+      fragmentShader = shader.fragmentShader
     }
-    text.addEventListener('synccomplete', done)
-    syncDetachers.push(detachSync)
-    text.sync(done)
-    syncs.push(ready)
-  }
-  const ready = Promise.all(syncs).then(() => undefined)
-  const captureBounds = (group?: number): SheetTextBounds => {
-    const captured = members.filter(m => group === undefined || m.item.group === group).map(({ text, item }): SheetTextBoundsItem => {
-      const info = text.textRenderInfo as (typeof text.textRenderInfo & { visibleBounds?: number[] })
-      const block = item.weight === 'handwriting' ? info?.visibleBounds : info?.blockBounds
-      const fitCell = item.fitCell ? { ...item.fitCell } : null
-      const result: SheetTextBoundsItem = { text: item.text, group: item.group, bounds: null, fitCell, contained: null }
-      if (!block || block.length !== 4 || !block.every(Number.isFinite)) return result
-      // Use the live member transform used by BatchedText, not the authored x/y
-      // or clipped/revealed glyph bounds. Rotation needs all four block corners.
-      text.updateMatrix()
-      const corners = [[block[0], block[1]], [block[2], block[1]], [block[2], block[3]], [block[0], block[3]]]
-        .map(([x, y]) => new Vector3(x, y, 0).applyMatrix4(text.matrix))
-      const bounds: [number, number, number, number] = [
-        Math.min(...corners.map(p => p.x)), Math.min(...corners.map(p => p.y)),
-        Math.max(...corners.map(p => p.x)), Math.max(...corners.map(p => p.y)),
-      ]
-      if (!bounds.every(Number.isFinite)) return result
-      result.bounds = bounds
-      if (fitCell) {
-        // Micrometre tolerance absorbs float roundoff, not a visible layout overflow.
-        const epsilon = 1e-6
-        result.contained = bounds[0] >= fitCell.x - epsilon && bounds[1] >= fitCell.y - epsilon
-          && bounds[2] <= fitCell.x + fitCell.w + epsilon && bounds[3] <= fitCell.y + fitCell.h + epsilon
+    batch.renderOrder = 3
+    batch.position.z = 0.00034
+    batch.frustumCulled = false
+    const members: { text: Text; item: InkText; clip: number[] }[] = []
+    const syncs: Promise<void>[] = []
+    for (const item of items) {
+      const text = new Text()
+      allocatedTexts.push(text)
+      text.text = item.text
+      text.font = SHEET_FONTS[item.weight ?? 'medium']
+      text.fontSize = item.size / 0.7
+      text.anchorX = item.anchorX ?? 'left'
+      text.anchorY =
+        item.weight === 'handwriting' || item.anchorY === 'baseline' ? 'top-baseline' : (item.anchorY ?? 'middle')
+      text.letterSpacing = item.letterSpacing ?? 0.02
+      text.lineHeight = item.lineHeight ?? 1.15
+      text.textAlign = item.anchorX === 'center' ? 'center' : item.anchorX === 'right' ? 'right' : 'left'
+      text.color = COLORS_LINEAR[item.color ?? (item.weight === 'handwriting' ? 'graphite' : 'ink')]
+      text.sdfGlyphSize = 64
+      // Troika's public property is absent from this repo's minimal declaration.
+      ;(text as Text & { glyphGeometryDetail: number }).glyphGeometryDetail = 4
+      text.position.set(item.x, item.y, 0)
+      text.rotation.z = item.rotation ?? 0
+      text.scale.x = item.scaleX ?? 1
+      if (item.weight === 'handwriting') {
+        // Match the normalized reference contours to the actual TTF black bounds,
+        // rather than its nominal cap700/LSB50 metrics. Offset BEFORE member rotation.
+        const glyph: ReferenceGlyph | undefined = REFERENCE_GLYPHS[item.text]
+        const { fontMinX, fontMinY, fontHeight } = glyph ?? {}
+        if (
+          typeof fontMinX !== 'number' ||
+          !Number.isFinite(fontMinX) ||
+          typeof fontMinY !== 'number' ||
+          !Number.isFinite(fontMinY) ||
+          typeof fontHeight !== 'number' ||
+          !Number.isFinite(fontHeight) ||
+          fontHeight <= 0
+        ) {
+          throw new Error(`Missing reference font metrics for ${JSON.stringify(item.text)}`)
+        }
+        text.fontSize = (item.size * 1000) / fontHeight
+        const unit = text.fontSize / 1000
+        const offsetX = fontMinX * unit * text.scale.x
+        const offsetY = fontMinY * unit
+        const c = Math.cos(text.rotation.z),
+          s = Math.sin(text.rotation.z)
+        text.position.x -= offsetX * c - offsetY * s
+        text.position.y -= offsetX * s + offsetY * c
       }
-      return result
-    })
+      text.fillOpacity = 0
+      const clip = [0, 0, 0, 0]
+      text.clipRect = clip
+      members.push({ text, item, clip })
+      batch.add(text)
+      // troika drops a sync() callback outright when the member's _needsSync flag was already
+      // consumed (e.g. by BatchedText's own render-time sync) — observed as a cold load whose
+      // annotationsReady never fired. 'synccomplete' is dispatched by every completed sync,
+      // whoever started it, so resolve on either.
+      let done = () => {}
+      const detachSync = () => text.removeEventListener('synccomplete', done)
+      syncDetachers.push(detachSync)
+      let resolveReady!: () => void
+      const ready = new Promise<void>((resolve) => {
+        resolveReady = resolve
+      })
+      done = () => {
+        detachSync()
+        resolveReady()
+      }
+      text.addEventListener('synccomplete', done)
+      syncDetachers.push(detachSync)
+      text.sync(done)
+      syncs.push(ready)
+    }
+    const ready = Promise.all(syncs).then(() => undefined)
+    const captureBounds = (group?: number): SheetTextBounds => {
+      const captured = members
+        .filter((m) => group === undefined || m.item.group === group)
+        .map(({ text, item }): SheetTextBoundsItem => {
+          const info = text.textRenderInfo as typeof text.textRenderInfo & { visibleBounds?: number[] }
+          const block = item.weight === 'handwriting' ? info?.visibleBounds : info?.blockBounds
+          const fitCell = item.fitCell ? { ...item.fitCell } : null
+          const result: SheetTextBoundsItem = {
+            text: item.text,
+            group: item.group,
+            bounds: null,
+            fitCell,
+            contained: null,
+          }
+          if (!block || block.length !== 4 || !block.every(Number.isFinite)) return result
+          // Use the live member transform used by BatchedText, not the authored x/y
+          // or clipped/revealed glyph bounds. Rotation needs all four block corners.
+          text.updateMatrix()
+          const corners = [
+            [block[0], block[1]],
+            [block[2], block[1]],
+            [block[2], block[3]],
+            [block[0], block[3]],
+          ].map(([x, y]) => new Vector3(x, y, 0).applyMatrix4(text.matrix))
+          const bounds: [number, number, number, number] = [
+            Math.min(...corners.map((p) => p.x)),
+            Math.min(...corners.map((p) => p.y)),
+            Math.max(...corners.map((p) => p.x)),
+            Math.max(...corners.map((p) => p.y)),
+          ]
+          if (!bounds.every(Number.isFinite)) return result
+          result.bounds = bounds
+          if (fitCell) {
+            // Micrometre tolerance absorbs float roundoff, not a visible layout overflow.
+            const epsilon = 1e-6
+            result.contained =
+              bounds[0] >= fitCell.x - epsilon &&
+              bounds[1] >= fitCell.y - epsilon &&
+              bounds[2] <= fitCell.x + fitCell.w + epsilon &&
+              bounds[3] <= fitCell.y + fitCell.h + epsilon
+          }
+          return result
+        })
+      return {
+        ready: captured.every((item) => item.bounds !== null),
+        count: captured.length,
+        violations: captured.filter(
+          (item) => !item.bounds || item.contained === false || (item.group === GROUP.titleBlock && !item.fitCell),
+        ).length,
+        items: captured,
+      }
+    }
+    const update = (reveal: number[], opacity: number) => {
+      for (const m of members) {
+        const r = reveal[m.item.group] ?? 1
+        const local = Math.min(1, Math.max(0, (r - m.item.key) / Math.max(1e-4, m.item.dur ?? 0.06)))
+        const bounds = m.text.textRenderInfo?.blockBounds
+        if (!bounds) {
+          m.text.fillOpacity = 0
+          continue
+        }
+        m.clip[0] = bounds[0] - 1
+        m.clip[1] = bounds[1] - 1
+        m.clip[2] = bounds[0] + (bounds[2] - bounds[0]) * local
+        m.clip[3] = bounds[3] + 1
+        m.text.clipRect = m.clip
+        m.text.fillOpacity = local > 0 ? (m.item.opacity ?? 1) * opacity : 0
+      }
+    }
+    let disposed = false
     return {
-      ready: captured.every(item => item.bounds !== null),
-      count: captured.length,
-      violations: captured.filter(item => !item.bounds || item.contained === false || (item.group === GROUP.titleBlock && !item.fitCell)).length,
-      items: captured,
+      object: batch,
+      ready,
+      update,
+      captureBounds,
+      captureShaderEvidence: () => ({
+        generated: vertexShader !== null,
+        vertexShader,
+        generatedFragment: fragmentShader !== null,
+        fragmentShader,
+      }),
+      dispose: (sink?: CleanupFailureSink) => {
+        if (disposed) return
+        disposed = true
+        disposeAll([...allocatedTexts, { dispose: () => disposeBatchResilient(batch, sink) }, material], sink)
+      },
     }
-  }
-  const update = (reveal: number[], opacity: number) => {
-    for (const m of members) {
-      const r = reveal[m.item.group] ?? 1
-      const local = Math.min(1, Math.max(0, (r - m.item.key) / Math.max(1e-4, m.item.dur ?? 0.06)))
-      const bounds = m.text.textRenderInfo?.blockBounds
-      if (!bounds) {
-        m.text.fillOpacity = 0
-        continue
+  } catch (error) {
+    for (const detachSync of syncDetachers) {
+      try {
+        detachSync()
+      } catch {
+        // Continue to resource disposal if listener removal fails.
       }
-      m.clip[0] = bounds[0] - 1
-      m.clip[1] = bounds[1] - 1
-      m.clip[2] = bounds[0] + (bounds[2] - bounds[0]) * local
-      m.clip[3] = bounds[3] + 1
-      m.text.clipRect = m.clip
-      m.text.fillOpacity = local > 0 ? (m.item.opacity ?? 1) * opacity : 0
     }
-  }
-  let disposed = false
-  return {
-    object: batch,
-    ready,
-    update,
-    captureBounds,
-    captureShaderEvidence: () => ({
-      generated: vertexShader !== null,
-      vertexShader,
-      generatedFragment: fragmentShader !== null,
-      fragmentShader,
-    }),
-    dispose: (sink?: CleanupFailureSink) => {
-      if (disposed) return
-      disposed = true
-      disposeAll([
+    rollbackOwned(
+      [
         ...allocatedTexts,
-        { dispose: () => disposeBatchResilient(batch, sink) },
-        material,
-      ], sink)
-    },
+        { dispose: () => disposeBatchResilient(batch, cleanupFailureSink) },
+        ...(materialValue ? [materialValue] : []),
+      ],
+      cleanupFailureSink,
+    )
+    throw error
   }
-} catch (error) {
-  for (const detachSync of syncDetachers) {
-    try {
-      detachSync()
-    } catch {
-      // Continue to resource disposal if listener removal fails.
-    }
-  }
-  rollbackOwned([
-    ...allocatedTexts,
-    { dispose: () => disposeBatchResilient(batch, cleanupFailureSink) },
-    ...(materialValue ? [materialValue] : []),
-  ], cleanupFailureSink)
-  throw error
-}
 }

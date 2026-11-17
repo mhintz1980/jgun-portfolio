@@ -60,5 +60,6 @@ if (airflowText.length === 0 || acousticBaffleText.length === 0) {
   throw new Error('AirflowField or AcousticBaffleField component is empty')
 }
 
-console.log(`Stage2 contract passed: ${asset.length} bytes, ${requiredNodes.length} named roots, 7 CAD anchors verified, AirflowField & AcousticBaffleField mounted.`)
-
+console.log(
+  `Stage2 contract passed: ${asset.length} bytes, ${requiredNodes.length} named roots, 7 CAD anchors verified, AirflowField & AcousticBaffleField mounted.`,
+)

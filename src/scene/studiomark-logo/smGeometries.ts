@@ -63,7 +63,10 @@ export function sweepProfile(frames: Frame[], profile: Profile, caps: boolean): 
   const pos: number[] = []
   const tmp = new THREE.Vector3()
   const corner = (f: Frame, k: number) =>
-    tmp.copy(f.p).addScaledVector(f.W, profile[k % E][0]).addScaledVector(f.D, profile[k % E][1])
+    tmp
+      .copy(f.p)
+      .addScaledVector(f.W, profile[k % E][0])
+      .addScaledVector(f.D, profile[k % E][1])
   for (let i = 0; i < R; i++) {
     for (let k = 0; k < E; k++) {
       const a = corner(frames[i], k)
@@ -114,7 +117,9 @@ export function sweepProfile(frames: Frame[], profile: Profile, caps: boolean): 
         const i0 = base
         const i1 = base + 1 + k
         const i2 = base + 1 + ((k + 1) % E)
-        const n = P(i1).sub(P(i0)).cross(P(i2).sub(P(i0)))
+        const n = P(i1)
+          .sub(P(i0))
+          .cross(P(i2).sub(P(i0)))
         if (n.dot(frames[ring].T) * sign < 0) idx.push(i0, i2, i1)
         else idx.push(i0, i1, i2)
       }
@@ -242,7 +247,9 @@ export function buildMobiusGeometry(opts: { radius?: number; width?: number; dep
   for (let i = 0; i <= segments; i++) {
     const th = (i / segments) * Math.PI * 2
     const p = point(th)
-    const T = point(th + 1e-3).sub(point(th - 1e-3)).normalize()
+    const T = point(th + 1e-3)
+      .sub(point(th - 1e-3))
+      .normalize()
     const R = new THREE.Vector3().crossVectors(T, Z).normalize()
     const a = th * 1.5 // 3 half-twists around the ring for optical crystal facets
     const W = Z.clone().multiplyScalar(Math.cos(a)).addScaledVector(R, Math.sin(a)).normalize()
@@ -261,7 +268,7 @@ export function buildMobiusInnerSMGeometry(): THREE.BufferGeometry {
   // Continuous S-curve that flows into the right M stem
   const sCurvePts = [
     [0.48, 0.62, 0.04],
-    [0.25, 0.90, 0.06],
+    [0.25, 0.9, 0.06],
     [-0.18, 0.92, 0.04],
     [-0.52, 0.72, 0.0],
     [-0.54, 0.38, -0.04],
@@ -291,8 +298,8 @@ export function buildMobiusInnerMBaseGeometry(): THREE.BufferGeometry {
     [-0.44, -0.82],
     [-0.44, -0.22],
     [-0.04, -0.78],
-    [0.10, -0.78],
-    [0.46, -0.20],
+    [0.1, -0.78],
+    [0.46, -0.2],
     [0.32, -0.02],
     [0.03, -0.46],
     [-0.44, 0.14],
@@ -319,7 +326,7 @@ export function buildHexPlateGeometry(): THREE.BufferGeometry {
     [0.0, R], // Top hex vertex
     [C * 0.68, R - S * 0.68], // Upper right stop
     [C * 0.48, R - S * 0.68 - 0.22], // Step inward
-    [0.0, R - 0.30], // Inner top peak
+    [0.0, R - 0.3], // Inner top peak
     [-C + 0.26, S - 0.15], // Inner upper-left corner
     [-C + 0.26, S - 0.38], // Short vertical drop inside S
     [0.02, 0.24], // Middle S spine peak
@@ -355,11 +362,11 @@ export function buildHexRimGeometry(): THREE.BufferGeometry {
   const mFrameShape = new THREE.Shape(
     [
       [-0.06, -1.24], // Left M foot bottom
-      [0.20, -1.09], // Left M inner foot
-      [0.20, -0.36], // Left M inner apex
+      [0.2, -1.09], // Left M inner foot
+      [0.2, -0.36], // Left M inner apex
       [0.54, -0.76], // M center valley bottom
       [0.88, -0.02], // Right M inner apex
-      [0.88, -0.70], // Right M inner leg
+      [0.88, -0.7], // Right M inner leg
       [C, -S], // Right M outer foot (bottom-right hex vertex)
       [C, S], // Top-right hex vertex
       [C * 0.76, R - S * 0.76], // Upper-right bevel cap
@@ -421,16 +428,14 @@ export function buildMPoints(halfWidth = 0.88, halfHeight = 0.92, stem = 0.28): 
     [inner, -h],
     [hw, -h],
     [hw, h],
-    [hw - 0.30, h],
+    [hw - 0.3, h],
     [0, -0.14],
-    [-hw + 0.30, h],
+    [-hw + 0.3, h],
     [-hw, h],
   ]
 }
 
-export function buildMGeometry(
-  o: { scale?: number; depth?: number; bevel?: number } = {},
-): THREE.BufferGeometry {
+export function buildMGeometry(o: { scale?: number; depth?: number; bevel?: number } = {}): THREE.BufferGeometry {
   const { scale = 1, depth = 0.28, bevel = 0.045 } = o
   const pts = buildMPoints()
   const shape = new THREE.Shape(pts.map(([x, y]) => new THREE.Vector2(x, y)))
@@ -484,7 +489,7 @@ export function buildPlanetaryCrownRingGeometry(): THREE.BufferGeometry {
   for (let i = 0; i < teeth; i++) {
     const a0 = i * step
     const a1 = a0 + step * 0.22
-    const a2 = a0 + step * 0.50
+    const a2 = a0 + step * 0.5
     const a3 = a0 + step * 0.72
     const p0: [number, number] = [outerRoot * Math.cos(a0), outerRoot * Math.sin(a0)]
     const p1: [number, number] = [outerTip * Math.cos(a1), outerTip * Math.sin(a1)]
@@ -522,6 +527,6 @@ export function buildPlanetaryCrownRingGeometry(): THREE.BufferGeometry {
  */
 export function buildPrismMonolithGeometry(): THREE.BufferGeometry {
   // Architectural M outer block with precision stepped S-cutout channels
-  const mPts = buildMPoints(0.92, 0.94, 0.30)
+  const mPts = buildMPoints(0.92, 0.94, 0.3)
   return extrudePolygon(mPts, 0.44, 0.05, 3)
 }

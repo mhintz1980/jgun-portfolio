@@ -86,7 +86,10 @@ export function resetRigState(): void {
   Object.assign(rigState, INITIAL_RIG_STATE, {
     cameraWorldPos: [...INITIAL_RIG_STATE.cameraWorldPos],
     targetWorldPos: [...INITIAL_RIG_STATE.targetWorldPos],
-    modelPath, housingMeshCount, movingPartCount, explodableMeshCount,
+    modelPath,
+    housingMeshCount,
+    movingPartCount,
+    explodableMeshCount,
   })
 }
 
@@ -312,12 +315,26 @@ export function ProductStage({
 
       tl.to(
         rigState,
-        { splineProgress: 1 / 3, timeScale: 0.03, explodeAmount: 0.15, cameraFov: 32, duration: 2, ease: 'power2.inOut' },
+        {
+          splineProgress: 1 / 3,
+          timeScale: 0.03,
+          explodeAmount: 0.15,
+          cameraFov: 32,
+          duration: 2,
+          ease: 'power2.inOut',
+        },
         0,
       )
       tl.to(
         rigState,
-        { splineProgress: 2 / 3, housingOpacity: 0.08, explodeAmount: 0.35, hudOpacity: 1.0, duration: 2, ease: 'none' },
+        {
+          splineProgress: 2 / 3,
+          housingOpacity: 0.08,
+          explodeAmount: 0.35,
+          hudOpacity: 1.0,
+          duration: 2,
+          ease: 'none',
+        },
         2,
       )
       tl.to(

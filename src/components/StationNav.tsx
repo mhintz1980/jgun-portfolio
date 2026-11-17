@@ -32,10 +32,7 @@ export function StationNav() {
   const activeStation = stationForChapter(chapter)
 
   return (
-    <nav
-      aria-label="Station navigation"
-      className="fixed bottom-6 left-1/2 z-20 -translate-x-1/2"
-    >
+    <nav aria-label="Station navigation" className="fixed bottom-6 left-1/2 z-20 -translate-x-1/2">
       <div className="pointer-events-auto flex divide-x divide-cyan-400/30 border border-cyan-400/40 bg-black/80 backdrop-blur-sm rounded font-mono text-[10px] tracking-widest">
         {SPATIAL_STATIONS.map((st) => {
           const active = st.index === activeStation
@@ -47,9 +44,7 @@ export function StationNav() {
               aria-current={active ? 'true' : undefined}
               onClick={() => navigateToStation(st.index)}
               className={`cursor-pointer px-3 py-1.5 outline-none transition-colors rounded focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-1 focus-visible:ring-offset-black ${
-                active
-                  ? 'bg-cyan-400/20 text-cyan-200'
-                  : 'text-cyan-400/60 hover:text-cyan-200'
+                active ? 'bg-cyan-400/20 text-cyan-200' : 'text-cyan-400/60 hover:text-cyan-200'
               }`}
             >
               {st.label}

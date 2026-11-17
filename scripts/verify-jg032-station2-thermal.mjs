@@ -29,10 +29,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-const { chromium } = await import(
-  process.env.PLAYWRIGHT_MODULE ||
-    'playwright'
-)
+const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright')
 
 const MODE = process.env.MODE || 'verify'
 const BASE_URL = process.env.BASE_URL || 'http://localhost:4173'
@@ -41,14 +38,34 @@ const BASELINE = process.env.BASELINE || path.join(OUT, 'baseline-capture.json')
 fs.mkdirSync(OUT, { recursive: true })
 
 const report = { startedAt: new Date().toISOString(), failures: [], assertions: {} }
-const fail = (msg) => { report.failures.push(msg); console.error('FAIL:', msg) }
-const pass = (msg) => { console.log('PASS:', msg) }
+const fail = (msg) => {
+  report.failures.push(msg)
+  console.error('FAIL:', msg)
+}
+const pass = (msg) => {
+  console.log('PASS:', msg)
+}
 
 /** The 7 contract roots (census scope). */
-const ROOTS = ['ENCLOSURE_CHASSIS', 'COMPOSITE_PANELS', 'PUMP_HOUSING', 'ACOUSTIC_BAFFLES', 'ISOLATION_MOUNTS', 'DUCT_INTAKE', 'DUCT_EXHAUST']
+const ROOTS = [
+  'ENCLOSURE_CHASSIS',
+  'COMPOSITE_PANELS',
+  'PUMP_HOUSING',
+  'ACOUSTIC_BAFFLES',
+  'ISOLATION_MOUNTS',
+  'DUCT_INTAKE',
+  'DUCT_EXHAUST',
+]
 
 /** Mirror of recolorAllowList.ts (the unit tests guard the module itself). */
-const CHASSIS_RE = [/V2RL300-FPL-000[12]/i, /RL300-CPM-3001/i, /V2RL300-FTS-100[79]/i, /V2RLP-SK-4000-A/i, /V2ECP-SM-5000/i, /V2FTA-FP-46-RL-1000/i]
+const CHASSIS_RE = [
+  /V2RL300-FPL-000[12]/i,
+  /RL300-CPM-3001/i,
+  /V2RL300-FTS-100[79]/i,
+  /V2RLP-SK-4000-A/i,
+  /V2ECP-SM-5000/i,
+  /V2FTA-FP-46-RL-1000/i,
+]
 const PANEL_RE = [/STD-LBAP-4001/i, /G2RL200-SAF-10(33|35|39|40|41|49)/i, /V2RL300-SAF-1047/i, /V2RL300-SAF-1066/i]
 const allowListed = (name) => CHASSIS_RE.some((re) => re.test(name)) || PANEL_RE.some((re) => re.test(name))
 
@@ -78,7 +95,13 @@ async function launch() {
     // mid-sweep (canvas unmounts) — that is the ladder working as designed,
     // not a scene defect. HEADLESS=1 env forces headless for CI-style runs.
     headless: process.env.HEADLESS === '1',
-    args: ['--use-angle=d3d11', '--disable-background-timer-throttling', '--disable-renderer-backgrounding', '--disable-backgrounding-occluded-windows', '--window-position=40,40'],
+    args: [
+      '--use-angle=d3d11',
+      '--disable-background-timer-throttling',
+      '--disable-renderer-backgrounding',
+      '--disable-backgrounding-occluded-windows',
+      '--window-position=40,40',
+    ],
   })
 }
 
@@ -133,14 +156,20 @@ async function capture(BASE, out, { screenshots = true } = {}) {
       const census = []
       for (const rootName of ROOTS) {
         const root = st2.getObjectByName(rootName)
-        if (!root) { census.push({ root: rootName, error: 'missing' }); continue }
+        if (!root) {
+          census.push({ root: rootName, error: 'missing' })
+          continue
+        }
         root.traverse((o) => {
           if (!o.isMesh) return
           // nearest non-generic ancestor name (GLTFLoader prim-suffix trap)
           let cur = o
           let part = o.name
           while (cur && cur !== root) {
-            if (cur.name && !GENERIC.test(cur.name)) { part = cur.name; break }
+            if (cur.name && !GENERIC.test(cur.name)) {
+              part = cur.name
+              break
+            }
             cur = cur.parent
           }
           const mats = Array.isArray(o.material) ? o.material : [o.material]
@@ -167,7 +196,14 @@ async function capture(BASE, out, { screenshots = true } = {}) {
             uGrilleMin: u.uGrilleMin.value.toArray(),
             uGrilleMax: u.uGrilleMax.value.toArray(),
             hasHeatRamp: o.material.vertexShader.includes('heatRamp'),
-            rampStops: ['vec3(0.0, 0.898, 1.0)', 'vec3(0.220, 0.742, 0.973)', 'vec3(0.490, 0.827, 0.988)', 'vec3(0.984, 0.749, 0.141)', 'vec3(0.976, 0.451, 0.086)', 'vec3(0.937, 0.267, 0.267)'].map((s) => o.material.vertexShader.includes(s)),
+            rampStops: [
+              'vec3(0.0, 0.898, 1.0)',
+              'vec3(0.220, 0.742, 0.973)',
+              'vec3(0.490, 0.827, 0.988)',
+              'vec3(0.984, 0.749, 0.141)',
+              'vec3(0.976, 0.451, 0.086)',
+              'vec3(0.937, 0.267, 0.267)',
+            ].map((s) => o.material.vertexShader.includes(s)),
           }
         }
       })
@@ -191,7 +227,15 @@ async function capture(BASE, out, { screenshots = true } = {}) {
       }, p)
       const tele = await page.evaluate(async (ROOTS) => {
         const t = window.__telemetry
-        const snap = () => [t.scroll.progress, t.camera.x, t.camera.y, t.camera.z, t.camera.fov, t.rig.explodeFactor, t.rig.ghostOpacity]
+        const snap = () => [
+          t.scroll.progress,
+          t.camera.x,
+          t.camera.y,
+          t.camera.z,
+          t.camera.fov,
+          t.rig.explodeFactor,
+          t.rig.ghostOpacity,
+        ]
         let previous = snap()
         let quiet = 0
         const start = performance.now()
@@ -205,17 +249,28 @@ async function capture(BASE, out, { screenshots = true } = {}) {
         }
         // JGUN gate probes (live scene state) — null-safe: a missing scene
         // (poster degradation) must be reported by the caller, not crash here
-        let spot = null, rim = null, shadowVisible = null, panelOpacity = null, panelY = null
+        let spot = null,
+          rim = null,
+          shadowVisible = null,
+          panelOpacity = null,
+          panelY = null
         let section = null
         const scene = window.__threeScene
         if (scene) {
           scene.traverse((o) => {
             if (o.isSpotLight) spot = { intensity: o.intensity, y: o.position.y }
-            if (o.isPointLight && Math.abs(o.position.x + 0.3) < 0.001 && Math.abs(o.position.z - 0.5) < 0.001) rim = o.intensity
+            if (o.isPointLight && Math.abs(o.position.x + 0.3) < 0.001 && Math.abs(o.position.z - 0.5) < 0.001)
+              rim = o.intensity
           })
           // JG-032 secondary explode shadow: gradient plane at y=-0.18
           scene.traverse((o) => {
-            if (o.isMesh && Math.abs(o.position.y + 0.18) < 0.001 && o.material?.map && o.geometry?.type === 'PlaneGeometry') shadowVisible = o.visible
+            if (
+              o.isMesh &&
+              Math.abs(o.position.y + 0.18) < 0.001 &&
+              o.material?.map &&
+              o.geometry?.type === 'PlaneGeometry'
+            )
+              shadowVisible = o.visible
           })
           const st2 = scene.getObjectByName('station-2-enclosure')
           const panels = st2?.getObjectByName('COMPOSITE_PANELS')
@@ -243,9 +298,20 @@ async function capture(BASE, out, { screenshots = true } = {}) {
                   materialCount: materials.size,
                   planeCounts: [...new Set([...materials].map((m) => m.clippingPlanes?.length || 0))],
                   planes: [...planes].map((plane) => ({ normal: plane.normal.toArray(), constant: plane.constant })),
-                  panelStates: name === 'COMPOSITE_PANELS'
-                    ? [...new Set([...materials].map((m) => JSON.stringify({ opacity: m.opacity, transparent: m.transparent, depthWrite: m.depthWrite })))].map((s) => JSON.parse(s))
-                    : [],
+                  panelStates:
+                    name === 'COMPOSITE_PANELS'
+                      ? [
+                          ...new Set(
+                            [...materials].map((m) =>
+                              JSON.stringify({
+                                opacity: m.opacity,
+                                transparent: m.transparent,
+                                depthWrite: m.depthWrite,
+                              }),
+                            ),
+                          ),
+                        ].map((s) => JSON.parse(s))
+                      : [],
                 }
               }),
             }
@@ -289,7 +355,9 @@ async function capture(BASE, out, { screenshots = true } = {}) {
     const rmPage = await rm.newPage()
     const rmErrors = []
     rmPage.on('pageerror', (err) => rmErrors.push(String(err)))
-    rmPage.on('console', (msg) => { if (msg.type() === 'error') rmErrors.push(msg.text()) })
+    rmPage.on('console', (msg) => {
+      if (msg.type() === 'error') rmErrors.push(msg.text())
+    })
     await rmPage.goto(BASE + '/?chapter=2', { waitUntil: 'networkidle' })
     await rmPage.waitForTimeout(4000)
     captureReport.reducedMotion = {
@@ -315,8 +383,13 @@ async function capture(BASE, out, { screenshots = true } = {}) {
       }
     })
 
-    fs.writeFileSync(path.join(out, MODE === 'capture' ? 'baseline-capture.json' : 'current-capture.json'), JSON.stringify(captureReport, null, 1))
-    console.log(`captured ${BASE} → ${out}; census=${captureReport.station2?.census?.length} meshes, errors=${captureReport.pageErrors.length}`)
+    fs.writeFileSync(
+      path.join(out, MODE === 'capture' ? 'baseline-capture.json' : 'current-capture.json'),
+      JSON.stringify(captureReport, null, 1),
+    )
+    console.log(
+      `captured ${BASE} → ${out}; census=${captureReport.station2?.census?.length} meshes, errors=${captureReport.pageErrors.length}`,
+    )
     return captureReport
   } finally {
     await browser.close()
@@ -326,7 +399,10 @@ async function capture(BASE, out, { screenshots = true } = {}) {
 function deepDiff(a, b, pathPrefix = '', exclude = []) {
   const diffs = []
   if (exclude.some((p) => pathPrefix === p || pathPrefix.startsWith(p + '.'))) return diffs
-  if (typeof a !== typeof b) { diffs.push(`${pathPrefix}: type ${typeof a} vs ${typeof b}`); return diffs }
+  if (typeof a !== typeof b) {
+    diffs.push(`${pathPrefix}: type ${typeof a} vs ${typeof b}`)
+    return diffs
+  }
   if (a && b && typeof a === 'object') {
     const keys = new Set([...Object.keys(a), ...Object.keys(b)])
     for (const k of keys) diffs.push(...deepDiff(a[k], b[k], pathPrefix ? `${pathPrefix}.${k}` : k, exclude))
@@ -378,8 +454,10 @@ if (!fs.existsSync(BASELINE)) {
       changed.length > 0 &&
       changed.every((k) => FLIP_FIELDS.includes(k)) &&
       root === 'COMPOSITE_PANELS' &&
-      b.transparent === false && m.transparent === true &&
-      b.depthWrite === true && m.depthWrite === false
+      b.transparent === false &&
+      m.transparent === true &&
+      b.depthWrite === true &&
+      m.depthWrite === false
     const recolorFields = ['color', 'roughness', 'metalness', 'envMapIntensity']
     const nonFlip = changed.filter((k) => !FLIP_FIELDS.includes(k))
     const recolor =
@@ -390,14 +468,29 @@ if (!fs.existsSync(BASELINE)) {
       m.name === 'MSP_BLACK_CHASSIS' &&
       (m.color === '#0a1a3a' || m.color === '#132a4a')
     const flipPart = changed.some((k) => FLIP_FIELDS.includes(k))
-    if (recolor && (!flipPart || (root === 'COMPOSITE_PANELS' && b.transparent === false && m.transparent === true && b.depthWrite === true && m.depthWrite === false))) return 'recolor'
+    if (
+      recolor &&
+      (!flipPart ||
+        (root === 'COMPOSITE_PANELS' &&
+          b.transparent === false &&
+          m.transparent === true &&
+          b.depthWrite === true &&
+          m.depthWrite === false))
+    )
+      return 'recolor'
     if (flipOnly) return 'panel-flip'
     return null
   }
   for (const [key, cur] of curMap) {
     const base = baseMap.get(key)
-    if (!base) { deltas.push({ key, kind: 'ADDED' }); continue }
-    if (cur.verts !== base.verts) { deltas.push({ key, kind: 'UNEXPECTED', diff: [`verts: ${base.verts} vs ${cur.verts}`] }); continue }
+    if (!base) {
+      deltas.push({ key, kind: 'ADDED' })
+      continue
+    }
+    if (cur.verts !== base.verts) {
+      deltas.push({ key, kind: 'UNEXPECTED', diff: [`verts: ${base.verts} vs ${cur.verts}`] })
+      continue
+    }
     const kinds = new Set(cur.mats.map((m, i) => classifyMat(base.mats[i], m, cur.root)))
     kinds.delete('identical')
     if (kinds.size === 0) continue
@@ -422,12 +515,16 @@ if (!fs.existsSync(BASELINE)) {
   if (unexpected.length > 0) {
     fail(`A/B census: ${unexpected.length} unexpected deltas: ${JSON.stringify(unexpected.slice(0, 5))}`)
   } else {
-    pass(`A/B census: delta set = ${recolors.length} allow-listed recolors + ${flips.length} intended panel-flip flag changes, zero unexpected (of ${curMap.size} station-2 meshes)`)
+    pass(
+      `A/B census: delta set = ${recolors.length} allow-listed recolors + ${flips.length} intended panel-flip flag changes, zero unexpected (of ${curMap.size} station-2 meshes)`,
+    )
   }
   // every allow-listed mesh present must have been recolored (no misses)
   for (const [, cur] of curMap) {
     if (!allowListed(cur.part)) continue
-    const isNavy = cur.mats.every((m) => m.name !== 'MSP_BLACK_CHASSIS' || m.color === '#0a1a3a' || m.color === '#132a4a')
+    const isNavy = cur.mats.every(
+      (m) => m.name !== 'MSP_BLACK_CHASSIS' || m.color === '#0a1a3a' || m.color === '#132a4a',
+    )
     const hasBlack = cur.mats.some((m) => m.name === 'MSP_BLACK_CHASSIS')
     if (hasBlack && !isNavy) missedAllowList.push(cur.key)
   }
@@ -438,7 +535,8 @@ if (!fs.existsSync(BASELINE)) {
   for (const [, cur] of curMap) {
     for (const m of cur.mats) {
       if (m.name === 'MSP_YELLOW_PAINT' && m.color !== '#ffc500') fail(`yellow paint touched: ${cur.key} → ${m.color}`)
-      if (m.name === 'MSP_AIRWAY_VOLUME' && m.color !== '#59c4f9') fail(`airway volume touched: ${cur.key} → ${m.color}`)
+      if (m.name === 'MSP_AIRWAY_VOLUME' && m.color !== '#59c4f9')
+        fail(`airway volume touched: ${cur.key} → ${m.color}`)
     }
   }
   pass('MSP_YELLOW_PAINT (#ffc500) and MSP_AIRWAY_VOLUME (#59c4f9) unchanged everywhere')
@@ -465,7 +563,10 @@ else {
     fail(`airway AABB wrong: ${JSON.stringify(af.uAirwayMin)} ${JSON.stringify(af.uAirwayMax)}`)
   } else pass(`uAirwayMin/uAirwayMax = measured AABB [${expMin}] → [${expMax}] (±0.01), uAirwayValid=1`)
   if (af.uGrilleValid !== 1) fail('uGrilleValid !== 1 (grille node unresolved)')
-  else pass(`grille AABB resolved (uGrilleValid=1): [${af.uGrilleMin.map((v) => v.toFixed(3))}] → [${af.uGrilleMax.map((v) => v.toFixed(3))}]`)
+  else
+    pass(
+      `grille AABB resolved (uGrilleValid=1): [${af.uGrilleMin.map((v) => v.toFixed(3))}] → [${af.uGrilleMax.map((v) => v.toFixed(3))}]`,
+    )
   if (af.particleCount !== 12000) fail(`particle count ${af.particleCount} !== 12000 (full tier)`)
   else pass('12,000 particles (full tier)')
   if (!af.hasHeatRamp || af.rampStops.some((s) => !s)) fail('GLSL heatRamp missing spec stops')
@@ -475,14 +576,16 @@ else {
 // --- 2. ring pools ---
 console.log('--- Step 2b: ring pools ---')
 const pools = current.station2.pools
-if (!pools || pools.length !== 2) fail(`acoustic-baffle-field pools wrong: ${JSON.stringify(pools?.map((p) => p.count))}`)
+if (!pools || pools.length !== 2)
+  fail(`acoustic-baffle-field pools wrong: ${JSON.stringify(pools?.map((p) => p.count))}`)
 else {
   if (pools[0].count !== 6) fail(`acoustic pool ${pools[0].count} !== 6`)
   else if (pools[0].colors.some((c) => c !== '#00e5ff')) fail('acoustic ring colors drifted from #00e5ff')
   else pass('acoustic pool: 6 rings, #00e5ff (unchanged behavior)')
   const expectedShell = ['#fbbf24', '#f9991d', '#f97316', '#f26511', '#ea580c']
   if (pools[1].count !== 5) fail(`thermal pool ${pools[1].count} !== 5`)
-  else if (JSON.stringify(pools[1].colors) !== JSON.stringify(expectedShell)) fail(`thermal shell colors ${JSON.stringify(pools[1].colors)}`)
+  else if (JSON.stringify(pools[1].colors) !== JSON.stringify(expectedShell))
+    fail(`thermal shell colors ${JSON.stringify(pools[1].colors)}`)
   else if (pools[1].sides.some((s) => s !== 1)) fail('thermal shells are not BackSide')
   else pass('thermal pool: 5 nested shells, #fbbf24→#f97316→#ea580c, BackSide')
 }
@@ -508,30 +611,58 @@ for (const { p, cut: targetCut } of SECTION_STOPS) {
   const errors = []
   if (!sample?.sceneAlive || !section) errors.push('live station-2 scene missing')
   if (!near(sample?.reached, p, 0.0001)) errors.push(`progress ${sample?.reached} did not reach ${p}`)
-  if (!restPosition || !section?.panelPosition || !near(section.panelPosition[1], 0.05, 0.0001) ||
-      !section.panelPosition.every((v, i) => near(v, restPosition[i], 0.0001))) {
+  if (
+    !restPosition ||
+    !section?.panelPosition ||
+    !near(section.panelPosition[1], 0.05, 0.0001) ||
+    !section.panelPosition.every((v, i) => near(v, restPosition[i], 0.0001))
+  ) {
     errors.push(`panels moved from assembled position: ${JSON.stringify(section?.panelPosition)}`)
   }
   for (const name of ROOTS) {
     const root = section?.roots.find((r) => r.name === name)
-    if (!root?.materialCount) { errors.push(`${name}: no live materials`); continue }
+    if (!root?.materialCount) {
+      errors.push(`${name}: no live materials`)
+      continue
+    }
     const shell = name === 'ENCLOSURE_CHASSIS' || name === 'COMPOSITE_PANELS'
     if (root.planeCounts.length !== 1 || root.planeCounts[0] !== (shell ? 1 : 0)) {
       errors.push(`${name}: clipping scope/count ${JSON.stringify(root.planeCounts)}`)
     }
-    if (shell && (root.planes.length === 0 || root.planes.some((plane) =>
-      !plane.normal.every((v, i) => near(v, [-1, 0, 0][i], 0.0001)) ||
-      !near(plane.constant, 29.3 - 1.3 * cut)))) {
-      errors.push(`${name}: actual planes ${JSON.stringify(root.planes)} expected normal [-1,0,0], constant ${29.3 - 1.3 * cut}`)
+    if (
+      shell &&
+      (root.planes.length === 0 ||
+        root.planes.some(
+          (plane) =>
+            !plane.normal.every((v, i) => near(v, [-1, 0, 0][i], 0.0001)) || !near(plane.constant, 29.3 - 1.3 * cut),
+        ))
+    ) {
+      errors.push(
+        `${name}: actual planes ${JSON.stringify(root.planes)} expected normal [-1,0,0], constant ${29.3 - 1.3 * cut}`,
+      )
     }
-    if (name === 'COMPOSITE_PANELS' && (root.panelStates.length === 0 || root.panelStates.some((m) =>
-      !near(m.opacity, 0.35 - 0.17 * cut) || m.transparent !== true || m.depthWrite !== false))) {
+    if (
+      name === 'COMPOSITE_PANELS' &&
+      (root.panelStates.length === 0 ||
+        root.panelStates.some(
+          (m) => !near(m.opacity, 0.35 - 0.17 * cut) || m.transparent !== true || m.depthWrite !== false,
+        ))
+    ) {
       errors.push(`panel material state wrong: ${JSON.stringify(root.panelStates)}`)
     }
   }
-  report.assertions.crossSection.push({ progress: p, reached: sample?.reached, targetCut, expectedCut: cut, passed: errors.length === 0 })
+  report.assertions.crossSection.push({
+    progress: p,
+    reached: sample?.reached,
+    targetCut,
+    expectedCut: cut,
+    passed: errors.length === 0,
+  })
   if (errors.length) fail(`cross-section p=${p}: ${errors.join(' | ')}`)
-  else pass(`cross-section p=${p}: cut ${cut}, world plane x=${29.3 - 1.3 * cut}, stationary panels, opacity ${+(0.35 - 0.17 * cut).toFixed(3)}`)
+  else
+    pass(
+      `cross-section p=${p}: cut ${cut}, world plane x=${29.3 - 1.3 * cut}, stationary panels, opacity ${+(0.35 - 0.17 * cut).toFixed(3)}`,
+    )
 }
 
 // --- 5. JGUN gates ---
@@ -541,19 +672,26 @@ const g47 = current.stops['p0.47']?.gates
 const g85 = current.stops['p0.85']?.gates
 if (!g50 || !g47 || !g85) fail('missing JGUN gate probes')
 else {
-  if (Math.abs(g50.spot.intensity - 1.4) > 0.01 || Math.abs(g50.spot.y - 1.3) > 0.01) fail(`spot nudge at 0.50: ${JSON.stringify(g50.spot)}`)
+  if (Math.abs(g50.spot.intensity - 1.4) > 0.01 || Math.abs(g50.spot.y - 1.3) > 0.01)
+    fail(`spot nudge at 0.50: ${JSON.stringify(g50.spot)}`)
   else pass('p=0.50: spot 1.4 @ y 1.3 (nudge active)')
   if (g47.rim < 0.7) fail(`micro-rim at 0.47: ${g47.rim}`)
   else pass('p=0.47: micro-rim 0.8 inside LCD_REVEAL_WINDOW')
   if (g50.shadowVisible !== true) fail('explode shadow not visible at 0.50')
   else pass('p=0.50: secondary explode shadow visible')
-  if (Math.abs(g85.spot.intensity - 1.1) > 0.01 || Math.abs(g85.spot.y - 1.2) > 0.01 || g85.rim !== 0 || g85.shadowVisible !== false) {
+  if (
+    Math.abs(g85.spot.intensity - 1.1) > 0.01 ||
+    Math.abs(g85.spot.y - 1.2) > 0.01 ||
+    g85.rim !== 0 ||
+    g85.shadowVisible !== false
+  ) {
     fail(`CH.04 not inert at 0.85: ${JSON.stringify(g85)}`)
   } else pass('p=0.85 CH.04: spot resting 1.1 @ y 1.2, rim 0, shadow hidden — inert')
 }
 
 // --- tiers ---
-if (!current.reducedMotion.canvasMounted || current.reducedMotion.errors.length > 0) fail(`reduced-motion broken: ${JSON.stringify(current.reducedMotion)}`)
+if (!current.reducedMotion.canvasMounted || current.reducedMotion.errors.length > 0)
+  fail(`reduced-motion broken: ${JSON.stringify(current.reducedMotion)}`)
 else pass('reduced-motion tier mounts clean, 0 errors')
 if (current.liteTier.particleCount !== 3600) fail(`lite tier particles ${current.liteTier.particleCount} !== 3600`)
 else pass('lite tier: 3,600 particles')
@@ -563,7 +701,8 @@ if (current.perf.p95 > 17.5) console.warn(`WARN: p95 ${current.perf.p95} ms abov
 else pass(`perf at hold: p50 ${current.perf.p50} / p95 ${current.perf.p95} / max ${current.perf.max} ms`)
 
 // --- 8. console errors ---
-if (current.pageErrors.length > 0) fail(`${current.pageErrors.length} console/page errors:\n${current.pageErrors.join('\n')}`)
+if (current.pageErrors.length > 0)
+  fail(`${current.pageErrors.length} console/page errors:\n${current.pageErrors.join('\n')}`)
 else pass('0 console errors, 0 uncaught page errors')
 
 report.completedAt = new Date().toISOString()
@@ -571,4 +710,7 @@ report.status = report.failures.length === 0 ? 'PASS' : 'FAIL'
 fs.writeFileSync(path.join(OUT, 'verification-report.json'), JSON.stringify(report, null, 2))
 console.log(`report → ${path.join(OUT, 'verification-report.json')}`)
 if (report.status === 'PASS') console.log('\n>>> ALL JG-032 VERIFICATION GATES PASSED <<<')
-else { console.error(`\n>>> JG-032 VERIFICATION FAILED (${report.failures.length}) <<<`); process.exitCode = 1 }
+else {
+  console.error(`\n>>> JG-032 VERIFICATION FAILED (${report.failures.length}) <<<`)
+  process.exitCode = 1
+}

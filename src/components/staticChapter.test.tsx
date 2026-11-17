@@ -156,7 +156,12 @@ describe('shaft engagement narrative parity', () => {
 
   it('renders exactly the active live caption and one polite atomic status region', () => {
     for (const reducedMotion of [false, true]) {
-      for (const [time, caption] of [[35, 'stage1-mesh'], [38.5, 'bullet-time'], [40.2, 'driveline-cascade'], [43, 'driveline-cascade']] as const) {
+      for (const [time, caption] of [
+        [35, 'stage1-mesh'],
+        [38.5, 'bullet-time'],
+        [40.2, 'driveline-cascade'],
+        [43, 'driveline-cascade'],
+      ] as const) {
         const markup = renderToStaticMarkup(<ShaftStoryLayer time={time} reducedMotion={reducedMotion} />)
         expect(markup.match(/data-shaft-caption=/g)).toHaveLength(1)
         expect(markup).toContain(`data-shaft-caption="${caption}"`)
@@ -167,7 +172,9 @@ describe('shaft engagement narrative parity', () => {
         expect(markup).not.toContain('data-shaft-fos-model=')
       }
     }
-    expect(renderToStaticMarkup(<ShaftStoryLayer time={34.9} reducedMotion={false} />)).not.toContain('data-shaft-caption=')
+    expect(renderToStaticMarkup(<ShaftStoryLayer time={34.9} reducedMotion={false} />)).not.toContain(
+      'data-shaft-caption=',
+    )
   })
 
   it('shares the four-chapter transcript with the static story and explains display ratios', () => {
@@ -181,14 +188,25 @@ describe('shaft engagement narrative parity', () => {
       }
     }
     expect(still).toContain('Stage 1 engagement and driveline cascade')
-    expect(still).toContain('labels relative carrier speeds; actual elapsed turns follow the slow-motion and cascade speed ramps')
+    expect(still).toContain(
+      'labels relative carrier speeds; actual elapsed turns follow the slow-motion and cascade speed ramps',
+    )
     expect(still).not.toMatch(/Moving the supports|2\.75 millimetres|support relocation/)
   })
 
   it('retains the first three chapters’ images and requests the six new responsive stills', () => {
     const markup = renderToStaticMarkup(<StaticShaftStory />)
-    const stillIds = ['cutter-exit', 'material-attempts', 'revised-blank', 'hobbed', 'cool-stress', 'stage1-engagement', 'bullet-time', 'driveline-cascade']
-    expect(Array.from(markup.matchAll(/data-shaft-still="([^"]+)"/g), match => match[1])).toEqual(stillIds)
+    const stillIds = [
+      'cutter-exit',
+      'material-attempts',
+      'revised-blank',
+      'hobbed',
+      'cool-stress',
+      'stage1-engagement',
+      'bullet-time',
+      'driveline-cascade',
+    ]
+    expect(Array.from(markup.matchAll(/data-shaft-still="([^"]+)"/g), (match) => match[1])).toEqual(stillIds)
     for (const id of stillIds) {
       expect(markup).toContain(`<source media="(max-width: 600px)" srcSet="/inspection/shaft/${id}-narrow.webp"`)
       expect(markup).toContain(`<img src="/inspection/shaft/${id}-desktop.webp" alt="`)
@@ -200,7 +218,9 @@ describe('shaft engagement narrative parity', () => {
 
   it('keeps the top-level chapter and inspection disclosure on the new story', () => {
     const markup = renderToStaticMarkup(<Story />)
-    const inspection = plainText(markup.split('data-torque-chapter="inspection"')[1].split('data-torque-chapter="close"')[0])
+    const inspection = plainText(
+      markup.split('data-torque-chapter="inspection"')[1].split('data-torque-chapter="close"')[0],
+    )
     expect(inspection).toContain('After the runout check, the Stage 1 carrier (A000591)')
     expect(inspection).toContain('full .250″ face width')
     expect(inspection).toContain('torque runs through the five stages')

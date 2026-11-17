@@ -16,6 +16,13 @@ createRoot(container).render(
 
 // The page is plain DOM: it is ready once the display font has settled (or the hold cap passes).
 let fontsReady = false
-document.fonts?.ready.then(() => { fontsReady = true }, () => { fontsReady = true })
+document.fonts?.ready.then(
+  () => {
+    fontsReady = true
+  },
+  () => {
+    fontsReady = true
+  },
+)
 if (!document.fonts) fontsReady = true
 releaseFadeWhen(() => fontsReady)

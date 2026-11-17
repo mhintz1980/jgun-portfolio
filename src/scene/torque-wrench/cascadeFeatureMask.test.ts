@@ -1,10 +1,18 @@
 import { describe, expect, it } from 'vitest'
 import { BoxGeometry, Group, Matrix4, Mesh, MeshBasicMaterial, ShaderMaterial, Vector3 } from 'three'
 import {
-  AUTHENTICATED_SHAFT_FEATURE_BANDS, FEATURE_MASK_AXIS, FEATURE_MASK_BAND_CAPACITY, FEATURE_MASK_VERSION,
-  buildAuthenticatedInputFeatureContracts, createFeatureMaskedMaterial, createFeatureMaskControlPatch, createFeatureMaskShaderPatch, insertBeforeFinalBrace,
+  AUTHENTICATED_SHAFT_FEATURE_BANDS,
+  FEATURE_MASK_AXIS,
+  FEATURE_MASK_BAND_CAPACITY,
+  FEATURE_MASK_VERSION,
+  buildAuthenticatedInputFeatureContracts,
+  createFeatureMaskedMaterial,
+  createFeatureMaskControlPatch,
+  createFeatureMaskShaderPatch,
+  insertBeforeFinalBrace,
   validateFeatureMaskContract,
-  type FeatureMaskContract, type ValidatedFeatureMask,
+  type FeatureMaskContract,
+  type ValidatedFeatureMask,
 } from './cascadeFeatureMask'
 import { shaftLocalToStudy } from '../inspection/shaft/frame'
 
@@ -48,28 +56,79 @@ describe('cascadeFeatureMask v1', () => {
     expect(() => validateFeatureMaskContract(validContract({ bands: [[1, 1]] }))).toThrow(/non-degenerate/)
     expect(() => validateFeatureMaskContract(validContract({ bands: [[20, 10]] }))).toThrow(/non-degenerate/)
     expect(() => validateFeatureMaskContract(validContract({ bands: [[Number.NaN, 2]] }))).toThrow(/finite/)
-    expect(() => validateFeatureMaskContract(validContract({ bands: [[0, Number.POSITIVE_INFINITY]] }))).toThrow(/finite/)
-    expect(() => validateFeatureMaskContract(validContract({ bands: [[0, 5], [4, 9]] }))).toThrow(/overlap/)
-    expect(() => validateFeatureMaskContract(validContract({ bands: [[5, 6], [0, 1]] }))).toThrow(/sorted/)
-    expect(() => validateFeatureMaskContract(validContract({
-      bands: Array.from({ length: FEATURE_MASK_BAND_CAPACITY + 1 }, (_, i) => [i * 10, i * 10 + 1] as [number, number]),
-    }))).toThrow(/at most/)
-    expect(() => validateFeatureMaskContract(validContract({ bands: [[0, 1], [2, 3]] }))).not.toThrow()
-    expect(() => validateFeatureMaskContract(validContract({ objectToShaft: { 'mesh-a': [1, 0, 0] } }))).toThrow(/16-entry/)
-    expect(() => validateFeatureMaskContract(validContract({
-      objectToShaft: { 'mesh-a': IDENTITY_16.map((v, i) => (i === 12 ? Number.NaN : v)) },
-    }))).toThrow(/finite/)
-    expect(() => validateFeatureMaskContract(validContract({
-      objectToShaft: { 'mesh-a': new Array(16).fill(0) },
-    }))).toThrow(/invertible/)
+    expect(() => validateFeatureMaskContract(validContract({ bands: [[0, Number.POSITIVE_INFINITY]] }))).toThrow(
+      /finite/,
+    )
+    expect(() =>
+      validateFeatureMaskContract(
+        validContract({
+          bands: [
+            [0, 5],
+            [4, 9],
+          ],
+        }),
+      ),
+    ).toThrow(/overlap/)
+    expect(() =>
+      validateFeatureMaskContract(
+        validContract({
+          bands: [
+            [5, 6],
+            [0, 1],
+          ],
+        }),
+      ),
+    ).toThrow(/sorted/)
+    expect(() =>
+      validateFeatureMaskContract(
+        validContract({
+          bands: Array.from(
+            { length: FEATURE_MASK_BAND_CAPACITY + 1 },
+            (_, i) => [i * 10, i * 10 + 1] as [number, number],
+          ),
+        }),
+      ),
+    ).toThrow(/at most/)
+    expect(() =>
+      validateFeatureMaskContract(
+        validContract({
+          bands: [
+            [0, 1],
+            [2, 3],
+          ],
+        }),
+      ),
+    ).not.toThrow()
+    expect(() => validateFeatureMaskContract(validContract({ objectToShaft: { 'mesh-a': [1, 0, 0] } }))).toThrow(
+      /16-entry/,
+    )
+    expect(() =>
+      validateFeatureMaskContract(
+        validContract({
+          objectToShaft: { 'mesh-a': IDENTITY_16.map((v, i) => (i === 12 ? Number.NaN : v)) },
+        }),
+      ),
+    ).toThrow(/finite/)
+    expect(() =>
+      validateFeatureMaskContract(
+        validContract({
+          objectToShaft: { 'mesh-a': new Array(16).fill(0) },
+        }),
+      ),
+    ).toThrow(/invertible/)
     expect(() => validMask({ objectToShaft: { 'mesh-a': new Matrix4().makeScale(2, 2, 2) } })).not.toThrow()
   })
 
   it('enforces exact mesh coverage: no missing meshes, no stale contracts', () => {
     expect(() => validateFeatureMaskContract(validContract(), ['mesh-a', 'mesh-b'])).toThrow(/missing/)
-    expect(() => validateFeatureMaskContract(validContract({
-      objectToShaft: { 'mesh-a': IDENTITY_16, 'mesh-z': IDENTITY_16 },
-    }), ['mesh-a'])).toThrow(/unexpected/)
+    expect(() =>
+      validateFeatureMaskContract(
+        validContract({
+          objectToShaft: { 'mesh-a': IDENTITY_16, 'mesh-z': IDENTITY_16 },
+        }),
+        ['mesh-a'],
+      ),
+    ).toThrow(/unexpected/)
     expect(() => validateFeatureMaskContract(validContract(), [])).toThrow(/at least one selected mesh/)
     expect(() => validateFeatureMaskContract(validContract(), ['mesh-a'])).not.toThrow()
   })
@@ -85,13 +144,20 @@ describe('cascadeFeatureMask v1', () => {
     expect(white.vertexDeclarations).toContain('centroid varying vec3 jgFeatureShaftLocal;')
     expect(white.fragmentDeclarations).toContain('centroid varying vec3 jgFeatureShaftLocal;')
     expect(white.fragmentDeclarations).toContain('bool jgFeatureInside()')
-    expect(() => createFeatureMaskShaderPatch(validMask(), 'mesh-a', { kind: 'rgb', expression: '  ' })).toThrow(/non-empty/)
+    expect(() => createFeatureMaskShaderPatch(validMask(), 'mesh-a', { kind: 'rgb', expression: '  ' })).toThrow(
+      /non-empty/,
+    )
     expect(() => createFeatureMaskShaderPatch(validMask(), 'mesh-unknown', { kind: 'discard' })).toThrow(/mesh-unknown/)
   })
 
   it('passes bands as uniforms and keys programs only on capacity and fragment kind', () => {
     const mask = validMask()
-    const wide = validMask({ bands: [[-5, 2.5], [30, 31]] })
+    const wide = validMask({
+      bands: [
+        [-5, 2.5],
+        [30, 31],
+      ],
+    })
     const plain = createFeatureMaskShaderPatch(mask, 'mesh-a', { kind: 'discard' })
     const differentBands = createFeatureMaskShaderPatch(wide, 'mesh-a', { kind: 'discard' })
     expect(plain.cacheKeySuffix).toBe(differentBands.cacheKeySuffix)
@@ -102,9 +168,14 @@ describe('cascadeFeatureMask v1', () => {
     expect(plainBands[2 * FEATURE_MASK_BAND_CAPACITY - 1]).toBe(0)
     expect(plain.uniforms.uJgFeatureToShaft.value).toBe(mask.matrices.get('mesh-a'))
     const white = createFeatureMaskShaderPatch(mask, 'mesh-a', { kind: 'rgb', expression: 'vec3(1.0)' })
-    const premultiplied = createFeatureMaskShaderPatch(mask, 'mesh-a', { kind: 'rgb', expression: 'vec3(gl_FragColor.a)' })
+    const premultiplied = createFeatureMaskShaderPatch(mask, 'mesh-a', {
+      kind: 'rgb',
+      expression: 'vec3(gl_FragColor.a)',
+    })
     const capped = createFeatureMaskShaderPatch(mask, 'mesh-a', { kind: 'discard' }, 8)
-    expect(new Set([plain.cacheKeySuffix, white.cacheKeySuffix, premultiplied.cacheKeySuffix, capped.cacheKeySuffix]).size).toBe(4)
+    expect(
+      new Set([plain.cacheKeySuffix, white.cacheKeySuffix, premultiplied.cacheKeySuffix, capped.cacheKeySuffix]).size,
+    ).toBe(4)
   })
 
   it('switches control selections only through uniforms without changing the compiled program', () => {
@@ -129,7 +200,10 @@ describe('cascadeFeatureMask v1', () => {
   it('clones materials, chains the original hook, and injects per-mesh uniforms', () => {
     const hookCalls: string[] = []
     const original = new MeshBasicMaterial({ color: 0x112233, depthWrite: true })
-    original.onBeforeCompile = shader => { hookCalls.push('hook'); void shader }
+    original.onBeforeCompile = (shader) => {
+      hookCalls.push('hook')
+      void shader
+    }
     const mask = validMask()
     const patch = createFeatureMaskShaderPatch(mask, 'mesh-a', { kind: 'rgb', expression: 'vec3(1.0)' })
     const clone = createFeatureMaskedMaterial(original, patch)
@@ -144,7 +218,9 @@ describe('cascadeFeatureMask v1', () => {
     expect(hookCalls).toEqual(['hook'])
     expect(fakeShader.vertexShader.startsWith(patch.vertexDeclarations)).toBe(true)
     expect(fakeShader.vertexShader).toContain('jgFeatureShaftLocal = (uJgFeatureToShaft * vec4(position, 1.0)).xyz;')
-    expect(fakeShader.vertexShader.indexOf('void main()')).toBeLessThan(fakeShader.vertexShader.indexOf('jgFeatureShaftLocal ='))
+    expect(fakeShader.vertexShader.indexOf('void main()')).toBeLessThan(
+      fakeShader.vertexShader.indexOf('jgFeatureShaftLocal ='),
+    )
     expect(fakeShader.vertexShader.trimEnd().endsWith('}')).toBe(true)
     expect(fakeShader.fragmentShader.startsWith(patch.fragmentDeclarations)).toBe(true)
     expect(fakeShader.fragmentShader).toContain('if (jgFeatureInside()) gl_FragColor.rgb = vec3(1.0);')
@@ -185,8 +261,12 @@ describe('cascadeFeatureMask v1', () => {
     const teethMask = validateFeatureMaskContract(variantContracts.inputSunTeeth, [studyMesh.uuid, sourceMesh.uuid])
     const sixfoldMask = validateFeatureMaskContract(variantContracts.inputSixfold, [studyMesh.uuid, sourceMesh.uuid])
 
-    expect(teethMask.meshBands.get(studyMesh.uuid)).toEqual(AUTHENTICATED_SHAFT_FEATURE_BANDS.inputSunTeeth.studyFullHob)
-    expect(teethMask.meshBands.get(sourceMesh.uuid)).toEqual(AUTHENTICATED_SHAFT_FEATURE_BANDS.inputSunTeeth.sourceFullShaping)
+    expect(teethMask.meshBands.get(studyMesh.uuid)).toEqual(
+      AUTHENTICATED_SHAFT_FEATURE_BANDS.inputSunTeeth.studyFullHob,
+    )
+    expect(teethMask.meshBands.get(sourceMesh.uuid)).toEqual(
+      AUTHENTICATED_SHAFT_FEATURE_BANDS.inputSunTeeth.sourceFullShaping,
+    )
     expect(sixfoldMask.bands).toEqual(AUTHENTICATED_SHAFT_FEATURE_BANDS.inputSixfold.sharedFull)
 
     // Verify that any shaft-datum point (xMm, yMm, zMm) rotated by studyPart.rotation.z in study space

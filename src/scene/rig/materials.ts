@@ -229,15 +229,17 @@ export const RING_SWITCH_OD_MASK_FULL = RING_SWITCH_OD_RADIUS - 0.0004
  */
 function applyRingSwitchOdKnurlMask(material: MeshPhysicalMaterial): void {
   material.onBeforeCompile = (shader) => {
-    shader.vertexShader = `varying vec3 vRingSwitchObjectNormal;\nvarying vec3 vRingSwitchObjectPos;\n${shader.vertexShader}`.replace(
-      '#include <beginnormal_vertex>',
-      '#include <beginnormal_vertex>\n  vRingSwitchObjectNormal = normalize(objectNormal);\n  vRingSwitchObjectPos = position;',
-    )
-    shader.fragmentShader = `varying vec3 vRingSwitchObjectNormal;\nvarying vec3 vRingSwitchObjectPos;\n${shader.fragmentShader}`.replace(
-      '#include <normal_fragment_maps>',
-      ShaderChunk.normal_fragment_maps.replace(
-        'mapN.xy *= normalScale;',
-        `vec2 ringSwitchRadialPos = vRingSwitchObjectPos.xy;
+    shader.vertexShader =
+      `varying vec3 vRingSwitchObjectNormal;\nvarying vec3 vRingSwitchObjectPos;\n${shader.vertexShader}`.replace(
+        '#include <beginnormal_vertex>',
+        '#include <beginnormal_vertex>\n  vRingSwitchObjectNormal = normalize(objectNormal);\n  vRingSwitchObjectPos = position;',
+      )
+    shader.fragmentShader =
+      `varying vec3 vRingSwitchObjectNormal;\nvarying vec3 vRingSwitchObjectPos;\n${shader.fragmentShader}`.replace(
+        '#include <normal_fragment_maps>',
+        ShaderChunk.normal_fragment_maps.replace(
+          'mapN.xy *= normalScale;',
+          `vec2 ringSwitchRadialPos = vRingSwitchObjectPos.xy;
 \tvec2 ringSwitchRadialNormal = vRingSwitchObjectNormal.xy;
 \tfloat ringSwitchOutwardDot = dot(ringSwitchRadialPos, ringSwitchRadialNormal)
 \t\t/ max(length(ringSwitchRadialPos) * length(ringSwitchRadialNormal), 1e-8);
@@ -246,8 +248,8 @@ function applyRingSwitchOdKnurlMask(material: MeshPhysicalMaterial): void {
 \tfloat ringSwitchSide = 1.0 - step(0.20, abs(normalize(vRingSwitchObjectNormal).z));
 \tfloat ringSwitchOdMask = ringSwitchOutward * ringSwitchOuterRadius * ringSwitchSide;
 \tmapN.xy *= normalScale * ringSwitchOdMask;`,
-      ),
-    )
+        ),
+      )
   }
   material.customProgramCacheKey = () => 'ring-switch-od-knurl-v3'
 }
@@ -513,8 +515,12 @@ export function roleMaterial(role: MaterialRole): Material {
   // the band phase depends only on position.z, so on the large smooth housing
   // ODs the roughness rings render as circumferential dark/light striping
   // (2026-10-24 housing OD stripes issue).
-  const isTurnedMetal = role === 'toolSteel' || role === 'cageSteel' ||
-    role === 'planetSteel' || role === 'clutchSteel' || role === 'rotorSteel' ||
+  const isTurnedMetal =
+    role === 'toolSteel' ||
+    role === 'cageSteel' ||
+    role === 'planetSteel' ||
+    role === 'clutchSteel' ||
+    role === 'rotorSteel' ||
     role === 'stainlessSteel'
 
   ready.onBeforeCompile = function (shader, renderer) {
@@ -554,7 +560,8 @@ roughnessFactor = clamp( roughnessFactor + ( latheBands.x + latheBands.y ) * 0.0
         'outgoingLight = mix(vec3(0.004, 0.021, 0.037), outgoingLight, uIntroPbr);\n#include <opaque_fragment>',
       )
   }
-  ready.customProgramCacheKey = () => `${originalKey}-intro-pbr-v1-role-env-v1-normal-aa-v1-${isTurnedMetal ? 'lathe-v1' : 'base'}`
+  ready.customProgramCacheKey = () =>
+    `${originalKey}-intro-pbr-v1-role-env-v1-normal-aa-v1-${isTurnedMetal ? 'lathe-v1' : 'base'}`
   ready.clone = cloneRoleMaterial
   roleMaterials.set(role, material as Material)
   return material as Material

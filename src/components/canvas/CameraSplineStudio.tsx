@@ -117,11 +117,7 @@ export function CameraSplineStudio({
   const updateKeyframeVector = useCallback(
     (index: number, field: 'camPos' | 'targetPos', matrix: THREE.Matrix4) => {
       tempPos.setFromMatrixPosition(matrix)
-      const rounded: Vec3 = [
-        Number(tempPos.x.toFixed(3)),
-        Number(tempPos.y.toFixed(3)),
-        Number(tempPos.z.toFixed(3)),
-      ]
+      const rounded: Vec3 = [Number(tempPos.x.toFixed(3)), Number(tempPos.y.toFixed(3)), Number(tempPos.z.toFixed(3))]
       setKeyframes((prev) => prev.map((kf, idx) => (idx === index ? { ...kf, [field]: rounded } : kf)))
     },
     [tempPos],
@@ -320,7 +316,9 @@ export function CameraSplineStudio({
                   setScrubProgress(idx / (keyframes.length - 1))
                 }}
                 className={`rounded py-1 text-center text-[11px] transition ${
-                  idx === activeIdx ? 'bg-cyan-500 font-bold text-zinc-950' : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
+                  idx === activeIdx
+                    ? 'bg-cyan-500 font-bold text-zinc-950'
+                    : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
                 }`}
               >
                 Shot {idx + 1}

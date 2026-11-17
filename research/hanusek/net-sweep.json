@@ -1,0 +1,1723 @@
+{
+ "cmd": "sweep",
+ "url": "https://www.hanusek.com/",
+ "opts": {
+  "w": 1440,
+  "h": 900,
+  "mobile": false,
+  "dsf": "1",
+  "reduced": false,
+  "tag": "sweep"
+ },
+ "reqsBeforeScroll": 30,
+ "network": [
+  {
+   "url": "https://www.hanusek.com/",
+   "method": "GET",
+   "type": "Document",
+   "initiator": {
+    "type": "other"
+   },
+   "startMs": 0,
+   "headers": {
+    "Upgrade-Insecure-Requests": "1",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"Windows\""
+   },
+   "status": 200,
+   "mime": "text/html",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": null,
+   "encoding": "br",
+   "protocol": "h2",
+   "encodedDataLength": 6303,
+   "endMs": 325
+  },
+  {
+   "url": "https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400&family=Inter+Tight:wght@600;700&family=Inter:wght@400;500&family=Instrument+Serif:ital@1&display=swap",
+   "method": "GET",
+   "type": "Stylesheet",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 327,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "text/css",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": null,
+   "encoding": "gzip",
+   "protocol": "h2",
+   "encodedDataLength": 1512,
+   "endMs": 512
+  },
+  {
+   "url": "https://www.hanusek.com/site.css",
+   "method": "GET",
+   "type": "Stylesheet",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 327,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "text/css",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": null,
+   "encoding": "br",
+   "protocol": "h2",
+   "encodedDataLength": 7424,
+   "endMs": 474
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/img/hero.webp",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 327,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/webp",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "52210",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 52606,
+   "endMs": 751
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/agentfy/icons-v16.jpg",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 328,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/jpeg",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "56636",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 57268,
+   "endMs": 594
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/agentfy/chat-v16.jpg",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 328,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/jpeg",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "21215",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 21555,
+   "endMs": 688
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/agentfy/wire-v16.jpg",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 328,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/jpeg",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "38071",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 38447,
+   "endMs": 651
+  },
+  {
+   "url": "https://www.hanusek.com/site.js",
+   "method": "GET",
+   "type": "Script",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 328,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "application/javascript",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": null,
+   "encoding": "br",
+   "protocol": "h2",
+   "encodedDataLength": 3250,
+   "endMs": 481
+  },
+  {
+   "url": "https://www.hanusek.com/pages.js",
+   "method": "GET",
+   "type": "Script",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 328,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "application/javascript",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": null,
+   "encoding": "br",
+   "protocol": "h2",
+   "encodedDataLength": 1767,
+   "endMs": 399
+  },
+  {
+   "url": "https://www.hanusek.com/hform.js",
+   "method": "GET",
+   "type": "Script",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 328,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "application/javascript",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": null,
+   "encoding": "br",
+   "protocol": "h2",
+   "encodedDataLength": 1387,
+   "endMs": 410
+  },
+  {
+   "url": "https://www.hanusek.com/site.webmanifest",
+   "method": "GET",
+   "type": "Manifest",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 336,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "application/manifest+json",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "356",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 705,
+   "endMs": 529
+  },
+  {
+   "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+   "method": "GET",
+   "type": "Font",
+   "initiator": {
+    "type": "parser",
+    "url": "https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400&family=Inter+Tight:wght@600;700&family=Inter:wght@400;500&family=Instrument+Serif:ital@1&display=swap"
+   },
+   "startMs": 525,
+   "headers": {
+    "Origin": "https://www.hanusek.com",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://fonts.googleapis.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "font/woff2",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "48256",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 48392,
+   "endMs": 1054
+  },
+  {
+   "url": "https://fonts.gstatic.com/s/intertight/v9/NGSwv5HMAFg6IuGlBNMjxLsH8ag.woff2",
+   "method": "GET",
+   "type": "Font",
+   "initiator": {
+    "type": "parser",
+    "url": "https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400&family=Inter+Tight:wght@600;700&family=Inter:wght@400;500&family=Instrument+Serif:ital@1&display=swap"
+   },
+   "startMs": 530,
+   "headers": {
+    "Origin": "https://www.hanusek.com",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://fonts.googleapis.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "font/woff2",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "44872",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 45010,
+   "endMs": 1107
+  },
+  {
+   "url": "https://fonts.gstatic.com/s/geistmono/v6/or3yQ6H-1_WfwkMZI_qYPLs1a-t7PU0AbeE9KK5U5Ck.woff2",
+   "method": "GET",
+   "type": "Font",
+   "initiator": {
+    "type": "parser",
+    "url": "https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400&family=Inter+Tight:wght@600;700&family=Inter:wght@400;500&family=Instrument+Serif:ital@1&display=swap"
+   },
+   "startMs": 530,
+   "headers": {
+    "Origin": "https://www.hanusek.com",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://fonts.googleapis.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "font/woff2",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "9864",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 9981,
+   "endMs": 808
+  },
+  {
+   "url": "https://fonts.gstatic.com/s/instrumentserif/v5/jizHRFtNs2ka5fXjeivQ4LroWlx-6zAjjH7M.woff2",
+   "method": "GET",
+   "type": "Font",
+   "initiator": {
+    "type": "parser",
+    "url": "https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400&family=Inter+Tight:wght@600;700&family=Inter:wght@400;500&family=Instrument+Serif:ital@1&display=swap"
+   },
+   "startMs": 530,
+   "headers": {
+    "Origin": "https://www.hanusek.com",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://fonts.googleapis.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "font/woff2",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "22128",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 22670,
+   "endMs": 779
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/leverhouse-v17b.mp4",
+   "method": "GET",
+   "type": "Other",
+   "initiator": {
+    "type": "script"
+   },
+   "startMs": 653,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "Sec-Purpose": "prefetch",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "video/mp4",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "1098918",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 1100725,
+   "endMs": 4402
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/agentfy-v16.jpg",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 660,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/jpeg",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "141183",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 141686,
+   "endMs": 1368
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/leverhouse-v17b.jpg",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 661,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/jpeg",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "102322",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 102768,
+   "endMs": 1229
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/theguild-v17.jpg",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 661,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/jpeg",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "48280",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 48672,
+   "endMs": 1369
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/journalsquared-v17.jpg",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 661,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/jpeg",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "120373",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 120850,
+   "endMs": 1511
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/essexcrossing-v17.jpg",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 661,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/jpeg",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "77633",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 78071,
+   "endMs": 1581
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/chelseacanvas-v17b.jpg",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 661,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/jpeg",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "114504",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 114943,
+   "endMs": 1732
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/manhattanwest-v17b.jpg",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 661,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/jpeg",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "147512",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 148023,
+   "endMs": 1967
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/ybca.jpg",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 661,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/jpeg",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "64337",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 64750,
+   "endMs": 1968
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/fortmason.jpg",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 661,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/jpeg",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "71777",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 72411,
+   "endMs": 2103
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/sfciviccenter-v17.jpg",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 661,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/jpeg",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "49049",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 49425,
+   "endMs": 2237
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/thegpsstore.jpg",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 661,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/jpeg",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "104276",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 104724,
+   "endMs": 2434
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/prestige.jpg",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 662,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/jpeg",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "100699",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 101147,
+   "endMs": 2563
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/casadicoble-v17.jpg",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "parser",
+    "url": "https://www.hanusek.com/"
+   },
+   "startMs": 662,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/jpeg",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "39838",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 40214,
+   "endMs": 2563
+  },
+  {
+   "url": "https://www.hanusek.com/favicon.svg",
+   "method": "GET",
+   "type": "Other",
+   "initiator": {
+    "type": "other"
+   },
+   "startMs": 2572,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/svg+xml",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "342",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 539,
+   "endMs": 2640
+  },
+  {
+   "url": "https://www.hanusek.com/crew/crew.js",
+   "method": "GET",
+   "type": "Script",
+   "initiator": {
+    "type": "script"
+   },
+   "startMs": 24765,
+   "headers": {
+    "Origin": "https://www.hanusek.com",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "application/javascript",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": null,
+   "encoding": "br",
+   "protocol": "h2",
+   "encodedDataLength": 6084,
+   "endMs": 24859
+  },
+  {
+   "url": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
+   "method": "GET",
+   "type": "Script",
+   "initiator": {
+    "type": "script",
+    "url": "https://www.hanusek.com/crew/crew.js"
+   },
+   "startMs": 24860,
+   "headers": {
+    "Origin": "https://www.hanusek.com",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "application/javascript",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "255518",
+   "encoding": "br",
+   "protocol": "h2",
+   "encodedDataLength": 256581,
+   "endMs": 25176
+  },
+  {
+   "url": "https://www.hanusek.com/crew/crewparts.js",
+   "method": "GET",
+   "type": "Script",
+   "initiator": {
+    "type": "script",
+    "url": "https://www.hanusek.com/crew/crew.js"
+   },
+   "startMs": 24860,
+   "headers": {
+    "Origin": "https://www.hanusek.com",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/crew/crew.js",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "application/javascript",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": null,
+   "encoding": "br",
+   "protocol": "h2",
+   "encodedDataLength": 3056,
+   "endMs": 24950
+  },
+  {
+   "url": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/geometries/RoundedBoxGeometry.js",
+   "method": "GET",
+   "type": "Script",
+   "initiator": {
+    "type": "script",
+    "url": "https://www.hanusek.com/crew/crewparts.js"
+   },
+   "startMs": 24952,
+   "headers": {
+    "Origin": "https://www.hanusek.com",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "application/javascript",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "1285",
+   "encoding": "br",
+   "protocol": "h2",
+   "encodedDataLength": 1652,
+   "endMs": 25176
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/agentfy/icons-v16.mp4",
+   "method": "GET",
+   "type": "Media",
+   "initiator": {
+    "type": "other"
+   },
+   "startMs": 25085,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "Range": "bytes=0-",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 206,
+   "mime": "video/mp4",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "398079",
+   "encoding": null,
+   "protocol": "h2",
+   "failed": true,
+   "error": "net::ERR_ABORTED",
+   "canceled": true
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/agentfy/chat-v16.mp4",
+   "method": "GET",
+   "type": "Media",
+   "initiator": {
+    "type": "other"
+   },
+   "startMs": 25086,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "Range": "bytes=0-",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 206,
+   "mime": "video/mp4",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "226837",
+   "encoding": null,
+   "protocol": "h2",
+   "failed": true,
+   "error": "net::ERR_ABORTED",
+   "canceled": true
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/agentfy/wire-v16.mp4",
+   "method": "GET",
+   "type": "Media",
+   "initiator": {
+    "type": "other"
+   },
+   "startMs": 25087,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "Range": "bytes=0-",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 206,
+   "mime": "video/mp4",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "449173",
+   "encoding": null,
+   "protocol": "h2",
+   "failed": true,
+   "error": "net::ERR_ABORTED",
+   "canceled": true
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/agentfy-v16.mp4",
+   "method": "GET",
+   "type": "Media",
+   "initiator": {
+    "type": "other"
+   },
+   "startMs": 25089,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "Range": "bytes=0-",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 206,
+   "mime": "video/mp4",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "1517243",
+   "encoding": null,
+   "protocol": "h2",
+   "failed": true,
+   "error": "net::ERR_ABORTED",
+   "canceled": true
+  },
+  {
+   "url": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxOTYgMTk2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxOTYgMTk2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik05OCw0OXY0Yy0yNC45LDAtNDUsMjAuMS00NSw0NQoJYzAsMTgsMTAuNiwzMy42LDI1LjksNDAuOGwtMS43LDMuNmMwLjEsMCwwLjIsMC4xLDAuMywwLjFjLTAuMSwwLTAuMi0wLjEtMC4zLTAuMWwwLDBDNjAuNSwxMzQuNSw0OSwxMTcuNiw0OSw5OAoJQzQ5LDcwLjksNzAuOSw0OSw5OCw0OXoiLz4KPC9zdmc+Cg==",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "other"
+   },
+   "startMs": 25131,
+   "headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "Referer": ""
+   },
+   "status": 200,
+   "mime": "image/svg+xml",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": null,
+   "encoding": null,
+   "protocol": "data",
+   "encodedDataLength": 0,
+   "endMs": 25131
+  },
+  {
+   "url": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxOTYgMTk2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxOTYgMTk2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xNDcsOThjMCwxOS42LTExLjUsMzYuNS0yOC4yLDQ0LjRsMCwwYy0wLjEsMC0wLjIsMC4xLTAuMywwLjEKCWMwLjEsMCwwLjItMC4xLDAuMy0wLjFsLTEuNy0zLjZDMTMyLjQsMTMxLjYsMTQzLDExNiwxNDMsOThjMC0yNC45LTIwLjEtNDUtNDUtNDV2LTRDMTI1LjEsNDksMTQ3LDcwLjksMTQ3LDk4eiIvPgo8L3N2Zz4K",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "other"
+   },
+   "startMs": 25133,
+   "headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "Referer": ""
+   },
+   "status": 200,
+   "mime": "image/svg+xml",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": null,
+   "encoding": null,
+   "protocol": "data",
+   "encodedDataLength": 0,
+   "endMs": 25133
+  },
+  {
+   "url": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJXaW5kb3ciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPHBhdGggZD0iTTggNXYxNGwxMS03eiIvPgogICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4K",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "other"
+   },
+   "startMs": 25135,
+   "headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "Referer": ""
+   },
+   "status": 200,
+   "mime": "image/svg+xml",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": null,
+   "encoding": null,
+   "protocol": "data",
+   "encodedDataLength": 0,
+   "endMs": 25136
+  },
+  {
+   "url": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJXaW5kb3ciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPHBhdGggZD0iTTE2LjUgMTJjMC0xLjc3LTEuMDItMy4yOS0yLjUtNC4wM3YyLjIxbDIuNDUgMi40NWMuMDMtLjIuMDUtLjQxLjA1LS42M3ptMi41IDBjMCAuOTQtLjIgMS44Mi0uNTQgMi42NGwxLjUxIDEuNTFDMjAuNjMgMTQuOTEgMjEgMTMuNSAyMSAxMmMwLTQuMjgtMi45OS03Ljg2LTctOC43N3YyLjA2YzIuODkuODYgNSAzLjU0IDUgNi43MXpNNC4yNyAzTDMgNC4yNyA3LjczIDlIM3Y2aDRsNSA1di02LjczbDQuMjUgNC4yNWMtLjY3LjUyLTEuNDIuOTMtMi4yNSAxLjE4djIuMDZjMS4zOC0uMzEgMi42My0uOTUgMy42OS0xLjgxTDE5LjczIDIxIDIxIDE5LjczbC05LTlMNC4yNyAzek0xMiA0TDkuOTEgNi4wOSAxMiA4LjE4VjR6Ii8+CiAgICA8cGF0aCBkPSJNMCAwaDI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPgo=",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "other"
+   },
+   "startMs": 25137,
+   "headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "Referer": ""
+   },
+   "status": 200,
+   "mime": "image/svg+xml",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": null,
+   "encoding": null,
+   "protocol": "data",
+   "encodedDataLength": 0,
+   "endMs": 25137
+  },
+  {
+   "url": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJXaW5kb3ciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPgogICAgPHBhdGggZD0iTTcgMTRINXY1aDV2LTJIN3YtM3ptLTItNGgyVjdoM1Y1SDV2NXptMTIgN2gtM3YyaDV2LTVoLTJ2M3pNMTQgNXYyaDN2M2gyVjVoLTV6Ii8+Cjwvc3ZnPgo=",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "other"
+   },
+   "startMs": 25139,
+   "headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "Referer": ""
+   },
+   "status": 200,
+   "mime": "image/svg+xml",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": null,
+   "encoding": null,
+   "protocol": "data",
+   "encodedDataLength": 0,
+   "endMs": 25139
+  },
+  {
+   "url": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMjQgMjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI1NSAyNTU7IiB4bWw6c3BhY2U9InByZXNlcnZlIiBmaWxsPSJXaW5kb3ciPgo8Zz4KCTxjaXJjbGUgY3g9IjEyIiBjeT0iNiIgcj0iMiIvPgoJPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMiIvPgoJPGNpcmNsZSBjeD0iMTIiIGN5PSIxOCIgcj0iMiIvPgo8L2c+Cjwvc3ZnPgo=",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "other"
+   },
+   "startMs": 25140,
+   "headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "Referer": ""
+   },
+   "status": 200,
+   "mime": "image/svg+xml",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": null,
+   "encoding": null,
+   "protocol": "data",
+   "encodedDataLength": 0,
+   "endMs": 25140
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/theguild-v17.mp4",
+   "method": "GET",
+   "type": "Other",
+   "initiator": {
+    "type": "script"
+   },
+   "startMs": 25145,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "Sec-Purpose": "prefetch",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "video/mp4",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "825994",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 827238,
+   "endMs": 27741
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/leverhouse-v17b.jpg",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "other"
+   },
+   "startMs": 25146,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/jpeg",
+   "fromDiskCache": true,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "102322",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 0,
+   "endMs": 25148
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/leverhouse-v17b.mp4",
+   "method": "GET",
+   "type": "Media",
+   "initiator": {
+    "type": "other"
+   },
+   "startMs": 25155,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "Range": "bytes=0-",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 206,
+   "mime": "video/mp4",
+   "fromDiskCache": true,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "1098918",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 0,
+   "endMs": 25160
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/awards/cssda-2026-special-kudos.svg",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "other"
+   },
+   "startMs": 25584,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/svg+xml",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": null,
+   "encoding": "zstd",
+   "protocol": "h2",
+   "encodedDataLength": 2635,
+   "endMs": 26189
+  },
+  {
+   "url": "https://challenges.cloudflare.com/turnstile/v0/b/f8df4d4a0cd6/api.js",
+   "method": "GET",
+   "type": "Script",
+   "initiator": {
+    "type": "other"
+   },
+   "startMs": 25885,
+   "headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "Referer": "https://www.hanusek.com/"
+   },
+   "status": 200,
+   "mime": "application/javascript",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": null,
+   "encoding": "br",
+   "protocol": "h2",
+   "encodedDataLength": 28246,
+   "endMs": 26042
+  },
+  {
+   "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/turnstile/f/av0/rch/liyrn/0x4AAAAAAFjWMWRsJ55j1mkc/auto/fbE/new/flexible?lang=auto",
+   "method": "GET",
+   "type": "Document",
+   "initiator": {
+    "type": "script"
+   },
+   "startMs": 26055,
+   "headers": {
+    "Referer": "https://www.hanusek.com/",
+    "Upgrade-Insecure-Requests": "1",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"Windows\""
+   },
+   "status": 200,
+   "mime": "text/html",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": null,
+   "encoding": "br",
+   "protocol": "h2"
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/agentfy-v16.mp4",
+   "method": "GET",
+   "type": "Other",
+   "initiator": {
+    "type": "script"
+   },
+   "startMs": 26331,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "Sec-Purpose": "prefetch",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "video/mp4",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "1517243",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 1257321,
+   "endMs": 28112
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/casadicoble-v17.jpg",
+   "method": "GET",
+   "type": "Image",
+   "initiator": {
+    "type": "other"
+   },
+   "startMs": 26332,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 200,
+   "mime": "image/jpeg",
+   "fromDiskCache": true,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "39838",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 0,
+   "endMs": 26334
+  },
+  {
+   "url": "https://media.hanusek.com/hanusek/media/work/casadicoble-v17.mp4",
+   "method": "GET",
+   "type": "Media",
+   "initiator": {
+    "type": "other"
+   },
+   "startMs": 26337,
+   "headers": {
+    "sec-ch-ua-platform": "\"Windows\"",
+    "Referer": "https://www.hanusek.com/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Google Chrome\";v=\"157\", \"Chromium\";v=\"157\"",
+    "Range": "bytes=0-",
+    "sec-ch-ua-mobile": "?0"
+   },
+   "status": 206,
+   "mime": "video/mp4",
+   "fromDiskCache": false,
+   "fromServiceWorker": false,
+   "contentLengthHdr": "1637995",
+   "encoding": null,
+   "protocol": "h2",
+   "encodedDataLength": 1640174,
+   "endMs": 27663
+  }
+ ],
+ "fingerprint": {
+  "title": "Hanusek Studio · Designed and built. Now agentic. · AI automation studio, Crested Butte CO",
+  "url": "https://www.hanusek.com/",
+  "readyState": "complete",
+  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+  "dpr": 0.999999982890948,
+  "viewport": {
+   "iw": 1440,
+   "ih": 900
+  },
+  "metaViewport": "width=device-width,initial-scale=1",
+  "reducedMedia": false,
+  "webgl": true,
+  "webglInfo": {
+   "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+   "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  },
+  "globals": [],
+  "gsapVersion": null,
+  "stVersion": null,
+  "smootherVersion": null,
+  "canvases": [
+   {
+    "w": 1424,
+    "h": 899,
+    "id": "",
+    "cls": "",
+    "parent": "DIV.crew-canvas",
+    "ariaHidden": null,
+    "style": "display: block; width: 1425px; height: 900px;"
+   }
+  ],
+  "headings": [
+   "H1: Designed and built.Now agentic.",
+   "H2: From wireframesto working agent systems.",
+   "H2: Meet the crew.",
+   "H2: NowAgentic. An AI agent team that takes real work off your plate.",
+   "H2: Architect. Build. Run. Care.",
+   "H2: Bring me the problem.I'll build the system."
+  ],
+  "bodyTextSample": "Skip to content Hanusek Studio. WORK NOWAGENTIC CREW SERVICES ABOUT CONTACT SOUND OFF S.00 · HANUSEK STUDIO Designed and built. Now agentic. A design and build studio, now architecting AI agent systems that do real work. FLAGSHIP NowAgentic An AI agent team at work → SELECTED Work Thirteen projects → S.01 · STUDIO Hanusek Studio is John Hanusek's design and build studio. Years of designing and building websites, brands and digital experiences, now applied to architecting AI agents that do real work. We don't advise. We build. The same discipline that ships a website (map the workflow, design the system, build it, keep it running) is how we architect agentic systems. S.02 · HERITAGE TO AGENTIC From wireframes to working agent systems. FIG. 1 An agent system: inputs, agents, a human approval, outputs. INPUT · EMAIL INPUT · FORMS INPUT · DATA AGENTS APPROVE OUT S.02B · MEET THE CREW Meet the crew. JOHN HANUSEK · FOUNDER Sets the vision. Architects the system. Approves every step. Sonar, Strategy & Research: finds the real problem before anyone builds. Glyph, Brand: voice, logo, type and tokens that hold together everywhere. Swatch, Design: wireframes, layouts and the scroll moments you remember. Rivet, Code: front end, back end, integrations and the agent architecture underneath. Vibe, Growth: found in search and AI answers, then launched with a plan. Patch, Care: tested, fast, secure, updated. John Hanusek, Founder: sets the vision, architects the system, approves every step. S",
+  "links": [
+   {
+    "href": "#main",
+    "text": "Skip to content"
+   },
+   {
+    "href": "/",
+    "text": "Hanusek Studio."
+   },
+   {
+    "href": "/work/",
+    "text": "Work"
+   },
+   {
+    "href": "/nowagentic/",
+    "text": "NowAgentic"
+   },
+   {
+    "href": "/crew/",
+    "text": "Crew"
+   },
+   {
+    "href": "/services/",
+    "text": "Services"
+   },
+   {
+    "href": "/about/",
+    "text": "About"
+   },
+   {
+    "href": "/contact/",
+    "text": "Contact"
+   },
+   {
+    "href": "/",
+    "text": "00Home"
+   },
+   {
+    "href": "/work/",
+    "text": "01Work"
+   },
+   {
+    "href": "/nowagentic/",
+    "text": "02NowAgentic"
+   },
+   {
+    "href": "/crew/",
+    "text": "03Crew"
+   },
+   {
+    "href": "/services/",
+    "text": "04Services"
+   },
+   {
+    "href": "/about/",
+    "text": "05About"
+   },
+   {
+    "href": "/contact/",
+    "text": "06Contact"
+   },
+   {
+    "href": "mailto:connect@hanusek.com",
+    "text": "connect@hanusek.com"
+   },
+   {
+    "href": "/nowagentic/",
+    "text": "FlagshipNowAgenticAn AI agent team at work →"
+   },
+   {
+    "href": "/work/",
+    "text": "SelectedWorkThirteen projects →"
+   },
+   {
+    "href": "/nowagentic/",
+    "text": "See NowAgentic in motion →"
+   },
+   {
+    "href": "https://nowagentic.ai",
+    "text": "nowagentic.ai ↗"
+   },
+   {
+    "href": "/work/nowagentic/",
+    "text": "NowAgentic"
+   },
+   {
+    "href": "/work/leverhouse/",
+    "text": "Lever House"
+   },
+   {
+    "href": "/work/theguild/",
+    "text": "The Guild"
+   },
+   {
+    "href": "/work/journalsquared/",
+    "text": "Journal Squared"
+   },
+   {
+    "href": "/work/essexcrossing/",
+    "text": "Essex Crossing"
+   },
+   {
+    "href": "/work/chelseacanvas/",
+    "text": "Chelsea Canvas"
+   },
+   {
+    "href": "/work/manhattanwest/",
+    "text": "Manhattan West"
+   },
+   {
+    "href": "/work/ybca/",
+    "text": "YBCA"
+   },
+   {
+    "href": "/work/fortmason/",
+    "text": "Fort Mason Center"
+   },
+   {
+    "href": "/work/sfciviccenter/",
+    "text": "SF Civic Center"
+   },
+   {
+    "href": "/work/thegpsstore/",
+    "text": "The GPS Store"
+   },
+   {
+    "href": "/work/prestige/",
+    "text": "Prestige Civil Contractors"
+   },
+   {
+    "href": "/work/casadicoble/",
+    "text": "Casa Di Coble"
+   },
+   {
+    "href": "/work/",
+    "text": "All work →"
+   },
+   {
+    "href": "/work/casadicoble/",
+    "text": ""
+   },
+   {
+    "href": "/services/",
+    "text": "Services and process →"
+   },
+   {
+    "href": "mailto:connect@hanusek.com?subject=Let%27s%20build%20something",
+    "text": "connect@hanusek.com"
+   },
+   {
+    "href": "/",
+    "text": "Hanusek Studio."
+   },
+   {
+    "href": "/work/",
+    "text": "Work"
+   },
+   {
+    "href": "/nowagentic/",
+    "text": "NowAgentic"
+   },
+   {
+    "href": "/crew/",
+    "text": "Crew"
+   },
+   {
+    "href": "/services/",
+    "text": "Services"
+   },
+   {
+    "href": "/about/",
+    "text": "About"
+   },
+   {
+    "href": "/contact/",
+    "text": "Contact"
+   },
+   {
+    "href": "mailto:connect@hanusek.com",
+    "text": "connect@hanusek.com"
+   },
+   {
+    "href": "https://nowagentic.ai",
+    "text": "nowagentic.ai"
+   },
+   {
+    "href": "https://j.hanusek.com/",
+    "text": "j.hanusek.com"
+   },
+   {
+    "href": "https://www.linkedin.com/company/hanusek-studio/",
+    "text": "LinkedIn"
+   },
+   {
+    "href": "https://www.cssdesignawards.com/sites/hanusek-studio/50519",
+    "text": "Special Kudos"
+   },
+   {
+    "href": "https://www.cssdesignawards.com/sites/hanusek-studio/50519",
+    "text": "CSSDA · Best UI Design · 2026"
+   }
+  ],
+  "scripts": [
+   {
+    "src": "(inline:791)",
+    "type": "application/ld+json",
+    "async": true,
+    "defer": false
+   },
+   {
+    "src": "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=__onTs",
+    "type": null,
+    "async": true,
+    "defer": false
+   },
+   {
+    "src": "https://www.hanusek.com/site.js",
+    "type": null,
+    "async": false,
+    "defer": true
+   },
+   {
+    "src": "https://www.hanusek.com/pages.js",
+    "type": null,
+    "async": false,
+    "defer": true
+   },
+   {
+    "src": "(inline:163)",
+    "type": "importmap",
+    "async": false,
+    "defer": false
+   },
+   {
+    "src": "(inline:264)",
+    "type": "module",
+    "async": false,
+    "defer": false
+   },
+   {
+    "src": "https://www.hanusek.com/hform.js",
+    "type": null,
+    "async": false,
+    "defer": true
+   }
+  ],
+  "domNodes": 418,
+  "scrollHeight": 22606,
+  "scroller": {
+   "isWindowScroll": true
+  },
+  "fonts": [
+   "Geist Mono 400 normal",
+   "Geist Mono 400 normal",
+   "Geist Mono 400 normal",
+   "Geist Mono 400 normal",
+   "Geist Mono 400 normal",
+   "Geist Mono 400 normal",
+   "Instrument Serif 400 italic",
+   "Instrument Serif 400 italic",
+   "Inter 400 normal",
+   "Inter 400 normal",
+   "Inter 400 normal",
+   "Inter 400 normal",
+   "Inter 400 normal",
+   "Inter 400 normal",
+   "Inter 400 normal",
+   "Inter 500 normal",
+   "Inter 500 normal",
+   "Inter 500 normal",
+   "Inter 500 normal",
+   "Inter 500 normal",
+   "Inter 500 normal",
+   "Inter 500 normal",
+   "Inter Tight 600 normal",
+   "Inter Tight 600 normal",
+   "Inter Tight 600 normal",
+   "Inter Tight 600 normal",
+   "Inter Tight 600 normal",
+   "Inter Tight 600 normal",
+   "Inter Tight 600 normal",
+   "Inter Tight 700 normal"
+  ],
+  "perfNav": {
+   "domContentLoaded": 674,
+   "loadEvent": 2569.2999999970198,
+   "type": "navigate"
+  },
+  "longtasksEarly": [
+   {
+    "start": 514,
+    "dur": 149,
+    "name": "self"
+   },
+   {
+    "start": 25192,
+    "dur": 223,
+    "name": "self"
+   }
+  ],
+  "firstPaint": [
+   {
+    "name": "first-paint",
+    "start": 728
+   },
+   {
+    "name": "first-contentful-paint",
+    "start": 728
+   }
+  ]
+ },
+ "exceptions": [],
+ "totalTransferKB": 6474.8
+}

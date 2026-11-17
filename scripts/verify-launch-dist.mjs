@@ -17,7 +17,14 @@ const REQUIRED = [
   'quiet-machine/index.html',
   'home/index.html',
   'armament/index.html',
-  ...['armament-receiver', 'armament-sections', 'gearbox-housing', 'gearbox-sections', 'pump-assembly', 'pump-door'].map((name) => `home/drawings/${name}.webp`),
+  ...[
+    'armament-receiver',
+    'armament-sections',
+    'gearbox-housing',
+    'gearbox-sections',
+    'pump-assembly',
+    'pump-door',
+  ].map((name) => `home/drawings/${name}.webp`),
   'models/Default.glb',
   'models/knurling-tool.glb',
   'models/manufacturing-core-full.glb',
@@ -30,9 +37,20 @@ const REQUIRED = [
   'draco/draco_decoder.wasm',
   'draco/draco_wasm_wrapper.js',
   'drawing/jgun-sheet-v2.bin.gz',
-  ...[1, 2, 3, 4, 5, 6, 7].flatMap((n) => [`images/rl300-shot-0${n}-poster.webp`, `images/rl300-shot-0${n}-poster-960.webp`]),
-  ...['assembled-finale', 'cool-stress', 'cutter-exit', 'hobbed', 'material-attempts', 'revised-blank', 'support-after', 'support-before']
-    .flatMap((name) => [`inspection/shaft/${name}-desktop.webp`, `inspection/shaft/${name}-narrow.webp`]),
+  ...[1, 2, 3, 4, 5, 6, 7].flatMap((n) => [
+    `images/rl300-shot-0${n}-poster.webp`,
+    `images/rl300-shot-0${n}-poster-960.webp`,
+  ]),
+  ...[
+    'assembled-finale',
+    'cool-stress',
+    'cutter-exit',
+    'hobbed',
+    'material-attempts',
+    'revised-blank',
+    'support-after',
+    'support-before',
+  ].flatMap((name) => [`inspection/shaft/${name}-desktop.webp`, `inspection/shaft/${name}-narrow.webp`]),
 ]
 
 // Text files that ship code or markup; M249 must not appear in any of them.
@@ -66,16 +84,22 @@ const files = walk(DIST)
 for (const full of files) {
   const rel = path.relative(DIST, full).split(path.sep).join('/')
   if (M249.test(rel)) failures.push(`M249 file shipped: ${rel}`)
-  if (TEXT_EXT.has(path.extname(full)) && M249.test(readFileSync(full, 'utf8'))) failures.push(`M249 reference in ${rel}`)
+  if (TEXT_EXT.has(path.extname(full)) && M249.test(readFileSync(full, 'utf8')))
+    failures.push(`M249 reference in ${rel}`)
   if (/^assets\/draco_/.test(rel)) failures.push(`unused hashed Draco copy shipped: ${rel}`)
   // Page entries must not preload the heavy Three.js chunk; it loads with the scene, not the HTML.
-  if (rel.endsWith('.html') && /rel="modulepreload"[^>]*BufferGeometryUtils/.test(readFileSync(full, 'utf8'))) failures.push(`${rel} preloads the Three.js chunk`)
+  if (rel.endsWith('.html') && /rel="modulepreload"[^>]*BufferGeometryUtils/.test(readFileSync(full, 'utf8')))
+    failures.push(`${rel} preloads the Three.js chunk`)
 }
 
 // The root is a redirect shell and must not pull the legacy root app.
 const rootHtml = existsSync(path.join(DIST, 'index.html')) ? readFileSync(path.join(DIST, 'index.html'), 'utf8') : ''
-if (/<script[^>]+type="module"/.test(rootHtml)) failures.push('dist/index.html loads a module script (legacy root app shipped)')
-const redirectScript = /<!-- shell:redirect:begin -->[\s\S]*?<script>([\s\S]*?)<\/script>[\s\S]*?<!-- shell:redirect:end -->/.exec(rootHtml)?.[1]
+if (/<script[^>]+type="module"/.test(rootHtml))
+  failures.push('dist/index.html loads a module script (legacy root app shipped)')
+const redirectScript =
+  /<!-- shell:redirect:begin -->[\s\S]*?<script>([\s\S]*?)<\/script>[\s\S]*?<!-- shell:redirect:end -->/.exec(
+    rootHtml,
+  )?.[1]
 if (!redirectScript) failures.push('dist/index.html is missing its redirect script')
 else {
   const probes = [
@@ -86,8 +110,13 @@ else {
   for (const [search, hash, expected] of probes) {
     const calls = []
     try {
-      runInNewContext(redirectScript, { URLSearchParams, location: { search, hash, replace: (url) => calls.push(url) } }, { timeout: 1000 })
-      if (calls.length !== 1 || calls[0] !== expected) failures.push(`dist/index.html redirect ${search}${hash} expected ${expected}, got ${JSON.stringify(calls)}`)
+      runInNewContext(
+        redirectScript,
+        { URLSearchParams, location: { search, hash, replace: (url) => calls.push(url) } },
+        { timeout: 1000 },
+      )
+      if (calls.length !== 1 || calls[0] !== expected)
+        failures.push(`dist/index.html redirect ${search}${hash} expected ${expected}, got ${JSON.stringify(calls)}`)
     } catch (error) {
       failures.push(`dist/index.html redirect ${search}${hash} failed: ${error.message}`)
     }
@@ -98,7 +127,10 @@ const homePath = path.join(DIST, 'home/index.html')
 if (existsSync(homePath)) {
   const homeHtml = readFileSync(homePath, 'utf8').replace(/<!--[\s\S]*?-->/g, '')
   const homeHead = /<head\b[\s\S]*?<\/head>/i.exec(homeHtml)?.[0] ?? ''
-  if (!/<meta\s+name="robots"\s+content="index,\s*follow"/i.test(homeHead) || /<meta\s+name="robots"\s+content="[^"]*noindex/i.test(homeHead)) {
+  if (
+    !/<meta\s+name="robots"\s+content="index,\s*follow"/i.test(homeHead) ||
+    /<meta\s+name="robots"\s+content="[^"]*noindex/i.test(homeHead)
+  ) {
     failures.push('dist/home/index.html must have an indexable robots directive')
   }
 }
@@ -110,4 +142,6 @@ if (failures.length) {
   console.error(`verify-launch-dist: ${failures.length} failure(s) in ${DIST}`)
   process.exit(1)
 }
-console.log(`verify-launch-dist: OK — ${files.length} files, ${(bytes / 1048576).toFixed(2)} MB, ${REQUIRED.length} required present, zero M249.`)
+console.log(
+  `verify-launch-dist: OK — ${files.length} files, ${(bytes / 1048576).toFixed(2)} MB, ${REQUIRED.length} required present, zero M249.`,
+)

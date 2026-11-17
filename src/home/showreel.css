@@ -1,0 +1,20 @@
+/* Homepage showreel section (2026-11-08). Uses the layout.css tokens; the hero above already
+   supplies the top spacing, so this section only pads below. */
+.home-reel {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 var(--gutter) clamp(56px, 10vh, 120px);
+}
+
+.home-reel .home-label {
+  margin: 0 0 16px;
+}
+
+.home-reel-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+}

@@ -71,76 +71,77 @@ const FRAGMENT_SHADER = /* glsl */ `
 // frame and must not allocate.
 const _viewDir = new Vector3()
 
-export const BackdropGradientLayer = forwardRef<BackdropLayerHandle, BackdropLayerProps>(
-  function BackdropGradientLayer({ size = DEFAULT_SIZE }, ref) {
-    const mesh = useRef<Mesh>(null)
+export const BackdropGradientLayer = forwardRef<BackdropLayerHandle, BackdropLayerProps>(function BackdropGradientLayer(
+  { size = DEFAULT_SIZE },
+  ref,
+) {
+  const mesh = useRef<Mesh>(null)
 
-    const geometry = useMemo(() => new PlaneGeometry(size, size), [size])
+  const geometry = useMemo(() => new PlaneGeometry(size, size), [size])
 
-    const material = useMemo(
-      () =>
-        new ShaderMaterial({
-          vertexShader: VERTEX_SHADER,
-          fragmentShader: FRAGMENT_SHADER,
-          uniforms: {
-            uTop: { value: new Color(0, 0, 0) },
-            uBottom: { value: new Color(0, 0, 0) },
-            uAccent: { value: new Color(0, 0, 0) },
-            uAlpha: { value: 0 },
-          },
-          transparent: true,
-          depthWrite: false,
-          depthTest: true,
-          fog: false,
-        }),
-      [],
-    )
-
-    useEffect(() => {
-      return () => {
-        geometry.dispose()
-        material.dispose()
-      }
-    }, [geometry, material])
-
-    // Handle identity is stable (material is memoized once); every method
-    // mutates existing GPU-side objects in place.
-    useImperativeHandle(
-      ref,
-      (): BackdropLayerHandle => ({
-        setAlpha: (alpha) => {
-          const a = Math.min(1, Math.max(0, alpha))
-          material.uniforms.uAlpha.value = a
-          if (mesh.current) mesh.current.visible = a > 0.001
+  const material = useMemo(
+    () =>
+      new ShaderMaterial({
+        vertexShader: VERTEX_SHADER,
+        fragmentShader: FRAGMENT_SHADER,
+        uniforms: {
+          uTop: { value: new Color(0, 0, 0) },
+          uBottom: { value: new Color(0, 0, 0) },
+          uAccent: { value: new Color(0, 0, 0) },
+          uAlpha: { value: 0 },
         },
-        setPalette: (top, bottom, accent) => {
-          material.uniforms.uTop.value.copy(top)
-          material.uniforms.uBottom.value.copy(bottom)
-          material.uniforms.uAccent.value.copy(accent)
-        },
-        syncToCamera: (camera) => {
-          const m = mesh.current
-          if (!m) return
-          // Canvas camera is root-level (SceneCanvas <Canvas camera>), so
-          // local == world; the quaternion-derived view axis is fresh, while
-          // matrixWorld (getWorldDirection) lags one frame.
-          _viewDir.set(0, 0, -1).applyQuaternion(camera.quaternion)
-          m.position.copy(camera.position).addScaledVector(_viewDir, LAYER_DEPTH)
-          m.quaternion.copy(camera.quaternion)
-        },
+        transparent: true,
+        depthWrite: false,
+        depthTest: true,
+        fog: false,
       }),
-      [material],
-    )
+    [],
+  )
 
-    return (
-      <mesh
-        ref={mesh}
-        geometry={geometry}
-        material={material}
-        renderOrder={RENDER_ORDER}
-        frustumCulled={false}
-        visible={false}
-      />
-    )
-  },
-)
+  useEffect(() => {
+    return () => {
+      geometry.dispose()
+      material.dispose()
+    }
+  }, [geometry, material])
+
+  // Handle identity is stable (material is memoized once); every method
+  // mutates existing GPU-side objects in place.
+  useImperativeHandle(
+    ref,
+    (): BackdropLayerHandle => ({
+      setAlpha: (alpha) => {
+        const a = Math.min(1, Math.max(0, alpha))
+        material.uniforms.uAlpha.value = a
+        if (mesh.current) mesh.current.visible = a > 0.001
+      },
+      setPalette: (top, bottom, accent) => {
+        material.uniforms.uTop.value.copy(top)
+        material.uniforms.uBottom.value.copy(bottom)
+        material.uniforms.uAccent.value.copy(accent)
+      },
+      syncToCamera: (camera) => {
+        const m = mesh.current
+        if (!m) return
+        // Canvas camera is root-level (SceneCanvas <Canvas camera>), so
+        // local == world; the quaternion-derived view axis is fresh, while
+        // matrixWorld (getWorldDirection) lags one frame.
+        _viewDir.set(0, 0, -1).applyQuaternion(camera.quaternion)
+        m.position.copy(camera.position).addScaledVector(_viewDir, LAYER_DEPTH)
+        m.quaternion.copy(camera.quaternion)
+      },
+    }),
+    [material],
+  )
+
+  return (
+    <mesh
+      ref={mesh}
+      geometry={geometry}
+      material={material}
+      renderOrder={RENDER_ORDER}
+      frustumCulled={false}
+      visible={false}
+    />
+  )
+})

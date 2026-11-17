@@ -42,7 +42,8 @@ function sample(progress: number) {
     localProgress,
     previousId: drafting ? null : draftingBeat.id,
     nextId: drafting ? closeBeat.id : null,
-    phase: localProgress < 0.1 ? ('entering' as const) : localProgress >= 0.9 ? ('exiting' as const) : ('active' as const),
+    phase:
+      localProgress < 0.1 ? ('entering' as const) : localProgress >= 0.9 ? ('exiting' as const) : ('active' as const),
     stateKey: `${beat.id}:${localProgress.toFixed(6)}`,
   }
 }
@@ -64,7 +65,7 @@ class FakeEventTarget<T extends string> {
   }
 
   dispatch(type: T): void {
-    for (const listener of [...this.listeners.get(type) ?? []]) listener()
+    for (const listener of [...(this.listeners.get(type) ?? [])]) listener()
   }
 
   get listenerCount(): number {
@@ -374,9 +375,7 @@ describe('torque wrench conductor runtime', () => {
     const handle = createTorqueScrollConductor({ store, ...fixture.deps })
     const diagnosticsBefore = store.getConductorDiagnostics()
 
-    expect(() => createTorqueScrollConductor({ store, ...fixture.deps })).toThrow(
-      'already active for this store',
-    )
+    expect(() => createTorqueScrollConductor({ store, ...fixture.deps })).toThrow('already active for this store')
     expect(fixture.lenisInstances).toHaveLength(1)
     expect(fixture.ticker.callbacks).toHaveLength(1)
     expect(fixture.scrollTrigger.triggers).toHaveLength(1)
@@ -438,37 +437,46 @@ describe('torque wrench conductor runtime', () => {
     handle.dispose()
   })
 
-  it.each(['ticker', 'trigger', 'lenis', 'listener'] as const)('seals the failed document and preserves a poisoned lease when %s cleanup throws', (owner) => {
-    const fixture = makeRuntimeDeps()
-    const store = makeStore()
-    const failures: Error[] = []
-    const handle = createTorqueScrollConductor({ store, ...fixture.deps, onCleanupFailure: (error) => failures.push(error) })
-    const fault = () => { throw new Error('fault:cleanup') }
-    if (owner === 'ticker') fixture.ticker.remove = fault
-    if (owner === 'trigger') fixture.scrollTrigger.triggers[0].kill = fault
-    if (owner === 'lenis') fixture.lenisInstances[0].destroy = fault
-    if (owner === 'listener') fixture.window.removeEventListener = fault
-    handle.dispose()
-    const diagnostics = store.getConductorDiagnostics()
-    expect(diagnostics.activeConductors).toBe(1)
-    expect(diagnostics.cleanupFailureCount).toBeGreaterThan(0)
-    expect(diagnostics.disposeCount).toBe(1)
-    expect(store.getState().sceneStatus).toBe('failed')
-    expect(failures).toHaveLength(1)
-    handle.dispose()
-    expect(store.getConductorDiagnostics()).toEqual(diagnostics)
-    // Attempting to overwrite a terminal failure cannot allocate another owner.
-    store.setSceneStatus('ready')
-    createTorqueScrollConductor({ store, ...fixture.deps }).dispose()
-    expect(fixture.lenisInstances).toHaveLength(1)
-    fixture.ticker.emit(3)
-    expect(fixture.lenisInstances[0].rafCalls).toEqual([])
-    const frozenProgress = store.getProgress()
-    fixture.scrollTrigger.triggers[0].progress = 1
-    fixture.scrollTrigger.triggers[0].emitUpdate()
-    fixture.lenisInstances[0].scroll()
-    expect(store.getProgress()).toBe(frozenProgress)
-  })
+  it.each(['ticker', 'trigger', 'lenis', 'listener'] as const)(
+    'seals the failed document and preserves a poisoned lease when %s cleanup throws',
+    (owner) => {
+      const fixture = makeRuntimeDeps()
+      const store = makeStore()
+      const failures: Error[] = []
+      const handle = createTorqueScrollConductor({
+        store,
+        ...fixture.deps,
+        onCleanupFailure: (error) => failures.push(error),
+      })
+      const fault = () => {
+        throw new Error('fault:cleanup')
+      }
+      if (owner === 'ticker') fixture.ticker.remove = fault
+      if (owner === 'trigger') fixture.scrollTrigger.triggers[0].kill = fault
+      if (owner === 'lenis') fixture.lenisInstances[0].destroy = fault
+      if (owner === 'listener') fixture.window.removeEventListener = fault
+      handle.dispose()
+      const diagnostics = store.getConductorDiagnostics()
+      expect(diagnostics.activeConductors).toBe(1)
+      expect(diagnostics.cleanupFailureCount).toBeGreaterThan(0)
+      expect(diagnostics.disposeCount).toBe(1)
+      expect(store.getState().sceneStatus).toBe('failed')
+      expect(failures).toHaveLength(1)
+      handle.dispose()
+      expect(store.getConductorDiagnostics()).toEqual(diagnostics)
+      // Attempting to overwrite a terminal failure cannot allocate another owner.
+      store.setSceneStatus('ready')
+      createTorqueScrollConductor({ store, ...fixture.deps }).dispose()
+      expect(fixture.lenisInstances).toHaveLength(1)
+      fixture.ticker.emit(3)
+      expect(fixture.lenisInstances[0].rafCalls).toEqual([])
+      const frozenProgress = store.getProgress()
+      fixture.scrollTrigger.triggers[0].progress = 1
+      fixture.scrollTrigger.triggers[0].emitUpdate()
+      fixture.lenisInstances[0].scroll()
+      expect(store.getProgress()).toBe(frozenProgress)
+    },
+  )
 
   it.each([
     'lenis.constructor',
@@ -491,9 +499,7 @@ describe('torque wrench conductor runtime', () => {
     }
 
     expect(() => createTorqueScrollConductor({ store, ...fixture.deps })).toThrow(`fault:${faultStage}`)
-    expect(fixture.lenisInstances.map((lenis) => lenis.destroyed)).toEqual(
-      fixture.lenisInstances.map(() => true),
-    )
+    expect(fixture.lenisInstances.map((lenis) => lenis.destroyed)).toEqual(fixture.lenisInstances.map(() => true))
     expect(fixture.ticker.callbacks).toHaveLength(0)
     expect(fixture.scrollTrigger.triggers.every((trigger) => trigger.killed)).toBe(true)
     expect(fixture.window.listenerCount).toBe(0)

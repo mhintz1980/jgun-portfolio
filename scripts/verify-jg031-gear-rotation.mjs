@@ -14,10 +14,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-const { chromium } = await import(
-  process.env.PLAYWRIGHT_MODULE ||
-    'playwright'
-)
+const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright')
 
 const OUT_DIR = 'project/work/evidence/jg031-gear-rotation'
 fs.mkdirSync(OUT_DIR, { recursive: true })
@@ -58,7 +55,7 @@ try {
   await page.waitForFunction(
     () => Boolean(window.__drawingProof?.ready && window.__telemetry?.drawing?.annotationsReady),
     null,
-    { timeout: 60000 }
+    { timeout: 60000 },
   )
   await page.waitForTimeout(2000)
 
@@ -96,11 +93,15 @@ try {
     for (let i = 0; i < drivelineRot035.length - 1; i++) {
       if (drivelineRot035[i + 1] >= drivelineRot035[i]) {
         monotonic = false
-        fail(`Driveline monotonicity failed at progress 0.35: ${drivelineNames[i+1]} (${drivelineRot035[i+1]}) >= ${drivelineNames[i]} (${drivelineRot035[i]})`)
+        fail(
+          `Driveline monotonicity failed at progress 0.35: ${drivelineNames[i + 1]} (${drivelineRot035[i + 1]}) >= ${drivelineNames[i]} (${drivelineRot035[i]})`,
+        )
       }
     }
     if (monotonic) {
-      pass(`Physical driveline strict monotonicity verified at 0.35: ${drivelineRot035.map((r, idx) => `${drivelineNames[idx]}=${r.toFixed(2)}`).join(' > ')}`)
+      pass(
+        `Physical driveline strict monotonicity verified at 0.35: ${drivelineRot035.map((r, idx) => `${drivelineNames[idx]}=${r.toFixed(2)}`).join(' > ')}`,
+      )
       report.assertions.monotonic035 = true
     }
 
@@ -112,12 +113,16 @@ try {
       ratios.push(r)
       if (r < 0.63 || r > 0.67) {
         ratiosOk = false
-        fail(`Driveline ratio between ${drivelineNames[i+1]} and ${drivelineNames[i]} out of bounds: ${r.toFixed(4)} (expected ~0.65)`)
+        fail(
+          `Driveline ratio between ${drivelineNames[i + 1]} and ${drivelineNames[i]} out of bounds: ${r.toFixed(4)} (expected ~0.65)`,
+        )
       }
     }
     report.assertions.ratios035 = ratios
     if (ratiosOk) {
-      pass(`All consecutive physical driveline stage ratios at 0.35 are in [0.63, 0.67]: ${ratios.map(r => (r * 100).toFixed(1) + '%').join(', ')}`)
+      pass(
+        `All consecutive physical driveline stage ratios at 0.35 are in [0.63, 0.67]: ${ratios.map((r) => (r * 100).toFixed(1) + '%').join(', ')}`,
+      )
       report.assertions.ratiosOk035 = true
     }
 
@@ -125,7 +130,9 @@ try {
     const expectedPlanet = -3.5 * telem035.stageRot[0]
     const planetDiff = Math.abs(telem035.planetRot - expectedPlanet)
     if (planetDiff < 1e-3) {
-      pass(`Planet counter-rotation verified: ${telem035.planetRot.toFixed(3)} === -3.5 * ${telem035.stageRot[0].toFixed(3)}`)
+      pass(
+        `Planet counter-rotation verified: ${telem035.planetRot.toFixed(3)} === -3.5 * ${telem035.stageRot[0].toFixed(3)}`,
+      )
       report.assertions.planetRot035 = true
     } else {
       fail(`Planet counter-rotation mismatch: ${telem035.planetRot} vs expected ${expectedPlanet}`)
@@ -142,7 +149,7 @@ try {
   await page.evaluate((p) => {
     window.__scrollCommitDisabled = true
     return window.__drawingProof.scrollToProgress(p)
-  }, 0.50)
+  }, 0.5)
   await page.waitForTimeout(2500)
 
   const telem050 = await page.evaluate(() => window.__telemetry?.rig)
@@ -164,11 +171,13 @@ try {
     for (let i = 0; i < drivelineRot050.length - 1; i++) {
       if (drivelineRot050[i + 1] >= drivelineRot050[i]) {
         monotonic050 = false
-        fail(`Driveline monotonicity failed at progress 0.50: ${drivelineNames[i+1]} >= ${drivelineNames[i]}`)
+        fail(`Driveline monotonicity failed at progress 0.50: ${drivelineNames[i + 1]} >= ${drivelineNames[i]}`)
       }
     }
     if (monotonic050) {
-      pass(`Physical driveline strict monotonicity verified at 0.50: ${drivelineRot050.map((r, idx) => `${drivelineNames[idx]}=${r.toFixed(2)}`).join(' > ')}`)
+      pass(
+        `Physical driveline strict monotonicity verified at 0.50: ${drivelineRot050.map((r, idx) => `${drivelineNames[idx]}=${r.toFixed(2)}`).join(' > ')}`,
+      )
       report.assertions.monotonic050 = true
     }
 
@@ -179,12 +188,16 @@ try {
       ratios050.push(r)
       if (r < 0.63 || r > 0.67) {
         ratiosOk050 = false
-        fail(`Driveline ratio between ${drivelineNames[i+1]} and ${drivelineNames[i]} at 0.50 out of bounds: ${r.toFixed(4)}`)
+        fail(
+          `Driveline ratio between ${drivelineNames[i + 1]} and ${drivelineNames[i]} at 0.50 out of bounds: ${r.toFixed(4)}`,
+        )
       }
     }
     report.assertions.ratios050 = ratios050
     if (ratiosOk050) {
-      pass(`All consecutive physical driveline stage ratios at 0.50 are in [0.63, 0.67]: ${ratios050.map(r => (r * 100).toFixed(1) + '%').join(', ')}`)
+      pass(
+        `All consecutive physical driveline stage ratios at 0.50 are in [0.63, 0.67]: ${ratios050.map((r) => (r * 100).toFixed(1) + '%').join(', ')}`,
+      )
       report.assertions.ratiosOk050 = true
     }
   }
@@ -203,7 +216,7 @@ try {
   report.telemetry['view_exploded'] = telemExploded
 
   if (telemExploded && telemExploded.stageRot) {
-    const allZero = telemExploded.stageRot.every(r => Math.abs(r) < 1e-4)
+    const allZero = telemExploded.stageRot.every((r) => Math.abs(r) < 1e-4)
     if (allZero) {
       pass('Static exploded mode: all 5 stageRot values are 0 (train at rest)')
       report.assertions.explodedAtRest = true

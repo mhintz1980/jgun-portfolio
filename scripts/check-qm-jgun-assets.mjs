@@ -220,7 +220,9 @@ function summarise(outDir, root) {
 function main() {
   const { positional, flags } = parseArgs(process.argv.slice(2))
   if (positional.length !== 2 || !flags['base-root'] || !flags['new-root']) {
-    fail('usage: check-qm-jgun-assets.mjs <baseOut> <newOut> --base-root <dir> --new-root <dir> [--append <md>] [--label <QMn>]')
+    fail(
+      'usage: check-qm-jgun-assets.mjs <baseOut> <newOut> --base-root <dir> --new-root <dir> [--append <md>] [--label <QMn>]',
+    )
   }
   const baseOut = path.resolve(nativePath(positional[0]))
   const newOut = path.resolve(nativePath(positional[1]))

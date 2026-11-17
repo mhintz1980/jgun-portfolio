@@ -267,8 +267,8 @@ export function writeProgressionUniforms(
   uniforms.uHobA.value = state.hobA
   uniforms.uHobR.value = state.hobR
   uniforms.uAxialContactY.value = Number.isFinite(contactYmm) ? Math.max(0, Math.min(9.525, contactYmm)) : 0
-  uniforms.uAxialContactMix.value = resolved === 'approved' && Number.isFinite(contactMix)
-    ? Math.max(0, Math.min(1, contactMix)) : 0
+  uniforms.uAxialContactMix.value =
+    resolved === 'approved' && Number.isFinite(contactMix) ? Math.max(0, Math.min(1, contactMix)) : 0
 }
 
 /** Write the stress-overlay uniforms in place (no allocation). */
@@ -562,7 +562,13 @@ void main() {
   vec3 color = jgFosColorLinear(mix(uStressBodyFos, uStressHotspotFos, field));
   gl_FragColor = vec4(color, mask * 0.92);
 }`,
-    transparent: true, depthTest: true, depthWrite: false, side: DoubleSide, toneMapped: false,
-    polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2,
+    transparent: true,
+    depthTest: true,
+    depthWrite: false,
+    side: DoubleSide,
+    toneMapped: false,
+    polygonOffset: true,
+    polygonOffsetFactor: -2,
+    polygonOffsetUnits: -2,
   })
 }

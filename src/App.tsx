@@ -12,16 +12,12 @@ import { isCinematicRigRequested } from './scene/cinematic/rigRequest'
 // split out of the entry chunk: the DOM narrative, HUD chrome and poster paint
 // immediately from a small bundle, and the heavy modules stream in behind
 // Suspense. Poster tier never fetches them at all.
-const SceneCanvas = lazy(() =>
-  import('./scene/SceneCanvas').then((m) => ({ default: m.SceneCanvas })),
-)
+const SceneCanvas = lazy(() => import('./scene/SceneCanvas').then((m) => ({ default: m.SceneCanvas })))
 const ScrollRig = lazy(() => import('./scene/ScrollRig').then((m) => ({ default: m.ScrollRig })))
-const BootSequence = lazy(() =>
-  import('./components/BootSequence').then((m) => ({ default: m.BootSequence })),
-)
+const BootSequence = lazy(() => import('./components/BootSequence').then((m) => ({ default: m.BootSequence })))
 const QuietMachinePreview = lazy(() => import('./scene/rl300/QuietMachinePreview'))
 const CinematicRigRoute = lazy(() => import('./scene/cinematic/CinematicRigRoute'))
-const RingInspection = lazy(() => import('./components/RingInspection').then(m => ({ default: m.RingInspection })))
+const RingInspection = lazy(() => import('./components/RingInspection').then((m) => ({ default: m.RingInspection })))
 
 export default function App() {
   const { tier, reducedMotion } = useQuality()
@@ -30,13 +26,21 @@ export default function App() {
   // Owner decision 2026-10-06 ("posters throughout"): reduced-motion visitors
   // always get the static poster path, so the study query must not bypass it.
   if (!reducedMotion && new URLSearchParams(window.location.search).get('study') === 'rl300') {
-    return <Suspense fallback={null}><QuietMachinePreview /></Suspense>
+    return (
+      <Suspense fallback={null}>
+        <QuietMachinePreview />
+      </Suspense>
+    )
   }
 
   // Cinematic camera rig sandbox (?debug=rig authoring studio, ?rig=cinematic shot reel). Same
   // standalone pattern as ?study=rl300: it replaces the page, so no existing route is touched.
   if (!reducedMotion && isCinematicRigRequested(window.location.search)) {
-    return <Suspense fallback={null}><CinematicRigRoute /></Suspense>
+    return (
+      <Suspense fallback={null}>
+        <CinematicRigRoute />
+      </Suspense>
+    )
   }
 
   // Degradation wiring (see qualityStore for the tier ladder):
@@ -90,7 +94,9 @@ export default function App() {
       <main>
         <Chapters />
       </main>
-      <Suspense fallback={null}><RingInspection /></Suspense>
+      <Suspense fallback={null}>
+        <RingInspection />
+      </Suspense>
     </>
   )
 }

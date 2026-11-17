@@ -3,15 +3,22 @@ import type { DrawingLayout, RenderedDrawing } from './drawingGeometry'
 import { getQuality } from '../../state/qualityStore'
 import { getPaperFlexField, type PaperFlexField } from './sheet/paperFlex'
 import {
-  applyBoundExtraction, bindExtractionPressure as bindCorePressure,
-  createExtractionContext, type Extraction,
+  applyBoundExtraction,
+  bindExtractionPressure as bindCorePressure,
+  createExtractionContext,
+  type Extraction,
 } from './poseCore'
 
 export type { Extraction } from './poseCore'
 export { extractionLift, relativePose, lowestVertex, solveExtraction } from './poseCore'
 
 /** Keep the legacy non-null binding signature. */
-export function bindExtractionPressure(extraction: Extraction, layout: DrawingLayout, field: PaperFlexField, tier: string): void {
+export function bindExtractionPressure(
+  extraction: Extraction,
+  layout: DrawingLayout,
+  field: PaperFlexField,
+  tier: string,
+): void {
   bindCorePressure(extraction, layout, field, tier)
 }
 

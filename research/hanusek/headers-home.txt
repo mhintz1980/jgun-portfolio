@@ -1,0 +1,20 @@
+HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Access-Control-Allow-Origin: *
+Age: 33002
+Cache-Control: public, max-age=0, must-revalidate
+Content-Disposition: inline
+Content-Length: 18587
+Content-Type: text/html; charset=utf-8
+Date: Sat, 14 Nov 2026 01:54:49 GMT
+Etag: "f401a61f39e4122ed2c22e27ee43b71d"
+Last-Modified: Fri, 13 Nov 2026 16:44:47 GMT
+Link: </.well-known/api-catalog>; rel="api-catalog", </llms.txt>; rel="describedby"; type="text/markdown", </.well-known/agent-skills/index.json>; rel="describedby"; type="application/json"
+Referrer-Policy: strict-origin-when-cross-origin
+Server: Vercel
+Strict-Transport-Security: max-age=63072000
+Vary: Accept
+X-Content-Type-Options: nosniff
+X-Vercel-Cache: HIT
+X-Vercel-Id: iad1::r4pwk-1794621289912-ff6534af209e
+

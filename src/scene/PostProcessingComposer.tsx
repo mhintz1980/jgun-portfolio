@@ -1,6 +1,14 @@
 import { useContext, useEffect, useMemo, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { EffectComposer, EffectComposerContext, ChromaticAberration, Bloom, DepthOfField, SMAA, ToneMapping } from '@react-three/postprocessing'
+import {
+  EffectComposer,
+  EffectComposerContext,
+  ChromaticAberration,
+  Bloom,
+  DepthOfField,
+  SMAA,
+  ToneMapping,
+} from '@react-three/postprocessing'
 import { BlendFunction, EffectPass, ToneMappingMode } from 'postprocessing'
 import type { ChromaticAberrationEffect, BloomEffect, DepthOfFieldEffect } from 'postprocessing'
 import { Vector2, Vector3 } from 'three'
@@ -55,7 +63,11 @@ const BLOOM_PEAK = 0.65
 function rootMsaaSamples(gl: WebGLRenderer): number {
   const context = gl.getContext()
   if (!('getInternalformatParameter' in context)) return 0
-  const supported = context.getInternalformatParameter(context.RENDERBUFFER, context.RGBA16F, context.SAMPLES) as Int32Array | null
+  const supported = context.getInternalformatParameter(
+    context.RENDERBUFFER,
+    context.RGBA16F,
+    context.SAMPLES,
+  ) as Int32Array | null
   const limit = Math.min(4, gl.capabilities.maxSamples)
   let samples = 0
   for (const count of supported ?? []) {
@@ -67,9 +79,9 @@ function rootMsaaSamples(gl: WebGLRenderer): number {
 /** Repair the installed wrapper's CSS-only resize check and handle late pass registration. */
 function ComposerBufferSync() {
   const { composer } = useContext(EffectComposerContext)
-  const gl = useThree(state => state.gl)
-  const size = useThree(state => state.size)
-  const dpr = useThree(state => state.viewport.dpr)
+  const gl = useThree((state) => state.gl)
+  const size = useThree((state) => state.size)
+  const dpr = useThree((state) => state.viewport.dpr)
   const drawingBufferSize = useMemo(() => new Vector2(), [])
 
   useEffect(() => {
@@ -80,8 +92,12 @@ function ComposerBufferSync() {
 
   useFrame(() => {
     gl.getDrawingBufferSize(drawingBufferSize)
-    if (composer.inputBuffer.width !== drawingBufferSize.x || composer.inputBuffer.height !== drawingBufferSize.y ||
-        composer.outputBuffer.width !== drawingBufferSize.x || composer.outputBuffer.height !== drawingBufferSize.y) {
+    if (
+      composer.inputBuffer.width !== drawingBufferSize.x ||
+      composer.inputBuffer.height !== drawingBufferSize.y ||
+      composer.outputBuffer.width !== drawingBufferSize.x ||
+      composer.outputBuffer.height !== drawingBufferSize.y
+    ) {
       const cssSize = gl.getSize(drawingBufferSize)
       composer.setSize(cssSize.x, cssSize.y)
     }
@@ -150,7 +166,9 @@ function FxDriver({
   useEffect(() => {
     const port = { bloom: bloomRef.current, aberration: aberrationRef.current, dof: dofRef.current }
     renderOwnership.post = port
-    return () => { if (renderOwnership.post === port) renderOwnership.post = null }
+    return () => {
+      if (renderOwnership.post === port) renderOwnership.post = null
+    }
   }, [bloomRef, aberrationRef, dofRef, enableAberration])
   useFrame(() => {
     if (renderOwnership.blocked) return
@@ -213,9 +231,7 @@ function FxDriver({
       // drafting pass unbloomed; glow belongs solely to the trace in blackout.
       if (introOwnsFrame) rest = 0
       const pulseBoost = introOwnsFrame ? telemetry.drawing.pulse * telemetry.drawing.blackout * INTRO_PULSE_BLOOM : 0
-      bloomRef.current.intensity = proof
-        ? 0
-        : rest + (BLOOM_PEAK - BLOOM_REST) * intensity + pulseBoost
+      bloomRef.current.intensity = proof ? 0 : rest + (BLOOM_PEAK - BLOOM_REST) * intensity + pulseBoost
     }
   })
 
@@ -224,7 +240,7 @@ function FxDriver({
 
 export function PostProcessingComposer() {
   const { tier, reducedMotion } = useQuality()
-  const gl = useThree(state => state.gl)
+  const gl = useThree((state) => state.gl)
   const fullSamples = useMemo(() => rootMsaaSamples(gl), [gl])
 
   const aberrationRef = useRef<ChromaticAberrationEffect | null>(null)
@@ -239,7 +255,11 @@ export function PostProcessingComposer() {
 
   return (
     <>
-      <EffectComposer multisampling={tier === 'full' ? fullSamples : 0} stencilBuffer={false} renderPass={createSectionRenderPass}>
+      <EffectComposer
+        multisampling={tier === 'full' ? fullSamples : 0}
+        stencilBuffer={false}
+        renderPass={createSectionRenderPass}
+      >
         <ComposerBufferSync />
         {enableAberration && (
           <ChromaticAberration
@@ -267,12 +287,7 @@ export function PostProcessingComposer() {
         <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
         {tier === 'lite' && <SMAA />}
       </EffectComposer>
-      <FxDriver
-        aberrationRef={aberrationRef}
-        bloomRef={bloomRef}
-        dofRef={dofRef}
-        enableAberration={enableAberration}
-      />
+      <FxDriver aberrationRef={aberrationRef} bloomRef={bloomRef} dofRef={dofRef} enableAberration={enableAberration} />
     </>
   )
 }

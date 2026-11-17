@@ -1,8 +1,6 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <!-- shell:begin -->
+<html lang="en" data-theme="dark"><head><meta charset="UTF-8">
+<!-- shell:begin -->
     <!-- shell:fade:begin -->
     <style>
       html { background: #05070a; }
@@ -23,31 +21,254 @@
     </script>
     <!-- shell:fade:end -->
     <!-- shell:end -->
-    <!-- Theme before first paint: stored choice, else the system preference. Never throws. -->
-    <style>
-      html[data-theme="light"] { background: #f4f1ea; color-scheme: light; }
-      html[data-theme="dark"] { background: #0b1622; color-scheme: dark; }
-    </style>
-    <script>
-      (function () {
-        var theme = null
-        try { theme = localStorage.getItem('sm:theme') } catch (error) {}
-        if (theme !== 'light' && theme !== 'dark') {
-          try { theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light' } catch (error) { theme = 'light' }
-        }
-        document.documentElement.setAttribute('data-theme', theme)
-      })()
-    </script>
-    <meta name="robots" content="index, follow" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Mark Hintz, mechanical designer and systems builder: precision tooling, industrial pump packages, and the tools around the CAD." />
-    <link rel="canonical" href="https://studiomark.dev/home/" />
-    <link rel="preload" href="/fonts/home/Michroma.woff2" as="font" type="font/woff2" crossorigin />
-    <title>Mark Hintz · Mechanical Designer + Systems Builder</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/home-main.tsx"></script>
-  </body>
-</html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<meta name="description" content="Mark Hintz, mechanical designer and systems builder: precision tooling, industrial pump packages, and the tools around the CAD.">
+<link rel="canonical" href="https://studiomark.dev/home/"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>Mark Hintz · Mechanical Designer + Systems Builder</title>
+<script>try{var t=localStorage.getItem('sm:theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+</head><body><div style="position: relative; overflow: hidden; background-color: var(--design-bg); background-image: linear-gradient(rgba(207, 224, 242, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(207, 224, 242, 0.05) 1px, transparent 1px), linear-gradient(rgba(207, 224, 242, 0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(207, 224, 242, 0.025) 1px, transparent 1px); background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px; color: var(--design-ink); font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif; line-height: 1.5; min-height: 100vh" data-canvas-width="1440" data-canvas-height="7400" data-document-role="page" data-label="Homepage" id="root" class="design-home" data-home-design="claude-export-20261114">
+
+
+
+<header style="position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 24px 32px; padding: 15px 10px 10px; height: 75px; padding-right: 20px; padding-top: 10px; padding-left: 20px" class="design-header">
+<div style="display: flex; flex-direction: column; gap: 10px; margin-right: auto">
+<a href="#top" style="font-family: &quot;Archivo&quot;; font-weight: 900; line-height: 1; letter-spacing: -2px; color: var(--design-ink); text-decoration: none; display: block; font-size: 65px; width: 532px; height: 69px; text-align: left; flex-grow: 0; position: static" class="design-name">MARK HINTZ</a>
+<p style="margin: 0; font-family: Roboto, sans-serif; font-size: 12px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--design-muted); line-height: 1; position: relative; left: 0px; top: -10px">Jacksonville, FL</p>
+</div>
+<nav aria-label="Sections" style="display: flex; flex-wrap: wrap; align-items: center; gap: 32px; font-size: 20px; font-weight: 500; position: relative; top: -20px">
+<a href="#work" style="color: var(--design-muted); text-decoration: none">Work</a>
+<a href="#plus" style="color: var(--design-muted); text-decoration: none"><span style="color: var(--design-accent)">+</span> Plus</a>
+<a href="#contact" style="color: var(--design-muted); text-decoration: none">Contact</a>
+</nav>
+<button type="button" aria-label="Switch to light theme" style="width: 85px; height: 45px; display: flex; align-items: center; justify-content: flex-end; padding: 4px; border: 1px solid var(--design-rule); border-radius: 22px; background: var(--design-surface); color: var(--design-ink); font-size: 12px; position: relative; top: -20px">
+<span style="width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 17px; background: var(--design-bg)">
+<svg width="16" height="16" fill="currentColor" aria-hidden="true" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+</span>
+</button>
+</header>
+
+<main style="position: relative">
+<section id="top" aria-labelledby="home-title" style="max-width: 1120px; margin: 0 auto; padding: 45px 56px 140px; box-sizing: border-box; width: 1120px; height: 600px; padding-bottom: 50px; position: relative; top: 20px" class="design-hero">
+<h1 id="home-title" style="margin: 0 0 24px; font-family: Michroma, Archivo, sans-serif; font-weight: 400; font-size: 72.6px; line-height: 1.12; margin-bottom: 35px; margin-top: 20px">
+<span style="display: block">Mechanical Designer</span>
+<span style="display: block"><span style="color: var(--design-accent)">+</span> Systems Builder</span>
+</h1>
+<p style="max-width: 44rem; margin: 0 0 24px; padding: 18px 22px; border: 1px solid var(--design-rule); border-left: 3px solid var(--design-accent); background: var(--design-surface); font-size: 22px; line-height: 1.5; font-family: &quot;Archivo&quot;; padding-top: 25px; padding-bottom: 25px; width: 800px">I engineer high-integrity systems and automated workflows that <span style="font-weight: 600; color: var(--design-accent)">convert complex CAD into shop-floor reality.</span></p>
+<p style="max-width: 85ch; margin: 0 0 32px; font-size: 18px; color: var(--design-muted); font-family: &quot;Michroma&quot;; margin-top: 15px; padding-top: 10px; padding-bottom: 10px">20+ years designing precision tooling, tactical armaments, and industrial pump packages.</p>
+<p style="margin: 0; font-size: 22px; font-weight: 600; color: var(--design-accent)">Move the cursor to inspect the drawings</p>
+</section>
+
+<section id="work" aria-labelledby="home-work-title" style="width: 1447px; height: 5000px" class="design-work">
+<div style="max-width: 1120px; margin: 0 auto; padding: 100px 56px 0; box-sizing: border-box">
+<p style="margin: 0; font-family: &quot;Archivo&quot;; font-size: 15px; letter-spacing: 0.75em; text-transform: uppercase; color: var(--design-muted); font-weight: 900">Portfolio</p>
+<h2 id="home-work-title" style="margin: 8px 0 32px; font-family: &quot;Michroma&quot;; font-weight: 400; font-size: 72.6px; line-height: 1.04; letter-spacing: -0.05em; font-style: normal">Selected work</h2>
+</div>
+
+<div style="max-width: 1120px; margin: 0 auto; padding: 0 56px; box-sizing: border-box" class="design-row-wrap">
+<a href="/torque-wrench/" style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 20px; padding: 28px 24px; background: var(--design-surface); border: 1px solid var(--design-rule); color: var(--design-ink); text-decoration: none; justify-content: flex-start; position: relative; left: 125px; font-family: Roboto, sans-serif; letter-spacing: 3px; padding-top: 20px; padding-bottom: 20px; padding-right: 20px; padding-left: 20px" class="design-row" data-fade=""><span style="width: 56px; font-family: Roboto, sans-serif; font-size: 12px; letter-spacing: 0.14em; color: var(--design-muted)">01</span><span style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 6px"><span style="font-family: &quot;Michroma&quot;; font-weight: 900; font-size: 32px; line-height: 1.1; letter-spacing: 0.05em; font-style: italic">Industrial Torque Wrench</span><span style="max-width: 60ch">A pneumatic torque wrench and its planetary gearbox, taken apart in 3D as you scroll.</span><span style="font-size: 12px; color: var(--design-muted); font-family: &quot;Archivo&quot;; letter-spacing: 4px">Planetary gearbox · GD&amp;T · DFM</span></span><span style="font-family: Roboto, sans-serif; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--design-muted)">Live, work in progress</span><span aria-hidden="true" style="font-size: 22px; color: var(--design-accent)">→</span></a>
+</div>
+<div role="region" aria-label="Industrial Torque Wrench images" style="position: relative; height: 900px; margin: 0 0 52px; overflow: hidden; margin-bottom: 50px; margin-top: 50px" class="design-gallery" data-gallery="0">
+<img data-wheel-offset="-4" src="/home/stacks/torque-wrench/06.webp" alt="Output drive detail drawing" style="position: absolute; left: -450px; top: 1276px; z-index: 180; width: 360px; height: 277px; transform: rotate(60deg); object-fit: cover; border-radius: 11px; background: #fbfaf6; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="-3" src="/home/stacks/torque-wrench/07.webp" alt="Hobbed shaft, formed gear teeth" style="position: absolute; left: -214px; top: 1095px; z-index: 170; width: 360px; height: 277px; transform: rotate(45deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="-2" src="/home/stacks/torque-wrench/08.webp" alt="Sun-to-planet mesh, macro view" style="position: absolute; left: -33px; top: 859px; z-index: 160; width: 360px; height: 277px; transform: rotate(30deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="-1" src="/home/stacks/torque-wrench/09.webp" alt="Stage 1 planets seated on the sun gear" style="position: absolute; left: 81px; top: 584px; z-index: 150; width: 360px; height: 277px; transform: rotate(15deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="0" src="/home/stacks/torque-wrench/03.webp" alt="Exploded gearbox and section" style="position: absolute; left: 120px; top: 289px; z-index: 140; width: 360px; height: 277px; transform: rotate(0deg); box-sizing: border-box; padding: 7px; object-fit: contain; border-radius: 11px; background: #fbfaf6; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="1" src="/home/stacks/torque-wrench/04.webp" alt="Splined housing detail drawing" style="position: absolute; left: 81px; top: -6px; z-index: 130; width: 360px; height: 277px; transform: rotate(-15deg); object-fit: cover; border-radius: 11px; background: #fbfaf6; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="2" src="/home/stacks/torque-wrench/05.webp" alt="Gear housing detail drawing" style="position: absolute; left: -33px; top: -281px; z-index: 120; width: 360px; height: 277px; transform: rotate(-30deg); object-fit: cover; border-radius: 11px; background: #fbfaf6; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="3" src="/home/stacks/torque-wrench/06.webp" alt="Output drive detail drawing" style="position: absolute; left: -214px; top: -517px; z-index: 110; width: 360px; height: 277px; transform: rotate(-45deg); object-fit: cover; border-radius: 11px; background: #fbfaf6; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<div style="position: absolute; left: 550px; top: 190px; z-index: 1000; width: 800px; max-width: calc(100% - 420px); height: 377px" class="design-caption">
+<p style="margin: 0 0 18px; font-family: Roboto, sans-serif; font-size: 13px; letter-spacing: 0.08em; color: var(--design-muted)">01 / 07</p>
+<h3 style="margin: 0; font-family: &quot;Michroma&quot;; font-size: 66px; font-weight: 500; line-height: 1; letter-spacing: -0.035em">Exploded gearbox and section</h3>
+<p style="margin: 16px 0 0; font-size: 15px; color: var(--design-muted); font-family: Work Sans, sans-serif; line-height: 1.8; letter-spacing: 4px">01 · Industrial Torque Wrench · Drawing</p>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 26px">
+<div style="display: flex; gap: 8px">
+<button type="button" aria-label="Previous image" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; padding: 0; border: 1px solid var(--design-rule); border-radius: 22px; background: var(--design-surface); color: var(--design-ink); opacity: 0.35"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"></path></svg></button>
+<button type="button" aria-label="Next image" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; padding: 0; border: 1px solid var(--design-rule); border-radius: 22px; background: var(--design-surface); color: var(--design-ink)"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"></path></svg></button>
+</div>
+<a href="/torque-wrench/" style="color: var(--design-ink); text-decoration: none; border-bottom: 1px solid var(--design-accent); padding-bottom: 2px" data-fade="">Open the 3D teardown <span style="color: var(--design-accent)">→</span></a>
+</div>
+<p style="margin: 22px 0 0; font-family: &quot;Archivo&quot;; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--design-muted); font-weight: 400; font-style: normal">Mechanical design • Planetary gearboxes • Precision assemblies · SolidWorks · Planetary gearboxes · Precision machining · DFM</p>
+<p style="margin: 14px 0 0; font-family: &quot;Archivo&quot;; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--design-muted); font-weight: 400; font-style: normal">Scroll, drag or use the arrow keys to turn the wheel</p>
+</div>
+</div>
+
+<div style="max-width: 1120px; margin: 0 auto; padding: 0 56px; box-sizing: border-box" class="design-row-wrap">
+<a href="/quiet-machine/" style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 20px; padding: 28px 24px; background: var(--design-surface); border: 1px solid var(--design-rule); color: var(--design-ink); text-decoration: none; position: relative; left: 125px; padding-top: 20px; padding-bottom: 20px; padding-right: 20px; padding-left: 20px" class="design-row" data-fade="">
+<span style="width: 56px; font-family: Roboto, sans-serif; font-size: 12px; letter-spacing: 0.14em; color: var(--design-muted)">02</span>
+<span style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: &quot;Michroma&quot;; font-weight: 900; font-size: 32px; line-height: 1.1; letter-spacing: 0.05em; font-style: italic">The Quiet Machine</span>
+<span style="max-width: 60ch; letter-spacing: 3px">A diesel pump package in a sound-attenuating enclosure: air path, heat and sound, in section.</span>
+<span style="font-family: &quot;Archivo&quot;; font-size: 12px; color: var(--design-muted); letter-spacing: 5px">Enclosures · sheet metal · weldments</span>
+</span>
+<span style="font-family: Roboto, sans-serif; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--design-muted)">Live, work in progress</span>
+<span aria-hidden="true" style="font-size: 22px; color: var(--design-accent)">→</span>
+</a>
+</div>
+<div role="region" aria-label="The Quiet Machine images" style="position: relative; height: 900px; margin: 0 0 52px; overflow: hidden; margin-bottom: 50px; margin-top: 50px" class="design-gallery" data-gallery="1">
+<img data-wheel-offset="-4" src="/home/stacks/quiet-machine/06.webp" alt="Skid base, under-floor detail" style="position: absolute; left: -450px; top: 1276px; z-index: 180; width: 360px; height: 277px; transform: rotate(60deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="-3" src="/home/stacks/quiet-machine/07.webp" alt="Pump package study render" style="position: absolute; left: -214px; top: 1095px; z-index: 170; width: 360px; height: 277px; transform: rotate(45deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="-2" src="/home/stacks/quiet-machine/08.webp" alt="Enclosure study render" style="position: absolute; left: -33px; top: 859px; z-index: 160; width: 360px; height: 277px; transform: rotate(30deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="-1" src="/home/stacks/quiet-machine/09.webp" alt="Underside pass, study render" style="position: absolute; left: 81px; top: 584px; z-index: 150; width: 360px; height: 277px; transform: rotate(15deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="0" src="/home/stacks/quiet-machine/01.webp" alt="Cutaway: pump, drive and engine" style="position: absolute; left: 120px; top: 289px; z-index: 140; width: 360px; height: 277px; transform: rotate(0deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="1" src="/home/stacks/quiet-machine/02.webp" alt="Sound-attenuated enclosure, closed" style="position: absolute; left: 81px; top: -6px; z-index: 130; width: 360px; height: 277px; transform: rotate(-15deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="2" src="/home/stacks/quiet-machine/03.webp" alt="Front cutaway, full drivetrain" style="position: absolute; left: -33px; top: -281px; z-index: 120; width: 360px; height: 277px; transform: rotate(-30deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="3" src="/home/stacks/quiet-machine/04.webp" alt="Enclosure framing and baffles" style="position: absolute; left: -214px; top: -517px; z-index: 110; width: 360px; height: 277px; transform: rotate(-45deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<div style="position: absolute; left: 550px; top: 190px; z-index: 1000; max-width: calc(100% - 420px); width: 800px" class="design-caption">
+<p style="margin: 0 0 18px; font-family: Roboto, sans-serif; font-size: 13px; letter-spacing: 0.08em; color: var(--design-muted)">01 / 09</p>
+<h3 style="margin: 0; font-family: &quot;Michroma&quot;; font-size: 60px; font-weight: 500; line-height: 1; letter-spacing: -0.035em; width: 800px">Cutaway: pump, drive and engine</h3>
+<p style="margin: 16px 0 0; font-size: 15px; color: var(--design-muted); font-family: &quot;Michroma&quot;">02 · The Quiet Machine · Render</p>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 26px">
+<div style="display: flex; gap: 8px">
+<button type="button" aria-label="Previous image" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; padding: 0; border: 1px solid var(--design-rule); border-radius: 22px; background: var(--design-surface); color: var(--design-ink); opacity: 0.35"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"></path></svg></button>
+<button type="button" aria-label="Next image" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; padding: 0; border: 1px solid var(--design-rule); border-radius: 22px; background: var(--design-surface); color: var(--design-ink)"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"></path></svg></button>
+</div>
+<a href="/quiet-machine/" style="color: var(--design-ink); text-decoration: none; border-bottom: 1px solid var(--design-accent); padding-bottom: 2px" data-fade="">Open the 3D section study <span style="color: var(--design-accent)">→</span></a>
+</div>
+<p style="margin: 22px 0 0; font-family: &quot;Archivo&quot;; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--design-muted)">Mechanical design • SolidWorks • DFM/DFA · SolidWorks · DFM/DFA · GD&amp;T · Sheet metal · Weldments</p>
+<p style="margin: 14px 0 0; font-family: &quot;Archivo&quot;; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--design-muted)">Scroll, drag or use the arrow keys to turn the wheel</p>
+</div>
+</div>
+
+<div style="max-width: 1120px; margin: 0 auto; padding: 0 56px; box-sizing: border-box" class="design-row-wrap">
+<a href="/armament/" style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 20px; padding: 28px 24px; background: var(--design-surface); border: 1px solid var(--design-rule); color: var(--design-ink); text-decoration: none; position: relative; left: 125px; font-family: Roboto, sans-serif; padding-bottom: 20px; padding-top: 20px; padding-right: 20px; padding-left: 20px" class="design-row" data-fade="">
+<span style="width: 56px; font-family: Roboto, sans-serif; font-size: 12px; letter-spacing: 0.14em; color: var(--design-muted)">03</span>
+<span style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: &quot;Michroma&quot;; font-weight: 900; font-size: 32px; line-height: 1.1; letter-spacing: 0.05em; font-style: italic">Armament Components &amp; Receiver Systems</span>
+<span style="max-width: 60ch; letter-spacing: 2px">Rifle receivers and small-arms parts, drawn for the machine shop.</span>
+<span style="font-family: &quot;Archivo&quot;; font-size: 12px; color: var(--design-muted); letter-spacing: 4px">Forgings · GD&amp;T · machining</span>
+</span>
+<span style="font-family: Work Sans, sans-serif; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--design-muted)">Under construction</span>
+<span aria-hidden="true" style="font-size: 22px; color: var(--design-accent)">→</span>
+</a>
+</div>
+<div role="region" aria-label="Armament Components &amp; Receiver Systems images" style="position: relative; height: 900px; margin: 0 0 52px; overflow: hidden; margin-top: 50px" class="design-gallery" data-gallery="2">
+<img data-wheel-offset="-4" src="/home/stacks/armament/06.webp" alt="Barrel nut detail drawing" style="position: absolute; left: -450px; top: 1276px; z-index: 180; width: 360px; height: 277px; transform: rotate(60deg); box-sizing: border-box; padding: 5px; object-fit: contain; border-radius: 11px; background: #fbfaf6; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="-3" src="/home/stacks/armament/07.webp" alt="AR-pattern rifle, grayscale render" style="position: absolute; left: -214px; top: 1095px; z-index: 170; width: 360px; height: 277px; transform: rotate(45deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="-2" src="/home/stacks/armament/08.webp" alt="Armament component, grayscale render" style="position: absolute; left: -33px; top: 859px; z-index: 160; width: 360px; height: 277px; transform: rotate(30deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="-1" src="/home/stacks/armament/09.webp" alt="Armament component, color study render" style="position: absolute; left: 81px; top: 584px; z-index: 150; width: 360px; height: 277px; transform: rotate(15deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="0" src="/home/stacks/armament/01.webp" alt="Billet lower receiver, CAD render" style="position: absolute; left: 120px; top: 289px; z-index: 140; width: 360px; height: 277px; transform: rotate(0deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="1" src="/home/stacks/armament/02.webp" alt="Lower receiver machining drawing" style="position: absolute; left: 81px; top: -6px; z-index: 130; width: 360px; height: 277px; transform: rotate(-15deg); box-sizing: border-box; padding: 5px; object-fit: contain; border-radius: 11px; background: #fbfaf6; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="2" src="/home/stacks/armament/03.webp" alt="Handguard, three views" style="position: absolute; left: -33px; top: -281px; z-index: 120; width: 360px; height: 277px; transform: rotate(-30deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="3" src="/home/stacks/armament/04.webp" alt="Accessory rail mount" style="position: absolute; left: -214px; top: -517px; z-index: 110; width: 360px; height: 277px; transform: rotate(-45deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<div style="position: absolute; left: 550px; top: 190px; z-index: 1000; max-width: calc(100% - 420px)" class="design-caption">
+<p style="margin: 0 0 18px; font-family: Roboto, sans-serif; font-size: 13px; letter-spacing: 0.08em; color: var(--design-muted)">01 / 09</p>
+<h3 style="margin: 0; font-family: &quot;Michroma&quot;; font-size: 45px; font-weight: 500; line-height: 1.1; letter-spacing: -0.035em; position: static; width: 825px; height: 180px">Billet &amp; forged Receiver Sets,&nbsp; Modular Handguards, BCGs, Complete firearms<br></h3>
+<p style="margin: 16px 0 0; font-size: 15px; color: var(--design-muted); font-family: &quot;Michroma&quot;">03 · Armament Components &amp; Receiver Systems · Render</p>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 26px">
+<div style="display: flex; gap: 8px">
+<button type="button" aria-label="Previous image" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; padding: 0; border: 1px solid var(--design-rule); border-radius: 22px; background: var(--design-surface); color: var(--design-ink); opacity: 0.35"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"></path></svg></button>
+<button type="button" aria-label="Next image" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; padding: 0; border: 1px solid var(--design-rule); border-radius: 22px; background: var(--design-surface); color: var(--design-ink)"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"></path></svg></button>
+</div>
+<a href="/armament/" style="color: var(--design-ink); text-decoration: none; border-bottom: 1px solid var(--design-accent); padding-bottom: 2px" data-fade="">Open the project page <span style="color: var(--design-accent)">→</span></a>
+</div>
+<p style="margin: 22px 0 0; font-family: &quot;Archivo&quot;; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--design-muted)">Mechanical design • Receivers • Weapon-system components · SolidWorks · Receiver design · Fit &amp; function · Manufacturing drawings</p>
+<p style="margin: 14px 0 0; font-family: &quot;Archivo&quot;; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--design-muted)">Scroll, drag or use the arrow keys to turn the wheel</p>
+</div>
+</div>
+
+<div style="max-width: 1120px; margin: 0 auto; padding: 0 56px; box-sizing: border-box" class="design-row-wrap">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 20px; padding: 28px 24px; background: var(--design-surface); border: 1px solid var(--design-rule); position: relative; left: 125px; padding-top: 20px; padding-bottom: 20px; padding-right: 20px; padding-left: 20px" class="design-row">
+<span style="width: 56px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: var(--design-muted)">04</span>
+<span style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: &quot;Michroma&quot;; font-weight: 900; font-size: 32px; line-height: 1.1; letter-spacing: 0.05em; font-style: italic">Renderings &amp; Visualizations</span>
+<span style="max-width: 60ch; font-family: Roboto, sans-serif; letter-spacing: 2px">Product renders made straight from the CAD model.</span>
+<span style="font-family: &quot;Archivo&quot;; font-size: 12px; color: var(--design-muted); letter-spacing: 2px">Rendering · materials · lighting</span>
+</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--design-accent)">Gallery</span>
+<span aria-hidden="true" style="font-size: 22px; color: var(--design-accent)">·</span>
+</div>
+</div>
+<div role="region" aria-label="Renderings &amp; Visualizations images" style="position: relative; height: 900px; margin: 0; overflow: hidden; padding-top: 0px; margin-top: 50px; margin-bottom: 50px" class="design-gallery" data-gallery="3">
+<img data-wheel-offset="-4" src="/home/stacks/renderings/05.webp" alt="Free-float handguard" style="position: absolute; left: -450px; top: 1276px; z-index: 180; width: 360px; height: 277px; transform: rotate(60deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="-3" src="/home/stacks/renderings/06.webp" alt="Showreel frame, industrial torque wrench" style="position: absolute; left: -214px; top: 1095px; z-index: 170; width: 360px; height: 277px; transform: rotate(45deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="-2" src="/home/stacks/renderings/07.webp" alt="Showreel frame, wrench hero render" style="position: absolute; left: -33px; top: 859px; z-index: 160; width: 360px; height: 277px; transform: rotate(30deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="-1" src="/home/stacks/renderings/08.webp" alt="Showreel frame, main intake" style="position: absolute; left: 81px; top: 584px; z-index: 150; width: 360px; height: 277px; transform: rotate(15deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="0" src="/home/stacks/renderings/02.webp" alt="Hydraulic square-drive wrench" style="position: absolute; left: 120px; top: 289px; z-index: 140; width: 360px; height: 277px; transform: rotate(0deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="1" src="/home/stacks/renderings/03.webp" alt="Gearbox drive, low-key lighting" style="position: absolute; left: 81px; top: -6px; z-index: 130; width: 360px; height: 277px; transform: rotate(-15deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="2" src="/home/stacks/renderings/04.webp" alt="Angle-head tool study" style="position: absolute; left: -33px; top: -281px; z-index: 120; width: 360px; height: 277px; transform: rotate(-30deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<img data-wheel-offset="3" src="/home/stacks/renderings/05.webp" alt="Free-float handguard" style="position: absolute; left: -214px; top: -517px; z-index: 110; width: 360px; height: 277px; transform: rotate(-45deg); object-fit: cover; border-radius: 11px; background: var(--design-rule); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 14px 34px -10px rgba(0, 0, 0, 0.38)" decoding="async" draggable="false">
+<div style="position: absolute; left: 550px; top: 190px; z-index: 1000; width: 800px; max-width: calc(100% - 420px)" class="design-caption">
+<p style="margin: 0 0 18px; font-family: Roboto, sans-serif; font-size: 13px; letter-spacing: 0.08em; color: var(--design-muted)">01 / 07</p>
+<h3 style="margin: 0; font-family: &quot;Michroma&quot;; font-size: 66px; font-weight: 500; line-height: 1; letter-spacing: -0.035em; width: 800px">Hydraulic square-drive wrench</h3>
+<p style="margin: 16px 0 0; font-size: 15px; color: var(--design-muted); font-family: &quot;Michroma&quot;">04 · Renderings &amp; Visualizations · Render</p>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 26px">
+<div style="display: flex; gap: 8px">
+<button type="button" aria-label="Previous image" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; padding: 0; border: 1px solid var(--design-rule); border-radius: 22px; background: var(--design-surface); color: var(--design-ink); opacity: 0.35"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"></path></svg></button>
+<button type="button" aria-label="Next image" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; padding: 0; border: 1px solid var(--design-rule); border-radius: 22px; background: var(--design-surface); color: var(--design-ink)"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"></path></svg></button>
+</div>
+</div>
+<p style="margin: 22px 0 0; font-family: &quot;Archivo&quot;; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--design-muted)">PhotoView 360 • SolidWorks Visualize • Product renders · PhotoView 360 · SolidWorks Visualize · KeyShot · HDRI</p>
+<p style="margin: 14px 0 0; font-family: &quot;Archivo&quot;; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--design-muted)">Scroll, drag or use the arrow keys to turn the wheel</p>
+</div>
+</div>
+</section>
+
+<section id="plus" aria-labelledby="home-plus-title" style="max-width: 1120px; margin: 0 auto; padding: 100px 56px; box-sizing: border-box; position: relative; top: 0px" class="design-plus">
+<p style="margin: 0; font-family: Roboto, sans-serif; font-size: 12px; letter-spacing: 1em; text-transform: uppercase; color: var(--design-muted)">The Plus</p>
+<h2 id="home-plus-title" style="margin: 8px 0 16px; font-family: Archivo, sans-serif; font-weight: 800; font-size: 56px; line-height: 1.04; letter-spacing: -0.03em"><span style="color: var(--design-accent)">+</span> Systems Builder</h2>
+<p style="margin: 0 0 32px; color: var(--design-muted); font-family: Work Sans, sans-serif; font-weight: 600">Tools for the work around the CAD.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 28px">
+<div style="flex: 1 1 400px; padding: 24px; background: var(--design-surface); border: 1px solid var(--design-rule)">
+<p style="margin: 0 0 8px; font-family: Roboto, sans-serif; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--design-accent)">Used in production</p>
+<h3 style="margin: 0 0 8px; font-family: Archivo, sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em">PumpTracker</h3>
+<p style="margin: 0 0 12px">Replaced the whiteboard and spreadsheets and gave the shop its first KPIs. Every lead and manager used it, phones included.</p>
+<p style="margin: 0; font-family: &quot;Archivo&quot;; font-size: 12px; color: var(--design-muted); letter-spacing: 4px">React · TypeScript · Supabase</p>
+</div>
+<div style="flex: 1 1 400px; padding: 24px; background: var(--design-surface); border: 1px solid var(--design-rule)">
+<p style="margin: 0 0 8px; font-family: Roboto, sans-serif; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--design-accent)">Working pipeline</p>
+<h3 style="margin: 0 0 8px; font-family: Archivo, sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em">StudioMark</h3>
+<p style="margin: 0 0 12px">Product renders and video straight from CAD, without a photo shoot.</p>
+<p style="margin: 0; font-family: &quot;Archivo&quot;; font-size: 12px; color: var(--design-muted); letter-spacing: 4px">Blender · Python · cloud GPU</p>
+</div>
+<div style="flex: 1 1 400px; padding: 24px; background: var(--design-surface); border: 1px solid var(--design-rule)">
+<p style="margin: 0 0 8px; font-family: Roboto, sans-serif; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--design-accent)">Prototype</p>
+<h3 style="margin: 0 0 8px; font-family: Archivo, sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em">CAD/PDM tools</h3>
+<p style="margin: 0 0 12px">Brings legacy DXF drawings up to current standards, and checks a release before it reaches the shop.</p>
+<p style="margin: 0; font-family: Roboto, sans-serif; font-size: 12px; color: var(--design-muted); letter-spacing: 4px">Python · SolidWorks PDM</p>
+</div>
+<div style="flex: 1 1 400px; padding: 24px; background: var(--design-surface); border: 1px solid var(--design-rule)">
+<p style="margin: 0 0 8px; font-family: Roboto, sans-serif; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--design-accent)">Live</p>
+<h3 style="margin: 0 0 8px; font-family: Archivo, sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em">This site</h3>
+<p style="margin: 0 0 12px">The scroll-driven 3D pages you're on now.</p>
+<p style="margin: 0; font-family: &quot;Archivo&quot;; font-size: 12px; color: var(--design-muted); letter-spacing: 4px">React · Three.js · GSAP</p>
+</div>
+</div>
+</section>
+
+<section aria-label="Testimonial" style="max-width: 1120px; margin: 0 auto; padding: 100px 56px; box-sizing: border-box">
+<figure style="margin: 0; padding: 32px; background: var(--design-surface); border-left: 3px solid var(--design-accent)">
+<blockquote style="margin: 0 0 16px; font-size: 22px">
+<p style="margin: 0">“It's rare to find a designer who understands the constraints of a 5-axis mill and the realities of the assembly line. Mark designs parts that are easy to machine and foolproof to assemble. He's run the machines, built the gearboxes, and tested the product. That experience is visible in every drawing he releases.”</p>
+</blockquote>
+<figcaption style="font-family: &quot;Archivo&quot;; font-size: 13px; color: var(--design-muted); letter-spacing: 2px">Darrin Phipps · President, Black Creek Precision</figcaption>
+</figure>
+</section>
+
+<section id="contact" aria-labelledby="home-contact-title" style="max-width: 1120px; margin: 0 auto; padding: 100px 56px; box-sizing: border-box" class="design-contact">
+<h2 id="home-contact-title" style="margin: 8px 0 24px; font-family: Archivo, sans-serif; font-weight: 800; font-size: 56px; line-height: 1.04; letter-spacing: -0.03em">Have a tangled design problem?</h2>
+<div style="position: relative; width: 730px; max-width: 100%; height: 220px">
+<svg width="730" height="220" fill="none" aria-hidden="true" style="position: absolute; left: 0; top: 0; max-width: 100%" viewBox="0 0 730 220">
+<path d="M6 110c60-70 90 80 150 10s40-90 95-20 70 60 110-10-40-80-60-20 40 90 110 30 60-70 100-10" stroke="var(--design-ink)" stroke-width="2" stroke-linecap="round"></path>
+<circle cx="6" cy="110" r="4" fill="var(--design-accent)"></circle>
+</svg>
+<button type="button" aria-label="Pull the thread" style="position: absolute; left: 269px; top: 99px; width: 44px; height: 44px; padding: 0; border: 2px solid var(--design-accent); border-radius: 22px; background: var(--design-bg)"></button>
+</div>
+<p style="margin: 8px 0 0; font-family: Roboto, sans-serif; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--design-accent)">Pull the thread</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px 28px; margin: 24px 0 0; font-family: 'JetBrains Mono', monospace; font-size: 14px">
+<a href="mailto:markworks.dev@gmail.com" style="font-family: &quot;Michroma&quot;">markworks.dev@gmail.com</a>
+<a href="https://linkedin.com/in/mark-hintz-builds" style="font-family: &quot;Michroma&quot;">LinkedIn</a>
+<a href="https://github.com/mhintz1980" style="font-family: &quot;Michroma&quot;">GitHub</a>
+</div>
+</section>
+</main>
+
+<footer style="position: relative; max-width: 1120px; margin: 0 auto; padding: 32px 56px 48px; box-sizing: border-box; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--design-muted)" class="design-footer">studiomark.dev · Work in progress · © 2026 Mark Hintz</footer>
+<div aria-hidden="true" style="position: absolute; left: 0px; top: -10px; width: 1440px; height: 900px; pointer-events: none" class="design-drawings">
+<div class="vault-armament-sections" style="position: absolute; left: 216px; top: -16px; width: 720px; height: 213px; background: var(--design-ghost); opacity: 0.12"></div>
+<div class="vault-gearbox-housing" style="position: absolute; left: 648px; top: 82px; width: 720px; height: 375px; background: var(--design-ghost); opacity: 0.12"></div>
+<div class="vault-pump-assembly" style="position: absolute; left: 86px; top: 112px; width: 576px; height: 424px; background: var(--design-ghost); opacity: 0.12"></div>
+<div class="vault-armament-receiver" style="position: absolute; left: 360px; top: 371px; width: 864px; height: 375px; background: var(--design-ghost); opacity: 0.12"></div>
+<div class="vault-gearbox-sections" style="position: absolute; left: 14px; top: 532px; width: 605px; height: 340px; background: var(--design-ghost); opacity: 0.12"></div>
+<div class="vault-pump-door" style="position: absolute; left: 662px; top: 630px; width: 749px; height: 288px; background: var(--design-ghost); opacity: 0.12"></div>
+</div></div><script type="module" src="/src/home-export-main.ts"></script></body></html>

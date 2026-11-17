@@ -13,9 +13,21 @@ function fixture(): TorqueWrenchBeat[] {
 describe('createBeatTimeline', () => {
   it('uses half-open windows, with the final endpoint included', () => {
     const timeline = createBeatTimeline(fixture(), ['opening', 'close'])
-    expect(timeline.sample(0)).toMatchObject({ index: 0, localProgress: 0, previousId: null, nextId: 'last', phase: 'entering' })
+    expect(timeline.sample(0)).toMatchObject({
+      index: 0,
+      localProgress: 0,
+      previousId: null,
+      nextId: 'last',
+      phase: 'entering',
+    })
     expect(timeline.sample(0.5 - Number.EPSILON).beat.id).toBe('first')
-    expect(timeline.sample(0.5)).toMatchObject({ index: 1, localProgress: 0, previousId: 'first', nextId: null, phase: 'entering' })
+    expect(timeline.sample(0.5)).toMatchObject({
+      index: 1,
+      localProgress: 0,
+      previousId: 'first',
+      nextId: null,
+      phase: 'entering',
+    })
     expect(timeline.sample(1)).toMatchObject({ index: 1, localProgress: 1, phase: 'exiting' })
     // Reverse arrival at a boundary has the same owner as forward arrival.
     timeline.sample(0.75)
@@ -33,8 +45,12 @@ describe('createBeatTimeline', () => {
   })
 
   it.each([
-    [0, 'entering'], [0.099999, 'entering'], [0.1, 'active'],
-    [0.899999, 'active'], [0.9, 'exiting'], [1, 'exiting'],
+    [0, 'entering'],
+    [0.099999, 'entering'],
+    [0.1, 'active'],
+    [0.899999, 'active'],
+    [0.9, 'exiting'],
+    [1, 'exiting'],
   ] as const)('derives phase at local progress %s as %s', (progress, phase) => {
     const beat = { ...fixture()[0], end: 1 }
     expect(createBeatTimeline([beat], ['opening']).sample(progress).phase).toBe(phase)
@@ -52,13 +68,21 @@ describe('createBeatTimeline', () => {
   })
 
   it('gives identical samples on forward, reverse, seek, reload, and repeated holds', () => {
-    const checkpoints = [...new Set([
-      0, 1, 0.000001, 0.999999,
-      ...TORQUE_BEATS.flatMap((beat) => [beat.start, (beat.start + beat.end) / 2, beat.end]),
-    ])].sort((a, b) => a - b)
+    const checkpoints = [
+      ...new Set([
+        0,
+        1,
+        0.000001,
+        0.999999,
+        ...TORQUE_BEATS.flatMap((beat) => [beat.start, (beat.start + beat.end) / 2, beat.end]),
+      ]),
+    ].sort((a, b) => a - b)
     const expected = new Map(checkpoints.map((progress) => [progress, sampleTorqueBeat(progress)]))
     const timeline = createBeatTimeline(TORQUE_BEATS, TORQUE_DIRECTOR_IDS)
-    const seeks = [...checkpoints.filter((_, index) => index % 2 === 1), ...checkpoints.filter((_, index) => index % 2 === 0)]
+    const seeks = [
+      ...checkpoints.filter((_, index) => index % 2 === 1),
+      ...checkpoints.filter((_, index) => index % 2 === 0),
+    ]
     for (const order of [checkpoints, [...checkpoints].reverse(), seeks]) {
       for (const progress of order) {
         expect(timeline.sample(progress)).toEqual(expected.get(progress))
@@ -94,12 +118,14 @@ describe('createBeatTimeline', () => {
     expect(a.stateKey).not.toBe(b.stateKey)
     expect(sampleTorqueBeat(a.progress).stateKey).toBe(a.stateKey)
     const changed = fixture().map((beat) => ({ ...beat, title: 'new metadata' }))
-    expect(createBeatTimeline(changed, ['opening', 'close']).sample(0.25).stateKey)
-      .not.toBe(createBeatTimeline(fixture(), ['opening', 'close']).sample(0.25).stateKey)
+    expect(createBeatTimeline(changed, ['opening', 'close']).sample(0.25).stateKey).not.toBe(
+      createBeatTimeline(fixture(), ['opening', 'close']).sample(0.25).stateKey,
+    )
     const changedNeighbor = fixture()
     Object.assign(changedNeighbor[1], { id: 'different-next' })
-    expect(createBeatTimeline(changedNeighbor, ['opening', 'close']).sample(0.25).stateKey)
-      .not.toBe(createBeatTimeline(fixture(), ['opening', 'close']).sample(0.25).stateKey)
+    expect(createBeatTimeline(changedNeighbor, ['opening', 'close']).sample(0.25).stateKey).not.toBe(
+      createBeatTimeline(fixture(), ['opening', 'close']).sample(0.25).stateKey,
+    )
   })
 
   it('rejects an empty inventory and blank or duplicate beat IDs', () => {
@@ -112,8 +138,14 @@ describe('createBeatTimeline', () => {
   })
 
   it.each([
-    [-0.1, 0.5], [0, 1.1], [0.5, 0.5], [0.7, 0.5],
-    [NaN, 0.5], [0, NaN], [-Infinity, 0.5], [0, Infinity],
+    [-0.1, 0.5],
+    [0, 1.1],
+    [0.5, 0.5],
+    [0.7, 0.5],
+    [NaN, 0.5],
+    [0, NaN],
+    [-Infinity, 0.5],
+    [0, Infinity],
   ])('rejects invalid normalized window [%s, %s]', (start, end) => {
     const beats = fixture()
     Object.assign(beats[0], { start, end })

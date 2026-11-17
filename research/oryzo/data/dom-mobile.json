@@ -1,0 +1,132 @@
+{
+ "url": "https://oryzo.ai/",
+ "title": "ORYZO AI",
+ "readyState": "complete",
+ "metas": {
+  "viewport": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
+  "description": "A physical product, reimagined for the AI era, proving even the smallest idea can feel extraordinary.",
+  "author": "Lusion",
+  "robots": "index, follow",
+  "theme-color": "#000000",
+  "apple-mobile-web-app-title": "ORYZO AI",
+  "og:title": "ORYZO AI",
+  "og:description": "A physical product, reimagined for the AI era, proving even the smallest idea can feel extraordinary.",
+  "og:image": "https://oryzo.ai/meta/og_image.png",
+  "og:url": "https://oryzo.ai/",
+  "og:site_name": "ORYZO AI",
+  "og:type": "website",
+  "twitter:card": "summary_large_image",
+  "twitter:title": "ORYZO AI",
+  "twitter:description": "A physical product, reimagined for the AI era, proving even the smallest idea can feel extraordinary.",
+  "twitter:image": "https://oryzo.ai/meta/og_image.png"
+ },
+ "globals": {
+  "THREE": false,
+  "gsap": false,
+  "ScrollTrigger": false,
+  "Lenis": false,
+  "LocomotiveScroll": false,
+  "Rive": false,
+  "lottie": false,
+  "__NEXT_DATA__": false,
+  "__NUXT__": false,
+  "jQuery": false,
+  "pixi": false,
+  "BABYLON": false,
+  "Theatre": false
+ },
+ "viewportMeta": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
+ "canvases": [
+  {
+   "id": "canvas",
+   "cls": "",
+   "w": 750,
+   "h": 1124,
+   "inShadow": false,
+   "fixed": "fixed"
+  },
+  {
+   "id": "wearable-main-canvas",
+   "cls": "",
+   "w": 300,
+   "h": 150,
+   "inShadow": false,
+   "fixed": "absolute"
+  },
+  {
+   "id": "features-curve-canvas",
+   "cls": "",
+   "w": 300,
+   "h": 150,
+   "inShadow": false,
+   "fixed": "absolute"
+  },
+  {
+   "id": "sustainability-rive-canvas-harvesting",
+   "cls": "",
+   "w": 1070,
+   "h": 1449,
+   "inShadow": false,
+   "fixed": "absolute"
+  },
+  {
+   "id": "sustainability-rive-canvas-text",
+   "cls": "",
+   "w": 695,
+   "h": 941,
+   "inShadow": false,
+   "fixed": "absolute"
+  },
+  {
+   "id": "preloader-canvas",
+   "cls": "",
+   "w": 750,
+   "h": 1123,
+   "inShadow": false,
+   "fixed": "static"
+  }
+ ],
+ "ctxProbe": [
+  "webgl2",
+  "webgl2",
+  "webgl2",
+  "webgl2",
+  "webgl2",
+  "webgl2"
+ ],
+ "videos": [],
+ "astroIslands": [],
+ "scripts": [
+  "https://static.cloudflareinsights.com/beacon.min.js",
+  "https://oryzo.ai/_astro/hoisted.CRsATKbF.js"
+ ],
+ "inlineScriptCount": 0,
+ "bodyTextLen": 5492,
+ "headings": [
+  "H2: isn’t just a coaster.",
+  "H1: Powered by AI*",
+  "H3: Elevate your coffee experience",
+  "H3: Thermodynamic stability",
+  "H3: Now 37.9% More Circular",
+  "H2: Smart flip encryption",
+  "H2: Grip-locked Antisliptechnology",
+  "H2: sustainability",
+  "H3: Average age of first harvest",
+  "H2: People all around the world love Oryzo",
+  "H2: ",
+  "H2: We caught your attention with a non-existent product.If we c"
+ ],
+ "navLinks": [
+  {
+   "href": "/terms_and_conditions.pdf",
+   "text": "Terms & Conditions"
+  },
+  {
+   "href": "/privacy_policy.pdf",
+   "text": "Privacy Policy"
+  }
+ ],
+ "reducedMotionMedia": false,
+ "startViewTransitionExists": true,
+ "videoPlaybackRateSample": []
+}

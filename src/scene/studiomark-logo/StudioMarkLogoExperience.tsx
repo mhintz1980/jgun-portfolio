@@ -1,12 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { LogoConfig } from './types'
 import { DEFAULT_LOGO_CONFIG } from './types'
-import {
-  BUMPER_SPECS,
-  evaluateBumperState,
-  type BumperFrameState,
-  type BumperMode,
-} from './bumperTimeline'
+import { BUMPER_SPECS, evaluateBumperState, type BumperFrameState, type BumperMode } from './bumperTimeline'
 import { ProceduralStormAudio } from './audio'
 import { StudioMarkLogoScene, type StudioMarkSceneHandle } from './StudioMarkLogoScene'
 import { InspectorUI } from './InspectorUI'
@@ -14,11 +9,7 @@ import { BumperOverlayHUD } from './BumperOverlayHUD'
 
 export interface StudioMarkBumperPort {
   setBumperMode: (mode: BumperMode, cleanCapture?: boolean) => void
-  seekToTime: (
-    mode: Exclude<BumperMode, 'interactive'>,
-    timeSec: number,
-    cleanCapture?: boolean,
-  ) => BumperFrameState
+  seekToTime: (mode: Exclude<BumperMode, 'interactive'>, timeSec: number, cleanCapture?: boolean) => BumperFrameState
   setCleanCapture: (clean: boolean) => void
   getState: () => {
     bumperMode: BumperMode
@@ -92,11 +83,7 @@ export function StudioMarkLogoExperience() {
           setBumperFrameState(evaluateBumperState(mode, 0))
         }
       },
-      seekToTime: (
-        mode: Exclude<BumperMode, 'interactive'>,
-        timeSec: number,
-        cleanCapture = true,
-      ) => {
+      seekToTime: (mode: Exclude<BumperMode, 'interactive'>, timeSec: number, cleanCapture = true) => {
         const nextFrameState = evaluateBumperState(mode, timeSec)
         setIsCapturing(cleanCapture)
         setBumperMode(mode)

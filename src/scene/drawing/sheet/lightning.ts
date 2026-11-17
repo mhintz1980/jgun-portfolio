@@ -2,7 +2,10 @@ import { BufferGeometry, Float32BufferAttribute } from 'three'
 
 /** A single baked strip on the measured profile; no geometry churn while scrolling. */
 export function makeLightningRibbon(points: number[][]): BufferGeometry {
-  const positions: number[] = [], arcs: number[] = [], sides: number[] = [], normals: number[] = []
+  const positions: number[] = [],
+    arcs: number[] = [],
+    sides: number[] = [],
+    normals: number[] = []
   const distances = [0]
   for (let i = 1; i < points.length; i += 1) {
     distances.push(distances[i - 1] + Math.hypot(points[i][0] - points[i - 1][0], points[i][1] - points[i - 1][1]))
@@ -11,20 +14,26 @@ export function makeLightningRibbon(points: number[][]): BufferGeometry {
   const indices: number[] = []
   let previousPair = -1
   for (let i = 1; i < points.length; i += 1) {
-    const a = points[i - 1], b = points[i]
+    const a = points[i - 1],
+      b = points[i]
     const length = distances[i] - distances[i - 1]
     if (length < 1e-9) continue
-    const nx = -(b[1] - a[1]) / length, ny = (b[0] - a[0]) / length
+    const nx = -(b[1] - a[1]) / length,
+      ny = (b[0] - a[0]) / length
     const steps = Math.max(1, Math.ceil(length / 0.0006))
     // Include both ends: neighbouring segments share their centre, but retain their own
     // normals. Degenerate joins are harmless and prevent gaps at sharp CAD corners.
     for (let j = 0; j <= steps; j += 1) {
-      const u = j / steps, x = a[0] + (b[0] - a[0]) * u, y = a[1] + (b[1] - a[1]) * u
+      const u = j / steps,
+        x = a[0] + (b[0] - a[0]) * u,
+        y = a[1] + (b[1] - a[1]) * u
       const arc = (distances[i - 1] + length * u) / total
       const pair = positions.length / 3
       for (const side of [-1, 1]) {
         positions.push(x + nx * 0.0022 * side, y + ny * 0.0022 * side, 0.00045)
-        arcs.push(arc); sides.push(side); normals.push(nx, ny)
+        arcs.push(arc)
+        sides.push(side)
+        normals.push(nx, ny)
       }
       if (previousPair >= 0) indices.push(previousPair, previousPair + 1, pair, previousPair + 1, pair + 1, pair)
       previousPair = pair

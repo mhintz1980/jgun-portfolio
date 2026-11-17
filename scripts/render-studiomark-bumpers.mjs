@@ -60,13 +60,7 @@ async function main() {
     console.log(`[StudioMark Bumper Renderer] Launching Chromium for ${bumper.mode} against ${URL}...`)
     const browser = await chromium.launch({
       headless: true,
-      args: [
-        '--use-gl=angle',
-        '--use-angle=d3d11',
-        '--enable-webgl',
-        '--ignore-gpu-blocklist',
-        '--disable-gpu-vsync',
-      ],
+      args: ['--use-gl=angle', '--use-angle=d3d11', '--enable-webgl', '--ignore-gpu-blocklist', '--disable-gpu-vsync'],
     })
 
     const context = await browser.newContext({
@@ -202,4 +196,3 @@ main().catch((err) => {
   console.error(err)
   process.exit(1)
 })
-

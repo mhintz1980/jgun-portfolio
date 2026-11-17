@@ -41,9 +41,12 @@ export function fosColor(value: number, out: [number, number, number] = [0, 0, 0
   const f = value < FOS_MIN ? FOS_MIN : value > FOS_MAX ? FOS_MAX : value
   let i = 1
   while (i < FOS_STOPS.length - 1 && f > FOS_STOPS[i][0]) i++
-  const a = FOS_STOPS[i - 1], b = FOS_STOPS[i]
+  const a = FOS_STOPS[i - 1],
+    b = FOS_STOPS[i]
   const u = (f - a[0]) / (b[0] - a[0])
-  out[0] = a[1] + (b[1] - a[1]) * u; out[1] = a[2] + (b[2] - a[2]) * u; out[2] = a[3] + (b[3] - a[3]) * u
+  out[0] = a[1] + (b[1] - a[1]) * u
+  out[1] = a[2] + (b[2] - a[2]) * u
+  out[2] = a[3] + (b[3] - a[3]) * u
   return out
 }
 
@@ -52,7 +55,9 @@ export function fosColor(value: number, out: [number, number, number] = [0, 0, 0
  * display (sRGB) colour; jgFosColorLinear returns it decoded to linear for lit or blended shader output.
  */
 export function fosGlsl(): string {
-  const stops = FOS_STOPS.map(s => `  vec4(${s[0].toFixed(3)}, ${s[1].toFixed(3)}, ${s[2].toFixed(3)}, ${s[3].toFixed(3)})`).join(',\n')
+  const stops = FOS_STOPS.map(
+    (s) => `  vec4(${s[0].toFixed(3)}, ${s[1].toFixed(3)}, ${s[2].toFixed(3)}, ${s[3].toFixed(3)})`,
+  ).join(',\n')
   return `
 vec3 jgFosColor(float fos) {
   float f = clamp(fos, ${FOS_MIN.toFixed(1)}, ${FOS_MAX.toFixed(1)});
@@ -83,7 +88,10 @@ export const FOS_CENTER_Y = Object.freeze({ attempt: 10.41, revised: 13.4 })
 export const FOS_SWAP = 0.28
 const BOUNDARIES: readonly number[] = [17.8, 20.3]
 
-const ease = (x: number) => { const t = x < 0 ? 0 : x > 1 ? 1 : x; return t * t * (3 - 2 * t) }
+const ease = (x: number) => {
+  const t = x < 0 ? 0 : x > 1 ? 1 : x
+  return t * t * (3 - 2 * t)
+}
 
 /** Authored attempt FOS for a card id (null for the revised card / no card). */
 export function fosForCard(card: ShaftCardId): number | null {
@@ -97,7 +105,9 @@ export function fosForCard(card: ShaftCardId): number | null {
 export function attemptFosAt(time: number): number {
   let value: number = FOS_ATTEMPTS['4140']
   for (let i = 0; i < BOUNDARIES.length; i++) {
-    value += (FOS_ATTEMPTS[FOS_ATTEMPT_ORDER[i + 1]] - FOS_ATTEMPTS[FOS_ATTEMPT_ORDER[i]]) * ease((time - (BOUNDARIES[i] - FOS_SWAP / 2)) / FOS_SWAP)
+    value +=
+      (FOS_ATTEMPTS[FOS_ATTEMPT_ORDER[i + 1]] - FOS_ATTEMPTS[FOS_ATTEMPT_ORDER[i]]) *
+      ease((time - (BOUNDARIES[i] - FOS_SWAP / 2)) / FOS_SWAP)
   }
   return value
 }
@@ -114,7 +124,12 @@ export interface FosPresentation {
 }
 export const newFosPresentation = (): FosPresentation => ({ kind: 'none', hotspot: 0, body: FOS_MAX, opacity: 0 })
 
-export function sampleFosPresentation(time: number, stress: 'none' | 'warm' | 'cool', stressMix: number, out: FosPresentation): FosPresentation {
+export function sampleFosPresentation(
+  time: number,
+  stress: 'none' | 'warm' | 'cool',
+  stressMix: number,
+  out: FosPresentation,
+): FosPresentation {
   out.kind = stress === 'warm' ? 'attempt' : stress === 'cool' ? 'revised' : 'none'
   out.hotspot = stress === 'warm' ? attemptFosAt(time) : stress === 'cool' ? FOS_REVISED.hotspot : 0
   out.body = stress === 'cool' ? FOS_REVISED.body : FOS_MAX
@@ -123,4 +138,5 @@ export function sampleFosPresentation(time: number, stress: 'none' | 'warm' | 'c
 }
 
 /** Provenance string recorded in evidence and code only; deliberately never rendered. */
-export const FOS_PROVENANCE = 'Authored retrospective FOS presentation values (owner 2026-10-07): 4140 0.55, 4340 0.72, C300 0.90; revised study blue-only. Not a newly executed solver result.'
+export const FOS_PROVENANCE =
+  'Authored retrospective FOS presentation values (owner 2026-10-07): 4140 0.55, 4340 0.72, C300 0.90; revised study blue-only. Not a newly executed solver result.'

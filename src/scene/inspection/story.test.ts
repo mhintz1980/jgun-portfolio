@@ -5,9 +5,14 @@ import { shaftStory } from './shaft/story'
 describe('story descriptor registry', () => {
   const descriptor = (): StoryDescriptor => ({ ...ringStory, create: vi.fn<StoryDescriptor['create']>() })
   it('keeps legacy ring metadata independent of runtime factories and rejects absent shaft assets/runtime', () => {
-    expect(getStory('ring-p003068')).toBe(ringStory); expect(getStoryDescriptor('ring-p003068')).toBeUndefined()
-    expect(() => registerStory({ ...descriptor(), id: 'shaft-p001835', kind: 'shaft', assets: [] })).toThrow('asset bundle')
-    expect(() => registerStory({ ...descriptor(), create: undefined } as unknown as StoryDescriptor)).toThrow('Invalid inspection story')
+    expect(getStory('ring-p003068')).toBe(ringStory)
+    expect(getStoryDescriptor('ring-p003068')).toBeUndefined()
+    expect(() => registerStory({ ...descriptor(), id: 'shaft-p001835', kind: 'shaft', assets: [] })).toThrow(
+      'asset bundle',
+    )
+    expect(() => registerStory({ ...descriptor(), create: undefined } as unknown as StoryDescriptor)).toThrow(
+      'Invalid inspection story',
+    )
   })
   it('provides authored shaft metadata in a cold registry without loading a runtime factory', async () => {
     vi.resetModules()
@@ -24,8 +29,9 @@ describe('story descriptor registry', () => {
       { id: 'process', label: 'Changing the process', start: 22.6, end: 35 },
       { id: 'stage1-cascade', label: 'Planetary mesh and driveline cascade', start: 35, end: 66.9 },
     ])
-    expect(metadata.assets.map(asset => asset.url)).toEqual([
-      'models/manufacturing-core-full.glb', 'models/manufacturing-core-lite.glb',
+    expect(metadata.assets.map((asset) => asset.url)).toEqual([
+      'models/manufacturing-core-full.glb',
+      'models/manufacturing-core-lite.glb',
     ])
     expect(Object.isFrozen(metadata)).toBe(true)
     expect(Object.isFrozen(metadata.chapters)).toBe(true)
@@ -41,7 +47,10 @@ describe('story descriptor registry', () => {
       expect(getStoryDescriptor(input.id)?.create).toBe(input.create)
       expect(getStory(input.id)).toBe(getStoryDescriptor(input.id))
       expect(() => registerStory(input)).toThrow('already registered')
-    } finally { unregister(); unregister() }
+    } finally {
+      unregister()
+      unregister()
+    }
     expect(getStoryDescriptor(input.id)).toBeUndefined()
     expect(getStory(input.id)).toBe(shaftStory)
     expect(getStory(input.id)).not.toHaveProperty('create')
@@ -49,17 +58,26 @@ describe('story descriptor registry', () => {
   it('validates complete chapter coverage and duration', () => {
     expect(() => registerStory({ ...descriptor(), duration: NaN })).toThrow('duration')
     expect(() => registerStory({ ...descriptor(), duration: 20 })).toThrow('cover the duration')
-    expect(() => registerStory({ ...descriptor(), chapters: [{ id: 'bad', label: 'Gap', start: 1, end: 12 }] })).toThrow('contiguous')
-    expect(() => registerStory({ ...descriptor(), chapters: [{ id: 'bad', label: 'Bad', start: 0, end: NaN }] })).toThrow('contiguous')
+    expect(() =>
+      registerStory({ ...descriptor(), chapters: [{ id: 'bad', label: 'Gap', start: 1, end: 12 }] }),
+    ).toThrow('contiguous')
+    expect(() =>
+      registerStory({ ...descriptor(), chapters: [{ id: 'bad', label: 'Bad', start: 0, end: NaN }] }),
+    ).toThrow('contiguous')
   })
   it('copies mutable authored metadata so later edits cannot change a live playhead contract', () => {
-    const input = descriptor(), unregister = registerStory(input)
+    const input = descriptor(),
+      unregister = registerStory(input)
     try {
-      expect(getStory(input.id)).not.toBe(input); expect(getStory(input.id).chapters).not.toBe(input.chapters)
+      expect(getStory(input.id)).not.toBe(input)
+      expect(getStory(input.id).chapters).not.toBe(input.chapters)
       expect(Object.isFrozen(getStory(input.id).chapters[0])).toBe(true)
       expect(() => registerStory(input)).toThrow('already registered')
       expect(storyChapterAt(getStory(input.id), 12)).toBe(0)
-    } finally { unregister(); unregister() }
+    } finally {
+      unregister()
+      unregister()
+    }
     expect(getStoryDescriptor(input.id)).toBeUndefined()
   })
 })
