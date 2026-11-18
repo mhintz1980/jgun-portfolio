@@ -71,6 +71,38 @@ Rules for all four: eased, small enough not to fight the lens, off for
   frames per layer, 1280 px wide, lossy WebP, target under 4 MB for both layers.
 - Label by pattern only ("AR-15 pattern carbine"). No brands. No `.glb` on `/home/`.
 
+### Frame facts (answered 2026-11-16, read 2026-11-17)
+
+Source: `docs/ANSWERS-homepage-armament-frames-2026-11-16.md` in worktree
+`jg-041-spin-shot-review-12f814` (measured by the video session, read-only, $0).
+
+- **Even angles, no easing baked in.** Frame `i` = `2*i` degrees, 0 to 358, and the set
+  loops cleanly. The eased spin with the 4 degree overshoot exists only in Remotion.
+  The web set is every third frame (`f0000, f0003, ... f0177`): 60 frames, 6 degrees
+  apart. A file copy and re-encode; no render, no spend.
+- **No motion blur** in the frames.
+- **Both sets are 1920 x 1080.** Line frames are opaque white: multiply them onto the
+  paper. Shade frames have a transparent background.
+- **Line N and shade N register within 2 px** on every bounding-box edge. The lens can
+  swap layers with no offset correction.
+- **The rifle is not screen-centred.** Bounding-box centre x moves 839 to 1076 over the
+  spin (frame centre 960); centre y is 619 to 638 (frame centre 540), so it sits 80 to
+  100 px low. Side-on it is about 1586 px wide, end-on about 130 px. Worst-case clear
+  margins: left 97, right 99, top 367, bottom 204 px. The web crop must be cut once for
+  the whole set, not per frame, or the spin will wobble.
+- **The camera rises with the spin:** 0 degrees elevation at 0, 10 degrees at 180. The
+  pointer nudge moves along this same path.
+- **Frames are gitignored and local only.** Re-encoded web frames can be made and used
+  locally at no cost. Committing them needs Mark's go.
+- **Only this carbine has frame pairs.** No other armament model is rendered.
+
+### Open for Mark: the label
+
+This carbine is a stand-in, not Mark's own design (owner ruling 2026-11-13). The film
+shows it with two lines: "AR-15-pattern carbine" and "(IP-Safe Representative Model)",
+and the film's rules test requires the second line. This plan says pattern only. Mark
+decides whether the homepage carries the second line too.
+
 ## Phases
 
 1. **Paper.** One shared paper, three tone options, one still to Mark. *Gate 1.*
@@ -102,9 +134,8 @@ cut. Until then the opening lens shows the shaded gear train. Not part of this p
 
 ## Open checks (cheap, done at the start of the phase that needs them)
 
-1. Whether the 180 frames are evenly spaced in angle. The film's spin is eased with a
-   4 degree overshoot; if that easing is baked into the frames, the pointer nudge needs
-   frames picked by angle, or a short even-angle re-render (Blender, local, no spend).
+1. ~~Whether the 180 frames are evenly spaced in angle.~~ **Closed 2026-11-17:** they
+   are even, 2 degrees apart, no easing baked in. See "Frame facts" above. No re-render.
 2. Frame rate with the paper shader, lens and frame scrub all live on a mid laptop.
    Concept 3 alone measured 60 fps.
 3. Touch, DPR 2, Firefox and Safari were never tested on concept 3.

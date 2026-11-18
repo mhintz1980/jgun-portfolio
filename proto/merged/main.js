@@ -34,7 +34,7 @@ const PLUS = [
   ['CAD/PDM tools', 'Prototype', 'Brings legacy DXF drawings up to current standards, and checks a release before it reaches the shop.', 'Python · SolidWorks PDM'],
 ]
 const ROLL = ['convert complex CAD into shop-floor reality.', 'eliminate friction between design and fabrication.', 'bring half-thou precision to full-stack development.', 'hard-code manufacturability into every assembly.']
-const VIEWS = ['Exploded stack', 'Stage 1', 'Stage 2', 'Stage 3', 'Stage 4', 'Full train', 'Assembled']
+const VIEWS = ['Exploded stack', 'Stage 1', 'Stage 2', 'Stage 3', 'Stage 4', 'Armament', 'Full train', 'Assembled']
 
 /* ───────────── the machine: every part comes from these numbers ───────────── */
 const M = 0.12, ZR = 48, FACE = 0.62, GAP = 5.8, BORE = 0.3
@@ -223,7 +223,7 @@ const normMat = new THREE.ShaderMaterial({
 const U = {
   tC: { value: rtC.texture }, tN: { value: rtN.texture }, uRes: { value: new THREE.Vector2(4, 4) }, uLens: { value: new THREE.Vector2() },
   uProj: { value: new THREE.Vector4() }, uAo: { value: 1 }, uR: { value: 100 }, uPx: { value: 1 }, uTime: { value: 0 }, uWarp: { value: 0 }, uFull: { value: 0 }, uScroll: { value: 0 }, uFlash: { value: 0 }, uAspect: { value: 1 },
-  uIntro: { value: 1 }, uVig: { value: parseFloat(Q.get('vig') || '.08') }, uPaper: { value: new THREE.Color(DARK ? 0x0c2238 : parseInt(Q.get('paper') || 'f4f1ea', 16)) }, uInk: { value: new THREE.Color(DARK ? 0xe8e4da : 0x14181d) }, uBlue: { value: new THREE.Color(DARK ? 0x8fb8e6 : 0x1d4e89) }, uAccent: { value: new THREE.Color(0xf0703a) },
+  uTear: { value: 0 }, uIntro: { value: 1 }, uVig: { value: parseFloat(Q.get('vig') || '.08') }, uPaper: { value: new THREE.Color(DARK ? 0x0c2238 : parseInt(Q.get('paper') || 'f4f1ea', 16)) }, uInk: { value: new THREE.Color(DARK ? 0xe8e4da : 0x14181d) }, uBlue: { value: new THREE.Color(DARK ? 0x8fb8e6 : 0x1d4e89) }, uAccent: { value: new THREE.Color(0xf0703a) },
 }
 ;[U.uPaper, U.uInk, U.uBlue, U.uAccent].forEach(u => u.value.convertLinearToSRGB())   // the shader works in display space for the drawing
 const vid = document.createElement('video'); vid.muted = true; vid.loop = true; vid.playsInline = true; vid.preload = 'auto'; vid.src = '/video/showreel-v3.mp4'
@@ -232,6 +232,21 @@ vid.addEventListener('loadedmetadata', () => { vid.currentTime = FILM_IN }, { on
 vid.addEventListener('timeupdate', () => { if (vid.currentTime > FILM_OUT || vid.currentTime < FILM_IN - .5) vid.currentTime = FILM_IN })
 const vtex = new THREE.VideoTexture(vid); vtex.colorSpace = THREE.NoColorSpace
 U.tV = { value: vtex }; U.uFilm = { value: 1 }; U.uDark = { value: 0 }
+// armament stage: 60 line + 60 shade frames of one spin, 6 degrees apart. Line goes on the sheet, shade under the lens.
+// The stage only needs a numbered frame set, so the source can be swapped for a new one.
+const ARM_N = 60, ARM_AT = 5, ARM_DEG = 360 / ARM_N
+const armImg = { l: [], s: [] }; let armLoaded = false, armIdx = -1
+const mkArmTex = () => { const t = new THREE.Texture(); t.colorSpace = THREE.NoColorSpace; t.minFilter = THREE.LinearFilter; t.generateMipmaps = false; return t }
+const texL = mkArmTex(), texS = mkArmTex(); texS.premultiplyAlpha = true
+U.tL = { value: texL }; U.tS = { value: texS }; U.uArm = { value: 0 }; U.uArmRect = { value: new THREE.Vector4(.5, .5, 1, 1) }
+function loadArm() {
+  if (armLoaded) return; armLoaded = true
+  for (let i = 0; i < ARM_N; i++) for (const k of ['l', 's']) { const im = new Image(); im.decoding = 'async'; im.src = `./arm/${k}${String(i).padStart(2, '0')}.webp`; armImg[k][i] = im }
+}
+function setArmFrame(i) {
+  const l = armImg.l[i], s = armImg.s[i]; if (!l || !s || !l.complete || !s.complete || !l.naturalWidth || !s.naturalWidth) return
+  texL.image = l; texL.needsUpdate = true; texS.image = s; texS.needsUpdate = true; armIdx = i
+}
 // theme: light paper or dark blueprint. The dark lens is the lit render on a light studio, so text inverts under it in both.
 function setTheme(dark, save) {
   U.uPaper.value.set(dark ? 0x0c2238 : parseInt(Q.get('paper') || 'f4f1ea', 16)).convertLinearToSRGB()
@@ -251,15 +266,77 @@ const post = new THREE.Scene(), postCam = new THREE.Camera()
     vertexShader: 'varying vec2 vUv; void main(){ vUv = position.xy * .5 + .5; gl_Position = vec4(position.xy, 0., 1.); }',
     fragmentShader: `precision highp float;
 uniform sampler2D tC, tN; uniform vec2 uRes, uLens;
-uniform float uR, uPx, uTime, uWarp, uFull, uScroll, uFlash, uAspect;
+uniform float uR, uPx, uTime, uWarp, uFull, uScroll, uFlash, uAspect, uTear;
 uniform vec3 uPaper, uInk, uBlue, uAccent; uniform float uVig, uIntro, uFilm, uDark; uniform sampler2D tV; varying vec2 vUv;
+uniform sampler2D tL, tS; uniform float uArm; uniform vec4 uArmRect;
+vec2 armUv(vec2 uv){ return (uv - uArmRect.xy) / uArmRect.zw + .5; }
+float in01(vec2 u){ return step(0., u.x) * step(u.x, 1.) * step(0., u.y) * step(u.y, 1.); }
 float hash(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
 float vnoise(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.-2.*f);
   return mix(mix(hash(i), hash(i+vec2(1,0)), f.x), mix(hash(i+vec2(0,1)), hash(i+vec2(1,1)), f.x), f.y); }
+float fbm(vec2 p){
+  return vnoise(p) * .55 + vnoise(p * 2.35 + 17.3) * .30 + vnoise(p * 5.6 + 41.7) * .15;
+}
 vec3 aces(vec3 x){ return clamp((x*(2.51*x+.03))/(x*(2.43*x+.59)+.14), 0., 1.); }
+// one hinge per flap, shared by the opening, the flap and the shadow taps
+vec2 foldDir(float pi) {
+  float a0 = (pi + .5) / 7.;
+  float w = .022 * sin(6.2831853 * a0 * 2. + .7) + .012 * sin(6.2831853 * a0 * 3. + 1.9);
+  float a = (a0 - w - .5) * 6.2831853 + (hash(vec2(pi, 5.2)) - .5) * .15;
+  return vec2(cos(a), sin(a));
+}
+float foldOffset(float pi) {
+  return uR * (.90 + .20 * (hash(vec2(pi, 3.7)) - .5));
+}
+// Returns x: inner hole edge radius (eR), y: outer flap reach past eR,
+// z: buckled hinge radius (baseR), w: encoded flap index + s.
+vec4 tearAt(vec2 p){
+  vec2 d = p - uLens; float r = length(d); vec2 dir = d / max(r, 1e-3);
+  // angle-only noise domain: one fixed-radius point per direction, so every tear term is a function of angle alone
+  // and each ray crosses the hole edge and the flap tip exactly once (no islands or pinholes)
+  vec2 pp = dir * 180. + 37.;
+  float rawT = atan(dir.y, dir.x) / 6.2831853 + .5;
+  float pWarp = (fbm(pp * .011 + 3.7) - .5) * .022;
+  float t = rawT + .022 * sin(6.2831853 * rawT * 2. + .7) + .012 * sin(6.2831853 * rawT * 3. + 1.9) + .005 * cos(6.2831853 * rawT * 5. - .8) + pWarp;
+  float pi = mod(floor(t * 7.), 7.);
+  float s = fract(t * 7.) * 2. - 1.;
+  float h = hash(vec2(pi, 3.7)), h2 = hash(vec2(pi, 9.1)), h3 = hash(vec2(pi, 14.3));
+  float env = 1. - s * s;
+  float gap = smoothstep(.64, .93, abs(s));
+  float flapArch = (.22 * (h - .5) - .06) * env;
+  float buckle = (fbm(dir * 4.2 + pp * .005 + 1.7) - .5) * .15 + (vnoise(pp * .016 + 8.3) - .5) * .05;
+  float cleftRip = (.15 + .11 * vnoise(dir * 5.5 + 2.3)) * pow(abs(s), 2.8);
+  float baseR = uR * (1. + uTear * (flapArch + buckle + cleftRip));
+  float lowJag = (fbm(dir * 8.5 + pp * .009 + 3.1) - .5) * .14 + (fbm(pp * .028 + 13.7) - .5) * .055;
+  float hiJag = (vnoise(dir * 26. + pp * .026 + 11.) - .5) * .075 + (vnoise(dir * 60. + pp * .05 + 50.) - .5) * .028;
+  float jag = lowJag + hiJag;
+  float eR = baseR + uR * uTear * (lowJag * (.55 + .45 * gap) + hiJag * (.24 + .86 * gap));
+  float lobeW = .95 + .03 * h2;
+  float apex = (h3 - .5) * .28;
+  float uS = s < apex ? (apex - s) / (apex + lobeW) : (s - apex) / (lobeW - apex);
+  uS = clamp(uS, 0., 1.);
+  // side wander: slow shapes only; the fine tearing on the sides comes from the px-capped tip noise below
+  float sideJag = ((h3 - .5) * .12
+                 + (fbm(pp * .022 + pi * 5.3) - .5) * .30
+                 + (vnoise(pp * .065 + pi * 2.1) - .5) * .07) * smoothstep(1., .86, uS);
+  float uTorn = clamp(uS + sideJag, 0., 1.);
+  float lobeShape = pow(max(0., 1. - pow(uTorn, 1.05 + .25 * h2)), 1.32);
+  float edgeEnv = smoothstep(1., .90, uTorn);
+  float maxReach = min(uR * (.38 + .28 * h2), 220. * uPx);
+  // tip outline: the big ragged shapes scale with the flap; the fine tearing is capped in px so it reads as fibre, not spikes
+  float bigRip = (fbm(dir * 5. + pp * .004 + 21.) - .5) * .30;
+  float fineAmp = uPx * min(1., maxReach / (80. * uPx));
+  float fineRip = ((vnoise(dir * 16. + 4.) - .5) * 12. + (vnoise(dir * 42. + 11.) - .5) * 5. + (vnoise(dir * 95. + 50.) - .5) * 2.5) * fineAmp;
+  float reach = uTear * max(0., maxReach * (lobeShape + bigRip * edgeEnv) + fineRip * edgeEnv);
+  float sOut = clamp((s < apex ? -uTorn : uTorn) * .49 + .5, .001, .999);
+  return vec4(eR, reach, baseR, pi + sOut);
+}
+// dark theme: lens A's light studio turns into the dark cavity once the paper tears.
+// uFull only counts while tearing, so the approved full-lens moment of the opening keeps lens A's light studio.
 vec3 studio(vec2 uv){ vec2 c = uv - vec2(.5, .56); c.x *= uAspect; float r = length(c);
   vec3 dk = mix(vec3(.011, .019, .032), vec3(.002, .003, .005), smoothstep(0., .95, r));
-  return uDark > .5 && uDark < 1.5 ? mix(vec3(.6, .61, .6), vec3(.4, .42, .45), smoothstep(0., .95, r)) : dk; }
+  vec3 lt = mix(vec3(.6, .61, .6), vec3(.4, .42, .45), smoothstep(0., .95, r));
+  return uDark > .5 && uDark < 1.5 ? mix(lt, dk, clamp(uTear * 1.25 + uFull * step(.001, uTear), 0., 1.)) : dk; }
 uniform vec4 uProj; uniform float uAo;
 vec3 vpos(vec2 uv){ float dd = texture2D(tN, uv).a * 160.; return vec3((uv * 2. - 1. - uProj.zw) * uProj.xy * dd, -dd); }
 float ao(vec2 uv){
@@ -278,7 +355,17 @@ void main(){
   vec2 frag = vUv * uRes, px = 1. / uRes;
   vec2 d = frag - uLens; float r = length(d), q = clamp(r / uR, 0., 1.);
   float full = smoothstep(.85, 1., uFull);
-  float inside = max(1. - smoothstep(uR - 1.5*uPx, uR, r), full);
+  // the tear: when the visitor dives in, the lens circle becomes a ragged hole in the paper.
+  // Noise is sampled on the unit direction, so the edge has no seam.
+  vec2 dir = d / max(r, 1e-3), L = normalize(vec2(-.6, .8));
+  float lit = dot(dir, L);
+  vec4 TT = uTear > .001 ? tearAt(frag) : vec4(uR, 0., uR, 0.);
+  float eR = TT.x, baseR = TT.z;
+  float pi = floor(TT.w), flapS = (fract(TT.w) - .5) * 2.;
+  float edgeFib = (vnoise(frag / uPx * .85) - .5) * 1.9 * uPx * uTear;
+  float gap = smoothstep(.64, .93, abs(flapS) / .98);
+  edgeFib *= mix(.35, 1., gap);
+  float inside = max(1. - smoothstep(eR - 1.8 * uPx + edgeFib, eR + .8 * uPx + edgeFib, r), full);
   vec3 outc;
   // ── the sheet
   vec2 pp = frag / uPx + vec2(0., uScroll * .3);
@@ -313,15 +400,70 @@ void main(){
     dr = mix(dr, uBlue, eC * geo * mix(.8, .3, far));
     dr = mix(dr, mix(uInk, uBlue, .22), eD * mix(.9, .4, far));
     dr = mix(paper, dr, uIntro);
+    if (uArm > .001) { vec2 ua = armUv(vUv);
+      float k = smoothstep(.04, .8, 1. - dot(texture2D(tL, ua).rgb, vec3(.299, .587, .114))) * in01(ua);
+      dr = mix(mix(dr, paper, uArm), mix(uInk, uBlue, .22), k * uArm * .92); }
     float shd = smoothstep(uR + 46. * uPx, uR, length(d - vec2(10., -14.) * uPx));
-    dr *= 1. - .24 * shd * shd * (1. - full);
+    dr *= 1. - .24 * shd * shd * (1. - full) * (1. - uTear);
+    if (uTear > .001) {
+      float o = r - eR;   // distance outside the jagged hole edge
+      // Soft two-tap directional shadow cast by the lifted flaps onto the intact drafting sheet
+      float sOff = (10. + 22. * uTear) * uPx;
+      vec2 ps1 = frag + L * sOff, ps2 = frag + L * (sOff * .45);
+      vec4 TS1 = tearAt(ps1), TS2 = tearAt(ps2);
+      float os1 = length(ps1 - uLens) - TS1.x, os2 = length(ps2 - uLens) - TS2.x;
+      float sh1 = step(-2. * uPx, os1) * (1. - smoothstep(TS1.y - 16. * uPx, TS1.y + 12. * uPx, os1)) * step(2. * uPx, TS1.y);
+      float sh2 = step(-1. * uPx, os2) * (1. - smoothstep(TS2.y - 8. * uPx, TS2.y + 5. * uPx, os2)) * step(2. * uPx, TS2.y);
+      dr *= 1. - uTear * (.26 * sh1 + .22 * sh2);
+
+      vec2 fDir = foldDir(pi);
+      float hinge = dot(d, fDir) - foldOffset(pi);
+      float hSmooth = max(0., r - baseR);
+      float smoothSpan = max(uR * (.24 + .36 * hash(vec2(pi, 9.1))), 24. * uPx);
+      float c = clamp(hSmooth / smoothSpan, 0., 1.);
+      float tip = TT.y - o;
+      float onF = smoothstep(-uPx, uPx, o) * smoothstep(-uPx, uPx, tip)
+                * smoothstep(uPx, 3. * uPx, TT.y);
+      if (onF > 0.) {
+        vec2 qm = pp - 2. * fDir * hinge / uPx;
+        vec2 m1 = abs(fract(qm / 24. - .5) - .5) * 24., m5 = abs(fract(qm / 120. - .5) - .5) * 120.;
+        float backFib = fbm(qm * .35) * .6 + vnoise(qm * 1.2) * .4;
+        vec3 back = (uDark > .5 ? mix(uPaper, vec3(.68, .79, .89), .48)
+                                : mix(uPaper, vec3(.98, .97, .94), .50))
+                  * (.95 + .07 * backFib);
+        back = mix(back, uBlue, (1. - smoothstep(0., 1.1, min(m1.x, m1.y))) * .042 + (1. - smoothstep(0., 1.4, min(m5.x, m5.y))) * .075);
+        float flapLit = dot(normalize(fDir + dir * .25), L);
+        float curlShade = mix(.82, 1.06, smoothstep(0., .45, c)) * mix(1., .86, c * c);
+        float planeLight = mix(.66, 1.12, clamp(.52 - .48 * flapLit + (hash(vec2(pi, 1.9)) - .5) * .12, 0., 1.));
+        vec3 fl = back * planeLight * curlShade;
+        float root = max(0., o) / uPx;
+        fl *= 1. - .20 * (1. - gap) * exp(-root / 4.5);
+        fl += back * .09 * (1. - gap) * exp(-abs(root - 5.5) / 2.8);
+        fl *= mix(1., .76, pow(abs(flapS), 5.));
+        float fpatch = fbm(qm * .09 + pi * 7.3);
+        float width = mix(.6, 6.2, smoothstep(.34, .70, fpatch)) * uPx;
+        float patchMask = smoothstep(.40, .62, fpatch);
+        float plyStep = patchMask * smoothstep(width * .7, width * 1.05, max(tip, 0.)) * (1. - smoothstep(width * 1.05, width * 1.45, max(tip, 0.)));
+        fl *= 1. - .14 * plyStep;
+        float fibre = patchMask * (.38 + .62 * vnoise(qm * .85))
+                    * (1. - smoothstep(0., width, max(tip, 0.)));
+        fl = mix(fl, uDark > .5 ? vec3(.88, .93, .97) : vec3(.995, .99, .96), fibre);
+        dr = mix(dr, fl, onF * uTear);
+      }
+      float fw = (2.8 + 6.8 * fbm(pp * .18 + 9.2) * vnoise(pp * .9 + 2.)) * uPx;
+      float fr = step(0., o) * (1. - smoothstep(fw * .35, fw, o));
+      float pulpGrain = .93 + .1 * vnoise(pp * 1.5);
+      vec3 core = (uDark > .5 ? mix(paper, vec3(.88, .93, .97), .78) : vec3(.995, .99, .96)) * pulpGrain;
+      float rimCrack = mix(smoothstep(.52, .72, fbm(pp * .11 + 4.5)) * .45, 1., gap);
+      dr = mix(dr, core, fr * rimCrack * uTear);
+    }
   }
   outc = dr;
   // ── through the glass
   if (inside > 0.) {
-    float mag = mix(.9, 1., max(q*q*q, uFull));
+    float mag = mix(mix(.9, 1., max(q*q*q, uFull)), 1., uTear);
     vec2 uvS = (uLens + d * mag) / uRes, cc = vec2(.5);
-    vec2 off = (d / uRes) * .005 * smoothstep(.5, 1., q) * (1. - uFull) + (uvS - cc) * .006 * uWarp;
+    vec2 off = (d / uRes) * .005 * smoothstep(.5, 1., q) * (1. - uFull) * (1. - uTear) + (uvS - cc) * .006 * uWarp;
     vec3 col = vec3(0.);
     if (uWarp < .004) col = vec3(shaded(uvS + off).r, shaded(uvS).g, shaded(uvS - off).b);
     else { float jit = fract(52.9829189 * fract(dot(frag, vec2(.06711056, .00583715))));
@@ -337,16 +479,26 @@ void main(){
       float ed = smoothstep(.004, .02, lp), glow = pow(1. - abs(nn.z), 1.7) * gg;
       float thin = gg * (1. - soft / 8.);            // near an outline the part is thin, so it ghosts brighter
       col = vec3(.006, .016, .032) + vec3(.42, .84, 1.) * (glow * 1.1 + ed * .7 + thin * 1.6 + gg * .09) + vec3(1.) * (glow * glow * .4 + thin * thin * .8); }
+    if (uArm > .001) { vec2 ua = armUv(uvS); vec4 s = texture2D(tS, ua) * in01(ua);
+      col = mix(col, pow(aces(studio(uvS) * 1.4), vec3(1. / 2.2)) * (1. - s.a) + s.rgb, uArm); }
     if (uFilm > .001) { vec2 vu = uvS - .5; float va = 16. / 9.; if (uAspect > va) vu.y *= va / uAspect; else vu.x *= uAspect / va;
       col = mix(col, texture2D(tV, vu + .5).rgb, uFilm); }
-    float rimIn = smoothstep(.7, 1., q) * (1. - uFull);
+    float rimIn = smoothstep(.7, 1., q) * (1. - uFull) * (1. - uTear);
+    // Directional cast shadow from the overhanging paper rim onto the 3D gears + tight contact AO lip
+    if (uTear > .001) {
+      vec2 pCast = frag + L * (18. * uPx + eR * .045);
+      float castE = tearAt(pCast).x;
+      float rimCast = smoothstep(castE - 14. * uPx, castE + 4. * uPx, length(pCast - uLens));
+      float contactLip = 1. - smoothstep(0., 6. * uPx, eR - r);
+      col *= 1. - uTear * (.46 * rimCast + .28 * contactLip);
+    }
     col *= 1. - .4 * rimIn * rimIn;
     float ang = atan(d.y, d.x);
-    col += smoothstep(.9, .95, q) * (1. - smoothstep(.95, .985, q)) * pow(max(0., cos(ang - 2.2)), 10.) * .5 * (1. - uFull);
+    col += smoothstep(.9, .95, q) * (1. - smoothstep(.95, .985, q)) * pow(max(0., cos(ang - 2.2)), 10.) * .5 * (1. - uFull) * (1. - uTear);
     vec2 v2 = vUv - .5; col *= 1. - uWarp * .9 * dot(v2, v2);
     outc = mix(outc, col, inside);
   }
-  float rim = smoothstep(uR - 4. * uPx, uR - 2.4 * uPx, r) * (1. - smoothstep(uR, uR + 1.4 * uPx, r)) * (1. - full);
+  float rim = smoothstep(uR - 4. * uPx, uR - 2.4 * uPx, r) * (1. - smoothstep(uR, uR + 1.4 * uPx, r)) * (1. - full) * (1. - uTear);
   float ang2 = atan(d.y, d.x);
   vec3 rimc = mix(vec3(.05, .06, .075), vec3(.96), pow(max(0., sin(ang2 * 1. - .6)), 12.));
   rimc = mix(rimc, vec3(.72, .88, 1.), min(uDark, 1.) * .85);
@@ -380,7 +532,7 @@ addEventListener('pointerdown', e => { ptr.down = true; ptr.x = e.clientX; ptr.y
 addEventListener('pointerup', () => { ptr.down = false }); addEventListener('pointercancel', () => { ptr.down = false })
 if (Q.has('lens')) { const [lx, ly] = Q.get('lens').split(',').map(Number); ptr.x = lx * W; ptr.y = ly * H; ptr.auto = false; ptr.last = 1e9 }
 
-const VMAP = { hero: 0, s1: 1, s2: 2, s3: 3, s4: 4, plus: 5, contact: 6 }
+const VMAP = { hero: 0, s1: 1, s2: 2, s3: 3, s4: 4, arm: 5, plus: 6, contact: 7 }
 let oS = 0, pS = VMAP[VIEW] ?? 0, pV = 0, lensR = 0, full = 0, flash = 0
 const pFixed = FREEZE && (VIEW in VMAP || VIEW === 'fall' || VIEW === 'project') ? (VMAP[VIEW] ?? (parseInt(Q.get('p')) || 1)) : null
 if (pFixed === null && VIEW in VMAP) addEventListener('load', () => scrollTo(0, (VMAP[VIEW] + (VMAP[VIEW] ? EXTRA : 0)) * SEC))
@@ -389,12 +541,13 @@ if (pFixed === null && VIEW in VMAP) addEventListener('load', () => scrollTo(0, 
 const KEYS = [
   { rho: 19, h: 10.6, az: -.62, sh: .25, ty: () => -3.1 },
   ...[0, 1, 2, 3].map(i => ({ rho: 11.8, h: 7.4, az: -.62 + (i + 1) * .9, sh: .24, ty: e => stageY(i, e) + .1 })),
+  { rho: 39, h: 9, az: 3.6, sh: .3, ty: e => lerp(-1.7, -GAP * 1.5, e) },   // armament: the train is faded off the sheet here
   { rho: 39, h: 9, az: 4.15, sh: .3, ty: e => lerp(-1.7, -GAP * 1.5, e) },
   { rho: 12.5, h: 5.2, az: 4.75, sh: .28, ty: e => lerp(-1.7, -GAP * 1.5, e) },
 ]
 const _p = new THREE.Vector3(), _t = new THREE.Vector3(), _mm = new THREE.Matrix4()
 function journey(p, e, out) {
-  const i = Math.min(Math.floor(p), 5), f = sstep(.1, .9, p - i), a = KEYS[i], b = KEYS[i + 1]
+  const i = Math.min(Math.floor(p), 6), f = sstep(.1, .9, p - i), a = KEYS[i], b = KEYS[i + 1]
   const k = mobile ? clamp(1.05 / (W / H), 1, 2.6) : 1
   const rho = lerp(a.rho, b.rho, f) * k, h = lerp(a.h, b.h, f) * k + ptr.sny * -.9, az = lerp(a.az, b.az, f) + ptr.snx * .09, ty = lerp(a.ty(e), b.ty(e), f)
   out.pos.set(Math.sin(az) * rho, ty + h, Math.cos(az) * rho)
@@ -406,7 +559,8 @@ const mkPose = () => ({ pos: new THREE.Vector3(), quat: new THREE.Quaternion(), 
 const jp = mkPose(), cp = mkPose()
 
 /* the fall */
-const fall = { active: false, k: 1, u: 0, dir: 1, from: mkPose(), qDown: new THREE.Quaternion(), img: 0 }
+const TEAR_S = 1.65  // seconds the paper takes to tear; camera drop overlaps the final burst
+const fall = { active: false, k: 1, u: 0, t: 0, dir: 1, from: mkPose(), qDown: new THREE.Quaternion(), img: 0 }
 const G = x => 1 - Math.pow(Math.max(0, 1 - Math.pow(clamp(x), 2.3)), 1.7)
 let GMAX = 0; for (let x = 0; x < 1; x += .01) GMAX = Math.max(GMAX, (G(x + .01) - G(x)) / .01)
 const END_H = 6.3
@@ -438,8 +592,8 @@ async function setImage(i) {
 }
 let imgFade = 1
 function startFall(k) {
-  if (fall.active || pS > 5.2) return
-  fall.active = true; fall.k = k; fall.u = 0; fall.dir = 1
+  if (fall.active || pS > 4.5) return
+  fall.active = true; fall.k = k; fall.u = 0; fall.t = RM ? 1 : 0; fall.dir = 1
   const f = fall.from; f.pos.copy(cp.pos); f.quat.copy(cp.quat); f.fov = cp.fov; f.sh = cp.sh; f.shY = cp.shY
   _v.set(-cp.pos.x, 0, -cp.pos.z).normalize(); _mm.lookAt(_p.set(0, 1, 0), _t.set(0, 0, 0), _v); fall.qDown.setFromRotationMatrix(_mm)
   plate.quaternion.copy(fall.qDown)
@@ -465,7 +619,7 @@ addEventListener('keydown', e => {
   else if (e.key >= '1' && e.key <= '4') scrollTo({ top: (+e.key + EXTRA) * SEC, behavior: RM ? 'auto' : 'smooth' })
 })
 document.querySelectorAll('a[href^="#"]:not(#pjA)').forEach(a => a.addEventListener('click', e => { if (fall.active) { e.preventDefault(); return } const el = document.querySelector(a.getAttribute('href')); if (el) { e.preventDefault(); scrollTo({ top: el.offsetTop, behavior: RM ? 'auto' : 'smooth' }) } }))
-if (FREEZE && (VIEW === 'fall' || VIEW === 'project')) addEventListener('load', () => { journey(pFixed, 1, cp); startFall(pFixed); fall.u = VIEW === 'project' ? 1 : clamp(parseFloat(Q.get('f')) || .5); fall.dir = 0 })
+if (FREEZE && (VIEW === 'fall' || VIEW === 'project')) addEventListener('load', () => { journey(pFixed, 1, cp); startFall(pFixed); fall.u = VIEW === 'project' ? 1 : Q.has('f') ? clamp(parseFloat(Q.get('f'))) : .5; fall.t = Q.has('tt') ? clamp(parseFloat(Q.get('tt'))) : 1; fall.dir = 0 })
 
 /* ───────────── sound: all of it synthesised, silent until asked ───────────── */
 let AC = null, master = null, nodes = null, soundOn = false, meter = null, meterBuf = null, rms = 0
@@ -514,7 +668,8 @@ $('snd').addEventListener('click', () => sfx.toggle())
 
 /* ───────────── frame ───────────── */
 const panels = [...document.querySelectorAll('.panel')], veil = $('veil')
-if (matchMedia('(pointer: coarse)').matches) $('hintA').textContent = 'The lens renders what the sheet draws'
+if (matchMedia('(pointer: coarse)').matches) { $('hintA').textContent = 'The lens renders what the sheet draws'; $('pjX').textContent = 'Climb back out' }
+let textTop = innerHeight   // phone: top of the visible text block, smoothed
 const ld = $('ld'), ldc = $('ldc'), ldb = $('ldb'), ldt = $('ldt'), lenstag = $('lenstag'), axis = $('axis'), ann = $('ann'), tags = [...document.querySelectorAll('.tag')]
 tags.forEach((t, i) => { const s = STAGES[i]; t.textContent = `STAGE ${i + 1}  ·  ${s.Zs} / ${s.Zp} / ${ZR} T` })
 let warm = 2, last = performance.now(), T = FREEZE ? T0 : 0, first = true, emaMs = 16.7, slow = 0, fastN = 0, frames = 0, fpsT = last, tbKey = '', rollI = -1, landed = false
@@ -526,21 +681,43 @@ function frame(now) {
   const K = r => (FREEZE || first) ? 1 : damp(r, dt)
 
   // scroll
-  const pT = pFixed !== null ? pFixed : clamp(scrollY / SEC - EXTRA, 0, 6), pPrev = pS
+  const pT = pFixed !== null ? pFixed : clamp(scrollY / SEC - EXTRA, 0, 7), pPrev = pS
   const oT = pFixed !== null ? (Q.has('o') ? parseFloat(Q.get('o')) : 1) : clamp(scrollY / (EXTRA * SEC))
   oS += (oT - oS) * K(RM ? 30 : 4.5)
   pS += (pT - pS) * K(RM ? 30 : 4.5)
   pV += ((dt > 0 ? (pS - pPrev) / dt : 0) - pV) * K(8)
-  const e = FREEZE && Q.has('e') ? parseFloat(Q.get('e')) : 1 - sstep(5.2, 5.95, pS)
+  const e = FREEZE && Q.has('e') ? parseFloat(Q.get('e')) : 1 - sstep(6.2, 6.95, pS)
   explode(e)
 
-  // fall progress
-  if (fall.active && fall.dir) {
-    fall.u = clamp(fall.u + fall.dir * dt / (RM ? .5 : fall.dir > 0 ? 3.7 : 2.2))
-    if (fall.dir > 0 && fall.u >= 1 && !landed) { landed = true; sfx.thunk(); flash = .1 }
-    if (fall.dir < 0 && fall.u <= 0) { fall.active = false; landed = false; document.body.classList.remove('locked') }
+  // armament: scroll picks the angle, the pointer nudges it a couple of frames either way
+  const arm = sstep(.62, .3, Math.abs(pS - ARM_AT))
+  if (pS > 3.2) loadArm()
+  if (armLoaded && (arm > 0 || armIdx < 0)) {
+    const ang = (pS - ARM_AT) * 300 + (RM || mobile ? 0 : ptr.snx * 24), ai = ((Math.round(ang / ARM_DEG) % ARM_N) + ARM_N) % ARM_N
+    if (ai !== armIdx) setArmFrame(ai)
   }
-  const fa = fall.active ? sstep(0, .22, fall.u) : 0
+  U.uArm.value = armIdx >= 0 ? arm : 0
+  const aw = mobile ? W * .98 : Math.min(W * .6, 1150), ah = aw / 3, acx = mobile ? W * .5 : W * .67, acy = mobile ? clamp((66 + textTop) * .5, 150, H * .42) : H * .5
+  U.uArmRect.value.set(acx / W, 1 - acy / H, aw / W, ah / H)
+
+  // fall progress
+  // the dive has two beats: the paper tears (fall.t), and once the breach reaches burst 3 (fall.t > .65), the camera begins dropping (fall.u)
+  if (fall.active && fall.dir) {
+    if (fall.dir > 0) {
+      if (fall.t < 1) fall.t = clamp(fall.t + dt / TEAR_S)
+      if (fall.t > .65 || RM) {
+        fall.u = clamp(fall.u + dt / (RM ? .5 : 2.73))
+        if (fall.u >= 1 && !landed) { landed = true; sfx.thunk(); flash = .1 }
+      }
+    } else {
+      if (fall.u > 0) fall.u = clamp(fall.u - dt / (RM ? .5 : 2.0))
+      else {
+        fall.t = RM ? 0 : clamp(fall.t - dt / (TEAR_S * .45))
+        if (fall.t <= 0) { fall.active = false; landed = false; document.body.classList.remove('locked') }
+      }
+    }
+  }
+  const fa = fall.active ? Math.max(sstep(0, .22, fall.u), sstep(.1, .55, fall.t) * .92) : 0   // the chapter text steps back while the paper tears
 
   // gears
   const spinMul = 1 + Math.min(Math.abs(pV) * 3.5, 7) + (fall.active ? 5 * warp : 0)
@@ -569,26 +746,42 @@ function frame(now) {
     _p.set(0, y, 0).project(camera); const cx = (_p.x * .5 + .5) * W, cy = (.5 - _p.y * .5) * H
     _v.set(1, 0, 0).applyQuaternion(camera.quaternion).multiplyScalar(RO).add(_t.set(0, y, 0)).project(camera)
     const rad = Math.abs((_v.x * .5 + .5) * W - cx)
-    scr.push({ cx, cy, rad })
+    scr.push({ cx, cy, rad, z: _p.z })
     const dist = camera.position.distanceTo(_t)
-    if (!fall.active && !ptr.auto && oS > .99 && e > .9 && Math.hypot((ptr.x - cx) / rad, (ptr.y - cy) / (rad * .62)) < .9 && dist < hd) { hd = dist; hv = i }
+    if (!fall.active && !ptr.auto && oS > .99 && e > .9 && arm < .5 && Math.hypot((ptr.x - cx) / rad, (ptr.y - cy) / (rad * .62)) < .9 && dist < hd) { hd = dist; hv = i }
   }
   if (hv !== hover) { hover = hv; canvas.style.cursor = hv >= 0 ? 'pointer' : ''; if (hv >= 0) sfx.tick() }
 
   // lens
   if (!FREEZE && !ptr.auto && tnow - ptr.last > 7 && !ptr.down) ptr.auto = true
   let lx = ptr.x, ly = ptr.y
+  const baseR = clamp(Math.min(W, H) * .2, 96, 250) * (ptr.down ? 1.55 : 1) * (1 + Math.min(Math.abs(pV), 2) * .12)
   if (ptr.auto || mobile) {
     const f = scr[clamp(Math.round(pS) - 1, 0, 3)], hero = pS < .5
-    const bx = hero ? scr[0].cx : f.cx, by = hero ? scr[0].cy + H * .04 : f.cy
+    const bx = arm > .5 ? acx : hero ? scr[0].cx : f.cx, by = arm > .5 ? acy - H * .03 : hero ? scr[0].cy + H * .04 : f.cy
     lx = bx + Math.sin(T * .53) * W * (mobile ? .2 : .11) + Math.sin(T * 1.31) * W * .02; ly = by + Math.sin(T * .41 + 1.2) * H * .1
+    if (mobile) {   // phone: keep the lens on the sheet, above the text block and inside the side margins
+      lx = clamp(lx, baseR * .75, W - baseR * .75)
+      ly = Math.max(Math.min(ly, textTop - baseR - 14), 66 + baseR * .55)
+    }
   }
+  // the dive: the lens closes onto the stage centre, then the paper tears open from that point
+  const TEAR = fall.active && !RM
+  if (TEAR) { const f = scr[fall.k - 1]; if (f.z < 1 && isFinite(f.cx) && isFinite(f.cy)) { lx = f.cx; ly = f.cy } }
   ptr.sx += (lx - ptr.sx) * K(13); ptr.sy += (ly - ptr.sy) * K(13)
-  const baseR = clamp(Math.min(W, H) * .2, 96, 250) * (ptr.down ? 1.55 : 1) * (1 + Math.min(Math.abs(pV), 2) * .12)
   const fullT = fall.active ? sstep(.02, .3, fall.u) : sstep(.12, .5, oS) * (1 - sstep(.8, 1, oS))
   full += (fullT - full) * K(20)
-  const rT = lerp(baseR, Math.hypot(W, H) * 1.05, full * full)
-  lensR += (rT - lensR) * K(9); if (FREEZE || first) lensR = rT
+  // tear beat: the lens closes to a point (t 0-.16), the paper punctures, then rips open in three bursts to R1.
+  // Fall beat: the hole widens past the screen as the camera drops.
+  const R1 = clamp(Math.min(W, H) * .3, 110, 300)
+  let rT
+  if (TEAR) {
+    const g = 1 - Math.pow(1 - sstep(.16, 1, fall.t), 1.6), b = g * 3, burst = (Math.floor(Math.min(b, 2.999)) + sstep(0, .4, b - Math.floor(Math.min(b, 2.999)))) / 3
+    rT = fall.u > 0 ? lerp(R1, Math.hypot(W, H) * 1.9, 1 - Math.pow(1 - sstep(0, .3, fall.u), 2.5))
+      : lerp(lerp(8, baseR, 1 - sstep(0, .16, fall.t)), R1, burst)
+  } else rT = lerp(baseR, Math.hypot(W, H) * 1.05, full * full)
+  lensR += (rT - lensR) * K(9); if (FREEZE || first || TEAR) lensR = rT
+  U.uTear.value = TEAR ? sstep(.12, .2, fall.t) : 0
   flash += (0 - flash) * K(5)
   U.uLens.value.set(ptr.sx * PR, (H - ptr.sy) * PR); U.uR.value = lensR * PR; U.uFull.value = full; U.uWarp.value = RM ? 0 : warp
   { const tt = Math.tan(camera.fov * Math.PI / 360); U.uProj.value.set(camera.aspect * tt, tt, cp.sh, cp.shY) }
@@ -614,12 +807,17 @@ function frame(now) {
   // DOM
   const par = RM || mobile ? 0 : 1   // pointer look-around: text floats above the sheet, the drawing stays on it
   const hide = 1 - fa
-  veil.style.opacity = hide.toFixed(2)
+  let vOp = 0, vTop = H
   panels.forEach((el, i) => {
     const d = pS - i, op = sstep(.5, .16, Math.abs(d)) * hide * (i === 0 ? 1 - sstep(.08, .3, oS) : 1)
-    if (op > .004) { if (!el._on) { el._on = true; el.classList.add('on') } el.style.opacity = op.toFixed(3); el.style.transform = `translate3d(${(par * ptr.snx * -21.6).toFixed(1)}px,${(-d * 110 + par * ptr.sny * -12).toFixed(1)}px,0)` }
+    if (op > .004) { if (!el._on) { el._on = true; el.classList.add('on') } el.style.opacity = op.toFixed(3); el.style.transform = `translate3d(${(par * ptr.snx * -21.6).toFixed(1)}px,${(-d * 110 + par * ptr.sny * -12).toFixed(1)}px,0)`
+      if (mobile && op > vOp) { vOp = op; const c = [...el.children].find(k => k.offsetHeight); if (c) vTop = c.getBoundingClientRect().top } }
     else if (el._on) { el._on = false; el.classList.remove('on'); el.style.opacity = 0 }
   })
+  if (mobile) {   // phone: the paper veil starts where the text starts and is only there while text is
+    if (vOp > .004) textTop += (vTop - textTop) * K(10)
+    veil.style.height = Math.max(0, H - textTop + 96).toFixed(0) + 'px'; veil.style.opacity = Math.min(1, vOp * 1.6).toFixed(2)
+  } else textTop = H
   const si = Math.round(pS), sOp = si >= 1 && si <= 4 && !mobile ? sstep(.5, .16, Math.abs(pS - si)) * hide : 0
   if (sOp > .004) {
     const f = scr[si - 1], x0 = Math.min(W * .47, parseFloat(getComputedStyle(panels[si]).width) + W * .06), y0 = H * .5 - (pS - si) * 110 - 120
@@ -634,14 +832,14 @@ function frame(now) {
       const b = dwg.getBoundingClientRect(), sc = b.width / dwg.offsetWidth, m = `radial-gradient(circle ${(lensR / sc).toFixed(1)}px at ${((ptr.sx - b.left) / sc).toFixed(1)}px ${((ptr.sy - b.top) / sc).toFixed(1)}px, transparent 98%, #000 100%)`
       dwg.style.maskImage = m; dwg.style.webkitMaskImage = m; dwg.style.visibility = 'visible' }
     else dwg.style.visibility = 'hidden' }
-  const aOp = mobile ? 0 : hide * sstep(.3, .8, e) * intro * (1 - full)
+  const aOp = mobile ? 0 : hide * sstep(.3, .8, e) * intro * (1 - full) * (1 - arm)
   ann.style.opacity = aOp.toFixed(3)
   if (aOp > .004) {
     _p.set(0, FACE + 2.4, 0).project(camera); _v.set(0, stageY(3, e) - 2.2, 0).project(camera)
     axis.setAttribute('x1', (_p.x * .5 + .5) * W); axis.setAttribute('y1', (.5 - _p.y * .5) * H); axis.setAttribute('x2', (_v.x * .5 + .5) * W); axis.setAttribute('y2', (.5 - _v.y * .5) * H)
     tags.forEach((t, i) => { const f = scr[i]; const tx = Math.min(f.cx + f.rad * 1.06, W - 232), ty = f.cy + f.rad * .16; t.setAttribute('x', tx); t.setAttribute('y', ty); t.style.opacity = ty > H - 110 || ty < 70 ? 0 : i === si - 1 || pS < .5 ? 1 : .45 })
   }
-  lenstag.style.transform = `translate3d(${(ptr.sx + lensR * .74).toFixed(1)}px,${(ptr.sy + lensR * .74).toFixed(1)}px,0)`
+  lenstag.style.transform = `translate3d(${Math.min(ptr.sx + lensR * .74, mobile ? W - 116 : 1e9).toFixed(1)}px,${(ptr.sy + lensR * .74).toFixed(1)}px,0)`
   lenstag.style.opacity = (hide * (1 - full)).toFixed(2)
   $('proj').style.transform = `translate3d(${(par * ptr.snx * -19.2).toFixed(1)}px,${(par * ptr.sny * -10.8).toFixed(1)}px,0)`
   $('proj').style.opacity = fall.active ? sstep(.9, 1, fall.u).toFixed(3) : 0
@@ -652,8 +850,8 @@ function frame(now) {
   const key2 = si + '|' + (fall.active ? 1 : 0) + '|' + (e < .5 ? 1 : 0)
   if (key2 !== tbKey) {
     tbKey = key2
-    $('tbS').textContent = `${String(Math.min(si, 6) + 1).padStart(2, '0')} / 07`
-    $('tbV').textContent = fall.active ? 'Down the bore' : si === 6 && e > .5 ? 'Full train' : VIEWS[si]
+    $('tbS').textContent = `${String(Math.min(si, 7) + 1).padStart(2, '0')} / 08`
+    $('tbV').textContent = fall.active ? 'Down the bore' : si === 7 && e > .5 ? 'Full train' : VIEWS[si]
     $('tbR').textContent = si >= 1 && si <= 4 ? `${ratio(STAGES[si - 1]).toFixed(2).replace(/\.?0+$/, '')} : 1` : `${STAGES.reduce((a, s) => a * ratio(s), 1).toFixed(0)} : 1`
     $('tbM').textContent = fall.active ? 'Shaded' : 'Line + lens'
   }
