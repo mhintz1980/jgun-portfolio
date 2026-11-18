@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Under the Print — studiomark.dev concept 1 (slice)</title>
+<meta name="robots" content="noindex">
+<link rel="preload" href="/fonts/home/Archivo.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Archivo";src:url("/fonts/home/Archivo.woff2") format("woff2");font-weight:100 900;font-display:swap}
+@font-face{font-family:"Space Grotesk";src:url("/fonts/home/SpaceGrotesk.woff2") format("woff2");font-weight:300 700;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url("/fonts/home/JetBrainsMono.woff2") format("woff2");font-weight:100 800;font-display:swap}
+@font-face{font-family:"Michroma";src:url("/fonts/home/Michroma.woff2") format("woff2");font-weight:400;font-display:swap}
+
+:root{
+  --paper:#f4f1ea;--paper-surface:#fbf9f4;--ink:#14181d;--muted:#4a5260;--blue:#1d4e89;--rev:#c2410c;
+  --studio:#0b1622;--studio-surface:#102133;--ink-d:#e8e4da;--muted-d:#a9b4c2;--ghost:#cfe0f2;--accent:#f0703a;--void:#05070a;
+  --diff:#e0d9cd; /* renders as ink on paper, warm white on studio (difference blend) */
+  --reveal:cubic-bezier(.16,1,.3,1);--expo:cubic-bezier(.87,0,.13,1);
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--studio)}
+body{font-family:"Space Grotesk",system-ui,sans-serif;color:var(--ink-d);background:var(--studio);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.09em;font-variant-numeric:tabular-nums;font-size:11px;line-height:1.5}
+a{color:inherit}
+
+/* ───────── preloader ───────── */
+.pre,.pre-rim{position:fixed;inset:0;z-index:100;clip-path:polygon(0 0,220% 0,0 220%);transition:clip-path 1.15s var(--expo)}
+.pre-rim{background:var(--rev);z-index:99;transition-delay:.09s}
+.pre{background:var(--paper);color:var(--ink);display:grid;place-items:center;
+  background-image:linear-gradient(rgba(29,78,137,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(29,78,137,.07) 1px,transparent 1px);background-size:40px 40px}
+.loaded .pre,.loaded .pre-rim{clip-path:polygon(0 0,0 0,0 0);pointer-events:none}
+.reticle{width:min(46vmin,280px);aspect-ratio:1;position:relative;transition:transform 1s var(--expo),opacity .5s}
+.loaded .reticle{transform:scale(1.5) rotate(18deg);opacity:0}
+.reticle svg{width:100%;height:100%;overflow:visible}
+.reticle .spin{transform-origin:100px 100px;animation:spin 9s linear infinite}
+.reticle .spin2{transform-origin:100px 100px;animation:spin 14s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pre-num{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-size:clamp(26px,6vmin,40px);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.pre-meta{position:absolute;left:24px;bottom:22px;color:var(--muted)}
+.pre-meta b{color:var(--rev);font-weight:500}
+.pre-tag{position:absolute;right:24px;bottom:22px;color:var(--muted);text-align:right}
+
+/* ───────── fixed chrome ───────── */
+.top,.hud{position:fixed;left:0;right:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:0 clamp(16px,2.4vw,34px);color:var(--diff);mix-blend-mode:difference;pointer-events:none}
+.top{top:0;height:58px}
+.top .sig{font-family:"Michroma",sans-serif;font-size:13px;letter-spacing:.22em}
+.hud{bottom:0;height:40px}
+.hud .chap b{font-weight:500;font-size:13px}
+.hud-bar{position:fixed;left:0;bottom:0;height:2px;width:100%;background:var(--accent);transform-origin:0 50%;transform:scaleX(0);z-index:41}
+
+/* ───────── hero ───────── */
+#hero{height:250vh;position:relative}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;cursor:crosshair;user-select:none;-webkit-user-select:none;touch-action:pan-y}
+.layer{position:absolute;inset:0}
+.paper{background:var(--paper);color:var(--ink);
+  background-image:linear-gradient(rgba(29,78,137,.075) 1px,transparent 1px),linear-gradient(90deg,rgba(29,78,137,.075) 1px,transparent 1px),linear-gradient(rgba(29,78,137,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(29,78,137,.05) 1px,transparent 1px);
+  background-size:160px 160px,160px 160px,32px 32px,32px 32px}
+.frame{position:absolute;inset:14px;border:1px solid rgba(20,24,29,.55);pointer-events:none}
+.frame::before{content:"";position:absolute;inset:6px;border:1px solid rgba(20,24,29,.18)}
+.zone{position:absolute;color:var(--muted);font-size:10px}
+.dwg{position:absolute;right:-3vw;top:9vh;width:min(70vw,1180px);background:var(--blue);mix-blend-mode:multiply;opacity:.62}
+.dwg img{display:block;width:100%;background:#fff;mix-blend-mode:screen}
+.titleblock{position:absolute;right:26px;bottom:52px;border:1px solid rgba(20,24,29,.6);display:grid;grid-template-columns:auto auto;background:var(--paper-surface);color:var(--ink)}
+.titleblock div{padding:6px 12px;border:0 solid rgba(20,24,29,.35);border-width:0 1px 1px 0;font-size:10px}
+.titleblock div:nth-child(2n){border-right:0}.titleblock div:nth-last-child(-n+2){border-bottom:0}
+.titleblock i{font-style:normal;color:var(--muted);display:block;font-size:8.5px}
+.titleblock .r{color:var(--rev)}
+
+.studio{background:var(--void);clip-path:circle(0px at 60% 45%);will-change:clip-path}
+.studio video,.studio .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.studio::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 45%,transparent 45%,rgba(5,7,10,.7) 100%)}
+
+.ring{position:absolute;left:0;top:0;border-radius:50%;border:1.5px solid var(--accent);pointer-events:none;will-change:transform,width,height;
+  box-shadow:0 0 0 1px rgba(240,112,58,.18),0 0 42px rgba(240,112,58,.28),inset 0 0 38px rgba(5,7,10,.55)}
+.ring::before,.ring::after{content:"";position:absolute;background:var(--accent)}
+.ring::before{left:50%;top:-12px;bottom:-12px;width:1px;transform:translateX(-.5px);clip-path:polygon(0 0,100% 0,100% 22px,0 22px,0 calc(100% - 22px),100% calc(100% - 22px),100% 100%,0 100%)}
+.ring::after{top:50%;left:-12px;right:-12px;height:1px;transform:translateY(-.5px);clip-path:polygon(0 0,22px 0,22px 100%,0 100%,0 0,calc(100% - 22px) 0,calc(100% - 22px) 100%,100% 100%,100% 0)}
+.readout{position:absolute;left:0;top:0;pointer-events:none;color:var(--diff);mix-blend-mode:difference;white-space:nowrap;font-size:10px;will-change:transform}
+
+.copy{position:absolute;left:clamp(20px,5vw,84px);bottom:clamp(64px,10vh,116px);max-width:min(860px,88vw);color:var(--diff);mix-blend-mode:difference;pointer-events:none;will-change:opacity,transform}
+.copy .kick{display:flex;gap:14px;align-items:center;margin-bottom:22px}
+.copy .kick::before{content:"";width:44px;height:1px;background:currentColor}
+h1{font-family:"Archivo",sans-serif;font-weight:800;letter-spacing:-.035em;line-height:.94;font-size:clamp(40px,7.4vw,118px)}
+h1 span{display:block;overflow:hidden}
+h1 span i{display:block;font-style:normal;transform:translateY(105%);transition:transform 1.2s var(--reveal)}
+h1 span:nth-child(2) i{transition-delay:.09s}h1 span:nth-child(3) i{transition-delay:.18s}
+.loaded h1 span i{transform:none;transition-delay:calc(.75s + var(--d,0s))}
+.copy p{margin-top:22px;font-size:clamp(15px,1.25vw,19px);line-height:1.5;max-width:54ch;opacity:0;transition:opacity 1s .4s}
+.loaded .copy p{opacity:.92;transition-delay:1.35s}
+.hint{margin-top:26px;display:flex;flex-wrap:wrap;gap:8px 22px;opacity:0;transition:opacity 1s}
+.loaded .hint{opacity:.8;transition-delay:1.7s}
+.hint b{font-weight:500;border:1px solid currentColor;padding:1px 6px;margin-right:7px}
+
+.track{position:absolute;right:clamp(20px,3vw,44px);top:50%;transform:translateY(-50%);color:var(--diff);mix-blend-mode:difference;pointer-events:none;text-align:right}
+.track li{list-style:none;padding:7px 14px 7px 0;opacity:.38;transition:opacity .35s}
+.track li.on{opacity:1}
+.track li small{display:block;font-size:9px;opacity:.7}
+.track-bar{position:absolute;right:clamp(20px,3vw,44px);top:50%;width:2px;height:176px;margin-top:-88px;background:rgba(240,112,58,.22);pointer-events:none}
+.track-bar i{display:block;width:100%;height:100%;background:var(--accent);transform-origin:50% 0;transform:scaleY(0)}
+.film{position:absolute;right:clamp(20px,3vw,44px);bottom:58px;text-align:right;color:var(--ink-d);opacity:0;pointer-events:none}
+.film b{color:var(--accent);font-weight:500}
+
+/* ───────── doorway 01 ───────── */
+#d1{position:relative;background:var(--studio);padding:clamp(90px,16vh,190px) clamp(20px,5vw,84px) clamp(120px,20vh,220px);
+  background-image:linear-gradient(rgba(207,224,242,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(207,224,242,.035) 1px,transparent 1px);background-size:160px 160px}
+.d-grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(28px,5vw,90px);align-items:center;max-width:1640px;margin:0 auto}
+.d-num{font-family:"Archivo",sans-serif;font-weight:800;font-size:clamp(84px,11vw,190px);line-height:.8;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1px rgba(207,224,242,.5)}
+.d-num sub{font-family:var(--mono);font-size:12px;letter-spacing:.1em;-webkit-text-stroke:0;color:var(--muted-d);vertical-align:baseline;margin-left:10px}
+.d-text h2{font-family:"Archivo",sans-serif;font-weight:800;letter-spacing:-.035em;line-height:.98;font-size:clamp(34px,4vw,64px);margin:26px 0 18px}
+.d-text p{color:var(--muted-d);font-size:clamp(15px,1.15vw,18px);line-height:1.55;max-width:40ch}
+.d-tags{margin:22px 0 30px;color:var(--ghost)}
+.live{display:inline-flex;align-items:center;gap:8px;color:var(--accent)}
+.live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.25}}
+.cta{display:inline-flex;align-items:center;gap:14px;text-decoration:none;border:1px solid rgba(207,224,242,.4);padding:14px 20px;font-size:12px;transition:background .3s,color .3s,border-color .3s}
+.cta:hover,.cta:focus-visible{background:var(--accent);color:var(--void);border-color:var(--accent);outline:none}
+.cta svg{width:18px;height:10px;transition:transform .5s var(--reveal)}.cta:hover svg{transform:translateX(5px)}
+
+.plate-wrap{position:relative;perspective:1200px;margin:74px 0}
+.plate{position:relative;display:block;aspect-ratio:21/9;background:var(--studio-surface);border:1px solid rgba(207,224,242,.22);overflow:hidden;transform-style:preserve-3d;will-change:transform;cursor:pointer;outline-offset:6px;
+  box-shadow:0 50px 90px -30px rgba(0,0,0,.75)}
+.bp{position:absolute;inset:0;background:var(--ghost);mix-blend-mode:screen;opacity:.5}
+.bp img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;background:#fff;filter:invert(1);mix-blend-mode:multiply;display:block}
+.solid{position:absolute;inset:0;background:#0d1826 url("/video/showreel-v3-poster.jpg") no-repeat;background-size:153.6% auto;background-position:37.3% 60.7%;clip-path:inset(0 100% 0 0);will-change:clip-path}
+.scan{position:absolute;top:-2%;bottom:-2%;left:0;width:2px;background:var(--accent);box-shadow:0 0 22px 3px rgba(240,112,58,.65),-60px 0 70px 10px rgba(240,112,58,.1);will-change:transform,opacity}
+.glare{position:absolute;inset:0;background:radial-gradient(420px circle at var(--gx,50%) var(--gy,50%),rgba(207,224,242,.16),transparent 65%);opacity:0;transition:opacity .4s;pointer-events:none}
+.plate:hover .glare{opacity:1}
+.corner{position:absolute;padding:10px 12px;color:var(--ghost);font-size:10px;pointer-events:none}
+.corner.tl{left:0;top:0}.corner.br{right:0;bottom:0;color:var(--accent)}
+.dot{position:absolute;width:9px;height:9px;margin:-4.5px;border-radius:50%;border:1.5px solid var(--accent);background:var(--studio);opacity:0}
+.leaders{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.leaders path{fill:none;stroke:var(--accent);stroke-width:1}
+.spec{position:absolute;color:var(--ink-d);opacity:0;white-space:nowrap}
+.spec small{display:block;color:var(--muted-d);font-size:9px}
+#sA{left:1%;top:-58px}#sB{left:44%;top:-58px}#sC{right:1%;bottom:-58px;text-align:right}
+
+.next{max-width:1640px;margin:clamp(90px,14vh,170px) auto 0;border-top:1px solid rgba(207,224,242,.16);padding-top:22px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--muted-d)}
+.next b{color:var(--ghost);font-weight:500}
+
+/* ───────── doorway zoom ───────── */
+.warp{position:fixed;inset:0;z-index:80;background:#0d1826 url("/video/showreel-v3-poster.jpg") no-repeat center;background-size:153.6% auto;background-position:37.3% 60.7%;visibility:hidden;display:grid;place-items:center}
+.warp.go{visibility:visible;transition:clip-path .95s var(--reveal),background-size 1.4s var(--reveal);background-size:230% auto}
+.warp div{color:var(--ink-d);text-align:center;opacity:0;transform:translateY(14px);transition:opacity .5s .35s,transform .9s .35s var(--reveal);background:rgba(5,7,10,.55);padding:14px 22px;border:1px solid var(--accent)}
+.warp.go div{opacity:1;transform:none}
+
+@media (max-width:860px){
+  .d-grid{grid-template-columns:1fr}.titleblock,.track,.track-bar,.zone{display:none}
+  .dwg{width:150vw;right:-40vw;top:12vh}.spec{font-size:9px}.top .loc{display:none}
+  .plate{aspect-ratio:16/10}.solid{background-size:210% auto}
+}
+@media (prefers-reduced-motion:reduce){
+  .pre,.pre-rim{transition:opacity .3s}.loaded .pre,.loaded .pre-rim{opacity:0}
+  .reticle .spin,.reticle .spin2,.live::before{animation:none}
+  h1 span i{transition:none;transform:none}.warp.go{transition:none}
+}
+</style>
+</head>
+<body>
+
+<div class="pre-rim" aria-hidden="true"></div>
+<div class="pre" id="pre" role="status" aria-live="polite">
+  <div class="reticle">
+    <svg viewBox="0 0 200 200" fill="none" stroke="#14181d" stroke-width=".6" aria-hidden="true">
+      <circle cx="100" cy="100" r="96" stroke-opacity=".35"/>
+      <circle class="spin" cx="100" cy="100" r="88" stroke-dasharray="1 5.9" stroke-width="5" stroke-opacity=".5"/>
+      <circle class="spin2" cx="100" cy="100" r="78" stroke-dasharray="46 14 4 14" stroke="#1d4e89"/>
+      <path d="M100 0v62M100 138v62M0 100h62M138 100h62" stroke-opacity=".7"/>
+      <circle cx="100" cy="100" r="62" stroke-opacity=".25"/>
+      <circle id="arc" cx="100" cy="100" r="62" stroke="#c2410c" stroke-width="2.2" stroke-dasharray="389.6" stroke-dashoffset="389.6" transform="rotate(-90 100 100)"/>
+    </svg>
+    <div class="pre-num" id="num">000</div>
+  </div>
+  <div class="pre-meta mono">Studiomark · Sheet 1 of 4<br>Loading <b id="what">fonts</b></div>
+  <div class="pre-tag mono">Mark Hintz<br>Jacksonville, FL</div>
+</div>
+
+<header class="top"><span class="sig">STUDIOMARK</span><span class="mono loc">Mark Hintz · Mechanical Designer + Systems Builder</span></header>
+<div class="hud mono"><span>studiomark.dev</span><span class="chap"><b id="chapN">00</b> / 04 · <span id="chapT">The print</span></span><span id="pct">000%</span></div>
+<div class="hud-bar" id="bar"></div>
+
+<main>
+<section id="hero" aria-label="Introduction">
+  <div class="stage" id="stage">
+    <div class="layer paper">
+      <div class="dwg"><img src="/home/drawings/gearbox-housing.webp" alt="" id="im1"></div>
+      <div class="frame"></div>
+      <span class="zone mono" style="left:22px;top:30%">A</span><span class="zone mono" style="left:22px;top:66%">B</span>
+      <span class="zone mono" style="left:30%;bottom:20px">1</span><span class="zone mono" style="left:66%;bottom:20px">2</span>
+      <div class="titleblock mono">
+        <div><i>Dwg no.</i>SM-HOME-01</div><div><i>Rev</i><span class="r">C</span></div>
+        <div><i>Drawn</i>M. Hintz</div><div><i>Sheet</i>1 of 4</div>
+      </div>
+    </div>
+    <div class="layer studio" id="studio">
+      <img class="poster" src="/video/showreel-v3-poster.jpg" alt="" id="im2">
+      <video id="vid" muted loop playsinline preload="auto" poster="/video/showreel-v3-poster.jpg" src="/video/showreel-v3.mp4"></video>
+    </div>
+    <div class="ring" id="ring"></div>
+    <div class="readout mono" id="readout"></div>
+
+    <div class="copy" id="copy">
+      <div class="kick mono">20+ years · precision tooling · armament · pump packages</div>
+      <h1><span><i>I design the</i></span><span><i>machines. Then I build</i></span><span><i>what brings them to life.</i></span></h1>
+      <p>Mechanical designer and systems builder. Under every drawing here is the software I wrote to run it, track it and render it: production apps, engineering databases and an autonomous Blender pipeline.</p>
+      <div class="hint mono"><span><b>Move</b>look under the print</span><span><b>Hold</b>open the lens</span><span><b>Scroll</b>run the pipeline</span></div>
+    </div>
+
+    <ul class="track mono" id="track">
+      <li>01 CAD import<small>SolidWorks → GLB</small></li>
+      <li>02 Scene + materials<small>Blender · Python</small></li>
+      <li>03 Camera gate<small>review before spend</small></li>
+      <li>04 Cycles render<small>cloud GPU</small></li>
+    </ul>
+    <div class="track-bar"><i id="tbar"></i></div>
+    <div class="film mono" id="film"><b>The Line</b> · showreel<br>every frame from my own CAD</div>
+  </div>
+</section>
+
+<section id="d1" aria-labelledby="d1h">
+  <div class="d-grid">
+    <div class="d-text">
+      <div class="d-num">01<sub>/ 04</sub></div>
+      <h2 id="d1h">Industrial Torque Wrench</h2>
+      <p>A pneumatic torque wrench and its planetary gearbox. Open it and take it apart in 3D as you scroll.</p>
+      <div class="d-tags mono">Planetary gearbox · GD&amp;T · DFM<br><span class="live">Live interactive 3D</span></div>
+      <a class="cta mono" href="/torque-wrench/" data-door>Open the 3D teardown
+        <svg viewBox="0 0 18 10" fill="none" stroke="currentColor"><path d="M0 5h16M12 1l4 4-4 4"/></svg></a>
+    </div>
+    <div class="plate-wrap" id="wrap">
+      <a class="plate" id="plate" href="/torque-wrench/" data-door aria-label="Open the Industrial Torque Wrench 3D teardown">
+        <div class="bp"><img src="/home/drawings/gearbox-sections.webp" alt="" id="im3"></div>
+        <div class="solid" id="solid"></div>
+        <div class="scan" id="scan"></div>
+        <div class="glare"></div>
+        <span class="corner tl mono">Detail A · gearbox sections</span>
+        <span class="corner br mono" id="mode">Drawing</span>
+        <i class="dot" style="left:16%;top:43%"></i><i class="dot" style="left:40%;top:35%"></i><i class="dot" style="left:89.6%;top:61.5%"></i>
+      </a>
+      <svg class="leaders" id="leaders" aria-hidden="true"><path/><path/><path/></svg>
+      <div class="spec mono" id="sA">Planetary gearbox<small>multi-stage reduction</small></div>
+      <div class="spec mono" id="sB">Two-speed shift<small>collar</small></div>
+      <div class="spec mono" id="sC">Square drive output<small>splined shaft</small></div>
+    </div>
+  </div>
+  <div class="next mono"><span><b>02</b> The Quiet Machine · <b>03</b> Armament components · <b>04</b> Rendering studio</span><span>End of slice · full build after approval</span></div>
+</section>
+</main>
+
+<div class="warp" id="warp" aria-hidden="true"><div class="mono">01 · Opening the teardown<br>/torque-wrench/</div></div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id)
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v))
+  const smooth = t => t * t * (3 - 2 * t)
+  const k = (rate, dt) => 1 - Math.exp(-rate * dt)          // frame-rate-independent damping
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches
+  const TOUCH = matchMedia('(hover: none)').matches
+
+  /* ── real-progress preloader ── */
+  const vid = $('vid')
+  const tasks = [
+    ['fonts', document.fonts.ready],
+    ...['im1', 'im2', 'im3'].map(id => ['plates', new Promise(r => { const i = $(id); i.complete ? r() : (i.onload = i.onerror = r) })]),
+    ['film', new Promise(r => { if (vid.readyState >= 2) r(); vid.addEventListener('loadeddata', r, { once: true }); vid.addEventListener('error', r, { once: true }); setTimeout(r, 4500) })],
+  ]
+  let shown = 0, loaded = false
+  // hero plays only the dark studio passage of the showreel (its open/close cards are paper-toned)
+  const FILM_IN = 14, FILM_OUT = 40.4
+  vid.addEventListener('loadedmetadata', () => { vid.currentTime = FILM_IN }, { once: true })
+  vid.addEventListener('timeupdate', () => { if (vid.currentTime > FILM_OUT || vid.currentTime < FILM_IN - .5) vid.currentTime = FILM_IN })
+  tasks.forEach(t => t[1].then(() => { t.ok = true; const next = tasks.find(x => !x.ok); $('what').textContent = next ? next[0] : 'ready' }))
+
+  /* ── state ── */
+  const stage = $('stage'), studio = $('studio'), ring = $('ring'), readout = $('readout'), copy = $('copy')
+  const trackItems = [...$('track').children], STAGES = ['CAD import', 'Scene + materials', 'Camera gate', 'Cycles render']
+  const wrap = $('wrap'), plate = $('plate'), solid = $('solid'), scan = $('scan')
+  const dots = [...plate.querySelectorAll('.dot')], specs = [$('sA'), $('sB'), $('sC')], paths = [...$('leaders').children]
+  let W = innerWidth, H = innerHeight, heroRange = 1, docRange = 1
+  const measure = () => { W = innerWidth; H = stage.clientHeight; heroRange = $('hero').offsetHeight - H; docRange = document.documentElement.scrollHeight - innerHeight }
+  addEventListener('resize', measure); measure()
+
+  let px = W * .64, py = H * .42, x = px, y = py, auto = true, hold = 0, holdS = 0, speedS = 0, pS = 0, lastStage = -2
+  stage.addEventListener('pointermove', e => { if (e.pointerType === 'mouse') { auto = false; px = e.clientX; py = e.clientY } })
+  stage.addEventListener('pointerdown', e => { hold = 1; if (e.pointerType !== 'mouse') { px = e.clientX; py = e.clientY; auto = false } })
+  addEventListener('pointerup', () => { hold = 0; if (TOUCH) auto = true })
+  addEventListener('pointercancel', () => { hold = 0 })
+
+  /* ── doorway tilt: spring, stiffness 90, exp(-11 dt), ±12° ── */
+  let tRx = 0, tRy = 0, rx = 0, ry = 0, vx = 0, vy = 0, qS = 0
+  if (!RM && !TOUCH) {
+    plate.addEventListener('pointermove', e => {
+      const r = wrap.getBoundingClientRect(), nx = (e.clientX - r.left) / r.width - .5, ny = (e.clientY - r.top) / r.height - .5
+      tRy = clamp(nx * 24, -12, 12); tRx = clamp(-ny * 24, -12, 12)
+      plate.style.setProperty('--gx', (nx + .5) * 100 + '%'); plate.style.setProperty('--gy', (ny + .5) * 100 + '%')
+    })
+    plate.addEventListener('pointerleave', () => { tRx = tRy = 0 })
+  }
+
+  /* ── doorway zoom transition ── */
+  const warp = $('warp')
+  document.querySelectorAll('[data-door]').forEach(a => a.addEventListener('click', e => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || RM) return
+    e.preventDefault()
+    const r = plate.getBoundingClientRect()
+    warp.style.clipPath = `inset(${r.top}px ${innerWidth - r.right}px ${innerHeight - r.bottom}px ${r.left}px)`
+    warp.getBoundingClientRect()
+    warp.classList.add('go'); warp.style.clipPath = 'inset(0px 0px 0px 0px)'
+    setTimeout(() => { location.href = a.getAttribute('href') }, 1250)
+  }))
+  addEventListener('pageshow', e => { if (e.persisted) { warp.classList.remove('go'); warp.style.clipPath = '' } })
+
+  /* ── frame loop ── */
+  let last = performance.now()
+  function frame(now) {
+    const dt = Math.min((now - last) / 1000, .05); last = now
+
+    if (!loaded) {
+      const real = tasks.filter(t => t.ok).length / tasks.length
+      shown += (real - shown) * k(7, dt)
+      if (real === 1 && shown > .992) shown = 1
+      $('num').textContent = String(Math.round(shown * 100)).padStart(3, '0')
+      $('arc').style.strokeDashoffset = 389.6 * (1 - shown)
+      if (shown === 1) { loaded = true; document.body.classList.add('loaded'); if (!RM) vid.play().catch(() => {}) }
+    }
+
+    const sy = scrollY
+    pS += (clamp(sy / heroRange) - pS) * k(9, dt)
+
+    /* hero lens */
+    if (sy < heroRange + H) {
+      if (auto && !RM) { const t = now / 1000; px = W * (.62 + .17 * Math.sin(t * .5)); py = H * (.44 + .17 * Math.sin(t * .73 + 1)) }
+      const ox = x, oy = y
+      x += (px - x) * k(10, dt); y += (py - y) * k(10, dt)
+      speedS += (Math.hypot(x - ox, y - oy) / dt - speedS) * k(6, dt)
+      holdS += (hold - holdS) * k(5, dt)
+      const e = smooth(clamp((pS - .05) / .78)), eg = e * e
+      const base = clamp(Math.min(W, H) * .17, 92, 210)
+      const r0 = base * (1 + 1.5 * holdS) + Math.min(speedS * .045, 70)
+      const reach = Math.hypot(Math.max(x, W - x), Math.max(y, H - y)) * 1.04
+      const r = r0 + (reach - r0) * eg
+      studio.style.clipPath = `circle(${r.toFixed(1)}px at ${x.toFixed(1)}px ${y.toFixed(1)}px)`
+      const fade = clamp(1 - e * 2.6)
+      ring.style.opacity = fade
+      ring.style.width = ring.style.height = (2 * r).toFixed(1) + 'px'
+      ring.style.transform = `translate3d(${(x - r).toFixed(1)}px,${(y - r).toFixed(1)}px,0)`
+      const st = e < .03 ? -1 : Math.min(3, Math.floor(e * 4))
+      readout.style.opacity = fade
+      readout.style.transform = `translate3d(${(x + r * .72 + 12).toFixed(1)}px,${(y + r * .72 + 10).toFixed(1)}px,0)`
+      readout.innerHTML = `X ${String(Math.round(x)).padStart(4, '0')} · Y ${String(Math.round(y)).padStart(4, '0')}<br>${st < 0 ? 'Cycles preview' : STAGES[st]}`
+      if (st !== lastStage) { trackItems.forEach((li, i) => li.classList.toggle('on', i <= st && st >= 0)); lastStage = st }
+      $('tbar').style.transform = `scaleY(${e.toFixed(3)})`
+      copy.style.opacity = clamp(1 - (e - .3) / .35)
+      copy.style.transform = `translate3d(0,${(-e * 60).toFixed(1)}px,0)`
+      $('film').style.opacity = clamp((e - .8) / .2)
+    }
+
+    /* doorway 01 */
+    const wr = wrap.getBoundingClientRect()
+    if (wr.bottom > -200 && wr.top < innerHeight + 200) {
+      const q = clamp((innerHeight * .92 - wr.top) / (innerHeight * .6))
+      qS += (q - qS) * k(6, dt)
+      const qe = smooth(qS)
+      solid.style.clipPath = `inset(0 ${((1 - qe) * 100).toFixed(2)}% 0 0)`
+      scan.style.transform = `translate3d(${(qe * wr.width).toFixed(1)}px,0,0)`
+      scan.style.opacity = qe > .004 && qe < .996 ? 1 : 0
+      $('mode').textContent = qe > .996 ? 'Rendered' : qe > .02 ? 'Rendering ' + String(Math.round(qe * 100)).padStart(3, '0') + '%' : 'Drawing'
+
+      const s = Math.min(dt, 1 / 30)
+      vx += (tRx - rx) * 90 * s; vy += (tRy - ry) * 90 * s
+      const d = Math.exp(-11 * s); vx *= d; vy *= d
+      rx += vx * s; ry += vy * s
+      plate.style.transform = `rotateX(${rx.toFixed(3)}deg) rotateY(${ry.toFixed(3)}deg)`
+
+      const lo = clamp((qS - .82) / .18)
+      dots.forEach((dEl, i) => {
+        dEl.style.opacity = specs[i].style.opacity = lo
+        if (lo <= 0) { paths[i].setAttribute('d', ''); return }
+        const dr = dEl.getBoundingClientRect(), sr = specs[i].getBoundingClientRect()
+        const dx = dr.left + dr.width / 2 - wr.left, dy = dr.top + dr.height / 2 - wr.top
+        const top = sr.top < dr.top, ey = (top ? sr.bottom + 5 : sr.top - 5) - wr.top
+        const l = sr.left - wr.left, rgt = sr.right - wr.left
+        const near = Math.abs(l - dx) < Math.abs(rgt - dx) ? l : rgt, far = near === l ? rgt : l
+        const ex = near + (dx - near) * (1 - lo), eyy = ey + (dy - ey) * lo   // line grows from the label to the part
+        paths[i].setAttribute('d', `M${far.toFixed(1)} ${ey.toFixed(1)}L${near.toFixed(1)} ${ey.toFixed(1)}L${(near + (dx - near) * lo).toFixed(1)} ${eyy.toFixed(1)}`)
+      })
+    }
+
+    /* HUD */
+    const ch = sy > heroRange + innerHeight * .3 ? 1 : 0
+    $('chapN').textContent = '0' + ch; $('chapT').textContent = ch ? 'Industrial Torque Wrench' : pS > .5 ? 'The render' : 'The print'
+    const pc = clamp(sy / docRange)
+    $('pct').textContent = String(Math.round(pc * 100)).padStart(3, '0') + '%'
+    $('bar').style.transform = `scaleX(${pc.toFixed(4)})`
+
+    requestAnimationFrame(frame)
+  }
+  requestAnimationFrame(frame)
+  addEventListener('load', measure)
+})()
+</script>
+</body>
+</html>
