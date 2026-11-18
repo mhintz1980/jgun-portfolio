@@ -1,6 +1,8 @@
 # JG-044 (proposed ID) — Merged homepage concept: one sheet, one lens, one fall
 
-Written 2026-11-16. Status: **plan only, awaiting owner go.** Nothing is built.
+Written 2026-11-16. Status (updated 2026-11-18): **prototype built in `proto/merged/`**
+(phases 1-4, paper tear version i Astra-approved); **Gate 2 open.** The chapter-video
+direction and the Chapter 04 plan below are **planning only**: no Blender, no Modal.
 Owner approved the merge direction and the pointer look-around on 2026-11-16.
 
 ## Cost and gates first
@@ -102,6 +104,59 @@ This carbine is a stand-in, not Mark's own design (owner ruling 2026-11-13). The
 shows it with two lines: "AR-15-pattern carbine" and "(IP-Safe Representative Model)",
 and the film's rules test requires the second line. This plan says pattern only. Mark
 decides whether the homepage carries the second line too.
+
+## Chapter-video direction (Mark, 2026-11-17; Chapter 04 approved 2026-11-18)
+
+Each chapter shows a rendered model instead of the code-drawn gear train: the sheet
+shows a line pass, the lens shows the same frames photoreal. Source: Blender Cycles on
+Modal, numbered WebP frame sequences scrubbed by scroll (not MP4), both passes from one
+camera so the lens registers with the sheet (same pattern as `proto/merged/arm/`). The
+chapter button runs the version i tear and dive. No `.glb` on `/home/`.
+
+| Chapter | Model | Status |
+|---|---|---|
+| 01 Torque wrench | Torque wrench, rotate and explode (`C:/Projects/CAD/Default.glb`) | Pilot not started |
+| 02 Quiet Machine | Enclosure, 360 turn or section (`C:/Projects/CAD/RL300-SAFE/`) | Not started |
+| 03 Armament | AR-15 pattern carbine spin, already built (120 frames) | Keep: open question |
+| 04 Renderings, Animation & StudioMark | 3 assemblies + StudioMark console, see below | Planning |
+
+Still open for Mark: what dives 01-03 land on (showreel passage or one clip per
+project); confirm chapter 03 keeps the carbine spin.
+
+### Chapter 04: Renderings, Animation & StudioMark
+
+Full record: `docs/HANDOFF-chapter4-studiomark-design-2026-11-18.md`.
+
+- **Approved by Mark:** merge Renderings with the StudioMark ("CAD to Ad") pipeline into
+  one chapter; three assemblies scroll-sequenced (0-.33, .33-.66, .66-1) with
+  `01 / 02 / 03` specimen pills; local $0 previews before any Modal run.
+  1. A large planetary carrier cage (`Default.glb` / `RL300-SAFE/optimized/jgun-gearbox.glb`).
+  2. DD4SE open-skid pump (`C:/Projects/msp-render-pipeline-scene-prep/cad/DD4SE-clean.glb`).
+  3. M249 sub-assembly, Option B (`Topcover Assembly.glb` or `M249 Receiver Plus.glb`).
+- **Bottom of the dive:** a simulated StudioMark console from pre-rendered frames,
+  stills and MP4s: assembly switch, light / dark / jobsite background, finish swap,
+  angle scrub, A/B wipe raw CAD vs Cycles, truth-photo parity, raw-vs-post video, the
+  20-slide training deck. Coded UI after `C:/Projects/video-app-prep/12-ui-mockups.html`;
+  no AI mockups, no AI product renders.
+- **Plan rules (2026-11-18 review):**
+  1. M249: confirm Mark's own geometry; BCP-condition display shells; no part or drawing
+     numbers in labels or frames. `m249-transformed.glb` and `m249_FN.glb` stay banned.
+  2. Weight by reuse: shade pass on transparent (backgrounds drawn by the page); one
+     60-frame angle set per assembly serves the scroll beats and the console scrub;
+     finishes as hero stills only; A/B wipe = line vs shade on the same frame. Target
+     about 6-7 MB of frames; console videos and deck load only when it opens.
+  3. Gate 2 scope: thin console (switch, background, scrub, A/B) in Gate 2; parity,
+     videos and deck after it, so Gate 2 and JG-045 are not held up. Mark decides.
+  4. Pilot: planetary cage only, $0 local stills, then one Modal run with cost stated
+     and Mark's go, before DD4SE and the M249 piece. Same scene setup as the 01 pilot.
+  5. Astra rules on the console and every Chapter 04 effect.
+  6. Brand sanitization of existing proofs (MYERS-SETH lettering, MSP lockups, RL-300
+     plates) and the `content.test.ts` bans: Mark rules before any proof is used.
+- **Open for Mark:** exact cage; M249 primary pick; finish/angle matrix; sanitization
+  rule; `#systems` relationship and whether the console links to its own page.
+- **Cost estimates (not measured):** planning about 150-250k tokens; Modal Cycles for
+  all three assemblies about $2-6 (carbine: $0.48 full 360-frame render, $0.05
+  shade-only). No spend without the stated cost and Mark's go for that run.
 
 ## Phases
 
