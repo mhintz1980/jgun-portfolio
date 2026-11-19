@@ -72,7 +72,7 @@ export function TorqueWrenchPage({ store }: TorqueWrenchPageProps) {
       <a className="torque-skip" href="#torque-story">
         Skip to story
       </a>
-      <header className="torque-header">
+      <header className="torque-header" hidden={stage === 'scene'}>
         <PrivatePageNav tier={tier} variant="header" />
         <div className="torque-hero">
           <p className="torque-hero__eyebrow">Case study 01 · Work in progress</p>
@@ -95,7 +95,7 @@ export function TorqueWrenchPage({ store }: TorqueWrenchPageProps) {
         <Story playback={playback} live={stage === 'scene'} />
         {stage === 'scene' && <TorqueHUD store={store} playback={playback} />}
       </main>
-      <footer className="torque-footer">
+      <footer className="torque-footer" hidden={stage === 'scene'}>
         <PrivatePageNav tier={tier} variant="endcard" />
         <p className="torque-colophon">
           Work in progress. Pneumatic Torque Wrench. The five-chapter story runs from drafting and

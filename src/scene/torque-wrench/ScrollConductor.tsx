@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
+import { installShatterPlayback } from './browserShatterPlayback'
 import { torqueNarrativeProgress } from './scrollPacing'
 import type { TorqueWrenchStore } from '../../state/torqueWrenchStore'
 import {
@@ -39,15 +40,18 @@ export function installScrollConductor(
   onFailure: (error: unknown) => void,
   dependencies: TorqueConductorDependencies = browserDependencies(),
 ): () => void {
+  let playback: ReturnType<typeof installShatterPlayback> | undefined
   try {
     if (!scrollTriggerRegistered) {
       dependencies.registerPlugin()
       scrollTriggerRegistered = true
     }
-    const conductor = createTorqueScrollConductor({ store, ...dependencies,
+    if (typeof window !== 'undefined' && store.getState().tier !== 'poster') playback = installShatterPlayback(store)
+    const conductor = createTorqueScrollConductor({ store, ...dependencies, onTick: playback?.tick,
       mapScrollProgress: torqueNarrativeProgress, onCleanupFailure: onFailure })
-    return () => conductor.dispose()
+    return () => { playback?.dispose(); conductor.dispose() }
   } catch (error) {
+    playback?.dispose()
     onFailure(error)
     return () => {}
   }

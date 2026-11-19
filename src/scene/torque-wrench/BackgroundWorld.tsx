@@ -5,6 +5,7 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js'
+import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js'
 import type { TorqueWrenchStore } from '../../state/torqueWrenchStore'
 import { createBackgroundSample, sampleBackground } from './BackgroundDirector'
 import { BACKGROUND_LAYERS } from './backgroundLayers'
@@ -13,6 +14,7 @@ import { computeRenderBudget } from './renderBudget'
 import { createBlueNoiseTexture } from './blueNoise'
 import { createResourceScope } from './resourceScope'
 import type { InspectionIsolationSample } from './inspectionIsolation'
+import { createShatterAtmosphere, sampleShatterAtmosphere } from './shatterAtmosphere'
 
 const vertex = `varying vec2 vUv;
 void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`
@@ -25,8 +27,14 @@ uniform float uScale;
 uniform float uBase;
 uniform float uLayer;
 uniform float uSurroundings;
+uniform float uDilation;
+uniform float uOrbit;
+float dustHash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 void main(){
   vec2 p=vUv-.5; p.x*=uResolution.x/max(1.0,uResolution.y);
+  // Depth-separated counter-motion: the far light pools drift slowly, the nearer
+  // airborne particulate crosses the lens faster while the shards barely move.
+  p+=vec2(sin(uOrbit)*.19,cos(uOrbit)*.06)*uDilation*(.3+uLayer*.42);
   // Broad, studio-centered warm-graphite pools with delicate horizon rim separation.
   vec2 center=uLayer<.5?vec2(-.04,.02):(uLayer<1.5?vec2(.16,.05):vec2(-.10,-.08));
   vec2 q=(p-center)*vec2(.55,1.08)*uScale;
@@ -39,6 +47,12 @@ void main(){
   float floorLift=smoothstep(-.65,.45,-p.y)*.32;
   vec3 base=mix(vec3(.0115,.0118,.0124),vec3(.0175,.0170,.0165),floorLift);
   vec3 color=mix(base,uColor,radial);
+  vec2 dp=p*vec2(33.,24.)+vec2(uOrbit*(.4+uLayer*.6),uLayer*13.);
+  vec2 cell=floor(dp), f=fract(dp)-.5;
+  float dust=exp(-dot(f*vec2(1.,2.5),f*vec2(1.,2.5))*170.)
+    *step(.965,dustHash(cell));
+  float peripheral=smoothstep(.12,.52,length(p));
+  color+=vec3(.035,.10,.16)*(dust*1.7+rimBand*.10)*uDilation*peripheral;
   // Keep charcoal-graphite studio room presence during isolated shaft study instead of #000 void.
   float studioKeep=uBase>.5?mix(.82,1.0,uSurroundings):mix(.60,1.0,uSurroundings);
   gl_FragColor=vec4(color*studioKeep,uBase>.5?1.0:radial*uOpacity*studioKeep);
@@ -85,13 +99,14 @@ export function BackgroundWorld({ store, onFailure, isolation }: {
       else onFailure(new AggregateError(errors, 'Background cleanup failed'))
     })
     try {
-    const sample = createBackgroundSample(), post = createPostProfile()
+    const sample = createBackgroundSample(), post = createPostProfile(), dilation = createShatterAtmosphere()
     const noise = owned.own(createBlueNoiseTexture())
     const geometry = owned.own(new PlaneGeometry(2, 2))
     const meshes = BACKGROUND_LAYERS.map((definition, index) => {
       const material = owned.own(new ShaderMaterial({ name: 'TorqueBackgroundLinear-' + definition.id, vertexShader: vertex, fragmentShader: backgroundFragment,
         uniforms: { uResolution: { value: new Vector2() }, uColor: { value: new Vector3() },
-          uOpacity: { value: 0 }, uScale: { value: 1 }, uBase: { value: index === 0 ? 1 : 0 }, uLayer: { value: index }, uSurroundings: { value: 1 } },
+          uOpacity: { value: 0 }, uScale: { value: 1 }, uBase: { value: index === 0 ? 1 : 0 }, uLayer: { value: index }, uSurroundings: { value: 1 },
+          uDilation: { value: 0 }, uOrbit: { value: 0 } },
         transparent: index > 0, depthTest: true, depthWrite: false, toneMapped: false }))
       const mesh = new Mesh(geometry, material)
       mesh.name = 'torque-private-background-' + definition.id; mesh.frustumCulled = false; mesh.renderOrder = -100000 + index
@@ -125,12 +140,17 @@ export function BackgroundWorld({ store, onFailure, isolation }: {
     catch (error) { composerTarget.dispose(); throw error }
     owned.own(composer)
     const renderPass = new RenderPass(scene, camera)
+    // Only the intact lab uses depth of field. Machining and fracture keep their
+    // existing sharp rendering, and the ink plane is the measured focal distance.
+    const dof = new BokehPass(scene, camera as PerspectiveCamera, { focus: 1, aperture: .012, maxblur: .006 })
+    const dofUniforms = dof.materialBokeh.uniforms
+    owned.defer(() => dof.dispose())
     const grade = new ShaderPass({ name: 'TorqueContinuousGrade', vertexShader: gradeVertex, fragmentShader: gradeFragment,
       uniforms: { tDiffuse: { value: null }, uNoise: { value: noise }, uResolution: { value: new Vector2() },
         uExposure: { value: 1 }, uSaturation: { value: 1 }, uVignette: { value: 0 } } })
     const output = new OutputPass()
     owned.defer(() => renderPass.dispose()); owned.defer(() => grade.dispose()); owned.defer(() => output.dispose())
-    composer.addPass(renderPass); composer.addPass(grade); composer.addPass(output)
+    composer.addPass(renderPass); composer.addPass(dof); composer.addPass(grade); composer.addPass(output)
     const originalBackground = scene.background
     // The background mesh owns the base; an opaque scene.background would clear over it only before geometry, but retain original on teardown.
     scene.background = null
@@ -147,7 +167,7 @@ export function BackgroundWorld({ store, onFailure, isolation }: {
           spatiallyUniform: index === 0,
         },
       })),
-      post, budget: initialBudget, actualBuffer: [0, 0], calls: 0, triangles: 0,
+      post, dilation, depthOfField: { active: false, focusM: 0, maxBlur: 0 }, budget: initialBudget, actualBuffer: [0, 0], calls: 0, triangles: 0,
       pointerWeight: 0, pointerMode: 'omitted; reading/fracture suppression exact zero',
       noise: { method: 'periodic Gaussian void ranking', size: 32, static: true },
       antialias: {
@@ -206,6 +226,7 @@ export function BackgroundWorld({ store, onFailure, isolation }: {
     const buffer = new Vector2()
     const savedColor = new Color()
     const forward = new Vector3(), right = new Vector3(), up = new Vector3()
+    const focalPoint = new Vector3()
     const originalDpr = gl.getPixelRatio()
     owned.defer(() => { if (gl.getPixelRatio() === appliedDpr) setDpr(originalDpr) })
     let budget = telemetry.budget
@@ -247,6 +268,17 @@ export function BackgroundWorld({ store, onFailure, isolation }: {
         appliedWidth = dimensions.current.width; appliedHeight = dimensions.current.height; appliedDpr = budget.dpr
       }
       sampleBackground(progress, sample); samplePostProfile(progress, post)
+      sampleShatterAtmosphere(progress, dilation)
+      const sheet = scene.getObjectByName('private-engineering-drawing-plane-frame')
+      dof.enabled = progress < .42 && !!sheet && camera instanceof PerspectiveCamera
+      if (dof.enabled && sheet) {
+        focalPoint.set(0,0,0).applyMatrix4(sheet.matrixWorld).applyMatrix4(camera.matrixWorldInverse)
+        dofUniforms.focus.value = Math.max(camera.near, -focalPoint.z)
+        dofUniforms.maxblur.value = (tier === 'full' ? .006 : .0035) * (1-Math.max(0,(progress-.412)/.008))
+      }
+      telemetry.depthOfField.active = dof.enabled
+      telemetry.depthOfField.focusM = dofUniforms.focus.value
+      telemetry.depthOfField.maxBlur = dof.enabled ? dofUniforms.maxblur.value : 0
       telemetry.progress = progress; telemetry.active = sample.active; telemetry.budget = budget
       telemetry.isolation.progress = isolation.progress
       telemetry.isolation.surroundingsOpacity = surroundings
@@ -266,6 +298,8 @@ export function BackgroundWorld({ store, onFailure, isolation }: {
         material.uniforms.uColor.value.set(...layer.color)
         material.uniforms.uOpacity.value = layer.opacity; material.uniforms.uScale.value = layer.scale
         material.uniforms.uSurroundings.value = surroundings
+        material.uniforms.uDilation.value = dilation.strength
+        material.uniforms.uOrbit.value = dilation.phase
         const actual = telemetry.actualLayers[i]
         mesh.position.toArray(actual.position); actual.visible = mesh.visible
         actual.requestedOpacity = layer.opacity

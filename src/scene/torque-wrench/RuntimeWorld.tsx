@@ -39,6 +39,7 @@ import { sampleLegacyMechanismCamera } from './LegacyMechanismCamera'
 import { createCameraHandoff, type CameraHandoffPose } from './CameraHandoff'
 import { PrivateSheet } from './PrivateSheet'
 import type { DrawingFrameInput, PrivateSheetRuntime } from './privateSheetRuntime'
+import { selectPortalContacts } from './portalLightning'
 import { captureInstalledCutter, measureInstalledInspection } from './inspectionProof'
 import { createInspectionFailureCollector } from './inspectionFailure'
 import { applyPrivateSheetContent } from './privateSheetContent'
@@ -381,6 +382,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
     const port = {
       overlaySample: () => overlay,
       pitInputs: () => sheetRuntime.current?.pitInputs(),
+      lightningSnapshot: () => sheetRuntime.current?.lightningSnapshot(),
       pitGeometryAb: (candidate: number[]) => {
         if (!sheetRuntime.current) throw new Error('Private sheet unavailable')
         return sheetRuntime.current.pitGeometryAb(gl, camera, candidate)
@@ -747,7 +749,11 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         if (!shaft.current || !(camera instanceof PerspectiveCamera)) throw new Error('Installed study unavailable')
         return captureInstalledCutter(shaft.current, gl, scene, camera)
       },
-      toggleFreeLook: (force?: boolean) => stopAndAppreciate.toggleFreeLook(force, store.getProgress()),
+      toggleFreeLook: (force?: boolean) => {
+        const active = stopAndAppreciate.toggleFreeLook(force, store.getProgress())
+        syncFreeLookButton(active)
+        return active
+      },
       stopAndAppreciate: () => stopAndAppreciate.snapshot(),
     }
     globals.__torqueWorld = port
@@ -884,6 +890,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       finally { host?.position.set(...center); model.updateWorldMatrix(true, true) }
       owned.own(snapshot.geometry)
       drawing.current = snapshot
+      sheetFrame.modelContactPoints = selectPortalContacts(snapshot.geometry, snapshot.bounds)
       layout.current = makeDrawingLayout(aspect, snapshot.bounds)
       owned.defer(() => { if (drawing.current === snapshot) drawing.current = null })
       const pmrem = owned.own(new PMREMGenerator(gl))
@@ -946,6 +953,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       const progress = journey.effectiveProgress
       const crossing = sheetBake?.extraction.crossing ?? 0.9
       sheetFrame.intro = sampleOpeningFrame(progress, crossing, openingFinalInkT.current)
+      sheetFrame.progress = progress
       sheetFrame.delta = previousProgress.current === progress ? 0 : Math.min(delta, 0.1)
       previousProgress.current = progress
       sheetFrame.retirement = Math.max(0, Math.min(1, (progress - 0.46) / 0.04))

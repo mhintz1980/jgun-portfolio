@@ -63,6 +63,9 @@
   padding: 1.25rem clamp(1rem, 4vw, 3rem) 0;
 }
 
+/* Author display declarations must never override the live shell's hidden state. */
+.torque-header[hidden], .torque-footer[hidden] { display: none !important; }
+
 .torque-page .shell-nav-list {
   display: flex;
   flex-wrap: wrap;

@@ -13,7 +13,9 @@ export interface TorqueLenisLike {
   resize(): void
   destroy(): void
   /** Present on the real Lenis; optional so CPU-test fakes need not implement it. */
-  scrollTo?(target: number | HTMLElement | string, options?: { duration?: number }): void
+  scrollTo?(target: number | HTMLElement | string, options?: { duration?: number; immediate?: boolean; force?: boolean }): void
+  stop?(): void
+  start?(): void
 }
 
 export type TorqueLenisConstructor = new (options: {
@@ -73,6 +75,8 @@ export interface TorqueConductorDependencies {
 
 export interface TorqueConductorOptions extends TorqueConductorDependencies {
   store: TorqueWrenchStore
+  /** Browser playback shares this ticker, never a second requestAnimationFrame. */
+  onTick?: (time: number, lenis: TorqueLenisLike) => void
   /** Browser-private physical pacing; omitted by isolated lifecycle callers. */
   mapScrollProgress?: (fraction: number) => number
   onCleanupFailure?: (error: Error) => void
@@ -268,7 +272,10 @@ export function createTorqueScrollConductor(options: TorqueConductorOptions): To
 
     const ticker = dependencies.gsap.ticker
     const tick = (time: number): void => {
-      if (active) lenis.raf(time * 1000)
+      if (active) {
+        lenis.raf(time * 1000)
+        options.onTick?.(time, lenis)
+      }
     }
     ticker.add(tick)
     ownedTickerCallbacks.add(tick)
