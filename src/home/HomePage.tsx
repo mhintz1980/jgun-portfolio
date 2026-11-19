@@ -1,15 +1,21 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { prefetchPage } from '../shared/pageFade'
+import CaseStudies from './CaseStudies'
 import ContactRope from './ContactRope'
 import DrawnName from './DrawnName'
 import ProjectStack from './ProjectStack'
 import RollingPhrase from './RollingPhrase'
-import { CONTACT, CORE_PROJECTS, FOOTER, HERO, PLUS, PLUS_ITEMS, STACKS, TESTIMONIAL, WORK } from './content'
+import { BRIDGE, CASE_STUDIES, CONTACT, CORE_PROJECTS, FOOTER, HERO, HERO_SPECS, PLUS, PLUS_ITEMS, STACKS, TESTIMONIAL, WORK } from './content'
 import type { ProjectId } from './content'
 import ThemeToggle from './ThemeToggle'
 import Thread from './Thread'
+import { useSmoothScroll } from './useSmoothScroll'
 import Vault from './Vault'
 import './layout.css'
+
+// Tools that now have a full case file are not repeated as small cards.
+const CASE_IDS = new Set(CASE_STUDIES.map((study) => study.id))
+const OTHER_TOOLS = PLUS_ITEMS.filter((item) => !CASE_IDS.has(item.id) && item.id !== 'studiomark')
 
 // The only shared file of the homepage. Effects live in their own components and CSS files;
 // copy lives in content.ts. Thread anchors are marked with data-thread, in reading order.
@@ -262,6 +268,9 @@ export default function HomePage() {
     }
   }, [])
 
+  // After the header effect above, so its cancelled wheel events reach Lenis already cancelled.
+  useSmoothScroll()
+
   useEffect(() => {
     if (compactHeader && restoreNavFocusRef.current) {
       restoreNavFocusRef.current = false
@@ -409,9 +418,39 @@ export default function HomePage() {
           <p className="home-lede">{HERO.lede}</p>
           <p className="home-hint home-hint-pointer">{HERO.hintPointer}</p>
           <p className="home-hint home-hint-touch">{HERO.hintTouch}</p>
+          <dl className="home-specs">
+            {HERO_SPECS.map((spec) => (
+              <div key={spec.label} className="home-spec">
+                <dt>{spec.label}</dt>
+                <dd>{spec.value}</dd>
+              </div>
+            ))}
+          </dl>
         </section>
 
-        <section id="work" className="home-work" aria-labelledby="home-work-title">
+        <section className="home-bridge" aria-labelledby="home-bridge-title">
+          <p className="home-label">{BRIDGE.label}</p>
+          <h2 id="home-bridge-title" className="home-h2">
+            {BRIDGE.heading}
+          </h2>
+          <ol className="home-bridge-rail">
+            {BRIDGE.steps.map((step, index) => (
+              <li key={step.key} className="home-bridge-step">
+                <span className="home-bridge-key">
+                  {String(index + 1).padStart(2, '0')} · {step.key}
+                </span>
+                <span className="home-bridge-title">{step.title}</span>
+                <span className="home-bridge-line">{step.line}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <div id="work">
+          <CaseStudies />
+        </div>
+
+        <section className="home-work" aria-labelledby="home-work-title">
           <p className="home-label">{WORK.label}</p>
           <h2 id="home-work-title" className="home-h2">
             {WORK.heading}
@@ -488,7 +527,7 @@ export default function HomePage() {
           </h2>
           <p className="home-sub">{PLUS.sub}</p>
           <ul className="home-cards">
-            {PLUS_ITEMS.map((item) => (
+            {OTHER_TOOLS.map((item) => (
               <li key={item.id} className="home-card" data-thread="card">
                 <p className="home-card-status">{item.status}</p>
                 <h3 className="home-card-title">{item.title}</h3>

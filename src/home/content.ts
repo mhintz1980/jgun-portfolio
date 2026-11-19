@@ -53,9 +53,169 @@ export const HERO = {
   hintTouch: 'Scroll to inspect the drawings',
 } as const
 
+/** Title-block strip under the hero: label over value, read left to right. */
+export const HERO_SPECS: readonly { label: string; value: string }[] = [
+  { label: 'Discipline', value: 'Mechanical design · 3D CAD' },
+  { label: 'Experience', value: '20+ years' },
+  { label: 'Primary CAD', value: 'SolidWorks · PDM' },
+  { label: 'Also builds', value: 'Software · render pipelines · 3D web' },
+]
+
+/** How the physical work and the software connect, in the order a job moves. */
+export const BRIDGE = {
+  label: 'How it connects',
+  heading: 'From the shop floor to the screen',
+  steps: [
+    { key: 'Shop', title: 'Manufacturing', line: 'Parts designed around the machines, fixtures and inspection that will make them.' },
+    { key: 'CAD', title: 'CAD and drawings', line: 'Models, GD&T prints, flat patterns and BOMs released through PDM.' },
+    { key: 'Code', title: 'Custom software', line: 'Tools for the scheduling, checking and rendering work around the CAD.' },
+    { key: 'Render', title: 'CAD to Blender', line: 'The released model becomes product stills and video, with no photo shoot.' },
+    { key: 'Web', title: 'Interactive 3D', line: 'The same geometry, taken apart in the browser.' },
+  ],
+} as const
+
+export type CaseVisual = 'gear-core' | 'enclosure' | 'lifecycle' | 'toolchain'
+
+export interface CaseStudy {
+  id: string
+  number: string
+  title: string
+  status: string
+  summary: string
+  /** Label and value rows, read like a drawing's notes block. */
+  facts: readonly { label: string; value: string }[]
+  stack: string
+  visual: CaseVisual
+  visualCaption: string
+  links: readonly { label: string; href: string; external: boolean }[]
+}
+
+export const SHOWCASE = {
+  label: 'Case files',
+  heading: 'Built, tested, in use',
+  sub: 'Four projects, each one a system: the mechanism, the software around it, or both.',
+  benchHint: 'Drag to rotate',
+  benchLoad: 'Load the 3D model',
+  benchLoading: 'Loading model',
+  benchFallback: '3D is unavailable on this device. The project page has stills.',
+  modeShaded: 'Shaded',
+  modeEdges: 'Edges',
+  modeLabel: 'Display mode',
+} as const
+
+export const CASE_STUDIES: readonly CaseStudy[] = [
+  {
+    id: 'cad-pipeline',
+    number: '01',
+    title: 'STEP to Blender render pipeline',
+    status: 'Working pipeline',
+    summary:
+      'A headless pipeline that takes a CAD assembly to studio renders. It reads the STEP file with its assembly structure, finds flanges and datums to orient and stage the model, and checks its own output before it calls a frame done.',
+    facts: [
+      { label: 'Ingest', value: 'STEP through XCAF, assembly tree and names kept. Piloted on two models' },
+      { label: 'Geometry', value: 'Flange and datum detection drives orientation and camera targets' },
+      { label: 'Render', value: 'Headless Blender Cycles, HDRI lit, on a laptop or a cloud GPU' },
+      { label: 'QA', value: 'Closed loop: every opaque product pixel must match the raw render' },
+    ],
+    stack: 'Python · Blender · Cycles · Modal',
+    visual: 'enclosure',
+    visualCaption: 'Pump enclosure, the pipeline’s first model. Web-export mesh.',
+    links: [{ label: 'See the model in section', href: '/quiet-machine/', external: false }],
+  },
+  {
+    id: 'pumptracker',
+    number: '02',
+    title: 'PumpTracker Lite',
+    status: 'Used in production',
+    summary:
+      'Production management for a pump shop. Every order moves through eight stages on a drag-and-drop board, and the rules of the shop are enforced in the domain model, not left to the screen.',
+    facts: [
+      { label: 'Model', value: 'Domain-driven design: stage gates run in order, no skipping' },
+      { label: 'Gate', value: 'A pump cannot enter production without a serial number' },
+      { label: 'Schedule', value: 'Four-week calendar with lead times per pump model' },
+      { label: 'KPIs', value: 'WIP, cycle time and lead time, each with drill-down' },
+    ],
+    stack: 'React · TypeScript · Vite · Zustand · dnd-kit · Supabase',
+    visual: 'lifecycle',
+    visualCaption: 'The eight stages. The serial-number gate sits before fabrication.',
+    links: [
+      { label: 'Open the live app', href: 'https://ptl-lova.vercel.app', external: true },
+      { label: 'Source', href: 'https://github.com/mhintz1980/ptl-lova', external: true },
+    ],
+  },
+  {
+    id: 'torque-wrench',
+    number: '03',
+    title: 'Pneumatic torque wrench',
+    status: 'Live, work in progress',
+    summary:
+      'An air motor driving a multi-stage planetary gearbox. Designed, toleranced and tested as one system, where gear fit and runout decide whether the tool holds its torque.',
+    facts: [
+      { label: 'Drive', value: 'Vane air motor into stacked planetary stages' },
+      { label: 'Drawings', value: 'ASME Y14.5 GD&T, datums chosen from how the parts locate' },
+      { label: 'Method', value: 'Fit, runout and strength checked before the production run' },
+      { label: 'Result', value: 'Reduced repeated prototype iterations to near zero' },
+    ],
+    stack: 'SolidWorks · GD&T · DFM',
+    visual: 'gear-core',
+    visualCaption: 'Input shaft, bearing, ring gear and housing. Web-export mesh.',
+    links: [{ label: 'Open the 3D teardown', href: '/torque-wrench/', external: false }],
+  },
+  {
+    id: 'workflow-tooling',
+    number: '04',
+    title: 'CAD and video workflow tooling',
+    status: 'In design',
+    summary:
+      'The next layer on the render pipeline: one tool that takes a CAD assembly to finished ad images and video, with reusable looks, shots and edits. Specified and mocked up; the app itself is not built yet.',
+    facts: [
+      { label: 'Input', value: 'A released CAD assembly' },
+      { label: 'Reuse', value: 'Libraries of materials, lighting, camera moves and edits' },
+      { label: 'Output', value: 'Stills and video for sales, marketing and training' },
+      { label: 'State', value: 'Build spec and interface mockups written, engine proven on one model' },
+    ],
+    stack: 'Blender · Python · app stack not chosen yet',
+    visual: 'toolchain',
+    visualCaption: 'Planned flow. Solid steps run today; dashed steps are specified.',
+    links: [],
+  },
+]
+
+/** PumpTracker's stages, in order, as its board names them. */
+export const LIFECYCLE_STAGES: readonly string[] = [
+  'Unscheduled',
+  'Not started',
+  'Fabrication',
+  'Powder coat',
+  'Assembly',
+  'Testing',
+  'Shipping',
+  'Closed',
+]
+
+export const LIFECYCLE_COPY = {
+  try: 'Try the rules',
+  advance: 'Advance',
+  assign: 'Assign serial number',
+  assigned: 'Serial number assigned',
+  reset: 'Reset',
+  idle: 'A new order starts unscheduled.',
+  blocked: 'Blocked: production needs a serial number.',
+  closed: 'Closed. The order is finished.',
+  moved: 'Moved to',
+} as const
+
+export const TOOLCHAIN_STEPS: readonly { label: string; built: boolean }[] = [
+  { label: 'CAD assembly', built: true },
+  { label: 'Scene prep', built: true },
+  { label: 'Cycles render', built: true },
+  { label: 'Shot library', built: false },
+  { label: 'Edit and export', built: false },
+]
+
 export const WORK = {
-  label: 'Portfolio',
-  heading: 'Selected work',
+  label: 'Mechanical portfolio',
+  heading: 'Drawings and renders',
   stackHint: 'Scroll or drag to peel through the stack',
 } as const
 
@@ -150,7 +310,7 @@ export const STACKS: Partial<Record<ProjectId, readonly StackImage[]>> = {
 export const PLUS = {
   label: 'The Plus',
   heading: 'Systems Builder',
-  sub: 'Tools for the work around the CAD.',
+  sub: 'More tools for the work around the CAD.',
 } as const
 
 export const PLUS_ITEMS: readonly PlusItem[] = [
