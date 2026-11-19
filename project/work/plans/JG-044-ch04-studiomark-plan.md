@@ -1,6 +1,7 @@
 # JG-044 sub-plan: Chapter 04, Renderings, Animation & StudioMark
 
-Written 2026-11-19. Status: **plan, awaiting Mark's go.** Nothing built, rendered or spent.
+Written 2026-11-19. Status: **plan, awaiting Mark's go.** No Modal spend; the only
+output so far is the local $0 P0 pilot stills below.
 Parent plan: `JG-044-homepage-merged-concept.md`. Record of the design session:
 `docs/HANDOFF-chapter4-studiomark-design-2026-11-18.md`.
 
@@ -27,6 +28,16 @@ No Modal run starts without its quoted cost and Mark's go for that run.
    `content.test.ts` bans stay as they are.
 5. **Gate 2 needs a thin console only:** assembly switch, background, angle scrub, A/B
    wipe. Truth-photo parity, videos and the training deck come after Gate 2.
+
+## P0 pilot stills (2026-11-19, local, $0)
+
+Contact sheet: `docs/ch04-studiomark-p0-stills-2026-11-19.png`. Four sections —
+cage A000861 (line pass + Cycles placeholder-steel shade), DD4SE skid (own materials,
+brand marks still in geometry), Receiver Plus (own materials), and a DD4SE test with
+nameplate + engine cover removed (DD4S corner letters remain — supports ruling 4).
+Rendered locally, Blender 5.2.2 LTS Cycles (CPU/CUDA), azimuths 0/120/240, line + shade
+per assembly. No Modal spend. Full frame set, logs, `p0_preview.py` and the extracted
+cage GLB stay in session scratch `.scratch/ch04/` (gitignored, not committed).
 
 ## Defaults (apply unless Mark says otherwise)
 
