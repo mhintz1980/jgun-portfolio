@@ -152,8 +152,9 @@ Full record: `docs/HANDOFF-chapter4-studiomark-design-2026-11-18.md`.
   5. Astra rules on the console and every Chapter 04 effect.
   6. Brand sanitization of existing proofs (MYERS-SETH lettering, MSP lockups, RL-300
      plates) and the `content.test.ts` bans: Mark rules before any proof is used.
-- **Open for Mark:** exact cage; M249 primary pick; finish/angle matrix; sanitization
-  rule; `#systems` relationship and whether the console links to its own page.
+- **Ruled 2026-11-19:** cage A000861 (stage 4); `M249 Receiver Plus.glb`, Mark's own
+  geometry; clean all brand marks; thin console for Gate 2. Implementation and asset
+  plan, with costs and phases: `JG-044-ch04-studiomark-plan.md` (awaiting Mark's go).
 - **Cost estimates (not measured):** planning about 150-250k tokens; Modal Cycles for
   all three assemblies about $2-6 (carbine: $0.48 full 360-frame render, $0.05
   shade-only). No spend without the stated cost and Mark's go for that run.
