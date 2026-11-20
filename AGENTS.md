@@ -25,6 +25,14 @@ issues; earlier camera choices allow this refinement.
 
 Whenever Mark requests a handoff, provide both the saved handoff document and an accompanying ready-to-paste prompt for the receiving session. Put the prompt in the final response and save it with the handoff. Include the absolute handoff path, intended workspace, exact next action, and relevant boundaries or approval state. Preserve existing goals and do not imply authorization beyond the owner's request. This applies to every agent working in this repository.
 
+## Tooling manifests in plans
+
+Multi-session plans (`project/work/plans/JG-*.md`) and handoffs carry a **Tooling
+manifest** — a phase → tools table with exact versions, purpose, owner staging notes,
+and explicit "not used" entries — so Mark can research/stage newer skills, plugins,
+MCPs and tool versions between phases (never mid-lane). Convention and rules:
+vault `06-AI-Agents/plan-tooling-manifests.md`. Example: the JG-044 Chapter 04 plan.
+
 ## Session start
 
 1. Read `TODO.md` — canonical approved task queue, newest owner direction first.
