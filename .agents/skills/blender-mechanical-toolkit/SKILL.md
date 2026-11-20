@@ -41,7 +41,8 @@ task calls for it (index: `node _skills-index/skills-index.mjs --match scenario-
 
 - Headless: `"C:\Program Files\Blender Foundation\Blender 5.3\blender.exe" -b <file.blend>
   --factory-startup --python-exit-code 1 -P script.py -- args` (Blender **5.3.0**, Python
-  3.13.13; `blender` is NOT on PATH — always the absolute path. Pinned 2026-11-19; lanes
+  3.13.13; `blender` resolves via the `~/.local/bin/blender.cmd` shim, pinned 2026-11-19
+  to this absolute path — update the shim when the pin changes. Lanes
   with already-rendered 5.2.2 LTS frames, e.g. JG-041 armament, keep 5.2.2 for parity).
   The Blender MCP addon is installed in 5.3 (owner, 2026-11-19) — its socket server may
   need an explicit Start in the UI panel, and MCP tools register at harness session init

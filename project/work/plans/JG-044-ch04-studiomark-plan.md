@@ -78,7 +78,8 @@ cage GLB stay in session scratch `.scratch/ch04/` (gitignored, not committed).
 
 - **Blender version (pinned 2026-11-19, owner): 5.3.0** — build hash `02f0899d78e3`,
   bundled Python 3.13.13, `C:\Program Files\Blender Foundation\Blender 5.3\blender.exe`.
-  `blender` is NOT on PATH — always the absolute path. P0 stills were 5.2.2 LTS.
+  `blender` resolves via the `~/.local/bin/blender.cmd` shim (pinned to this path
+  2026-11-19); scripts keep the absolute path for reproducibility. P0 stills were 5.2.2 LTS.
   Before any P1 spend: (a) run the copied `render_clip.py` and `p0_preview.py` clean on
   5.3 (compat notes: `PropertyGroup.name` default is read-only in 5.3; `use_nodes`
   deprecation warnings continue); (b) after the pump mesh fill, re-render its preview
