@@ -46,12 +46,15 @@ the film share one instance.
 - armament images come only from `public/home/armament-showcase/` (checked against
   `manifest.json`); a "representative" image can only be drawn through `ShowcaseCard`, which
   always carries "Representative model — similar to the part I designed";
-- no source mentions the M249 models, and no engineering drawings (`home/drawings`,
-  `home/stacks`, `public/drawing`) are used. The wrench linework is a live edge render of
-  `Default.glb` — no dimensions, title block or part numbers;
-- the logo lane plays only the approved bumper (`src/logo.ts`), always muted, with no audio
-  element; the text baked into the bumper is recorded in `copy.LOGO` so the copy scan covers it;
-  the rejected "Precision Revealed" showcase is never referenced;
+- M249 is allowed (owner 2026-11-20): copy may name it and the film may show Mark's own M249
+  geometry; only the third-party `m249-transformed.glb` and `m249_FN.glb` stay out;
+- no engineering drawings (`home/drawings`, `home/stacks`, `public/drawing`) are used. The
+  wrench linework is a live edge render of `Default.glb` — no dimensions, title block or part
+  numbers;
+- the logo lane plays only the approved bumper (`src/logo.ts`), always muted; the text baked
+  into the bumper is recorded in `copy.LOGO` so the copy scan covers it; the rejected
+  "Precision Revealed" showcase is never referenced;
+- the film may carry an audio track, including AI-generated music and audio (owner 2026-11-20);
 - no AI-generated imagery anywhere.
 
 ## Commands

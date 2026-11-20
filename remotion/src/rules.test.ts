@@ -38,7 +38,6 @@ const BANNED: readonly [string, RegExp][] = [
   ['Creo', /\bcreo\b/i],
   ['Fusion 360', /fusion\s*360/i],
   ['PE stamp', /\bP\.?E\.?\b/],
-  ['M249', /m249/i],
   ['employer Myers', /myers/i],
   ['employer Seth', /\bseth\b/i],
   ['employer MSP', /\bmsp\b/i],
@@ -175,14 +174,14 @@ describe('armament clips (manifest-driven)', () => {
 })
 
 describe('showreel logo lane', () => {
-  // Owner 2026-11-08: the Storm Ignition bumper is the approved logo; the film stays silent;
-  // the rejected "Precision Revealed" showcase never appears.
-  it('plays only the approved bumper, always muted, with no audio track', () => {
+  // Owner 2026-11-08: the Storm Ignition bumper is the approved logo; the rejected
+  // "Precision Revealed" showcase never appears. Owner 2026-11-20: the film may carry an
+  // audio track, including AI-generated music/audio; the bumper video itself stays muted.
+  it('plays only the approved bumper, always muted', () => {
     expect(statSync(path.join(HERE, '..', '..', 'public', FILM_LOGO.src)).isFile()).toBe(true)
     for (const { file, text } of SRC) {
       for (const m of text.matchAll(/['"`]\/?(video\/[^'"`]+)['"`]/g)) expect(m[1], file).toBe(FILM_LOGO.src)
       expect(text, file).not.toMatch(/precision-revealed/i)
-      expect(text, file).not.toMatch(/<(Audio|Html5Audio)\b/)
       for (const m of text.matchAll(/<(OffthreadVideo|Video|Html5Video)\b[^>]*>/g)) expect(m[0], file).toMatch(/\bmuted\b/)
     }
   })
@@ -192,8 +191,10 @@ describe('showreel logo lane', () => {
 })
 
 describe('showreel sources', () => {
-  it('never loads the third-party M249 models', () => {
-    for (const { file, text } of SRC) expect(text, file).not.toMatch(/m249/i)
+  // Owner 2026-11-20: M249 is allowed in the film (copy and Mark's own geometry). Only the two
+  // third-party files stay out (owner ruling 2026-11-17, unchanged).
+  it('never loads the third-party M249 files', () => {
+    for (const { file, text } of SRC) expect(text, file).not.toMatch(/m249[-_](transformed|fn)\.glb/i)
   })
   it('never puts engineering drawings on screen', () => {
     for (const { file, text } of SRC) expect(text, file).not.toMatch(/home\/drawings\/|home\/stacks\/|['"`/]drawing\//)

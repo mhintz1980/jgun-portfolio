@@ -179,7 +179,7 @@ numbers, not just the constant.
 - Edit `src/copy.ts` only. No scene file hard-codes a visible word. Exception: `ShowcaseCard`
   reads `ARMAMENT.representativeLabel`, which must still start with "Representative model".
 - Run `npx vitest run remotion/src/rules.test.ts` from the repo root. It fails on banned words
-  (RL300, JGun, M249, MSP, Myers, Seth, CATIA/Creo/Fusion 360, "PE", 22 %, 47, "15 years",
+  (RL300, JGun, MSP, Myers, Seth, CATIA/Creo/Fusion 360, "PE", 22 %, 47, "15 years",
   hours claims, 7-axis, 0005, GD&T, part numbers like A000606, dimensions like "12 mm", ±,
   third-party firearm brands). `ARMAMENT.line` must contain "AR-15-pattern".
 - Watch the layout after copy changes. Titles are absolutely positioned at fixed sizes, and a
