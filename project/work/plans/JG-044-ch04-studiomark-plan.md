@@ -1,8 +1,8 @@
 # JG-044 sub-plan: Chapter 04, Renderings, Animation & StudioMark
 
 Written 2026-11-19. Status: **plan approved 2026-11-19 ("Approve, start P0"); P0 done
-same day; P1 not started.** No Modal spend. Next: apply ruling 6 (pump mesh fill), check
-the discharge badge, then the P1 Modal quote for Mark's go.
+same day; ruling 6 (pump mesh fill) done 2026-11-19; P1 not started.** No Modal spend.
+Next: the P1 Modal quote for Mark's go.
 Parent plan: `JG-044-homepage-merged-concept.md`. Record of the design session:
 `docs/HANDOFF-chapter4-studiomark-design-2026-11-18.md`.
 
@@ -17,6 +17,13 @@ Parent plan: `JG-044-homepage-merged-concept.md`. Record of the design session:
 | Line pass | **$0** | Workbench, rendered locally |
 
 No Modal run starts without its quoted cost and Mark's go for that run.
+
+**P1 quote (dry run 2026-11-20, `.scratch/ch04/launch_ch04.py --preset cage-pilot`, no cloud
+call):** 63 shade frames (60 turn frames 1536 px / 64 samples, plus 3 hero stills 2048 px /
+128 samples in steel, clay and black oxide), 7 shards on 4-CPU / 8 GB containers, Blender
+5.3.0. **Estimate $0.28; hard ceiling $0.88** (all 7 shards hitting the 30 min timeout).
+Basis: 47 s per frame measured locally on 4 threads; rates as recorded in
+`cloud_job_render.py`. Awaiting Mark's go.
 
 ## Rulings (Mark, 2026-11-19)
 
@@ -51,8 +58,15 @@ cage GLB stay in session scratch `.scratch/ch04/` (gitignored, not committed).
 - Pump FAILS sanitization until the mesh fix (ruling 6): "MYERS-SETH PUMPS" is a
   separate nameplate part (DDS-MSP-0001, removable — the sheet's test row shows it
   gone); "MSP BUILT FOR BATTLE" is cut into the engine cover (DD4-ECH-2001); "DD4S"
-  letters are cut into the skid corner plates and survive cover removal. One small
-  badge near the discharge is still unexamined — check it during the fill pass.
+  letters are cut into the skid corner plates and survive cover removal. The "badge"
+  near the discharge was the oblique DD4S plate; the coupling carries no marks.
+- **Pump fill done (ruling 6, 2026-11-19, Blender 5.3.0, $0):** `.scratch/ch04/fill_marks.py`
+  writes the scratch copy `.scratch/ch04/dd4se-nomarks.glb`; the source GLB is untouched.
+  It fills the stencil cutouts in four parts: DD4-FTS-1010-1 and -2 (DD4S), DDS-MSP-0001
+  (nameplate, left in place as a blank plate with its bolt holes) and DD4-ECH-2001
+  (engine cover logo, fastener holes kept). 0 open edges left. Before/after line + shade
+  stills: `.scratch/ch04/p0-pump-before-after-2026-11-19.png`. P1/P3 render the pump from
+  `dd4se-nomarks.glb`.
 - The local CUDA driver did not load (CUEW init failed), so the P0 shade passes ran on
   CPU. Consequence: P1/P3 shade renders belong on Modal, or they are slow locally.
 
