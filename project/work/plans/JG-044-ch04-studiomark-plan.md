@@ -43,7 +43,21 @@ Output `.scratch/ch04/run-p1-line/`; pairing sheet `.scratch/ch04/p1-line-vs-sha
 **P1 ruling (Mark, 2026-11-20):** look approved as is; hero finish **steel**; P2 go.
 Found after the ruling: 17 of 60 frames (36°-132°, hero angle 120° included) cut the bottom
 of the rim at the frame edge, in both passes. Fix = re-frame line locally ($0) + shade on
-Modal (about $0.04), or accept. Open with Mark.
+Modal (about $0.04), or accept. **Fixed 2026-11-20 (Mark: "fix the cutoff, modal approved"):**
+`--fill 0.68` (was 0.62), line local `.scratch/ch04/run-p1b-line/`, shade Modal app
+`ap-ObFHGlkTM2cAdRa1ImDTMf` `.scratch/ch04/run-p1b-cage/`, **$0.0364 measured**; min margin
+32 px in both passes; re-encoded into `proto/merged/ch4/cage/`.
+
+**Homepage live (Mark, 2026-11-20: "immediately replace" the studiomark.dev homepage):**
+`scripts/deploy-home-proto.sh` rebuilds the live production commit (`d2a820dd`, verified
+byte-identical to live for /, /home/, /torque-wrench/, /quiet-machine/, /armament/) and swaps
+`proto/merged/` in as `/home/` (robots/canonical/description from the live page). Deployed
+as Pages deployment `ccf8f156`; live check desktop + phone, 0 page errors, 0 failed requests;
+the other pages unchanged. Re-run `scripts/deploy-home-proto.sh --deploy` after each
+homepage change, on Mark's go.
+
+**Open (Mark, 2026-11-20):** the cage and carbine turns step too coarsely (6° per frame) when
+the visitor slows or stops; set a measurable smoothness target before P3.
 
 **P2 (2026-11-20, $0):** `scripts/encode-ch04-frames.sh <set> <line-dir> <shade-dir>` writes
 `proto/merged/ch4/<set>/` (60 l + 60 s WebP 1024x640, 3 hero stills, `manifest.json`); cage
