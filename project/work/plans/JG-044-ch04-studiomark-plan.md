@@ -1,7 +1,8 @@
 # JG-044 sub-plan: Chapter 04, Renderings, Animation & StudioMark
 
-Written 2026-11-19. Status: **plan, awaiting Mark's go.** No Modal spend; the only
-output so far is the local $0 P0 pilot stills below.
+Written 2026-11-19. Status: **plan approved 2026-11-19 ("Approve, start P0"); P0 done
+same day; P1 not started.** No Modal spend. Next: apply ruling 6 (pump mesh fill), check
+the discharge badge, then the P1 Modal quote for Mark's go.
 Parent plan: `JG-044-homepage-merged-concept.md`. Record of the design session:
 `docs/HANDOFF-chapter4-studiomark-design-2026-11-18.md`.
 
@@ -28,6 +29,9 @@ No Modal run starts without its quoted cost and Mark's go for that run.
    `content.test.ts` bans stay as they are.
 5. **Gate 2 needs a thin console only:** assembly switch, background, angle scrub, A/B
    wipe. Truth-photo parity, videos and the training deck come after Gate 2.
+6. **Pump marks: fill them in the mesh** (Mark, 2026-11-19, answering the P0 question):
+   fill the logo and letter cutouts in a scratch copy of the DD4SE mesh — not
+   cover-removal plus angle-hiding. The nameplate part (DDS-MSP-0001) stays simply removed.
 
 ## P0 pilot stills (2026-11-19, local, $0)
 
@@ -38,6 +42,19 @@ nameplate + engine cover removed (DD4S corner letters remain — supports ruling
 Rendered locally, Blender 5.2.2 LTS Cycles (CPU/CUDA), azimuths 0/120/240, line + shade
 per assembly. No Modal spend. Full frame set, logs, `p0_preview.py` and the extracted
 cage GLB stay in session scratch `.scratch/ch04/` (gitignored, not committed).
+
+**P0 findings (2026-11-19):**
+- Cage A000861 passes: no marks in the mesh; reads well in both passes. Steel is a
+  placeholder (the cage file has no real materials yet).
+- Receiver passes: both embedded images are a plain stock rubber texture, no marks. At
+  azimuth 0 it is seen end-on, so the beat must start side-on.
+- Pump FAILS sanitization until the mesh fix (ruling 6): "MYERS-SETH PUMPS" is a
+  separate nameplate part (DDS-MSP-0001, removable — the sheet's test row shows it
+  gone); "MSP BUILT FOR BATTLE" is cut into the engine cover (DD4-ECH-2001); "DD4S"
+  letters are cut into the skid corner plates and survive cover removal. One small
+  badge near the discharge is still unexamined — check it during the fill pass.
+- The local CUDA driver did not load (CUEW init failed), so the P0 shade passes ran on
+  CPU. Consequence: P1/P3 shade renders belong on Modal, or they are slow locally.
 
 ## Defaults (apply unless Mark says otherwise)
 
@@ -112,9 +129,10 @@ cage GLB stay in session scratch `.scratch/ch04/` (gitignored, not committed).
 
 ## Sanitization checks (P0, before any frame ships)
 
-- DD4SE: look for cast or embossed lettering in the mesh; hide that mesh or pick angles
-  that don't show it.
-- Receiver: inspect the 2 embedded images; drop any that carry marks. Ignore the
+- DD4SE: cast lettering confirmed in the mesh (see P0 findings). Fix = ruling 6: fill
+  the cutouts in a scratch copy of the mesh; nameplate part removed. Check the
+  discharge badge during that pass.
+- Receiver: the 2 embedded images are stock rubber, no marks (done). Ignore the
   embedded camera.
 - After Gate 2, for proofs: mask the lettering in the parity photo, trim the MSP lockup
   off the RL300 videos, re-export the deck from the `.pptx` with logos removed from the
@@ -124,7 +142,7 @@ cage GLB stay in session scratch `.scratch/ch04/` (gitignored, not committed).
 
 | Phase | Work | Spend | Tokens | Gate |
 |---|---|---|---|---|
-| P0 | Isolate the cage; local preview stills of all three (line + shade, low samples); sanitization checks | $0 | 60-100k | **Mark picks from the stills** |
+| P0 | Isolate the cage; local preview stills of all three (line + shade, low samples); sanitization checks | $0 | 60-100k | **Mark picks from the stills** — done 2026-11-19, rulings 6 + findings above |
 | P1 | Pilot: cage, 60 line frames locally, 60 shade frames + hero stills on Modal | $0.10-0.50 | about 40k | **Quote stated, Mark's go** |
 | P2 | Encode; Chapter 04 beat 1 and pills in `proto/merged/`; stills to Mark | $0 | 120-180k | Mark's look at beat 1 |
 | P3 | DD4SE and receiver on Modal, one quote for both | $0.50-2.00 | about 60k | **Quote stated, Mark's go** |
@@ -134,6 +152,21 @@ cage GLB stay in session scratch `.scratch/ch04/` (gitignored, not committed).
 
 Checks per phase: one browser pass at desktop and phone width, light and dark, reduced
 motion on and off; 0 page errors. No new test files unless one replaces an existing one.
+
+## Tooling manifest (owner staging view)
+
+Exact tools per phase, so Mark can research/install updates, skills and MCPs between
+phases. Convention: vault `06-AI-Agents/plan-tooling-manifests.md`. Don't switch a
+tool version mid-lane; stage changes between phases.
+
+| Phase | Tools (version pinned) | Purpose | Owner staging notes |
+|---|---|---|---|
+| P0 (done) | Blender 5.2.2 LTS local (Workbench line, Cycles shade), `p0_preview.py` | local $0 stills | New Blender releases and recently open-sourced studio skills (machine modeling, exploded assemblies) are worth evaluating between lanes — never mid-lane |
+| P1, P3 | Modal (cloud Cycles GPU) + `remotion/clips/armament/blender/render_clip.py` (armament-wiring-clipspin-15a80d worktree, read-only) + same Blender build on Modal | cage pilot, then DD4SE + receiver shade frames | Modal spend gated per run; script pinned to the armament lane |
+| P2, P4 | `proto/merged/` vanilla JS + 2D canvas frame stage; plain DOM/CSS console; `cwebp` 1.6.0 encode | Chapter 04 beats, pills, thin console | No R3F/drei/three.js on `/home/` (no .glb there); UI styled from coded `12-ui-mockups.html` |
+| P5 | Astra rules pass (`webgl-mechanical-cinematography-td`), desktop+narrow browser checks | effects ruling, Gate 2 ask | — |
+| After Gate 2 | Remotion 4.0.540 (pinned — never `npx remotion upgrade`) + `video-shotcraft` Motion Workbench; Blender/Modal for re-renders | 16:9 masters, cutdowns, 9:16 verticals; parity videos, deck | Same Remotion lane as showreel JG-041 "The Line" |
+| Not used | Hyperframes (no plan references it); R3F/drei on `/home/`; Higgsfield (authorized but not needed here) | — | Say so in the session if that changes |
 
 ## Not in this plan
 
