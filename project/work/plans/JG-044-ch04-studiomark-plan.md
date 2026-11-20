@@ -23,7 +23,22 @@ call):** 63 shade frames (60 turn frames 1536 px / 64 samples, plus 3 hero still
 128 samples in steel, clay and black oxide), 7 shards on 4-CPU / 8 GB containers, Blender
 5.3.0. **Estimate $0.28; hard ceiling $0.88** (all 7 shards hitting the 30 min timeout).
 Basis: 47 s per frame measured locally on 4 threads; rates as recorded in
-`cloud_job_render.py`. Awaiting Mark's go.
+`cloud_job_render.py`.
+
+**P1 run (2026-11-20, Mark's go, `--max-usd 0.90`, app `ap-KOdfbhnoUV6BYsQa0a9IV6`):**
+rendered, 63/63 PNGs (60 turn 1536x960 + 3 heroes 2048x1280, RGBA, none blank), 495
+container-seconds, 316 s wall. **Measured $0.035** (rate-derived from container seconds;
+excludes the image build, check the Modal bill for the exact figure). That is about 7.9 s per
+frame on Modal versus 47 s locally, so the local-timing quote ran about 8x high; re-baseline
+P3 quotes on this run. Three earlier attempts failed before any render ($0): local proxy
+(`env -u HTTPS_PROXY`), cp1252 console (`PYTHONIOENCODING=utf-8`), and download.blender.org
+refusing Modal (launcher now uses the Clarkson mirror with the sha256 pinned). Frames and
+contact sheet: `.scratch/ch04/run-p1-cage/`, `.scratch/ch04/p1-cage-contact-2026-11-20.jpg`.
+
+**P1 line frames (2026-11-20, local, $0):** 60 Workbench + Freestyle frames, 1536x960,
+`--fill 0.62`, azimuths 0-354 step 6 (match the shade set one-to-one), Blender 5.3.0, 69 s
+total (about 1.2 s per frame plus 13 s startup), so local beats Modal for line passes.
+Output `.scratch/ch04/run-p1-line/`; pairing sheet `.scratch/ch04/p1-line-vs-shade-2026-11-20.jpg`.
 
 ## Rulings (Mark, 2026-11-19)
 
@@ -188,7 +203,7 @@ tool version mid-lane; stage changes between phases.
 | Phase | Tools (version pinned) | Purpose | Owner staging notes |
 |---|---|---|---|
 | P0 (done) | Blender 5.2.2 LTS local (Workbench line, Cycles shade), `p0_preview.py` | local $0 stills | Staged 2026-11-19: owner upgraded to **5.3.0** between P0 and P1 (exactly the between-phases window); P0 stills stay 5.2.2 history |
-| P1 (as built, not run) | Blender **5.3.0** (local absolute path, hash `02f0899d78e3`) + Modal **CPU** (4 cores, `.scratch/ch04/launch_ch04.py`; wgets the 5.3.0 Linux archive + sha256 at image build, no prebuilt 5.3 image) + `p0_preview.py` (not `render_clip.py`) | cage pilot shade frames | Quote $0.28 est / $0.88 ceiling; run only on Mark's go with `--max-usd 0.90`. The 5.3.0 Linux URL is unverified (blender.org 403s this machine), so the image build is the first proof. Reconciled 2026-11-20: the earlier "GPU + `render_clip.py`" text described the plan, not the launcher |
+| P1 (rendered 2026-11-20, $0.035 measured) | Blender **5.3.0** (local absolute path, hash `02f0899d78e3`) + Modal **CPU** (4 cores, `.scratch/ch04/launch_ch04.py`; wgets the 5.3.0 Linux archive from the Clarkson mirror at image build, sha256 pinned in the launcher, no prebuilt 5.3 image) + `p0_preview.py` (not `render_clip.py`) | cage pilot shade frames | Quote $0.28 est / $0.88 ceiling; run only on Mark's go with `--max-usd 0.90`. The 5.3.0 Linux URL is unverified (blender.org 403s this machine), so the image build is the first proof. Reconciled 2026-11-20: the earlier "GPU + `render_clip.py`" text described the plan, not the launcher |
 | P3 | Undecided: keep P1's CPU + `p0_preview.py` launcher, or switch to Modal GPU + copied `render_clip.py` (line + shade from one camera) | DD4SE + receiver shade frames | Mark decides after the P1 pilot, using its measured s/frame and cost. DLSS 4.5 dropped from evaluation (radar 2026-11-19: viewport-only, cannot cut headless Cycles samples). Pre-check (c) 5.2.2-vs-5.3 drift can't run locally now (5.2.2 removed 2026-11-19) |
 | P2, P4 | `proto/merged/` vanilla JS + 2D canvas frame stage; plain DOM/CSS console; `cwebp` 1.6.0 encode | Chapter 04 beats, pills, thin console | No R3F/drei/three.js on `/home/` (no .glb there); UI styled from coded `12-ui-mockups.html` |
 | P5 | Astra rules pass (`webgl-mechanical-cinematography-td`), desktop+narrow browser checks | effects ruling, Gate 2 ask | — |

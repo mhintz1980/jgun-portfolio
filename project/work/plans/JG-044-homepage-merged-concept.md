@@ -117,11 +117,46 @@ chapter button runs the version i tear and dive. No `.glb` on `/home/`.
 |---|---|---|
 | 01 Torque wrench | Torque wrench, rotate and explode (`C:/Projects/CAD/Default.glb`) | Pilot not started |
 | 02 Quiet Machine | Enclosure, 360 turn or section (`C:/Projects/CAD/RL300-SAFE/`) | Not started |
-| 03 Armament | AR-15 pattern carbine spin, already built (120 frames) | Keep: open question |
+| 03 Armament | AR-15 pattern carbine spin (120 frames, built) on the stage; drop lands on the approved armament cut plus an M249 reverse-engineering beat | Ruled 2026-11-20, see below |
 | 04 Renderings, Animation & StudioMark | 3 assemblies + StudioMark console, see below | Planning |
 
-Still open for Mark: what dives 01-03 land on (showreel passage or one clip per
-project); confirm chapter 03 keeps the carbine spin.
+Still open for Mark: what dives 01-02 land on (showreel passage or one clip per
+project). Chapter 03 is ruled below.
+
+### Chapter 03: Armament (Mark, 2026-11-20)
+
+- **Drop landing (option D, approved):** the showreel armament cut
+  `remotion/out/armament-review-spin-v2.mp4` (worktree `armament-wiring-clipspin-15a80d`,
+  rendered 2026-11-16). Mark approved the cut. Background audio: `music-bed-v1.mp3`
+  (kept for background use, `project/work/evidence/jg-041-showreel/`).
+- **Not enough on its own.** The chapter also needs an **M249 reverse-engineering beat**.
+  Mark's account (2026-11-20, his words summarized; facts as he stated them):
+  1. **Traditional measurement** of the physical parts: calipers, micrometers, height
+     gage, dial indicators, plug and pin gages, Rockwell hardness testers.
+  2. **3D scanning**: point cloud data taken through **Geomagic** into **SolidWorks**.
+  3. **Drawings**: he created prints for most of the weapon, including custom OEM parts
+     such as the **Drive Recoil Spring**.
+  4. **Materials and finishes**: selected through research; where research failed, from
+     his own materials-and-processes knowledge plus seeing and feeling the physical
+     parts, which gave clues for surface-finish checks and finishing operations.
+- **Minimum the viewer must get** (Mark: "we don't need to use all of that"): the
+  reverse-engineering equipment, the software chain (scan → Geomagic → SolidWorks), and
+  that he drew every part, custom OEM parts included. Materials/finish research is
+  optional depth.
+- **Walls that still apply:** no dimensions, GD&T, part or drawing numbers on screen;
+  `m249-transformed.glb` and `m249_FN.glb` stay banned; M249 geometry only from Mark's own
+  model (`M249 Receiver Plus.glb`, also used in Chapter 04). The film and homepage both ban
+  engineering drawings on screen, so **how the drawings are shown is open for Mark**:
+  e.g. drawing sheets with dimensions, title block and numbers masked; line-pass renders of
+  his SolidWorks parts standing in for the prints; or a count/caption only ("prints for
+  every part, custom OEM parts included").
+- **Source material not on this machine (checked 2026-11-20):** no M249 scan data, Geomagic
+  files, M249 drawings or Drive Recoil Spring print were found under `C:/Projects/CAD` or
+  `Downloads/CAD`. Needed from Mark: photos or clips of the measuring equipment (or
+  permission to show representative equipment), scan/point-cloud and Geomagic screenshots,
+  SolidWorks part and drawing views to sanitize.
+- **Next step:** Mark picks the drawing treatment and supplies source material; then a
+  storyboard for the beat (stills first, $0) before any render or Higgsfield spend.
 
 ### Chapter 04: Renderings, Animation & StudioMark
 
