@@ -76,6 +76,17 @@ cage GLB stay in session scratch `.scratch/ch04/` (gitignored, not committed).
 
 ## Render setup
 
+- **Blender version (pinned 2026-11-19, owner): 5.3.0** — build hash `02f0899d78e3`,
+  bundled Python 3.13.13, `C:\Program Files\Blender Foundation\Blender 5.3\blender.exe`.
+  `blender` is NOT on PATH — always the absolute path. P0 stills were 5.2.2 LTS.
+  Before any P1 spend: (a) run the copied `render_clip.py` and `p0_preview.py` clean on
+  5.3 (compat notes: `PropertyGroup.name` default is read-only in 5.3; `use_nodes`
+  deprecation warnings continue); (b) after the pump mesh fill, re-render its preview
+  stills on 5.3 so every preview baseline matches the P1 engine; (c) one same-scene
+  5.2.2-vs-5.3 cage still (line + shade) to know the drift; (d) Modal — the current
+  image pins the 5.2.2 Linux archive, so build/verify a 5.3 image (or state the
+  fallback) before the cage pilot. JG-041's rendered frames and its 5.2.2 Modal image
+  stay untouched (parity of the approved showreel look).
 - **Tool:** `remotion/clips/armament/blender/render_clip.py` in worktree
   `armament-wiring-clipspin-15a80d` (read only; copy it, never move or remove that
   worktree). It already does turntables with a line and a shade pass from one camera:
@@ -161,8 +172,8 @@ tool version mid-lane; stage changes between phases.
 
 | Phase | Tools (version pinned) | Purpose | Owner staging notes |
 |---|---|---|---|
-| P0 (done) | Blender 5.2.2 LTS local (Workbench line, Cycles shade), `p0_preview.py` | local $0 stills | New Blender releases and recently open-sourced studio skills (machine modeling, exploded assemblies) are worth evaluating between lanes — never mid-lane |
-| P1, P3 | Modal (cloud Cycles GPU) + `remotion/clips/armament/blender/render_clip.py` (armament-wiring-clipspin-15a80d worktree, read-only) + same Blender build on Modal | cage pilot, then DD4SE + receiver shade frames | Modal spend gated per run; script pinned to the armament lane |
+| P0 (done) | Blender 5.2.2 LTS local (Workbench line, Cycles shade), `p0_preview.py` | local $0 stills | Staged 2026-11-19: owner upgraded to **5.3.0** between P0 and P1 (exactly the between-phases window); P0 stills stay 5.2.2 history |
+| P1, P3 | Blender **5.3.0** (local absolute path, hash `02f0899d78e3`; see Render setup pre-checks) + Modal Cycles GPU on a **5.3 image** (build it — current image pins 5.2.2) + copy of `render_clip.py` from the armament worktree | cage pilot, then DD4SE + receiver shade frames | Modal spend gated per run; DLSS 4.5 denoiser (new in 5.3) may cut Modal sample counts — evaluate in the pilot |
 | P2, P4 | `proto/merged/` vanilla JS + 2D canvas frame stage; plain DOM/CSS console; `cwebp` 1.6.0 encode | Chapter 04 beats, pills, thin console | No R3F/drei/three.js on `/home/` (no .glb there); UI styled from coded `12-ui-mockups.html` |
 | P5 | Astra rules pass (`webgl-mechanical-cinematography-td`), desktop+narrow browser checks | effects ruling, Gate 2 ask | — |
 | After Gate 2 | Remotion 4.0.540 (pinned — never `npx remotion upgrade`) + `video-shotcraft` Motion Workbench; Blender/Modal for re-renders | 16:9 masters, cutdowns, 9:16 verticals; parity videos, deck | Same Remotion lane as showreel JG-041 "The Line" |

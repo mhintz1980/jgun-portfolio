@@ -27,7 +27,7 @@ Smoke test $0.0022. Full run (180 angles x 2 passes, 1920, 6 shards x 4 cores): 
 Shade-only Cycles re-render (180 frames, 1920, 24 samples, 3 shards): **$0.0493 measured** (the $0.10-0.12 projection and the $0.145 launcher estimate were both high). Session total about $0.54.
 
 ## Done and verified (2026-11-13)
-- Blender 5.2.2 LTS on Modal CPU runs Workbench + Freestyle. Smoke frame vs local: line pass pixel-identical, shade pass mean abs diff 0.148. Blender 5.3 is out (installed locally); staying on 5.2.2 LTS for parity; test 5.3 on a copy later.
+- Blender 5.2.2 LTS on Modal CPU runs Workbench + Freestyle. Smoke frame vs local: line pass pixel-identical, shade pass mean abs diff 0.148. Update 2026-11-19 (owner): new render lanes pin **5.3.0** (JG-044 Ch04 moves to 5.3 at P1; 5.3 now installed locally with the Blender MCP addon). This lane's rendered frames, their approved look, and its 5.2.2 Modal image stay **5.2.2 LTS for parity**; any NEW armament clip goes 5.3 only after a same-scene A/B and owner sign-off.
 - Full run: 360/360 frames, 1920x1080, shade corner alpha 0, line background white, consecutive-frame diff mean 1.94 (max 3.1), wrap 358->0 diff 0.85.
 - Look note (Workbench v1): studio light is view-fixed; measured darkest angles are 60 and 240 deg. Resolved 2026-11-14: Cycles shade (see Look decision).
 - Scratch locations (outside the repo): `C:\Projects\CAD\Armament\renders\ar15-pattern-carbine-a-v1\` (PNG, 294 MB), `...-webp\{line,shade}\f0000..f0179.webp` (lossless, 76 MB; line 48.2, shade 27.5).
