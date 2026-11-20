@@ -109,7 +109,7 @@ Chapter 04 sub-plan: rulings, quote, phases, tooling manifest), then
 | Phase | Tools (version) | Purpose | Notes |
 |---|---|---|---|
 | P0 (done) | Blender 5.2.2 local, `p0_preview.py` | Stills | Pump fill and P1 timing ran on 5.3.0 |
-| P1 (quoted) | Blender 5.3.0 on Modal CPU (4 CPU / 8 GB), `launch_ch04.py`, `p0_preview.py`, modal client 1.5.1, Python 3.13 | Cage shade frames + hero stills | Plan manifest says GPU + `render_clip.py`; reconcile first |
+| P1 (quoted) | Blender 5.3.0 on Modal CPU (4 CPU / 8 GB), `launch_ch04.py`, `p0_preview.py`, modal client 1.5.1, Python 3.13 | Cage shade frames + hero stills | Plan manifest reconciled 2026-11-20 to CPU + `p0_preview.py` for P1; P3 engine left for Mark after the pilot |
 | P1 line | Blender 5.3.0 local Workbench | 60 line frames | $0 |
 | Not used | Higgsfield, R3F/drei on `/home/` | — | — |
 
@@ -119,6 +119,9 @@ Chapter 04 sub-plan: rulings, quote, phases, tooling manifest), then
 - `asset-and-bundle-hygiene` when encoding the web frame sets (P2).
 - `impeccable` for the thin console (P4).
 - `anthropic-skills:verification-before-completion` before calling a phase done.
+- Staged 2026-11-20 (since the last phase; see plan manifest "Skills" row), from
+  `C:\Projects\skills-master`: `scenario-blender-expert`, `scenario-blender-lighting-rendering`,
+  `scenario-blender-hard-surface`, `scenario-blender-export`, `blender-image-to-3d`.
 
 ## Handoff Numbers
 
