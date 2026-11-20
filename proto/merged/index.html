@@ -65,6 +65,11 @@ h2{font-size:clamp(32px,3.7vw,66px)}
 .btn:hover{gap:24px}
 .btn i{font-style:normal;display:inline-block;transition:transform .4s var(--ease)}
 .btn:hover i{transform:translateY(4px)}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{background:none;border:1px solid #fff;color:inherit;font:inherit;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;cursor:pointer}
+.pill span{opacity:.72}.pill[aria-pressed=true]{background:#fff;color:#000}.pill[aria-pressed=true] span{opacity:1}
+.pill[aria-disabled=true]{opacity:.42;cursor:default;border-style:dashed}
+.pill:focus-visible,.btn:focus-visible{outline:2px solid #fff;outline-offset:3px}
 .hint{display:flex;gap:26px;flex-wrap:wrap;opacity:.8;margin-top:8px}
 .hint span::before{content:"";display:inline-block;width:7px;height:7px;border:1px solid #fff;border-radius:50%;margin-right:9px;vertical-align:1px}
 .plus{display:grid;gap:0;max-width:560px}

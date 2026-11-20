@@ -42,11 +42,15 @@ const STAGES = [{ Zs: 12, Zp: 18, n: 3 }, { Zs: 12, Zp: 18, n: 4 }, { Zs: 24, Zp
 const RO = M * ZR / 2 + 0.54
 const ratio = s => 1 + ZR / s.Zs
 
+// Chapter 04: stage 4 swaps its gear train for turn sets of three assemblies, one beat each.
+// A set with ready: false has no frames yet; its pill shows but is inert, and the ready sets share the window.
+const CH4 = [{ set: 'cage', label: 'Cage', ready: true, finish: 'steel' }, { set: 'pump', label: 'Pump', ready: false }, { set: 'receiver', label: 'Receiver', ready: false }]
+const ch4Pills = () => `<div class="pills mono" role="group" aria-label="Assemblies">${CH4.map((c, j) => `<button class="pill" data-beat="${j}" ${c.ready ? 'aria-pressed="false"' : 'aria-disabled="true" title="Rendering next"'}>${String(j + 1).padStart(2, '0')} <span>${c.label}</span></button>`).join('')}</div>`
 document.querySelectorAll('.proj-p').forEach((el, i) => {
   const p = PROJECTS[i], s = STAGES[i]
   el.innerHTML = `<div class="num" aria-hidden="true">${p.n}</div><div class="k mono">${p.status}</div><h2>${p.title}</h2><p>${p.line}</p>
   <dl class="spec mono"><dt>Work</dt><dd>${p.tags}</dd><dt>This stage</dt><dd>${s.Zs} / ${s.Zp} / ${ZR} teeth · ${s.n} planets · ${ratio(s).toFixed(2).replace(/\.?0+$/, '')} : 1</dd></dl>
-  <button class="btn mono" data-fall="${i + 1}">Fall into project ${p.n} <i>↓</i></button>`
+  ${i === 3 ? ch4Pills() : ''}<button class="btn mono" data-fall="${i + 1}">Fall into project ${p.n} <i>↓</i></button>`
 })
 $('plus').innerHTML = PLUS.map(([t, st, l, k]) => `<li><h3>${t}</h3><span class="mono st">${st}</span><p>${l}</p><span class="mono" style="opacity:.62">${k}</span></li>`).join('')
 
@@ -234,19 +238,27 @@ const vtex = new THREE.VideoTexture(vid); vtex.colorSpace = THREE.NoColorSpace
 U.tV = { value: vtex }; U.uFilm = { value: 1 }; U.uDark = { value: 0 }
 // armament stage: 60 line + 60 shade frames of one spin, 6 degrees apart. Line goes on the sheet, shade under the lens.
 // The stage only needs a numbered frame set, so the source can be swapped for a new one.
-const ARM_N = 60, ARM_AT = 5, ARM_DEG = 360 / ARM_N
-const armImg = { l: [], s: [] }; let armLoaded = false, armIdx = -1
+// A frame set is any numbered l/s pair in one folder; the armament stage and the Chapter 04 stage each hold one.
 const mkArmTex = () => { const t = new THREE.Texture(); t.colorSpace = THREE.NoColorSpace; t.minFilter = THREE.LinearFilter; t.generateMipmaps = false; return t }
-const texL = mkArmTex(), texS = mkArmTex(); texS.premultiplyAlpha = true
-U.tL = { value: texL }; U.tS = { value: texS }; U.uArm = { value: 0 }; U.uArmRect = { value: new THREE.Vector4(.5, .5, 1, 1) }
-function loadArm() {
-  if (armLoaded) return; armLoaded = true
-  for (let i = 0; i < ARM_N; i++) for (const k of ['l', 's']) { const im = new Image(); im.decoding = 'async'; im.src = `./arm/${k}${String(i).padStart(2, '0')}.webp`; armImg[k][i] = im }
+function frameSet(dir, n) {
+  const o = { dir, n, l: [], s: [], loaded: false, idx: -1, texL: mkArmTex(), texS: mkArmTex() }; o.texS.premultiplyAlpha = true; return o
 }
-function setArmFrame(i) {
-  const l = armImg.l[i], s = armImg.s[i]; if (!l || !s || !l.complete || !s.complete || !l.naturalWidth || !s.naturalWidth) return
-  texL.image = l; texL.needsUpdate = true; texS.image = s; texS.needsUpdate = true; armIdx = i
+function loadSet(o) {
+  if (o.loaded) return; o.loaded = true
+  for (let i = 0; i < o.n; i++) for (const k of ['l', 's']) { const im = new Image(); im.decoding = 'async'; im.src = `./${o.dir}/${k}${String(i).padStart(2, '0')}.webp`; o[k][i] = im }
 }
+function setFrame(o, i) {
+  const l = o.l[i], s = o.s[i]; if (!l || !s || !l.complete || !s.complete || !l.naturalWidth || !s.naturalWidth) return
+  o.texL.image = l; o.texL.needsUpdate = true; o.texS.image = s; o.texS.needsUpdate = true; o.idx = i
+}
+const ARM_N = 60, ARM_AT = 5, ARM_DEG = 360 / ARM_N, ARM = frameSet('arm', ARM_N)
+U.tL = { value: ARM.texL }; U.tS = { value: ARM.texS }; U.uArm = { value: 0 }; U.uArmRect = { value: new THREE.Vector4(.5, .5, 1, 1) }
+// Chapter 04 stage: one slot; the beat picks which assembly's set is bound to it. Manifests come from scripts/encode-ch04-frames.sh.
+const C4_AT = 4, C4_W = .42, C4_ASP = 1.6
+const c4Sets = CH4.filter(c => c.ready).map(c => Object.assign(frameSet(`ch4/${c.set}`, 60), { c, deg: 6, heroDeg: 0 }))
+c4Sets.forEach(o => fetch(`./${o.dir}/manifest.json`).then(r => r.ok ? r.json() : null).then(m => { if (m) { o.n = m.frames; o.deg = m.deg; o.heroDeg = m.heroDeg } }).catch(() => {}))
+let c4Bound = null, c4Beat = -1
+U.tL2 = { value: mkArmTex() }; U.tS2 = { value: mkArmTex() }; U.uC4 = { value: 0 }; U.uC4Rect = { value: new THREE.Vector4(.5, .5, 1, 1) }; U.uCover = { value: 0 }
 // theme: light paper or dark blueprint. The dark lens is the lit render on a light studio, so text inverts under it in both.
 function setTheme(dark, save) {
   U.uPaper.value.set(dark ? 0x0c2238 : parseInt(Q.get('paper') || 'f4f1ea', 16)).convertLinearToSRGB()
@@ -268,9 +280,13 @@ const post = new THREE.Scene(), postCam = new THREE.Camera()
 uniform sampler2D tC, tN; uniform vec2 uRes, uLens;
 uniform float uR, uPx, uTime, uWarp, uFull, uScroll, uFlash, uAspect, uTear;
 uniform vec3 uPaper, uInk, uBlue, uAccent; uniform float uVig, uIntro, uFilm, uDark; uniform sampler2D tV; varying vec2 vUv;
-uniform sampler2D tL, tS; uniform float uArm; uniform vec4 uArmRect;
+uniform sampler2D tL, tS, tL2, tS2; uniform float uArm, uC4, uCover; uniform vec4 uArmRect, uC4Rect;
 vec2 armUv(vec2 uv){ return (uv - uArmRect.xy) / uArmRect.zw + .5; }
+vec2 rectUv(vec2 uv, vec4 r){ return (uv - r.xy) / r.zw + .5; }
 float in01(vec2 u){ return step(0., u.x) * step(u.x, 1.) * step(0., u.y) * step(u.y, 1.); }
+// frame stages: uCover blanks the sheet and the lens to paper / studio; each set then draws at its own weight over that
+float inkAt(sampler2D t, vec2 ua){ return smoothstep(.04, .8, 1. - dot(texture2D(t, ua).rgb, vec3(.299, .587, .114))) * in01(ua); }
+vec3 overShade(vec3 st, sampler2D t, vec2 ua, float w){ vec4 s = texture2D(t, ua) * in01(ua); return mix(st, st * (1. - s.a) + s.rgb, w); }
 float hash(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
 float vnoise(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.-2.*f);
   return mix(mix(hash(i), hash(i+vec2(1,0)), f.x), mix(hash(i+vec2(0,1)), hash(i+vec2(1,1)), f.x), f.y); }
@@ -400,9 +416,9 @@ void main(){
     dr = mix(dr, uBlue, eC * geo * mix(.8, .3, far));
     dr = mix(dr, mix(uInk, uBlue, .22), eD * mix(.9, .4, far));
     dr = mix(paper, dr, uIntro);
-    if (uArm > .001) { vec2 ua = armUv(vUv);
-      float k = smoothstep(.04, .8, 1. - dot(texture2D(tL, ua).rgb, vec3(.299, .587, .114))) * in01(ua);
-      dr = mix(mix(dr, paper, uArm), mix(uInk, uBlue, .22), k * uArm * .92); }
+    if (uCover > .001) { dr = mix(dr, paper, uCover); vec3 ink = mix(uInk, uBlue, .22);
+      if (uArm > .001) dr = mix(dr, ink, inkAt(tL, armUv(vUv)) * uArm * .92);
+      if (uC4 > .001) dr = mix(dr, ink, inkAt(tL2, rectUv(vUv, uC4Rect)) * uC4 * .92); }
     float shd = smoothstep(uR + 46. * uPx, uR, length(d - vec2(10., -14.) * uPx));
     dr *= 1. - .24 * shd * shd * (1. - full) * (1. - uTear);
     if (uTear > .001) {
@@ -479,8 +495,10 @@ void main(){
       float ed = smoothstep(.004, .02, lp), glow = pow(1. - abs(nn.z), 1.7) * gg;
       float thin = gg * (1. - soft / 8.);            // near an outline the part is thin, so it ghosts brighter
       col = vec3(.006, .016, .032) + vec3(.42, .84, 1.) * (glow * 1.1 + ed * .7 + thin * 1.6 + gg * .09) + vec3(1.) * (glow * glow * .4 + thin * thin * .8); }
-    if (uArm > .001) { vec2 ua = armUv(uvS); vec4 s = texture2D(tS, ua) * in01(ua);
-      col = mix(col, pow(aces(studio(uvS) * 1.4), vec3(1. / 2.2)) * (1. - s.a) + s.rgb, uArm); }
+    if (uCover > .001) { vec3 st = pow(aces(studio(uvS) * 1.4), vec3(1. / 2.2));
+      if (uArm > .001) st = overShade(st, tS, armUv(uvS), uArm / uCover);
+      if (uC4 > .001) st = overShade(st, tS2, rectUv(uvS, uC4Rect), uC4 / uCover);
+      col = mix(col, st, uCover); }
     if (uFilm > .001) { vec2 vu = uvS - .5; float va = 16. / 9.; if (uAspect > va) vu.y *= va / uAspect; else vu.x *= uAspect / va;
       col = mix(col, texture2D(tV, vu + .5).rgb, uFilm); }
     float rimIn = smoothstep(.7, 1., q) * (1. - uFull) * (1. - uTear);
@@ -605,6 +623,12 @@ function startFall(k) {
 }
 function climbOut() { if (fall.active && fall.dir > 0 && fall.u > .5) { fall.dir = -1; sfx.whoosh(true) } }
 document.addEventListener('click', e => { const b = e.target.closest('[data-fall]'); if (b) startFall(+b.dataset.fall) })
+// Chapter 04 pills jump the scroll to the middle of their assembly's beat
+document.addEventListener('click', e => {
+  const b = e.target.closest('.pill[data-beat]'); if (!b || b.getAttribute('aria-disabled') === 'true' || fall.active) return
+  const k = c4Sets.findIndex(o => o.c === CH4[+b.dataset.beat]); if (k < 0) return
+  scrollTo({ top: (C4_AT - C4_W + (k + .5) / c4Sets.length * 2 * C4_W + EXTRA) * SEC, behavior: RM ? 'auto' : 'smooth' })
+})
 $('pjX').addEventListener('click', climbOut)
 $('pjPrev').addEventListener('click', () => setImage(fall.img - 1)); $('pjNext').addEventListener('click', () => setImage(fall.img + 1))
 let hover = -1
@@ -691,14 +715,31 @@ function frame(now) {
 
   // armament: scroll picks the angle, the pointer nudges it a couple of frames either way
   const arm = sstep(.62, .3, Math.abs(pS - ARM_AT))
-  if (pS > 3.2) loadArm()
-  if (armLoaded && (arm > 0 || armIdx < 0)) {
+  if (pS > 4.2) loadSet(ARM)   // the carbine set prefetches once scroll is past the Chapter 04 beats
+  if (ARM.loaded && (arm > 0 || ARM.idx < 0)) {
     const ang = (pS - ARM_AT) * 300 + (RM || mobile ? 0 : ptr.snx * 24), ai = ((Math.round(ang / ARM_DEG) % ARM_N) + ARM_N) % ARM_N
-    if (ai !== armIdx) setArmFrame(ai)
+    if (ai !== ARM.idx) setFrame(ARM, ai)
   }
-  U.uArm.value = armIdx >= 0 ? arm : 0
+  U.uArm.value = ARM.idx >= 0 ? arm : 0
   const aw = mobile ? W * .98 : Math.min(W * .6, 1150), ah = aw / 3, acx = mobile ? W * .5 : W * .67, acy = mobile ? clamp((66 + textTop) * .5, 150, H * .42) : H * .5
   U.uArmRect.value.set(acx / W, 1 - acy / H, aw / W, ah / H)
+
+  // Chapter 04: the ready sets split the stage-4 window into beats; scroll turns the active set, the pointer nudges it.
+  // It steps back as soon as a dive starts, so the tear opens onto the bore as before.
+  const c4 = (pS < C4_AT ? sstep(.5, .28, C4_AT - pS) : sstep(.38, .2, pS - C4_AT)) * (fall.active ? 1 - sstep(0, .16, fall.t) : 1)
+  if (pS > 2.6) c4Sets.forEach(loadSet)
+  const u4 = clamp((pS - C4_AT + C4_W) / (2 * C4_W)), nb = c4Sets.length, beat = Math.min(Math.floor(u4 * nb), nb - 1)
+  if (nb && c4 > 0) {
+    const o = c4Sets[beat], ang = o.heroDeg + (u4 * nb - beat - .5) * 300 + (RM || mobile ? 0 : ptr.snx * 24), fi = ((Math.round(ang / o.deg) % o.n) + o.n) % o.n
+    if (fi !== o.idx || c4Bound !== o) { setFrame(o, fi); if (o.idx >= 0) { c4Bound = o; U.tL2.value = o.texL; U.tS2.value = o.texS } }
+  }
+  if (beat !== c4Beat) { c4Beat = beat; document.querySelectorAll('.pill[data-beat]').forEach(b => { if (b.hasAttribute('aria-pressed')) b.setAttribute('aria-pressed', c4Sets[beat]?.c === CH4[+b.dataset.beat]) }) }
+  U.uC4.value = c4Bound ? c4 : 0
+  const cw = mobile ? W * .98 : Math.min(W * .6, H * .66 * C4_ASP, 1150), ch = cw / C4_ASP, ccx = acx, ccy = mobile ? clamp((66 + textTop) * .5, 120, H * .42) : H * .5
+  U.uC4Rect.value.set(ccx / W, 1 - ccy / H, cw / W, ch / H)
+  // between the two stages the sheet stays blank, so the gear train does not flash back in
+  const cover = Math.max(U.uArm.value, U.uC4.value, (c4Bound || ARM.idx >= 0) && pS > C4_AT && pS < ARM_AT && !fall.active ? 1 : 0)
+  U.uCover.value = cover
 
   // fall progress
   // the dive has two beats: the paper tears (fall.t), and once the breach reaches burst 3 (fall.t > .65), the camera begins dropping (fall.u)
@@ -748,7 +789,7 @@ function frame(now) {
     const rad = Math.abs((_v.x * .5 + .5) * W - cx)
     scr.push({ cx, cy, rad, z: _p.z })
     const dist = camera.position.distanceTo(_t)
-    if (!fall.active && !ptr.auto && oS > .99 && e > .9 && arm < .5 && Math.hypot((ptr.x - cx) / rad, (ptr.y - cy) / (rad * .62)) < .9 && dist < hd) { hd = dist; hv = i }
+    if (!fall.active && !ptr.auto && oS > .99 && e > .9 && cover < .5 && Math.hypot((ptr.x - cx) / rad, (ptr.y - cy) / (rad * .62)) < .9 && dist < hd) { hd = dist; hv = i }
   }
   if (hv !== hover) { hover = hv; canvas.style.cursor = hv >= 0 ? 'pointer' : ''; if (hv >= 0) sfx.tick() }
 
@@ -758,7 +799,7 @@ function frame(now) {
   const baseR = clamp(Math.min(W, H) * .2, 96, 250) * (ptr.down ? 1.55 : 1) * (1 + Math.min(Math.abs(pV), 2) * .12)
   if (ptr.auto || mobile) {
     const f = scr[clamp(Math.round(pS) - 1, 0, 3)], hero = pS < .5
-    const bx = arm > .5 ? acx : hero ? scr[0].cx : f.cx, by = arm > .5 ? acy - H * .03 : hero ? scr[0].cy + H * .04 : f.cy
+    const bx = c4 > .5 ? ccx : arm > .5 ? acx : hero ? scr[0].cx : f.cx, by = c4 > .5 ? ccy - H * .03 : arm > .5 ? acy - H * .03 : hero ? scr[0].cy + H * .04 : f.cy
     lx = bx + Math.sin(T * .53) * W * (mobile ? .2 : .11) + Math.sin(T * 1.31) * W * .02; ly = by + Math.sin(T * .41 + 1.2) * H * .1
     if (mobile) {   // phone: keep the lens on the sheet, above the text block and inside the side margins
       lx = clamp(lx, baseR * .75, W - baseR * .75)
@@ -832,7 +873,7 @@ function frame(now) {
       const b = dwg.getBoundingClientRect(), sc = b.width / dwg.offsetWidth, m = `radial-gradient(circle ${(lensR / sc).toFixed(1)}px at ${((ptr.sx - b.left) / sc).toFixed(1)}px ${((ptr.sy - b.top) / sc).toFixed(1)}px, transparent 98%, #000 100%)`
       dwg.style.maskImage = m; dwg.style.webkitMaskImage = m; dwg.style.visibility = 'visible' }
     else dwg.style.visibility = 'hidden' }
-  const aOp = mobile ? 0 : hide * sstep(.3, .8, e) * intro * (1 - full) * (1 - arm)
+  const aOp = mobile ? 0 : hide * sstep(.3, .8, e) * intro * (1 - full) * (1 - cover)
   ann.style.opacity = aOp.toFixed(3)
   if (aOp > .004) {
     _p.set(0, FACE + 2.4, 0).project(camera); _v.set(0, stageY(3, e) - 2.2, 0).project(camera)

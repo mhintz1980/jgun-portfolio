@@ -40,6 +40,21 @@ contact sheet: `.scratch/ch04/run-p1-cage/`, `.scratch/ch04/p1-cage-contact-2026
 total (about 1.2 s per frame plus 13 s startup), so local beats Modal for line passes.
 Output `.scratch/ch04/run-p1-line/`; pairing sheet `.scratch/ch04/p1-line-vs-shade-2026-11-20.jpg`.
 
+**P1 ruling (Mark, 2026-11-20):** look approved as is; hero finish **steel**; P2 go.
+Found after the ruling: 17 of 60 frames (36°-132°, hero angle 120° included) cut the bottom
+of the rim at the frame edge, in both passes. Fix = re-frame line locally ($0) + shade on
+Modal (about $0.04), or accept. Open with Mark.
+
+**P2 (2026-11-20, $0):** `scripts/encode-ch04-frames.sh <set> <line-dir> <shade-dir>` writes
+`proto/merged/ch4/<set>/` (60 l + 60 s WebP 1024x640, 3 hero stills, `manifest.json`); cage
+set 2.3 MB. `main.js` generalises the armament stage into frame sets: Chapter 04 gets its
+own texture slot (`tL2/tS2/uC4/uC4Rect`), `uCover` blanks the sheet between stage 4 and the
+armament stage, and the ready sets split the stage-4 window (pS 3.58-4.42) into beats.
+Pills `01 Cage / 02 Pump / 03 Receiver`: 02-03 inert until P3. The cage steps back as a
+dive starts, so the tear still opens onto the bore. Browser pass: desktop + phone, light +
+dark, reduced motion, 0 page errors, 60 fps. Captures `.scratch/ch04/p2/`. P3 note: with
+three beats each turn gets about 0.28 of a section, so revisit the window then.
+
 ## Rulings (Mark, 2026-11-19)
 
 1. **Assembly 1: stage 4 cage A000861** (P003047 cage, 52 mm, plus 5x P003046 planets),
