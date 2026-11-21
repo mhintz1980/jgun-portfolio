@@ -16,7 +16,9 @@ if [ ! -f "$BW/dist/home/index.html" ]; then
   (cd "$BW" && node "$MAIN/node_modules/typescript/bin/tsc" && node "$MAIN/node_modules/vite/bin/vite.js" build)
 fi
 rm -rf "$STAGE"; cp -r "$BW/dist" "$STAGE"
-cp -r "$ROOT/proto/merged/main.js" "$ROOT/proto/merged/lib" "$ROOT/proto/merged/arm" "$ROOT/proto/merged/ch4" "$STAGE/home/"
+# the whole prototype folder (audio/, console files and new frame sets ship without editing this line);
+# index.html is rewritten below
+cp -r "$ROOT/proto/merged/." "$STAGE/home/"
 # the prototype is noindex; as the homepage it takes the live page's robots, canonical and description
 sed -e 's#<meta name="robots" content="noindex">#<meta name="robots" content="index, follow">\n<link rel="canonical" href="https://studiomark.dev/home/">#' \
     -e 's#<meta name="description" content="[^"]*">#<meta name="description" content="Mark Hintz, mechanical designer and systems builder: precision tooling, industrial pump packages, and the tools around the CAD.">#' \
