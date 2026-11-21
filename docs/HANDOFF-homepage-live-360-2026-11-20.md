@@ -66,7 +66,11 @@ branch `claude/homepage-prototype-gate-2-be5a82` (pushed; see `git log -3`).
    this machine).
 5. JG-041 film lane: own handoff `docs/HANDOFF-showreel-higgsfield-2026-11-17.md` on
    `jg-041/higgsfield-improvements`.
-6. New tool to trial: OpenMotion (`C:/Projects/openmotion`), see the orchestration prompt.
+6. Worktree consolidation (thread G in `docs/PROMPT-orchestration-2026-11-20.md`): push the two
+   unpushed branches (`feat/metrology-models`, `codex/jg041-b4-retirement`), remove the 7 worktrees
+   already contained in this branch, then one full integration of the torque-wrench/film family
+   with this branch at Gate 3.
+7. New tool to trial: OpenMotion (`C:/Projects/openmotion`), see the orchestration prompt.
 
 ## Constraints (unchanged)
 
