@@ -666,21 +666,18 @@ const sfx = {
     meter = AC.createAnalyser(); meter.fftSize = 1024; meterBuf = new Float32Array(1024); master.connect(meter); window.__meter = meter   // level probe only, not routed to the output
     const nb = AC.createBuffer(1, AC.sampleRate * 2, AC.sampleRate), d = nb.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1
     const noise = () => { const s = AC.createBufferSource(); s.buffer = nb; s.loop = true; s.start(); return s }
-    const lp = AC.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 900; const dg = AC.createGain(); dg.gain.value = .08
-    // the bed sits at 110-330 Hz, not 55 Hz: laptop and phone speakers reproduce almost nothing below ~200 Hz
-    ;[110, 110.7, 165.4, 330.2].forEach(f => { const o = AC.createOscillator(); o.type = 'sawtooth'; o.frequency.value = f; o.connect(lp); o.start() }); lp.connect(dg); dg.connect(master)
-    const bp = AC.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 2100; bp.Q.value = 4
-    const chop = AC.createGain(); chop.gain.value = .5; const lfo = AC.createOscillator(); lfo.type = 'square'; lfo.frequency.value = 9
-    const lg = AC.createGain(); lg.gain.value = .5; lfo.connect(lg); lg.connect(chop.gain); lfo.start()
-    const mg = AC.createGain(); mg.gain.value = .05; noise().connect(bp); bp.connect(chop); chop.connect(mg); mg.connect(master)
+    // music bed (Mark 2026-11-20: replaces the synth drone, chop and hover tick; the fall and climb-out sounds stay)
+    const bed = new Audio('./audio/music-bed-v1.mp3'); bed.loop = true; bed.preload = 'auto'
+    const bg = AC.createGain(); bg.gain.value = .55; AC.createMediaElementSource(bed).connect(bg); bg.connect(master)
+    // the fall: wind that opens with the warp, plus the whoosh / thunk tones below
     const wf = AC.createBiquadFilter(); wf.type = 'bandpass'; wf.frequency.value = 400; wf.Q.value = .7; const wg = AC.createGain(); wg.gain.value = 0
     noise().connect(wf); wf.connect(wg); wg.connect(master)
-    nodes = { lfo, mg, wf, wg, lp }
+    nodes = { wf, wg, bed, bg }
   },
   toggle() {
     if (!AC) this.init()
     soundOn = !soundOn; AC.resume(); master.gain.setTargetAtTime(soundOn ? 1 : 0, AC.currentTime, .12)
-    if (soundOn) { this.tone(880, 1320, .12, .22, 'triangle'); setTimeout(() => this.tone(1320, 1760, .1, .16, 'triangle'), 110) }   // audible confirmation
+    if (soundOn) nodes.bed.play().catch(() => {}); else setTimeout(() => { if (!soundOn) nodes.bed.pause() }, 400)
     $('snd').setAttribute('aria-pressed', soundOn); $('snd').textContent = soundOn ? 'Sound on' : 'Enable sound'
   },
   frame(spin, w) {
@@ -688,8 +685,8 @@ const sfx = {
     meter.getFloatTimeDomainData(meterBuf); let sq = 0; for (let i = 0; i < 1024; i++) sq += meterBuf[i] * meterBuf[i]
     rms = Math.sqrt(sq / 1024); window.__s.rms = rms
     const t = AC.currentTime
-    nodes.lfo.frequency.setTargetAtTime(7 + spin * 9, t, .1); nodes.mg.gain.setTargetAtTime(.045 + spin * .025, t, .1)
-    nodes.wg.gain.setTargetAtTime(w * .7, t, .06); nodes.wf.frequency.setTargetAtTime(500 + w * 2600, t, .06); nodes.lp.frequency.setTargetAtTime(900 + w * 1400, t, .1)
+    nodes.wg.gain.setTargetAtTime(w * .7, t, .06); nodes.wf.frequency.setTargetAtTime(500 + w * 2600, t, .06)
+    nodes.bg.gain.setTargetAtTime(.55 * (1 - w * .6), t, .1)   // the bed ducks under the fall's wind
   },
   tone(f0, f1, dur, vol, type = 'sine') {
     if (!soundOn) return
@@ -699,7 +696,6 @@ const sfx = {
   },
   whoosh(up) { up ? this.tone(160, 640, 1.4, .22, 'triangle') : this.tone(620, 130, 2.6, .24, 'triangle') },
   thunk() { this.tone(240, 70, .6, .45, 'triangle'); this.tone(1400, 500, .09, .16, 'triangle') },
-  tick() { this.tone(2400, 1500, .05, .1, 'triangle') },
 }
 $('snd').addEventListener('click', () => sfx.toggle())
 
@@ -804,7 +800,7 @@ function frame(now) {
     const dist = camera.position.distanceTo(_t)
     if (!fall.active && !ptr.auto && oS > .99 && e > .9 && cover < .5 && Math.hypot((ptr.x - cx) / rad, (ptr.y - cy) / (rad * .62)) < .9 && dist < hd) { hd = dist; hv = i }
   }
-  if (hv !== hover) { hover = hv; canvas.style.cursor = hv >= 0 ? 'pointer' : ''; if (hv >= 0) sfx.tick() }
+  if (hv !== hover) { hover = hv; canvas.style.cursor = hv >= 0 ? 'pointer' : '' }
 
   // lens
   if (!FREEZE && !ptr.auto && tnow - ptr.last > 7 && !ptr.down) ptr.auto = true

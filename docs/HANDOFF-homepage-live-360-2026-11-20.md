@@ -55,8 +55,9 @@ branch `claude/homepage-prototype-gate-2-be5a82` (pushed; see `git log -3`).
 
 ## Open, in order
 
-1. Mark: look at the 1-degree turns (local `http://127.0.0.1:5231/proto/merged/?view=s4`),
-   then go to redeploy.
+1. 1-degree turns deployed (Mark's go): Pages `70ac5b5c`, live check 0 errors. Music bed
+   (`proto/merged/audio/music-bed-v1.mp3`, trimmed: the source opens with 16.6 s of silence)
+   replaces the synth drone/chop/tick; fall wind, whoosh and thunk kept. Deploy pending Mark's go.
 2. **P3 quote** at 360 frames per turn: DD4SE (`.scratch/ch04/dd4se-nomarks.glb`) + `M249
    Receiver Plus.glb`. Each assembly needs its own screen of scroll (page change: stage 4 grows
    from one section to three beats of one screen each).
