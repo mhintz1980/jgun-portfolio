@@ -20,7 +20,8 @@ branch `claude/homepage-prototype-gate-2-be5a82` (pushed; see `git log -3`).
   `ccf8f156`. `scripts/deploy-home-proto.sh` rebuilds the live production commit `d2a820dd`
   (byte-identical to live for /, /home/, /torque-wrench/, /quiet-machine/, /armament/) and swaps
   `proto/merged/` in as `/home/` with the live page's robots/canonical/description. Live check:
-  desktop + phone, 0 page errors, 0 failed requests. **Not yet redeployed with the 1-degree
+  desktop + phone, 0 page errors, 0 failed requests. Rollback: previous production deployment
+  `31e75c81` (built from `d2a820dd`). **Not yet redeployed with the 1-degree
   sets** — run `scripts/deploy-home-proto.sh --deploy` on Mark's go.
 - **Smoothness target set (Mark): 1 degree per frame** (360 frames per turn, about 2.5 px of
   scroll per step on desktop). Spin rate: one full turn per screen of scroll (my suggestion,
