@@ -25,6 +25,11 @@ issues; earlier camera choices allow this refinement.
 
 Whenever Mark requests a handoff, provide both the saved handoff document and an accompanying ready-to-paste prompt for the receiving session. Put the prompt in the final response and save it with the handoff. Include the absolute handoff path, intended workspace, exact next action, and relevant boundaries or approval state. Preserve existing goals and do not imply authorization beyond the owner's request. This applies to every agent working in this repository.
 
+Use the shared **handoff** skill: `.agents/skills/handoff/SKILL.md` (adapted from
+`C:/Projects/skills-master/local/handoff`). It writes `docs/HANDOFF-*.md` plus the
+paste prompt. Repo hooks in `.claude/settings.json` block `git add -A`/`git add .` and
+typecheck after `src/` edits.
+
 ## Tooling manifests in plans
 
 Multi-session plans (`project/work/plans/JG-*.md`) and handoffs carry a **Tooling
