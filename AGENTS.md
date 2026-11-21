@@ -3,6 +3,19 @@
 Mark's portfolio site (Vite + React + R3F). Hero feature: the JGun Torque Wrench
 interactive exploded-view rig (Default.glb, D1-AP part numbers).
 
+## Proportionate housekeeping — owner direction 2026-11-06
+
+Scale verification to the likely damage and recovery cost, compared with the
+inference and execution cost of checking. For inexpensive, reversible housekeeping,
+use a short keep list, an exact Git recovery reference and one quick relevant check.
+Do not require exhaustive per-file consumer proofs, repeated full test/build/browser
+campaigns or an extra reviewer merely to eliminate tiny risks such as a repairable
+historical evidence link. Prefer useful bulk cleanup and fix inexpensive mistakes
+if they occur. Reserve deeper tracing and independent review for changes with
+meaningful runtime, mechanical, privacy, data-loss or deployment consequences.
+Existing protected assets, active concurrent work and action-approval boundaries
+still apply. An evidence-only change does not need application acceptance campaigns.
+
 ## Evolving public site and visual priorities — owner direction 2026-10-31
 
 Read [the current owner policy](project/context/owner-specs/evolving-portfolio-and-visual-review-2026-10-31.md)
