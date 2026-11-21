@@ -9,10 +9,10 @@ evidence column records what the coordinator checked, not what the thread said.
 | Live site | Pages `67b63b36` (music bed; previous `70ac5b5c`) | live | 2026-11-21: deployed on Mark's go; live `home/main.js` byte-identical to branch, `audio/music-bed-v1.mp3` 200 (1.3 MB), cage/arm manifests 360 frames; Playwright desktop + phone 0 page errors (only failure: the browser aborting the showreel video range request, file is 200) |
 | B Ch04 three beats | `claude/jg044-ch04-beats` (worktree `../jg044-ch04-beats`) | started 2026-11-21 | — |
 | C Ch04 thin console | `claude/jg044-ch04-console` (worktree `../jg044-ch04-console`) | started 2026-11-21 | — |
-| D P3 render quote | this local session | Mark's go 2026-11-21 for the 2-frame pilots, cap $0.10 per GLB | — |
+| D P3 render quote | this local session | pilots done; full-run quote waiting on Mark's go | 2026-11-21 Modal 4-CPU, Blender 5.3.0, 1536 px / 64 samples, own materials: pump `ap-7EgkIJnDYAu1PDsNWyJVvJ` 2/2 frames 15.7 container-s $0.0011; receiver 2/2 frames 16.4 container-s $0.0012; about 5 s/frame. Frames `.scratch/ch04/run-p3-pilot-{pump,receiver}/`. Quote 360-frame turn (`--preset p3-turn --timeout 600`): measured basis $0.14 per model, launcher estimate $0.28, ceiling $0.51 per model; hero stills not quoted (alternate finishes need p0_preview flags) |
 | E OpenMotion trial | Mark's machine, session in `C:/Projects/openmotion` | not started | — |
 | F Astra packet | after B + C merge | not started | — |
-| G worktree consolidation | fresh local session | waiting on Mark's ok for the git actions | 2026-11-21 `git worktree list` matches the 2026-11-20 survey; origin/main gained PR #8/#9 (`44e336cc`, `4b3a6147`), not in gate-2; origin/main also carries an older proto/merged/ (from #8/#9), resolve at Gate 3 |
+| G worktree consolidation | this session + integration thread (worktree `../integration-tw-film`, branch `integration/tw-film-2026-11-21`, not pushed) | step 1 done except the integration branch (running) | 2026-11-21: `codex/jg041-b4-retirement` WIP commit `ff3aefb3` pushed, `feat/metrology-models` already on origin (`3c3ced05`, upstream now set); 6 contained worktrees removed (advisor, tear-feedback, concept-3-verdict, concepts-merge, prototype-approval, spin-shot-review) after copying their untracked docs + `.scratch/` (325 files) to main checkout `.archive/worktrees-2026-11-21/`; branches kept. origin/main also carries an older proto/merged/ (from #8/#9), resolve at Gate 3 |
 
 ## Hook contract between B and C (set by the coordinator 2026-11-21)
 
