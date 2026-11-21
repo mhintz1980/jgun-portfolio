@@ -56,8 +56,11 @@ as Pages deployment `ccf8f156`; live check desktop + phone, 0 page errors, 0 fai
 the other pages unchanged. Re-run `scripts/deploy-home-proto.sh --deploy` after each
 homepage change, on Mark's go.
 
-**Open (Mark, 2026-11-20):** the cage and carbine turns step too coarsely (6° per frame) when
-the visitor slows or stops; set a measurable smoothness target before P3.
+**Smoothness (Mark, 2026-11-20): 1 degree per frame, 360 frames per turn.** Cage and carbine
+sets built (13 MB each, coarse-first loader). Measured on desktop: a 3 px scroll step moves the
+carbine exactly 1 degree and the cage 1-2 degrees; 0 page errors desktop + phone. P3 renders at
+360 frames per assembly (about $0.19 shade each on Modal CPU). See
+`docs/HANDOFF-homepage-live-360-2026-11-20.md`.
 
 **P2 (2026-11-20, $0):** `scripts/encode-ch04-frames.sh <set> <line-dir> <shade-dir>` writes
 `proto/merged/ch4/<set>/` (60 l + 60 s WebP 1024x640, 3 hero stills, `manifest.json`); cage

@@ -236,26 +236,39 @@ vid.addEventListener('loadedmetadata', () => { vid.currentTime = FILM_IN }, { on
 vid.addEventListener('timeupdate', () => { if (vid.currentTime > FILM_OUT || vid.currentTime < FILM_IN - .5) vid.currentTime = FILM_IN })
 const vtex = new THREE.VideoTexture(vid); vtex.colorSpace = THREE.NoColorSpace
 U.tV = { value: vtex }; U.uFilm = { value: 1 }; U.uDark = { value: 0 }
-// armament stage: 60 line + 60 shade frames of one spin, 6 degrees apart. Line goes on the sheet, shade under the lens.
-// The stage only needs a numbered frame set, so the source can be swapped for a new one.
-// A frame set is any numbered l/s pair in one folder; the armament stage and the Chapter 04 stage each hold one.
+// Frame stages: a frame set is 360 line + 360 shade frames of one turn, 1 degree apart (l000..l359, s000..s359).
+// Line goes on the sheet, shade under the lens. The armament stage and the Chapter 04 stage each hold one.
+// Loading is coarse-first (every 12th frame, then 6th, 3rd, all), at most 8 requests in flight; until a frame
+// arrives the stage shows the nearest loaded one, so the turn works from the first few dozen images.
 const mkArmTex = () => { const t = new THREE.Texture(); t.colorSpace = THREE.NoColorSpace; t.minFilter = THREE.LinearFilter; t.generateMipmaps = false; return t }
 function frameSet(dir, n) {
-  const o = { dir, n, l: [], s: [], loaded: false, idx: -1, texL: mkArmTex(), texS: mkArmTex() }; o.texS.premultiplyAlpha = true; return o
+  const o = { dir, n, l: [], s: [], ok: [], loaded: false, idx: -1, shown: -1, texL: mkArmTex(), texS: mkArmTex() }; o.texS.premultiplyAlpha = true; return o
 }
 function loadSet(o) {
   if (o.loaded) return; o.loaded = true
-  for (let i = 0; i < o.n; i++) for (const k of ['l', 's']) { const im = new Image(); im.decoding = 'async'; im.src = `./${o.dir}/${k}${String(i).padStart(2, '0')}.webp`; o[k][i] = im }
+  const order = [], seen = new Set()
+  for (const step of [12, 6, 3, 1]) for (let i = 0; i < o.n; i += step) if (!seen.has(i)) { seen.add(i); order.push(i) }
+  let next = 0
+  const pump = () => {
+    if (next >= order.length) return
+    const i = order[next++], name = String(i).padStart(3, '0'); let left = 2
+    const done = () => { if (--left) return; o.ok[i] = !!(o.l[i].naturalWidth && o.s[i].naturalWidth); pump() }
+    for (const k of ['l', 's']) { const im = new Image(); im.decoding = 'async'; im.onload = im.onerror = done; im.src = `./${o.dir}/${k}${name}.webp`; o[k][i] = im }
+  }
+  for (let j = 0; j < 8; j++) pump()
 }
 function setFrame(o, i) {
-  const l = o.l[i], s = o.s[i]; if (!l || !s || !l.complete || !s.complete || !l.naturalWidth || !s.naturalWidth) return
-  o.texL.image = l; o.texL.needsUpdate = true; o.texS.image = s; o.texS.needsUpdate = true; o.idx = i
+  o.idx = i
+  let f = -1
+  for (let d = 0; d <= 12 && f < 0; d++) { if (o.ok[(i + d) % o.n]) f = (i + d) % o.n; else if (o.ok[(i - d + o.n) % o.n]) f = (i - d + o.n) % o.n }
+  if (f < 0 || f === o.shown) return
+  o.texL.image = o.l[f]; o.texL.needsUpdate = true; o.texS.image = o.s[f]; o.texS.needsUpdate = true; o.shown = f
 }
-const ARM_N = 60, ARM_AT = 5, ARM_DEG = 360 / ARM_N, ARM = frameSet('arm', ARM_N)
+const ARM_N = 360, ARM_AT = 5, ARM_DEG = 360 / ARM_N, ARM = frameSet('arm', ARM_N)
 U.tL = { value: ARM.texL }; U.tS = { value: ARM.texS }; U.uArm = { value: 0 }; U.uArmRect = { value: new THREE.Vector4(.5, .5, 1, 1) }
 // Chapter 04 stage: one slot; the beat picks which assembly's set is bound to it. Manifests come from scripts/encode-ch04-frames.sh.
 const C4_AT = 4, C4_W = .42, C4_ASP = 1.6
-const c4Sets = CH4.filter(c => c.ready).map(c => Object.assign(frameSet(`ch4/${c.set}`, 60), { c, deg: 6, heroDeg: 0 }))
+const c4Sets = CH4.filter(c => c.ready).map(c => Object.assign(frameSet(`ch4/${c.set}`, 360), { c, deg: 1, heroDeg: 0 }))
 c4Sets.forEach(o => fetch(`./${o.dir}/manifest.json`).then(r => r.ok ? r.json() : null).then(m => { if (m) { o.n = m.frames; o.deg = m.deg; o.heroDeg = m.heroDeg } }).catch(() => {}))
 let c4Bound = null, c4Beat = -1
 U.tL2 = { value: mkArmTex() }; U.tS2 = { value: mkArmTex() }; U.uC4 = { value: 0 }; U.uC4Rect = { value: new THREE.Vector4(.5, .5, 1, 1) }; U.uCover = { value: 0 }
@@ -716,11 +729,11 @@ function frame(now) {
   // armament: scroll picks the angle, the pointer nudges it a couple of frames either way
   const arm = sstep(.62, .3, Math.abs(pS - ARM_AT))
   if (pS > 4.2) loadSet(ARM)   // the carbine set prefetches once scroll is past the Chapter 04 beats
-  if (ARM.loaded && (arm > 0 || ARM.idx < 0)) {
+  if (ARM.loaded && (arm > 0 || ARM.shown < 0)) {
     const ang = (pS - ARM_AT) * 300 + (RM || mobile ? 0 : ptr.snx * 24), ai = ((Math.round(ang / ARM_DEG) % ARM_N) + ARM_N) % ARM_N
-    if (ai !== ARM.idx) setFrame(ARM, ai)
+    setFrame(ARM, ai)   // every frame: a nearer frame may have arrived since
   }
-  U.uArm.value = ARM.idx >= 0 ? arm : 0
+  U.uArm.value = ARM.shown >= 0 ? arm : 0
   const aw = mobile ? W * .98 : Math.min(W * .6, 1150), ah = aw / 3, acx = mobile ? W * .5 : W * .67, acy = mobile ? clamp((66 + textTop) * .5, 150, H * .42) : H * .5
   U.uArmRect.value.set(acx / W, 1 - acy / H, aw / W, ah / H)
 
@@ -730,15 +743,15 @@ function frame(now) {
   if (pS > 2.6) c4Sets.forEach(loadSet)
   const u4 = clamp((pS - C4_AT + C4_W) / (2 * C4_W)), nb = c4Sets.length, beat = Math.min(Math.floor(u4 * nb), nb - 1)
   if (nb && c4 > 0) {
-    const o = c4Sets[beat], ang = o.heroDeg + (u4 * nb - beat - .5) * 300 + (RM || mobile ? 0 : ptr.snx * 24), fi = ((Math.round(ang / o.deg) % o.n) + o.n) % o.n
-    if (fi !== o.idx || c4Bound !== o) { setFrame(o, fi); if (o.idx >= 0) { c4Bound = o; U.tL2.value = o.texL; U.tS2.value = o.texS } }
+    const o = c4Sets[beat], ang = o.heroDeg + (u4 * nb - beat - .5) * 360 + (RM || mobile ? 0 : ptr.snx * 24), fi = ((Math.round(ang / o.deg) % o.n) + o.n) % o.n
+    setFrame(o, fi); if (o.shown >= 0 && c4Bound !== o) { c4Bound = o; U.tL2.value = o.texL; U.tS2.value = o.texS }
   }
   if (beat !== c4Beat) { c4Beat = beat; document.querySelectorAll('.pill[data-beat]').forEach(b => { if (b.hasAttribute('aria-pressed')) b.setAttribute('aria-pressed', c4Sets[beat]?.c === CH4[+b.dataset.beat]) }) }
   U.uC4.value = c4Bound ? c4 : 0
   const cw = mobile ? W * .98 : Math.min(W * .6, H * .66 * C4_ASP, 1150), ch = cw / C4_ASP, ccx = acx, ccy = mobile ? clamp((66 + textTop) * .5, 120, H * .42) : H * .5
   U.uC4Rect.value.set(ccx / W, 1 - ccy / H, cw / W, ch / H)
   // between the two stages the sheet stays blank, so the gear train does not flash back in
-  const cover = Math.max(U.uArm.value, U.uC4.value, (c4Bound || ARM.idx >= 0) && pS > C4_AT && pS < ARM_AT && !fall.active ? 1 : 0)
+  const cover = Math.max(U.uArm.value, U.uC4.value, (c4Bound || ARM.shown >= 0) && pS > C4_AT && pS < ARM_AT && !fall.active ? 1 : 0)
   U.uCover.value = cover
 
   // fall progress
@@ -914,4 +927,4 @@ poseTunnel(0)
 // compile every program up front, including the bore's, so the first fall does not hitch
 tunnel.visible = true; camera.layers.enable(1); renderer.compile(scene, camera); scene.overrideMaterial = normMat; renderer.compile(scene, camera); scene.overrideMaterial = null; tunnel.visible = false
 requestAnimationFrame(frame)
-window.__fall = startFall; window.__climb = climbOut; window.__d = { renderer, rtC, rtN, scene, camera, fall, tunnel, plate, cp, THREE }
+window.__fall = startFall; window.__climb = climbOut; window.__d = { renderer, rtC, rtN, scene, camera, fall, tunnel, plate, cp, THREE, ARM, c4Sets }
