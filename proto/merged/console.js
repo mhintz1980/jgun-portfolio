@@ -282,6 +282,7 @@ class ConsoleView {
     this.onDocKey = (e) => {
       if (e.key === 'Escape' && !e.isComposing) {
         e.preventDefault();
+        e.stopPropagation(); // the host's own Escape listener (window, bubble) must not also climb out
         this.requestExit();
       }
     };
