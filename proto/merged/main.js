@@ -42,10 +42,13 @@ const STAGES = [{ Zs: 12, Zp: 18, n: 3 }, { Zs: 12, Zp: 18, n: 4 }, { Zs: 24, Zp
 const RO = M * ZR / 2 + 0.54
 const ratio = s => 1 + ZR / s.Zs
 
-// Chapter 04: stage 4 swaps its gear train for turn sets of three assemblies, one beat each.
-// A set with ready: false has no frames yet; its pill shows but is inert, and the ready sets share the window.
-const CH4 = [{ set: 'cage', label: 'Cage', ready: true, finish: 'steel' }, { set: 'pump', label: 'Pump', ready: false }, { set: 'receiver', label: 'Receiver', ready: false }]
-const ch4Pills = () => `<div class="pills mono" role="group" aria-label="Assemblies">${CH4.map((c, j) => `<button class="pill" data-beat="${j}" ${c.ready ? 'aria-pressed="false"' : 'aria-disabled="true" title="Rendering next"'}>${String(j + 1).padStart(2, '0')} <span>${c.label}</span></button>`).join('')}</div>`
+// Chapter 04: stage 4 swaps its gear train for three beats, cage / pump / receiver, one screen of scroll each.
+// Each beat plays one full 360-frame turn (1 degree per frame) across its screen.
+// STAND-IN (until the P3 renders land): a beat whose ch4/<set>/manifest.json is missing plays its `fallback` set,
+// the cage. Dropping real frames into proto/merged/ch4/pump and ch4/receiver needs no code change: the manifest is
+// found at load and that beat switches over. Remove `fallback` then if a missing set should be an error instead.
+const CH4 = [{ set: 'cage', label: 'Cage' }, { set: 'pump', label: 'Pump', fallback: 'cage' }, { set: 'receiver', label: 'Receiver', fallback: 'cage' }]
+const ch4Pills = () => `<div class="pills mono" role="group" aria-label="Assemblies">${CH4.map((c, j) => `<button class="pill" data-beat="${j}" aria-pressed="false">${String(j + 1).padStart(2, '0')} <span>${c.label}</span></button>`).join('')}</div>`
 document.querySelectorAll('.proj-p').forEach((el, i) => {
   const p = PROJECTS[i], s = STAGES[i]
   el.innerHTML = `<div class="num" aria-hidden="true">${p.n}</div><div class="k mono">${p.status}</div><h2>${p.title}</h2><p>${p.line}</p>
@@ -267,10 +270,25 @@ function setFrame(o, i) {
 const ARM_N = 360, ARM_AT = 5, ARM_DEG = 360 / ARM_N, ARM = frameSet('arm', ARM_N)
 U.tL = { value: ARM.texL }; U.tS = { value: ARM.texS }; U.uArm = { value: 0 }; U.uArmRect = { value: new THREE.Vector4(.5, .5, 1, 1) }
 // Chapter 04 stage: one slot; the beat picks which assembly's set is bound to it. Manifests come from scripts/encode-ch04-frames.sh.
-const C4_AT = 4, C4_W = .42, C4_ASP = 1.6
-const c4Sets = CH4.filter(c => c.ready).map(c => Object.assign(frameSet(`ch4/${c.set}`, 360), { c, deg: 1, heroDeg: 0 }))
-c4Sets.forEach(o => fetch(`./${o.dir}/manifest.json`).then(r => r.ok ? r.json() : null).then(m => { if (m) { o.n = m.frames; o.deg = m.deg; o.heroDeg = m.heroDeg } }).catch(() => {}))
+const C4_AT = 4, C4_ASP = 1.6
+// Scroll coordinates. u = scroll in screens past the opening film (scrollY / SEC - EXTRA). The stage coordinate pS that the
+// rest of the page runs on (stage panels, camera keys, armament window, tail fade) equals u up to stage 4, stays 4 while the
+// beats turn (the cage beat is centred on u = 4, pump on 5, receiver on 6, each one screen wide, so they span u 3.5 to 6.5),
+// then runs on from 4 as u - (CH4.length - 1). So no stage index after 4 moves; only the scroll positions do (+2 screens).
+// Every scroll write goes through p2u and every scroll read through u2p; the beats themselves run on u.
+const C4_N = CH4.length, U_MAX = 7 + C4_N - 1, C4_U0 = C4_AT - .5
+const u2p = u => u <= C4_AT ? u : u <= C4_AT + C4_N - 1 ? C4_AT : u - (C4_N - 1)
+const p2u = p => p <= C4_AT ? p : p + C4_N - 1   // stage 4 -> the middle of the cage beat
+const c4Of = new Map()   // set dir -> frame set, so a stand-in shares the cage's frames and loads them once
+const c4Set = dir => { let o = c4Of.get(dir); if (!o) { o = Object.assign(frameSet(dir, 360), { deg: 1, heroDeg: 0 }); c4Of.set(dir, o) } return o }
+const c4Beats = CH4.map(c => ({ c, o: c4Set(`ch4/${c.fallback || c.set}`) }))   // o: the set the beat plays right now
+CH4.forEach((c, j) => fetch(`./ch4/${c.set}/manifest.json`).then(r => r.ok ? r.json() : null).then(m => {
+  if (!m || !m.frames) return
+  const o = c4Set(`ch4/${c.set}`); o.n = m.frames; o.deg = m.deg; o.heroDeg = m.heroDeg; c4Beats[j].o = o
+}).catch(() => {}))
 let c4Bound = null, c4Beat = -1
+const c4Now = { beat: 0, deg: 0 }   // the beat and frame angle on screen, read when a dive starts
+let c4Dive = { beat: 0, deg: 0 }
 U.tL2 = { value: mkArmTex() }; U.tS2 = { value: mkArmTex() }; U.uC4 = { value: 0 }; U.uC4Rect = { value: new THREE.Vector4(.5, .5, 1, 1) }; U.uCover = { value: 0 }
 // theme: light paper or dark blueprint. The dark lens is the lit render on a light studio, so text inverts under it in both.
 function setTheme(dark, save) {
@@ -564,9 +582,9 @@ addEventListener('pointerup', () => { ptr.down = false }); addEventListener('poi
 if (Q.has('lens')) { const [lx, ly] = Q.get('lens').split(',').map(Number); ptr.x = lx * W; ptr.y = ly * H; ptr.auto = false; ptr.last = 1e9 }
 
 const VMAP = { hero: 0, s1: 1, s2: 2, s3: 3, s4: 4, arm: 5, plus: 6, contact: 7 }
-let oS = 0, pS = VMAP[VIEW] ?? 0, pV = 0, lensR = 0, full = 0, flash = 0
+let oS = 0, pS = VMAP[VIEW] ?? 0, uS = p2u(pS), pV = 0, lensR = 0, full = 0, flash = 0
 const pFixed = FREEZE && (VIEW in VMAP || VIEW === 'fall' || VIEW === 'project') ? (VMAP[VIEW] ?? (parseInt(Q.get('p')) || 1)) : null
-if (pFixed === null && VIEW in VMAP) addEventListener('load', () => scrollTo(0, (VMAP[VIEW] + (VMAP[VIEW] ? EXTRA : 0)) * SEC))
+if (pFixed === null && VIEW in VMAP) addEventListener('load', () => scrollTo(0, (p2u(VMAP[VIEW]) + (VMAP[VIEW] ? EXTRA : 0)) * SEC))
 
 /* camera along the scroll */
 const KEYS = [
@@ -625,6 +643,7 @@ let imgFade = 1
 function startFall(k) {
   if (fall.active || pS > 4.5) return
   fall.active = true; fall.k = k; fall.u = 0; fall.t = RM ? 1 : 0; fall.dir = 1
+  if (k === 4) { c4Dive = { beat: c4Now.beat, deg: c4Now.deg }; loadConsole() }   // the console gets the beat and angle the dive started from
   const f = fall.from; f.pos.copy(cp.pos); f.quat.copy(cp.quat); f.fov = cp.fov; f.sh = cp.sh; f.shY = cp.shY
   _v.set(-cp.pos.x, 0, -cp.pos.z).normalize(); _mm.lookAt(_p.set(0, 1, 0), _t.set(0, 0, 0), _v); fall.qDown.setFromRotationMatrix(_mm)
   plate.quaternion.copy(fall.qDown)
@@ -634,13 +653,28 @@ function startFall(k) {
   setImage(0); document.body.classList.add('locked')
   sfx.whoosh()
 }
-function climbOut() { if (fall.active && fall.dir > 0 && fall.u > .5) { fall.dir = -1; sfx.whoosh(true) } }
+// Chapter 04 console (thread C: console.js / console.css). Loaded once, the first time a stage-4 dive starts; a failed import
+// is ignored and the dive lands on the project plate as before. consoleOk: null while loading, true once StudioConsole exists.
+let consoleP = null, consoleOk = null, consoleShown = false
+const consoleOpen = () => !!(consoleOk && window.StudioConsole?.isOpen?.())
+function loadConsole() {
+  if (!consoleP) consoleP = Promise.race([import('./console.js').then(() => !!window.StudioConsole, () => false), new Promise(r => setTimeout(() => r(false), 4000))]).then(ok => (consoleOk = ok))
+  return consoleP
+}
+function openStudioConsole() {
+  loadConsole().then(ok => {
+    if (!ok || !fall.active || fall.dir <= 0 || fall.k !== 4 || consoleShown) return   // a climb that already began wins
+    consoleShown = true; const root = $('studioConsole'); root.hidden = false
+    window.StudioConsole.open({ root, sets: c4Beats.map(b => b.o.dir), beat: c4Dive.beat, deg: c4Dive.deg, theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light' })
+  })
+}
+document.addEventListener('studio:console-exit', () => climbOut())
+function climbOut() { if (fall.active && fall.dir > 0 && fall.u > .5) { fall.dir = -1; sfx.whoosh(true); if (consoleShown) window.StudioConsole?.close?.() } }
 document.addEventListener('click', e => { const b = e.target.closest('[data-fall]'); if (b) startFall(+b.dataset.fall) })
 // Chapter 04 pills jump the scroll to the middle of their assembly's beat
 document.addEventListener('click', e => {
-  const b = e.target.closest('.pill[data-beat]'); if (!b || b.getAttribute('aria-disabled') === 'true' || fall.active) return
-  const k = c4Sets.findIndex(o => o.c === CH4[+b.dataset.beat]); if (k < 0) return
-  scrollTo({ top: (C4_AT - C4_W + (k + .5) / c4Sets.length * 2 * C4_W + EXTRA) * SEC, behavior: RM ? 'auto' : 'smooth' })
+  const b = e.target.closest('.pill[data-beat]'); if (!b || fall.active) return
+  scrollTo({ top: (C4_AT + +b.dataset.beat + EXTRA) * SEC, behavior: RM ? 'auto' : 'smooth' })
 })
 $('pjX').addEventListener('click', climbOut)
 $('pjPrev').addEventListener('click', () => setImage(fall.img - 1)); $('pjNext').addEventListener('click', () => setImage(fall.img + 1))
@@ -651,9 +685,9 @@ canvas.addEventListener('pointerdown', e => { pd = { t: performance.now(), x: e.
 canvas.addEventListener('pointerup', e => { if (pd && performance.now() - pd.t < 320 && Math.hypot(e.clientX - pd.x, e.clientY - pd.y) < 8 && hover >= 0 && !fall.active) startFall(hover + 1); pd = null })
 addEventListener('keydown', e => {
   if (e.key === 'Escape') climbOut()
-  else if (fall.active) { if (e.key === 'ArrowRight') setImage(fall.img + 1); if (e.key === 'ArrowLeft') setImage(fall.img - 1) }
+  else if (fall.active) { if (!consoleOpen()) { if (e.key === 'ArrowRight') setImage(fall.img + 1); if (e.key === 'ArrowLeft') setImage(fall.img - 1) } }
   else if (e.key === 'Enter' && document.activeElement === document.body) { const k = Math.round(pS); if (k >= 1 && k <= 4) startFall(k) }
-  else if (e.key >= '1' && e.key <= '4') scrollTo({ top: (+e.key + EXTRA) * SEC, behavior: RM ? 'auto' : 'smooth' })
+  else if (e.key >= '1' && e.key <= '4') scrollTo({ top: (p2u(+e.key) + EXTRA) * SEC, behavior: RM ? 'auto' : 'smooth' })
 })
 document.querySelectorAll('a[href^="#"]:not(#pjA)').forEach(a => a.addEventListener('click', e => { if (fall.active) { e.preventDefault(); return } const el = document.querySelector(a.getAttribute('href')); if (el) { e.preventDefault(); scrollTo({ top: el.offsetTop, behavior: RM ? 'auto' : 'smooth' }) } }))
 if (FREEZE && (VIEW === 'fall' || VIEW === 'project')) addEventListener('load', () => { journey(pFixed, 1, cp); startFall(pFixed); fall.u = VIEW === 'project' ? 1 : Q.has('f') ? clamp(parseFloat(Q.get('f'))) : .5; fall.t = Q.has('tt') ? clamp(parseFloat(Q.get('tt'))) : 1; fall.dir = 0 })
@@ -708,16 +742,22 @@ tags.forEach((t, i) => { const s = STAGES[i]; t.textContent = `STAGE ${i + 1}  Â
 let warm = 2, last = performance.now(), T = FREEZE ? T0 : 0, first = true, emaMs = 16.7, slow = 0, fastN = 0, frames = 0, fpsT = last, tbKey = '', rollI = -1, landed = false
 window.__s = { fps: 0, ms: 0, scale: 1 }
 const dwg = $('dwg')
+// the climb is done: hide the console's mount and put focus back on the beat's pill
+function closedConsole() {
+  consoleShown = false; $('studioConsole').hidden = true
+  const pill = document.querySelector(`.pill[data-beat="${c4Dive.beat}"]`); requestAnimationFrame(() => pill?.focus({ preventScroll: true }))
+}
 function frame(now) {
   const dtR = Math.min((now - last) / 1000, .05); last = now
   const dt = FREEZE ? 0 : dtR; if (!FREEZE) T += dt
   const K = r => (FREEZE || first) ? 1 : damp(r, dt)
 
   // scroll
-  const pT = pFixed !== null ? pFixed : clamp(scrollY / SEC - EXTRA, 0, 7), pPrev = pS
+  const uT = pFixed !== null ? p2u(pFixed) : clamp(scrollY / SEC - EXTRA, 0, U_MAX), pT = pFixed !== null ? pFixed : u2p(uT), pPrev = pS
   const oT = pFixed !== null ? (Q.has('o') ? parseFloat(Q.get('o')) : 1) : clamp(scrollY / (EXTRA * SEC))
   oS += (oT - oS) * K(RM ? 30 : 4.5)
   pS += (pT - pS) * K(RM ? 30 : 4.5)
+  uS += (uT - uS) * K(RM ? 30 : 4.5)
   pV += ((dt > 0 ? (pS - pPrev) / dt : 0) - pV) * K(8)
   const e = FREEZE && Q.has('e') ? parseFloat(Q.get('e')) : 1 - sstep(6.2, 6.95, pS)
   explode(e)
@@ -733,16 +773,17 @@ function frame(now) {
   const aw = mobile ? W * .98 : Math.min(W * .6, 1150), ah = aw / 3, acx = mobile ? W * .5 : W * .67, acy = mobile ? clamp((66 + textTop) * .5, 150, H * .42) : H * .5
   U.uArmRect.value.set(acx / W, 1 - acy / H, aw / W, ah / H)
 
-  // Chapter 04: the ready sets split the stage-4 window into beats; scroll turns the active set, the pointer nudges it.
+  // Chapter 04: three beats, one screen of scroll each; scroll turns the active set through 360 degrees, the pointer nudges it.
   // It steps back as soon as a dive starts, so the tear opens onto the bore as before.
-  const c4 = (pS < C4_AT ? sstep(.5, .28, C4_AT - pS) : sstep(.38, .2, pS - C4_AT)) * (fall.active ? 1 - sstep(0, .16, fall.t) : 1)
-  if (pS > 2.6) c4Sets.forEach(loadSet)
-  const u4 = clamp((pS - C4_AT + C4_W) / (2 * C4_W)), nb = c4Sets.length, beat = Math.min(Math.floor(u4 * nb), nb - 1)
-  if (nb && c4 > 0) {
-    const o = c4Sets[beat], ang = o.heroDeg + (u4 * nb - beat - .5) * 360 + (RM || mobile ? 0 : ptr.snx * 24), fi = ((Math.round(ang / o.deg) % o.n) + o.n) % o.n
+  const c4 = (pS < C4_AT ? sstep(.5, .36, C4_AT - pS) : sstep(.5, .38, pS - C4_AT)) * (fall.active ? 1 - sstep(0, .16, fall.t) : 1)
+  const b4 = clamp(uS - C4_U0, 0, C4_N), beat = Math.min(Math.floor(b4), C4_N - 1)   // b4: beats elapsed, from raw scroll
+  if (pS > 2.6) for (let j = beat - 1; j <= beat + 1; j++) loadSet(c4Beats[clamp(j, 0, C4_N - 1)].o)   // this beat's set and its neighbours
+  if (c4 > 0) {
+    const o = c4Beats[beat].o, ang = o.heroDeg + (b4 - beat - .5) * 360 + (RM || mobile ? 0 : ptr.snx * 24), fi = ((Math.round(ang / o.deg) % o.n) + o.n) % o.n
+    c4Now.beat = beat; c4Now.deg = ((fi * o.deg) % 360 + 360) % 360
     setFrame(o, fi); if (o.shown >= 0 && c4Bound !== o) { c4Bound = o; U.tL2.value = o.texL; U.tS2.value = o.texS }
   }
-  if (beat !== c4Beat) { c4Beat = beat; document.querySelectorAll('.pill[data-beat]').forEach(b => { if (b.hasAttribute('aria-pressed')) b.setAttribute('aria-pressed', c4Sets[beat]?.c === CH4[+b.dataset.beat]) }) }
+  if (beat !== c4Beat) { c4Beat = beat; document.querySelectorAll('.pill[data-beat]').forEach(b => b.setAttribute('aria-pressed', +b.dataset.beat === beat)) }
   U.uC4.value = c4Bound ? c4 : 0
   const cw = mobile ? W * .98 : Math.min(W * .6, H * .66 * C4_ASP, 1150), ch = cw / C4_ASP, ccx = acx, ccy = mobile ? clamp((66 + textTop) * .5, 120, H * .42) : H * .5
   U.uC4Rect.value.set(ccx / W, 1 - ccy / H, cw / W, ch / H)
@@ -757,13 +798,13 @@ function frame(now) {
       if (fall.t < 1) fall.t = clamp(fall.t + dt / TEAR_S)
       if (fall.t > .65 || RM) {
         fall.u = clamp(fall.u + dt / (RM ? .5 : 2.73))
-        if (fall.u >= 1 && !landed) { landed = true; sfx.thunk(); flash = .1 }
+        if (fall.u >= 1 && !landed) { landed = true; sfx.thunk(); flash = .1; if (fall.k === 4) openStudioConsole() }
       }
     } else {
       if (fall.u > 0) fall.u = clamp(fall.u - dt / (RM ? .5 : 2.0))
       else {
         fall.t = RM ? 0 : clamp(fall.t - dt / (TEAR_S * .45))
-        if (fall.t <= 0) { fall.active = false; landed = false; document.body.classList.remove('locked') }
+        if (fall.t <= 0) { fall.active = false; landed = false; document.body.classList.remove('locked'); if (consoleShown) closedConsole() }
       }
     }
   }
@@ -892,16 +933,17 @@ function frame(now) {
   lenstag.style.transform = `translate3d(${Math.min(ptr.sx + lensR * .74, mobile ? W - 116 : 1e9).toFixed(1)}px,${(ptr.sy + lensR * .74).toFixed(1)}px,0)`
   lenstag.style.opacity = (hide * (1 - full)).toFixed(2)
   $('proj').style.transform = `translate3d(${(par * ptr.snx * -19.2).toFixed(1)}px,${(par * ptr.sny * -10.8).toFixed(1)}px,0)`
-  $('proj').style.opacity = fall.active ? sstep(.9, 1, fall.u).toFixed(3) : 0
-  $('proj').classList.toggle('on', fall.active && fall.u > .88)
+  const plateOff = fall.k === 4 && consoleOk !== false   // a stage-4 dive lands on the console, not the plate, unless the console failed to load
+  $('proj').style.opacity = fall.active && !plateOff ? sstep(.9, 1, fall.u).toFixed(3) : 0
+  $('proj').classList.toggle('on', fall.active && fall.u > .88 && !plateOff)
   const dOp = fall.active ? sstep(.12, .3, fall.u) * (1 - sstep(.8, .92, fall.u)) : 0
   $('depth').style.opacity = dOp.toFixed(2)
   if (dOp > 0) $('depN').textContent = Math.max(0, fall.from.pos.y - camera.position.y).toFixed(1).padStart(4, '0')
-  const key2 = si + '|' + (fall.active ? 1 : 0) + '|' + (e < .5 ? 1 : 0)
+  const key2 = si + '|' + (fall.active ? 1 : 0) + '|' + (e < .5 ? 1 : 0) + '|' + (si === 4 && c4 > .5 ? beat : -1)
   if (key2 !== tbKey) {
     tbKey = key2
     $('tbS').textContent = `${String(Math.min(si, 7) + 1).padStart(2, '0')} / 08`
-    $('tbV').textContent = fall.active ? 'Down the bore' : si === 7 && e > .5 ? 'Full train' : VIEWS[si]
+    $('tbV').textContent = fall.active ? 'Down the bore' : si === 4 && c4 > .5 ? CH4[beat].label : si === 7 && e > .5 ? 'Full train' : VIEWS[si]
     $('tbR').textContent = si >= 1 && si <= 4 ? `${ratio(STAGES[si - 1]).toFixed(2).replace(/\.?0+$/, '')} : 1` : `${STAGES.reduce((a, s) => a * ratio(s), 1).toFixed(0)} : 1`
     $('tbM').textContent = fall.active ? 'Shaded' : 'Line + lens'
   }
@@ -923,4 +965,4 @@ poseTunnel(0)
 // compile every program up front, including the bore's, so the first fall does not hitch
 tunnel.visible = true; camera.layers.enable(1); renderer.compile(scene, camera); scene.overrideMaterial = normMat; renderer.compile(scene, camera); scene.overrideMaterial = null; tunnel.visible = false
 requestAnimationFrame(frame)
-window.__fall = startFall; window.__climb = climbOut; window.__d = { renderer, rtC, rtN, scene, camera, fall, tunnel, plate, cp, THREE, ARM, c4Sets }
+window.__fall = startFall; window.__climb = climbOut; window.__d = { renderer, rtC, rtN, scene, camera, fall, tunnel, plate, cp, THREE, ARM, c4Beats, c4Of, c4Now, U, u2p, uS: () => uS, pS: () => pS, SEC: () => SEC }
