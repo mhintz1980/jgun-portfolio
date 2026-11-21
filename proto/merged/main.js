@@ -287,8 +287,8 @@ CH4.forEach((c, j) => fetch(`./ch4/${c.set}/manifest.json`).then(r => r.ok ? r.j
   const o = c4Set(`ch4/${c.set}`); o.n = m.frames; o.deg = m.deg; o.heroDeg = m.heroDeg; c4Beats[j].o = o
 }).catch(() => {}))
 let c4Bound = null, c4Beat = -1
-const c4Now = { beat: 0, deg: 0 }   // the beat and frame angle on screen, read when a dive starts
-let c4Dive = { beat: 0, deg: 0 }
+const c4Now = { beat: 0, deg: 0, vis: false }   // the beat and frame angle on screen, read when a dive starts
+let c4Dive = { beat: 0, deg: 0, in: false }, diveSrc = null   // diveSrc: the [data-fall] control that started the dive, if any
 U.tL2 = { value: mkArmTex() }; U.tS2 = { value: mkArmTex() }; U.uC4 = { value: 0 }; U.uC4Rect = { value: new THREE.Vector4(.5, .5, 1, 1) }; U.uCover = { value: 0 }
 // theme: light paper or dark blueprint. The dark lens is the lit render on a light studio, so text inverts under it in both.
 function setTheme(dark, save) {
@@ -640,10 +640,11 @@ async function setImage(i) {
   imgFade = 0
 }
 let imgFade = 1
-function startFall(k) {
+function startFall(k, src) {
   if (fall.active || pS > 4.5) return
-  fall.active = true; fall.k = k; fall.u = 0; fall.t = RM ? 1 : 0; fall.dir = 1
-  if (k === 4) { c4Dive = { beat: c4Now.beat, deg: c4Now.deg }; loadConsole() }   // the console gets the beat and angle the dive started from
+  fall.active = true; fall.k = k; fall.u = 0; fall.t = RM ? 1 : 0; fall.dir = 1; diveSrc = src || null
+  // the console gets the beat and angle the dive started from, but only when it starts inside the Chapter 04 beats; from any other stage it opens on beat 0 at the hero angle
+  if (k === 4) { c4Dive = pS > 3.5 && c4Now.vis ? { beat: c4Now.beat, deg: c4Now.deg, in: true } : { beat: 0, deg: c4Beats[0].o.heroDeg || 0, in: false }; loadConsole() }
   const f = fall.from; f.pos.copy(cp.pos); f.quat.copy(cp.quat); f.fov = cp.fov; f.sh = cp.sh; f.shY = cp.shY
   _v.set(-cp.pos.x, 0, -cp.pos.z).normalize(); _mm.lookAt(_p.set(0, 1, 0), _t.set(0, 0, 0), _v); fall.qDown.setFromRotationMatrix(_mm)
   plate.quaternion.copy(fall.qDown)
@@ -665,12 +666,12 @@ function openStudioConsole() {
   loadConsole().then(ok => {
     if (!ok || !fall.active || fall.dir <= 0 || fall.k !== 4 || consoleShown) return   // a climb that already began wins
     consoleShown = true; const root = $('studioConsole'); root.hidden = false
-    window.StudioConsole.open({ root, sets: c4Beats.map(b => b.o.dir), beat: c4Dive.beat, deg: c4Dive.deg, theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light' })
+    window.StudioConsole.open({ root, sets: CH4.map(c => `ch4/${c.set}`), beat: c4Dive.beat, deg: c4Dive.deg, theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light' })
   })
 }
 document.addEventListener('studio:console-exit', () => climbOut())
 function climbOut() { if (fall.active && fall.dir > 0 && fall.u > .5) { fall.dir = -1; sfx.whoosh(true); if (consoleShown) window.StudioConsole?.close?.() } }
-document.addEventListener('click', e => { const b = e.target.closest('[data-fall]'); if (b) startFall(+b.dataset.fall) })
+document.addEventListener('click', e => { const b = e.target.closest('[data-fall]'); if (b) startFall(+b.dataset.fall, b) })
 // Chapter 04 pills jump the scroll to the middle of their assembly's beat
 document.addEventListener('click', e => {
   const b = e.target.closest('.pill[data-beat]'); if (!b || fall.active) return
@@ -742,10 +743,12 @@ tags.forEach((t, i) => { const s = STAGES[i]; t.textContent = `STAGE ${i + 1}  Â
 let warm = 2, last = performance.now(), T = FREEZE ? T0 : 0, first = true, emaMs = 16.7, slow = 0, fastN = 0, frames = 0, fpsT = last, tbKey = '', rollI = -1, landed = false
 window.__s = { fps: 0, ms: 0, scale: 1 }
 const dwg = $('dwg')
-// the climb is done: hide the console's mount and put focus back on the beat's pill
+// the climb is done: hide the console's mount and return focus. The beat pill only exists on screen at stage 4; from any other stage the
+// [data-fall] control that started the dive gets it back, else nothing is focused.
 function closedConsole() {
   consoleShown = false; $('studioConsole').hidden = true
-  const pill = document.querySelector(`.pill[data-beat="${c4Dive.beat}"]`); requestAnimationFrame(() => pill?.focus({ preventScroll: true }))
+  const tgt = c4Dive.in && pS > 3.5 ? document.querySelector(`.pill[data-beat="${c4Dive.beat}"]`) : diveSrc
+  requestAnimationFrame(() => { tgt?.focus({ preventScroll: true }); if (!tgt || document.activeElement !== tgt) document.activeElement?.blur?.() })
 }
 function frame(now) {
   const dtR = Math.min((now - last) / 1000, .05); last = now
@@ -778,6 +781,7 @@ function frame(now) {
   const c4 = (pS < C4_AT ? sstep(.5, .36, C4_AT - pS) : sstep(.5, .38, pS - C4_AT)) * (fall.active ? 1 - sstep(0, .16, fall.t) : 1)
   const b4 = clamp(uS - C4_U0, 0, C4_N), beat = Math.min(Math.floor(b4), C4_N - 1)   // b4: beats elapsed, from raw scroll
   if (pS > 2.6) for (let j = beat - 1; j <= beat + 1; j++) loadSet(c4Beats[clamp(j, 0, C4_N - 1)].o)   // this beat's set and its neighbours
+  c4Now.vis = c4 > .5
   if (c4 > 0) {
     const o = c4Beats[beat].o, ang = o.heroDeg + (b4 - beat - .5) * 360 + (RM || mobile ? 0 : ptr.snx * 24), fi = ((Math.round(ang / o.deg) % o.n) + o.n) % o.n
     c4Now.beat = beat; c4Now.deg = ((fi * o.deg) % 360 + 360) % 360
@@ -933,7 +937,7 @@ function frame(now) {
   lenstag.style.transform = `translate3d(${Math.min(ptr.sx + lensR * .74, mobile ? W - 116 : 1e9).toFixed(1)}px,${(ptr.sy + lensR * .74).toFixed(1)}px,0)`
   lenstag.style.opacity = (hide * (1 - full)).toFixed(2)
   $('proj').style.transform = `translate3d(${(par * ptr.snx * -19.2).toFixed(1)}px,${(par * ptr.sny * -10.8).toFixed(1)}px,0)`
-  const plateOff = fall.k === 4 && consoleOk !== false   // a stage-4 dive lands on the console, not the plate, unless the console failed to load
+  const plateOff = fall.k === 4 && consoleOk !== false && !(FREEZE && VIEW === 'project')   // a stage-4 dive lands on the console, not the plate, unless the console failed to load; the frozen project view keeps the plate
   $('proj').style.opacity = fall.active && !plateOff ? sstep(.9, 1, fall.u).toFixed(3) : 0
   $('proj').classList.toggle('on', fall.active && fall.u > .88 && !plateOff)
   const dOp = fall.active ? sstep(.12, .3, fall.u) * (1 - sstep(.8, .92, fall.u)) : 0

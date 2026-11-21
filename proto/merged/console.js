@@ -149,6 +149,8 @@ function heroBlob(S, name) {
 
 const bmc = new Map();
 const bmInflight = new Map();
+let bmGen = 0; // bumped by clearBitmaps: a decode resolving under an older generation closes its bitmap instead of caching it
+const STAND_IN_NOTE = 'Render in progress — cage shown for now.';
 
 function decode(key, getBlob) {
   if (bmc.has(key)) {
@@ -158,11 +160,13 @@ function decode(key, getBlob) {
     return Promise.resolve(b);
   }
   if (bmInflight.has(key)) return bmInflight.get(key);
+  const gen = bmGen;
   const p = Promise.resolve(getBlob())
     .then((blob) => (blob ? createImageBitmap(blob) : null))
     .then((b) => {
-      bmInflight.delete(key);
+      if (bmInflight.get(key) === p) bmInflight.delete(key);
       if (!b) return null;
+      if (gen !== bmGen) { try { b.close(); } catch (e) { /* already closed */ } return null; } // console closed or set switched mid-decode
       bmc.set(key, b);
       while (bmc.size > BITMAP_CAP) {
         const [ok, ob] = bmc.entries().next().value;
@@ -171,7 +175,7 @@ function decode(key, getBlob) {
       }
       return b;
     })
-    .catch(() => { bmInflight.delete(key); return null; });
+    .catch(() => { if (bmInflight.get(key) === p) bmInflight.delete(key); return null; });
   bmInflight.set(key, p);
   return p;
 }
@@ -179,6 +183,8 @@ function decode(key, getBlob) {
 function clearBitmaps() {
   for (const b of bmc.values()) { try { b.close(); } catch (e) { /* already closed */ } }
   bmc.clear();
+  bmInflight.clear();
+  bmGen++;
 }
 
 /* ------------------------------------------------------------------ backgrounds (drawn, no images) */
@@ -280,14 +286,24 @@ class ConsoleView {
     this.onMq = () => { if (!this.explicitTheme) this.applyTheme(false); };
     if (this.mq) (this.mq.addEventListener ? this.mq.addEventListener('change', this.onMq) : this.mq.addListener(this.onMq));
     this.onDocKey = (e) => {
-      if (e.key === 'Escape' && !e.isComposing) {
+      if (e.key === 'Tab' && !e.isComposing) this.trapTab(e);
+      else if (e.key === 'Escape' && !e.isComposing) {
         e.preventDefault();
         e.stopPropagation(); // the host's own Escape listener (window, bubble) must not also climb out
         this.requestExit();
       }
     };
     document.addEventListener('keydown', this.onDocKey, true);
+    this.root.setAttribute('role', 'dialog');
+    this.root.setAttribute('aria-modal', 'true');
+    this.root.setAttribute('aria-label', 'Chapter 04 console');
     this.root.hidden = false;
+    this.inerted = []; // modal: the rest of the page is inert while open; only what this console inerted is restored
+    for (const el of document.body.children) {
+      if (el === this.root || el.contains(this.root) || el.inert) continue;
+      el.inert = true;
+      this.inerted.push(el);
+    }
     this.focusFirst();
     const beat = Number.isInteger(opts.beat) ? Math.min(2, Math.max(0, opts.beat)) : 0;
     this.activate(beat);
@@ -540,7 +556,7 @@ class ConsoleView {
     this.canvas.width = this.W; this.canvas.height = this.H;
     this.el.style.setProperty('--sc-ar', this.W + ' / ' + this.H);
     this.range.max = String(S.N - 1);
-    this.note.textContent = standIn ? 'Stand-in: this set uses the cage frames for now.' : '';
+    this.note.textContent = standIn ? STAND_IN_NOTE : '';
     this.buildChips();
     this.setAngle(this.angle, false);
     this.updateProgress();
@@ -629,7 +645,7 @@ class ConsoleView {
     if (this.finish === name) { this.finish = null; this.syncFinishUi(); this.render(); return; }
     this.finish = name;
     this.syncFinishUi();
-    this.note.textContent = this.standIn ? 'Stand-in: this set uses the cage frames for now.' : '';
+    this.note.textContent = this.standIn ? STAND_IN_NOTE : '';
     this.render();
   }
 
@@ -737,6 +753,22 @@ class ConsoleView {
     document.dispatchEvent(new CustomEvent('studio:console-exit'));
   }
 
+  focusables() {
+    return [...this.root.querySelectorAll('button, input, [tabindex]')].filter(
+      (n) => n.tabIndex >= 0 && !n.disabled && n.getClientRects().length > 0
+    );
+  }
+
+  /* Tab wraps inside the console even where the browser would move on to its own chrome. */
+  trapTab(e) {
+    const list = this.focusables();
+    if (!list.length) { e.preventDefault(); return; }
+    const first = list[0], last = list[list.length - 1], a = document.activeElement;
+    if (!this.root.contains(a)) { e.preventDefault(); first.focus({ preventScroll: true }); }
+    else if (e.shiftKey && a === first) { e.preventDefault(); last.focus({ preventScroll: true }); }
+    else if (!e.shiftKey && a === last) { e.preventDefault(); first.focus({ preventScroll: true }); }
+  }
+
   focusFirst() {
     const t = this.tabsEl.children[0];
     if (t) { t.tabIndex = 0; t.focus({ preventScroll: true }); }
@@ -748,6 +780,8 @@ class ConsoleView {
     if (this.mq) (this.mq.removeEventListener ? this.mq.removeEventListener('change', this.onMq) : this.mq.removeListener(this.onMq));
     if (this.S) stopLoading(this.S);
     clearBitmaps();
+    for (const el of this.inerted || []) el.inert = false;
+    this.inerted = [];
     const root = this.root;
     root.textContent = '';
     root.classList.remove('sc-host');
