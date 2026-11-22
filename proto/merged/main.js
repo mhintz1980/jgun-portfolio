@@ -230,12 +230,11 @@ const U = {
   uTear: { value: 0 }, uIntro: { value: 1 }, uVig: { value: parseFloat(Q.get('vig') || '.08') }, uPaper: { value: new THREE.Color(DARK ? 0x0c2238 : parseInt(Q.get('paper') || 'f4f1ea', 16)) }, uInk: { value: new THREE.Color(DARK ? 0xe8e4da : 0x14181d) }, uBlue: { value: new THREE.Color(DARK ? 0x8fb8e6 : 0x1d4e89) }, uAccent: { value: new THREE.Color(0xf0703a) },
 }
 ;[U.uPaper, U.uInk, U.uBlue, U.uAccent].forEach(u => u.value.convertLinearToSRGB())   // the shader works in display space for the drawing
-const vid = document.createElement('video'); vid.muted = true; vid.loop = true; vid.playsInline = true; vid.preload = 'auto'; vid.src = '/video/showreel-v3.mp4'
-const FILM_IN = 14, FILM_OUT = 40.4   // the dark passage of the reel, as in concept 1
-vid.addEventListener('loadedmetadata', () => { vid.currentTime = FILM_IN }, { once: true })
-vid.addEventListener('timeupdate', () => { if (vid.currentTime > FILM_OUT || vid.currentTime < FILM_IN - .5) vid.currentTime = FILM_IN })
+// The reel's 14–40.4s passage starts at zero in this clip so playback needs no HTTP range seek.
+const vid = document.createElement('video'); vid.muted = true; vid.loop = true; vid.playsInline = true; vid.preload = 'auto'
+vid.src = new URL('./reticle-film.mp4', import.meta.url).href
 const vtex = new THREE.VideoTexture(vid); vtex.colorSpace = THREE.NoColorSpace
-U.tV = { value: vtex }; U.uFilm = { value: 1 }; U.uDark = { value: 0 }
+U.tV = { value: vtex }; U.uFilm = { value: 0 }; U.uDark = { value: 0 }
 // armament stage: 60 line + 60 shade frames of one spin, 6 degrees apart. Line goes on the sheet, shade under the lens.
 // The stage only needs a numbered frame set, so the source can be swapped for a new one.
 // A frame set is any numbered l/s pair in one folder; the armament stage and the Chapter 04 stage each hold one.
@@ -827,8 +826,9 @@ function frame(now) {
   const intro = fall.active ? 1 : sstep(.5, .6, oS); U.uIntro.value = intro
   // the film stays in the lens from the top through Chapter 01 (torque wrench) and Chapter 02 (enclosure), then hands over before Chapter 03 (Mark 2026-11-22)
   // (the opening keeps its own film as before; the full-lens moment keeps the 3D gear stack, Astra 2026-11-22)
-  const film = fall.active || FREEZE && !Q.has('o') ? 0 : Math.max(1 - sstep(.52, .66, oS), (1 - sstep(2.3, 2.55, pS)) * (1 - full)); U.uFilm.value = film
-  if (film > 0 && vid.paused) vid.play().catch(() => {}); else if (film === 0 && !vid.paused) vid.pause()
+  const film = fall.active || FREEZE && !Q.has('o') ? 0 : Math.max(1 - sstep(.52, .66, oS), (1 - sstep(2.3, 2.55, pS)) * (1 - full))
+  U.uFilm.value = vid.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA ? film : 0
+  if (film > 0 && vid.paused && !vid.error) vid.play().catch(() => {}); else if (film === 0 && !vid.paused) vid.pause()
   U.uTime.value = T; U.uScroll.value = pS * H; U.uFlash.value = flash
   imgFade += (1 - imgFade) * K(6); plateMat.uniforms.uFade.value = imgFade
 
