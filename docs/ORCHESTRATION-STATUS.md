@@ -10,7 +10,7 @@ evidence column records what the coordinator checked, not what the thread said.
 | B Ch04 three beats | `claude/jg044-ch04-beats` merged into coordinator (`bb607954`) | merged | 2026-11-21: `ab02e7bc` changes only main.js + index.html; stage 4 = 3 screens (`#s4` 300vh), u2p/p2u scroll map keeps every later stage index; 2.50 px/frame desktop, 2.35 phone (thread's measure) |
 | C Ch04 thin console | `claude/jg044-ch04-console` merged into coordinator (`0d9be83b`) | merged | 2026-11-21 checked: commits `12ab0d8e` + `6c9eacd6` touch only `proto/merged/console.{js,css}` (779 + 139 lines); `result.txt` 28/28 checks, 0 page errors in all 8 cases (one expected 404: pump/receiver manifests); 49 PNGs `.scratch/ch04/c-console/`; no banned names in console.js. Notes for merge: overlay z-index 30 covers sound/toolbar buttons; console stops Esc propagation while open |
 | D P3 render quote | this local session | pilots done; full-run quote waiting on Mark's go | 2026-11-21 Modal 4-CPU, Blender 5.3.0, 1536 px / 64 samples, own materials: pump `ap-7EgkIJnDYAu1PDsNWyJVvJ` 2/2 frames 15.7 container-s $0.0011; receiver 2/2 frames 16.4 container-s $0.0012; about 5 s/frame. Frames `.scratch/ch04/run-p3-pilot-{pump,receiver}/`. Quote 360-frame turn (`--preset p3-turn --timeout 600`): measured basis $0.14 per model, launcher estimate $0.28, ceiling $0.51 per model; hero stills not quoted (alternate finishes need p0_preview flags) |
-| E OpenMotion trial | Mark's machine, session in `C:/Projects/openmotion` | not started | — |
+| E OpenMotion trial | Mark starts a session in `C:/Projects/openmotion` with `docs/PROMPT-openmotion-trial-2026-11-21.md` | prompt ready | report lands at `docs/openmotion-trial-2026-11-21.md` |
 | Merge B+C pass | coordinator `0d9be83b` | passed | 2026-11-21 coordinator run (B's serve.mjs, Chrome GPU): 8 cases desktop/phone x light/dark x motion/reduced: 0 page errors; Enter at beat 3 dives k=4, real console opens (isOpen, focus inside), Esc climbs out, console hidden, focus back on pill 03; only 404s = pump/receiver manifests (stand-in). Captures `.scratch/ch04/merge-bc/` |
 | Review fixes | coordinator `54889f99` | done | 2026-11-21 reviewer: 0 critical, 2 warnings + 3 nits, all fixed (focus trap + inert + dialog role; stale beat on dives from stages 1-3; stand-in note now shows "Render in progress — cage shown for now."; orphan bitmap; freeze project view). Coordinator re-ran: 8/8 cases 0 page errors, Tab x60 stays in console, stage-1 dive opens Cage and returns focus to body, note visible |
 | Open copy question | coordinator | Mark | "Gear ratio 3.67 : 1" box still shows during pump/receiver beats |
@@ -34,6 +34,8 @@ evidence column records what the coordinator checked, not what the thread said.
 - Merge order B then C, browser pass after each merge.
 
 ## Mark's rulings (2026-11-21)
+
+- Later the same day: go P3 full turns (cap $0.55 per model); go deploy (lens fix); hide the gear readouts off the cage beat (pump, receiver, carbine); leave the integration-branch metrology conflicts for Gate 3 and do NOT push metrology; thread E via a paste prompt.
 
 - Go: music bed deploy (done, `67b63b36`), D 2-frame Modal pilots (cap $0.10 per GLB), G step 1 git actions.
 - Dives 01-02 land on their current three.js / GSAP / R3F breakdowns (the existing project pages' rigs), not a showreel passage.
