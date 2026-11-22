@@ -826,7 +826,8 @@ function frame(now) {
   { const tt = Math.tan(camera.fov * Math.PI / 360); U.uProj.value.set(camera.aspect * tt, tt, cp.sh, cp.shY) }
   const intro = fall.active ? 1 : sstep(.5, .6, oS); U.uIntro.value = intro
   // the film stays in the lens from the top through Chapter 01 (torque wrench) and Chapter 02 (enclosure), then hands over before Chapter 03 (Mark 2026-11-22)
-  const film = fall.active || FREEZE && !Q.has('o') ? 0 : 1 - sstep(2.45, 2.75, pS); U.uFilm.value = film
+  // (the opening keeps its own film as before; the full-lens moment keeps the 3D gear stack, Astra 2026-11-22)
+  const film = fall.active || FREEZE && !Q.has('o') ? 0 : Math.max(1 - sstep(.52, .66, oS), (1 - sstep(2.3, 2.55, pS)) * (1 - full)); U.uFilm.value = film
   if (film > 0 && vid.paused) vid.play().catch(() => {}); else if (film === 0 && !vid.paused) vid.pause()
   U.uTime.value = T; U.uScroll.value = pS * H; U.uFlash.value = flash
   imgFade += (1 - imgFade) * K(6); plateMat.uniforms.uFade.value = imgFade
