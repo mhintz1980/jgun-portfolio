@@ -737,6 +737,7 @@ $('snd').addEventListener('click', () => sfx.toggle())
 /* ───────────── frame ───────────── */
 const panels = [...document.querySelectorAll('.panel')], veil = $('veil')
 if (matchMedia('(pointer: coarse)').matches) { $('hintA').textContent = 'The lens renders what the sheet draws'; $('pjX').textContent = 'Climb back out' }
+const hdrEl = document.querySelector('header.top')
 let textTop = innerHeight   // phone: top of the visible text block, smoothed
 const ld = $('ld'), ldc = $('ldc'), ldb = $('ldb'), ldt = $('ldt'), lenstag = $('lenstag'), axis = $('axis'), ann = $('ann'), tags = [...document.querySelectorAll('.tag')]
 tags.forEach((t, i) => { const s = STAGES[i]; t.textContent = `STAGE ${i + 1}  ·  ${s.Zs} / ${s.Zp} / ${ZR} T` })
@@ -854,10 +855,11 @@ function frame(now) {
   if (ptr.auto || mobile) {
     const f = scr[clamp(Math.round(pS) - 1, 0, 3)], hero = pS < .5
     const bx = c4 > .5 ? ccx : arm > .5 ? acx : hero ? scr[0].cx : f.cx, by = c4 > .5 ? ccy - H * .03 : arm > .5 ? acy - H * .03 : hero ? scr[0].cy + H * .04 : f.cy
-    lx = bx + Math.sin(T * .53) * W * (mobile ? .2 : .11) + Math.sin(T * 1.31) * W * .02; ly = by + Math.sin(T * .41 + 1.2) * H * .1
+    lx = bx + Math.sin(T * .53) * W * (mobile ? .2 : .11) + Math.sin(T * 1.31) * W * .02; ly = by + Math.sin(T * .41 + 1.2) * H * (mobile ? .05 : .1)   // phone: a shorter vertical wander keeps it over the assembly
     if (mobile) {   // phone: keep the lens on the sheet, above the text block and inside the side margins
       lx = clamp(lx, baseR * .75, W - baseR * .75)
-      ly = Math.max(Math.min(ly, textTop - baseR - 14), 66 + baseR * .55)
+      const lr = Math.max(baseR, lensR), top = hdrEl.getBoundingClientRect().bottom + lr + 8   // the whole circle stays below the header bar
+      ly = clamp(ly, top, Math.max(top, textTop - lr - 14))
     }
   }
   // the dive: the lens closes onto the stage centre, then the paper tears open from that point
