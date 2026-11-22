@@ -41,6 +41,10 @@ const M = 0.12, ZR = 48, FACE = 0.62, GAP = 5.8, BORE = 0.3
 const STAGES = [{ Zs: 12, Zp: 18, n: 3 }, { Zs: 12, Zp: 18, n: 4 }, { Zs: 24, Zp: 12, n: 6 }, { Zs: 18, Zp: 15, n: 3 }]
 const RO = M * ZR / 2 + 0.54
 const ratio = s => 1 + ZR / s.Zs
+// Gear readouts (the "This stage" teeth/ratio row, the toolbar "Gear ratio") describe the gearbox. They show on the exploded
+// stack, stages 1-4 on the cage beat, the full train and the assembled view; they are hidden on Chapter 04's pump and receiver
+// beats and on the armament (carbine) sheet, where there is no gearbox to describe.
+const gearOff = (si, beat) => (si === 4 && beat >= 1) || si === 5
 
 // Chapter 04: stage 4 swaps its gear train for three beats, cage / pump / receiver, one screen of scroll each.
 // Each beat plays one full 360-frame turn (1 degree per frame) across its screen.
@@ -52,7 +56,7 @@ const ch4Pills = () => `<div class="pills mono" role="group" aria-label="Assembl
 document.querySelectorAll('.proj-p').forEach((el, i) => {
   const p = PROJECTS[i], s = STAGES[i]
   el.innerHTML = `<div class="num" aria-hidden="true">${p.n}</div><div class="k mono">${p.status}</div><h2>${p.title}</h2><p>${p.line}</p>
-  <dl class="spec mono"><dt>Work</dt><dd>${p.tags}</dd><dt>This stage</dt><dd>${s.Zs} / ${s.Zp} / ${ZR} teeth · ${s.n} planets · ${ratio(s).toFixed(2).replace(/\.?0+$/, '')} : 1</dd></dl>
+  <dl class="spec mono"><dt>Work</dt><dd>${p.tags}</dd><dt class="gear">This stage</dt><dd class="gear">${s.Zs} / ${s.Zp} / ${ZR} teeth · ${s.n} planets · ${ratio(s).toFixed(2).replace(/\.?0+$/, '')} : 1</dd></dl>
   ${i === 3 ? ch4Pills() : ''}<button class="btn mono" data-fall="${i + 1}">Fall into project ${p.n} <i>↓</i></button>`
 })
 $('plus').innerHTML = PLUS.map(([t, st, l, k]) => `<li><h3>${t}</h3><span class="mono st">${st}</span><p>${l}</p><span class="mono" style="opacity:.62">${k}</span></li>`).join('')
@@ -741,6 +745,7 @@ const hdrEl = document.querySelector('header.top')
 let textTop = innerHeight   // phone: top of the visible text block, smoothed
 const ld = $('ld'), ldc = $('ldc'), ldb = $('ldb'), ldt = $('ldt'), lenstag = $('lenstag'), axis = $('axis'), ann = $('ann'), tags = [...document.querySelectorAll('.tag')]
 tags.forEach((t, i) => { const s = STAGES[i]; t.textContent = `STAGE ${i + 1}  ·  ${s.Zs} / ${s.Zp} / ${ZR} T` })
+const ch4Spec = document.querySelector('.proj-p[data-i="4"] .spec'); let specOff = null, specKey = ''
 let warm = 2, last = performance.now(), T = FREEZE ? T0 : 0, first = true, emaMs = 16.7, slow = 0, fastN = 0, frames = 0, fpsT = last, tbKey = '', rollI = -1, landed = false
 window.__s = { fps: 0, ms: 0, scale: 1 }
 const dwg = $('dwg')
@@ -945,13 +950,24 @@ function frame(now) {
   const dOp = fall.active ? sstep(.12, .3, fall.u) * (1 - sstep(.8, .92, fall.u)) : 0
   $('depth').style.opacity = dOp.toFixed(2)
   if (dOp > 0) $('depN').textContent = Math.max(0, fall.from.pos.y - camera.position.y).toFixed(1).padStart(4, '0')
-  const key2 = si + '|' + (fall.active ? 1 : 0) + '|' + (e < .5 ? 1 : 0) + '|' + (si === 4 && c4 > .5 ? beat : -1)
+  const noGear = gearOff(si, beat)
+  // Chapter 04 panel: collapse the "This stage" row, and hand its height to the margin under the box so nothing around it moves
+  if (noGear !== specOff || (noGear && specKey !== W + 'x' + H)) {
+    specOff = noGear; specKey = W + 'x' + H
+    if (ch4Spec) {
+      ch4Spec.classList.remove('off'); ch4Spec.style.marginBottom = ''
+      if (noGear) { const dd = ch4Spec.querySelector('dd.gear'); ch4Spec.style.marginBottom = ((dd ? dd.getBoundingClientRect().height : 0) + 4).toFixed(1) + 'px'; ch4Spec.classList.add('off') }
+    }
+  }
+  const key2 = si + '|' + (fall.active ? 1 : 0) + '|' + (e < .5 ? 1 : 0) + '|' + (si === 4 && c4 > .5 ? beat : -1) + '|' + (noGear ? 1 : 0)
   if (key2 !== tbKey) {
     tbKey = key2
     $('tbS').textContent = `${String(Math.min(si, 7) + 1).padStart(2, '0')} / 08`
     $('tbV').textContent = fall.active ? 'Down the bore' : si === 4 && c4 > .5 ? CH4[beat].label : si === 7 && e > .5 ? 'Full train' : VIEWS[si]
     $('tbR').textContent = si >= 1 && si <= 4 ? `${ratio(STAGES[si - 1]).toFixed(2).replace(/\.?0+$/, '')} : 1` : `${STAGES.reduce((a, s) => a * ratio(s), 1).toFixed(0)} : 1`
     $('tbM').textContent = fall.active ? 'Shaded' : 'Line + lens'
+    { const tb = $('tb'); tb.classList.remove('noR'); tb.style.minWidth = ''   // hiding the Gear ratio cell keeps the toolbar's width
+      if (noGear) { const w = tb.offsetWidth; tb.classList.add('noR'); tb.style.minWidth = w + 'px' } }
   }
   const ri = Math.floor(T / 3.4) % ROLL.length
   if (ri !== rollI) { rollI = ri; $('roll').textContent = ROLL[ri] }
