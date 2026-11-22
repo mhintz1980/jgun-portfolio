@@ -746,6 +746,7 @@ let textTop = innerHeight   // phone: top of the visible text block, smoothed
 const ld = $('ld'), ldc = $('ldc'), ldb = $('ldb'), ldt = $('ldt'), lenstag = $('lenstag'), axis = $('axis'), ann = $('ann'), tags = [...document.querySelectorAll('.tag')]
 tags.forEach((t, i) => { const s = STAGES[i]; t.textContent = `STAGE ${i + 1}  ·  ${s.Zs} / ${s.Zp} / ${ZR} T` })
 const ch4Spec = document.querySelector('.proj-p[data-i="4"] .spec'); let specOff = null, specKey = ''
+document.querySelector('.proj-p[data-i="3"] .spec')?.classList.add('off')   // Chapter 03 (armament): no gearbox row (Mark 2026-11-21)
 let warm = 2, last = performance.now(), T = FREEZE ? T0 : 0, first = true, emaMs = 16.7, slow = 0, fastN = 0, frames = 0, fpsT = last, tbKey = '', rollI = -1, landed = false
 window.__s = { fps: 0, ms: 0, scale: 1 }
 const dwg = $('dwg')

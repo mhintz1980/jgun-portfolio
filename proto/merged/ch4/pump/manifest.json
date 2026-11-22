@@ -1,0 +1,2 @@
+{ "set": "ch4/pump", "frames": 360, "deg": 1, "size": [1024, 640], "line": "l%03d.webp", "shade": "s%03d.webp",
+  "finishes": [], "hero": "hero-%s.webp", "heroDeg": 120 }
