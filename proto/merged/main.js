@@ -825,7 +825,8 @@ function frame(now) {
   U.uLens.value.set(ptr.sx * PR, (H - ptr.sy) * PR); U.uR.value = lensR * PR; U.uFull.value = full; U.uWarp.value = RM ? 0 : warp
   { const tt = Math.tan(camera.fov * Math.PI / 360); U.uProj.value.set(camera.aspect * tt, tt, cp.sh, cp.shY) }
   const intro = fall.active ? 1 : sstep(.5, .6, oS); U.uIntro.value = intro
-  const film = fall.active || FREEZE && !Q.has('o') ? 0 : 1 - sstep(.52, .66, oS); U.uFilm.value = film
+  // the film stays in the lens from the top through Chapter 01 (torque wrench) and Chapter 02 (enclosure), then hands over before Chapter 03 (Mark 2026-11-22)
+  const film = fall.active || FREEZE && !Q.has('o') ? 0 : 1 - sstep(2.45, 2.75, pS); U.uFilm.value = film
   if (film > 0 && vid.paused) vid.play().catch(() => {}); else if (film === 0 && !vid.paused) vid.pause()
   U.uTime.value = T; U.uScroll.value = pS * H; U.uFlash.value = flash
   imgFade += (1 - imgFade) * K(6); plateMat.uniforms.uFade.value = imgFade
