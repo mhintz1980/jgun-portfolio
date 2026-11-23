@@ -23,6 +23,8 @@ body{font-family:var(--body);color:var(--ink);-webkit-font-smoothing:antialiased
 body.locked{overflow:hidden}
 #gl{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;touch-action:pan-y}
 .track section{height:100vh;height:100svh}.track #top{height:250vh;height:250svh}
+/* Chapter 04 is three beats (cage / pump / receiver), one screen of scroll each: keep in step with CH4.length in main.js */
+.track #s4{height:300vh;height:300svh}
 .mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.09em;font-size:11px;line-height:1.5;font-variant-numeric:tabular-nums}
 a{color:inherit}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
@@ -65,6 +67,10 @@ h2{font-size:clamp(32px,3.7vw,66px)}
 .btn:hover{gap:24px}
 .btn i{font-style:normal;display:inline-block;transition:transform .4s var(--ease)}
 .btn:hover i{transform:translateY(4px)}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{background:none;border:1px solid #fff;color:inherit;font:inherit;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;cursor:pointer}
+.pill span{opacity:.72}.pill[aria-pressed=true]{background:#fff;color:#000}.pill[aria-pressed=true] span{opacity:1}
+.pill:focus-visible,.btn:focus-visible{outline:2px solid #fff;outline-offset:3px}
 .hint{display:flex;gap:26px;flex-wrap:wrap;opacity:.8;margin-top:8px}
 .hint span::before{content:"";display:inline-block;width:7px;height:7px;border:1px solid #fff;border-radius:50%;margin-right:9px;vertical-align:1px}
 .plus{display:grid;gap:0;max-width:560px}
@@ -91,6 +97,7 @@ svg.lead:not(#ann){display:none}
 .tb div:nth-child(-n+3){border-top:0}.tb div:nth-child(3n){border-right:0}
 .tb small{display:block;font-size:8px;opacity:.55;letter-spacing:.14em}
 .tb b{font-weight:500}.tb .hot{color:#b3410f}
+.tb.noR>div:nth-child(5){display:none}.tb.noR>div:nth-child(6){grid-column:span 2}.spec.off .gear{display:none}
 .snd{position:fixed;z-index:22;left:12px;bottom:12px;background:var(--paper);border:1px solid var(--ink);padding:9px 14px;display:flex;gap:10px;align-items:center;color:var(--ink)}
 .snd::before{content:"";width:8px;height:8px;border-radius:50%;border:1px solid var(--ink)}
 .snd[aria-pressed="true"]::before{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 3px rgba(240,112,58,.25)}
@@ -131,6 +138,7 @@ svg.lead:not(#ann){display:none}
 }
 @media (prefers-reduced-motion:reduce){.btn,.btn i,.top nav a::after{transition:none}}
 </style>
+<link rel="stylesheet" href="./console.css">   <!-- Chapter 04 console, thread C; 404 until it merges and nothing depends on it -->
 </head>
 <body>
 <canvas id="gl" role="img" aria-label="A planetary gear train, drawn as an exploded view. A lens follows the cursor and shows the same parts as rendered metal."></canvas>
@@ -168,7 +176,7 @@ svg.lead:not(#ann){display:none}
     <div class="k mono">Armament · line and shade</div>
     <h2>AR-15 pattern carbine</h2>
     <p>One model, two sets of frames. The line drawing sits on the sheet and the shaded model shows under the lens. Scroll turns it.</p>
-    <dl class="spec mono"><dt>Views</dt><dd>60 · 6° apart</dd><dt>Model</dt><dd>Representative model</dd></dl>
+    <dl class="spec mono"><dt>Views</dt><dd>360 · 1° apart</dd><dt>Model</dt><dd>Representative model</dd></dl>
   </div>
 
   <div class="diff panel" data-i="6">
@@ -190,7 +198,7 @@ svg.lead:not(#ann){display:none}
   <section id="top"></section><section id="work"></section><section id="s2"></section><section id="s3"></section><section id="s4"></section><section id="arm"></section><section id="systems"></section><section id="contact"></section>
 </div>
 
-<div class="tb mono" aria-hidden="true">
+<div class="tb mono" id="tb" aria-hidden="true">
   <div><small>Name</small><b>Mark Hintz</b></div>
   <div><small>Sheet</small><b id="tbS">01 / 08</b></div>
   <div><small>View</small><b id="tbV">Exploded stack</b></div>
@@ -211,6 +219,8 @@ svg.lead:not(#ann){display:none}
   </div>
   <div class="cap"><div class="mono" id="pjC" aria-live="polite"></div><div class="pg mono"><button id="pjPrev" aria-label="Previous image">←</button><button id="pjNext" aria-label="Next image">→</button></div></div>
 </aside>
+
+<div id="studioConsole" hidden role="dialog" aria-modal="true" aria-label="Chapter 04 console"></div>
 
 <div class="boot"><p class="mono" id="bootT">Setting out the sheet</p><p class="nogl" id="nogl">This page draws its machine with WebGL2, which this browser did not provide. The work is at studiomark.dev.</p></div>
 <script type="module" src="./main.js"></script>

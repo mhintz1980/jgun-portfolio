@@ -1,6 +1,8 @@
 # JG-044 (proposed ID) — Merged homepage concept: one sheet, one lens, one fall
 
-Written 2026-11-16. Status: **plan only, awaiting owner go.** Nothing is built.
+Written 2026-11-16. Status (updated 2026-11-18): **prototype built in `proto/merged/`**
+(phases 1-4, paper tear version i Astra-approved); **Gate 2 open.** The chapter-video
+direction and the Chapter 04 plan below are **planning only**: no Blender, no Modal.
 Owner approved the merge direction and the pointer look-around on 2026-11-16.
 
 ## Cost and gates first
@@ -102,6 +104,95 @@ This carbine is a stand-in, not Mark's own design (owner ruling 2026-11-13). The
 shows it with two lines: "AR-15-pattern carbine" and "(IP-Safe Representative Model)",
 and the film's rules test requires the second line. This plan says pattern only. Mark
 decides whether the homepage carries the second line too.
+
+## Chapter-video direction (Mark, 2026-11-17; Chapter 04 approved 2026-11-18)
+
+Each chapter shows a rendered model instead of the code-drawn gear train: the sheet
+shows a line pass, the lens shows the same frames photoreal. Source: Blender Cycles on
+Modal, numbered WebP frame sequences scrubbed by scroll (not MP4), both passes from one
+camera so the lens registers with the sheet (same pattern as `proto/merged/arm/`). The
+chapter button runs the version i tear and dive. No `.glb` on `/home/`.
+
+| Chapter | Model | Status |
+|---|---|---|
+| 01 Torque wrench | Torque wrench, rotate and explode (`C:/Projects/CAD/Default.glb`) | Pilot not started |
+| 02 Quiet Machine | Enclosure, 360 turn or section (`C:/Projects/CAD/RL300-SAFE/`) | Not started |
+| 03 Armament | AR-15 pattern carbine spin (120 frames, built) on the stage; drop lands on the approved armament cut plus an M249 reverse-engineering beat | Ruled 2026-11-20, see below |
+| 04 Renderings, Animation & StudioMark | 3 assemblies + StudioMark console, see below | Planning |
+
+Still open for Mark: what dives 01-02 land on (showreel passage or one clip per
+project). Chapter 03 is ruled below.
+
+### Chapter 03: Armament (Mark, 2026-11-20)
+
+- **Drop landing (option D, approved):** the showreel armament cut
+  `remotion/out/armament-review-spin-v2.mp4` (worktree `armament-wiring-clipspin-15a80d`,
+  rendered 2026-11-16). Mark approved the cut. Background audio: `music-bed-v1.mp3`
+  (kept for background use, `project/work/evidence/jg-041-showreel/`).
+- **Not enough on its own.** The chapter also needs an **M249 reverse-engineering beat**.
+  Mark's account (2026-11-20, his words summarized; facts as he stated them):
+  1. **Traditional measurement** of the physical parts: calipers, micrometers, height
+     gage, dial indicators, plug and pin gages, Rockwell hardness testers.
+  2. **3D scanning**: point cloud data taken through **Geomagic** into **SolidWorks**.
+  3. **Drawings**: he created prints for most of the weapon, including custom OEM parts
+     such as the **Drive Recoil Spring**.
+  4. **Materials and finishes**: selected through research; where research failed, from
+     his own materials-and-processes knowledge plus seeing and feeling the physical
+     parts, which gave clues for surface-finish checks and finishing operations.
+- **Minimum the viewer must get** (Mark: "we don't need to use all of that"): the
+  reverse-engineering equipment, the software chain (scan → Geomagic → SolidWorks), and
+  that he drew every part, custom OEM parts included. Materials/finish research is
+  optional depth.
+- **Walls that still apply:** no dimensions, GD&T, part or drawing numbers on screen;
+  `m249-transformed.glb` and `m249_FN.glb` stay banned; M249 geometry only from Mark's own
+  model (`M249 Receiver Plus.glb`, also used in Chapter 04). The film and homepage both ban
+  engineering drawings on screen, so **how the drawings are shown is open for Mark**:
+  e.g. drawing sheets with dimensions, title block and numbers masked; line-pass renders of
+  his SolidWorks parts standing in for the prints; or a count/caption only ("prints for
+  every part, custom OEM parts included").
+- **Source material not on this machine (checked 2026-11-20):** no M249 scan data, Geomagic
+  files, M249 drawings or Drive Recoil Spring print were found under `C:/Projects/CAD` or
+  `Downloads/CAD`. Needed from Mark: photos or clips of the measuring equipment (or
+  permission to show representative equipment), scan/point-cloud and Geomagic screenshots,
+  SolidWorks part and drawing views to sanitize.
+- **Next step:** Mark picks the drawing treatment and supplies source material; then a
+  storyboard for the beat (stills first, $0) before any render or Higgsfield spend.
+
+### Chapter 04: Renderings, Animation & StudioMark
+
+Full record: `docs/HANDOFF-chapter4-studiomark-design-2026-11-18.md`.
+
+- **Approved by Mark:** merge Renderings with the StudioMark ("CAD to Ad") pipeline into
+  one chapter; three assemblies scroll-sequenced (0-.33, .33-.66, .66-1) with
+  `01 / 02 / 03` specimen pills; local $0 previews before any Modal run.
+  1. A large planetary carrier cage (`Default.glb` / `RL300-SAFE/optimized/jgun-gearbox.glb`).
+  2. DD4SE open-skid pump (`C:/Projects/msp-render-pipeline-scene-prep/cad/DD4SE-clean.glb`).
+  3. M249 sub-assembly, Option B (`Topcover Assembly.glb` or `M249 Receiver Plus.glb`).
+- **Bottom of the dive:** a simulated StudioMark console from pre-rendered frames,
+  stills and MP4s: assembly switch, light / dark / jobsite background, finish swap,
+  angle scrub, A/B wipe raw CAD vs Cycles, truth-photo parity, raw-vs-post video, the
+  20-slide training deck. Coded UI after `C:/Projects/video-app-prep/12-ui-mockups.html`;
+  no AI mockups, no AI product renders.
+- **Plan rules (2026-11-18 review):**
+  1. M249: confirm Mark's own geometry; BCP-condition display shells; no part or drawing
+     numbers in labels or frames. `m249-transformed.glb` and `m249_FN.glb` stay banned.
+  2. Weight by reuse: shade pass on transparent (backgrounds drawn by the page); one
+     60-frame angle set per assembly serves the scroll beats and the console scrub;
+     finishes as hero stills only; A/B wipe = line vs shade on the same frame. Target
+     about 6-7 MB of frames; console videos and deck load only when it opens.
+  3. Gate 2 scope: thin console (switch, background, scrub, A/B) in Gate 2; parity,
+     videos and deck after it, so Gate 2 and JG-045 are not held up. Mark decides.
+  4. Pilot: planetary cage only, $0 local stills, then one Modal run with cost stated
+     and Mark's go, before DD4SE and the M249 piece. Same scene setup as the 01 pilot.
+  5. Astra rules on the console and every Chapter 04 effect.
+  6. Brand sanitization of existing proofs (MYERS-SETH lettering, MSP lockups, RL-300
+     plates) and the `content.test.ts` bans: Mark rules before any proof is used.
+- **Ruled 2026-11-19:** cage A000861 (stage 4); `M249 Receiver Plus.glb`, Mark's own
+  geometry; clean all brand marks; thin console for Gate 2. Implementation and asset
+  plan, with costs and phases: `JG-044-ch04-studiomark-plan.md` (awaiting Mark's go).
+- **Cost estimates (not measured):** planning about 150-250k tokens; Modal Cycles for
+  all three assemblies about $2-6 (carbine: $0.48 full 360-frame render, $0.05
+  shade-only). No spend without the stated cost and Mark's go for that run.
 
 ## Phases
 

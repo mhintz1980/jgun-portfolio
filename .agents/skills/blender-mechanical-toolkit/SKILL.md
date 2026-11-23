@@ -39,9 +39,14 @@ task calls for it (index: `node _skills-index/skills-index.mjs --match scenario-
 
 ## Execution channel
 
-- Headless: `"C:\Program Files\Blender Foundation\Blender 5.2\blender.exe" -b <file.blend>
-  --factory-startup --python-exit-code 1 -P script.py -- args` (Blender **5.2.2 LTS**, Python
-  3.13). Or the available native Blender bridge — check its actual tool schemas and
+- Headless: `"C:\Program Files\Blender Foundation\Blender 5.3\blender.exe" -b <file.blend>
+  --factory-startup --python-exit-code 1 -P script.py -- args` (Blender **5.3.0**, Python
+  3.13.13; `blender` resolves via the `~/.local/bin/blender.cmd` shim, pinned 2026-11-19
+  to this absolute path — update the shim when the pin changes. Lanes
+  with already-rendered 5.2.2 LTS frames, e.g. JG-041 armament, keep 5.2.2 for parity).
+  The Blender MCP addon is installed in 5.3 (owner, 2026-11-19) — its socket server may
+  need an explicit Start in the UI panel, and MCP tools register at harness session init
+  only. Or the available native Blender bridge — check its actual tool schemas and
   `bpy.app.version`; do **not** assume Scenario tool names or the Scenario Blender plugin.
 - **Missing-sibling fallback resolves locally from the vendor tree, never `skill_get` or Scenario
   MCP/API.** All siblings ship in the subtree — a missing one is an installation defect: report and

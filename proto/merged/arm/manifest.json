@@ -1,0 +1,2 @@
+{ "set": "arm", "frames": 360, "deg": 1, "size": [1278, 426], "line": "l%03d.webp", "shade": "s%03d.webp",
+  "finishes": [], "hero": "hero-%s.webp", "heroDeg": 0 }
