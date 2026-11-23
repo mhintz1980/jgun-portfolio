@@ -238,17 +238,45 @@ U.tV = { value: vtex }; U.uFilm = { value: 0 }; U.uDark = { value: 0 }
 // armament stage: 60 line + 60 shade frames of one spin, 6 degrees apart. Line goes on the sheet, shade under the lens.
 // The stage only needs a numbered frame set, so the source can be swapped for a new one.
 // A frame set is any numbered l/s pair in one folder; the armament stage and the Chapter 04 stage each hold one.
-// WebP blobs load coarse-to-fine (compressed, cheap to hold); only a window of frames around the requested index is decoded
-// to ImageBitmap off the main thread. three ignores texture.flipY / premultiplyAlpha for ImageBitmap sources (the pixelStorei
-// calls are skipped), so the textures use flipY=false and the decode options reproduce the old Image upload: flipY on both
-// layers, no colour conversion, premultiplied alpha on the shade layer only.
+// WebP blobs load coarse-to-fine (compressed, cheap to hold). A Worker decodes the window of frames around the requested index
+// (createImageBitmap -> OffscreenCanvas -> raw bytes, vertically flipped, shade premultiplied, line layer packed to one
+// luminance byte) and transfers the buffers back; the main thread only does texSubImage2D from a typed array with GL unpack
+// flags off. The line layer is sampled for luminance only (inkAt), so R8 loses nothing; resolution is untouched.
 const mkArmTex = () => { const t = new THREE.Texture(); t.colorSpace = THREE.NoColorSpace; t.minFilter = THREE.LinearFilter; t.generateMipmaps = false; t.flipY = false; return t }
-const BM_OPT_L = { imageOrientation: 'flipY', premultiplyAlpha: 'none', colorSpaceConversion: 'none' }
-const BM_OPT_S = { imageOrientation: 'flipY', premultiplyAlpha: 'premultiply', colorSpaceConversion: 'none' }
-const DEC_NEAR = 12, DEC_BIAS = 4, DEC_AHEAD = DEC_NEAR + DEC_BIAS, DEC_BEHIND = DEC_NEAR - DEC_BIAS, DEC_KEEP = 18, DEC_MAX = 4
-// idx = requested frame, shown = frame currently on the texture (-1 until the first one lands), way = last scroll direction
+const mkRaw = (w, h, fmt) => { const t = new THREE.DataTexture(new Uint8Array(fmt === THREE.RedFormat ? w * h : w * h * 4), w, h, fmt, THREE.UnsignedByteType); t.colorSpace = THREE.NoColorSpace; t.minFilter = t.magFilter = THREE.LinearFilter; t.generateMipmaps = false; t.flipY = false; t.premultiplyAlpha = false; if (fmt === THREE.RedFormat) t.unpackAlignment = 1; return t }
+function decodeWorker() {
+  const pool = [], canvases = {}
+  const take = n => { for (let k = 0; k < pool.length; k++) if (pool[k].byteLength === n) return new Uint8Array(pool.splice(k, 1)[0]); return new Uint8Array(n) }
+  const OPT = { premultiplyAlpha: 'none', colorSpaceConversion: 'none' }
+  const pix = async blob => {
+    const bm = await createImageBitmap(blob, OPT), w = bm.width, h = bm.height, k = w + 'x' + h
+    const c = canvases[k] || (canvases[k] = new OffscreenCanvas(w, h)), g = c.getContext('2d', { willReadFrequently: true })
+    g.clearRect(0, 0, w, h); g.drawImage(bm, 0, 0); bm.close(); return { w, h, d: g.getImageData(0, 0, w, h).data }
+  }
+  onmessage = async e => {
+    const m = e.data
+    if (m.free) { for (const b of m.free) if (b && b.byteLength) pool.push(b); return }
+    try {
+      const [L, S] = await Promise.all([pix(m.l), pix(m.s)])
+      const lo = take(L.w * L.h), so = take(S.w * S.h * 4), ld = L.d, sd = S.d
+      for (let y = 0; y < L.h; y++) { let si = y * L.w * 4, di = (L.h - 1 - y) * L.w; for (let x = 0; x < L.w; x++, si += 4) lo[di + x] = (77 * ld[si] + 150 * ld[si + 1] + 29 * ld[si + 2]) >> 8 }
+      for (let y = 0; y < S.h; y++) { let si = y * S.w * 4, di = (S.h - 1 - y) * S.w * 4; for (let x = 0; x < S.w; x++, si += 4, di += 4) { const a = sd[si + 3]; so[di] = (sd[si] * a + 127) / 255 | 0; so[di + 1] = (sd[si + 1] * a + 127) / 255 | 0; so[di + 2] = (sd[si + 2] * a + 127) / 255 | 0; so[di + 3] = a } }
+      postMessage({ id: m.id, i: m.i, lw: L.w, lh: L.h, sw: S.w, sh: S.h, l: lo.buffer, s: so.buffer }, [lo.buffer, so.buffer])
+    } catch (err) { postMessage({ id: m.id, i: m.i, err: 1 }) }
+  }
+}
+const decUrl = URL.createObjectURL(new Blob(['(' + decodeWorker.toString() + ')()'], { type: 'text/javascript' })), decJobs = new Map()
+const DECWS = [new Worker(decUrl), new Worker(decUrl)]   // two workers, jobs go round-robin
+let decId = 0
+DECWS.forEach(w => { w.onmessage = e => { const j = decJobs.get(e.data.id); decJobs.delete(e.data.id); if (j) j(e.data) } })
+// window around the requested frame: DEC_AHEAD (grows with the stride) frames the way the scroll is going, DEC_BEHIND the other way;
+// frames beyond DEC_KEEP are evicted, except every DEC_COARSE-th frame, which stays resident as a fling fallback (<= 12 deg off).
+// DEC_MAX = jobs in flight per set (2 per worker): jobs are chosen at post time, so none can go stale in a queue.
+const DEC_AHEAD = 14, DEC_BEHIND = 6, DEC_KEEP = 24, DEC_MAX = 4, DEC_COARSE = 24, DEC_SEARCH = 24
+// idx = requested frame, shown = frame currently on the texture (-1 until the first one lands), way = last scroll direction,
+// sp = smoothed |frames moved| per call, st = decode stride (1 when slow .. 6 when fast)
 function frameSet(dir, n) {
-  return { dir, n, deg: 360 / n, loaded: false, idx: -1, shown: -1, way: 1, live: 0, nDec: 0, bl: [], bs: [], has: [], dec: [], bmL: [], bmS: [], rk: 0, mv: 0, hold: 0, rL: [mkArmTex(), mkArmTex(), mkArmTex()], rS: [mkArmTex(), mkArmTex(), mkArmTex()], texL: null, texS: null }
+  return { dir, n, deg: 360 / n, loaded: false, idx: -1, shown: -1, way: 1, live: 0, nDec: 0, bl: [], bs: [], has: [], dec: [], bmL: [], bmS: [], rk: 0, mv: 0, sp: 0, st: 1, hold: 0, rL: null, rS: null, texL: null, texS: null }
 }
 function loadSet(o) {
   if (o.loaded) return; o.loaded = true
@@ -266,28 +294,33 @@ function loadSet(o) {
 const wrapD = (d, n) => d > n / 2 ? d - n : d < -n / 2 ? d + n : d   // signed shortest offset on the ring
 function decodeFrame(o, i) {
   o.dec[i] = 1; o.nDec++
-  const fin = (a, b) => {
+  const id = ++decId
+  decJobs.set(id, m => {
     o.nDec--; o.dec[i] = 0
-    if (a && b && o.idx >= 0 && Math.abs(wrapD(i - o.idx, o.n)) <= DEC_KEEP) { o.bmL[i] = a; o.bmS[i] = b; o.live++ }
-    else { if (a) a.close(); if (b) b.close(); if (!(a && b)) o.has[i] = 0 }
+    if (!m.err && o.idx >= 0 && (i % DEC_COARSE === 0 || Math.abs(wrapD(i - o.idx, o.n)) <= DEC_KEEP)) {
+      if (!o.rL) { o.rL = [0, 1, 2].map(() => mkRaw(m.lw, m.lh, THREE.RedFormat)); o.rS = [0, 1, 2].map(() => mkRaw(m.sw, m.sh, THREE.RGBAFormat)) }
+      o.bmL[i] = new Uint8Array(m.l); o.bmS[i] = new Uint8Array(m.s); o.live++
+    } else { DECWS[id & 1].postMessage({ free: [m.l, m.s] }, [m.l, m.s].filter(b => b)); if (m.err) o.has[i] = 0 }
     kick(o)
-  }
-  Promise.all([createImageBitmap(o.bl[i], BM_OPT_L), createImageBitmap(o.bs[i], BM_OPT_S)]).then(r => fin(r[0], r[1]), () => fin(null, null))
+  })
+  DECWS[id & 1].postMessage({ id, i, l: o.bl[i], s: o.bs[i] })
 }
-// start decodes for the nearest missing frames in the window; the longer arm points the way the scroll is going
+// start decodes for the nearest missing frames on the stride grid (ahead of the scroll first); the grid is absolute (f % st), so
+// frames decoded at speed are reused when the scroll slows and the gaps fill in down to 1 degree. Then the coarse fallback frames.
 function kick(o) {
   if (o.idx < 0) return
-  const n = o.n
-  for (let d = 0; d <= DEC_AHEAD && o.nDec < DEC_MAX; d++) {
+  const n = o.n, st = o.st, ahead = Math.max(DEC_AHEAD, st * 4), behind = Math.max(DEC_BEHIND, st * 2)
+  for (let d = 0; d <= ahead && o.nDec < DEC_MAX; d++) {
     for (let s = 0; s < 2 && o.nDec < DEC_MAX; s++) {
       if (d === 0 && s) break
-      if (d > (s ? DEC_BEHIND : DEC_AHEAD)) continue
+      if (d > (s ? behind : ahead)) continue
       const f = (((o.idx + (s ? -d : d) * o.way) % n) + n) % n
-      if (o.has[f] && !o.bmL[f] && !o.dec[f]) decodeFrame(o, f)
+      if (f % st === 0 && o.has[f] && !o.bmL[f] && !o.dec[f]) decodeFrame(o, f)
     }
   }
+  for (let f = 0; f < n && o.nDec < DEC_MAX; f += DEC_COARSE) if (o.has[f] && !o.bmL[f] && !o.dec[f]) decodeFrame(o, f)
 }
-function dropFrame(o, f) { o.bmL[f].close(); o.bmS[f].close(); o.bmL[f] = o.bmS[f] = null; o.live-- }
+function dropFrame(o, f) { const a = o.bmL[f].buffer, b = o.bmS[f].buffer; DECWS[f & 1].postMessage({ free: [a, b] }, [a, b]); o.bmL[f] = o.bmS[f] = null; o.live-- }
 // an inactive set gives its decoded bitmaps back (the blobs stay, the texture keeps its last upload)
 function releaseSet(o) { if (!location.search.includes('relbm')) return; /* opt-in: closing idle sets' bitmaps made the whole page ~20 fps in testing, cause unknown */ if (o.live) for (let f = 0; f < o.n; f++) if (o.bmL[f]) dropFrame(o, f) }
 // request frame i; show the nearest decoded one (wrap-aware), uploading only when it changes. Cheap to call every frame.
@@ -297,11 +330,12 @@ function setFrame(o, i) {
   if (i !== o.idx) {
     if (o.idx >= 0) { const d = wrapD(i - o.idx, n); if (d) o.way = d > 0 ? 1 : -1; o.mv = d < 0 ? -d : d }
     o.idx = i
-    if (o.live) for (let f = 0; f < n; f++) if (o.bmL[f] && f !== o.shown && Math.abs(wrapD(f - i, n)) > DEC_KEEP) dropFrame(o, f)
+    if (o.live) for (let f = 0; f < n; f++) if (o.bmL[f] && f !== o.shown && f % DEC_COARSE !== 0 && Math.abs(wrapD(f - i, n)) > DEC_KEEP) dropFrame(o, f)
   }
+  o.sp += (o.mv - o.sp) * .35; o.st = Math.min(6, Math.max(1, Math.round(o.sp)))
   kick(o)
   let f = -1
-  for (let d = 0; d <= DEC_AHEAD && f < 0; d++) {
+  for (let d = 0; d <= DEC_SEARCH && f < 0; d++) {
     const a = (((i + d * o.way) % n) + n) % n, b = (((i - d * o.way) % n) + n) % n
     if (o.bmL[a]) f = a; else if (o.bmL[b]) f = b
   }
@@ -309,13 +343,12 @@ function setFrame(o, i) {
   if (o.mv > 3 && o.shown >= 0) { o.hold ^= 1; if (o.hold) return } else o.hold = 0   // fast scroll: one upload per 2 rAFs
   // ping-pong: upload into the next texture of a ring of 3 so the GPU is never sampling the texture being written
   o.rk = (o.rk + 1) % 3; const tl = o.texL = o.rL[o.rk], ts = o.texS = o.rS[o.rk]
-  tl.image = o.bmL[f]; tl.needsUpdate = true; ts.image = o.bmS[f]; ts.needsUpdate = true
+  tl.image.data = o.bmL[f]; tl.needsUpdate = true; ts.image.data = o.bmS[f]; ts.needsUpdate = true
   const old = o.shown; o.shown = f
-  if (old >= 0 && o.bmL[old] && Math.abs(wrapD(old - i, n)) > DEC_KEEP) dropFrame(o, old)
+  if (old >= 0 && o.bmL[old] && old % DEC_COARSE !== 0 && Math.abs(wrapD(old - i, n)) > DEC_KEEP) dropFrame(o, old)
 }
 const ARM_N = 360, ARM_AT = 5, ARM_DEG = 360 / ARM_N, ARM = frameSet('arm', ARM_N)
-ARM.texL = ARM.rL[0]; ARM.texS = ARM.rS[0]
-U.tL = { value: ARM.texL }; U.tS = { value: ARM.texS }; U.uArm = { value: 0 }; U.uArmRect = { value: new THREE.Vector4(.5, .5, 1, 1) }
+U.tL = { value: mkArmTex() }; U.tS = { value: mkArmTex() }; U.uArm = { value: 0 }; U.uArmRect = { value: new THREE.Vector4(.5, .5, 1, 1) }
 // Chapter 04 stage: one slot; the beat picks which assembly's set is bound to it. Manifests come from scripts/encode-ch04-frames.sh.
 const C4_AT = 4, C4_W = .42, C4_ASP = 1.6
 const c4Sets = CH4.filter(c => c.ready).map(c => Object.assign(frameSet(`ch4/${c.set}`, 360), { c, deg: 1, heroDeg: 0 }))
@@ -351,7 +384,7 @@ vec2 armUv(vec2 uv){ return (uv - uArmRect.xy) / uArmRect.zw + .5; }
 vec2 rectUv(vec2 uv, vec4 r){ return (uv - r.xy) / r.zw + .5; }
 float in01(vec2 u){ return step(0., u.x) * step(u.x, 1.) * step(0., u.y) * step(u.y, 1.); }
 // frame stages: uCover blanks the sheet and the lens to paper / studio; each set then draws at its own weight over that
-float inkAt(sampler2D t, vec2 ua){ return smoothstep(.04, .8, 1. - dot(texture2D(t, ua).rgb, vec3(.299, .587, .114))) * in01(ua); }
+float inkAt(sampler2D t, vec2 ua){ return smoothstep(.04, .8, 1. - texture2D(t, ua).r) * in01(ua); }
 vec3 overShade(vec3 st, sampler2D t, vec2 ua, float w){ vec4 s = texture2D(t, ua) * in01(ua); return mix(st, st * (1. - s.a) + s.rgb, w); }
 float hash(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
 float vnoise(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.-2.*f);
