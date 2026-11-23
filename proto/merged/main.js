@@ -2,6 +2,7 @@
 // One planetary gear train, generated from tooth counts, drawn as a paper sheet. A lens renders it.
 // Picking a project tips the camera over the stack and drops it down the bore.
 import * as THREE from './lib/three.module.js'
+import { createVideoScrubber, unlockVideos } from './video-scrubber.js'
 
 const $ = id => document.getElementById(id)
 const Q = new URLSearchParams(location.search)
@@ -237,42 +238,209 @@ const U = {
   uTear: { value: 0 }, uIntro: { value: 1 }, uVig: { value: parseFloat(Q.get('vig') || '.08') }, uPaper: { value: new THREE.Color(DARK ? 0x0c2238 : parseInt(Q.get('paper') || 'f4f1ea', 16)) }, uInk: { value: new THREE.Color(DARK ? 0xe8e4da : 0x14181d) }, uBlue: { value: new THREE.Color(DARK ? 0x8fb8e6 : 0x1d4e89) }, uAccent: { value: new THREE.Color(0xf0703a) },
 }
 ;[U.uPaper, U.uInk, U.uBlue, U.uAccent].forEach(u => u.value.convertLinearToSRGB())   // the shader works in display space for the drawing
-const vid = document.createElement('video'); vid.muted = true; vid.loop = true; vid.playsInline = true; vid.preload = 'auto'; vid.src = '/video/showreel-v3.mp4'
-const FILM_IN = 14, FILM_OUT = 40.4   // the dark passage of the reel, as in concept 1
-vid.addEventListener('loadedmetadata', () => { vid.currentTime = FILM_IN }, { once: true })
-vid.addEventListener('timeupdate', () => { if (vid.currentTime > FILM_OUT || vid.currentTime < FILM_IN - .5) vid.currentTime = FILM_IN })
+// The reel's 14–40.4s passage starts at zero in this clip so playback needs no HTTP range seek.
+const vid = document.createElement('video'); vid.muted = true; vid.loop = true; vid.playsInline = true; vid.preload = 'auto'
+vid.src = new URL('./reticle-film.mp4', import.meta.url).href
 const vtex = new THREE.VideoTexture(vid); vtex.colorSpace = THREE.NoColorSpace
-U.tV = { value: vtex }; U.uFilm = { value: 1 }; U.uDark = { value: 0 }
+U.tV = { value: vtex }; U.uFilm = { value: 0 }; U.uDark = { value: 0 }
 // Frame stages: a frame set is 360 line + 360 shade frames of one turn, 1 degree apart (l000..l359, s000..s359).
 // Line goes on the sheet, shade under the lens. The armament stage and the Chapter 04 stage each hold one.
-// Loading is coarse-first (every 12th frame, then 6th, 3rd, all), at most 8 requests in flight; until a frame
-// arrives the stage shows the nearest loaded one, so the turn works from the first few dozen images.
-const mkArmTex = () => { const t = new THREE.Texture(); t.colorSpace = THREE.NoColorSpace; t.minFilter = THREE.LinearFilter; t.generateMipmaps = false; return t }
-function frameSet(dir, n) {
-  const o = { dir, n, l: [], s: [], ok: [], loaded: false, idx: -1, shown: -1, texL: mkArmTex(), texS: mkArmTex() }; o.texS.premultiplyAlpha = true; return o
+// Progressive coarse hero + zero-copy <video> handoff (default): loads hero + 12 coarse WebPs (~300 KB) for instant
+// < 1.5 s first paint on Fast 3G, then swaps to a Blob-backed 3-stacked turn.mp4 with GPU-to-GPU upload when painted.
+const SCRUB_MODE = Q.get('scrub') || 'video'
+const RING_RAD = 12, RING_EVICT = 16
+const circDist = (a, b, n) => { const d = Math.abs(a - b); return Math.min(d, n - d) }
+const angDiff = (a, b) => Math.abs(((a - b + 540) % 360) - 180)
+const mkArmTex = () => {
+  const t = new THREE.Texture()
+  t.colorSpace = THREE.NoColorSpace
+  t.minFilter = THREE.LinearFilter
+  t.magFilter = THREE.LinearFilter
+  t.generateMipmaps = false
+  t.flipY = false
+  t.premultiplyAlpha = false
+  return t
 }
-function loadSet(o) {
-  if (o.loaded) return; o.loaded = true
-  const order = [], seen = new Set()
-  for (const step of [12, 6, 3, 1]) for (let i = 0; i < o.n; i += step) if (!seen.has(i)) { seen.add(i); order.push(i) }
-  let next = 0
-  const pump = () => {
-    if (next >= order.length) return
-    const i = order[next++], name = String(i).padStart(3, '0'); let left = 2
-    const done = () => { if (--left) return; o.ok[i] = !!(o.l[i].naturalWidth && o.s[i].naturalWidth); pump() }
-    for (const k of ['l', 's']) { const im = new Image(); im.decoding = 'async'; im.onload = im.onerror = done; im.src = `./${o.dir}/${k}${name}.webp`; o[k][i] = im }
+function frameSet(dir, n) {
+  const o = {
+    dir, n, deg: 360 / n, heroDeg: 0,
+    blobL: [], blobS: [], bmL: [], bmS: [], decBusy: new Set(),
+    fetchLevel: 0, orderFull: null, orderCoarse: null, coarseOnly: SCRUB_MODE === 'video',
+    fetching: new Set(), failed: new Set(), activeFetch: 0, activeDec: 0,
+    idx: -1, shown: -1, reqDeg: 0, shownDeg: 0,
+    lastDecIdx: -1, dirtyDec: false, stopCoarse: false, vidStarted: false,
+    texL: mkArmTex(), texS: mkArmTex(),
+    texV: mkArmTex(), useVid: SCRUB_MODE === 'video', activeVid: false, vid: null,
   }
-  for (let j = 0; j < 8; j++) pump()
+  if (o.useVid) {
+    o.vid = createVideoScrubber({
+      url: `./${dir}/turn.mp4`,
+      tex: o.texV,
+      n,
+      onPainted: () => {
+        o.activeVid = true
+        o.stopCoarse = true
+        evictRing(o, -1, -1)
+        o.blobL.length = 0
+        o.blobS.length = 0
+      },
+      onFallback: () => {
+        o.useVid = false
+        o.activeVid = false
+        o.coarseOnly = false
+        o.stopCoarse = false
+        o.orderFull = null
+        o.shown = -1
+        const lvl = o.fetchLevel; o.fetchLevel = 0
+        if (lvl > 0) loadSet(o, lvl)
+      },
+    })
+  }
+  return o
+}
+function buildOrders(o) {
+  if (o.orderFull) return
+  const heroIdx = ((Math.round((o.heroDeg || 0) / o.deg) % o.n) + o.n) % o.n
+  const coarse = [heroIdx], seenC = new Set([heroIdx])
+  for (let i = 0; i < o.n; i += 30) if (!seenC.has(i)) { seenC.add(i); coarse.push(i) }
+  o.orderCoarse = coarse
+  if (o.coarseOnly) {
+    o.orderFull = coarse
+  } else {
+    const full = [...coarse], seen = new Set(coarse)
+    for (const step of [12, 6, 3, 1]) for (let i = 0; i < o.n; i += step) if (!seen.has(i)) { seen.add(i); full.push(i) }
+    o.orderFull = full
+  }
+  o.posFull = 0; o.posCoarse = 0
+}
+function kickVideo(o) {
+  if (o.useVid && o.vid && !o.vidStarted) { o.vidStarted = true; o.vid.start() }
+}
+function pumpFetch(o) {
+  if (o.stopCoarse) return
+  const maxInflight = o.coarseOnly ? (o.vidStarted ? 2 : 1) : (o.fetchLevel >= 2 ? 6 : 3)
+  while (o.activeFetch < maxInflight) {
+    let i = -1
+    if (!o.coarseOnly && o.fetchLevel >= 2 && o.idx >= 0) {
+      for (let d = 0; d <= RING_RAD && i < 0; d++) {
+        for (const sgn of (d ? [1, -1] : [1])) {
+          const c = (o.idx + d * sgn + o.n) % o.n
+          if ((!o.blobL[c] || !o.blobS[c]) && !o.fetching.has(c) && !o.failed.has(c)) { i = c; break }
+        }
+      }
+    }
+    const list = o.fetchLevel >= 2 ? o.orderFull : o.orderCoarse
+    const posKey = o.fetchLevel >= 2 ? 'posFull' : 'posCoarse'
+    while (i < 0 && o[posKey] < list.length) {
+      const c = list[o[posKey]++]
+      if ((!o.blobL[c] || !o.blobS[c]) && !o.fetching.has(c) && !o.failed.has(c)) i = c
+    }
+    if (i < 0) { kickVideo(o); break }
+    o.fetching.add(i); o.activeFetch++
+    const name = String(i).padStart(3, '0')
+    const isHero = i === o.orderCoarse[0]
+    Promise.all([
+      o.blobL[i] ? Promise.resolve(o.blobL[i]) : fetch(`./${o.dir}/l${name}.webp`, isHero ? { priority: 'high' } : undefined).then(r => r.ok ? r.blob() : null),
+      o.blobS[i] ? Promise.resolve(o.blobS[i]) : fetch(`./${o.dir}/s${name}.webp`, isHero ? { priority: 'high' } : undefined).then(r => r.ok ? r.blob() : null),
+    ]).then(([bl, bs]) => {
+      if (o.stopCoarse) return
+      if (bl && bs) {
+        o.blobL[i] = bl; o.blobS[i] = bs; o.dirtyDec = true
+        if (o.idx >= 0 && (o.coarseOnly || circDist(i, o.idx, o.n) <= RING_RAD)) pumpDecode(o)
+      } else o.failed.add(i)
+    }).catch(() => o.failed.add(i)).finally(() => {
+      o.fetching.delete(i); o.activeFetch--
+      if (isHero) kickVideo(o)
+      pumpFetch(o)
+    })
+  }
+}
+function loadSet(o, level = 2) {
+  if (o.stopCoarse || o.fetchLevel >= level) return
+  o.fetchLevel = level
+  buildOrders(o)
+  pumpFetch(o)
+}
+function evictRing(o, center, radius = RING_EVICT) {
+  const curL = o.texL.image, curS = o.texS.image
+  let cleared = false
+  for (let i = 0; i < o.n; i++) {
+    if (!o.bmL[i] && !o.bmS[i]) continue
+    if (center >= 0 && circDist(i, center, o.n) <= radius) continue
+    if (o.bmL[i] && o.bmL[i] !== curL) { try { o.bmL[i].close() } catch (e) {} o.bmL[i] = null; cleared = true }
+    if (o.bmS[i] && o.bmS[i] !== curS) { try { o.bmS[i].close() } catch (e) {} o.bmS[i] = null; cleared = true }
+  }
+  if (cleared && radius < 0 && !o.activeVid) { o.lastDecIdx = -1; o.dirtyDec = true }
+}
+function pumpDecode(o) {
+  if (o.idx < 0 || o.activeVid) return
+  if (o.idx === o.lastDecIdx && !o.dirtyDec) return
+  o.lastDecIdx = o.idx; o.dirtyDec = false
+  if (!o.coarseOnly) evictRing(o, o.idx, RING_EVICT)
+  while (o.activeDec < 6) {
+    let pick = -1
+    const maxD = o.coarseOnly ? (o.n >> 1) : RING_RAD
+    for (let d = 0; d <= maxD && pick < 0; d++) {
+      for (const sgn of (d ? [1, -1] : [1])) {
+        const c = (o.idx + d * sgn + o.n) % o.n
+        if (o.blobL[c] && o.blobS[c] && !(o.bmL[c] && o.bmS[c]) && !o.decBusy.has(c)) { pick = c; break }
+      }
+    }
+    if (pick < 0) break
+    o.decBusy.add(pick); o.activeDec++
+    const bl = o.blobL[pick], bs = o.blobS[pick], idx = pick
+    Promise.all([
+      o.bmL[idx] ? Promise.resolve(o.bmL[idx]) : createImageBitmap(bl, { premultiplyAlpha: 'none', colorSpaceConversion: 'none' }),
+      o.bmS[idx] ? Promise.resolve(o.bmS[idx]) : createImageBitmap(bs, { premultiplyAlpha: 'premultiply', colorSpaceConversion: 'none' }),
+    ]).then(([ml, ms]) => {
+      if (o.activeVid || (!o.coarseOnly && o.idx >= 0 && circDist(idx, o.idx, o.n) > RING_EVICT)) {
+        if (ml && ml !== o.bmL[idx]) try { ml.close() } catch (e) {}
+        if (ms && ms !== o.bmS[idx]) try { ms.close() } catch (e) {}
+        return
+      }
+      o.bmL[idx] = ml; o.bmS[idx] = ms; o.dirtyDec = true
+    }).catch(() => {}).finally(() => {
+      o.decBusy.delete(idx); o.activeDec--; pumpDecode(o)
+    })
+  }
 }
 function setFrame(o, i) {
   o.idx = i
+  o.reqDeg = ((i * (o.deg || 360 / o.n)) % 360 + 360) % 360
+  if (o.useVid && o.vid) o.vid.seek(i)
+  if (o.activeVid && o.vid) {
+    o.shown = o.vid.state.shown
+    o.shownDeg = o.vid.state.shownDeg
+    return
+  }
+  pumpDecode(o)
   let f = -1
-  for (let d = 0; d <= 12 && f < 0; d++) { if (o.ok[(i + d) % o.n]) f = (i + d) % o.n; else if (o.ok[(i - d + o.n) % o.n]) f = (i - d + o.n) % o.n }
+  for (let d = 0; d <= o.n >> 1 && f < 0; d++) {
+    const a = (i + d) % o.n, b = (i - d + o.n) % o.n
+    if (o.bmL[a] && o.bmS[a]) f = a
+    else if (o.bmL[b] && o.bmS[b]) f = b
+  }
   if (f < 0 || f === o.shown) return
-  o.texL.image = o.l[f]; o.texL.needsUpdate = true; o.texS.image = o.s[f]; o.texS.needsUpdate = true; o.shown = f
+  const oldL = o.texL.image, oldS = o.texS.image
+  o.texL.image = o.bmL[f]; o.texL.needsUpdate = true
+  o.texS.image = o.bmS[f]; o.texS.needsUpdate = true
+  o.shown = f
+  o.shownDeg = ((f * (o.deg || 360 / o.n)) % 360 + 360) % 360
+  if (!o.coarseOnly) {
+    if (oldL && oldL !== o.texL.image) {
+      const k = o.bmL.indexOf(oldL)
+      if (k >= 0 && circDist(k, i, o.n) > RING_EVICT) { o.bmL[k] = null; try { oldL.close() } catch (e) {} }
+    }
+    if (oldS && oldS !== o.texS.image) {
+      const k = o.bmS.indexOf(oldS)
+      if (k >= 0 && circDist(k, i, o.n) > RING_EVICT) { o.bmS[k] = null; try { oldS.close() } catch (e) {} }
+    }
+  }
 }
+for (const ev of ['pointerdown', 'touchstart', 'keydown']) addEventListener(ev, unlockVideos, { once: true, passive: true })
 const ARM_N = 360, ARM_AT = 5, ARM_DEG = 360 / ARM_N, ARM = frameSet('arm', ARM_N)
 U.tL = { value: ARM.texL }; U.tS = { value: ARM.texS }; U.uArm = { value: 0 }; U.uArmRect = { value: new THREE.Vector4(.5, .5, 1, 1) }
+U.uArmPacked = { value: 0 }; U.uArmH3 = { value: 1278 }
 // Chapter 04 stage: one slot; the beat picks which assembly's set is bound to it. Manifests come from scripts/encode-ch04-frames.sh.
 const C4_AT = 4, C4_ASP = 1.6
 // Scroll coordinates. u = scroll in screens past the opening film (scrollY / SEC - EXTRA). The stage coordinate pS that the
@@ -294,6 +462,7 @@ let c4Bound = null, c4Beat = -1
 const c4Now = { beat: 0, deg: 0, vis: false }   // the beat and frame angle on screen, read when a dive starts
 let c4Dive = { beat: 0, deg: 0, in: false }, diveSrc = null   // diveSrc: the [data-fall] control that started the dive, if any
 U.tL2 = { value: mkArmTex() }; U.tS2 = { value: mkArmTex() }; U.uC4 = { value: 0 }; U.uC4Rect = { value: new THREE.Vector4(.5, .5, 1, 1) }; U.uCover = { value: 0 }
+U.uC4Packed = { value: 0 }; U.uC4H3 = { value: 1920 }
 // theme: light paper or dark blueprint. The dark lens is the lit render on a light studio, so text inverts under it in both.
 function setTheme(dark, save) {
   U.uPaper.value.set(dark ? 0x0c2238 : parseInt(Q.get('paper') || 'f4f1ea', 16)).convertLinearToSRGB()
@@ -315,13 +484,25 @@ const post = new THREE.Scene(), postCam = new THREE.Camera()
 uniform sampler2D tC, tN; uniform vec2 uRes, uLens;
 uniform float uR, uPx, uTime, uWarp, uFull, uScroll, uFlash, uAspect, uTear;
 uniform vec3 uPaper, uInk, uBlue, uAccent; uniform float uVig, uIntro, uFilm, uDark; uniform sampler2D tV; varying vec2 vUv;
-uniform sampler2D tL, tS, tL2, tS2; uniform float uArm, uC4, uCover; uniform vec4 uArmRect, uC4Rect;
-vec2 armUv(vec2 uv){ return (uv - uArmRect.xy) / uArmRect.zw + .5; }
-vec2 rectUv(vec2 uv, vec4 r){ return (uv - r.xy) / r.zw + .5; }
+uniform sampler2D tL, tS, tL2, tS2; uniform float uArm, uC4, uCover, uArmPacked, uC4Packed, uArmH3, uC4H3; uniform vec4 uArmRect, uC4Rect;
+vec2 rectUv(vec2 uv, vec4 r){ vec2 u = (uv - r.xy) / r.zw + .5; return vec2(u.x, 1. - u.y); }
+vec2 armUv(vec2 uv){ return rectUv(uv, uArmRect); }
 float in01(vec2 u){ return step(0., u.x) * step(u.x, 1.) * step(0., u.y) * step(u.y, 1.); }
 // frame stages: uCover blanks the sheet and the lens to paper / studio; each set then draws at its own weight over that
-float inkAt(sampler2D t, vec2 ua){ return smoothstep(.04, .8, 1. - dot(texture2D(t, ua).rgb, vec3(.299, .587, .114))) * in01(ua); }
-vec3 overShade(vec3 st, sampler2D t, vec2 ua, float w){ vec4 s = texture2D(t, ua) * in01(ua); return mix(st, st * (1. - s.a) + s.rgb, w); }
+float inkAt(sampler2D t, vec2 ua, float packed, float h3){
+  float py = packed > .5 ? (clamp(ua.y, 1.5 / h3, 1. - 1.5 / h3) + 2.) / 3. : ua.y;
+  return smoothstep(.04, .8, 1. - dot(texture2D(t, vec2(ua.x, py)).rgb, vec3(.299, .587, .114))) * in01(ua);
+}
+vec3 overShade(vec3 st, sampler2D t, vec2 ua, float w, float packed, float h3){
+  float m = in01(ua);
+  if (packed > .5) {
+    float py = clamp(ua.y, 1.5 / h3, 1. - 1.5 / h3);
+    vec3 rgb = texture2D(t, vec2(ua.x, py / 3.)).rgb * m;
+    float a = clamp((texture2D(t, vec2(ua.x, (py + 1.) / 3.)).r - .015) / .97, 0., 1.) * m;
+    return mix(st, st * (1. - a) + rgb, w);
+  }
+  vec4 s = texture2D(t, ua) * m; return mix(st, st * (1. - s.a) + s.rgb, w);
+}
 float hash(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
 float vnoise(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.-2.*f);
   return mix(mix(hash(i), hash(i+vec2(1,0)), f.x), mix(hash(i+vec2(0,1)), hash(i+vec2(1,1)), f.x), f.y); }
@@ -427,33 +608,36 @@ void main(){
   vec2 vc = vUv - .5; paper *= 1. - uVig * dot(vc, vc) * 2.2;
   vec3 dr = paper;
   if (inside < 1.) {
-    vec4 n0 = texture2D(tN, vUv);
-    float w1 = .9 * uPx, w2 = .75 * uPx;
-    float lap = abs(texture2D(tN, vUv + vec2(w1, 0.) * px).a + texture2D(tN, vUv - vec2(w1, 0.) * px).a
-                  + texture2D(tN, vUv + vec2(0., w1) * px).a + texture2D(tN, vUv - vec2(0., w1) * px).a - 4. * n0.a) / max(n0.a, 1e-4);
-    float eD = smoothstep(.0022, .008, lap);
-    vec3 nc = n0.xyz * 2. - 1.;
-    float eN = 4. - dot(nc, texture2D(tN, vUv + vec2(w2, 0.) * px).xyz * 2. - 1.) - dot(nc, texture2D(tN, vUv - vec2(w2, 0.) * px).xyz * 2. - 1.)
-                  - dot(nc, texture2D(tN, vUv + vec2(0., w2) * px).xyz * 2. - 1.) - dot(nc, texture2D(tN, vUv - vec2(0., w2) * px).xyz * 2. - 1.);
-    float eC = smoothstep(.45, 1.05, eN);
-    float geo = texture2D(tC, vUv).a;
-    float far = smoothstep(.14, .44, n0.a);
-    float sh = clamp(dot(normalize(nc), normalize(vec3(-.42, .66, .62))) * .5 + .5, 0., 1.);
-    vec3 fill = mix(vec3(1.), uPaper, .62) * mix(1., sh * 1.08, .5);
-    fill = mix(fill, fill * vec3(.84, .9, .98), (1. - sh) * .7);
-    fill *= mix(1., ao(vUv), .45);
-    float hl = abs(fract((pp.x + pp.y) / 5.) - .5);
-    float hatch = (1. - smoothstep(.06, .13, hl)) * smoothstep(.38, .2, sh);
-    if (uDark > .5) fill = uPaper * mix(1.2, 2.5, sh) * mix(1., ao(vUv), .45);
-    fill = mix(fill, paper, far * .55);
-    dr = mix(paper, fill, geo);
-    dr = mix(dr, uBlue, hatch * geo * .72 * (1. - far));
-    dr = mix(dr, uBlue, eC * geo * mix(.8, .3, far));
-    dr = mix(dr, mix(uInk, uBlue, .22), eD * mix(.9, .4, far));
-    dr = mix(paper, dr, uIntro);
-    if (uCover > .001) { dr = mix(dr, paper, uCover); vec3 ink = mix(uInk, uBlue, .22);
-      if (uArm > .001) dr = mix(dr, ink, inkAt(tL, armUv(vUv)) * uArm * .92);
-      if (uC4 > .001) dr = mix(dr, ink, inkAt(tL2, rectUv(vUv, uC4Rect)) * uC4 * .92); }
+    if (uCover < .999) {
+      vec4 n0 = texture2D(tN, vUv);
+      float w1 = .9 * uPx, w2 = .75 * uPx;
+      float lap = abs(texture2D(tN, vUv + vec2(w1, 0.) * px).a + texture2D(tN, vUv - vec2(w1, 0.) * px).a
+                    + texture2D(tN, vUv + vec2(0., w1) * px).a + texture2D(tN, vUv - vec2(0., w1) * px).a - 4. * n0.a) / max(n0.a, 1e-4);
+      float eD = smoothstep(.0022, .008, lap);
+      vec3 nc = n0.xyz * 2. - 1.;
+      float eN = 4. - dot(nc, texture2D(tN, vUv + vec2(w2, 0.) * px).xyz * 2. - 1.) - dot(nc, texture2D(tN, vUv - vec2(w2, 0.) * px).xyz * 2. - 1.)
+                    - dot(nc, texture2D(tN, vUv + vec2(0., w2) * px).xyz * 2. - 1.) - dot(nc, texture2D(tN, vUv - vec2(0., w2) * px).xyz * 2. - 1.);
+      float eC = smoothstep(.45, 1.05, eN);
+      float geo = texture2D(tC, vUv).a;
+      float far = smoothstep(.14, .44, n0.a);
+      float sh = clamp(dot(normalize(nc), normalize(vec3(-.42, .66, .62))) * .5 + .5, 0., 1.);
+      vec3 fill = mix(vec3(1.), uPaper, .62) * mix(1., sh * 1.08, .5);
+      fill = mix(fill, fill * vec3(.84, .9, .98), (1. - sh) * .7);
+      fill *= mix(1., ao(vUv), .45);
+      float hl = abs(fract((pp.x + pp.y) / 5.) - .5);
+      float hatch = (1. - smoothstep(.06, .13, hl)) * smoothstep(.38, .2, sh);
+      if (uDark > .5) fill = uPaper * mix(1.2, 2.5, sh) * mix(1., ao(vUv), .45);
+      fill = mix(fill, paper, far * .55);
+      dr = mix(paper, fill, geo);
+      dr = mix(dr, uBlue, hatch * geo * .72 * (1. - far));
+      dr = mix(dr, uBlue, eC * geo * mix(.8, .3, far));
+      dr = mix(dr, mix(uInk, uBlue, .22), eD * mix(.9, .4, far));
+      dr = mix(paper, dr, uIntro);
+      dr = mix(dr, paper, uCover);
+    }
+    if (uCover > .001) { vec3 ink = mix(uInk, uBlue, .22);
+      if (uArm > .001) dr = mix(dr, ink, inkAt(tL, armUv(vUv), uArmPacked, uArmH3) * uArm * .92);
+      if (uC4 > .001) dr = mix(dr, ink, inkAt(tL2, rectUv(vUv, uC4Rect), uC4Packed, uC4H3) * uC4 * .92); }
     float shd = smoothstep(uR + 46. * uPx, uR, length(d - vec2(10., -14.) * uPx));
     dr *= 1. - .24 * shd * shd * (1. - full) * (1. - uTear);
     if (uTear > .001) {
@@ -516,24 +700,26 @@ void main(){
     vec2 uvS = (uLens + d * mag) / uRes, cc = vec2(.5);
     vec2 off = (d / uRes) * .005 * smoothstep(.5, 1., q) * (1. - uFull) * (1. - uTear) + (uvS - cc) * .006 * uWarp;
     vec3 col = vec3(0.);
-    if (uWarp < .004) col = vec3(shaded(uvS + off).r, shaded(uvS).g, shaded(uvS - off).b);
-    else { float jit = fract(52.9829189 * fract(dot(frag, vec2(.06711056, .00583715))));
-      for (int i = 0; i < 10; i++) col += shaded(cc + (uvS - cc) * (1. - uWarp * .085 * (float(i) + jit) / 10.));
-      col /= 10.; }
-    if (uAo > .01) col *= mix(1., ao(uvS), .9 * uAo);
-    col = pow(aces(col * 1.4), vec3(1. / 2.2));
-    if (uDark > 1.5) { vec4 x0 = texture2D(tN, uvS); vec3 nn = normalize(x0.xyz * 2. - 1.); float gg = texture2D(tC, uvS).a;
-      float lp = 0., soft = 0.;
-      for (int i = 0; i < 8; i++) { float an = float(i) * .7854; vec2 o = vec2(cos(an), sin(an)) * px;
-        lp += abs(texture2D(tN, uvS + o * 1.2).a - x0.a) / max(x0.a, 1e-4);
-        soft += texture2D(tC, uvS + o * 7.).a; }
-      float ed = smoothstep(.004, .02, lp), glow = pow(1. - abs(nn.z), 1.7) * gg;
-      float thin = gg * (1. - soft / 8.);            // near an outline the part is thin, so it ghosts brighter
-      col = vec3(.006, .016, .032) + vec3(.42, .84, 1.) * (glow * 1.1 + ed * .7 + thin * 1.6 + gg * .09) + vec3(1.) * (glow * glow * .4 + thin * thin * .8); }
+    if (uCover < .999) {
+      if (uWarp < .004) col = vec3(shaded(uvS + off).r, shaded(uvS).g, shaded(uvS - off).b);
+      else { float jit = fract(52.9829189 * fract(dot(frag, vec2(.06711056, .00583715))));
+        for (int i = 0; i < 10; i++) col += shaded(cc + (uvS - cc) * (1. - uWarp * .085 * (float(i) + jit) / 10.));
+        col /= 10.; }
+      if (uAo > .01) col *= mix(1., ao(uvS), .9 * uAo);
+      col = pow(aces(col * 1.4), vec3(1. / 2.2));
+      if (uDark > 1.5) { vec4 x0 = texture2D(tN, uvS); vec3 nn = normalize(x0.xyz * 2. - 1.); float gg = texture2D(tC, uvS).a;
+        float lp = 0., soft = 0.;
+        for (int i = 0; i < 8; i++) { float an = float(i) * .7854; vec2 o = vec2(cos(an), sin(an)) * px;
+          lp += abs(texture2D(tN, uvS + o * 1.2).a - x0.a) / max(x0.a, 1e-4);
+          soft += texture2D(tC, uvS + o * 7.).a; }
+        float ed = smoothstep(.004, .02, lp), glow = pow(1. - abs(nn.z), 1.7) * gg;
+        float thin = gg * (1. - soft / 8.);            // near an outline the part is thin, so it ghosts brighter
+        col = vec3(.006, .016, .032) + vec3(.42, .84, 1.) * (glow * 1.1 + ed * .7 + thin * 1.6 + gg * .09) + vec3(1.) * (glow * glow * .4 + thin * thin * .8); }
+    }
     if (uCover > .001) { vec3 st = pow(aces(studio(uvS) * 1.4), vec3(1. / 2.2));
-      if (uArm > .001) st = overShade(st, tS, armUv(uvS), uArm / uCover);
-      if (uC4 > .001) st = overShade(st, tS2, rectUv(uvS, uC4Rect), uC4 / uCover);
-      col = mix(col, st, uCover); }
+      if (uArm > .001) st = overShade(st, tS, armUv(uvS), uArm / uCover, uArmPacked, uArmH3);
+      if (uC4 > .001) st = overShade(st, tS2, rectUv(uvS, uC4Rect), uC4 / uCover, uC4Packed, uC4H3);
+      col = uCover < .999 ? mix(col, st, uCover) : st; }
     if (uFilm > .001) { vec2 vu = uvS - .5; float va = 16. / 9.; if (uAspect > va) vu.y *= va / uAspect; else vu.x *= uAspect / va;
       col = mix(col, texture2D(tV, vu + .5).rgb, uFilm); }
     float rimIn = smoothstep(.7, 1., q) * (1. - uFull) * (1. - uTear);
@@ -774,12 +960,15 @@ function frame(now) {
 
   // armament: scroll picks the angle, the pointer nudges it a couple of frames either way
   const arm = sstep(.62, .3, Math.abs(pS - ARM_AT))
-  if (pS > 4.2) loadSet(ARM)   // the carbine set prefetches once scroll is past the Chapter 04 beats
-  if (ARM.loaded && (arm > 0 || ARM.shown < 0)) {
+  if (pS > 4.2) loadSet(ARM, 2)   // the carbine set prefetches once scroll is past the Chapter 04 beats
+  if (ARM.fetchLevel > 0 && (arm > 0 || ARM.shown < 0)) {
     const ang = (pS - ARM_AT) * 300 + (RM || mobile ? 0 : ptr.snx * 24), ai = ((Math.round(ang / ARM_DEG) % ARM_N) + ARM_N) % ARM_N
     setFrame(ARM, ai)   // every frame: a nearer frame may have arrived since
   }
-  U.uArm.value = ARM.shown >= 0 ? arm : 0
+  const armPack = !!(ARM.activeVid && ARM.vid)
+  U.tL.value = armPack ? ARM.texV : ARM.texL; U.tS.value = armPack ? ARM.texV : ARM.texS
+  U.uArmPacked.value = armPack ? 1 : 0; U.uArmH3.value = ARM.vid?.state.height || 1278
+  U.uArm.value = (armPack || ARM.shown >= 0) ? arm : 0
   const aw = mobile ? W * .98 : Math.min(W * .6, 1150), ah = aw / 3, acx = mobile ? W * .5 : W * .67, acy = mobile ? clamp((66 + textTop) * .5, 150, H * .42) : H * .5
   U.uArmRect.value.set(acx / W, 1 - acy / H, aw / W, ah / H)
 
@@ -787,13 +976,28 @@ function frame(now) {
   // It steps back as soon as a dive starts, so the tear opens onto the bore as before.
   const c4 = (pS < C4_AT ? sstep(.5, .36, C4_AT - pS) : sstep(.5, .38, pS - C4_AT)) * (fall.active ? 1 - sstep(0, .16, fall.t) : 1)
   const b4 = clamp(uS - C4_U0, 0, C4_N), beat = Math.min(Math.floor(b4), C4_N - 1)   // b4: beats elapsed, from raw scroll
-  if (pS > 2.6) for (let j = beat - 1; j <= beat + 1; j++) loadSet(c4Beats[clamp(j, 0, C4_N - 1)].o)   // this beat's set and its neighbours
+  if (pS > 2.6) {
+    loadSet(c4Beats[beat].o, 2)
+    const activeReady = !c4Beats[beat].o.useVid || c4Beats[beat].o.vid?.state.ready
+    if (activeReady) for (const nBeat of [beat - 1, beat + 1]) {
+      const no = c4Beats[clamp(nBeat, 0, C4_N - 1)].o
+      if (no !== c4Beats[beat].o) loadSet(no, 1)
+    }
+  }
   c4Now.vis = c4 > .5
   if (c4 > 0) {
     const o = c4Beats[beat].o, ang = o.heroDeg + (b4 - beat - .5) * 360 + (RM || mobile ? 0 : ptr.snx * 24), fi = ((Math.round(ang / o.deg) % o.n) + o.n) % o.n
     c4Now.beat = beat; c4Now.deg = ((fi * o.deg) % 360 + 360) % 360
-    setFrame(o, fi); if (o.shown >= 0 && c4Bound !== o) { c4Bound = o; U.tL2.value = o.texL; U.tS2.value = o.texS }
-  }
+    setFrame(o, fi)
+    if ((o.activeVid || o.shown >= 0) && c4Bound !== o) { if (c4Bound) evictRing(c4Bound, -1, -1); c4Bound = o }
+    if (c4Bound) {
+      const c4Pack = !!(c4Bound.activeVid && c4Bound.vid)
+      U.tL2.value = c4Pack ? c4Bound.texV : c4Bound.texL
+      U.tS2.value = c4Pack ? c4Bound.texV : c4Bound.texS
+      U.uC4Packed.value = c4Pack ? 1 : 0
+      U.uC4H3.value = c4Bound.vid?.state.height || 1920
+    }
+  } else if (c4Bound && arm > .5) evictRing(c4Bound, -1, -1)
   if (beat !== c4Beat) { c4Beat = beat; document.querySelectorAll('.pill[data-beat]').forEach(b => b.setAttribute('aria-pressed', +b.dataset.beat === beat)) }
   U.uC4.value = c4Bound ? c4 : 0
   const cw = mobile ? W * .98 : Math.min(W * .6, H * .66 * C4_ASP, 1150), ch = cw / C4_ASP, ccx = acx, ccy = mobile ? clamp((66 + textTop) * .5, 120, H * .42) : H * .5
@@ -889,8 +1093,11 @@ function frame(now) {
   U.uLens.value.set(ptr.sx * PR, (H - ptr.sy) * PR); U.uR.value = lensR * PR; U.uFull.value = full; U.uWarp.value = RM ? 0 : warp
   { const tt = Math.tan(camera.fov * Math.PI / 360); U.uProj.value.set(camera.aspect * tt, tt, cp.sh, cp.shY) }
   const intro = fall.active ? 1 : sstep(.5, .6, oS); U.uIntro.value = intro
-  const film = fall.active || FREEZE && !Q.has('o') ? 0 : 1 - sstep(.52, .66, oS); U.uFilm.value = film
-  if (film > 0 && vid.paused) vid.play().catch(() => {}); else if (film === 0 && !vid.paused) vid.pause()
+  // the film stays in the lens from the top through Chapter 01 (torque wrench) and Chapter 02 (enclosure), then hands over before Chapter 03 (Mark 2026-11-22)
+  // (the opening keeps its own film as before; the full-lens moment keeps the 3D gear stack, Astra 2026-11-22)
+  const film = fall.active || FREEZE && !Q.has('o') ? 0 : Math.max(1 - sstep(.52, .66, oS), (1 - sstep(2.3, 2.55, pS)) * (1 - full))
+  U.uFilm.value = vid.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA ? film : 0
+  if (film > 0 && vid.paused && !vid.error) vid.play().catch(() => {}); else if (film === 0 && !vid.paused) vid.pause()
   U.uTime.value = T; U.uScroll.value = pS * H; U.uFlash.value = flash
   imgFade += (1 - imgFade) * K(6); plateMat.uniforms.uFade.value = imgFade
 
@@ -898,13 +1105,16 @@ function frame(now) {
   const fast = fall.active && (warp > .1 || (fall.u > .15 && fall.u < .5)), tc = fast ? rtCf : rtC, tn = fast ? rtNf : rtN, aoK = (1 - sstep(.15, .5, warp)) * (fall.active ? 1 - sstep(.86, .98, fall.u) : 1)
   U.tC.value = tc.texture; U.tN.value = tn.texture; U.uAo.value = aoK
   tunnel.visible = fall.active || warm > 0; if (warm > 0) warm--
-  camera.layers.enable(1); scene.overrideMaterial = null
-  renderer.setRenderTarget(tc); renderer.setClearColor(0x000000, 0); renderer.render(scene, camera)
-  if (full < .999 || aoK > .01) {
-    camera.layers.disable(1); scene.overrideMaterial = normMat
-    renderer.setRenderTarget(tn); renderer.setClearColor(0x8080ff, 1); renderer.render(scene, camera)
+  const skip3d = cover > .999 && !fall.active && film < .001 && warm <= 0
+  if (!skip3d) {
+    camera.layers.enable(1); scene.overrideMaterial = null
+    renderer.setRenderTarget(tc); renderer.setClearColor(0x000000, 0); renderer.render(scene, camera)
+    if (full < .999 || aoK > .01) {
+      camera.layers.disable(1); scene.overrideMaterial = normMat
+      renderer.setRenderTarget(tn); renderer.setClearColor(0x8080ff, 1); renderer.render(scene, camera)
+    }
+    scene.overrideMaterial = null
   }
-  scene.overrideMaterial = null
   renderer.setRenderTarget(null); renderer.render(post, postCam)
 
   // DOM
@@ -988,4 +1198,9 @@ poseTunnel(0)
 // compile every program up front, including the bore's, so the first fall does not hitch
 tunnel.visible = true; camera.layers.enable(1); renderer.compile(scene, camera); scene.overrideMaterial = normMat; renderer.compile(scene, camera); scene.overrideMaterial = null; tunnel.visible = false
 requestAnimationFrame(frame)
-window.__fall = startFall; window.__climb = climbOut; window.__d = { renderer, rtC, rtN, scene, camera, fall, tunnel, plate, cp, THREE, ARM, c4Beats, c4Of, c4Now, U, u2p, uS: () => uS, pS: () => pS, SEC: () => SEC }
+const scrubStats = () => {
+  if (U.uArm.value > .5 && ARM.idx >= 0) return { active: 'arm', vid: ARM.activeVid, reqDeg: ARM.reqDeg, shownDeg: ARM.shownDeg, lagDeg: ARM.shown >= 0 ? angDiff(ARM.reqDeg, ARM.shownDeg) : 180 }
+  if (U.uC4.value > .5 && c4Bound && c4Bound.idx >= 0) return { active: 'c4', vid: c4Bound.activeVid, reqDeg: c4Bound.reqDeg, shownDeg: c4Bound.shownDeg, lagDeg: c4Bound.shown >= 0 ? angDiff(c4Bound.reqDeg, c4Bound.shownDeg) : 180 }
+  return null
+}
+window.__fall = startFall; window.__climb = climbOut; window.__d = { renderer, rtC, rtN, scene, camera, fall, tunnel, plate, cp, THREE, ARM, c4Beats, c4Of, c4Now, U, u2p, uS: () => uS, pS: () => pS, SEC: () => SEC, scrubStats, vid }

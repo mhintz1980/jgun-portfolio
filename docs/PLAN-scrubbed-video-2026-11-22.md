@@ -54,3 +54,24 @@ Skipped: atlases (about 320 MB GPU on phones), KTX2/Basis (download too heavy at
 1. If A passes, is "WebP frames kept, decoded off-thread" acceptable, given the aim was video?
 2. Carbine (Ch03) first or the cage?
 3. Is a live 3D turn (D) worth a later look if the look budget allows?
+
+---
+
+## Benchmark Results & Winner (2026-11-23, `spike/60fps-scrub-2026-11-23`)
+
+Mark lifted the method constraint on 2026-11-23 (any representation hitting ~60 fps and looking good; armament strictly 2D frames). Head-to-head benchmarks on 1440×900 headed Chrome (`perf2`-style scroll + CDP trace + lag + 390×844 Fast 3G):
+
+| Candidate | Ch04/Arm frame p50 (ms) | Ch04/Arm js/frame p50 (ms) | Main-thread `Decode Image` | Steady lag p50 / p95 | Mobile 390×844 Fast 3G ready |
+|---|---:|---:|---:|---:|---:|
+| Live `0ad6163f` (60 frames) | 16.7–16.8 (p95 33.5) | 0.9–3.1 (p95 29.5) | — | 6° step | — |
+| Old 1° build (`Image()` WebPs) | 16.7–17.1 (p95 33.6) | 12.1–19.2 | ~1,000 ms/screen | — | — |
+| Candidate A (`createImageBitmap` ±12 ring + 3D culling) | 16.7–17.0 (p95 49.9) | 4.8–10.1 (`texSubImage2D` 3.0 ms/tex) | 0.00 ms | 0° / 1° | 3,870 ms (60 fps) |
+| Candidate C (3-stack MP4 + WebCodecs `VideoDecoder`) | 16.8–33.3 (p95 50.3) | 4.4–9.0 (`texSubImage2D` 3.6 ms) | 0.00 ms | 0° / 1° | 29,528 ms (58 fps) |
+| **Winner: Zero-copy `<video>` + progressive coarse hero** | **16.7 (p95 16.8–17.3)** | **0.7–1.0 (p95 1.0–3.1)** | **0.00 ms** | **3° / 4°** | **920 ms (60 fps)** |
+
+### Winner architecture (`proto/merged/video-scrubber.js` + `proto/merged/main.js`)
+- **3D pass culling:** when `uCover > 0.999` (Ch04/Armament), skip the 3D MSAA render/normal passes and skip dead 3D composite shader work.
+- **Progressive coarse hero:** immediately fetches the hero WebP + 11 coarse frames (every 30°, ~300 KB total) via `createImageBitmap` for `< 1 s` Fast 3G first paint, then swaps seamlessly and frees all coarse bitmaps once the video paints.
+- **Zero-copy 3-stacked `<video>`:** 4 single-file MP4s (`-g 6 -bf 0 -crf 23`, bt709, faststart; `cage` 4.09 MB, `pump` 7.90 MB, `receiver` 2.91 MB, `arm` 3.55 MB = 18.45 MB total vs 49.84 MB in 2,880 WebPs) fetched as Blobs (zero HTTP Range needed), uploaded via `isVideoTexture = true` with manual `update = () => {}` triggered only by `requestVideoFrameCallback` / `seeked`, and coalesced via `!video.seeking` with final-angle settle on `seeked`.
+- **Interactive & visual verification:** 2× full benchmark passes + `smoke-flows.cjs` (`reticle-film.mp4` Ch00–Ch02 + Ch03 handover, Ch04 pills, `console.js` dive-in/climb-out, Armament `glbReqs: 0`, light/dark, mobile 390×844) all PASS with 0 errors. Visual captures inspected for `cage`, `pump`, `receiver`, `arm`, dark mode, and mobile.
+- **Next:** Owner visual check (+ Astra review) and explicit go before deploying or pushing.
