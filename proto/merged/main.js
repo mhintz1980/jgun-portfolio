@@ -499,7 +499,11 @@ void main(){
       if (uC4 > .001) st = overShade(st, tS2, rectUv(uvS, uC4Rect), uC4 / uCover);
       col = mix(col, st, uCover); }
     if (uFilm > .001) { vec2 vu = uvS - .5; float va = 16. / 9.; if (uAspect > va) vu.y *= va / uAspect; else vu.x *= uAspect / va;
-      col = mix(col, texture2D(tV, vu + .5).rgb, uFilm); }
+      // in the lens, the reel is framed to the lens: its full height spans the diameter, so the part is nameable (Astra 2026-11-22)
+      vec2 vl = vec2(d.x / va, d.y) / (2. * uR); vu = mix(vl, vu, uFull);
+      vec3 fv = texture2D(tV, vu + .5).rgb;
+      fv = mix(.04 + .96 * pow(fv, vec3(.7)), fv, step(.5, uDark));   // cream theme: lift the dark reel so the lens reads lit, not as a hole
+      col = mix(col, fv, uFilm); }
     float rimIn = smoothstep(.7, 1., q) * (1. - uFull) * (1. - uTear);
     // Directional cast shadow from the overhanging paper rim onto the 3D gears + tight contact AO lip
     if (uTear > .001) {
@@ -653,8 +657,13 @@ const sfx = {
     const nb = AC.createBuffer(1, AC.sampleRate * 2, AC.sampleRate), d = nb.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1
     const noise = () => { const s = AC.createBufferSource(); s.buffer = nb; s.loop = true; s.start(); return s }
     // music bed (Mark 2026-11-20: replaces the synth drone, chop and hover tick; the fall and climb-out sounds stay)
-    const bed = new Audio('./audio/music-bed-v1.mp3'); bed.loop = true; bed.preload = 'auto'
-    const bg = AC.createGain(); bg.gain.value = .55; AC.createMediaElementSource(bed).connect(bg); bg.connect(master)
+    // v2 is a crossfaded loop (tail mixed into head, no silence) played from an AudioBuffer, so the loop point has no gap (2026-11-22)
+    const bg = AC.createGain(); bg.gain.value = .55; bg.connect(master)
+    const bed = { buf: null, src: null, t0: 0, off: 0, want: false,
+      play() { this.want = true; if (!this.buf || this.src) return Promise.resolve()
+        const s = AC.createBufferSource(); s.buffer = this.buf; s.loop = true; s.connect(bg); s.start(0, this.off % this.buf.duration); this.src = s; this.t0 = AC.currentTime - this.off; return Promise.resolve() },
+      pause() { this.want = false; if (!this.src) return; this.off = AC.currentTime - this.t0; this.src.stop(); this.src.disconnect(); this.src = null } }
+    fetch('./audio/music-bed-v2.mp3').then(r => r.arrayBuffer()).then(a => AC.decodeAudioData(a)).then(b => { bed.buf = b; if (bed.want) bed.play() }).catch(() => {})
     // the fall: wind that opens with the warp, plus the whoosh / thunk tones below
     const wf = AC.createBiquadFilter(); wf.type = 'bandpass'; wf.frequency.value = 400; wf.Q.value = .7; const wg = AC.createGain(); wg.gain.value = 0
     noise().connect(wf); wf.connect(wg); wg.connect(master)
@@ -710,7 +719,8 @@ function frame(now) {
   explode(e)
 
   // armament: scroll picks the angle, the pointer nudges it a couple of frames either way
-  const arm = sstep(.62, .3, Math.abs(pS - ARM_AT))
+  // leaving the carbine: its ink clears in .12 screens before the gear train comes back, so the two never share the sheet (Astra 2026-11-22)
+  const arm = pS > ARM_AT ? sstep(.42, .3, pS - ARM_AT) : sstep(.62, .3, ARM_AT - pS)
   if (pS > 4.2) loadSet(ARM)   // the carbine set prefetches once scroll is past the Chapter 04 beats
   if (ARM.loaded && (arm > 0 || ARM.idx < 0)) {
     const ang = (pS - ARM_AT) * 300 + (RM || mobile ? 0 : ptr.snx * 24), ai = ((Math.round(ang / ARM_DEG) % ARM_N) + ARM_N) % ARM_N
@@ -734,7 +744,8 @@ function frame(now) {
   const cw = mobile ? W * .98 : Math.min(W * .6, H * .66 * C4_ASP, 1150), ch = cw / C4_ASP, ccx = acx, ccy = mobile ? clamp((66 + textTop) * .5, 120, H * .42) : H * .5
   U.uC4Rect.value.set(ccx / W, 1 - ccy / H, cw / W, ch / H)
   // between the two stages the sheet stays blank, so the gear train does not flash back in
-  const cover = Math.max(U.uArm.value, U.uC4.value, (c4Bound || ARM.idx >= 0) && pS > C4_AT && pS < ARM_AT && !fall.active ? 1 : 0)
+  const armExit = ARM.idx >= 0 && pS >= ARM_AT && !fall.active ? sstep(.6, .42, pS - ARM_AT) : 0   // blank sheet holds until the carbine is gone, then the train returns over .18 screens
+  const cover = Math.max(U.uArm.value, U.uC4.value, armExit, (c4Bound || ARM.idx >= 0) && pS > C4_AT && pS < ARM_AT && !fall.active ? 1 : 0)
   U.uCover.value = cover
 
   // fall progress

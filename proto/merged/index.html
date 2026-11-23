@@ -21,7 +21,8 @@ html{background:var(--paper);scrollbar-width:none}
 html::-webkit-scrollbar{display:none}
 body{font-family:var(--body);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 body.locked{overflow:hidden}
-#gl{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;touch-action:pan-y}
+#gl{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;touch-action:pan-y;opacity:0;transition:opacity .2s}
+.ready #gl{opacity:1}
 .track section{height:100vh;height:100svh}.track #top{height:250vh;height:250svh}
 .mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.09em;font-size:11px;line-height:1.5;font-variant-numeric:tabular-nums}
 a{color:inherit}
@@ -120,7 +121,8 @@ svg.lead:not(#ann){display:none}
 .cap .pg button:hover{background:var(--ink-d);color:var(--void)}
 .depth{position:fixed;z-index:21;left:50%;top:22px;transform:translateX(-50%);color:var(--ink-d);opacity:0;pointer-events:none;text-align:center}
 .depth b{color:var(--accent);font-weight:500}
-.boot{position:fixed;inset:0;z-index:50;background:var(--paper);display:grid;place-items:center;transition:opacity .8s .1s,visibility 0s .9s}
+.boot{position:fixed;inset:0;z-index:50;display:grid;place-items:end center;padding-bottom:7vh;pointer-events:none;transition:opacity .3s,visibility 0s .3s}
+body:not(.ready) .panel[data-i="0"]{opacity:1;visibility:visible}   /* the headline carries first paint; the drawing arrives under it (Astra 2026-11-22) */
 .ready .boot{opacity:0;visibility:hidden}
 .nogl{display:none;max-width:40ch;text-align:center;line-height:1.5}
 
@@ -187,7 +189,7 @@ svg.lead:not(#ann){display:none}
     <blockquote><p>“It's rare to find a designer who understands the constraints of a 5-axis mill and the realities of the assembly line. Mark designs parts that are easy to machine and foolproof to assemble. He's run the machines, built the gearboxes, and tested the product. That experience is visible in every drawing he releases.”</p><footer class="mono">BCP</footer></blockquote>
     <h2>Have a tangled design problem?</h2>
     <div class="links"><a class="mail" href="mailto:markworks.dev@gmail.com">markworks.dev@gmail.com</a></div>
-    <div class="links mono"><a href="https://linkedin.com/in/mark-hintz-builds" rel="noopener">LinkedIn</a><a href="https://github.com/mhintz1980" rel="noopener">GitHub</a><span>studiomark.dev · work in progress</span></div>
+    <div class="links mono"><a href="https://linkedin.com/in/mark-hintz-builds" rel="noopener">LinkedIn</a><a href="https://github.com/mhintz1980" rel="noopener">GitHub</a><span>Issued for review</span></div>
   </div>
 </main>
 
