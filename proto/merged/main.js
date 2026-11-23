@@ -798,6 +798,7 @@ $('snd').addEventListener('click', () => sfx.toggle())
 const panels = [...document.querySelectorAll('.panel')], veil = $('veil')
 if (matchMedia('(pointer: coarse)').matches) { $('hintA').textContent = 'The lens renders what the sheet draws'; $('pjX').textContent = 'Climb back out' }
 const hdrEl = document.querySelector('header.top')
+let heroR = 0; addEventListener('resize', () => { heroR = 0 })   // headline's right edge, re-measured after a resize
 let textTop = innerHeight   // phone: top of the visible text block, smoothed
 const ld = $('ld'), ldc = $('ldc'), ldb = $('ldb'), ldt = $('ldt'), lenstag = $('lenstag'), axis = $('axis'), ann = $('ann'), tags = [...document.querySelectorAll('.tag')]
 tags.forEach((t, i) => { const s = STAGES[i]; t.textContent = `STAGE ${i + 1}  ·  ${s.Zs} / ${s.Zp} / ${ZR} T` })
@@ -819,7 +820,8 @@ function frame(now) {
   explode(e)
 
   // armament: scroll picks the angle, the pointer nudges it a couple of frames either way
-  const arm = sstep(.62, .3, Math.abs(pS - ARM_AT))
+  // leaving the carbine: its ink clears in .12 screens before the gear train comes back, so the two never share the sheet (Astra 2026-11-22)
+  const arm = pS > ARM_AT ? sstep(.42, .3, pS - ARM_AT) : sstep(.62, .3, ARM_AT - pS)
   if (pS > 4.2) loadSet(ARM)   // the carbine set prefetches once scroll is past the Chapter 04 beats
   if (ARM.loaded && (arm > 0 || ARM.shown < 0)) {
     const ang = (pS - ARM_AT) * 300 + (RM || mobile ? 0 : ptr.snx * 24), ai = ((Math.round(ang / ARM_DEG) % ARM_N) + ARM_N) % ARM_N
@@ -845,7 +847,8 @@ function frame(now) {
   const cw = mobile ? W * .98 : Math.min(W * .6, H * .66 * C4_ASP, 1150), ch = cw / C4_ASP, ccx = acx, ccy = mobile ? clamp((66 + textTop) * .5, 120, H * .42) : H * .5
   U.uC4Rect.value.set(ccx / W, 1 - ccy / H, cw / W, ch / H)
   // between the two stages the sheet stays blank, so the gear train does not flash back in
-  const cover = Math.max(U.uArm.value, U.uC4.value, (c4Bound || ARM.shown >= 0) && pS > C4_AT && pS < ARM_AT && !fall.active ? 1 : 0)
+  const armExit = ARM.shown >= 0 && pS >= ARM_AT && !fall.active ? sstep(.6, .42, pS - ARM_AT) : 0   // blank sheet holds until the carbine is gone, then the train returns over .18 screens
+  const cover = Math.max(U.uArm.value, U.uC4.value, armExit, (c4Bound || ARM.shown >= 0) && pS > C4_AT && pS < ARM_AT && !fall.active ? 1 : 0)
   U.uCover.value = cover
   // probe telemetry (plain numbers, no per-frame allocation): requested vs shown frame per set
   SCRUB.arm.req = ARM.idx; SCRUB.arm.shown = ARM.shown
@@ -909,8 +912,12 @@ function frame(now) {
   const baseR = clamp(Math.min(W, H) * .2, 96, 250) * (ptr.down ? 1.55 : 1) * (1 + Math.min(Math.abs(pV), 2) * .12)
   if (ptr.auto || mobile) {
     const f = scr[clamp(Math.round(pS) - 1, 0, 3)], hero = pS < .5
-    const bx = c4 > .5 ? ccx : arm > .5 ? acx : hero ? scr[0].cx : f.cx, by = c4 > .5 ? ccy - H * .03 : arm > .5 ? acy - H * .03 : hero ? scr[0].cy + H * .04 : f.cy
+    const bx = c4 > .5 ? ccx : (arm > .5 || armExit > .5) ? acx : hero ? scr[0].cx : f.cx, by = c4 > .5 ? ccy - H * .03 : (arm > .5 || armExit > .5) ? acy - H * .03 : hero ? scr[0].cy + H * .04 : f.cy
     lx = bx + Math.sin(T * .53) * W * (mobile ? .2 : .11) + Math.sin(T * 1.31) * W * .02; ly = by + Math.sin(T * .41 + 1.2) * H * (mobile ? .05 : .1)   // phone: a shorter vertical wander keeps it over the assembly
+    if (hero && !mobile) {   // desktop opening: the idle lens wanders right of the headline, never over it (art round 2, 2026-11-22)
+      if (!heroR) { const h1 = document.querySelector('.panel[data-i="0"] h1'); heroR = h1 ? h1.getBoundingClientRect().right : 1 }
+      const lr = Math.max(baseR, lensR); lx = clamp(lx, Math.min(heroR + lr + 32, W - lr - 24), W - lr - 24)
+    }
     if (mobile) {   // phone: keep the lens on the sheet, above the text block and inside the side margins
       lx = clamp(lx, baseR * .75, W - baseR * .75)
       const lr = Math.max(baseR, lensR), top = hdrEl.getBoundingClientRect().bottom + lr + 8   // the whole circle stays below the header bar
