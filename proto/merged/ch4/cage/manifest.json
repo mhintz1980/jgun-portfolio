@@ -1,2 +1,2 @@
-{ "set": "cage", "frames": 60, "deg": 6, "size": [1024, 640], "line": "l%02d.webp", "shade": "s%02d.webp",
+{ "set": "ch4/cage", "frames": 360, "deg": 1, "size": [1024, 640], "line": "l%03d.webp", "shade": "s%03d.webp",
   "finishes": ["clay","oxide","steel"], "hero": "hero-%s.webp", "heroDeg": 120 }

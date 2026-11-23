@@ -238,25 +238,92 @@ U.tV = { value: vtex }; U.uFilm = { value: 0 }; U.uDark = { value: 0 }
 // armament stage: 60 line + 60 shade frames of one spin, 6 degrees apart. Line goes on the sheet, shade under the lens.
 // The stage only needs a numbered frame set, so the source can be swapped for a new one.
 // A frame set is any numbered l/s pair in one folder; the armament stage and the Chapter 04 stage each hold one.
-const mkArmTex = () => { const t = new THREE.Texture(); t.colorSpace = THREE.NoColorSpace; t.minFilter = THREE.LinearFilter; t.generateMipmaps = false; return t }
+// WebP blobs load coarse-to-fine (compressed, cheap to hold); only a window of frames around the requested index is decoded
+// to ImageBitmap off the main thread. three ignores texture.flipY / premultiplyAlpha for ImageBitmap sources (the pixelStorei
+// calls are skipped), so the textures use flipY=false and the decode options reproduce the old Image upload: flipY on both
+// layers, no colour conversion, premultiplied alpha on the shade layer only.
+const mkArmTex = () => { const t = new THREE.Texture(); t.colorSpace = THREE.NoColorSpace; t.minFilter = THREE.LinearFilter; t.generateMipmaps = false; t.flipY = false; return t }
+const BM_OPT_L = { imageOrientation: 'flipY', premultiplyAlpha: 'none', colorSpaceConversion: 'none' }
+const BM_OPT_S = { imageOrientation: 'flipY', premultiplyAlpha: 'premultiply', colorSpaceConversion: 'none' }
+const DEC_NEAR = 12, DEC_BIAS = 4, DEC_AHEAD = DEC_NEAR + DEC_BIAS, DEC_BEHIND = DEC_NEAR - DEC_BIAS, DEC_KEEP = 18, DEC_MAX = 4
+// idx = requested frame, shown = frame currently on the texture (-1 until the first one lands), way = last scroll direction
 function frameSet(dir, n) {
-  const o = { dir, n, l: [], s: [], loaded: false, idx: -1, texL: mkArmTex(), texS: mkArmTex() }; o.texS.premultiplyAlpha = true; return o
+  return { dir, n, deg: 360 / n, loaded: false, idx: -1, shown: -1, way: 1, live: 0, nDec: 0, bl: [], bs: [], has: [], dec: [], bmL: [], bmS: [], rk: 0, mv: 0, hold: 0, rL: [mkArmTex(), mkArmTex(), mkArmTex()], rS: [mkArmTex(), mkArmTex(), mkArmTex()], texL: null, texS: null }
 }
 function loadSet(o) {
   if (o.loaded) return; o.loaded = true
-  for (let i = 0; i < o.n; i++) for (const k of ['l', 's']) { const im = new Image(); im.decoding = 'async'; im.src = `./${o.dir}/${k}${String(i).padStart(2, '0')}.webp`; o[k][i] = im }
+  const order = [], seen = new Set()
+  for (const step of [12, 6, 3, 1]) for (let i = 0; i < o.n; i += step) if (!seen.has(i)) { seen.add(i); order.push(i) }
+  let next = 0
+  const get = u => fetch(u).then(r => r.ok ? r.blob() : null)
+  const pump = () => {
+    if (next >= order.length) return
+    const i = order[next++], nm = String(i).padStart(3, '0')
+    Promise.all([get(`./${o.dir}/l${nm}.webp`), get(`./${o.dir}/s${nm}.webp`)]).then(([a, b]) => { if (a && b) { o.bl[i] = a; o.bs[i] = b; o.has[i] = 1; kick(o) } }, () => {}).then(pump)
+  }
+  for (let j = 0; j < 8; j++) pump()
 }
+const wrapD = (d, n) => d > n / 2 ? d - n : d < -n / 2 ? d + n : d   // signed shortest offset on the ring
+function decodeFrame(o, i) {
+  o.dec[i] = 1; o.nDec++
+  const fin = (a, b) => {
+    o.nDec--; o.dec[i] = 0
+    if (a && b && o.idx >= 0 && Math.abs(wrapD(i - o.idx, o.n)) <= DEC_KEEP) { o.bmL[i] = a; o.bmS[i] = b; o.live++ }
+    else { if (a) a.close(); if (b) b.close(); if (!(a && b)) o.has[i] = 0 }
+    kick(o)
+  }
+  Promise.all([createImageBitmap(o.bl[i], BM_OPT_L), createImageBitmap(o.bs[i], BM_OPT_S)]).then(r => fin(r[0], r[1]), () => fin(null, null))
+}
+// start decodes for the nearest missing frames in the window; the longer arm points the way the scroll is going
+function kick(o) {
+  if (o.idx < 0) return
+  const n = o.n
+  for (let d = 0; d <= DEC_AHEAD && o.nDec < DEC_MAX; d++) {
+    for (let s = 0; s < 2 && o.nDec < DEC_MAX; s++) {
+      if (d === 0 && s) break
+      if (d > (s ? DEC_BEHIND : DEC_AHEAD)) continue
+      const f = (((o.idx + (s ? -d : d) * o.way) % n) + n) % n
+      if (o.has[f] && !o.bmL[f] && !o.dec[f]) decodeFrame(o, f)
+    }
+  }
+}
+function dropFrame(o, f) { o.bmL[f].close(); o.bmS[f].close(); o.bmL[f] = o.bmS[f] = null; o.live-- }
+// an inactive set gives its decoded bitmaps back (the blobs stay, the texture keeps its last upload)
+function releaseSet(o) { if (!location.search.includes('relbm')) return; /* opt-in: closing idle sets' bitmaps made the whole page ~20 fps in testing, cause unknown */ if (o.live) for (let f = 0; f < o.n; f++) if (o.bmL[f]) dropFrame(o, f) }
+// request frame i; show the nearest decoded one (wrap-aware), uploading only when it changes. Cheap to call every frame.
 function setFrame(o, i) {
-  const l = o.l[i], s = o.s[i]; if (!l || !s || !l.complete || !s.complete || !l.naturalWidth || !s.naturalWidth) return
-  o.texL.image = l; o.texL.needsUpdate = true; o.texS.image = s; o.texS.needsUpdate = true; o.idx = i
+  const n = o.n
+  o.mv = 0
+  if (i !== o.idx) {
+    if (o.idx >= 0) { const d = wrapD(i - o.idx, n); if (d) o.way = d > 0 ? 1 : -1; o.mv = d < 0 ? -d : d }
+    o.idx = i
+    if (o.live) for (let f = 0; f < n; f++) if (o.bmL[f] && f !== o.shown && Math.abs(wrapD(f - i, n)) > DEC_KEEP) dropFrame(o, f)
+  }
+  kick(o)
+  let f = -1
+  for (let d = 0; d <= DEC_AHEAD && f < 0; d++) {
+    const a = (((i + d * o.way) % n) + n) % n, b = (((i - d * o.way) % n) + n) % n
+    if (o.bmL[a]) f = a; else if (o.bmL[b]) f = b
+  }
+  if (f < 0 || f === o.shown) return
+  if (o.mv > 3 && o.shown >= 0) { o.hold ^= 1; if (o.hold) return } else o.hold = 0   // fast scroll: one upload per 2 rAFs
+  // ping-pong: upload into the next texture of a ring of 3 so the GPU is never sampling the texture being written
+  o.rk = (o.rk + 1) % 3; const tl = o.texL = o.rL[o.rk], ts = o.texS = o.rS[o.rk]
+  tl.image = o.bmL[f]; tl.needsUpdate = true; ts.image = o.bmS[f]; ts.needsUpdate = true
+  const old = o.shown; o.shown = f
+  if (old >= 0 && o.bmL[old] && Math.abs(wrapD(old - i, n)) > DEC_KEEP) dropFrame(o, old)
 }
-const ARM_N = 60, ARM_AT = 5, ARM_DEG = 360 / ARM_N, ARM = frameSet('arm', ARM_N)
+const ARM_N = 360, ARM_AT = 5, ARM_DEG = 360 / ARM_N, ARM = frameSet('arm', ARM_N)
+ARM.texL = ARM.rL[0]; ARM.texS = ARM.rS[0]
 U.tL = { value: ARM.texL }; U.tS = { value: ARM.texS }; U.uArm = { value: 0 }; U.uArmRect = { value: new THREE.Vector4(.5, .5, 1, 1) }
 // Chapter 04 stage: one slot; the beat picks which assembly's set is bound to it. Manifests come from scripts/encode-ch04-frames.sh.
 const C4_AT = 4, C4_W = .42, C4_ASP = 1.6
-const c4Sets = CH4.filter(c => c.ready).map(c => Object.assign(frameSet(`ch4/${c.set}`, 60), { c, deg: 6, heroDeg: 0 }))
+const c4Sets = CH4.filter(c => c.ready).map(c => Object.assign(frameSet(`ch4/${c.set}`, 360), { c, deg: 1, heroDeg: 0 }))
 c4Sets.forEach(o => fetch(`./${o.dir}/manifest.json`).then(r => r.ok ? r.json() : null).then(m => { if (m) { o.n = m.frames; o.deg = m.deg; o.heroDeg = m.heroDeg } }).catch(() => {}))
 let c4Bound = null, c4Beat = -1
+const SCRUB = window.__scrub = { arm: { req: -1, shown: -1 }, cage: { req: -1, shown: -1 } }
+const lagOf = o => { const d = Math.abs(o.idx - o.shown); return Math.min(d, o.n - d) * o.deg }
+window.__lagDeg = () => { let m = 0; if (U.uArm.value > .01 && ARM.shown >= 0) m = lagOf(ARM); if (c4Bound && U.uC4.value > .01 && c4Bound.shown >= 0) m = Math.max(m, lagOf(c4Bound)); return m }
 U.tL2 = { value: mkArmTex() }; U.tS2 = { value: mkArmTex() }; U.uC4 = { value: 0 }; U.uC4Rect = { value: new THREE.Vector4(.5, .5, 1, 1) }; U.uCover = { value: 0 }
 // theme: light paper or dark blueprint. The dark lens is the lit render on a light studio, so text inverts under it in both.
 function setTheme(dark, save) {
@@ -499,7 +566,11 @@ void main(){
       if (uC4 > .001) st = overShade(st, tS2, rectUv(uvS, uC4Rect), uC4 / uCover);
       col = mix(col, st, uCover); }
     if (uFilm > .001) { vec2 vu = uvS - .5; float va = 16. / 9.; if (uAspect > va) vu.y *= va / uAspect; else vu.x *= uAspect / va;
-      col = mix(col, texture2D(tV, vu + .5).rgb, uFilm); }
+      // in the lens, the reel is framed to the lens: its full height spans the diameter, so the part is nameable (Astra 2026-11-22)
+      vec2 vl = vec2(d.x / va, d.y) / (2. * uR); vu = mix(vl, vu, uFull);
+      vec3 fv = texture2D(tV, vu + .5).rgb;
+      fv = mix(.04 + .96 * pow(fv, vec3(.7)), fv, step(.5, uDark));   // cream theme: lift the dark reel so the lens reads lit, not as a hole
+      col = mix(col, fv, uFilm); }
     float rimIn = smoothstep(.7, 1., q) * (1. - uFull) * (1. - uTear);
     // Directional cast shadow from the overhanging paper rim onto the 3D gears + tight contact AO lip
     if (uTear > .001) {
@@ -653,8 +724,13 @@ const sfx = {
     const nb = AC.createBuffer(1, AC.sampleRate * 2, AC.sampleRate), d = nb.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1
     const noise = () => { const s = AC.createBufferSource(); s.buffer = nb; s.loop = true; s.start(); return s }
     // music bed (Mark 2026-11-20: replaces the synth drone, chop and hover tick; the fall and climb-out sounds stay)
-    const bed = new Audio('./audio/music-bed-v1.mp3'); bed.loop = true; bed.preload = 'auto'
-    const bg = AC.createGain(); bg.gain.value = .55; AC.createMediaElementSource(bed).connect(bg); bg.connect(master)
+    // v2 is a crossfaded loop (tail mixed into head, no silence) played from an AudioBuffer, so the loop point has no gap (2026-11-22)
+    const bg = AC.createGain(); bg.gain.value = .55; bg.connect(master)
+    const bed = { buf: null, src: null, t0: 0, off: 0, want: false,
+      play() { this.want = true; if (!this.buf || this.src) return Promise.resolve()
+        const s = AC.createBufferSource(); s.buffer = this.buf; s.loop = true; s.connect(bg); s.start(0, this.off % this.buf.duration); this.src = s; this.t0 = AC.currentTime - this.off; return Promise.resolve() },
+      pause() { this.want = false; if (!this.src) return; this.off = AC.currentTime - this.t0; this.src.stop(); this.src.disconnect(); this.src = null } }
+    fetch('./audio/music-bed-v2.mp3').then(r => r.arrayBuffer()).then(a => AC.decodeAudioData(a)).then(b => { bed.buf = b; if (bed.want) bed.play() }).catch(() => {})
     // the fall: wind that opens with the warp, plus the whoosh / thunk tones below
     const wf = AC.createBiquadFilter(); wf.type = 'bandpass'; wf.frequency.value = 400; wf.Q.value = .7; const wg = AC.createGain(); wg.gain.value = 0
     noise().connect(wf); wf.connect(wg); wg.connect(master)
@@ -712,11 +788,12 @@ function frame(now) {
   // armament: scroll picks the angle, the pointer nudges it a couple of frames either way
   const arm = sstep(.62, .3, Math.abs(pS - ARM_AT))
   if (pS > 4.2) loadSet(ARM)   // the carbine set prefetches once scroll is past the Chapter 04 beats
-  if (ARM.loaded && (arm > 0 || ARM.idx < 0)) {
+  if (ARM.loaded && (arm > 0 || ARM.shown < 0)) {
     const ang = (pS - ARM_AT) * 300 + (RM || mobile ? 0 : ptr.snx * 24), ai = ((Math.round(ang / ARM_DEG) % ARM_N) + ARM_N) % ARM_N
-    if (ai !== ARM.idx) setFrame(ARM, ai)
+    if (ai !== ARM.idx || ai !== ARM.shown) { setFrame(ARM, ai); if (ARM.texL) { U.tL.value = ARM.texL; U.tS.value = ARM.texS } }   // re-called until the shown frame catches up with the request
   }
-  U.uArm.value = ARM.idx >= 0 ? arm : 0
+  if (arm <= 0) releaseSet(ARM)
+  U.uArm.value = ARM.shown >= 0 ? arm : 0
   const aw = mobile ? W * .98 : Math.min(W * .6, 1150), ah = aw / 3, acx = mobile ? W * .5 : W * .67, acy = mobile ? clamp((66 + textTop) * .5, 150, H * .42) : H * .5
   U.uArmRect.value.set(acx / W, 1 - acy / H, aw / W, ah / H)
 
@@ -725,17 +802,21 @@ function frame(now) {
   const c4 = (pS < C4_AT ? sstep(.5, .28, C4_AT - pS) : sstep(.38, .2, pS - C4_AT)) * (fall.active ? 1 - sstep(0, .16, fall.t) : 1)
   if (pS > 2.6) c4Sets.forEach(loadSet)
   const u4 = clamp((pS - C4_AT + C4_W) / (2 * C4_W)), nb = c4Sets.length, beat = Math.min(Math.floor(u4 * nb), nb - 1)
+  for (let k = 0; k < nb; k++) if (!(c4 > 0 && k === beat)) releaseSet(c4Sets[k])
   if (nb && c4 > 0) {
     const o = c4Sets[beat], ang = o.heroDeg + (u4 * nb - beat - .5) * 300 + (RM || mobile ? 0 : ptr.snx * 24), fi = ((Math.round(ang / o.deg) % o.n) + o.n) % o.n
-    if (fi !== o.idx || c4Bound !== o) { setFrame(o, fi); if (o.idx >= 0) { c4Bound = o; U.tL2.value = o.texL; U.tS2.value = o.texS } }
+    if (fi !== o.idx || fi !== o.shown || c4Bound !== o) { setFrame(o, fi); if (o.shown >= 0) { c4Bound = o; U.tL2.value = o.texL; U.tS2.value = o.texS } }
   }
   if (beat !== c4Beat) { c4Beat = beat; document.querySelectorAll('.pill[data-beat]').forEach(b => { if (b.hasAttribute('aria-pressed')) b.setAttribute('aria-pressed', c4Sets[beat]?.c === CH4[+b.dataset.beat]) }) }
   U.uC4.value = c4Bound ? c4 : 0
   const cw = mobile ? W * .98 : Math.min(W * .6, H * .66 * C4_ASP, 1150), ch = cw / C4_ASP, ccx = acx, ccy = mobile ? clamp((66 + textTop) * .5, 120, H * .42) : H * .5
   U.uC4Rect.value.set(ccx / W, 1 - ccy / H, cw / W, ch / H)
   // between the two stages the sheet stays blank, so the gear train does not flash back in
-  const cover = Math.max(U.uArm.value, U.uC4.value, (c4Bound || ARM.idx >= 0) && pS > C4_AT && pS < ARM_AT && !fall.active ? 1 : 0)
+  const cover = Math.max(U.uArm.value, U.uC4.value, (c4Bound || ARM.shown >= 0) && pS > C4_AT && pS < ARM_AT && !fall.active ? 1 : 0)
   U.uCover.value = cover
+  // probe telemetry (plain numbers, no per-frame allocation): requested vs shown frame per set
+  SCRUB.arm.req = ARM.idx; SCRUB.arm.shown = ARM.shown
+  SCRUB.cage.req = c4Bound ? c4Bound.idx : -1; SCRUB.cage.shown = c4Bound ? c4Bound.shown : -1
 
   // fall progress
   // the dive has two beats: the paper tears (fall.t), and once the breach reaches burst 3 (fall.t > .65), the camera begins dropping (fall.u)
