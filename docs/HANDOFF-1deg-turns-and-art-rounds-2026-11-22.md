@@ -55,3 +55,9 @@ Encode as now: 1280×720 H.264 crf 28, no audio, faststart, about 2 MB.
 - Probe, screenshot and audio scripts plus every round screenshot: `C:/Projects/work-assets/portfolio/jg044-frame-scrub-2026-11-21/perf-2026-11-22/` (`perf3.cjs`, `shots.cjs`, `sheet.py`, `sndcheck.cjs`, `astra.sh`, `norange.mjs`, `shots/`). Serve with `node norange.mjs <worktree> <port>`.
 - Branch `home/art-rounds-2026-11-22` (`7aefea8a`) has round 1 on the 60-frame build. It is superseded by `caac5d94`.
 - Local servers: 8820 serves `jg044-bitmap-ring`, 8821 serves `home-art-rounds`, 8812 serves the 60 fps worktree.
+
+## Paste prompt
+
+```
+Read C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/.claude/worktrees/jg044-bitmap-ring/docs/HANDOFF-1deg-turns-and-art-rounds-2026-11-22.md first, then AGENTS.md and TODO.md. Workspace: that worktree, branch jg044/bitmap-ring (unpushed, not deployed; head 6f55a51c). Step 1: serve it with `node C:/Projects/work-assets/portfolio/jg044-frame-scrub-2026-11-21/perf-2026-11-22/norange.mjs <worktree> 8820` and the 60 fps worktree on 8812, then re-measure both with perf3.cjs (same folder) at 1920x1080 with the desktop idle; the last runs were capped at 30 fps for every build while the desktop was in use. Step 2: Astra's dark-disc fix (mask the lens's shaded layer to the model silhouette so empty areas show the paper grid; keep the rim and orange index), then the idle lens on the receiver centroid from 6.7 screens; send screenshots to gpt-6.2-astra for approval. No deploy or push without Mark's go; push from the main checkout.
+```
