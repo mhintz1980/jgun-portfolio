@@ -123,40 +123,46 @@ chapter button runs the version i tear and dive. No `.glb` on `/home/`.
 Still open for Mark: what dives 01-02 land on (showreel passage or one clip per
 project). Chapter 03 is ruled below.
 
-### Chapter 03: Armament (Mark, 2026-11-20)
+### Chapter 03: Armament (Mark, 2026-11-20; expanded 2026-11-24)
 
-- **Drop landing (option D, approved):** the showreel armament cut
-  `remotion/out/armament-review-spin-v2.mp4` (worktree `armament-wiring-clipspin-15a80d`,
-  rendered 2026-11-16). Mark approved the cut. Background audio: `music-bed-v1.mp3`
-  (kept for background use, `project/work/evidence/jg-041-showreel/`).
-- **Not enough on its own.** The chapter also needs an **M249 reverse-engineering beat**.
-  Mark's account (2026-11-20, his words summarized; facts as he stated them):
-  1. **Traditional measurement** of the physical parts: calipers, micrometers, height
-     gage, dial indicators, plug and pin gages, Rockwell hardness testers.
-  2. **3D scanning**: point cloud data taken through **Geomagic** into **SolidWorks**.
-  3. **Drawings**: he created prints for most of the weapon, including custom OEM parts
-     such as the **Drive Recoil Spring**.
-  4. **Materials and finishes**: selected through research; where research failed, from
-     his own materials-and-processes knowledge plus seeing and feeling the physical
-     parts, which gave clues for surface-finish checks and finishing operations.
-- **Minimum the viewer must get** (Mark: "we don't need to use all of that"): the
-  reverse-engineering equipment, the software chain (scan → Geomagic → SolidWorks), and
-  that he drew every part, custom OEM parts included. Materials/finish research is
-  optional depth.
-- **Walls that still apply:** no dimensions, GD&T, part or drawing numbers on screen;
-  `m249-transformed.glb` and `m249_FN.glb` stay banned; M249 geometry only from Mark's own
-  model (`M249 Receiver Plus.glb`, also used in Chapter 04). The film and homepage both ban
-  engineering drawings on screen, so **how the drawings are shown is open for Mark**:
-  e.g. drawing sheets with dimensions, title block and numbers masked; line-pass renders of
-  his SolidWorks parts standing in for the prints; or a count/caption only ("prints for
-  every part, custom OEM parts included").
-- **Source material not on this machine (checked 2026-11-20):** no M249 scan data, Geomagic
-  files, M249 drawings or Drive Recoil Spring print were found under `C:/Projects/CAD` or
-  `Downloads/CAD`. Needed from Mark: photos or clips of the measuring equipment (or
-  permission to show representative equipment), scan/point-cloud and Geomagic screenshots,
-  SolidWorks part and drawing views to sanitize.
-- **Next step:** Mark picks the drawing treatment and supplies source material; then a
-  storyboard for the beat (stills first, $0) before any render or Higgsfield spend.
+- **Drop landing (option D, approved & wired 2026-11-24):** `proto/merged/arm/drop-reel.mp4`
+  (faststart remux of `armament-review-spin-v2.mp4` from `armament-wiring-clipspin-15a80d`,
+  rendered 2026-11-16, 1920×1080, 22 s, no audio) plays as item `01 / 06` at the bottom of
+  the Project 03 dive, with the 5 existing stills preserved as `02 / 06`–`06 / 06`. Lazy
+  loaded only when diving into Project 03 (0 requests on initial page load). Background
+  audio: `music-bed-v1.mp3` (kept for background use, `project/work/evidence/jg-041-showreel/`).
+- **2026-11-24 Owner rulings & expanded M249 video direction (Mark):**
+  - **Representative visuals approved** for all armament video content.
+  - **Models approved for video creation only** (no `.glb` on the homepage/website):
+    Mark's own models, exploded views, **`M249FN`**, **AR-15**, **MK-18**, and any additional
+    models added. *(Supersedes the earlier `m249_FN.glb` ban for video creation;
+    `m249-transformed.glb` stays excluded from the site; `remotion/src/rules.test.ts` must
+    be updated before video production runs against `M249FN`.)*
+  - **SolidWorks source location (verified 2026-11-24):** `C:\Projects\CAD\Markimus-M249`
+    (92 `.SLDPRT` / `.SLDASM` files present). Mark is converting these models to GLBs for
+    video creation.
+  - **Goal:** build a cinematic M249 video with exploded assemblies alongside the AR-15 /
+    MK-18 / additional models, and tell the reverse-engineering story of the parts.
+- **Corrected M249 reverse-engineering account (over ~1 year managed at Black Creek Precision):**
+  1. **Hand-measuring equipment first:** calipers, micrometers, height gauges, indicators,
+     plug gauges (plus pin gauges and Rockwell hardness testers from the 2026-11-20 notes).
+  2. **3D scanner later (verification):** BCP bought a 3D scanner later in the project and
+     used it on several parts **mainly for verification** (with Geomagic → SolidWorks), rather
+     than as the primary measurement path.
+  3. **Materials, finishes, heat treatments & prints:** manufacturing prints were unavailable
+     and BCP wanted to improve on the baseline design, so Mark determined materials, chose
+     alternate materials, finishes, and heat treatments using his career materials/heat-treat/
+     fabrication/machining-finish knowledge and R&D; created prints for most parts (commercial
+     parts and custom OEM springs such as the Drive Recoil Spring) and outsourced prototypes
+     to his prints.
+- **Minimum the viewer must get:** the reverse-engineering workflow (hand metrology → later 3D
+  scanner verification → SolidWorks CAD & prints, materials/heat-treat/finish selection, custom
+  OEM springs, and outsourced prototypes).
+- **Walls that still apply:** no dimensions, GD&T, part or drawing numbers on screen; no `.glb`
+  loaded by `/home/`. Drawing treatment on screen (masked drawing sheets / line-pass renders
+  of SolidWorks parts / caption only) remains open for Mark.
+- **Next step:** receive Mark's converted GLBs from `C:\Projects\CAD\Markimus-M249` + clarify
+  storyboard/tone questions before starting a `$0` stills storyboard.
 
 ### Chapter 04: Renderings, Animation & StudioMark
 
