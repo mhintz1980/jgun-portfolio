@@ -138,11 +138,14 @@ project). Chapter 03 is ruled below.
     models added. *(Supersedes the earlier `m249_FN.glb` ban for video creation;
     `m249-transformed.glb` stays excluded from the site; `remotion/src/rules.test.ts` must
     be updated before video production runs against `M249FN`.)*
-  - **SolidWorks source location (verified 2026-11-24):** `C:\Projects\CAD\Markimus-M249`
-    (92 `.SLDPRT` / `.SLDASM` files present). Mark is converting these models to GLBs for
-    video creation.
-  - **Goal:** build a cinematic M249 video with exploded assemblies alongside the AR-15 /
-    MK-18 / additional models, and tell the reverse-engineering story of the parts.
+  - **SolidWorks + converted GLB path (verified 2026-11-24):** `C:\Projects\CAD\Markimus-M249`
+    (92 `.SLDPRT` / `.SLDASM` files present). Mark is converting these models to GLBs in
+    that same folder (`C:\Projects\CAD\Markimus-M249\`).
+  - **Target slot & standalone look (Mark 2026-11-24):** Starts as the **Chapter 03 drop
+    clip only** (its own standalone cinematic video; does not need to match the homepage
+    paper look or double as the JG-041 showreel act). **No voiceover**; **darker studio
+    look** for the M249 explode, showcasing armament background, metrology, reverse
+    engineering, and video-making craft.
 - **Corrected M249 reverse-engineering account (over ~1 year managed at Black Creek Precision):**
   1. **Hand-measuring equipment first:** calipers, micrometers, height gauges, indicators,
      plug gauges (plus pin gauges and Rockwell hardness testers from the 2026-11-20 notes).
@@ -158,11 +161,17 @@ project). Chapter 03 is ruled below.
 - **Minimum the viewer must get:** the reverse-engineering workflow (hand metrology → later 3D
   scanner verification → SolidWorks CAD & prints, materials/heat-treat/finish selection, custom
   OEM springs, and outsourced prototypes).
-- **Walls that still apply:** no dimensions, GD&T, part or drawing numbers on screen; no `.glb`
-  loaded by `/home/`. Drawing treatment on screen (masked drawing sheets / line-pass renders
-  of SolidWorks parts / caption only) remains open for Mark.
-- **Next step:** receive Mark's converted GLBs from `C:\Projects\CAD\Markimus-M249` + clarify
-  storyboard/tone questions before starting a `$0` stills storyboard.
+- **Drawing/print visual style & walls (2026-11-24 locked):**
+  - Use **masked/redacted drawing sheets** with **deliberately inaccurate / reference-only
+    numbers** (play-it-safe non-proprietary values). Show cropped drawing portions (without
+    showing the actual part simultaneously) displaying **GD&T symbols, datums, tolerances,
+    material call-outs, surface finishes, and manufacturing notes** to demonstrate
+    part-relationship knowledge. *(Supersedes the blanket no-GD&T-on-screen rule for this
+    dedicated Chapter 03 video only; real/proprietary dimensions and part/drawing numbers
+    remain banned, and `/home/` still loads zero `.glb` files.)*
+- **Next step:** inspect Mark's converted GLBs in `C:\Projects\CAD\Markimus-M249\`, confirm
+  whether to deploy/push interim `feat/ch03-arm-drop-video` (`drop-reel.mp4`), and build a `$0`
+  stills storyboard + shot list before any Blender/Modal spend.
 
 ### Chapter 04: Renderings, Animation & StudioMark
 
