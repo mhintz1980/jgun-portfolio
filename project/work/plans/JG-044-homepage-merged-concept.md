@@ -131,16 +131,19 @@ project). Chapter 03 is ruled below.
   the Project 03 dive, with the 5 existing stills preserved as `02 / 06`–`06 / 06`. Lazy
   loaded only when diving into Project 03 (0 requests on initial page load). Background
   audio: `music-bed-v1.mp3` (kept for background use, `project/work/evidence/jg-041-showreel/`).
-- **2026-11-24 Owner rulings & expanded M249 video direction (Mark):**
+- **2026-11-24 Owner rulings & expanded M249 video direction (Mark — updated same day):**
   - **Representative visuals approved** for all armament video content.
-  - **Models approved for video creation only** (no `.glb` on the homepage/website):
-    Mark's own models, exploded views, **`M249FN`**, **AR-15**, **MK-18**, and any additional
-    models added. *(Supersedes the earlier `m249_FN.glb` ban for video creation;
-    `m249-transformed.glb` stays excluded from the site; `remotion/src/rules.test.ts` must
-    be updated before video production runs against `M249FN`.)*
+  - **Markimus-only rendered geometry rule (supersedes earlier `M249FN` video approval):**
+    Apart from generic springs or fasteners (such as screws), **use ONLY Mark's CAD files from
+    `C:\Projects\CAD\Markimus-M249\` for the Chapter 03 M249 animation and rendered shots**.
+    Use `m249_FN.glb` **strictly as a non-rendered ballpark location/relationship reference
+    only** (`hide_render = True`, `hide_viewport = True`, unkeyed). Keep all `.glb` files
+    excluded from `/home/` (`m249-transformed.glb` stays excluded from the site).
   - **SolidWorks + converted GLB path (verified 2026-11-24):** `C:\Projects\CAD\Markimus-M249`
-    (92 `.SLDPRT` / `.SLDASM` files present). Mark is converting these models to GLBs in
-    that same folder (`C:\Projects\CAD\Markimus-M249\`).
+    (92 `.SLDPRT` / `.SLDASM` files present; converted GLBs include
+    `receiver_assy_plus-rev1.glb`, `9349999 - Leaf Assembly, Rear Sight.glb`,
+    `12556942 - Buffer Assembly.glb`, and individual part GLBs). Note: Barrel, Carry Handle,
+    Bipod, and Handguard remain unconverted in Mark's SolidWorks folder as of 2026-11-24.
   - **Target slot & standalone look (Mark 2026-11-24):** Starts as the **Chapter 03 drop
     clip only** (its own standalone cinematic video; does not need to match the homepage
     paper look or double as the JG-041 showreel act). **No voiceover**; **darker studio
@@ -169,9 +172,11 @@ project). Chapter 03 is ruled below.
     part-relationship knowledge. *(Supersedes the blanket no-GD&T-on-screen rule for this
     dedicated Chapter 03 video only; real/proprietary dimensions and part/drawing numbers
     remain banned, and `/home/` still loads zero `.glb` files.)*
-- **Next step:** inspect Mark's converted GLBs in `C:\Projects\CAD\Markimus-M249\`, confirm
-  whether to deploy/push interim `feat/ch03-arm-drop-video` (`drop-reel.mp4`), and build a `$0`
-  stills storyboard + shot list before any Blender/Modal spend.
+- **Next step (2026-11-24 checkpoint):** interim `feat/ch03-arm-drop-video` (`88ad60d3`) is
+  pushed to `origin`. Mark's converted GLBs in `C:\Projects\CAD\Markimus-M249\` are assembled
+  and rigged in `.scratch/ch03-m249-video/m249_ch03_studio_ready.blend` with a `$0` 7-shot
+  darker-studio stills storyboard (100% Markimus CAD rendered; `m249_FN.glb` hidden ballpark
+  reference only) awaiting Mark's verification before motion keyframes / Modal video render.
 
 ### Chapter 04: Renderings, Animation & StudioMark
 
