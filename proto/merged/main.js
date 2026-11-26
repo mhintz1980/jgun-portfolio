@@ -25,7 +25,7 @@ const PROJECTS = [
   { n: '02', title: 'The Quiet Machine', line: 'A diesel pump package in a sound-attenuating enclosure: air path, heat and sound, in section.', tags: 'Enclosures · sheet metal · weldments', status: 'Live, work in progress', href: '/quiet-machine/', link: 'Open the 3D section study',
     imgs: [['/home/stacks/quiet-machine/01.webp', 'Cutaway: pump, drive and engine'], ['/home/stacks/quiet-machine/02.webp', 'Sound-attenuated enclosure, closed'], ['/home/stacks/quiet-machine/04.webp', 'Enclosure framing and baffles'], ['/home/stacks/quiet-machine/06.webp', 'Skid base, under-floor detail']] },
   { n: '03', title: 'Armament components and receiver systems', line: 'Rifle receivers and small-arms parts, drawn for the machine shop. That includes M249 receiver work: 3D scan data rebuilt into toleranced, manufacturable CAD.', tags: 'Forgings · GD&T · machining', status: 'Under construction', href: '/armament/', link: 'Open the project page',
-    imgs: [['/home/stacks/armament/07.webp', 'AR-pattern rifle, grayscale render'], ['/home/stacks/armament/05.webp', 'Billet upper and lower, CAD render'], ['/home/stacks/armament/03.webp', 'Handguard, three views'], ['/home/stacks/armament/02.webp', 'Lower receiver machining drawing'], ['/home/stacks/armament/08.webp', 'Bolt carrier, CAD render']] },
+    imgs: [['./arm/drop-reel.mp4', 'Armament cut, then receiver teardown (WIP)'], ['/home/stacks/armament/07.webp', 'AR-pattern rifle, grayscale render'], ['/home/stacks/armament/05.webp', 'Billet upper and lower, CAD render'], ['/home/stacks/armament/03.webp', 'Handguard, three views'], ['/home/stacks/armament/02.webp', 'Lower receiver machining drawing'], ['/home/stacks/armament/08.webp', 'Bolt carrier, CAD render']] },
   { n: '04', title: 'Renderings and visualizations', line: 'Product renders made straight from the CAD model.', tags: 'Rendering · materials · lighting', status: 'Gallery', href: null, link: '',
     imgs: [['/home/stacks/renderings/03.webp', 'Gearbox drive, low-key lighting'], ['/home/stacks/renderings/02.webp', 'Hydraulic square-drive wrench'], ['/home/stacks/renderings/04.webp', 'Angle-head tool study'], ['/home/stacks/renderings/05.webp', 'Free-float handguard']] },
 ]
@@ -212,7 +212,31 @@ function loadTex(src) {
   if (!texCache.has(src)) texCache.set(src, new Promise(res => texLoader.load(src, t => { t.colorSpace = THREE.NoColorSpace; t.anisotropy = 8; res(t) }, undefined, () => res(null))))
   return texCache.get(src)
 }
-PROJECTS.forEach(p => loadTex(p.imgs[0][0]))
+PROJECTS.forEach(p => { if (!p.imgs[0][0].endsWith('.mp4')) loadTex(p.imgs[0][0]) })
+let plateVid = null, plateVidTex = null, plateVidSrc = ''
+function stopPlateVid() { if (plateVid && !plateVid.paused) plateVid.pause() }
+function loadPlateVid(src) {
+  const url = new URL(src, import.meta.url).href
+  if (!plateVid) {
+    plateVid = document.createElement('video')
+    plateVid.muted = true; plateVid.loop = true; plateVid.playsInline = true; plateVid.preload = 'auto'
+    plateVidTex = new THREE.VideoTexture(plateVid)
+    plateVidTex.colorSpace = THREE.NoColorSpace
+    plateVidTex.minFilter = THREE.LinearFilter
+    plateVidTex.magFilter = THREE.LinearFilter
+    plateVidTex.generateMipmaps = false
+  }
+  if (plateVidSrc !== url) { plateVidSrc = url; plateVid.src = url; plateVid.load() }
+  else plateVid.currentTime = 0
+  plateVid.play().catch(() => {})
+  if (plateVid.readyState >= 1) return Promise.resolve(plateVidTex)
+  return new Promise(res => {
+    const done = () => { plateVid.removeEventListener('loadedmetadata', done); plateVid.removeEventListener('error', fail); res(plateVidTex) }
+    const fail = () => { plateVid.removeEventListener('loadedmetadata', done); plateVid.removeEventListener('error', fail); res(null) }
+    plateVid.addEventListener('loadedmetadata', done, { once: true })
+    plateVid.addEventListener('error', fail, { once: true })
+  })
+}
 
 /* ───────────── passes: shaded, normals + depth, composite ───────────── */
 const rtOpts = { type: THREE.HalfFloatType, samples: 4, depthBuffer: true }
@@ -822,10 +846,14 @@ async function setImage(i) {
   const p = PROJECTS[fall.k - 1]; fall.img = (i + p.imgs.length) % p.imgs.length
   const [src, label] = p.imgs[fall.img]
   $('pjC').textContent = `${String(fall.img + 1).padStart(2, '0')} / ${String(p.imgs.length).padStart(2, '0')} · ${label}`
-  const k = fall.k, n = fall.img, t = await loadTex(src)
+  const k = fall.k, n = fall.img, isVid = src.endsWith('.mp4')
+  if (!isVid) stopPlateVid()
+  const t = isVid ? await loadPlateVid(src) : await loadTex(src)
   if (!t || k !== fall.k || n !== fall.img) return
   plateMat.uniforms.map.value = t
-  const asp = t.image.width / t.image.height, maxW = mobile ? 3.4 : 5.5, maxH = mobile ? 3.4 : 3.5
+  const iw = isVid ? (plateVid.videoWidth || 1920) : t.image.width
+  const ih = isVid ? (plateVid.videoHeight || 1080) : t.image.height
+  const asp = iw / ih, maxW = mobile ? 3.4 : 5.5, maxH = mobile ? 3.4 : 3.5
   const w = Math.min(maxW, maxH * asp); plate.scale.set(w, w / asp, 1)
   imgFade = 0
 }
@@ -860,7 +888,7 @@ function openStudioConsole() {
   })
 }
 document.addEventListener('studio:console-exit', () => climbOut())
-function climbOut() { if (fall.active && fall.dir > 0 && fall.u > .5) { fall.dir = -1; sfx.whoosh(true); if (consoleShown) window.StudioConsole?.close?.() } }
+function climbOut() { if (fall.active && fall.dir > 0 && fall.u > .5) { fall.dir = -1; stopPlateVid(); sfx.whoosh(true); if (consoleShown) window.StudioConsole?.close?.() } }
 document.addEventListener('click', e => { const b = e.target.closest('[data-fall]'); if (b) startFall(+b.dataset.fall, b) })
 // Chapter 04 pills jump the scroll to the middle of their assembly's beat
 document.addEventListener('click', e => {
@@ -1019,7 +1047,7 @@ function frame(now) {
       if (fall.u > 0) fall.u = clamp(fall.u - dt / (RM ? .5 : 2.0))
       else {
         fall.t = RM ? 0 : clamp(fall.t - dt / (TEAR_S * .45))
-        if (fall.t <= 0) { fall.active = false; landed = false; document.body.classList.remove('locked'); if (consoleShown) closedConsole() }
+        if (fall.t <= 0) { fall.active = false; landed = false; stopPlateVid(); document.body.classList.remove('locked'); if (consoleShown) closedConsole() }
       }
     }
   }
@@ -1203,4 +1231,4 @@ const scrubStats = () => {
   if (U.uC4.value > .5 && c4Bound && c4Bound.idx >= 0) return { active: 'c4', vid: c4Bound.activeVid, reqDeg: c4Bound.reqDeg, shownDeg: c4Bound.shownDeg, lagDeg: c4Bound.shown >= 0 ? angDiff(c4Bound.reqDeg, c4Bound.shownDeg) : 180 }
   return null
 }
-window.__fall = startFall; window.__climb = climbOut; window.__d = { renderer, rtC, rtN, scene, camera, fall, tunnel, plate, cp, THREE, ARM, c4Beats, c4Of, c4Now, U, u2p, uS: () => uS, pS: () => pS, SEC: () => SEC, scrubStats, vid }
+window.__fall = startFall; window.__climb = climbOut; window.__d = { renderer, rtC, rtN, scene, camera, fall, tunnel, plate, cp, THREE, ARM, c4Beats, c4Of, c4Now, U, u2p, uS: () => uS, pS: () => pS, SEC: () => SEC, scrubStats, vid, plateVid: () => plateVid }

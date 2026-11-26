@@ -116,6 +116,13 @@ vault `06-AI-Agents/plan-tooling-manifests.md`. Example: the JG-044 Chapter 04 p
   (the vite dev server refuses `127.0.0.1`), and `--quick` (~2 min, desktop+narrow) is the
   iteration pass — the full 6-case roster is "done" evidence only, not a routine
   work-in-progress publication requirement. Follow the current TODO verification policy.
+- **Worktree `.scratch/` preservation:** Before pruning or deleting any git worktree,
+  inspect and migrate gitignored `.scratch/` assets first — `git worktree remove` deletes
+  untracked `.scratch/` files permanently.
+- **Backup owner-edited `.blend` files before scripting:** Before running headless bpy scripts
+  against a `.blend` containing manual owner edits, copy it to `.scratch/.../backups/` with a
+  SHA-256 manifest, source downstream swap/build scripts read-only from that backup, and never
+  re-run earlier assembly scripts over the active `.blend`.
 
 ## Skills (ZCode-local at ~/.zcode/skills; other harnesses: read the SKILL.md directly)
 
