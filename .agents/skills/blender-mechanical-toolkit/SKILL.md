@@ -70,3 +70,13 @@ task calls for it (index: `node _skills-index/skills-index.mjs --match scenario-
 - Runtime verification status of these helpers is recorded in
   `project/work/evidence/scenario-blender-skills-adoption-2026-10-31/` — treat unverified helpers
   as unverified until that evidence says otherwise.
+
+## Blender 5.3.0 Procedural Remodeling & CAD-Fit Notes
+
+- **Bevel API:** Use `BevelModifier.use_clamp_overlap = True` (`.clamp_overlap` raises `AttributeError` in Blender 5.3.0).
+- **Outward normals before `EXACT` booleans:** Enforce `if len(bm.faces) >= 4 and bm.calc_volume(signed=True) < 0.0: bmesh.ops.reverse_faces(...)`; inverted winding turns `EXACT` `DIFFERENCE` cuts into protruding geometry.
+- **Hollow revolves without axial boolean slivers:** Revolve hollow bores directly in 2D `(x, r)` profiles instead of boolean-cutting through an `r = 0` axial triangle fan.
+- **World-space boolean cutters & post-cut assertions:** Keep `BOOLEAN` cutter objects in world space (never pre-transform cutter mesh vertices by `target.matrix_world.inverted()` while leaving the cutter object at identity, which makes the modifier a no-op) and assert post-boolean vertex/bound changes.
+- **SolidWorks CAD `.glb` seam cleanup & flat trims:** Imported CAD meshes often arrive with unjoined NURBS patch seams (thousands of non-manifold edges). Run `bmesh.ops.remove_doubles(..., dist=1e-4)` first; for flat trims use `bmesh.ops.bisect_plane(..., clear_outer=True)` + `bmesh.ops.holes_fill(..., sides=0)` (not `edgeloop_fill`, which skips multi-loop internal holes), then apply world-space `EXACT` boolean notches.
+- **Mating envelopes:** Measure **inner clevis/arm clearances** (not outer support bounding boxes) and verify butt-up vs. nesting joints against adjacent CAD parts before locking modeled dimensions.
+- **Headless inspection renders & sheets:** Keep underside diagnostic cameras clear of backdrop floors (`SET_Studio_Cyc`) or temporarily toggle `cyc.hide_render = True` in `try/finally`. Stitch contact sheets in Blender's Python 3.13 with `bpy.data.images` + `numpy` (Pillow is not installed).
