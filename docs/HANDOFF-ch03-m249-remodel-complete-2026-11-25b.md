@@ -46,8 +46,10 @@
 
 ## Exact Next Action
 
-1. **Astra + Mark Visual Sign-Off:** Review `.scratch/ch03-m249-video/remodel/verify_06_closeup_mating_sheet.png`, `verify_07_hero_and_explode_sheet.png`, and `verify_08_corrections_sheet.png` (or launch Blender GUI via `05_open_review_ui.py` against `m249_ch03_studio_ready.blend`) and confirm final look/motion readiness.
-2. **Chapter 03 Full Video Cut & Gate 2:** Render the 280-frame sequence from `m249_ch03_studio_ready.blend` (local Cycles HIP or quoted Modal/cloud run **only after explicit Mark cost approval**), wire final MP4 into `proto/merged/arm/drop-reel.mp4` (`public/video/`), and run Gate 2 before any push/deploy.
+> **Owner Ruling (2026-11-26 — Interim Site Video Scope):** Proceeding now with rendering & animating the current M249 assembly so visitors have a live WIP video on the site while Mark models the remaining missing major components (e.g., Fig. 6 bolt/piston/operating-rod internals, Fig. 1 small hardware/barrel-locking lever, Fig. 10 shoulder rest/buttplate). Those missing major components will be added later and the Chapter 03 video revised accordingly (consistent with the evolving-portfolio owner policy).
+
+1. **Chapter 03 Interim Video Render & Animation:** Render the 280-frame sequence from `m249_ch03_studio_ready.blend` (local Cycles HIP or quoted Modal/cloud run **only after explicit Mark cost approval**), cut the dark-studio no-VO animation + redacted GD&T beat, wire into `proto/merged/arm/drop-reel.mp4`, and run Gate 2 before any push/deploy.
+2. **Visual Verification & Subsequent Revision:** Review `.scratch/ch03-m249-video/remodel/verify_06_closeup_mating_sheet.png`, `verify_07_hero_and_explode_sheet.png`, `verify_08_corrections_sheet.png`, and `verify_09_grip_and_feedtray_sheet.png` (or via `05_open_review_ui.py`), publish the interim WIP cut upon Mark's go, and follow up with a revised cut once Mark finishes modeling the remaining major components.
 3. **Worktree Consolidation Note:** `feat/ch03-arm-drop-video` branches cleanly from `main` (`65a567a2`, matching live `studiomark.dev/home/` `c658fda9`). Keep this worktree intact until `.scratch/ch03-m249-video/` (`344.77 MB`) is rendered/migrated.
 
 ---
@@ -90,11 +92,12 @@ Read first:
 Workspace: c:/Users/Markimus/.buzz/REPOS/jgun-portfolio/.claude/worktrees/homepage-scrubbing-videos-ffaf5d (branch feat/ch03-arm-drop-video, branched from main 65a567a2).
 
 Context & Hard Rules:
-- All 5 M249 assemblies are cleanly remodeled and swapped into .scratch/ch03-m249-video/m249_ch03_studio_ready.blend (with 20.4 mm Trigger Frame + left-side-only Rear Sight knurled knobs verified in verify_06..08.png).
+- All 5 M249 assemblies are cleanly remodeled and swapped into .scratch/ch03-m249-video/m249_ch03_studio_ready.blend (with 20.4 mm Trigger Frame + flush Pistol Grip + 10.8 mm Trigger Guard notch + left-side-only Rear Sight knurled knobs verified in verify_06..09.png).
+- 2026-11-26 Owner Ruling: Proceed now with rendering & animating the current assembly as an interim WIP site video while Mark models the remaining missing major components (Fig. 6 bolt/piston/op-rod internals, Fig. 1 small hardware/barrel-locking lever, Fig. 10 shoulder rest/buttplate) for a later revised video cut.
 - Keep .scratch/ch03-m249-video/ (344.77 MB gitignored) protected; never commit .scratch/, never run git add -A, and do NOT run Modal/Higgsfield/push/deploy without explicit cost quote + Mark's go.
 - Always invoke Blender 5.3.0 via "C:\Program Files\Blender Foundation\Blender 5.3\blender.exe" -b --factory-startup --python-exit-code 1.
 
 Next Action:
-1. Confirm Mark & Astra visual sign-off on verify_06_closeup_mating_sheet.png, verify_07_hero_and_explode_sheet.png, and verify_08_corrections_sheet.png (or via 05_open_review_ui.py).
-2. Proceed to the full 280-frame Chapter 03 video cut (local Cycles HIP or quoted cloud render upon Mark's approval) and Gate 2 verification.
+1. Proceed with rendering & animating the 280-frame interim Chapter 03 video cut from m249_ch03_studio_ready.blend (local Cycles HIP or quoted cloud render upon Mark's approval) + Gate 2 verification.
+2. Mark the interim video as WIP (missing major components noted) and revise the video later once Mark finishes modeling the remaining components.
 ```
